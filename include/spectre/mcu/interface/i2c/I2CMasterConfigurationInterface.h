@@ -20,13 +20,6 @@
  * NAMESPACE
  **************************************************************************************/
 
-#include <stdint.h>
-#include <stdbool.h>
-
-/**************************************************************************************
- * NAMESPACE
- **************************************************************************************/
-
 namespace spectre
 {
 
@@ -40,20 +33,25 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class I2CInterface
+class I2CMasterConfigurationInterface
 {
 
 public:
 
-           I2CInterface() { }
-  virtual ~I2CInterface() { }
+  typedef enum
+  {
+    F_100_kHz   /* Standard mode  */
+    F_400_kHz   /* Fast mode      */
+    F_1000_kHz  /* Fast mode plus */
+  } eBusClock;
 
-  virtual bool begin      (uint8_t const address, bool const is_read_access               ) = 0;
-  virtual void end        (                                                               ) = 0;
 
-  virtual bool write      (uint8_t const data                                             ) = 0;
-  virtual bool requestFrom(uint8_t const address, uint8_t * data, uint16_t const num_bytes) = 0;
+           I2CMasterConfigurationInterface() { }
+  virtual ~I2CMasterConfigurationInterface() { }
 
+
+  virtual void setSpeed(eBusClock const bus_clock) = 0;
+  
 };
 
 /**************************************************************************************
