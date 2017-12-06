@@ -16,11 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef ATMEGA328P_UART_H_
+#define ATMEGA328P_UART_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
 #include <spectre/mcu/interface/uart/UART.h>
+#include <spectre/mcu/interface/uart/UARTAssembly.h>
 #include <spectre/mcu/interface/uart/UARTCallback.h>
 #include <spectre/mcu/interface/uart/UARTConfiguration.h>
 
@@ -42,16 +46,14 @@ namespace ATMEGA328P
  **************************************************************************************/
 
 class UART0 : public interface::UART,
-              public interface::UARTConfiguration
+              public interface::UARTConfiguration,
+              public interface::UARTAssembly
 {
 
 public:
 
            UART0();
   virtual ~UART0();
-
-
-  inline void setUARTCallbackInterface(interface::UARTCallback * uart_callback_interface) { _uart_callback_interface = uart_callback_interface; }
 
 
   /* UART Interface */
@@ -65,6 +67,12 @@ public:
   virtual void setBaudRate  (eBaudRate const    baud_rate) override;
   virtual void setParity    (eParity   const    parity   ) override;
   virtual void setStopBit   (eStopBit  const    stop_bit ) override;
+
+
+  /* UART Assembly */
+
+  virtual void registerUARTCallbackInterface(interface::UARTCallback * uart_callback_interface) override;
+
 
 private:
 
@@ -88,3 +96,5 @@ private:
 } /* mcu */
 
 } /* spectre */
+
+#endif /* ATMEGA328P_UART_H_*/

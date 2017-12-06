@@ -16,6 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INTERFACE_SPI_MASTER_H_
+#define INTERFACE_SPI_MASTER_H_
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -62,3 +65,4 @@ public:
 
 } /* spectre */
 
+#endif /* INTERFACE_SPI_MASTER_H_ */

@@ -140,6 +140,11 @@ void UART0::setStopBit(eStopBit const stop_bit)
   }
 }
 
+void UART0::registerUARTCallbackInterface(interface::UARTCallback * uart_callback_interface)
+{
+  _uart_callback_interface = uart_callback_interface;
+}
+
 /**************************************************************************************
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/

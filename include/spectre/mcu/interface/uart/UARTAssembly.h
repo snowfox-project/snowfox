@@ -16,13 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INTERFACE_UART_ASSEMBLY_H_
+#define INTERFACE_UART_ASSEMBLY_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/mcu/interface/uart/UARTCallback.h>
 #include <stdint.h>
 
+#include <spectre/mcu/interface/uart/UARTCallback.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -50,7 +53,8 @@ public:
   virtual ~UARTAssembly() { }
 
 
-  virtual void registerUARTCallbackInterface(UARTCallback & uart_callback_interface) = 0;  
+  virtual void registerUARTCallbackInterface(UARTCallback * uart_callback_interface) = 0;
+
 };
 
 /**************************************************************************************
@@ -63,3 +67,4 @@ public:
 
 } /* spectre */
 
+#endif /* INTERFACE_UART_ASSEMBLY_H_ */

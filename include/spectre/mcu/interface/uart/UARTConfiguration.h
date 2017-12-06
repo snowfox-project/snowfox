@@ -16,6 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INTERFACE_UART_CONFIGURATION_H_
+#define INTERFACE_UART_CONFIGURATION_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
@@ -82,3 +85,5 @@ public:
 } /* mcu */
 
 } /* spectre */
+
+#endif /* INTERFACE_UART_CONFIGURATION_H_ */

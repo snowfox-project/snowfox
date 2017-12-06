@@ -16,6 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INTERFACE_UART_H_
+#define INTERFACE_UART_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
@@ -63,3 +66,4 @@ public:
 
 } /* spectre */
 
+#endif /* INTERFACE_UART_H_ */

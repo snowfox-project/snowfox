@@ -16,6 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INTERFACE_I2C_MASTER_H_
+#define INTERFACE_I2C_MASTER_H_
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -65,3 +68,4 @@ public:
 
 } /* spectre */
 
+#endif /* INTERFACE_I2C_MASTER_H_*/
