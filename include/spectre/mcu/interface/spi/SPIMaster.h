@@ -17,7 +17,7 @@
  */
 
 /**************************************************************************************
- * INCLUDES
+ * NAMESPACE
  **************************************************************************************/
 
 #include <stdint.h>
@@ -39,26 +39,17 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class SPIMasterConfigurationInterface
+class SPIMaster
 {
 
 public:
 
-  typedef enum
-  {
-    MODE_0,   /* CPOL = 0, CPHA = 0 */
-    MODE_1,   /* CPOL = 0, CPHA = 1 */
-    MODE_2,   /* CPOL = 1, CPHA = 0 */
-    MODE_3    /* CPOL = 1, CPHA = 1 */
-  } eSPIMode;
+           SPIMaster() { }
+  virtual ~SPIMaster() { }
 
-           SPIMasterConfigurationInterface() { }
-  virtual ~SPIMasterConfigurationInterface() { }
 
-  virtual void setSpiMode (eSPIMode const spi_mode    ) = 0;
-  virtual void setSpiClock(uint32_t const spi_clock_hz) = 0;
+  virtual uint8_t exchange(uint8_t const data) = 0;
 
-  
 };
 
 /**************************************************************************************

@@ -17,14 +17,6 @@
  */
 
 /**************************************************************************************
- * INCLUDES
- **************************************************************************************/
-
-#include <stdint.h>
-
-#include "UARTCallbackInterface.h"
-
-/**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
@@ -41,16 +33,25 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UARTAssemblyInterface
+class I2CMasterConfiguration
 {
 
 public:
 
-           UARTAssemblyInterface() { }
-  virtual ~UARTAssemblyInterface() { }
+  typedef enum
+  {
+    F_100_kHz   /* Standard mode  */
+    F_400_kHz   /* Fast mode      */
+    F_1000_kHz  /* Fast mode plus */
+  } eI2CClock;
 
 
-  virtual void registerUARTCallbackInterface(UARTCallbackInterface & uart_callback_interface) = 0;  
+           I2CMasterConfiguration() { }
+  virtual ~I2CMasterConfiguration() { }
+
+
+  virtual void setI2CClock(eI2CClock const i2c_clock) = 0;
+  
 };
 
 /**************************************************************************************

@@ -17,7 +17,7 @@
  */
 
 /**************************************************************************************
- * NAMESPACE
+ * INCLUDES
  **************************************************************************************/
 
 #include <stdint.h>
@@ -39,17 +39,38 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class SPIMasterInterface
+class UARTConfiguration
 {
 
 public:
 
-           SPIMasterInterface() { }
-  virtual ~SPIMasterInterface() { }
+  typedef enum
+  {
+    B115200
+  } eBaudRate;
+
+  typedef enum
+  {
+    None,
+    Even,
+    Odd
+  } eParity;
+
+  typedef enum
+  {
+    _1,
+    _2
+  } eStopBit;
 
 
-  virtual uint8_t exchange(uint8_t const data) = 0;
+           UARTConfiguration() { }
+  virtual ~UARTConfiguration() { }
 
+
+  virtual void setBaudRate  (eBaudRate const baud_rate) = 0;
+  virtual void setParity    (eParity   const parity   ) = 0;
+  virtual void setStopBit   (eStopBit  const stop_bit ) = 0;
+  
 };
 
 /**************************************************************************************
@@ -61,4 +82,3 @@ public:
 } /* mcu */
 
 } /* spectre */
-

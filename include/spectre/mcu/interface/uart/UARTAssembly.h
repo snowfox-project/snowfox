@@ -20,7 +20,9 @@
  * INCLUDES
  **************************************************************************************/
 
+#include <spectre/mcu/interface/uart/UARTCallback.h>
 #include <stdint.h>
+
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,18 +41,16 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UARTCallbackInterface
+class UARTAssembly
 {
 
 public:
 
-           UARTCallbackInterface() { }
-  virtual ~UARTCallbackInterface() { }
+           UARTAssembly() { }
+  virtual ~UARTAssembly() { }
 
 
-  virtual void onTransmitCompleteCallback() = 0;
-  virtual void onReceiveCompleteCallback () = 0;
-  
+  virtual void registerUARTCallbackInterface(UARTCallback & uart_callback_interface) = 0;  
 };
 
 /**************************************************************************************

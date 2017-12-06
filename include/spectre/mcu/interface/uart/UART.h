@@ -17,6 +17,12 @@
  */
 
 /**************************************************************************************
+ * INCLUDES
+ **************************************************************************************/
+
+#include <stdint.h>
+
+/**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
@@ -33,24 +39,17 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class I2CMasterConfigurationInterface
+class UART
 {
 
 public:
 
-  typedef enum
-  {
-    F_100_kHz   /* Standard mode  */
-    F_400_kHz   /* Fast mode      */
-    F_1000_kHz  /* Fast mode plus */
-  } eI2CClock;
+           UART() { }
+  virtual ~UART() { }
 
 
-           I2CMasterConfigurationInterface() { }
-  virtual ~I2CMasterConfigurationInterface() { }
-
-
-  virtual void setI2CClock(eI2CClock const i2c_clock) = 0;
+  virtual void transmit(uint8_t const   data) = 0;
+  virtual void receive (uint8_t       & data) = 0;
   
 };
 

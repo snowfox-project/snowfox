@@ -39,37 +39,25 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UARTConfigurationInterface
+class SPIMasterConfiguration
 {
 
 public:
 
   typedef enum
   {
-    B115200
-  } eBaudRate;
+    MODE_0,   /* CPOL = 0, CPHA = 0 */
+    MODE_1,   /* CPOL = 0, CPHA = 1 */
+    MODE_2,   /* CPOL = 1, CPHA = 0 */
+    MODE_3    /* CPOL = 1, CPHA = 1 */
+  } eSPIMode;
 
-  typedef enum
-  {
-    None,
-    Even,
-    Odd
-  } eParity;
+           SPIMasterConfiguration() { }
+  virtual ~SPIMasterConfiguration() { }
 
-  typedef enum
-  {
-    _1,
-    _2
-  } eStopBit;
+  virtual void setSpiMode (eSPIMode const spi_mode    ) = 0;
+  virtual void setSpiClock(uint32_t const spi_clock_hz) = 0;
 
-
-           UARTConfigurationInterface() { }
-  virtual ~UARTConfigurationInterface() { }
-
-
-  virtual void setBaudRate  (eBaudRate const baud_rate) = 0;
-  virtual void setParity    (eParity   const parity   ) = 0;
-  virtual void setStopBit   (eStopBit  const stop_bit ) = 0;
   
 };
 
@@ -82,3 +70,4 @@ public:
 } /* mcu */
 
 } /* spectre */
+

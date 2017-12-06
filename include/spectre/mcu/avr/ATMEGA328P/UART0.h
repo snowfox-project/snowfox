@@ -20,8 +20,8 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/mcu/interface/uart/UARTInterface.h>
-#include <spectre/mcu/interface/uart/UARTConfigurationInterface.h>
+#include <spectre/mcu/interface/uart/UART.h>
+#include <spectre/mcu/interface/uart/UARTConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -40,8 +40,8 @@ namespace ATMEGA328P
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UART0 : public interface::UARTInterface,
-              public interface::UARTConfigurationInterface
+class UART0 : public interface::UART,
+              public interface::UARTConfiguration
 {
 
 public:

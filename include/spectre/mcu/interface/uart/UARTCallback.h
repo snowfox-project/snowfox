@@ -39,17 +39,17 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UARTInterface
+class UARTCallback
 {
 
 public:
 
-           UARTInterface() { }
-  virtual ~UARTInterface() { }
+           UARTCallback() { }
+  virtual ~UARTCallback() { }
 
 
-  virtual void transmit(uint8_t const   data) = 0;
-  virtual void receive (uint8_t       & data) = 0;
+  virtual void onTransmitCompleteCallback() = 0;
+  virtual void onReceiveCompleteCallback () = 0;
   
 };
 

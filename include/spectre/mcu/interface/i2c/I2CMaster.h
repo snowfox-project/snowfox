@@ -40,13 +40,13 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class I2CMasterInterface
+class I2CMaster
 {
 
 public:
 
-           I2CMasterInterface() { }
-  virtual ~I2CMasterInterface() { }
+           I2CMaster() { }
+  virtual ~I2CMaster() { }
 
   virtual bool begin      (uint8_t const address, bool const is_read_access               ) = 0;
   virtual void end        (                                                               ) = 0;
