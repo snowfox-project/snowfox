@@ -39,6 +39,22 @@ namespace ATMEGA328P
 {
 
 /**************************************************************************************
+ * TYPEDEFS
+ **************************************************************************************/
+
+typedef void(*onTransmitCompleteCallback)(UART0 * _this);
+typedef void(*onReceiveCompleteCallback )(UART0 * _this);
+
+/**************************************************************************************
+ * GLOBAL VARIABLES
+ **************************************************************************************/
+
+static UART0 * _this = 0;
+
+static onTransmitCompleteCallback on_transmit_complete = 0;
+static onReceiveCompleteCallback  on_receive_complete  = 0;
+
+/**************************************************************************************
  * DEFINES
  **************************************************************************************/
 
@@ -60,10 +76,13 @@ namespace ATMEGA328P
  * CTOR/DTOR
  **************************************************************************************/
 
-
 UART0::UART0()
+: _uart_callback_interface(0)
 {
+  _this = this;
 
+  on_transmit_complete = &UART0::onTransmitCompleteFunc;
+  on_receive_complete  = &UART0::onReceiveCompleteFunc;
 }
 
 UART0::~UART0()
@@ -130,6 +149,15 @@ uint16_t UART0::calcBaudRate(uint32_t const f_cpu, uint32_t const baud_rate)
   return (static_cast<uint16_t>(f_cpu/(8*baud_rate)) - 1);
 }
 
+void UART0::onTransmitCompleteFunc(UART0 * _this)
+{
+  _this->_uart_callback_interface->onTransmitCompleteCallback();
+}
+
+void UART0::onReceiveCompleteFunc(UART0 * _this)
+{
+  _this->_uart_callback_interface->onReceiveCompleteCallback();
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -140,3 +168,19 @@ uint16_t UART0::calcBaudRate(uint32_t const f_cpu, uint32_t const baud_rate)
 } /* mcu */
 
 } /* spectre */
+
+/**************************************************************************************
+ * ISR
+ **************************************************************************************/
+
+using namespace spectre::mcu::ATMEGA328P;
+
+ISR(USART_UDRE_vect)
+{
+  if(on_transmit_complete && _this) on_transmit_complete(_this);
+}
+
+ISR(USART_RX_vect)
+{
+  if(on_receive_complete && _this) on_receive_complete(_this);
+}

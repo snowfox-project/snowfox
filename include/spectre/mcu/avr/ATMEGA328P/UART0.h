@@ -21,6 +21,7 @@
  **************************************************************************************/
 
 #include <spectre/mcu/interface/uart/UART.h>
+#include <spectre/mcu/interface/uart/UARTCallback.h>
 #include <spectre/mcu/interface/uart/UARTConfiguration.h>
 
 /**************************************************************************************
@@ -49,11 +50,16 @@ public:
            UART0();
   virtual ~UART0();
 
+
+  inline void setUARTCallbackInterface(interface::UARTCallback * uart_callback_interface) { _uart_callback_interface = uart_callback_interface; }
+
+
   /* UART Interface */
 
   virtual void transmit(uint8_t const   data) override;
   virtual void receive (uint8_t       & data) override;
   
+
   /* UART Configuration Interface */
 
   virtual void setBaudRate  (eBaudRate const    baud_rate) override;
@@ -62,7 +68,14 @@ public:
 
 private:
 
+  interface::UARTCallback * _uart_callback_interface;
+
   static uint16_t calcBaudRate(uint32_t const f_cpu, uint32_t const baud_rate);
+
+  /* ISR Functions */
+
+  static void onTransmitCompleteFunc(UART0 * _this);
+  static void onReceiveCompleteFunc (UART0 * _this);
 
 };
 
