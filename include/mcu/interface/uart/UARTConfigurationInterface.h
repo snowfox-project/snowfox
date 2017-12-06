@@ -39,7 +39,7 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UARTInterface
+class UARTConfigurationInterface
 {
 
 public:
@@ -63,8 +63,8 @@ public:
   } eStopBit;
 
 
-           UARTInterface() { }
-  virtual ~UARTInterface() { }
+           UARTConfigurationInterface() { }
+  virtual ~UARTConfigurationInterface() { }
 
 
   virtual void setBaudRate  (eBaudRate const    baud_rate) const = 0;
