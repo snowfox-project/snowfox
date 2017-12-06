@@ -43,14 +43,14 @@ public:
     F_100_kHz   /* Standard mode  */
     F_400_kHz   /* Fast mode      */
     F_1000_kHz  /* Fast mode plus */
-  } eBusClock;
+  } eI2CClock;
 
 
            I2CMasterConfigurationInterface() { }
   virtual ~I2CMasterConfigurationInterface() { }
 
 
-  virtual void setSpeed(eBusClock const bus_clock) = 0;
+  virtual void setI2CClock(eI2CClock const i2c_clock) = 0;
   
 };
 
