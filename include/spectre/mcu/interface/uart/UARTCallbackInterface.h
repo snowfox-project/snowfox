@@ -48,7 +48,8 @@ public:
   virtual ~UARTCallbackInterface() { }
 
 
-  virtual void onReceiveCallback(uint8_t const data) = 0;
+  virtual void onTransmitCompleteCallback() = 0;
+  virtual void onReceiveCompleteCallback () = 0;
   
 };
 
