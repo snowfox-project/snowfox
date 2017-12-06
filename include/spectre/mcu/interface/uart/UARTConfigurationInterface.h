@@ -67,9 +67,9 @@ public:
   virtual ~UARTConfigurationInterface() { }
 
 
-  virtual void setBaudRate  (eBaudRate const    baud_rate) const = 0;
-  virtual void setParity    (eParity   const    parity   ) const = 0;
-  virtual void setStopBit   (eStopBit  const    stop_bit ) const = 0;
+  virtual void setBaudRate  (eBaudRate const baud_rate) = 0;
+  virtual void setParity    (eParity   const parity   ) = 0;
+  virtual void setStopBit   (eStopBit  const stop_bit ) = 0;
   
 };
 
@@ -82,4 +82,3 @@ public:
 } /* mcu */
 
 } /* spectre */
-

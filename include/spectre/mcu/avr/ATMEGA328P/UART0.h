@@ -21,6 +21,7 @@
  **************************************************************************************/
 
 #include <spectre/mcu/interface/uart/UARTInterface.h>
+#include <spectre/mcu/interface/uart/UARTConfigurationInterface.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,7 +40,8 @@ namespace ATMEGA328P
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UART0 : public interface::UARTInterface
+class UART0 : public interface::UARTInterface,
+              public interface::UARTConfigurationInterface
 {
 
 public:
@@ -47,10 +49,21 @@ public:
            UART0();
   virtual ~UART0();
 
+  /* UART Interface */
 
   virtual void transmit(uint8_t const   data) override;
   virtual void receive (uint8_t       & data) override;
   
+  /* UART Configuration Interface */
+
+  virtual void setBaudRate  (eBaudRate const    baud_rate) override;
+  virtual void setParity    (eParity   const    parity   ) override;
+  virtual void setStopBit   (eStopBit  const    stop_bit ) override;
+
+private:
+
+  static uint16_t calcBaudRate(uint32_t const f_cpu, uint32_t const baud_rate);
+
 };
 
 /**************************************************************************************
@@ -62,4 +75,3 @@ public:
 } /* mcu */
 
 } /* spectre */
-
