@@ -34,6 +34,7 @@ set(SPECTRE_LIBRARY_NAME ${PROJECT_NAME})
 ##########################################################################
 
 set(SPECTRE_LIBRARY_GENERIC_SRCS
+  src/mcu/avr/ATMEGA328P/I2CMaster.cpp
   src/mcu/avr/ATMEGA328P/UART0.cpp
 )
 

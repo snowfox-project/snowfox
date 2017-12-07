@@ -43,9 +43,9 @@ public:
 
   typedef enum
   {
-    F_100_kHz   /* Standard mode  */
-    F_400_kHz   /* Fast mode      */
-    F_1000_kHz  /* Fast mode plus */
+    F_100_kHz,   /* Standard mode  */
+    F_400_kHz,   /* Fast mode      */
+    F_1000_kHz   /* Fast mode plus */
   } eI2CClock;
 
 
