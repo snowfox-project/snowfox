@@ -16,14 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_MCU_AVR_ATMEGA328P_I2CMASTER_H_
-#define INCLUDE_SPECTRE_MCU_AVR_ATMEGA328P_I2CMASTER_H_
+#ifndef INCLUDE_SPECTRE_MCU_AVR_ATXXXX_I2CMASTER_H_
+#define INCLUDE_SPECTRE_MCU_AVR_ATXXXX_I2CMASTER_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/mcu/avr/ATxxxx/I2CMaster.h>
+#include <spectre/mcu/interface/i2c/I2CMaster.h>
+#include <spectre/mcu/interface/i2c/I2CMasterConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -35,14 +36,15 @@ namespace spectre
 namespace mcu
 {
 
-namespace ATMEGA328P
+namespace ATxxxx
 {
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class I2CMaster : public ATxxxx::I2CMaster
+class I2CMaster : public interface::I2CMaster,
+                  public interface::I2CMasterConfiguration
 {
 
 public:
@@ -50,17 +52,42 @@ public:
            I2CMaster();
   virtual ~I2CMaster();
 
+
+  /* I2C Master Interface */
+
+  virtual bool begin      (uint8_t const address, bool const is_read_access               ) override;
+  virtual void end        (                                                               ) override;
+  virtual bool write      (uint8_t const data                                             ) override;
+  virtual bool requestFrom(uint8_t const address, uint8_t * data, uint16_t const num_bytes) override;
+
+
+  /* I2C Master Configuration Interface */
+
+  virtual void setI2CClock(eI2CClock const i2c_clock) = 0;
+
 protected:
 
-  virtual bool start                 (uint8_t    const   address) override;
-  virtual bool transmitByte          (uint8_t    const   data   ) override;
-  virtual void receiveByteAndSendACK (uint8_t          * data   ) override;
-  virtual void receiveByteAndSendNACK(uint8_t          * data   ) override;
-  virtual void stop                  (                          ) override;
 
-  virtual void    setTWIPrescaler       (eTWIPrescaler const prescaler    ) override;
+  typedef enum
+  {
+    Prescaler_1   = 1,
+    Prescaler_4   = 4,
+    Prescaler_16  = 16,
+    Prescaler_64  = 64
+  } eTWIPrescaler;
+
+
+  virtual bool    start                 (uint8_t    const   address) = 0;
+  virtual bool    transmitByte          (uint8_t    const   data   ) = 0;
+  virtual void    receiveByteAndSendACK (uint8_t          * data   ) = 0;
+  virtual void    receiveByteAndSendNACK(uint8_t          * data   ) = 0;
+  virtual void    stop                  (                          ) = 0;
+
+  virtual void    setTWIPrescaler       (eTWIPrescaler const prescaler    ) = 0;
   virtual void    setTWBR               (uint32_t      const i2c_speed_Hz,
-                                         uint32_t      const i2c_prescaler) override;
+                                         uint32_t      const i2c_prescaler) = 0;
+
+  static  uint8_t convertI2CAddress     (uint8_t const address, bool is_read_access);
 
 };
 
@@ -68,13 +95,10 @@ protected:
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA328P */
+} /* ATxxxx */
 
 } /* mcu */
 
 } /* spectre */
 
-
-
-
-#endif /* INCLUDE_SPECTRE_MCU_AVR_ATMEGA328P_I2CMASTER_H_ */
+#endif /* INCLUDE_SPECTRE_MCU_AVR_ATXXXX_I2CMASTER_H_ */

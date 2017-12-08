@@ -64,48 +64,9 @@ I2CMaster::~I2CMaster()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool I2CMaster::begin(uint8_t const address, bool const is_read_access)
-{
-  return this->start(convertI2CAddress(address, is_read_access));
-}
-
-bool I2CMaster::write(uint8_t const data)
-{
-  return this->transmitByte(data);
-}
-
-void I2CMaster::end()
-{
-  this->stop();
-}
-
-bool I2CMaster::requestFrom(uint8_t const address, uint8_t * data, uint16_t const num_bytes)
-{
-  if(num_bytes == 0        ) return false;
-
-  if(!begin(address, true )) return false;
-
-  for(uint16_t i = 0; i < (num_bytes - 1); i++)
-  {
-    this->receiveByteAndSendACK(data+i);
-  }
-
-  this->receiveByteAndSendNACK(data + num_bytes - 1);
-
-  this->end();
-
-  return true;
-}
-
 /**************************************************************************************
- * PRIVATE MEMBER FUNCTIONS
+ * PROTECTED MEMBER FUNCTIONS
  **************************************************************************************/
-
-uint8_t I2CMaster::convertI2CAddress(uint8_t const address, bool is_read_access)
-{
-  if(is_read_access)  return (address | 0x01);
-  else                return address;
-}
 
 bool I2CMaster::start(uint8_t const address)
 {
@@ -177,6 +138,27 @@ void I2CMaster::stop()
 {
   /* Transmit STOP condition */
   TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWSTO);
+}
+
+void I2CMaster::setTWIPrescaler(eTWIPrescaler const prescaler)
+{
+  TWSR &= ~(TWPS1_bm | TWPS0_bm);
+
+  switch(prescaler)
+  {
+  case Prescaler_1  : TWSR |= 0;                    break;
+  case Prescaler_4  : TWSR |= TWPS0_bm;             break;
+  case Prescaler_16 : TWSR |= TWPS1_bm;             break;
+  case Prescaler_64 : TWSR |= TWPS1_bm | TWPS0_bm;  break;
+  default: break;
+  }
+}
+
+void I2CMaster::setTWBR(uint32_t const i2c_speed_Hz, uint32_t const i2c_prescaler)
+{
+  uint32_t const twbr_val = (((static_cast<uint32_t>(F_CPU) / i2c_speed_Hz) / i2c_prescaler) - 16) / 2;
+
+  TWBR = static_cast<uint8_t>(twbr_val);
 }
 
 /**************************************************************************************
