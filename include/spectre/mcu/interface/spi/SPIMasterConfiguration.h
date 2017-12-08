@@ -56,7 +56,7 @@ public:
   virtual ~SPIMasterConfiguration() { }
 
   virtual void setSpiMode (eSPIMode const spi_mode    ) = 0;
-  virtual void setSpiClock(uint32_t const spi_clock_hz) = 0;
+  virtual void setSpiClock(uint32_t const spi_clock_Hz) = 0;
 
   
 };
