@@ -16,21 +16,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef EXAMPLES_HAL_ATMEGA328P_UART0_SYSTEMBUILDER_H_
+#define EXAMPLES_HAL_ATMEGA328P_UART0_SYSTEMBUILDER_H_
+
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdlib.h>
+#include <spectre/hal/interface/uart/UARTAssembly.h>
+#include <spectre/hal/interface/uart/UARTConfiguration.h>
 
-#include "SystemBuilder.h"
+#include <spectre/hal/avr/ATMEGA328P/UART0.h>
 
 /**************************************************************************************
- * MAIN
+ * CLASS DECLARATION
  **************************************************************************************/
 
-int main()
+class SystemBuilder
 {
-  SystemBuilder system_builder;
 
-  return EXIT_SUCCESS;
-}
+public:
+
+  SystemBuilder();
+
+private:
+
+  spectre::hal::ATMEGA328P::UART0 _uart0;
+
+};
+
+#endif /* EXAMPLES_HAL_ATMEGA328P_UART0_SYSTEMBUILDER_H_ */

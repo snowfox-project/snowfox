@@ -38,6 +38,8 @@ set(SPECTRE_LIBRARY_GENERIC_SRCS
   src/hal/avr/ATMEGA328P/UART0.cpp
   
   src/hal/avr/ATxxxx/I2CMaster.cpp
+  
+  src/hal/avr/cxx/cxx.cpp
 )
 
 ##########################################################################

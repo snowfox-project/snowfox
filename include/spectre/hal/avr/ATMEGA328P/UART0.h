@@ -66,6 +66,7 @@ public:
   virtual void enableReceive  (                    ) override;
   virtual void disableReceive (                    ) override;
 
+
   /* UART Configuration Interface */
 
   virtual void setBaudRate  (eBaudRate const    baud_rate) override;

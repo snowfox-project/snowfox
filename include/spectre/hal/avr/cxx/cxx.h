@@ -16,21 +16,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_HAL_AVR_CXX_CXX_H_
+#define INCLUDE_SPECTRE_HAL_AVR_CXX_CXX_H_
+
 /**************************************************************************************
- * INCLUDE
+ * INCLUDES
  **************************************************************************************/
 
 #include <stdlib.h>
 
-#include "SystemBuilder.h"
-
 /**************************************************************************************
- * MAIN
+ * PUBLIC PROTOTYPES
  **************************************************************************************/
 
-int main()
-{
-  SystemBuilder system_builder;
+void *  operator new    (size_t   size);
+void    operator delete (void   * ptr );
 
-  return EXIT_SUCCESS;
-}
+__extension__ typedef int __guard __attribute__((mode (__DI__)));
+
+extern "C" int  __cxa_guard_acquire (__guard *);
+extern "C" void __cxa_guard_release (__guard *);
+extern "C" void __cxa_guard_abort   (__guard *);
+extern "C" void __cxa_pure_virtual  (void     );
+
+#endif /* INCLUDE_SPECTRE_HAL_AVR_CXX_CXX_H_ */

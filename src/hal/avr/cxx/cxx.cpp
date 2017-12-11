@@ -17,20 +17,54 @@
  */
 
 /**************************************************************************************
- * INCLUDE
+ * INCLUDES
  **************************************************************************************/
 
-#include <stdlib.h>
-
-#include "SystemBuilder.h"
+#include <spectre/hal/avr/cxx/cxx.h>
 
 /**************************************************************************************
- * MAIN
+ * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-int main()
+void * operator new(size_t size)
 {
-  SystemBuilder system_builder;
+  return malloc(size);
+}
 
-  return EXIT_SUCCESS;
+void operator delete(void * ptr)
+{
+  if(ptr)
+  {
+    free(ptr);
+  }
+}
+
+void* operator new[] (size_t size)
+{
+  return ::operator new(size);
+}
+
+void operator delete[] (void *ptr)
+{
+  return ::operator delete(ptr);
+}
+
+int   __cxa_guard_acquire (__guard *g )
+{
+  return !*(char *)(g);
+}
+
+void  __cxa_guard_release (__guard *g )
+{
+  *(char *)g = 1;
+}
+
+void  __cxa_guard_abort   (__guard *  )
+{
+
+}
+
+void  __cxa_pure_virtual  (void       )
+{
+
 }
