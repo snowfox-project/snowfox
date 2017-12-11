@@ -16,27 +16,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef EXAMPLES_HAL_ATMEGA328P_UART0_UARTTASKINPUTHANDLER_H_
+#define EXAMPLES_HAL_ATMEGA328P_UART0_UARTTASKINPUTHANDLER_H_
+
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include "SystemBuilder.h"
+#include <spectre/hal/interface/uart/UARTCallback.h>
 
 /**************************************************************************************
- * NAMESPACES
+ * CLASS DECLARATION
  **************************************************************************************/
 
-using namespace spectre::hal;
-
-/**************************************************************************************
- * CTOR/DTOR
- **************************************************************************************/
-
-SystemBuilder::SystemBuilder()
+class UARTTaskInputHandler : public spectre::hal::interface::UARTCallback
 {
-  _uart0.setBaudRate                  (interface::UARTConfiguration::B115200);
-  _uart0.setParity                    (interface::UARTConfiguration::None   );
-  _uart0.setStopBit                   (interface::UARTConfiguration::_1     );
 
-  _uart0.registerUARTCallbackInterface(&_uart_task_input_handler            );
-}
+public:
+
+           UARTTaskInputHandler();
+  virtual ~UARTTaskInputHandler();
+
+
+  virtual void onTransmitCompleteCallback() override;
+  virtual void onReceiveCompleteCallback () override;
+
+};
+
+#endif /* EXAMPLES_HAL_ATMEGA328P_UART0_UARTTASKINPUTHANDLER_H_ */

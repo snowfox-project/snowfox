@@ -20,23 +20,32 @@
  * INCLUDE
  **************************************************************************************/
 
-#include "SystemBuilder.h"
-
-/**************************************************************************************
- * NAMESPACES
- **************************************************************************************/
-
-using namespace spectre::hal;
+#include "UARTTaskInputHandler.h"
 
 /**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
-SystemBuilder::SystemBuilder()
+UARTTaskInputHandler::UARTTaskInputHandler()
 {
-  _uart0.setBaudRate                  (interface::UARTConfiguration::B115200);
-  _uart0.setParity                    (interface::UARTConfiguration::None   );
-  _uart0.setStopBit                   (interface::UARTConfiguration::_1     );
 
-  _uart0.registerUARTCallbackInterface(&_uart_task_input_handler            );
+}
+
+UARTTaskInputHandler::~UARTTaskInputHandler()
+{
+
+}
+
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
+
+void UARTTaskInputHandler::onTransmitCompleteCallback()
+{
+  /* TODO */
+}
+
+void UARTTaskInputHandler::onReceiveCompleteCallback()
+{
+  /* TODO */
 }

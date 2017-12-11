@@ -12,6 +12,7 @@ add_executable(
   ${TARGET}
   hal-atmega328p-uart0.cpp
   SystemBuilder.cpp
+  UARTTaskInputHandler.cpp
 )
 
 target_link_libraries(

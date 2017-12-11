@@ -23,10 +23,9 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/interface/uart/UARTAssembly.h>
-#include <spectre/hal/interface/uart/UARTConfiguration.h>
-
 #include <spectre/hal/avr/ATMEGA328P/UART0.h>
+
+#include "UARTTaskInputHandler.h"
 
 /**************************************************************************************
  * CLASS DECLARATION
@@ -42,6 +41,8 @@ public:
 private:
 
   spectre::hal::ATMEGA328P::UART0 _uart0;
+
+  UARTTaskInputHandler _uart_task_input_handler;
 
 };
 
