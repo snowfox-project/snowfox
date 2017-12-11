@@ -39,6 +39,24 @@ namespace ATMEGA328P
 {
 
 /**************************************************************************************
+ * DEFINES
+ **************************************************************************************/
+
+/* UXSR0C */
+#define U2X0_bm     (1<<U2X0)
+
+/* UXSR0B */
+#define RXCIE0_bm   (1<<RXCIE0)
+#define UDRIE0_bm   (1<<UDRIE0)
+#define RXEN0_bm    (1<<RXEN0)
+#define TXEN0_bm    (1<<TXEN0)
+
+/* UCSR0C */
+#define UPM01_bm    (1<<UPM01)
+#define UPM00_bm    (1<<UPM00)
+#define USBS0_bm    (1<<USBS0)
+
+/**************************************************************************************
  * TYPEDEFS
  **************************************************************************************/
 
@@ -102,6 +120,25 @@ void UART0::transmit(uint8_t const data)
 void UART0::receive(uint8_t & data)
 {
   data = UDR0;
+}
+
+void UART0::enableTransmit()
+{
+  UCSR0B |= TXEN0_bm | UDRIE0_bm;
+}
+void UART0::disableTransmit()
+{
+  UCSR0B &= ~(TXEN0_bm | UDRIE0_bm);
+}
+
+void UART0::enableReceive()
+{
+  UCSR0B |= RXEN0_bm | RXCIE0_bm;
+}
+
+void UART0::disableReceive()
+{
+  UCSR0B &= ~(RXEN0_bm | RXCIE0_bm);
 }
 
 void UART0::setBaudRate(eBaudRate const baud_rate)

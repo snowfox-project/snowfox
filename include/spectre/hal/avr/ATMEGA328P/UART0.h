@@ -58,9 +58,13 @@ public:
 
   /* UART Interface */
 
-  virtual void transmit(uint8_t const   data) override;
-  virtual void receive (uint8_t       & data) override;
+  virtual void transmit       (uint8_t const   data) override;
+  virtual void receive        (uint8_t       & data) override;
   
+  virtual void enableTransmit (                    ) override;
+  virtual void disableTransmit(                    ) override;
+  virtual void enableReceive  (                    ) override;
+  virtual void disableReceive (                    ) override;
 
   /* UART Configuration Interface */
 

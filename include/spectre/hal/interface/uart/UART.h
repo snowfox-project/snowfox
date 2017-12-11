@@ -51,8 +51,13 @@ public:
   virtual ~UART() { }
 
 
-  virtual void transmit(uint8_t const   data) = 0;
-  virtual void receive (uint8_t       & data) = 0;
+  virtual void transmit       (uint8_t const   data) = 0;
+  virtual void receive        (uint8_t       & data) = 0;
+
+  virtual void enableTransmit (                    ) = 0;
+  virtual void disableTransmit(                    ) = 0;
+  virtual void enableReceive  (                    ) = 0;
+  virtual void disableReceive (                    ) = 0;
   
 };
 
