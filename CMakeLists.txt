@@ -29,7 +29,7 @@ set(AVR_MCU_TYPE atmega328p)
 
 ############################################################################
 
-set(SPECTRE_LIBRARY_NAME ${PROJECT_NAME})
+set(SPECTRE_LIBRARY_NAME ${PROJECT_NAME}-${AVR_MCU_TYPE})
 
 ##########################################################################
 
@@ -58,4 +58,8 @@ set_target_properties(
     OUTPUT_NAME   "${SPECTRE_LIBRARY_NAME}"
 )
   
+##########################################################################
+
+add_subdirectory(examples)
+
 ##########################################################################
