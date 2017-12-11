@@ -16,14 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INTERFACE_UART_H_
-#define INTERFACE_UART_H_
+#ifndef ATMEGA328P_UART_H_
+#define ATMEGA328P_UART_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <stdint.h>
+#include <spectre/hal/interface/uart/UART.h>
+#include <spectre/hal/interface/uart/UARTAssembly.h>
+#include <spectre/hal/interface/uart/UARTCallback.h>
+#include <spectre/hal/interface/uart/UARTConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -32,38 +35,66 @@
 namespace spectre
 {
 
-namespace mcu
+namespace hal
 {
 
-namespace interface
+namespace ATMEGA328P
 {
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UART
+class UART0 : public interface::UART,
+              public interface::UARTConfiguration,
+              public interface::UARTAssembly
 {
 
 public:
 
-           UART() { }
-  virtual ~UART() { }
+           UART0();
+  virtual ~UART0();
 
 
-  virtual void transmit(uint8_t const   data) = 0;
-  virtual void receive (uint8_t       & data) = 0;
+  /* UART Interface */
+
+  virtual void transmit(uint8_t const   data) override;
+  virtual void receive (uint8_t       & data) override;
   
+
+  /* UART Configuration Interface */
+
+  virtual void setBaudRate  (eBaudRate const    baud_rate) override;
+  virtual void setParity    (eParity   const    parity   ) override;
+  virtual void setStopBit   (eStopBit  const    stop_bit ) override;
+
+
+  /* UART Assembly */
+
+  virtual void registerUARTCallbackInterface(interface::UARTCallback * uart_callback_interface) override;
+
+
+private:
+
+  interface::UARTCallback * _uart_callback_interface;
+
+  static uint16_t calcBaudRate(uint32_t const f_cpu, uint32_t const baud_rate);
+
+  /* ISR Functions */
+
+  static void onTransmitCompleteFunc(UART0 * _this);
+  static void onReceiveCompleteFunc (UART0 * _this);
+
 };
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface*/
+} /* ATMEGA328P */
 
-} /* mcu */
+} /* hal */
 
 } /* spectre */
 
-#endif /* INTERFACE_UART_H_ */
+#endif /* ATMEGA328P_UART_H_*/

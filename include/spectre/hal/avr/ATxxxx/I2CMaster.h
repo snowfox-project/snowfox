@@ -23,8 +23,8 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/mcu/interface/i2c/I2CMaster.h>
-#include <spectre/mcu/interface/i2c/I2CMasterConfiguration.h>
+#include <spectre/hal/interface/i2c/I2CMaster.h>
+#include <spectre/hal/interface/i2c/I2CMasterConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -33,7 +33,7 @@
 namespace spectre
 {
 
-namespace mcu
+namespace hal
 {
 
 namespace ATxxxx
@@ -97,7 +97,7 @@ protected:
 
 } /* ATxxxx */
 
-} /* mcu */
+} /* hal */
 
 } /* spectre */
 

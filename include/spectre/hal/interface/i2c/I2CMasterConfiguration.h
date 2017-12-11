@@ -16,14 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INTERFACE_UART_CONFIGURATION_H_
-#define INTERFACE_UART_CONFIGURATION_H_
-
-/**************************************************************************************
- * INCLUDES
- **************************************************************************************/
-
-#include <stdint.h>
+#ifndef INTERFACE_I2C_MASTER_CONFIGURATION_H_
+#define INTERFACE_I2C_MASTER_CONFIGURATION_H_
 
 /**************************************************************************************
  * NAMESPACE
@@ -32,7 +26,7 @@
 namespace spectre
 {
 
-namespace mcu
+namespace hal
 {
 
 namespace interface
@@ -42,37 +36,24 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UARTConfiguration
+class I2CMasterConfiguration
 {
 
 public:
 
   typedef enum
   {
-    B115200
-  } eBaudRate;
-
-  typedef enum
-  {
-    None,
-    Even,
-    Odd
-  } eParity;
-
-  typedef enum
-  {
-    _1,
-    _2
-  } eStopBit;
+    F_100_kHz,   /* Standard mode  */
+    F_400_kHz,   /* Fast mode      */
+    F_1000_kHz   /* Fast mode plus */
+  } eI2CClock;
 
 
-           UARTConfiguration() { }
-  virtual ~UARTConfiguration() { }
+           I2CMasterConfiguration() { }
+  virtual ~I2CMasterConfiguration() { }
 
 
-  virtual void setBaudRate  (eBaudRate const baud_rate) = 0;
-  virtual void setParity    (eParity   const parity   ) = 0;
-  virtual void setStopBit   (eStopBit  const stop_bit ) = 0;
+  virtual void setI2CClock(eI2CClock const i2c_clock) = 0;
   
 };
 
@@ -82,8 +63,8 @@ public:
 
 } /* interface*/
 
-} /* mcu */
+} /* hal */
 
 } /* spectre */
 
-#endif /* INTERFACE_UART_CONFIGURATION_H_ */
+#endif /* INTERFACE_I2C_MASTER_CONFIGURATION_H_ */

@@ -16,16 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INTERFACE_UART_ASSEMBLY_H_
-#define INTERFACE_UART_ASSEMBLY_H_
+#ifndef INTERFACE_UART_CONFIGURATION_H_
+#define INTERFACE_UART_CONFIGURATION_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
 #include <stdint.h>
-
-#include <spectre/mcu/interface/uart/UARTCallback.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -34,7 +32,7 @@
 namespace spectre
 {
 
-namespace mcu
+namespace hal
 {
 
 namespace interface
@@ -44,17 +42,38 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UARTAssembly
+class UARTConfiguration
 {
 
 public:
 
-           UARTAssembly() { }
-  virtual ~UARTAssembly() { }
+  typedef enum
+  {
+    B115200
+  } eBaudRate;
+
+  typedef enum
+  {
+    None,
+    Even,
+    Odd
+  } eParity;
+
+  typedef enum
+  {
+    _1,
+    _2
+  } eStopBit;
 
 
-  virtual void registerUARTCallbackInterface(UARTCallback * uart_callback_interface) = 0;
+           UARTConfiguration() { }
+  virtual ~UARTConfiguration() { }
 
+
+  virtual void setBaudRate  (eBaudRate const baud_rate) = 0;
+  virtual void setParity    (eParity   const parity   ) = 0;
+  virtual void setStopBit   (eStopBit  const stop_bit ) = 0;
+  
 };
 
 /**************************************************************************************
@@ -63,8 +82,8 @@ public:
 
 } /* interface*/
 
-} /* mcu */
+} /* hal */
 
 } /* spectre */
 
-#endif /* INTERFACE_UART_ASSEMBLY_H_ */
+#endif /* INTERFACE_UART_CONFIGURATION_H_ */

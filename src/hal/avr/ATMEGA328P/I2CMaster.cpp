@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/mcu/avr/ATMEGA328P/I2CMaster.h>
+#include <spectre/hal/avr/ATMEGA328P/I2CMaster.h>
 
 #include <avr/io.h>
 #include <util/twi.h>
@@ -32,7 +32,7 @@
 namespace spectre
 {
 
-namespace mcu
+namespace hal
 {
 
 namespace ATMEGA328P
@@ -163,6 +163,6 @@ void I2CMaster::setTWBR(uint32_t const i2c_speed_Hz, uint32_t const i2c_prescale
 
 } /* ATMEGA328P */
 
-} /* mcu */
+} /* hal */
 
 } /* spectre */

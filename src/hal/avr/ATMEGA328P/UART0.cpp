@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/mcu/avr/ATMEGA328P/UART0.h>
+#include <spectre/hal/avr/ATMEGA328P/UART0.h>
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
@@ -32,7 +32,7 @@
 namespace spectre
 {
 
-namespace mcu
+namespace hal
 {
 
 namespace ATMEGA328P
@@ -170,7 +170,7 @@ void UART0::onReceiveCompleteFunc(UART0 * _this)
 
 } /* ATMEGA328P */
 
-} /* mcu */
+} /* hal */
 
 } /* spectre */
 
@@ -178,7 +178,7 @@ void UART0::onReceiveCompleteFunc(UART0 * _this)
  * ISR
  **************************************************************************************/
 
-using namespace spectre::mcu::ATMEGA328P;
+using namespace spectre::hal::ATMEGA328P;
 
 ISR(USART_UDRE_vect)
 {

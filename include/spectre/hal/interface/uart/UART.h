@@ -16,8 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INTERFACE_I2C_MASTER_CONFIGURATION_H_
-#define INTERFACE_I2C_MASTER_CONFIGURATION_H_
+#ifndef INTERFACE_UART_H_
+#define INTERFACE_UART_H_
+
+/**************************************************************************************
+ * INCLUDES
+ **************************************************************************************/
+
+#include <stdint.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -26,7 +32,7 @@
 namespace spectre
 {
 
-namespace mcu
+namespace hal
 {
 
 namespace interface
@@ -36,24 +42,17 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class I2CMasterConfiguration
+class UART
 {
 
 public:
 
-  typedef enum
-  {
-    F_100_kHz,   /* Standard mode  */
-    F_400_kHz,   /* Fast mode      */
-    F_1000_kHz   /* Fast mode plus */
-  } eI2CClock;
+           UART() { }
+  virtual ~UART() { }
 
 
-           I2CMasterConfiguration() { }
-  virtual ~I2CMasterConfiguration() { }
-
-
-  virtual void setI2CClock(eI2CClock const i2c_clock) = 0;
+  virtual void transmit(uint8_t const   data) = 0;
+  virtual void receive (uint8_t       & data) = 0;
   
 };
 
@@ -63,8 +62,8 @@ public:
 
 } /* interface*/
 
-} /* mcu */
+} /* hal */
 
 } /* spectre */
 
-#endif /* INTERFACE_I2C_MASTER_CONFIGURATION_H_ */
+#endif /* INTERFACE_UART_H_ */

@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/mcu/avr/ATxxxx/I2CMaster.h>
+#include <spectre/hal/avr/ATxxxx/I2CMaster.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -29,7 +29,7 @@
 namespace spectre
 {
 
-namespace mcu
+namespace hal
 {
 
 namespace ATxxxx
@@ -123,6 +123,6 @@ uint8_t I2CMaster::convertI2CAddress(uint8_t const address, bool is_read_access)
 
 } /* ATxxxx */
 
-} /* mcu */
+} /* hal */
 
 } /* spectre */

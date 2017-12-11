@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INTERFACE_UART_CALLBACK_H_
-#define INTERFACE_UART_CALLBACK_H_
+#ifndef INCLUDE_SPECTRE_MCU_AVR_ATMEGA328P_I2CMASTER_H_
+#define INCLUDE_SPECTRE_MCU_AVR_ATMEGA328P_I2CMASTER_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <stdint.h>
+#include <spectre/hal/avr/ATxxxx/I2CMaster.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -32,38 +32,46 @@
 namespace spectre
 {
 
-namespace mcu
+namespace hal
 {
 
-namespace interface
+namespace ATMEGA328P
 {
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UARTCallback
+class I2CMaster : public ATxxxx::I2CMaster
 {
 
 public:
 
-           UARTCallback() { }
-  virtual ~UARTCallback() { }
+           I2CMaster();
+  virtual ~I2CMaster();
 
+protected:
 
-  virtual void onTransmitCompleteCallback() = 0;
-  virtual void onReceiveCompleteCallback () = 0;
-  
+  virtual bool start                 (uint8_t    const   address) override;
+  virtual bool transmitByte          (uint8_t    const   data   ) override;
+  virtual void receiveByteAndSendACK (uint8_t          * data   ) override;
+  virtual void receiveByteAndSendNACK(uint8_t          * data   ) override;
+  virtual void stop                  (                          ) override;
+
+  virtual void setTWIPrescaler       (eTWIPrescaler const prescaler    ) override;
+  virtual void setTWBR               (uint32_t      const i2c_speed_Hz,
+                                      uint32_t      const i2c_prescaler) override;
+
 };
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface*/
+} /* ATMEGA328P */
 
-} /* mcu */
+} /* hal */
 
 } /* spectre */
 
-#endif /* INTERFACE_UART_CALLBACK_H_ */
+#endif /* INCLUDE_SPECTRE_MCU_AVR_ATMEGA328P_I2CMASTER_H_ */

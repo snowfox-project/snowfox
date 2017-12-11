@@ -16,17 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ATMEGA328P_UART_H_
-#define ATMEGA328P_UART_H_
+#ifndef INTERFACE_I2C_MASTER_H_
+#define INTERFACE_I2C_MASTER_H_
 
 /**************************************************************************************
- * INCLUDES
+ * NAMESPACE
  **************************************************************************************/
 
-#include <spectre/mcu/interface/uart/UART.h>
-#include <spectre/mcu/interface/uart/UARTAssembly.h>
-#include <spectre/mcu/interface/uart/UARTCallback.h>
-#include <spectre/mcu/interface/uart/UARTConfiguration.h>
+#include <stdint.h>
+#include <stdbool.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -35,55 +33,28 @@
 namespace spectre
 {
 
-namespace mcu
+namespace hal
 {
 
-namespace ATMEGA328P
+namespace interface
 {
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UART0 : public interface::UART,
-              public interface::UARTConfiguration,
-              public interface::UARTAssembly
+class I2CMaster
 {
 
 public:
 
-           UART0();
-  virtual ~UART0();
+           I2CMaster() { }
+  virtual ~I2CMaster() { }
 
-
-  /* UART Interface */
-
-  virtual void transmit(uint8_t const   data) override;
-  virtual void receive (uint8_t       & data) override;
-  
-
-  /* UART Configuration Interface */
-
-  virtual void setBaudRate  (eBaudRate const    baud_rate) override;
-  virtual void setParity    (eParity   const    parity   ) override;
-  virtual void setStopBit   (eStopBit  const    stop_bit ) override;
-
-
-  /* UART Assembly */
-
-  virtual void registerUARTCallbackInterface(interface::UARTCallback * uart_callback_interface) override;
-
-
-private:
-
-  interface::UARTCallback * _uart_callback_interface;
-
-  static uint16_t calcBaudRate(uint32_t const f_cpu, uint32_t const baud_rate);
-
-  /* ISR Functions */
-
-  static void onTransmitCompleteFunc(UART0 * _this);
-  static void onReceiveCompleteFunc (UART0 * _this);
+  virtual bool begin      (uint8_t const address, bool const is_read_access               ) = 0;
+  virtual void end        (                                                               ) = 0;
+  virtual bool write      (uint8_t const data                                             ) = 0;
+  virtual bool requestFrom(uint8_t const address, uint8_t * data, uint16_t const num_bytes) = 0;
 
 };
 
@@ -91,10 +62,10 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA328P */
+} /* interface*/
 
-} /* mcu */
+} /* hal */
 
 } /* spectre */
 
-#endif /* ATMEGA328P_UART_H_*/
+#endif /* INTERFACE_I2C_MASTER_H_*/
