@@ -42,13 +42,13 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class DelayInterface
+class Delay
 {
 
 public:
 
-           DelayInterface() { }
-  virtual ~DelayInterface() { }
+           Delay() { }
+  virtual ~Delay() { }
 
 
   virtual void delay_ms(uint32_t const ms) = 0;

@@ -32,14 +32,46 @@ set(SPECTRE_LIBRARY_NAME ${PROJECT_NAME}-${MCU_TYPE})
 ##########################################################################
 
 set(SPECTRE_LIBRARY_GENERIC_SRCS
-  src/hal/avr/ATMEGA328P/I2CMaster.cpp
-  src/hal/avr/ATMEGA328P/UART0.cpp
   
-  src/hal/avr/ATxxxx/DelayService.cpp
-  src/hal/avr/ATxxxx/I2CMaster.cpp
-  
-  src/hal/avr/cxx/cxx.cpp
 )
+
+##########################################################################
+# HAL ####################################################################
+##########################################################################
+
+set(SPECTRE_LIBRARY_HAL_SRCS "")
+
+##########################################################################
+
+if(${MCU_ARCH} STREQUAL "avr")
+
+  set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} src/hal/avr/ATxxxx/DelayService.cpp)
+  set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} src/hal/avr/ATxxxx/I2CMaster.cpp   )
+  set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} src/hal/avr/cxx/cxx.cpp            )
+  
+  if(${MCU_TYPE} STREQUAL "atmega328p")
+  
+    set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} src/hal/avr/ATMEGA328P/I2CMaster.cpp)
+    set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} src/hal/avr/ATMEGA328P/UART0.cpp)
+    
+  endif()
+
+endif()
+
+
+##########################################################################
+# DRIVER #################################################################
+##########################################################################
+
+set(SPECTRE_LIBRARY_DRIVER_SRCS "")
+
+##########################################################################
+
+if(${DRIVER_HAPTIC_DRV2605} STREQUAL "yes")
+  
+  set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} src/driver/haptic/DRV2605.cpp)
+  
+endif()
 
 ##########################################################################
   
@@ -47,6 +79,8 @@ add_library(
   ${SPECTRE_LIBRARY_NAME} 
   STATIC
   ${SPECTRE_LIBRARY_GENERIC_SRCS}
+  ${SPECTRE_LIBRARY_HAL_SRCS}
+  ${SPECTRE_LIBRARY_DRIVER}
 )
 
 ##########################################################################
@@ -55,7 +89,7 @@ set_target_properties(
   ${SPECTRE_LIBRARY_NAME}
   
   PROPERTIES
-    COMPILE_FLAGS "-mmcu=${MCU_TYPE} -DF_CPU=${MCU_SPEED} -Os -Wall -pedantic -pedantic-errors -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -fno-exceptions -std=c++11"
+    COMPILE_FLAGS "-mmcu=${MCU_TYPE} -DF_CPU=${MCU_SPEED} -Os -Wall -pedantic -pedantic-errors -funsigned-char -funsigned-bitfields -fshort-enums -ffunction-sections -fdata-sections -fno-exceptions -std=c++11"
     OUTPUT_NAME   "${SPECTRE_LIBRARY_NAME}"
 )
   

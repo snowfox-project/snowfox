@@ -42,7 +42,7 @@ namespace ATxxxx
  * CLASS DECLARATION
  **************************************************************************************/
 
-class DelayService : public interface::DelayInterface
+class DelayService : public interface::Delay
 {
 
 public:
