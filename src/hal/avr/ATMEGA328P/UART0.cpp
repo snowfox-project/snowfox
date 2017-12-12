@@ -94,8 +94,18 @@ static onReceiveCompleteCallback  on_receive_complete  = 0;
  * CTOR/DTOR
  **************************************************************************************/
 
-UART0::UART0()
-: _uart_callback_interface(0)
+UART0::UART0() : UART0(&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0)
+{
+
+}
+
+UART0::UART0(volatile uint8_t * UDR0_, volatile uint8_t * UCSR0A_, volatile uint8_t * UCSR0B_, volatile uint8_t * UCSR0C_, volatile uint16_t * UBRR0_)
+: _UDR0                   (UDR0_  ),
+  _UCSR0A                 (UCSR0A_),
+  _UCSR0B                 (UCSR0B_),
+  _UCSR0C                 (UCSR0C_),
+  _UBRR0                  (UBRR0_ ),
+  _uart_callback_interface(0      )
 {
   _this = this;
 
@@ -114,66 +124,66 @@ UART0::~UART0()
 
 void UART0::transmit(uint8_t const data)
 {
-  UDR0 = data;
+  *_UDR0 = data;
 }
 
 void UART0::receive(uint8_t & data)
 {
-  data = UDR0;
+  data = *_UDR0;
 }
 
 void UART0::enableTransmit()
 {
-  UCSR0B |= TXEN0_bm | UDRIE0_bm;
+  *_UCSR0B |= TXEN0_bm | UDRIE0_bm;
 }
 void UART0::disableTransmit()
 {
-  UCSR0B &= ~(TXEN0_bm | UDRIE0_bm);
+  *_UCSR0B &= ~(TXEN0_bm | UDRIE0_bm);
 }
 
 void UART0::enableReceive()
 {
-  UCSR0B |= RXEN0_bm | RXCIE0_bm;
+  *_UCSR0B |= RXEN0_bm | RXCIE0_bm;
 }
 
 void UART0::disableReceive()
 {
-  UCSR0B &= ~(RXEN0_bm | RXCIE0_bm);
+  *_UCSR0B &= ~(RXEN0_bm | RXCIE0_bm);
 }
 
 void UART0::setBaudRate(eBaudRate const baud_rate)
 {
-  UCSR0A |= U2X0_bm;
+  *_UCSR0A |= U2X0_bm;
 
   switch(baud_rate)
   {
-  case B115200: UBRR0 = calcBaudRate(F_CPU, 115200);  break;
-  default:                                            break;
+  case B115200: *_UBRR0 = calcBaudRate(F_CPU, 115200);  break;
+  default:                                              break;
   }
 }
 
 void UART0::setParity(eParity const parity)
 {
-  UCSR0C &= ~(UPM01_bm | UPM00_bm);
+  *_UCSR0C &= ~(UPM01_bm | UPM00_bm);
 
   switch(parity)
   {
-  case None:                                  break;
-  case Even:  UCSR0C |= UPM01_bm;             break;
-  case Odd:   UCSR0C |= UPM01_bm | UPM00_bm;  break;
-  default:                                    break;
+  case None:                                    break;
+  case Even:  *_UCSR0C |= UPM01_bm;             break;
+  case Odd:   *_UCSR0C |= UPM01_bm | UPM00_bm;  break;
+  default:                                      break;
   }
 }
 
 void UART0::setStopBit(eStopBit const stop_bit)
 {
-  UCSR0C &= ~USBS0_bm;
+  *_UCSR0C &= ~USBS0_bm;
 
   switch(stop_bit)
   {
-  case _1:                      break;
-  case _2: UCSR0C |= USBS0_bm;  break;
-  default:                      break;
+  case _1:                        break;
+  case _2: *_UCSR0C |= USBS0_bm;  break;
+  default:                        break;
   }
 }
 

@@ -53,6 +53,7 @@ class UART0 : public interface::UART,
 public:
 
            UART0();
+           UART0(volatile uint8_t * UDR0_, volatile uint8_t * UCSR0A_, volatile uint8_t * UCSR0B_, volatile uint8_t * UCSR0C_, volatile uint16_t * UBRR0_);
   virtual ~UART0();
 
 
@@ -80,6 +81,12 @@ public:
 
 
 private:
+
+  volatile uint8_t  * _UDR0,
+                    * _UCSR0A,
+                    * _UCSR0B,
+                    * _UCSR0C;
+  volatile uint16_t * _UBRR0;
 
   interface::UARTCallback * _uart_callback_interface;
 
