@@ -17,19 +17,17 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/lib)
 
 ##########################################################################
 
-SET(CMAKE_C_COMPILER avr-gcc)
-SET(CMAKE_CXX_COMPILER avr-g++)
-
-SET(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "-Wl,--relax,--gc-sections")
+include(cmake/config.cmake)
 
 ##########################################################################
 
-set(AVR_MCU_SPEED 16000000UL)
-set(AVR_MCU_TYPE atmega328p)
+if(${MCU_ARCH} STREQUAL "avr")
+  include(cmake/avr-gcc.cmake)
+endif()
 
 ############################################################################
 
-set(SPECTRE_LIBRARY_NAME ${PROJECT_NAME}-${AVR_MCU_TYPE})
+set(SPECTRE_LIBRARY_NAME ${PROJECT_NAME}-${MCU_TYPE})
 
 ##########################################################################
 
@@ -57,7 +55,7 @@ set_target_properties(
   ${SPECTRE_LIBRARY_NAME}
   
   PROPERTIES
-    COMPILE_FLAGS "-mmcu=${AVR_MCU_TYPE} -DF_CPU=${AVR_MCU_SPEED} -Os -Wall -pedantic -pedantic-errors -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -fno-exceptions -std=c++11"
+    COMPILE_FLAGS "-mmcu=${MCU_TYPE} -DF_CPU=${MCU_SPEED} -Os -Wall -pedantic -pedantic-errors -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -fno-exceptions -std=c++11"
     OUTPUT_NAME   "${SPECTRE_LIBRARY_NAME}"
 )
   

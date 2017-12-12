@@ -6,7 +6,7 @@ Spectre consists of an Real Time Operating System + an Hardware Abstraction Laye
 
 ## Build
 ---
-### Install toolchain ###
+### Install toolchain
 * **ALL**
 ```
 sudo apt-get install cmake
@@ -15,10 +15,18 @@ sudo apt-get install cmake
 ```
 sudo apt-get install avr-libc binutils-avr gcc-avr avrdude
 ```
+
 ### Clone repository
 ```
 git clone https://github.com/lxrobotics/Spectre.git
 ```
+
+### Configure
+* Edit config.cmake
+  * MCU_ARCH : avr
+  * MCU_TYPE : atmega328p
+  * MCU_SPEED 
+
 ### Build
 ```
 cd Spectre
