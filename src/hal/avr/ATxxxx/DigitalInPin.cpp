@@ -16,14 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_DELAY_DELAY_H_
-#define INCLUDE_SPECTRE_HAL_INTERFACE_DELAY_DELAY_H_
-
 /**************************************************************************************
- * INCLUDE
+ * INCLUDES
  **************************************************************************************/
 
-#include <stdint.h>
+#include <spectre/hal/avr/ATxxxx/DigitalInPin.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -35,35 +32,64 @@ namespace spectre
 namespace hal
 {
 
-namespace interface
+namespace ATxxxx
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class Delay
+DigitalInPin::DigitalInPin(volatile uint8_t * ddr, volatile uint8_t * out, volatile uint8_t * pin, uint8_t const in_pin_number)
+: _ddr           (ddr               ),
+  _out           (out               ),
+  _pin           (pin               ),
+  _in_pin_bitmask(1 << in_pin_number)
+{
+  setGpioAsInput();
+}
+
+DigitalInPin::~DigitalInPin()
 {
 
-public:
+}
 
-           Delay() { }
-  virtual ~Delay() { }
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
+bool DigitalInPin::isHigh()
+{
+  bool const is_high = (*_pin & _in_pin_bitmask) != 0;
 
-  virtual void delay_ms(uint32_t const ms) = 0;
-  virtual void delay_us(uint32_t const us) = 0;
+  return is_high;
+}
 
-};
+void DigitalInPin::setPullUpMode(interface::DigitalInPinConfiguration::ePullUpMode const pullup_mode)
+{
+  switch(pullup_mode)
+  {
+  case NONE:      *_out &= ~_in_pin_bitmask; break;
+  case PULL_UP:   *_out |=  _in_pin_bitmask; break;
+  case PULL_DOWN:                            break;
+  default:                                   break;
+  }
+}
+
+/**************************************************************************************
+ * PRIVATE MEMBER FUNCTIONS
+ **************************************************************************************/
+
+void DigitalInPin::setGpioAsInput()
+{
+  *_ddr &= ~_in_pin_bitmask;
+}
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface*/
+} /* ATxxxx */
 
 } /* hal */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_DELAY_DELAY_H_ */

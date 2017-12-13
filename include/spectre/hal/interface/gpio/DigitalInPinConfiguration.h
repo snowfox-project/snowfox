@@ -16,14 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_DELAY_DELAY_H_
-#define INCLUDE_SPECTRE_HAL_INTERFACE_DELAY_DELAY_H_
-
-/**************************************************************************************
- * INCLUDE
- **************************************************************************************/
-
-#include <stdint.h>
+#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINPINCONFIGURATION_H_
+#define INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINPINCONFIGURATION_H_
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,17 +36,23 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class Delay
+class DigitalInPinConfiguration
 {
 
 public:
 
-           Delay() { }
-  virtual ~Delay() { }
+           DigitalInPinConfiguration() { }
+  virtual ~DigitalInPinConfiguration() { }
 
 
-  virtual void delay_ms(uint32_t const ms) = 0;
-  virtual void delay_us(uint32_t const us) = 0;
+  typedef enum
+  {
+    NONE,
+    PULL_UP,
+    PULL_DOWN
+  } ePullUpMode;
+
+  virtual void setPullUpMode(ePullUpMode const pullup_mode) = 0;
 
 };
 
@@ -66,4 +66,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_DELAY_DELAY_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINPINCONFIGURATION_H_ */

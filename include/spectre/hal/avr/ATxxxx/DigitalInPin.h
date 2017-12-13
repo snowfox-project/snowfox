@@ -16,14 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_DELAY_DELAY_H_
-#define INCLUDE_SPECTRE_HAL_INTERFACE_DELAY_DELAY_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_ATXXXX_DIGITALINPIN_H_
+#define INCLUDE_SPECTRE_HAL_AVR_ATXXXX_DIGITALINPIN_H_
 
 /**************************************************************************************
- * INCLUDE
+ * INCLUDES
  **************************************************************************************/
 
 #include <stdint.h>
+
+#include <spectre/hal/interface/gpio/DigitalInPin.h>
+#include <spectre/hal/interface/gpio/DigitalInPinConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -35,24 +38,42 @@ namespace spectre
 namespace hal
 {
 
-namespace interface
+namespace ATxxxx
 {
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class Delay
+class DigitalInPin : public interface::DigitalInPin,
+                     public interface::DigitalInPinConfiguration
 {
 
 public:
 
-           Delay() { }
-  virtual ~Delay() { }
+           DigitalInPin(volatile uint8_t * ddr, volatile uint8_t * out, volatile uint8_t * pin, uint8_t const in_pin_number);
+  virtual ~DigitalInPin();
 
 
-  virtual void delay_ms(uint32_t const ms) = 0;
-  virtual void delay_us(uint32_t const us) = 0;
+  /* Digital Input Pin Interface */
+
+  virtual bool isHigh() override;
+
+
+  /* Digital Input Pin Configuration Interface */
+
+  virtual void setPullUpMode(interface::DigitalInPinConfiguration::ePullUpMode const pullup_mode) override;
+
+private:
+
+  volatile uint8_t * _ddr,
+                   * _out,
+                   * _pin;
+
+  uint8_t            _in_pin_bitmask;
+
+
+  void setGpioAsInput();
 
 };
 
@@ -60,10 +81,10 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface*/
+} /* ATxxxx */
 
 } /* hal */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_DELAY_DELAY_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_ATXXXX_DIGITALINPIN_H_ */

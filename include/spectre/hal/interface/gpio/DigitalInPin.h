@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_DELAY_DELAY_H_
-#define INCLUDE_SPECTRE_HAL_INTERFACE_DELAY_DELAY_H_
+#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINPIN_H_
+#define INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINPIN_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
+#include <stdbool.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,17 +42,16 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class Delay
+class DigitalInPin
 {
 
 public:
 
-           Delay() { }
-  virtual ~Delay() { }
+           DigitalInPin() { }
+  virtual ~DigitalInPin() { }
 
-
-  virtual void delay_ms(uint32_t const ms) = 0;
-  virtual void delay_us(uint32_t const us) = 0;
+  virtual bool isHigh() = 0;
+  inline  bool isLow () { return !isHigh(); }
 
 };
 
@@ -66,4 +65,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_DELAY_DELAY_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINPIN_H_ */
