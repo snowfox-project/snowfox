@@ -39,4 +39,6 @@ SystemBuilder::SystemBuilder()
   _uart0.setStopBit                   (interface::UARTConfiguration::_1     );
 
   _uart0.registerUARTCallbackInterface(&_uart_task_input_handler            );
+
+  _interrupt_controller.enableInterrupt(ATMEGA328P::InterruptController::GLOBAL_INTERRUPT);
 }

@@ -16,36 +16,59 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef EXAMPLES_HAL_ATMEGA328P_UART0_SYSTEMBUILDER_H_
-#define EXAMPLES_HAL_ATMEGA328P_UART0_SYSTEMBUILDER_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_ATMEGA328P_INTERRUPTCONTROLLER_H_
+#define INCLUDE_SPECTRE_HAL_AVR_ATMEGA328P_INTERRUPTCONTROLLER_H_
 
 /**************************************************************************************
- * INCLUDE
+ * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/ATMEGA328P/UART0.h>
-#include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
+#include <spectre/hal/interface/interrupt/InterruptController.h>
 
-#include "UARTTaskInputHandler.h"
+/**************************************************************************************
+ * NAMESPACE
+ **************************************************************************************/
+
+namespace spectre
+{
+
+namespace hal
+{
+
+namespace ATMEGA328P
+{
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class SystemBuilder
+class InterruptController : public interface::InterruptController
 {
 
 public:
 
-  SystemBuilder();
+           InterruptController();
+  virtual ~InterruptController();
 
-private:
 
-  spectre::hal::ATMEGA328P::UART0               _uart0;
-  spectre::hal::ATMEGA328P::InterruptController _interrupt_controller;
+  static uint16_t const GLOBAL_INTERRUPT = 0;
 
-  UARTTaskInputHandler _uart_task_input_handler;
+
+  /* Interrupt Controller Interface */
+
+  virtual void enableInterrupt (uint16_t const int_num) override;
+  virtual void disableInterrupt(uint16_t const int_num) override;
 
 };
 
-#endif /* EXAMPLES_HAL_ATMEGA328P_UART0_SYSTEMBUILDER_H_ */
+/**************************************************************************************
+ * NAMESPACE
+ **************************************************************************************/
+
+} /* ATMEGA328P */
+
+} /* hal */
+
+} /* spectre */
+
+#endif /* INCLUDE_SPECTRE_HAL_AVR_ATMEGA328P_INTERRUPTCONTROLLER_H_ */

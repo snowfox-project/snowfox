@@ -16,36 +16,68 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef EXAMPLES_HAL_ATMEGA328P_UART0_SYSTEMBUILDER_H_
-#define EXAMPLES_HAL_ATMEGA328P_UART0_SYSTEMBUILDER_H_
-
 /**************************************************************************************
- * INCLUDE
+ * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/ATMEGA328P/UART0.h>
 #include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
 
-#include "UARTTaskInputHandler.h"
+#include <avr/io.h>
+#include <avr/interrupt.h>
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * NAMESPACE
  **************************************************************************************/
 
-class SystemBuilder
+namespace spectre
 {
 
-public:
+namespace hal
+{
 
-  SystemBuilder();
+namespace ATMEGA328P
+{
 
-private:
+/**************************************************************************************
+ * CTOR/DTOR
+ **************************************************************************************/
 
-  spectre::hal::ATMEGA328P::UART0               _uart0;
-  spectre::hal::ATMEGA328P::InterruptController _interrupt_controller;
+InterruptController::InterruptController()
+{
 
-  UARTTaskInputHandler _uart_task_input_handler;
+}
 
-};
+InterruptController::~InterruptController()
+{
 
-#endif /* EXAMPLES_HAL_ATMEGA328P_UART0_SYSTEMBUILDER_H_ */
+}
+
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
+
+void InterruptController::enableInterrupt(uint16_t const int_num)
+{
+  switch(int_num)
+  {
+  case GLOBAL_INTERRUPT: sei(); break;
+  }
+}
+
+void InterruptController::disableInterrupt(uint16_t const int_num)
+{
+  switch(int_num)
+  {
+  case GLOBAL_INTERRUPT: cli(); break;
+  }
+}
+
+/**************************************************************************************
+ * NAMESPACE
+ **************************************************************************************/
+
+} /* ATMEGA328P */
+
+} /* hal */
+
+} /* spectre */

@@ -51,8 +51,8 @@ public:
   virtual ~InterruptController() { }
 
 
-  virtual void enableInterrupt          (uint16_t const int_num                                ) = 0;
-  virtual void disableInterrupt         (uint16_t const int_num                                ) = 0;
+  virtual void enableInterrupt (uint16_t const int_num) = 0;
+  virtual void disableInterrupt(uint16_t const int_num) = 0;
 
 };
 
