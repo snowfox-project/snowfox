@@ -16,6 +16,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/lib)
 
 ##########################################################################
+# CONFIGURATION ##########################################################
+##########################################################################
 
 include(cmake/config.cmake)
 
@@ -24,16 +26,6 @@ include(cmake/config.cmake)
 if(${MCU_ARCH} STREQUAL "avr")
   include(cmake/avr-gcc.cmake)
 endif()
-
-############################################################################
-
-set(SPECTRE_LIBRARY_NAME ${PROJECT_NAME}-${MCU_TYPE})
-
-##########################################################################
-
-set(SPECTRE_LIBRARY_GENERIC_SRCS
-  
-)
 
 ##########################################################################
 # HAL ####################################################################
@@ -77,25 +69,34 @@ if(${DRIVER_HAPTIC_DRV2605} STREQUAL "yes")
 endif()
 
 ##########################################################################
-  
-add_library(
-  ${SPECTRE_LIBRARY_NAME} 
-  STATIC
-  ${SPECTRE_LIBRARY_GENERIC_SRCS}
+# LIBRARIES ##############################################################
+##########################################################################
+
+set(SPECTRE_LIBRARY_SRCS
   ${SPECTRE_LIBRARY_HAL_SRCS}
   ${SPECTRE_LIBRARY_DRIVER}
 )
 
 ##########################################################################
 
+set(SPECTRY_LIBRARY_NAME_MCU ${PROJECT_NAME}-${MCU_TYPE})
+
+add_library(
+  ${SPECTRY_LIBRARY_NAME_MCU} 
+  STATIC
+  ${SPECTRE_LIBRARY_SRCS}
+)
+
 set_target_properties(
-  ${SPECTRE_LIBRARY_NAME}
+  ${SPECTRY_LIBRARY_NAME_MCU}
   
   PROPERTIES
     COMPILE_FLAGS "-mmcu=${MCU_TYPE} -DF_CPU=${MCU_SPEED} -Os -Wall -pedantic -pedantic-errors -funsigned-char -funsigned-bitfields -fshort-enums -ffunction-sections -fdata-sections -fno-exceptions -std=c++11"
     OUTPUT_NAME   "${SPECTRE_LIBRARY_NAME}"
 )
-  
+
+##########################################################################
+# EXAMPLES ###############################################################
 ##########################################################################
 
 add_subdirectory(examples)
