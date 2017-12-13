@@ -51,7 +51,33 @@ public:
   virtual ~InterruptController();
 
 
-  static uint16_t const GLOBAL_INTERRUPT = 0;
+  static uint16_t const GLOBAL_INT   =  0;
+  static uint16_t const EXT_INT0     =  1;
+  static uint16_t const EXT_INT1     =  2;
+  static uint16_t const PCINT0       =  3;
+  static uint16_t const PCINT1       =  4;
+  static uint16_t const PCINT2       =  5;
+  static uint16_t const WDT          =  6;
+  static uint16_t const TIMER2_COMPA =  7;
+  static uint16_t const TIMER2_COMPB =  8;
+  static uint16_t const TIMER2_OVF   =  9;
+  static uint16_t const TIMER1_CAPT  = 10;
+  static uint16_t const TIMER1_COMPA = 11;
+  static uint16_t const TIMER1_COMPB = 12;
+  static uint16_t const TIMER1_OVF   = 13;
+  static uint16_t const TIMER0_COMPA = 14;
+  static uint16_t const TIMER0_COMPB = 15;
+  static uint16_t const TIMER0_OVF   = 16;
+  static uint16_t const SPI_STC      = 17;
+  static uint16_t const USART_RX     = 18;
+  static uint16_t const USART_UDRE   = 19;
+  static uint16_t const USART_TX     = 20;
+  static uint16_t const ADC          = 21;
+  static uint16_t const EE_READY     = 22;
+  static uint16_t const ANALOG_COMP  = 23;
+  static uint16_t const TWI          = 24;
+  static uint16_t const SPM_READY    = 25;
+
 
 
   /* Interrupt Controller Interface */

@@ -60,7 +60,7 @@ void InterruptController::enableInterrupt(uint16_t const int_num)
 {
   switch(int_num)
   {
-  case GLOBAL_INTERRUPT: sei(); break;
+  case GLOBAL_INT: sei(); break;
   }
 }
 
@@ -68,7 +68,7 @@ void InterruptController::disableInterrupt(uint16_t const int_num)
 {
   switch(int_num)
   {
-  case GLOBAL_INTERRUPT: cli(); break;
+  case GLOBAL_INT: cli(); break;
   }
 }
 
