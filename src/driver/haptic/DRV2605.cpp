@@ -157,44 +157,44 @@ bool DRV2605::setActuator(eDRV2605ActuatorSelect const actuator)
   return true;
 }
 
-//void DRV2605::debug_dumpAllRegs(DebugInterface * debug_interface)
-//{
-//  debug_dumpSingleReg(debug_interface, "REG_STATUS            = ", REG_STATUS          );
-//  debug_dumpSingleReg(debug_interface, "REG_MODE              = ", REG_MODE            );
-//  debug_dumpSingleReg(debug_interface, "REG_RTP               = ", REG_RTP             );
-//  debug_dumpSingleReg(debug_interface, "REG_LIB               = ", REG_LIB             );
-//  debug_dumpSingleReg(debug_interface, "REG_WAVESEQ1          = ", REG_WAVESEQ1        );
-//  debug_dumpSingleReg(debug_interface, "REG_WAVESEQ2          = ", REG_WAVESEQ2        );
-//  debug_dumpSingleReg(debug_interface, "REG_WAVESEQ3          = ", REG_WAVESEQ3        );
-//  debug_dumpSingleReg(debug_interface, "REG_WAVESEQ4          = ", REG_WAVESEQ4        );
-//  debug_dumpSingleReg(debug_interface, "REG_WAVESEQ5          = ", REG_WAVESEQ5        );
-//  debug_dumpSingleReg(debug_interface, "REG_WAVESEQ6          = ", REG_WAVESEQ6        );
-//  debug_dumpSingleReg(debug_interface, "REG_WAVESEQ7          = ", REG_WAVESEQ7        );
-//  debug_dumpSingleReg(debug_interface, "REG_WAVESEQ8          = ", REG_WAVESEQ8        );
-//  debug_dumpSingleReg(debug_interface, "REG_GO                = ", REG_GO              );
-//  debug_dumpSingleReg(debug_interface, "REG_OVERDRIVE         = ", REG_OVERDRIVE       );
-//  debug_dumpSingleReg(debug_interface, "REG_SUSTAINOFFSETPOS  = ", REG_SUSTAINOFFSETPOS);
-//  debug_dumpSingleReg(debug_interface, "REG_SUSTAINOFFSETNEG  = ", REG_SUSTAINOFFSETNEG);
-//  debug_dumpSingleReg(debug_interface, "REG_BREAKTIME         = ", REG_BREAKTIME       );
-//  debug_dumpSingleReg(debug_interface, "REG_AUDIOCTRL         = ", REG_AUDIOCTRL       );
-//  debug_dumpSingleReg(debug_interface, "REG_AUDMINLVL         = ", REG_AUDMINLVL       );
-//  debug_dumpSingleReg(debug_interface, "REG_AUDMAXLVL         = ", REG_AUDMAXLVL       );
-//  debug_dumpSingleReg(debug_interface, "REG_AUDMINDRIVE       = ", REG_AUDMINDRIVE     );
-//  debug_dumpSingleReg(debug_interface, "REG_AUDMAXDRIVE       = ", REG_AUDMAXDRIVE     );
-//  debug_dumpSingleReg(debug_interface, "REG_RATEDVOLT         = ", REG_RATEDVOLT       );
-//  debug_dumpSingleReg(debug_interface, "REG_OVERDRIVECLAMP    = ", REG_OVERDRIVECLAMP  );
-//  debug_dumpSingleReg(debug_interface, "REG_COMPRESULT        = ", REG_COMPRESULT      );
-//  debug_dumpSingleReg(debug_interface, "REG_BACKEMF           = ", REG_BACKEMF         );
-//  debug_dumpSingleReg(debug_interface, "REG_FEEDBACK          = ", REG_FEEDBACK        );
-//  debug_dumpSingleReg(debug_interface, "REG_CONTROL1          = ", REG_CONTROL1        );
-//  debug_dumpSingleReg(debug_interface, "REG_CONTROL2          = ", REG_CONTROL2        );
-//  debug_dumpSingleReg(debug_interface, "REG_CONTROL3          = ", REG_CONTROL3        );
-//  debug_dumpSingleReg(debug_interface, "REG_CONTROL4          = ", REG_CONTROL4        );
-//  debug_dumpSingleReg(debug_interface, "REG_CONTROL5          = ", REG_CONTROL5        );
-//  debug_dumpSingleReg(debug_interface, "REG_OLP               = ", REG_OLP             );
-//  debug_dumpSingleReg(debug_interface, "REG_VBATMONITOR       = ", REG_VBATMONITOR     );
-//  debug_dumpSingleReg(debug_interface, "REG_LRARESPERIOD      = ", REG_LRARESPERIOD    );
-//}
+void DRV2605::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
+{
+  debug_dumpSingleReg(debug_interface, "REG_STATUS            = ", REG_STATUS          );
+  debug_dumpSingleReg(debug_interface, "REG_MODE              = ", REG_MODE            );
+  debug_dumpSingleReg(debug_interface, "REG_RTP               = ", REG_RTP             );
+  debug_dumpSingleReg(debug_interface, "REG_LIB               = ", REG_LIB             );
+  debug_dumpSingleReg(debug_interface, "REG_WAVESEQ1          = ", REG_WAVESEQ1        );
+  debug_dumpSingleReg(debug_interface, "REG_WAVESEQ2          = ", REG_WAVESEQ2        );
+  debug_dumpSingleReg(debug_interface, "REG_WAVESEQ3          = ", REG_WAVESEQ3        );
+  debug_dumpSingleReg(debug_interface, "REG_WAVESEQ4          = ", REG_WAVESEQ4        );
+  debug_dumpSingleReg(debug_interface, "REG_WAVESEQ5          = ", REG_WAVESEQ5        );
+  debug_dumpSingleReg(debug_interface, "REG_WAVESEQ6          = ", REG_WAVESEQ6        );
+  debug_dumpSingleReg(debug_interface, "REG_WAVESEQ7          = ", REG_WAVESEQ7        );
+  debug_dumpSingleReg(debug_interface, "REG_WAVESEQ8          = ", REG_WAVESEQ8        );
+  debug_dumpSingleReg(debug_interface, "REG_GO                = ", REG_GO              );
+  debug_dumpSingleReg(debug_interface, "REG_OVERDRIVE         = ", REG_OVERDRIVE       );
+  debug_dumpSingleReg(debug_interface, "REG_SUSTAINOFFSETPOS  = ", REG_SUSTAINOFFSETPOS);
+  debug_dumpSingleReg(debug_interface, "REG_SUSTAINOFFSETNEG  = ", REG_SUSTAINOFFSETNEG);
+  debug_dumpSingleReg(debug_interface, "REG_BREAKTIME         = ", REG_BREAKTIME       );
+  debug_dumpSingleReg(debug_interface, "REG_AUDIOCTRL         = ", REG_AUDIOCTRL       );
+  debug_dumpSingleReg(debug_interface, "REG_AUDMINLVL         = ", REG_AUDMINLVL       );
+  debug_dumpSingleReg(debug_interface, "REG_AUDMAXLVL         = ", REG_AUDMAXLVL       );
+  debug_dumpSingleReg(debug_interface, "REG_AUDMINDRIVE       = ", REG_AUDMINDRIVE     );
+  debug_dumpSingleReg(debug_interface, "REG_AUDMAXDRIVE       = ", REG_AUDMAXDRIVE     );
+  debug_dumpSingleReg(debug_interface, "REG_RATEDVOLT         = ", REG_RATEDVOLT       );
+  debug_dumpSingleReg(debug_interface, "REG_OVERDRIVECLAMP    = ", REG_OVERDRIVECLAMP  );
+  debug_dumpSingleReg(debug_interface, "REG_COMPRESULT        = ", REG_COMPRESULT      );
+  debug_dumpSingleReg(debug_interface, "REG_BACKEMF           = ", REG_BACKEMF         );
+  debug_dumpSingleReg(debug_interface, "REG_FEEDBACK          = ", REG_FEEDBACK        );
+  debug_dumpSingleReg(debug_interface, "REG_CONTROL1          = ", REG_CONTROL1        );
+  debug_dumpSingleReg(debug_interface, "REG_CONTROL2          = ", REG_CONTROL2        );
+  debug_dumpSingleReg(debug_interface, "REG_CONTROL3          = ", REG_CONTROL3        );
+  debug_dumpSingleReg(debug_interface, "REG_CONTROL4          = ", REG_CONTROL4        );
+  debug_dumpSingleReg(debug_interface, "REG_CONTROL5          = ", REG_CONTROL5        );
+  debug_dumpSingleReg(debug_interface, "REG_OLP               = ", REG_OLP             );
+  debug_dumpSingleReg(debug_interface, "REG_VBATMONITOR       = ", REG_VBATMONITOR     );
+  debug_dumpSingleReg(debug_interface, "REG_LRARESPERIOD      = ", REG_LRARESPERIOD    );
+}
 
 /**************************************************************************************
  * PRIVATE MEMBER FUNCTIONS
@@ -219,14 +219,14 @@ bool DRV2605::writeSingleRegister(uint8_t const reg_addr, uint8_t const data)
   return true;
 }
 
-//void DRV2605::debug_dumpSingleReg(DebugInterface * debug_interface, char const * msg, eDRV2605RegisterSelect const reg_sel)
-//{
-//  uint8_t reg_content = 0;
-//
-//  readSingleRegister(reg_sel, &reg_content);
-//
-//  debug_interface->print("%s%X\n", msg, reg_content);
-//}
+void DRV2605::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, eDRV2605RegisterSelect const reg_sel)
+{
+  uint8_t reg_content = 0;
+
+  readSingleRegister(reg_sel, &reg_content);
+
+  debug_interface.print("%s%X\n", msg, reg_content);
+}
 
 /**************************************************************************************
  * NAMESPACE

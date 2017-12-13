@@ -25,10 +25,10 @@
 
 #include <stdint.h>
 
+#include <spectre/debug/interface/Debug.h>
+
 #include <spectre/hal/interface/delay/Delay.h>
 #include <spectre/hal/interface/i2c/I2CMaster.h>
-
-#include <spectre/driver/interface/debug/Debug.h>
 
 #include <spectre/driver/haptic/DRV2605/Constants.h>
 #include <spectre/driver/haptic/DRV2605/Interface.h>
@@ -77,7 +77,8 @@ public:
   virtual bool setWaveform        (eDRV2605WaveformSequencerSelect  const   sequencer, uint8_t const waveform ) override;
   virtual bool setActuator        (eDRV2605ActuatorSelect           const   actuator                          ) override;
 
-  //void debug_dumpAllRegs  (DebugInterface * debug_interface);
+
+          void debug_dumpAllRegs  (debug::interface::Debug                & debug_interface);
 
 private:
 
@@ -88,7 +89,7 @@ private:
   bool readSingleRegister   (uint8_t const reg_addr, uint8_t       * data);
   bool writeSingleRegister  (uint8_t const reg_addr, uint8_t const   data);
 
-  //void debug_dumpSingleReg  (DebugInterface * debug_interface, char const * msg, eDRV2605RegisterSelect const reg_sel);
+  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, char const * msg, eDRV2605RegisterSelect const reg_sel);
 
 };
 

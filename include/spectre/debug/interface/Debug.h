@@ -32,7 +32,7 @@
 namespace spectre
 {
 
-namespace driver
+namespace debug
 {
 
 namespace interface
@@ -60,7 +60,7 @@ public:
 
 } /* interface */
 
-} /* driver */
+} /* debug */
 
 } /* spectre */
 
