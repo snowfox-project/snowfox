@@ -22,9 +22,6 @@
 
 #include <spectre/hal/avr/ATMEGA328P/UART0.h>
 
-#include <avr/io.h>
-#include <avr/interrupt.h>
-
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -42,19 +39,37 @@ namespace ATMEGA328P
  * DEFINES
  **************************************************************************************/
 
-/* UXSR0C */
-#define U2X0_bm     (1<<U2X0)
+/* UXSR0A */
+#define MPCM0_bm    (1<<0)
+#define U2X0_bm     (1<<1)
+#define UPE0_bm     (1<<2)
+#define DOR0_bm     (1<<3)
+#define FE0_bm      (1<<4)
+#define UDRE0_bm    (1<<5)
+#define TXC0_bm     (1<<6)
+#define RXC0_bm     (1<<7)
 
 /* UXSR0B */
-#define RXCIE0_bm   (1<<RXCIE0)
-#define UDRIE0_bm   (1<<UDRIE0)
-#define RXEN0_bm    (1<<RXEN0)
-#define TXEN0_bm    (1<<TXEN0)
+#define TXB80_bm    (1<<0)
+#define RXB80_bm    (1<<1)
+#define UCSZ02_bm   (1<<2)
+#define TXEN0_bm    (1<<3)
+#define RXEN0_bm    (1<<4)
+#define UDRIE0_bm   (1<<5)
+#define TXCIE0_bm   (1<<6)
+#define RXCIE0_bm   (1<<7)
 
 /* UCSR0C */
-#define UPM01_bm    (1<<UPM01)
-#define UPM00_bm    (1<<UPM00)
-#define USBS0_bm    (1<<USBS0)
+#define UCPOL0_bm   (1<<0)
+#define UCSZ00_bm   (1<<1)
+#define UCPHA0_bm   (1<<1)
+#define UCSZ01_bm   (1<<2)
+#define UDORD0_bm   (1<<2)
+#define USBS0_bm    (1<<3)
+#define UPM00_bm    (1<<4)
+#define UPM01_bm    (1<<5)
+#define UMSEL00_bm  (1<<6)
+#define UMSEL01_bm  (1<<7)
 
 /**************************************************************************************
  * TYPEDEFS
@@ -73,44 +88,24 @@ static onTransmitCompleteCallback on_transmit_complete = 0;
 static onReceiveCompleteCallback  on_receive_complete  = 0;
 
 /**************************************************************************************
- * DEFINES
- **************************************************************************************/
-
-/* UXSR0C */
-#define U2X0_bm     (1<<U2X0)
-
-/* UXSR0B */
-#define RXCIE0_bm   (1<<RXCIE0)
-#define UDRIE0_bm   (1<<UDRIE0)
-#define RXEN0_bm    (1<<RXEN0)
-#define TXEN0_bm    (1<<TXEN0)
-
-/* UCSR0C */
-#define UPM01_bm    (1<<UPM01)
-#define UPM00_bm    (1<<UPM00)
-#define USBS0_bm    (1<<USBS0)
-
-/**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
-UART0::UART0() : UART0(&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0)
-{
-
-}
-
-UART0::UART0(volatile uint8_t * UDR0_, volatile uint8_t * UCSR0A_, volatile uint8_t * UCSR0B_, volatile uint8_t * UCSR0C_, volatile uint16_t * UBRR0_)
-: _UDR0                   (UDR0_  ),
-  _UCSR0A                 (UCSR0A_),
-  _UCSR0B                 (UCSR0B_),
-  _UCSR0C                 (UCSR0C_),
-  _UBRR0                  (UBRR0_ ),
-  _uart_callback_interface(0      )
+UART0::UART0(volatile uint8_t * UDR0, volatile uint8_t * UCSR0A, volatile uint8_t * UCSR0B, volatile uint8_t * UCSR0C, volatile uint16_t * UBRR0)
+: _UDR0                   (UDR0  ),
+  _UCSR0A                 (UCSR0A),
+  _UCSR0B                 (UCSR0B),
+  _UCSR0C                 (UCSR0C),
+  _UBRR0                  (UBRR0 ),
+  _uart_callback_interface(0     )
 {
   _this = this;
 
   on_transmit_complete = &UART0::onTransmitCompleteFunc;
   on_receive_complete  = &UART0::onReceiveCompleteFunc;
+
+  enableTransmit();
+  enableReceive ();
 }
 
 UART0::~UART0()
@@ -130,25 +125,6 @@ void UART0::transmit(uint8_t const data)
 void UART0::receive(uint8_t & data)
 {
   data = *_UDR0;
-}
-
-void UART0::enableTransmit()
-{
-  *_UCSR0B |= TXEN0_bm | UDRIE0_bm;
-}
-void UART0::disableTransmit()
-{
-  *_UCSR0B &= ~(TXEN0_bm | UDRIE0_bm);
-}
-
-void UART0::enableReceive()
-{
-  *_UCSR0B |= RXEN0_bm | RXCIE0_bm;
-}
-
-void UART0::disableReceive()
-{
-  *_UCSR0B &= ~(RXEN0_bm | RXCIE0_bm);
 }
 
 void UART0::setBaudRate(eBaudRate const baud_rate)
@@ -196,6 +172,16 @@ void UART0::registerUARTCallbackInterface(interface::UARTCallback * uart_callbac
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
+void UART0::enableTransmit()
+{
+  *_UCSR0B |= TXEN0_bm;
+}
+
+void UART0::enableReceive()
+{
+  *_UCSR0B |= RXEN0_bm;
+}
+
 uint16_t UART0::calcBaudRate(uint32_t const f_cpu, uint32_t const baud_rate)
 {
   return (static_cast<uint16_t>(f_cpu/(8*baud_rate)) - 1);
@@ -227,12 +213,12 @@ void UART0::onReceiveCompleteFunc(UART0 * _this)
 
 using namespace spectre::hal::ATMEGA328P;
 
-ISR(USART_UDRE_vect)
-{
-  if(on_transmit_complete && _this) on_transmit_complete(_this);
-}
-
-ISR(USART_RX_vect)
-{
-  if(on_receive_complete && _this) on_receive_complete(_this);
-}
+//ISR(USART_UDRE_vect)
+//{
+//  if(on_transmit_complete && _this) on_transmit_complete(_this);
+//}
+//
+//ISR(USART_RX_vect)
+//{
+//  if(on_receive_complete && _this) on_receive_complete(_this);
+//}

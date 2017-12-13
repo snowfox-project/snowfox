@@ -22,6 +22,8 @@
 
 #include "SystemBuilder.h"
 
+#include <avr/io.h>
+
 /**************************************************************************************
  * NAMESPACES
  **************************************************************************************/
@@ -33,6 +35,7 @@ using namespace spectre::hal;
  **************************************************************************************/
 
 SystemBuilder::SystemBuilder()
+: _uart0(&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0)
 {
   _uart0.setBaudRate                  (interface::UARTConfiguration::B115200);
   _uart0.setParity                    (interface::UARTConfiguration::None   );

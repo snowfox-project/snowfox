@@ -52,8 +52,7 @@ class UART0 : public interface::UART,
 
 public:
 
-           UART0();
-           UART0(volatile uint8_t * UDR0_, volatile uint8_t * UCSR0A_, volatile uint8_t * UCSR0B_, volatile uint8_t * UCSR0C_, volatile uint16_t * UBRR0_);
+           UART0(volatile uint8_t * UDR0, volatile uint8_t * UCSR0A, volatile uint8_t * UCSR0B, volatile uint8_t * UCSR0C, volatile uint16_t * UBRR0);
   virtual ~UART0();
 
 
@@ -62,12 +61,6 @@ public:
   virtual void transmit       (uint8_t const   data) override;
   virtual void receive        (uint8_t       & data) override;
   
-  virtual void enableTransmit (                    ) override;
-  virtual void disableTransmit(                    ) override;
-  virtual void enableReceive  (                    ) override;
-  virtual void disableReceive (                    ) override;
-
-
   /* UART Configuration Interface */
 
   virtual void setBaudRate  (eBaudRate const    baud_rate) override;
@@ -79,7 +72,6 @@ public:
 
   virtual void registerUARTCallbackInterface(interface::UARTCallback * uart_callback_interface) override;
 
-
 private:
 
   volatile uint8_t  * _UDR0,
@@ -90,7 +82,12 @@ private:
 
   interface::UARTCallback * _uart_callback_interface;
 
-  static uint16_t calcBaudRate(uint32_t const f_cpu, uint32_t const baud_rate);
+  /* Member functions */
+
+         void     enableTransmit();
+         void     enableReceive ();
+
+  static uint16_t calcBaudRate  (uint32_t const f_cpu, uint32_t const baud_rate);
 
   /* ISR Functions */
 
