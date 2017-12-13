@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/haptic/DRV2605.h>
+#include <spectre/driver/haptic/DRV2605/DRV2605.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -30,6 +30,9 @@ namespace spectre
 {
 
 namespace driver
+{
+
+namespace DRV2605
 {
 
 /**************************************************************************************
@@ -58,6 +61,16 @@ DRV2605::~DRV2605()
 /**************************************************************************************
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
+
+bool DRV2605::setGo()
+{
+  return writeSingleRegister(REG_GO, DRV2605_REG_GO_GO_bm);
+}
+
+bool DRV2605::clrGo()
+{
+  return writeSingleRegister(REG_GO, 0);
+}
 
 bool DRV2605::reset()
 {
@@ -109,16 +122,6 @@ bool DRV2605::setMode(eDRV2605ModeSelect const mode)
   if(!writeSingleRegister(REG_MODE, reg_mode_content)) return false;
 
   return true;
-}
-
-bool DRV2605::setGo()
-{
-  return writeSingleRegister(REG_GO, DRV2605_REG_GO_GO_bm);
-}
-
-bool DRV2605::clrGo()
-{
-  return writeSingleRegister(REG_GO, 0);
 }
 
 bool DRV2605::setWaveformLibrary(eDRV2605WaveformLibrarySelect const library)
@@ -228,6 +231,8 @@ bool DRV2605::writeSingleRegister(uint8_t const reg_addr, uint8_t const data)
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* DRV2605 */
 
 } /* driver */
 
