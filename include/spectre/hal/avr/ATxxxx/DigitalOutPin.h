@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_ATXXXX_DIGITALINPIN_H_
-#define INCLUDE_SPECTRE_HAL_AVR_ATXXXX_DIGITALINPIN_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_ATXXXX_DIGITALOUTPIN_H_
+#define INCLUDE_SPECTRE_HAL_AVR_ATXXXX_DIGITALOUTPIN_H_
 
 /**************************************************************************************
  * INCLUDES
@@ -25,8 +25,7 @@
 
 #include <stdint.h>
 
-#include <spectre/hal/interface/gpio/DigitalInPin.h>
-#include <spectre/hal/interface/gpio/DigitalInPinConfiguration.h>
+#include <spectre/hal/interface/gpio/DigitalOutPin.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -45,30 +44,27 @@ namespace ATxxxx
  * CLASS DECLARATION
  **************************************************************************************/
 
-class DigitalInPin : public interface::DigitalInPin,
-                     public interface::DigitalInPinConfiguration
+class DigitalOutPin : public interface::DigitalOutPin
 {
 
 public:
 
-           DigitalInPin(volatile uint8_t * ddr, volatile uint8_t * out, volatile uint8_t * pin, uint8_t const in_pin_number);
-  virtual ~DigitalInPin();
+           DigitalOutPin(volatile uint8_t * ddr, volatile uint8_t * out, uint8_t const out_pin_number);
+  virtual ~DigitalOutPin();
 
 
-  virtual bool isSet        (                                                                   ) override;
+  virtual void set() override;
+  virtual void clr() override;
 
-
-  virtual void setPullUpMode(interface::DigitalInPinConfiguration::ePullUpMode const pullup_mode) override;
 
 private:
 
   volatile uint8_t * _ddr,
-                   * _out,
-                   * _pin;
+                   * _out;
 
-  uint8_t            _in_pin_bitmask;
+  uint8_t            _out_pin_bitmask;
 
-  void setGpioAsInput();
+  void setGpioAsOutput();
 
 };
 
@@ -82,4 +78,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_ATXXXX_DIGITALINPIN_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_ATXXXX_DIGITALOUTPIN_H_ */

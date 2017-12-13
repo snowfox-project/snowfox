@@ -50,8 +50,8 @@ public:
            DigitalInPin() { }
   virtual ~DigitalInPin() { }
 
-  virtual bool isHigh() = 0;
-  inline  bool isLow () { return !isHigh(); }
+  virtual bool isSet() = 0;
+  inline  bool isClr() { return !isSet(); }
 
 };
 

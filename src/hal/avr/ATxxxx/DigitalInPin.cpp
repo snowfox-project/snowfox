@@ -57,11 +57,11 @@ DigitalInPin::~DigitalInPin()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool DigitalInPin::isHigh()
+bool DigitalInPin::isSet()
 {
-  bool const is_high = (*_pin & _in_pin_bitmask) != 0;
+  bool const is_set = (*_pin & _in_pin_bitmask) == _in_pin_bitmask;
 
-  return is_high;
+  return is_set;
 }
 
 void DigitalInPin::setPullUpMode(interface::DigitalInPinConfiguration::ePullUpMode const pullup_mode)
