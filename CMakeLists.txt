@@ -19,12 +19,12 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/lib)
 # CONFIGURATION ##########################################################
 ##########################################################################
 
-include(cmake/config.cmake)
+include(config.cmake)
 
 ##########################################################################
 
 if(${MCU_ARCH} STREQUAL "avr")
-  include(cmake/avr-gcc.cmake)
+  include(.cmake/avr-gcc.cmake)
 endif()
 
 ##########################################################################
