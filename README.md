@@ -5,9 +5,9 @@ Spectre = RTOS + HAL + IO + COMSTACK + C++
 Spectre consists of an Real Time Operating System + an Hardware Abstraction Layer for dedicated architectures + IO driver support for various sensors and actuators + various industrial communication stacks encapsulated in a comfortable, small and elegant C++ API. Additionally a continous integration approach is employed with integrated unit testing ensuring code quality and functionality.
 
 ## Supported Architectures
-| Architecture          | MCU               |
-| --------------------- |:-----------------:|
-| Atmel/Microchip AVR   | AVR               |
+| MCU                          | MCU_ARCH              | MCU_TYPE          |
+|:----------------------------:|:---------------------:|:-----------------:|
+| Atmel/Microchip ATMega328P   | avr                   | atmega328p        |
 
 ## Build
 ---
