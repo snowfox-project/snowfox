@@ -46,32 +46,32 @@ namespace ATMEGA328P
 namespace interrupt
 {
 
-static uint8_t const GLOBAL                         =  0;
-static uint8_t const EXTERNAL_INT0                  =  1;
-static uint8_t const EXTERNAL_INT1                  =  2;
-static uint8_t const PIN_CHANGE_INT0                =  3;
-static uint8_t const PIN_CHANGE_INT1                =  4;
-static uint8_t const PIN_CHANGE_INT2                =  5;
-static uint8_t const WATCHDOG_TIMER                 =  6;
-static uint8_t const TIMER2_COMPARE_A               =  7;
-static uint8_t const TIMER2_COMPARE_B               =  8;
-static uint8_t const TIMER2_OVERFLOW                =  9;
-static uint8_t const TIMER1_CAPTURE                 = 10;
-static uint8_t const TIMER1_COMPARE_A               = 11;
-static uint8_t const TIMER1_COMPARE_B               = 12;
-static uint8_t const TIMER1_OVERFLOW                = 13;
-static uint8_t const TIMER0_COMPARE_A               = 14;
-static uint8_t const TIMER0_COMPARE_B               = 15;
-static uint8_t const TIMER0_OVERFLOW                = 16;
-static uint8_t const SPI_SERIAL_TRANSFER_COMPLETE   = 17;
-static uint8_t const USART_RECEIVE_COMPLETE         = 18;
-static uint8_t const USART_UART_DATA_REGISTER_EMPTY = 19;
-static uint8_t const USART_TRANSMIT_COMPLETE        = 20;
-static uint8_t const ANALOG_DIGITAL_CONVERTER       = 21;
-static uint8_t const EEPROM_READY                   = 22;
-static uint8_t const ANALOG_COMPARATOR              = 23;
-static uint8_t const TWO_WIRE_INT                   = 24;
-static uint8_t const SPM_READY                      = 25;
+static uint8_t const EXTERNAL_INT0                  =  0;
+static uint8_t const EXTERNAL_INT1                  =  1;
+static uint8_t const PIN_CHANGE_INT0                =  2;
+static uint8_t const PIN_CHANGE_INT1                =  3;
+static uint8_t const PIN_CHANGE_INT2                =  4;
+static uint8_t const WATCHDOG_TIMER                 =  5;
+static uint8_t const TIMER2_COMPARE_A               =  6;
+static uint8_t const TIMER2_COMPARE_B               =  7;
+static uint8_t const TIMER2_OVERFLOW                =  8;
+static uint8_t const TIMER1_CAPTURE                 =  9;
+static uint8_t const TIMER1_COMPARE_A               = 10;
+static uint8_t const TIMER1_COMPARE_B               = 11;
+static uint8_t const TIMER1_OVERFLOW                = 12;
+static uint8_t const TIMER0_COMPARE_A               = 13;
+static uint8_t const TIMER0_COMPARE_B               = 14;
+static uint8_t const TIMER0_OVERFLOW                = 15;
+static uint8_t const SPI_SERIAL_TRANSFER_COMPLETE   = 16;
+static uint8_t const USART_RECEIVE_COMPLETE         = 17;
+static uint8_t const USART_UART_DATA_REGISTER_EMPTY = 18;
+static uint8_t const USART_TRANSMIT_COMPLETE        = 19;
+static uint8_t const ANALOG_DIGITAL_CONVERTER       = 20;
+static uint8_t const EEPROM_READY                   = 21;
+static uint8_t const ANALOG_COMPARATOR              = 22;
+static uint8_t const TWO_WIRE_INT                   = 23;
+static uint8_t const SPM_READY                      = 24;
+static uint8_t const GLOBAL                         = 25;
 
 } /* interrupt */
 
@@ -98,6 +98,12 @@ public:
   /* Interrupt Controller Assembly Interface */
 
   virtual void registerInterruptCallback(uint8_t const int_num, InterruptCallbackFunc callback) override;
+
+private:
+
+  static uint8_t constexpr NUMBER_OF_INTERRUPT_SERVICE_ROUTINES = 25;
+
+  InterruptCallbackFunc _interrupt_callback_func_array[NUMBER_OF_INTERRUPT_SERVICE_ROUTINES];
 
 };
 

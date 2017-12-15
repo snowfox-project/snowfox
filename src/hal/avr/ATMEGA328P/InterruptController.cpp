@@ -39,12 +39,20 @@ namespace ATMEGA328P
 {
 
 /**************************************************************************************
+ * GLOBAL VARIABLES
+ **************************************************************************************/
+
+static InterruptController * _this = 0;
+
+/**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
 InterruptController::InterruptController()
 {
+  _this = this;
 
+  for(uint8_t i = 0; i < NUMBER_OF_INTERRUPT_SERVICE_ROUTINES; i++) { _interrupt_callback_func_array[i] = 0; }
 }
 
 InterruptController::~InterruptController()
@@ -60,7 +68,6 @@ void InterruptController::enableInterrupt(uint8_t const int_num)
 {
   switch(int_num)
   {
-  case interrupt::GLOBAL                         : sei(); break;
   case interrupt::EXTERNAL_INT0                  : break;
   case interrupt::EXTERNAL_INT1                  : break;
   case interrupt::PIN_CHANGE_INT0                : break;
@@ -86,6 +93,7 @@ void InterruptController::enableInterrupt(uint8_t const int_num)
   case interrupt::ANALOG_COMPARATOR              : break;
   case interrupt::TWO_WIRE_INT                   : break;
   case interrupt::SPM_READY                      : break;
+  case interrupt::GLOBAL                         : sei(); break;
   }
 }
 
@@ -93,7 +101,6 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
 {
   switch(int_num)
   {
-  case interrupt::GLOBAL                         : cli(); break;
   case interrupt::EXTERNAL_INT0                  : break;
   case interrupt::EXTERNAL_INT1                  : break;
   case interrupt::PIN_CHANGE_INT0                : break;
@@ -119,6 +126,7 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
   case interrupt::ANALOG_COMPARATOR              : break;
   case interrupt::TWO_WIRE_INT                   : break;
   case interrupt::SPM_READY                      : break;
+  case interrupt::GLOBAL                         : cli(); break;
   }
 }
 
@@ -126,7 +134,6 @@ void InterruptController::registerInterruptCallback(uint8_t const int_num, Inter
 {
   switch(int_num)
   {
-  case interrupt::GLOBAL                         : break;
   case interrupt::EXTERNAL_INT0                  : break;
   case interrupt::EXTERNAL_INT1                  : break;
   case interrupt::PIN_CHANGE_INT0                : break;
@@ -152,6 +159,7 @@ void InterruptController::registerInterruptCallback(uint8_t const int_num, Inter
   case interrupt::ANALOG_COMPARATOR              : break;
   case interrupt::TWO_WIRE_INT                   : break;
   case interrupt::SPM_READY                      : break;
+  case interrupt::GLOBAL                         : break;
   }
 }
 
@@ -170,6 +178,8 @@ void InterruptController::registerInterruptCallback(uint8_t const int_num, Inter
  **************************************************************************************/
 
 #if (MCU_TYPE == atmega328p)
+
+using namespace spectre::hal::ATMEGA328P;
 
 ISR(INT0_vect)
 {
