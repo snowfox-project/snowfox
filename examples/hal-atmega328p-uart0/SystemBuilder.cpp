@@ -45,11 +45,20 @@ SystemBuilder::SystemBuilder()
 
   _uart0.registerUARTCallbackInterface(&_uart_task_input_handler                   );
 
+
   _interrupt_controller.registerISR   (ATMEGA328P::USART_UART_DATA_REGISTER_EMPTY,
-                                       ATMEGA328P::UART0::ISR_onTransmitRegisterEmpty, &_uart0);
+                                       ATMEGA328P::UART0::ISR_onTransmitRegisterEmpty,
+                                       &_uart0);
 
   _interrupt_controller.registerISR   (ATMEGA328P::USART_RECEIVE_COMPLETE,
-                                       ATMEGA328P::UART0::ISR_onReceiveComplete, &_uart0);
+                                       ATMEGA328P::UART0::ISR_onReceiveComplete,
+                                       &_uart0);
+
+  _interrupt_controller.enableInterrupt(ATMEGA328P::USART_UART_DATA_REGISTER_EMPTY);
+  _interrupt_controller.enableInterrupt(ATMEGA328P::USART_RECEIVE_COMPLETE        );
+
+  /* Configure Interrupt Controller */
+
 
   _interrupt_controller.enableInterrupt(ATMEGA328P::GLOBAL);
 }
