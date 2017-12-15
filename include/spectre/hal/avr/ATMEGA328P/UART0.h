@@ -52,25 +52,34 @@ class UART0 : public interface::UART,
 
 public:
 
+
            UART0(volatile uint8_t * UDR0, volatile uint8_t * UCSR0A, volatile uint8_t * UCSR0B, volatile uint8_t * UCSR0C, volatile uint16_t * UBRR0);
   virtual ~UART0();
 
 
   /* UART Interface */
 
-  virtual void transmit       (uint8_t const   data) override;
-  virtual void receive        (uint8_t       & data) override;
+  virtual void transmit     (uint8_t const   data) override;
+  virtual void receive      (uint8_t       & data) override;
   
   /* UART Configuration Interface */
 
-  virtual void setBaudRate  (eBaudRate const    baud_rate) override;
-  virtual void setParity    (eParity   const    parity   ) override;
-  virtual void setStopBit   (eStopBit  const    stop_bit ) override;
-
+  virtual void setBaudRate  (eBaudRate const    baud_rate, uint32_t const f_cpu) override;
+  virtual void setParity    (eParity   const    parity                         ) override;
+  virtual void setStopBit   (eStopBit  const    stop_bit                       ) override;
 
   /* UART Assembly */
 
   virtual void registerUARTCallbackInterface(interface::UARTCallback * uart_callback_interface) override;
+
+  /* Functions to be called upon execution of a interrupt service routine */
+
+  static void ISR_onTransmitRegisterEmpty(void * arg);
+  static void ISR_onReceiveComplete      (void * arg);
+
+         void ISR_onTransmitRegisterEmpty();
+         void ISR_onReceiveComplete      ();
+
 
 private:
 
@@ -88,11 +97,6 @@ private:
          void     enableReceive ();
 
   static uint16_t calcBaudRate  (uint32_t const f_cpu, uint32_t const baud_rate);
-
-  /* ISR Functions */
-
-  static void onTransmitCompleteFunc(UART0 * _this);
-  static void onReceiveCompleteFunc (UART0 * _this);
 
 };
 

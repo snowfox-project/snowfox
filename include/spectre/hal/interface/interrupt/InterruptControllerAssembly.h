@@ -39,6 +39,13 @@ namespace interface
 {
 
 /**************************************************************************************
+ * TYPEDEFS
+ **************************************************************************************/
+
+typedef void (*InterruptCallbackFunc)(void *);
+typedef void * InterruptCallbackArg;
+
+/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
@@ -50,10 +57,9 @@ public:
            InterruptControllerAssembly() { }
   virtual ~InterruptControllerAssembly() { }
 
-
-  typedef void (*InterruptCallbackFunc)(void *);
-
-  virtual void registerInterruptCallback(uint8_t const int_num, InterruptCallbackFunc callback) = 0;
+  virtual void registerInterruptCallback(uint8_t               const int_num,
+                                         InterruptCallbackFunc       callback_func,
+                                         InterruptCallbackArg        callback_arg) = 0;
 
 };
 

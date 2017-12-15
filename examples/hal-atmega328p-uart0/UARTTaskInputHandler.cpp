@@ -40,7 +40,7 @@ UARTTaskInputHandler::~UARTTaskInputHandler()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void UARTTaskInputHandler::onTransmitCompleteCallback()
+void UARTTaskInputHandler::onTransmitRegisterEmptyCallback()
 {
   /* TODO */
 }

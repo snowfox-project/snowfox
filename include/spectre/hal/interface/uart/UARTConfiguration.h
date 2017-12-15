@@ -70,9 +70,9 @@ public:
   virtual ~UARTConfiguration() { }
 
 
-  virtual void setBaudRate  (eBaudRate const baud_rate) = 0;
-  virtual void setParity    (eParity   const parity   ) = 0;
-  virtual void setStopBit   (eStopBit  const stop_bit ) = 0;
+  virtual void setBaudRate  (eBaudRate const baud_rate, uint32_t const f_cpu) = 0;
+  virtual void setParity    (eParity   const parity                         ) = 0;
+  virtual void setStopBit   (eStopBit  const stop_bit                       ) = 0;
   
 };
 

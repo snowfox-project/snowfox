@@ -43,9 +43,6 @@ namespace ATMEGA328P
  * CONSTANTS
  **************************************************************************************/
 
-namespace interrupt
-{
-
 static uint8_t const EXTERNAL_INT0                  =  0;
 static uint8_t const EXTERNAL_INT1                  =  1;
 static uint8_t const PIN_CHANGE_INT0                =  2;
@@ -73,8 +70,6 @@ static uint8_t const TWO_WIRE_INT                   = 23;
 static uint8_t const SPM_READY                      = 24;
 static uint8_t const GLOBAL                         = 25;
 
-} /* interrupt */
-
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
@@ -97,7 +92,9 @@ public:
 
   /* Interrupt Controller Assembly Interface */
 
-  virtual void registerInterruptCallback(uint8_t const int_num, InterruptCallbackFunc callback) override;
+  virtual void registerInterruptCallback(uint8_t                          const   int_num,
+                                         interface::InterruptCallbackFunc         callback_func,
+                                         interface::InterruptCallbackArg          callback_arg) override;
 
 };
 

@@ -22,6 +22,8 @@
 
 #include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
 
+#include <assert.h>
+
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
@@ -50,8 +52,8 @@ static uint8_t constexpr NUMBER_OF_INTERRUPT_SERVICE_ROUTINES = 25;
 
 typedef struct
 {
-  interface::InterruptControllerAssembly::InterruptCallbackFunc   callback;
-  void                                                          * callback_arg;
+  interface::InterruptCallbackFunc callback_func;
+  interface::InterruptCallbackArg  callback_arg;
 } InterruptCallbackArrayEntry;
 
 /**************************************************************************************
@@ -71,8 +73,8 @@ InterruptController::InterruptController()
 
   for(uint8_t i = 0; i < NUMBER_OF_INTERRUPT_SERVICE_ROUTINES; i++)
   {
-    _interrupt_callback_array[i].callback     = 0;
-    _interrupt_callback_array[i].callback_arg = 0;
+    _interrupt_callback_array[i].callback_func = 0;
+    _interrupt_callback_array[i].callback_arg  = 0;
   }
 }
 
@@ -89,32 +91,32 @@ void InterruptController::enableInterrupt(uint8_t const int_num)
 {
   switch(int_num)
   {
-  case interrupt::EXTERNAL_INT0                  : break;
-  case interrupt::EXTERNAL_INT1                  : break;
-  case interrupt::PIN_CHANGE_INT0                : break;
-  case interrupt::PIN_CHANGE_INT1                : break;
-  case interrupt::PIN_CHANGE_INT2                : break;
-  case interrupt::WATCHDOG_TIMER                 : break;
-  case interrupt::TIMER2_COMPARE_A               : break;
-  case interrupt::TIMER2_COMPARE_B               : break;
-  case interrupt::TIMER2_OVERFLOW                : break;
-  case interrupt::TIMER1_CAPTURE                 : break;
-  case interrupt::TIMER1_COMPARE_A               : break;
-  case interrupt::TIMER1_COMPARE_B               : break;
-  case interrupt::TIMER1_OVERFLOW                : break;
-  case interrupt::TIMER0_COMPARE_A               : break;
-  case interrupt::TIMER0_COMPARE_B               : break;
-  case interrupt::TIMER0_OVERFLOW                : break;
-  case interrupt::SPI_SERIAL_TRANSFER_COMPLETE   : break;
-  case interrupt::USART_RECEIVE_COMPLETE         : break;
-  case interrupt::USART_UART_DATA_REGISTER_EMPTY : break;
-  case interrupt::USART_TRANSMIT_COMPLETE        : break;
-  case interrupt::ANALOG_DIGITAL_CONVERTER       : break;
-  case interrupt::EEPROM_READY                   : break;
-  case interrupt::ANALOG_COMPARATOR              : break;
-  case interrupt::TWO_WIRE_INT                   : break;
-  case interrupt::SPM_READY                      : break;
-  case interrupt::GLOBAL                         : sei(); break;
+  case EXTERNAL_INT0                  : break;
+  case EXTERNAL_INT1                  : break;
+  case PIN_CHANGE_INT0                : break;
+  case PIN_CHANGE_INT1                : break;
+  case PIN_CHANGE_INT2                : break;
+  case WATCHDOG_TIMER                 : break;
+  case TIMER2_COMPARE_A               : break;
+  case TIMER2_COMPARE_B               : break;
+  case TIMER2_OVERFLOW                : break;
+  case TIMER1_CAPTURE                 : break;
+  case TIMER1_COMPARE_A               : break;
+  case TIMER1_COMPARE_B               : break;
+  case TIMER1_OVERFLOW                : break;
+  case TIMER0_COMPARE_A               : break;
+  case TIMER0_COMPARE_B               : break;
+  case TIMER0_OVERFLOW                : break;
+  case SPI_SERIAL_TRANSFER_COMPLETE   : break;
+  case USART_RECEIVE_COMPLETE         : break;
+  case USART_UART_DATA_REGISTER_EMPTY : break;
+  case USART_TRANSMIT_COMPLETE        : break;
+  case ANALOG_DIGITAL_CONVERTER       : break;
+  case EEPROM_READY                   : break;
+  case ANALOG_COMPARATOR              : break;
+  case TWO_WIRE_INT                   : break;
+  case SPM_READY                      : break;
+  case GLOBAL                         : sei(); break;
   }
 }
 
@@ -122,66 +124,41 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
 {
   switch(int_num)
   {
-  case interrupt::EXTERNAL_INT0                  : break;
-  case interrupt::EXTERNAL_INT1                  : break;
-  case interrupt::PIN_CHANGE_INT0                : break;
-  case interrupt::PIN_CHANGE_INT1                : break;
-  case interrupt::PIN_CHANGE_INT2                : break;
-  case interrupt::WATCHDOG_TIMER                 : break;
-  case interrupt::TIMER2_COMPARE_A               : break;
-  case interrupt::TIMER2_COMPARE_B               : break;
-  case interrupt::TIMER2_OVERFLOW                : break;
-  case interrupt::TIMER1_CAPTURE                 : break;
-  case interrupt::TIMER1_COMPARE_A               : break;
-  case interrupt::TIMER1_COMPARE_B               : break;
-  case interrupt::TIMER1_OVERFLOW                : break;
-  case interrupt::TIMER0_COMPARE_A               : break;
-  case interrupt::TIMER0_COMPARE_B               : break;
-  case interrupt::TIMER0_OVERFLOW                : break;
-  case interrupt::SPI_SERIAL_TRANSFER_COMPLETE   : break;
-  case interrupt::USART_RECEIVE_COMPLETE         : break;
-  case interrupt::USART_UART_DATA_REGISTER_EMPTY : break;
-  case interrupt::USART_TRANSMIT_COMPLETE        : break;
-  case interrupt::ANALOG_DIGITAL_CONVERTER       : break;
-  case interrupt::EEPROM_READY                   : break;
-  case interrupt::ANALOG_COMPARATOR              : break;
-  case interrupt::TWO_WIRE_INT                   : break;
-  case interrupt::SPM_READY                      : break;
-  case interrupt::GLOBAL                         : cli(); break;
+  case EXTERNAL_INT0                  : break;
+  case EXTERNAL_INT1                  : break;
+  case PIN_CHANGE_INT0                : break;
+  case PIN_CHANGE_INT1                : break;
+  case PIN_CHANGE_INT2                : break;
+  case WATCHDOG_TIMER                 : break;
+  case TIMER2_COMPARE_A               : break;
+  case TIMER2_COMPARE_B               : break;
+  case TIMER2_OVERFLOW                : break;
+  case TIMER1_CAPTURE                 : break;
+  case TIMER1_COMPARE_A               : break;
+  case TIMER1_COMPARE_B               : break;
+  case TIMER1_OVERFLOW                : break;
+  case TIMER0_COMPARE_A               : break;
+  case TIMER0_COMPARE_B               : break;
+  case TIMER0_OVERFLOW                : break;
+  case SPI_SERIAL_TRANSFER_COMPLETE   : break;
+  case USART_RECEIVE_COMPLETE         : break;
+  case USART_UART_DATA_REGISTER_EMPTY : break;
+  case USART_TRANSMIT_COMPLETE        : break;
+  case ANALOG_DIGITAL_CONVERTER       : break;
+  case EEPROM_READY                   : break;
+  case ANALOG_COMPARATOR              : break;
+  case TWO_WIRE_INT                   : break;
+  case SPM_READY                      : break;
+  case GLOBAL                         : cli(); break;
   }
 }
 
-void InterruptController::registerInterruptCallback(uint8_t const int_num, InterruptCallbackFunc callback)
+void InterruptController::registerInterruptCallback(uint8_t const int_num, interface::InterruptCallbackFunc callback_func, interface::InterruptCallbackArg callback_arg)
 {
-  switch(int_num)
-  {
-  case interrupt::EXTERNAL_INT0                  : break;
-  case interrupt::EXTERNAL_INT1                  : break;
-  case interrupt::PIN_CHANGE_INT0                : break;
-  case interrupt::PIN_CHANGE_INT1                : break;
-  case interrupt::PIN_CHANGE_INT2                : break;
-  case interrupt::WATCHDOG_TIMER                 : break;
-  case interrupt::TIMER2_COMPARE_A               : break;
-  case interrupt::TIMER2_COMPARE_B               : break;
-  case interrupt::TIMER2_OVERFLOW                : break;
-  case interrupt::TIMER1_CAPTURE                 : break;
-  case interrupt::TIMER1_COMPARE_A               : break;
-  case interrupt::TIMER1_COMPARE_B               : break;
-  case interrupt::TIMER1_OVERFLOW                : break;
-  case interrupt::TIMER0_COMPARE_A               : break;
-  case interrupt::TIMER0_COMPARE_B               : break;
-  case interrupt::TIMER0_OVERFLOW                : break;
-  case interrupt::SPI_SERIAL_TRANSFER_COMPLETE   : break;
-  case interrupt::USART_RECEIVE_COMPLETE         : break;
-  case interrupt::USART_UART_DATA_REGISTER_EMPTY : break;
-  case interrupt::USART_TRANSMIT_COMPLETE        : break;
-  case interrupt::ANALOG_DIGITAL_CONVERTER       : break;
-  case interrupt::EEPROM_READY                   : break;
-  case interrupt::ANALOG_COMPARATOR              : break;
-  case interrupt::TWO_WIRE_INT                   : break;
-  case interrupt::SPM_READY                      : break;
-  case interrupt::GLOBAL                         : break;
-  }
+  assert(int_num < NUMBER_OF_INTERRUPT_SERVICE_ROUTINES);
+
+  _interrupt_callback_array[int_num].callback_func = callback_func;
+  _interrupt_callback_array[int_num].callback_arg  = callback_arg;
 }
 
 /**************************************************************************************
@@ -200,14 +177,15 @@ void InterruptController::registerInterruptCallback(uint8_t const int_num, Inter
 
 #if (MCU_TYPE == atmega328p)
 
+using namespace spectre::hal::interface;
 using namespace spectre::hal::ATMEGA328P;
 
 ISR(INT0_vect)
 {
-  spectre::hal::interface::InterruptControllerAssembly::InterruptCallbackFunc   callback     = _interrupt_callback_array[interrupt::EXTERNAL_INT0].callback;
-  void                                                                        * callback_arg = _interrupt_callback_array[interrupt::EXTERNAL_INT0].callback_arg;
+  InterruptCallbackFunc callback_func = _interrupt_callback_array[EXTERNAL_INT0].callback_func;
+  InterruptCallbackArg  callback_arg  = _interrupt_callback_array[EXTERNAL_INT0].callback_arg;
 
-  if(callback) callback(callback_arg);
+  if(callback_func) callback_func(callback_arg);
 }
 
 ISR(INT1_vect)

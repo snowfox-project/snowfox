@@ -72,22 +72,6 @@ namespace ATMEGA328P
 #define UMSEL01_bm  (1<<7)
 
 /**************************************************************************************
- * TYPEDEFS
- **************************************************************************************/
-
-typedef void(*onTransmitCompleteCallback)(UART0 * _this);
-typedef void(*onReceiveCompleteCallback )(UART0 * _this);
-
-/**************************************************************************************
- * GLOBAL VARIABLES
- **************************************************************************************/
-
-static UART0 * _this = 0;
-
-static onTransmitCompleteCallback on_transmit_complete = 0;
-static onReceiveCompleteCallback  on_receive_complete  = 0;
-
-/**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
@@ -99,11 +83,6 @@ UART0::UART0(volatile uint8_t * UDR0, volatile uint8_t * UCSR0A, volatile uint8_
   _UBRR0                  (UBRR0 ),
   _uart_callback_interface(0     )
 {
-  _this = this;
-
-  on_transmit_complete = &UART0::onTransmitCompleteFunc;
-  on_receive_complete  = &UART0::onReceiveCompleteFunc;
-
   enableTransmit();
   enableReceive ();
 }
@@ -127,13 +106,13 @@ void UART0::receive(uint8_t & data)
   data = *_UDR0;
 }
 
-void UART0::setBaudRate(eBaudRate const baud_rate)
+void UART0::setBaudRate(eBaudRate const baud_rate, uint32_t const f_cpu)
 {
   *_UCSR0A |= U2X0_bm;
 
   switch(baud_rate)
   {
-  case B115200: *_UBRR0 = calcBaudRate(F_CPU, 115200);  break;
+  case B115200: *_UBRR0 = calcBaudRate(f_cpu, 115200);  break;
   default:                                              break;
   }
 }
@@ -168,6 +147,26 @@ void UART0::registerUARTCallbackInterface(interface::UARTCallback * uart_callbac
   _uart_callback_interface = uart_callback_interface;
 }
 
+void UART0::ISR_onTransmitRegisterEmpty(void * arg)
+{
+  reinterpret_cast<UART0 *>(arg)->ISR_onTransmitRegisterEmpty();
+}
+
+void UART0::ISR_onReceiveComplete (void * arg)
+{
+  reinterpret_cast<UART0 *>(arg)->ISR_onReceiveComplete();
+}
+
+void UART0::ISR_onTransmitRegisterEmpty()
+{
+  if(_uart_callback_interface) _uart_callback_interface->onReceiveCompleteCallback();
+}
+
+void UART0::ISR_onReceiveComplete()
+{
+  if(_uart_callback_interface) _uart_callback_interface->onReceiveCompleteCallback();
+}
+
 /**************************************************************************************
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
@@ -187,16 +186,6 @@ uint16_t UART0::calcBaudRate(uint32_t const f_cpu, uint32_t const baud_rate)
   return (static_cast<uint16_t>(f_cpu/(8*baud_rate)) - 1);
 }
 
-void UART0::onTransmitCompleteFunc(UART0 * _this)
-{
-  _this->_uart_callback_interface->onTransmitCompleteCallback();
-}
-
-void UART0::onReceiveCompleteFunc(UART0 * _this)
-{
-  _this->_uart_callback_interface->onReceiveCompleteCallback();
-}
-
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -206,19 +195,3 @@ void UART0::onReceiveCompleteFunc(UART0 * _this)
 } /* hal */
 
 } /* spectre */
-
-/**************************************************************************************
- * ISR
- **************************************************************************************/
-
-using namespace spectre::hal::ATMEGA328P;
-
-//ISR(USART_UDRE_vect)
-//{
-//  if(on_transmit_complete && _this) on_transmit_complete(_this);
-//}
-//
-//ISR(USART_RX_vect)
-//{
-//  if(on_receive_complete && _this) on_receive_complete(_this);
-//}

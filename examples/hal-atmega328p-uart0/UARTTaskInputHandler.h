@@ -38,8 +38,8 @@ public:
   virtual ~UARTTaskInputHandler();
 
 
-  virtual void onTransmitCompleteCallback() override;
-  virtual void onReceiveCompleteCallback () override;
+  virtual void onTransmitRegisterEmptyCallback() override;
+  virtual void onReceiveCompleteCallback      () override;
 
 };
 

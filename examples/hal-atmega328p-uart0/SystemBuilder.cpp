@@ -37,11 +37,19 @@ using namespace spectre::hal;
 SystemBuilder::SystemBuilder()
 : _uart0(&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0)
 {
-  _uart0.setBaudRate                  (interface::UARTConfiguration::B115200);
-  _uart0.setParity                    (interface::UARTConfiguration::None   );
-  _uart0.setStopBit                   (interface::UARTConfiguration::_1     );
+  /* Configure UART0 */
 
-  _uart0.registerUARTCallbackInterface(&_uart_task_input_handler            );
+  _uart0.setBaudRate                  (interface::UARTConfiguration::B115200, F_CPU);
+  _uart0.setParity                    (interface::UARTConfiguration::None          );
+  _uart0.setStopBit                   (interface::UARTConfiguration::_1            );
 
-  _interrupt_controller.enableInterrupt(ATMEGA328P::interrupt::GLOBAL);
+  _uart0.registerUARTCallbackInterface(&_uart_task_input_handler                   );
+
+  _interrupt_controller.registerInterruptCallback(ATMEGA328P::USART_UART_DATA_REGISTER_EMPTY,
+                                                  ATMEGA328P::UART0::ISR_onTransmitRegisterEmpty, &_uart0);
+
+  _interrupt_controller.registerInterruptCallback(ATMEGA328P::USART_RECEIVE_COMPLETE,
+                                                  ATMEGA328P::UART0::ISR_onReceiveComplete, &_uart0);
+
+  _interrupt_controller.enableInterrupt(ATMEGA328P::GLOBAL);
 }
