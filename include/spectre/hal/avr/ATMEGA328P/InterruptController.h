@@ -92,9 +92,9 @@ public:
 
   /* Interrupt Controller Assembly Interface */
 
-  virtual void registerInterruptCallback(uint8_t                          const   int_num,
-                                         interface::InterruptCallbackFunc         callback_func,
-                                         interface::InterruptCallbackArg          callback_arg) override;
+  virtual void registerISR(uint8_t            const int_num,
+                           interface::ISRFunc       isr_func,
+                           interface::ISRArg        isr_arg) override;
 
 };
 

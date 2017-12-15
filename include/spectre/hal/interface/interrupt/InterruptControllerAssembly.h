@@ -42,8 +42,8 @@ namespace interface
  * TYPEDEFS
  **************************************************************************************/
 
-typedef void (*InterruptCallbackFunc)(void *);
-typedef void * InterruptCallbackArg;
+typedef void (*ISRFunc)(void *);
+typedef void * ISRArg;
 
 /**************************************************************************************
  * CLASS DECLARATION
@@ -57,9 +57,9 @@ public:
            InterruptControllerAssembly() { }
   virtual ~InterruptControllerAssembly() { }
 
-  virtual void registerInterruptCallback(uint8_t               const int_num,
-                                         InterruptCallbackFunc       callback_func,
-                                         InterruptCallbackArg        callback_arg) = 0;
+  virtual void registerISR(uint8_t const int_num,
+                           ISRFunc       isr_func,
+                           ISRArg        isr_arg) = 0;
 
 };
 
