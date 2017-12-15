@@ -169,6 +169,8 @@ void InterruptController::registerInterruptCallback(uint8_t const int_num, Inter
  * INTERRUPT SERVICE ROUTINES
  **************************************************************************************/
 
+#if (MCU_TYPE == atmega328p)
+
 ISR(INT0_vect)
 {
 
@@ -293,3 +295,5 @@ ISR(SPM_READY_vect)
 {
 
 }
+
+#endif
