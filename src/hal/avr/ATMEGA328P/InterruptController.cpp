@@ -180,6 +180,8 @@ void InterruptController::registerISR(uint8_t const int_num, interface::ISRFunc 
 using namespace spectre::hal::interface;
 using namespace spectre::hal::ATMEGA328P;
 
+/**************************************************************************************/
+
 ISR(INT0_vect)
 {
   ISRFunc isr_func = _interrupt_callback_array[EXTERNAL_INT0].isr_func;
@@ -188,124 +190,245 @@ ISR(INT0_vect)
   if(isr_func) isr_func(isr_arg);
 }
 
+/**************************************************************************************/
+
 ISR(INT1_vect)
 {
+  ISRFunc isr_func = _interrupt_callback_array[EXTERNAL_INT1].isr_func;
+  ISRArg  isr_arg  = _interrupt_callback_array[EXTERNAL_INT1].isr_arg;
 
+  if(isr_func) isr_func(isr_arg);
 }
+
+/**************************************************************************************/
 
 ISR(PCINT0_vect)
 {
+  ISRFunc isr_func = _interrupt_callback_array[PIN_CHANGE_INT0].isr_func;
+  ISRArg  isr_arg  = _interrupt_callback_array[PIN_CHANGE_INT0].isr_arg;
 
+  if(isr_func) isr_func(isr_arg);
 }
+
+/**************************************************************************************/
 
 ISR(PCINT1_vect)
 {
+  ISRFunc isr_func = _interrupt_callback_array[PIN_CHANGE_INT1].isr_func;
+  ISRArg  isr_arg  = _interrupt_callback_array[PIN_CHANGE_INT1].isr_arg;
 
+  if(isr_func) isr_func(isr_arg);
 }
+
+/**************************************************************************************/
 
 ISR(PCINT2_vect)
 {
+  ISRFunc isr_func = _interrupt_callback_array[PIN_CHANGE_INT2].isr_func;
+  ISRArg  isr_arg  = _interrupt_callback_array[PIN_CHANGE_INT2].isr_arg;
 
+  if(isr_func) isr_func(isr_arg);
 }
+
+/**************************************************************************************/
 
 ISR(WDT_vect)
 {
+  ISRFunc isr_func = _interrupt_callback_array[WATCHDOG_TIMER].isr_func;
+  ISRArg  isr_arg  = _interrupt_callback_array[WATCHDOG_TIMER].isr_arg;
 
+  if(isr_func) isr_func(isr_arg);
 }
+
+/**************************************************************************************/
 
 ISR(TIMER2_COMPA_vect)
 {
+  ISRFunc isr_func = _interrupt_callback_array[TIMER2_COMPARE_A].isr_func;
+  ISRArg  isr_arg  = _interrupt_callback_array[TIMER2_COMPARE_A].isr_arg;
 
+  if(isr_func) isr_func(isr_arg);
 }
+
+/**************************************************************************************/
 
 ISR(TIMER2_COMPB_vect)
 {
+  ISRFunc isr_func = _interrupt_callback_array[TIMER2_COMPARE_B].isr_func;
+  ISRArg  isr_arg  = _interrupt_callback_array[TIMER2_COMPARE_B].isr_arg;
 
+  if(isr_func) isr_func(isr_arg);
 }
+
+/**************************************************************************************/
 
 ISR(TIMER2_OVF_vect)
 {
+  ISRFunc isr_func = _interrupt_callback_array[TIMER2_OVERFLOW].isr_func;
+  ISRArg  isr_arg  = _interrupt_callback_array[TIMER2_OVERFLOW].isr_arg;
 
+  if(isr_func) isr_func(isr_arg);
 }
 
+/**************************************************************************************/
 ISR(TIMER1_CAPT_vect)
 {
+  ISRFunc isr_func = _interrupt_callback_array[TIMER1_CAPTURE].isr_func;
+  ISRArg  isr_arg  = _interrupt_callback_array[TIMER1_CAPTURE].isr_arg;
 
+  if(isr_func) isr_func(isr_arg);
 }
+
+/**************************************************************************************/
 
 ISR(TIMER1_COMPA_vect)
 {
+  ISRFunc isr_func = _interrupt_callback_array[TIMER1_COMPARE_A].isr_func;
+  ISRArg  isr_arg  = _interrupt_callback_array[TIMER1_COMPARE_A].isr_arg;
 
+  if(isr_func) isr_func(isr_arg);
 }
+
+/**************************************************************************************/
 
 ISR(TIMER1_COMPB_vect)
 {
+  ISRFunc isr_func = _interrupt_callback_array[TIMER1_COMPARE_B].isr_func;
+  ISRArg  isr_arg  = _interrupt_callback_array[TIMER1_COMPARE_B].isr_arg;
 
+  if(isr_func) isr_func(isr_arg);
 }
+
+/**************************************************************************************/
 
 ISR(TIMER1_OVF_vect)
 {
+  ISRFunc isr_func = _interrupt_callback_array[TIMER1_OVERFLOW].isr_func;
+  ISRArg  isr_arg  = _interrupt_callback_array[TIMER1_OVERFLOW].isr_arg;
 
+  if(isr_func) isr_func(isr_arg);
 }
+
+/**************************************************************************************/
 
 ISR(TIMER0_COMPA_vect)
 {
+  ISRFunc isr_func = _interrupt_callback_array[TIMER0_COMPARE_A].isr_func;
+  ISRArg  isr_arg  = _interrupt_callback_array[TIMER0_COMPARE_A].isr_arg;
 
+  if(isr_func) isr_func(isr_arg);
 }
+
+/**************************************************************************************/
 
 ISR(TIMER0_COMPB_vect)
 {
+  ISRFunc isr_func = _interrupt_callback_array[TIMER0_COMPARE_B].isr_func;
+  ISRArg  isr_arg  = _interrupt_callback_array[TIMER0_COMPARE_B].isr_arg;
 
+  if(isr_func) isr_func(isr_arg);
 }
+
+/**************************************************************************************/
 
 ISR(TIMER0_OVF_vect)
 {
+  ISRFunc isr_func = _interrupt_callback_array[TIMER0_OVERFLOW].isr_func;
+  ISRArg  isr_arg  = _interrupt_callback_array[TIMER0_OVERFLOW].isr_arg;
 
+  if(isr_func) isr_func(isr_arg);
 }
+
+/**************************************************************************************/
 
 ISR(SPI_STC_vect)
 {
+  ISRFunc isr_func = _interrupt_callback_array[SPI_SERIAL_TRANSFER_COMPLETE].isr_func;
+  ISRArg  isr_arg  = _interrupt_callback_array[SPI_SERIAL_TRANSFER_COMPLETE].isr_arg;
 
+  if(isr_func) isr_func(isr_arg);
 }
+
+/**************************************************************************************/
 
 ISR(USART_RX_vect)
 {
+  ISRFunc isr_func = _interrupt_callback_array[USART_RECEIVE_COMPLETE].isr_func;
+  ISRArg  isr_arg  = _interrupt_callback_array[USART_RECEIVE_COMPLETE].isr_arg;
 
+  if(isr_func) isr_func(isr_arg);
 }
+
+/**************************************************************************************/
 
 ISR(USART_UDRE_vect)
 {
+  ISRFunc isr_func = _interrupt_callback_array[USART_UART_DATA_REGISTER_EMPTY].isr_func;
+  ISRArg  isr_arg  = _interrupt_callback_array[USART_UART_DATA_REGISTER_EMPTY].isr_arg;
 
+  if(isr_func) isr_func(isr_arg);
 }
+
+/**************************************************************************************/
 
 ISR(USART_TX_vect)
 {
+  ISRFunc isr_func = _interrupt_callback_array[USART_TRANSMIT_COMPLETE].isr_func;
+  ISRArg  isr_arg  = _interrupt_callback_array[USART_TRANSMIT_COMPLETE].isr_arg;
 
+  if(isr_func) isr_func(isr_arg);
 }
+
+/**************************************************************************************/
 
 ISR(ADC_vect)
 {
+  ISRFunc isr_func = _interrupt_callback_array[ANALOG_DIGITAL_CONVERTER].isr_func;
+  ISRArg  isr_arg  = _interrupt_callback_array[ANALOG_DIGITAL_CONVERTER].isr_arg;
 
+  if(isr_func) isr_func(isr_arg);
 }
+
+/**************************************************************************************/
 
 ISR(EE_READY_vect)
 {
+  ISRFunc isr_func = _interrupt_callback_array[EEPROM_READY].isr_func;
+  ISRArg  isr_arg  = _interrupt_callback_array[EEPROM_READY].isr_arg;
 
+  if(isr_func) isr_func(isr_arg);
 }
+
+/**************************************************************************************/
 
 ISR(ANALOG_COMP_vect)
 {
+  ISRFunc isr_func = _interrupt_callback_array[ANALOG_COMPARATOR].isr_func;
+  ISRArg  isr_arg  = _interrupt_callback_array[ANALOG_COMPARATOR].isr_arg;
 
+  if(isr_func) isr_func(isr_arg);
 }
+
+/**************************************************************************************/
 
 ISR(TWI_vect)
 {
+  ISRFunc isr_func = _interrupt_callback_array[TWO_WIRE_INT].isr_func;
+  ISRArg  isr_arg  = _interrupt_callback_array[TWO_WIRE_INT].isr_arg;
 
+  if(isr_func) isr_func(isr_arg);
 }
+
+/**************************************************************************************/
 
 ISR(SPM_READY_vect)
 {
+  ISRFunc isr_func = _interrupt_callback_array[SPM_READY].isr_func;
+  ISRArg  isr_arg  = _interrupt_callback_array[SPM_READY].isr_arg;
 
+  if(isr_func) isr_func(isr_arg);
 }
 
-#endif
+/**************************************************************************************/
+
+#endif /* (MCU_TYPE == atmega328p) */
