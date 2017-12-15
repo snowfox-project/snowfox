@@ -43,5 +43,5 @@ SystemBuilder::SystemBuilder()
 
   _uart0.registerUARTCallbackInterface(&_uart_task_input_handler            );
 
-  _interrupt_controller.enableInterrupt(ATMEGA328P::InterruptController::GLOBAL_INT);
+  _interrupt_controller.enableInterrupt(ATMEGA328P::interrupt::GLOBAL);
 }

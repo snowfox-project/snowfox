@@ -24,6 +24,7 @@
  **************************************************************************************/
 
 #include <spectre/hal/interface/interrupt/InterruptController.h>
+#include <spectre/hal/interface/interrupt/InterruptControllerAssembly.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,10 +40,47 @@ namespace ATMEGA328P
 {
 
 /**************************************************************************************
+ * CONSTANTS
+ **************************************************************************************/
+
+namespace interrupt
+{
+
+static uint8_t const GLOBAL                         =  0;
+static uint8_t const EXTERNAL_INT0                  =  1;
+static uint8_t const EXTERNAL_INT1                  =  2;
+static uint8_t const PIN_CHANGE_INT0                =  3;
+static uint8_t const PIN_CHANGE_INT1                =  4;
+static uint8_t const PIN_CHANGE_INT2                =  5;
+static uint8_t const WATCHDOG_TIMER                 =  6;
+static uint8_t const TIMER2_COMPARE_A               =  7;
+static uint8_t const TIMER2_COMPARE_B               =  8;
+static uint8_t const TIMER2_OVERFLOW                =  9;
+static uint8_t const TIMER1_CAPTURE                 = 10;
+static uint8_t const TIMER1_COMPARE_A               = 11;
+static uint8_t const TIMER1_COMPARE_B               = 12;
+static uint8_t const TIMER1_OVERFLOW                = 13;
+static uint8_t const TIMER0_COMPARE_A               = 14;
+static uint8_t const TIMER0_COMPARE_B               = 15;
+static uint8_t const TIMER0_OVERFLOW                = 16;
+static uint8_t const SPI_SERIAL_TRANSFER_COMPLETE   = 17;
+static uint8_t const USART_RECEIVE_COMPLETE         = 18;
+static uint8_t const USART_UART_DATA_REGISTER_EMPTY = 19;
+static uint8_t const USART_TRANSMIT_COMPLETE        = 20;
+static uint8_t const ANALOG_DIGITAL_CONVERTER       = 21;
+static uint8_t const EEPROM_READY                   = 22;
+static uint8_t const ANALOG_COMPARATOR              = 23;
+static uint8_t const TWO_WIRE_INT                   = 24;
+static uint8_t const SPM_READY                      = 25;
+
+} /* interrupt */
+
+/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class InterruptController : public interface::InterruptController
+class InterruptController : public interface::InterruptController,
+                            public interface::InterruptControllerAssembly
 {
 
 public:
@@ -51,39 +89,15 @@ public:
   virtual ~InterruptController();
 
 
-  static uint16_t const GLOBAL_INT   =  0;
-  static uint16_t const EXT_INT0     =  1;
-  static uint16_t const EXT_INT1     =  2;
-  static uint16_t const PCINT0       =  3;
-  static uint16_t const PCINT1       =  4;
-  static uint16_t const PCINT2       =  5;
-  static uint16_t const WDT          =  6;
-  static uint16_t const TIMER2_COMPA =  7;
-  static uint16_t const TIMER2_COMPB =  8;
-  static uint16_t const TIMER2_OVF   =  9;
-  static uint16_t const TIMER1_CAPT  = 10;
-  static uint16_t const TIMER1_COMPA = 11;
-  static uint16_t const TIMER1_COMPB = 12;
-  static uint16_t const TIMER1_OVF   = 13;
-  static uint16_t const TIMER0_COMPA = 14;
-  static uint16_t const TIMER0_COMPB = 15;
-  static uint16_t const TIMER0_OVF   = 16;
-  static uint16_t const SPI_STC      = 17;
-  static uint16_t const USART_RX     = 18;
-  static uint16_t const USART_UDRE   = 19;
-  static uint16_t const USART_TX     = 20;
-  static uint16_t const ADC          = 21;
-  static uint16_t const EE_READY     = 22;
-  static uint16_t const ANALOG_COMP  = 23;
-  static uint16_t const TWI          = 24;
-  static uint16_t const SPM_READY    = 25;
-
-
-
   /* Interrupt Controller Interface */
 
-  virtual void enableInterrupt (uint16_t const int_num) override;
-  virtual void disableInterrupt(uint16_t const int_num) override;
+  virtual void enableInterrupt (uint8_t const int_num) override;
+  virtual void disableInterrupt(uint8_t const int_num) override;
+
+
+  /* Interrupt Controller Assembly Interface */
+
+  virtual void registerInterruptCallback(uint8_t const int_num, InterruptCallbackFunc callback) override;
 
 };
 

@@ -56,19 +56,102 @@ InterruptController::~InterruptController()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void InterruptController::enableInterrupt(uint16_t const int_num)
+void InterruptController::enableInterrupt(uint8_t const int_num)
 {
   switch(int_num)
   {
-  case GLOBAL_INT: sei(); break;
+  case interrupt::GLOBAL                         : sei(); break;
+  case interrupt::EXTERNAL_INT0                  : break;
+  case interrupt::EXTERNAL_INT1                  : break;
+  case interrupt::PIN_CHANGE_INT0                : break;
+  case interrupt::PIN_CHANGE_INT1                : break;
+  case interrupt::PIN_CHANGE_INT2                : break;
+  case interrupt::WATCHDOG_TIMER                 : break;
+  case interrupt::TIMER2_COMPARE_A               : break;
+  case interrupt::TIMER2_COMPARE_B               : break;
+  case interrupt::TIMER2_OVERFLOW                : break;
+  case interrupt::TIMER1_CAPTURE                 : break;
+  case interrupt::TIMER1_COMPARE_A               : break;
+  case interrupt::TIMER1_COMPARE_B               : break;
+  case interrupt::TIMER1_OVERFLOW                : break;
+  case interrupt::TIMER0_COMPARE_A               : break;
+  case interrupt::TIMER0_COMPARE_B               : break;
+  case interrupt::TIMER0_OVERFLOW                : break;
+  case interrupt::SPI_SERIAL_TRANSFER_COMPLETE   : break;
+  case interrupt::USART_RECEIVE_COMPLETE         : break;
+  case interrupt::USART_UART_DATA_REGISTER_EMPTY : break;
+  case interrupt::USART_TRANSMIT_COMPLETE        : break;
+  case interrupt::ANALOG_DIGITAL_CONVERTER       : break;
+  case interrupt::EEPROM_READY                   : break;
+  case interrupt::ANALOG_COMPARATOR              : break;
+  case interrupt::TWO_WIRE_INT                   : break;
+  case interrupt::SPM_READY                      : break;
   }
 }
 
-void InterruptController::disableInterrupt(uint16_t const int_num)
+void InterruptController::disableInterrupt(uint8_t const int_num)
 {
   switch(int_num)
   {
-  case GLOBAL_INT: cli(); break;
+  case interrupt::GLOBAL                         : cli(); break;
+  case interrupt::EXTERNAL_INT0                  : break;
+  case interrupt::EXTERNAL_INT1                  : break;
+  case interrupt::PIN_CHANGE_INT0                : break;
+  case interrupt::PIN_CHANGE_INT1                : break;
+  case interrupt::PIN_CHANGE_INT2                : break;
+  case interrupt::WATCHDOG_TIMER                 : break;
+  case interrupt::TIMER2_COMPARE_A               : break;
+  case interrupt::TIMER2_COMPARE_B               : break;
+  case interrupt::TIMER2_OVERFLOW                : break;
+  case interrupt::TIMER1_CAPTURE                 : break;
+  case interrupt::TIMER1_COMPARE_A               : break;
+  case interrupt::TIMER1_COMPARE_B               : break;
+  case interrupt::TIMER1_OVERFLOW                : break;
+  case interrupt::TIMER0_COMPARE_A               : break;
+  case interrupt::TIMER0_COMPARE_B               : break;
+  case interrupt::TIMER0_OVERFLOW                : break;
+  case interrupt::SPI_SERIAL_TRANSFER_COMPLETE   : break;
+  case interrupt::USART_RECEIVE_COMPLETE         : break;
+  case interrupt::USART_UART_DATA_REGISTER_EMPTY : break;
+  case interrupt::USART_TRANSMIT_COMPLETE        : break;
+  case interrupt::ANALOG_DIGITAL_CONVERTER       : break;
+  case interrupt::EEPROM_READY                   : break;
+  case interrupt::ANALOG_COMPARATOR              : break;
+  case interrupt::TWO_WIRE_INT                   : break;
+  case interrupt::SPM_READY                      : break;
+  }
+}
+
+void InterruptController::registerInterruptCallback(uint8_t const int_num, InterruptCallbackFunc callback)
+{
+  switch(int_num)
+  {
+  case interrupt::GLOBAL                         : break;
+  case interrupt::EXTERNAL_INT0                  : break;
+  case interrupt::EXTERNAL_INT1                  : break;
+  case interrupt::PIN_CHANGE_INT0                : break;
+  case interrupt::PIN_CHANGE_INT1                : break;
+  case interrupt::PIN_CHANGE_INT2                : break;
+  case interrupt::WATCHDOG_TIMER                 : break;
+  case interrupt::TIMER2_COMPARE_A               : break;
+  case interrupt::TIMER2_COMPARE_B               : break;
+  case interrupt::TIMER2_OVERFLOW                : break;
+  case interrupt::TIMER1_CAPTURE                 : break;
+  case interrupt::TIMER1_COMPARE_A               : break;
+  case interrupt::TIMER1_COMPARE_B               : break;
+  case interrupt::TIMER1_OVERFLOW                : break;
+  case interrupt::TIMER0_COMPARE_A               : break;
+  case interrupt::TIMER0_COMPARE_B               : break;
+  case interrupt::TIMER0_OVERFLOW                : break;
+  case interrupt::SPI_SERIAL_TRANSFER_COMPLETE   : break;
+  case interrupt::USART_RECEIVE_COMPLETE         : break;
+  case interrupt::USART_UART_DATA_REGISTER_EMPTY : break;
+  case interrupt::USART_TRANSMIT_COMPLETE        : break;
+  case interrupt::ANALOG_DIGITAL_CONVERTER       : break;
+  case interrupt::EEPROM_READY                   : break;
+  case interrupt::ANALOG_COMPARATOR              : break;
+  case interrupt::TWO_WIRE_INT                   : break;
+  case interrupt::SPM_READY                      : break;
   }
 }
 
@@ -81,3 +164,132 @@ void InterruptController::disableInterrupt(uint16_t const int_num)
 } /* hal */
 
 } /* spectre */
+
+/**************************************************************************************
+ * INTERRUPT SERVICE ROUTINES
+ **************************************************************************************/
+
+ISR(INT0_vect)
+{
+
+}
+
+ISR(INT1_vect)
+{
+
+}
+
+ISR(PCINT0_vect)
+{
+
+}
+
+ISR(PCINT1_vect)
+{
+
+}
+
+ISR(PCINT2_vect)
+{
+
+}
+
+ISR(WDT_vect)
+{
+
+}
+
+ISR(TIMER2_COMPA_vect)
+{
+
+}
+
+ISR(TIMER2_COMPB_vect)
+{
+
+}
+
+ISR(TIMER2_OVF_vect)
+{
+
+}
+
+ISR(TIMER1_CAPT_vect)
+{
+
+}
+
+ISR(TIMER1_COMPA_vect)
+{
+
+}
+
+ISR(TIMER1_COMPB_vect)
+{
+
+}
+
+ISR(TIMER1_OVF_vect)
+{
+
+}
+
+ISR(TIMER0_COMPA_vect)
+{
+
+}
+
+ISR(TIMER0_COMPB_vect)
+{
+
+}
+
+ISR(TIMER0_OVF_vect)
+{
+
+}
+
+ISR(SPI_STC_vect)
+{
+
+}
+
+ISR(USART_RX_vect)
+{
+
+}
+
+ISR(USART_UDRE_vect)
+{
+
+}
+
+ISR(USART_TX_vect)
+{
+
+}
+
+ISR(ADC_vect)
+{
+
+}
+
+ISR(EE_READY_vect)
+{
+
+}
+
+ISR(ANALOG_COMP_vect)
+{
+
+}
+
+ISR(TWI_vect)
+{
+
+}
+
+ISR(SPM_READY_vect)
+{
+
+}
