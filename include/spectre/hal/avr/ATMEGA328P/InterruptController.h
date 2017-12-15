@@ -99,12 +99,6 @@ public:
 
   virtual void registerInterruptCallback(uint8_t const int_num, InterruptCallbackFunc callback) override;
 
-private:
-
-  static uint8_t constexpr NUMBER_OF_INTERRUPT_SERVICE_ROUTINES = 25;
-
-  InterruptCallbackFunc _interrupt_callback_func_array[NUMBER_OF_INTERRUPT_SERVICE_ROUTINES];
-
 };
 
 /**************************************************************************************

@@ -39,10 +39,27 @@ namespace ATMEGA328P
 {
 
 /**************************************************************************************
+ * GLOBAL CONSTANTS
+ **************************************************************************************/
+
+static uint8_t constexpr NUMBER_OF_INTERRUPT_SERVICE_ROUTINES = 25;
+
+/**************************************************************************************
+ * TYPEDEFS
+ **************************************************************************************/
+
+typedef struct
+{
+  interface::InterruptControllerAssembly::InterruptCallbackFunc   callback;
+  void                                                          * callback_arg;
+} InterruptCallbackArrayEntry;
+
+/**************************************************************************************
  * GLOBAL VARIABLES
  **************************************************************************************/
 
 static InterruptController * _this = 0;
+static InterruptCallbackArrayEntry _interrupt_callback_array[NUMBER_OF_INTERRUPT_SERVICE_ROUTINES];
 
 /**************************************************************************************
  * CTOR/DTOR
@@ -52,7 +69,11 @@ InterruptController::InterruptController()
 {
   _this = this;
 
-  for(uint8_t i = 0; i < NUMBER_OF_INTERRUPT_SERVICE_ROUTINES; i++) { _interrupt_callback_func_array[i] = 0; }
+  for(uint8_t i = 0; i < NUMBER_OF_INTERRUPT_SERVICE_ROUTINES; i++)
+  {
+    _interrupt_callback_array[i].callback     = 0;
+    _interrupt_callback_array[i].callback_arg = 0;
+  }
 }
 
 InterruptController::~InterruptController()
@@ -183,7 +204,10 @@ using namespace spectre::hal::ATMEGA328P;
 
 ISR(INT0_vect)
 {
+  spectre::hal::interface::InterruptControllerAssembly::InterruptCallbackFunc   callback     = _interrupt_callback_array[interrupt::EXTERNAL_INT0].callback;
+  void                                                                        * callback_arg = _interrupt_callback_array[interrupt::EXTERNAL_INT0].callback_arg;
 
+  if(callback) callback(callback_arg);
 }
 
 ISR(INT1_vect)
