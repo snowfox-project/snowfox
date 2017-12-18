@@ -44,7 +44,7 @@ DigitalOutPin::DigitalOutPin(volatile uint8_t *ddr, volatile uint8_t *out, uint8
     _out              (out                ),
     _out_pin_bitmask  (1 << out_pin_number)
 {
-
+  setGpioAsOutput();
 }
 
 DigitalOutPin::~DigitalOutPin()
