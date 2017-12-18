@@ -16,6 +16,7 @@ set(MCU_SPEED 16000000UL)
 set(DRIVER_HAPTIC_DRV2605 yes)
 
 set(DRIVER_SENSOR_AD7151  yes)
+set(DRIVER_SENSOR_AS5600  yes)
 set(DRIVER_SENSOR_LIS3MDL yes)
 
 ##########################################################################

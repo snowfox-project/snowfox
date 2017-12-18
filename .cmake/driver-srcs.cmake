@@ -16,6 +16,12 @@ if(${DRIVER_SENSOR_AD7151} STREQUAL "yes")
   
 endif()
 
+if(${DRIVER_SENSOR_AS5600} STREQUAL "yes")
+  
+  set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} src/driver/sensor/AS5600.cpp)
+  
+endif()
+
 if(${DRIVER_SENSOR_LIS3MDL} STREQUAL "yes")
   
   set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} src/driver/sensor/LIS3MDL.cpp)
