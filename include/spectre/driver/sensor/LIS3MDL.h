@@ -43,6 +43,9 @@ namespace driver
 namespace sensor
 {
 
+namespace LIS3MDL
+{
+
 /**************************************************************************************
  * DEFINES
  **************************************************************************************/
@@ -93,7 +96,7 @@ typedef enum
   XY_MP   =                              LIS3MDL_CTRL_REG_1_OM_0_bm,
   XY_HP   = LIS3MDL_CTRL_REG_1_OM_1_bm,
   XY_UHP  = LIS3MDL_CTRL_REG_1_OM_1_bm | LIS3MDL_CTRL_REG_1_OM_0_bm
-} eLIS3MDLOperativeMode_XY;
+} OperativeMode_XY;
 
 typedef enum
 {
@@ -101,7 +104,7 @@ typedef enum
   Z_MP    =                              LIS3MDL_CTRL_REG_4_OMZ_0_bm,
   Z_HP    = LIS3MDL_CTRL_REG_4_OMZ_1_bm,
   Z_UHP   = LIS3MDL_CTRL_REG_4_OMZ_1_bm | LIS3MDL_CTRL_REG_4_OMZ_0_bm
-} eLIS3MDLOperativeMode_Z;
+} OperativeMode_Z;
 
 typedef enum
 {
@@ -113,7 +116,7 @@ typedef enum
   ODR_20_Hz     = LIS3MDL_CTRL_REG_1_DO2_bm |                             LIS3MDL_CTRL_REG_1_DO0_bm,
   ODR_40_Hz     = LIS3MDL_CTRL_REG_1_DO2_bm | LIS3MDL_CTRL_REG_1_DO1_bm,
   ODR_80_Hz     = LIS3MDL_CTRL_REG_1_DO2_bm | LIS3MDL_CTRL_REG_1_DO1_bm | LIS3MDL_CTRL_REG_1_DO0_bm
-} eLIS3MDLOutputDataRateSelection;
+} OutputDataRateSelection;
 
 typedef enum
 {
@@ -121,13 +124,13 @@ typedef enum
   FS_plus_minus_8_Gauss   =                              LIS3MDL_CTRL_REG_2_FS_0_bm,
   FS_plus_minus_12_Gauss  = LIS3MDL_CTRL_REG_2_FS_1_bm,
   FS_plus_minus_16_Gauss  = LIS3MDL_CTRL_REG_2_FS_1_bm | LIS3MDL_CTRL_REG_2_FS_0_bm
-} eLIS3MDLFullScaleRangeSelect;
+} FullScaleRangeSelect;
 
 typedef enum
 {
   MODE_CONTINOUS = 0,
   MODE_SINGLE    = LIS3MDL_CTRL_REG_3_MD_0_bm
-} eLIS3MDLConversionMode;
+} ConversionMode;
 
 typedef enum
 {
@@ -150,19 +153,19 @@ typedef enum
   REG_INT_SRC     = 0x31,
   REG_INT_THS_L   = 0x32,
   REG_INT_THS_H   = 0x33
-} eLIS3MDLRegisterSelect;
+} RegisterSelect;
 
 /**************************************************************************************
- * CLASS DECLARATION LIS3MDLInterface
+ * CLASS DECLARATION Interface
  **************************************************************************************/
 
-class LIS3MDLInterface
+class Interface
 {
 
 public:
 
-           LIS3MDLInterface() { }
-  virtual ~LIS3MDLInterface() { }
+           Interface() { }
+  virtual ~Interface() { }
 
 
   virtual bool checkIfNewDataIsAvailable_XYZ(bool * is_new_data_available_xyz) = 0;
@@ -184,23 +187,23 @@ public:
 };
 
 /**************************************************************************************
- * CLASS DECLARATION LIS3MDLConfigurationInterface
+ * CLASS DECLARATION ConfigurationInterface
  **************************************************************************************/
 
-class LIS3MDLConfigurationInterface
+class ConfigurationInterface
 {
 
 public:
 
-           LIS3MDLConfigurationInterface() { }
-  virtual ~LIS3MDLConfigurationInterface() { }
+           ConfigurationInterface() { }
+  virtual ~ConfigurationInterface() { }
 
 
-  virtual bool setOperativeMode_XY(eLIS3MDLOperativeMode_XY        const sel) = 0;
-  virtual bool setOperativeMode_Z (eLIS3MDLOperativeMode_Z         const sel) = 0;
-  virtual bool setOutputDataRate  (eLIS3MDLOutputDataRateSelection const sel) = 0;
-  virtual bool setFullScale       (eLIS3MDLFullScaleRangeSelect    const sel) = 0;
-  virtual bool setConversionMode  (eLIS3MDLConversionMode          const sel) = 0;
+  virtual bool setOperativeMode_XY(OperativeMode_XY        const sel) = 0;
+  virtual bool setOperativeMode_Z (OperativeMode_Z         const sel) = 0;
+  virtual bool setOutputDataRate  (OutputDataRateSelection const sel) = 0;
+  virtual bool setFullScale       (FullScaleRangeSelect    const sel) = 0;
+  virtual bool setConversionMode  (ConversionMode          const sel) = 0;
 
 };
 
@@ -208,8 +211,8 @@ public:
  * CLASS DECLARATION LIS3MDL
  **************************************************************************************/
 
-class LIS3MDL : public LIS3MDLInterface,
-                public LIS3MDLConfigurationInterface
+class LIS3MDL : public Interface,
+                public ConfigurationInterface
 {
 
 public:
@@ -239,11 +242,11 @@ public:
 
   /* LIS3MDL Configuration Interface */
 
-  virtual bool setOperativeMode_XY          (eLIS3MDLOperativeMode_XY        const sel) override;
-  virtual bool setOperativeMode_Z           (eLIS3MDLOperativeMode_Z         const sel) override;
-  virtual bool setOutputDataRate            (eLIS3MDLOutputDataRateSelection const sel) override;
-  virtual bool setFullScale                 (eLIS3MDLFullScaleRangeSelect    const sel) override;
-  virtual bool setConversionMode            (eLIS3MDLConversionMode          const sel) override;
+  virtual bool setOperativeMode_XY          (OperativeMode_XY        const sel) override;
+  virtual bool setOperativeMode_Z           (OperativeMode_Z         const sel) override;
+  virtual bool setOutputDataRate            (OutputDataRateSelection const sel) override;
+  virtual bool setFullScale                 (FullScaleRangeSelect    const sel) override;
+  virtual bool setConversionMode            (ConversionMode          const sel) override;
 
 
           void debug_dumpAllRegs            (debug::interface::Debug & debug_interface);
@@ -261,13 +264,15 @@ private:
   bool writeSingleRegister  (uint8_t const reg_addr, uint8_t const   data);
   bool readMultipleRegister (uint8_t const reg_addr, uint8_t       * data, uint16_t const num_bytes);
 
-  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, char const *msg, eLIS3MDLRegisterSelect const reg_sel);
+  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, char const *msg, RegisterSelect const reg_sel);
 
 };
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* LIS3MDL */
 
 } /* sensor */
 

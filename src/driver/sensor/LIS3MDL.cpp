@@ -35,6 +35,9 @@ namespace driver
 namespace sensor
 {
 
+namespace LIS3MDL
+{
+
 /**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
@@ -220,7 +223,7 @@ bool LIS3MDL::readTemperature(int16_t * raw_temp)
   return true;
 }
 
-bool LIS3MDL::setOperativeMode_XY(eLIS3MDLOperativeMode_XY const sel)
+bool LIS3MDL::setOperativeMode_XY(OperativeMode_XY const sel)
 {
   uint8_t ctrl_reg1_content = 0;
 
@@ -234,7 +237,7 @@ bool LIS3MDL::setOperativeMode_XY(eLIS3MDLOperativeMode_XY const sel)
   return true;
 }
 
-bool LIS3MDL::setOperativeMode_Z(eLIS3MDLOperativeMode_Z const sel)
+bool LIS3MDL::setOperativeMode_Z(OperativeMode_Z const sel)
 {
   uint8_t ctrl_reg4_content = 0;
 
@@ -248,7 +251,7 @@ bool LIS3MDL::setOperativeMode_Z(eLIS3MDLOperativeMode_Z const sel)
   return true;
 }
 
-bool LIS3MDL::setOutputDataRate(eLIS3MDLOutputDataRateSelection const sel)
+bool LIS3MDL::setOutputDataRate(OutputDataRateSelection const sel)
 {
   uint8_t ctrl_reg1_content = 0;
 
@@ -262,7 +265,7 @@ bool LIS3MDL::setOutputDataRate(eLIS3MDLOutputDataRateSelection const sel)
   return true;
 }
 
-bool LIS3MDL::setFullScale(eLIS3MDLFullScaleRangeSelect const sel)
+bool LIS3MDL::setFullScale(FullScaleRangeSelect const sel)
 {
   uint8_t ctrl_reg2_content = 0;
 
@@ -276,7 +279,7 @@ bool LIS3MDL::setFullScale(eLIS3MDLFullScaleRangeSelect const sel)
   return true;
 }
 
-bool LIS3MDL::setConversionMode(eLIS3MDLConversionMode const sel)
+bool LIS3MDL::setConversionMode(ConversionMode const sel)
 {
   uint8_t ctrl_reg3_content = 0;
 
@@ -367,7 +370,7 @@ bool LIS3MDL::readMultipleRegister(uint8_t const reg_addr, uint8_t * data, uint1
   return true;
 }
 
-void LIS3MDL::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, eLIS3MDLRegisterSelect const reg_sel)
+void LIS3MDL::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
 {
   uint8_t reg_content = 0;
 
@@ -379,6 +382,8 @@ void LIS3MDL::debug_dumpSingleReg(debug::interface::Debug & debug_interface, cha
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* LIS3MDL */
 
 } /* sensor */
 
