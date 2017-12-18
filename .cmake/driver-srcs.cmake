@@ -10,3 +10,11 @@ endif()
 
 ##########################################################################
 
+if(${DRIVER_SENSOR_LIS3MDL} STREQUAL "yes")
+  
+  set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} src/driver/sensor/LIS3MDL.cpp)
+  
+endif()
+
+##########################################################################
+
