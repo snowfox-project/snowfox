@@ -51,7 +51,7 @@ public:
            DigitalOutPort() { }
   virtual ~DigitalOutPort() { }
 
-  virtual void set(T const & val) = 0;
+  virtual void set(T const val) = 0;
 
 };
 

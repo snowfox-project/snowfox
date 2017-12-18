@@ -45,7 +45,7 @@ DigitalInPin::DigitalInPin(volatile uint8_t * ddr, volatile uint8_t * out, volat
   _pin           (pin               ),
   _in_pin_bitmask(1 << in_pin_number)
 {
-  setGpioAsInput();
+  setGpioPinAsInput();
 }
 
 DigitalInPin::~DigitalInPin()
@@ -79,7 +79,7 @@ void DigitalInPin::setPullUpMode(interface::DigitalInPinConfiguration::ePullUpMo
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
-void DigitalInPin::setGpioAsInput()
+void DigitalInPin::setGpioPinAsInput()
 {
   *_ddr &= ~_in_pin_bitmask;
 }

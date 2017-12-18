@@ -68,7 +68,7 @@ private:
 
   uint8_t            _in_pin_bitmask;
 
-  void setGpioAsInput();
+  void setGpioPinAsInput();
 
 };
 
