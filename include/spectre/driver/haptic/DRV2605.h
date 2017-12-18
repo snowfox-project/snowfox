@@ -16,8 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_CONSTANTS_H_
-#define INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_CONSTANTS_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_H_
+#define INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_H_
+
+/**************************************************************************************
+ * INCLUDES
+ **************************************************************************************/
+
+#include <stdint.h>
+
+#include <spectre/debug/interface/Debug.h>
+
+#include <spectre/hal/interface/delay/Delay.h>
+#include <spectre/hal/interface/i2c/I2CMaster.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -27,6 +38,9 @@ namespace spectre
 {
 
 namespace driver
+{
+
+namespace haptic
 {
 
 namespace DRV2605
@@ -68,7 +82,7 @@ typedef enum
   REAL_TIME_PLAYBACK      = DRV2605_REG_MODE_2_bm |                         DRV2605_REG_MODE_0_bm,
   DIAGNOSTICS             = DRV2605_REG_MODE_2_bm | DRV2605_REG_MODE_1_bm,
   AUTO_CALIBRATION        = DRV2605_REG_MODE_2_bm | DRV2605_REG_MODE_1_bm | DRV2605_REG_MODE_0_bm
-} eDRV2605ModeSelect;
+} ModeSelect;
 
 typedef enum
 {
@@ -80,7 +94,7 @@ typedef enum
   LIB_ERM_E   = DRV2605_REG_LIB_LIBRARY_SEL_2_bm |                                    DRV2605_REG_LIB_LIBRARY_SEL_0_bm,
   LIB_LRA     = DRV2605_REG_LIB_LIBRARY_SEL_2_bm | DRV2605_REG_LIB_LIBRARY_SEL_1_bm,
   LIB_ERM_F   = DRV2605_REG_LIB_LIBRARY_SEL_2_bm | DRV2605_REG_LIB_LIBRARY_SEL_1_bm | DRV2605_REG_LIB_LIBRARY_SEL_0_bm
-} eDRV2605WaveformLibrarySelect;
+} WaveformLibrarySelect;
 
 typedef enum
 {
@@ -92,13 +106,13 @@ typedef enum
   WAVEFORM_SEQUENCER_6 = 5,
   WAVEFORM_SEQUENCER_7 = 6,
   WAVEFORM_SEQUENCER_8 = 7
-} eDRV2605WaveformSequencerSelect;
+} WaveformSequencerSelect;
 
 typedef enum
 {
   ERM = 0,
   LRA = DRV2605_REG_FEEDBACK_N_ERM_LRA_bm
-} eDRV2605ActuatorSelect;
+} ActuatorSelect;
 
 
 typedef enum
@@ -138,7 +152,95 @@ typedef enum
   REG_OLP               = 0x20,
   REG_VBATMONITOR       = 0x21,
   REG_LRARESPERIOD      = 0x22
-} eDRV2605RegisterSelect;
+} RegisterSelect;
+
+/**************************************************************************************
+ * CLASS DECLARATION Interface
+ **************************************************************************************/
+
+class Interface
+{
+
+public:
+
+           Interface() { }
+  virtual ~Interface() { }
+
+
+  virtual bool setGo() = 0;
+  virtual bool clrGo() = 0;
+
+};
+
+
+/**************************************************************************************
+ * CLASS DECLARATION ConfigurationInterface
+ **************************************************************************************/
+
+class ConfigurationInterface
+{
+
+public:
+
+           ConfigurationInterface() { }
+  virtual ~ConfigurationInterface() { }
+
+
+  virtual bool reset              (                                                                   ) = 0;
+  virtual bool setStandby         (                                                                   ) = 0;
+  virtual bool clrStandby         (                                                                   ) = 0;
+  virtual bool setMode            (ModeSelect               const   mode                              ) = 0;
+  virtual bool setWaveformLibrary (WaveformLibrarySelect    const   library                           ) = 0;
+  virtual bool setWaveform        (WaveformSequencerSelect  const   sequencer, uint8_t const waveform ) = 0;
+  virtual bool setActuator        (ActuatorSelect           const   actuator                          ) = 0;
+
+};
+
+/**************************************************************************************
+ * CLASS DECLARATION
+ **************************************************************************************/
+
+class DRV2605 : public Interface,
+                public ConfigurationInterface
+{
+
+public:
+
+           DRV2605(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master, hal::interface::Delay & delay);
+  virtual ~DRV2605();
+
+
+  /* DRV2605 Interface */
+
+  virtual bool setGo              (                                                                   ) override;
+  virtual bool clrGo              (                                                                   ) override;
+
+
+  /* DRV2605 Configuration Interface */
+
+  virtual bool reset              (                                                                   ) override;
+  virtual bool setStandby         (                                                                   ) override;
+  virtual bool clrStandby         (                                                                   ) override;
+  virtual bool setMode            (ModeSelect               const   mode                              ) override;
+  virtual bool setWaveformLibrary (WaveformLibrarySelect    const   library                           ) override;
+  virtual bool setWaveform        (WaveformSequencerSelect  const   sequencer, uint8_t const waveform ) override;
+  virtual bool setActuator        (ActuatorSelect           const   actuator                          ) override;
+
+
+          void debug_dumpAllRegs  (debug::interface::Debug                & debug_interface);
+
+private:
+
+  uint8_t                     _i2c_address;
+  hal::interface::I2CMaster & _i2c_master;
+  hal::interface::Delay     & _delay;
+
+  bool readSingleRegister   (uint8_t const reg_addr, uint8_t       * data);
+  bool writeSingleRegister  (uint8_t const reg_addr, uint8_t const   data);
+
+  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel);
+
+};
 
 /**************************************************************************************
  * NAMESPACE
@@ -146,8 +248,10 @@ typedef enum
 
 } /* DRV2605 */
 
+} /* haptic */
+
 } /* driver */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_CONSTANTS_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_H_ */

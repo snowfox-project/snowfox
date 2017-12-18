@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/haptic/DRV2605/DRV2605.h>
+#include <spectre/driver/haptic/DRV2605.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -30,6 +30,9 @@ namespace spectre
 {
 
 namespace driver
+{
+
+namespace haptic
 {
 
 namespace DRV2605
@@ -110,7 +113,7 @@ bool DRV2605::clrStandby()
   return true;
 }
 
-bool DRV2605::setMode(eDRV2605ModeSelect const mode)
+bool DRV2605::setMode(ModeSelect const mode)
 {
   uint8_t reg_mode_content = 0;
 
@@ -124,7 +127,7 @@ bool DRV2605::setMode(eDRV2605ModeSelect const mode)
   return true;
 }
 
-bool DRV2605::setWaveformLibrary(eDRV2605WaveformLibrarySelect const library)
+bool DRV2605::setWaveformLibrary(WaveformLibrarySelect const library)
 {
   uint8_t reg_lib_content = 0;
 
@@ -138,12 +141,12 @@ bool DRV2605::setWaveformLibrary(eDRV2605WaveformLibrarySelect const library)
   return true;
 }
 
-bool DRV2605::setWaveform(eDRV2605WaveformSequencerSelect const sequencer, uint8_t const waveform)
+bool DRV2605::setWaveform(WaveformSequencerSelect const sequencer, uint8_t const waveform)
 {
   return writeSingleRegister(REG_WAVESEQ1 + sequencer, (waveform & 0x7F));
 }
 
-bool DRV2605::setActuator(eDRV2605ActuatorSelect const actuator)
+bool DRV2605::setActuator(ActuatorSelect const actuator)
 {
   uint8_t reg_feedback_content = 0;
 
@@ -219,7 +222,7 @@ bool DRV2605::writeSingleRegister(uint8_t const reg_addr, uint8_t const data)
   return true;
 }
 
-void DRV2605::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, eDRV2605RegisterSelect const reg_sel)
+void DRV2605::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
 {
   uint8_t reg_content = 0;
 
@@ -233,6 +236,8 @@ void DRV2605::debug_dumpSingleReg(debug::interface::Debug & debug_interface, cha
  **************************************************************************************/
 
 } /* DRV2605 */
+
+} /* haptic */
 
 } /* driver */
 
