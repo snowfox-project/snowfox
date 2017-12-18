@@ -217,8 +217,8 @@ class LIS3MDL : public Interface,
 
 public:
 
-   LIS3MDL(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master);
-  ~LIS3MDL();
+           LIS3MDL(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master);
+  virtual ~LIS3MDL();
 
 
   /* LIS3MDL Interface */
