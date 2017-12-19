@@ -23,5 +23,6 @@ set(DRIVER_SENSOR_L3GD20  yes)
 set(DRIVER_SENSOR_LIS2DSH yes)
 set(DRIVER_SENSOR_LIS3DSH yes)
 set(DRIVER_SENSOR_LIS3MDL yes)
+set(DRIVER_SENSOR_TPA81   yes)
 
 ##########################################################################

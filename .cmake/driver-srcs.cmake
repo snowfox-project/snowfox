@@ -42,5 +42,9 @@ if(${DRIVER_SENSOR_LIS3MDL} STREQUAL "yes")
   set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} src/driver/sensor/LIS3MDL.cpp)
 endif()
 
+if(${DRIVER_SENSOR_TPA81} STREQUAL "yes")
+  set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} src/driver/sensor/TPA81.cpp)
+endif()
+
 ##########################################################################
 
