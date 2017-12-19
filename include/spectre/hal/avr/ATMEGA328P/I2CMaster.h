@@ -47,7 +47,7 @@ class I2CMaster : public ATxxxx::I2CMaster
 
 public:
 
-           I2CMaster();
+           I2CMaster(volatile uint8_t * TWCR, volatile uint8_t * TWDR, volatile uint8_t * TWSR, volatile uint8_t * TWBR);
   virtual ~I2CMaster();
 
 protected:
@@ -62,6 +62,12 @@ protected:
   virtual void setTWBR               (uint32_t      const i2c_speed_Hz,
                                       uint32_t      const i2c_prescaler) override;
 
+private:
+
+  volatile uint8_t * _TWCR,
+                   * _TWDR,
+                   * _TWSR,
+                   * _TWBR;
 };
 
 /**************************************************************************************
