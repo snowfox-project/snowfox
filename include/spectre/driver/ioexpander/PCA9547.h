@@ -40,7 +40,7 @@ namespace spectre
 namespace driver
 {
 
-namespace haptic
+namespace ioexpander
 {
 
 namespace PCA9547
@@ -118,7 +118,7 @@ private:
 
 } /* PCA9547 */
 
-} /* haptic */
+} /* ioexpander */
 
 } /* driver */
 

@@ -32,7 +32,7 @@ namespace spectre
 namespace driver
 {
 
-namespace haptic
+namespace ioexpander
 {
 
 namespace PCA9547
@@ -109,7 +109,7 @@ bool PCA9547::writeControlRegister(uint8_t const data)
 
 } /* PCA9547 */
 
-} /* haptic */
+} /* ioexpander */
 
 } /* driver */
 
