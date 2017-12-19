@@ -293,6 +293,32 @@ bool LIS3MDL::setConversionMode(ConversionMode const sel)
   return true;
 }
 
+bool LIS3MDL::enableTemperatureSensor()
+{
+  uint8_t ctrl_reg1_content = 0;
+
+  if(!readSingleRegister(REG_CTRL_REG_1, &ctrl_reg1_content)) return false;
+
+  ctrl_reg1_content |= LIS3MDL_CTRL_REG_1_TEMP_EN_bm;
+
+  if(!writeSingleRegister(REG_CTRL_REG_1, ctrl_reg1_content)) return false;
+
+  return true;
+}
+
+bool LIS3MDL::enableBlockDataUpdate()
+{
+  uint8_t ctrl_reg5_content = 0;
+
+  if(!readSingleRegister(REG_CTRL_REG_5, &ctrl_reg5_content)) return false;
+
+  ctrl_reg5_content |= LIS3MDL_CTRL_REG_5_BDU_bm;
+
+  if(!writeSingleRegister(REG_CTRL_REG_5, ctrl_reg5_content)) return false;
+
+  return true;
+}
+
 void LIS3MDL::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
 {
   debug_dumpSingleReg(debug_interface, "REG_WHO_AM_I   = ", REG_WHO_AM_I  );
@@ -319,32 +345,6 @@ void LIS3MDL::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
 /**************************************************************************************
  * PRIVATE FUNCTIONS
  **************************************************************************************/
-
-bool LIS3MDL::enableTemperatureSensor()
-{
-  uint8_t ctrl_reg1_content = 0;
-
-  if(!readSingleRegister(REG_CTRL_REG_1, &ctrl_reg1_content)) return false;
-
-  ctrl_reg1_content |= LIS3MDL_CTRL_REG_1_TEMP_EN_bm;
-
-  if(!writeSingleRegister(REG_CTRL_REG_1, ctrl_reg1_content)) return false;
-
-  return true;
-}
-
-bool LIS3MDL::enableBlockDataUpdate()
-{
-  uint8_t ctrl_reg5_content = 0;
-
-  if(!readSingleRegister(REG_CTRL_REG_5, &ctrl_reg5_content)) return false;
-
-  ctrl_reg5_content |= LIS3MDL_CTRL_REG_5_BDU_bm;
-
-  if(!writeSingleRegister(REG_CTRL_REG_5, ctrl_reg5_content)) return false;
-
-  return true;
-}
 
 bool LIS3MDL::readSingleRegister(uint8_t const reg_addr, uint8_t * data)
 {

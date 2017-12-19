@@ -198,11 +198,14 @@ public:
   virtual ~ConfigurationInterface() { }
 
 
-  virtual bool setOperativeMode_XY(OperativeMode_XY        const sel) = 0;
-  virtual bool setOperativeMode_Z (OperativeMode_Z         const sel) = 0;
-  virtual bool setOutputDataRate  (OutputDataRateSelection const sel) = 0;
-  virtual bool setFullScale       (FullScaleRangeSelect    const sel) = 0;
-  virtual bool setConversionMode  (ConversionMode          const sel) = 0;
+  virtual bool setOperativeMode_XY    (OperativeMode_XY        const sel) = 0;
+  virtual bool setOperativeMode_Z     (OperativeMode_Z         const sel) = 0;
+  virtual bool setOutputDataRate      (OutputDataRateSelection const sel) = 0;
+  virtual bool setFullScale           (FullScaleRangeSelect    const sel) = 0;
+  virtual bool setConversionMode      (ConversionMode          const sel) = 0;
+  virtual bool enableTemperatureSensor(                                 ) = 0;
+  virtual bool enableBlockDataUpdate  (                                 ) = 0;
+
 
 };
 
@@ -246,6 +249,8 @@ public:
   virtual bool setOutputDataRate            (OutputDataRateSelection const sel) override;
   virtual bool setFullScale                 (FullScaleRangeSelect    const sel) override;
   virtual bool setConversionMode            (ConversionMode          const sel) override;
+  virtual bool enableTemperatureSensor      (                                 ) override;
+  virtual bool enableBlockDataUpdate        (                                 ) override;
 
 
           void debug_dumpAllRegs            (debug::interface::Debug & debug_interface);
@@ -254,10 +259,6 @@ private:
 
   uint8_t                     _i2c_address;
   hal::interface::I2CMaster & _i2c_master;
-
-  bool enableTemperatureSensor      ();
-  bool enableBlockDataUpdate        ();
-
 
   bool readSingleRegister   (uint8_t const reg_addr, uint8_t       * data);
   bool writeSingleRegister  (uint8_t const reg_addr, uint8_t const   data);
