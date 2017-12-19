@@ -3,9 +3,13 @@
 ##########################################################################
 
 if(${DRIVER_HAPTIC_DRV2605} STREQUAL "yes")
-  
-  set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} src/driver/haptic/DRV2605.cpp)
-  
+    set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} src/driver/haptic/DRV2605.cpp)
+endif()
+
+##########################################################################
+
+if(${DRIVER_HAPTIC_PCA9547} STREQUAL "yes")
+    set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} src/driver/ioexpander/PCA9547.cpp)
 endif()
 
 ##########################################################################
