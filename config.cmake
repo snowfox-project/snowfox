@@ -20,6 +20,7 @@ set(DRIVER_SENSOR_AS5600  yes)
 set(DRIVER_SENSOR_BMG160  yes)
 set(DRIVER_SENSOR_INA220  yes)
 set(DRIVER_SENSOR_L3GD20  yes)
+set(DRIVER_SENSOR_LIS2DSH yes)
 set(DRIVER_SENSOR_LIS3MDL yes)
 
 ##########################################################################
