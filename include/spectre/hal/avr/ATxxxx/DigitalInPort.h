@@ -16,11 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_HAL_AVR_ATXXXX_DIGITALINPORT_H_
+#define INCLUDE_SPECTRE_HAL_AVR_ATXXXX_DIGITALINPORT_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/ATxxxx/DigitalOutPort.h>
+#include <stdint.h>
+
+#include <spectre/hal/interface/gpio/DigitalInPort.h>
+#include <spectre/hal/interface/gpio/DigitalInConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -36,38 +42,37 @@ namespace ATxxxx
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * CLASS DECLARATION
  **************************************************************************************/
 
-DigitalOutPort::DigitalOutPort(volatile uint8_t *ddr, volatile uint8_t *out)
-: _ddr(ddr),
-  _out(out)
-{
-  setGpioPortAsOutput();
-}
-
-DigitalOutPort::~DigitalOutPort()
+class DigitalInPort : public interface::DigitalInPort<uint8_t>,
+                      public interface::DigitalInConfiguration
 {
 
-}
+public:
 
-/**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
- **************************************************************************************/
+           DigitalInPort(volatile uint8_t * ddr, volatile uint8_t * out, volatile uint8_t * pin);
+  virtual ~DigitalInPort();
 
-void DigitalOutPort::set(uint8_t const val)
-{
-  *_out = val;
-}
 
-/**************************************************************************************
- * PRIVATE MEMBER FUNCTIONS
- **************************************************************************************/
+  /* Digital Input Port Interface */
 
-void DigitalOutPort::setGpioPortAsOutput()
-{
-  *_ddr = 0xFF;
-}
+  virtual uint8_t get() override;
+
+
+  /* Digital Input Configuration */
+
+  virtual void setPullUpMode(interface::DigitalInConfiguration::PullUpMode const pullup_mode) override;
+
+private:
+
+  volatile uint8_t * _ddr,
+                   * _out,
+                   * _pin;
+
+  void setGpioPortAsInput();
+
+};
 
 /**************************************************************************************
  * NAMESPACE
@@ -78,3 +83,5 @@ void DigitalOutPort::setGpioPortAsOutput()
 } /* hal */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_HAL_AVR_ATXXXX_DIGITALINPORT_H_ */

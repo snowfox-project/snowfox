@@ -64,7 +64,7 @@ bool DigitalInPin::isSet()
   return is_set;
 }
 
-void DigitalInPin::setPullUpMode(interface::DigitalInPinConfiguration::PullUpMode const pullup_mode)
+void DigitalInPin::setPullUpMode(interface::DigitalInConfiguration::PullUpMode const pullup_mode)
 {
   switch(pullup_mode)
   {

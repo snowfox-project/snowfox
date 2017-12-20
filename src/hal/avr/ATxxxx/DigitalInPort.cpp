@@ -16,8 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINPINCONFIGURATION_H_
-#define INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINPINCONFIGURATION_H_
+/**************************************************************************************
+ * INCLUDES
+ **************************************************************************************/
+
+#include <spectre/hal/avr/ATxxxx/DigitalInPort.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -29,41 +32,61 @@ namespace spectre
 namespace hal
 {
 
-namespace interface
+namespace ATxxxx
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class DigitalInPinConfiguration
+DigitalInPort::DigitalInPort(volatile uint8_t * ddr, volatile uint8_t * out, volatile uint8_t * pin)
+: _ddr(ddr),
+  _out(out),
+  _pin(pin)
+{
+  setGpioPortAsInput();
+}
+
+DigitalInPort::~DigitalInPort()
 {
 
-public:
+}
 
-           DigitalInPinConfiguration() { }
-  virtual ~DigitalInPinConfiguration() { }
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
+uint8_t DigitalInPort::get()
+{
+  return *_pin;
+}
 
-  typedef enum
+void DigitalInPort::setPullUpMode(interface::DigitalInConfiguration::PullUpMode const pullup_mode)
+{
+  switch(pullup_mode)
   {
-    NONE,
-    PULL_UP,
-    PULL_DOWN
-  } PullUpMode;
+  case NONE:      *_out = 0x00; break;
+  case PULL_UP:   *_out = 0xFF; break;
+  case PULL_DOWN:               break;
+  default:                      break;
+  }
+}
 
-  virtual void setPullUpMode(PullUpMode const pullup_mode) = 0;
+/**************************************************************************************
+ * PRIVATE MEMBER FUNCTIONS
+ **************************************************************************************/
 
-};
+void DigitalInPort::setGpioPortAsInput()
+{
+  *_ddr = 0x00;
+}
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface*/
+} /* ATxxxx */
 
 } /* hal */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINPINCONFIGURATION_H_ */

@@ -23,10 +23,11 @@
  * INCLUDES
  **************************************************************************************/
 
+
 #include <stdint.h>
 
 #include <spectre/hal/interface/gpio/DigitalInPin.h>
-#include <spectre/hal/interface/gpio/DigitalInPinConfiguration.h>
+#include <spectre/hal/interface/gpio/DigitalInConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -46,7 +47,7 @@ namespace ATxxxx
  **************************************************************************************/
 
 class DigitalInPin : public interface::DigitalInPin,
-                     public interface::DigitalInPinConfiguration
+                     public interface::DigitalInConfiguration
 {
 
 public:
@@ -55,10 +56,14 @@ public:
   virtual ~DigitalInPin();
 
 
-  virtual bool isSet        (                                                                   ) override;
+  /* DigitalIn Interface */
+
+  virtual bool isSet() override;
 
 
-  virtual void setPullUpMode(interface::DigitalInPinConfiguration::PullUpMode const pullup_mode) override;
+  /* Digital In Configuration */
+
+  virtual void setPullUpMode(interface::DigitalInConfiguration::PullUpMode const pullup_mode) override;
 
 private:
 

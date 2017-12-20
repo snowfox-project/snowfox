@@ -6,6 +6,7 @@ if(${MCU_ARCH} STREQUAL "avr")
 
   set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} src/hal/avr/ATxxxx/DelayService.cpp  )
   set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} src/hal/avr/ATxxxx/DigitalInPin.cpp  )
+  set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} src/hal/avr/ATxxxx/DigitalInPort.cpp )
   set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} src/hal/avr/ATxxxx/DigitalOutPin.cpp )
   set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} src/hal/avr/ATxxxx/DigitalOutPort.cpp)
   set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} src/hal/avr/ATxxxx/I2CMaster.cpp     )

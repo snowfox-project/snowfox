@@ -16,11 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**************************************************************************************
- * INCLUDES
- **************************************************************************************/
-
-#include <spectre/hal/avr/ATxxxx/DigitalOutPort.h>
+#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINCONFIGURATION_H_
+#define INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINCONFIGURATION_H_
 
 /**************************************************************************************
  * NAMESPACE
@@ -32,49 +29,41 @@ namespace spectre
 namespace hal
 {
 
-namespace ATxxxx
+namespace interface
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * CLASS DECLARATION
  **************************************************************************************/
 
-DigitalOutPort::DigitalOutPort(volatile uint8_t *ddr, volatile uint8_t *out)
-: _ddr(ddr),
-  _out(out)
-{
-  setGpioPortAsOutput();
-}
-
-DigitalOutPort::~DigitalOutPort()
+class DigitalInConfiguration
 {
 
-}
+public:
 
-/**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
- **************************************************************************************/
+           DigitalInConfiguration() { }
+  virtual ~DigitalInConfiguration() { }
 
-void DigitalOutPort::set(uint8_t const val)
-{
-  *_out = val;
-}
 
-/**************************************************************************************
- * PRIVATE MEMBER FUNCTIONS
- **************************************************************************************/
+  typedef enum
+  {
+    NONE,
+    PULL_UP,
+    PULL_DOWN
+  } PullUpMode;
 
-void DigitalOutPort::setGpioPortAsOutput()
-{
-  *_ddr = 0xFF;
-}
+  virtual void setPullUpMode(PullUpMode const pullup_mode) = 0;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATxxxx */
+} /* interface*/
 
 } /* hal */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINCONFIGURATION_H_ */
