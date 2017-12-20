@@ -14,6 +14,10 @@ endif()
 
 ##########################################################################
 
+if(${DRIVER_HAPTIC_AT45DBX} STREQUAL "yes")
+    set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} src/driver/memory/AT45DBx.cpp)
+endif()
+
 if(${DRIVER_HAPTIC_PCF8570} STREQUAL "yes")
     set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} src/driver/memory/PCF8570.cpp)
 endif()

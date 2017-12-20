@@ -32,7 +32,7 @@
 namespace spectre
 {
 
-namespace mcu
+namespace hal
 {
 
 namespace interface
@@ -61,7 +61,7 @@ public:
 
 } /* interface*/
 
-} /* mcu */
+} /* hal */
 
 } /* spectre */
 

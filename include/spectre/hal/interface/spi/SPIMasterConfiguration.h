@@ -16,6 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INTERFACE_SPI_MASTER_CONFIGURATION_H_
+#define INTERFACE_SPI_MASTER_CONFIGURATION_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
@@ -29,7 +32,7 @@
 namespace spectre
 {
 
-namespace mcu
+namespace hal
 {
 
 namespace interface
@@ -67,7 +70,9 @@ public:
 
 } /* interface*/
 
-} /* mcu */
+} /* hal */
 
 } /* spectre */
+
+#endif /* INTERFACE_SPI_MASTER_CONFIGURATION_H_ */
 
