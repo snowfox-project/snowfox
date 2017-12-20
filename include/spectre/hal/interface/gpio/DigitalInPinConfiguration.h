@@ -50,9 +50,9 @@ public:
     NONE,
     PULL_UP,
     PULL_DOWN
-  } ePullUpMode;
+  } PullUpMode;
 
-  virtual void setPullUpMode(ePullUpMode const pullup_mode) = 0;
+  virtual void setPullUpMode(PullUpMode const pullup_mode) = 0;
 
 };
 

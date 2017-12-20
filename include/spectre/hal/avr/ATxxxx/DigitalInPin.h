@@ -58,7 +58,7 @@ public:
   virtual bool isSet        (                                                                   ) override;
 
 
-  virtual void setPullUpMode(interface::DigitalInPinConfiguration::ePullUpMode const pullup_mode) override;
+  virtual void setPullUpMode(interface::DigitalInPinConfiguration::PullUpMode const pullup_mode) override;
 
 private:
 
