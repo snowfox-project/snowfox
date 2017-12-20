@@ -177,16 +177,16 @@ void I2CMaster::stop()
   *_TWCR = TWINT_bm | TWEN_bm | TWSTO_bm;
 }
 
-void I2CMaster::setTWIPrescaler(eTWIPrescaler const prescaler)
+void I2CMaster::setTWIPrescaler(uint32_t const prescaler)
 {
   *_TWSR &= ~(TWPS1_bm | TWPS0_bm);
 
   switch(prescaler)
   {
-  case Prescaler_1  : *_TWSR |= 0;                    break;
-  case Prescaler_4  : *_TWSR |= TWPS0_bm;             break;
-  case Prescaler_16 : *_TWSR |= TWPS1_bm;             break;
-  case Prescaler_64 : *_TWSR |= TWPS1_bm | TWPS0_bm;  break;
+  case 1  : *_TWSR |= 0;                    break;
+  case 4  : *_TWSR |= TWPS0_bm;             break;
+  case 16 : *_TWSR |= TWPS1_bm;             break;
+  case 64 : *_TWSR |= TWPS1_bm | TWPS0_bm;  break;
   default: break;
   }
 }

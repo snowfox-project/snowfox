@@ -47,7 +47,9 @@ namespace ATxxxx
  * CTOR/DTOR
  **************************************************************************************/
 
-I2CMaster::I2CMaster()
+I2CMaster::I2CMaster(avr::interface::I2CMaster & i2c_master, avr::interface::I2CMasterConfiguration & i2c_master_configuration)
+: _i2c_master              (i2c_master              ),
+  _i2c_master_configuration(i2c_master_configuration)
 {
 
 }
@@ -63,17 +65,17 @@ I2CMaster::~I2CMaster()
 
 bool I2CMaster::begin(uint8_t const address, bool const is_read_access)
 {
-  return this->start(convertI2CAddress(address, is_read_access));
+  return _i2c_master.start(convertI2CAddress(address, is_read_access));
 }
 
 bool I2CMaster::write(uint8_t const data)
 {
-  return this->transmitByte(data);
+  return _i2c_master.transmitByte(data);
 }
 
 void I2CMaster::end()
 {
-  this->stop();
+  _i2c_master.stop();
 }
 
 bool I2CMaster::requestFrom(uint8_t const address, uint8_t * data, uint16_t const num_bytes)
@@ -84,31 +86,33 @@ bool I2CMaster::requestFrom(uint8_t const address, uint8_t * data, uint16_t cons
 
   for(uint16_t i = 0; i < (num_bytes - 1); i++)
   {
-    this->receiveByteAndSendACK(data+i);
+    _i2c_master.receiveByteAndSendACK(data+i);
   }
 
-  this->receiveByteAndSendNACK(data + num_bytes - 1);
+  _i2c_master.receiveByteAndSendNACK(data + num_bytes - 1);
 
-  this->end();
+  end();
 
   return true;
 }
 
 void I2CMaster::setI2CClock(eI2CClock const i2c_clock)
 {
-  setTWIPrescaler(Prescaler_1);
+  uint32_t const TWI_PRESCALER = 1;
+
+  _i2c_master_configuration.setTWIPrescaler(TWI_PRESCALER);
 
   switch(i2c_clock)
   {
-  case F_100_kHz  : setTWBR( 100000, static_cast<uint32_t>(Prescaler_1)); break;
-  case F_400_kHz  : setTWBR( 400000, static_cast<uint32_t>(Prescaler_1)); break;
-  case F_1000_kHz : setTWBR(1000000, static_cast<uint32_t>(Prescaler_1)); break;
+  case F_100_kHz  : _i2c_master_configuration.setTWBR( 100000, TWI_PRESCALER); break;
+  case F_400_kHz  : _i2c_master_configuration.setTWBR( 400000, TWI_PRESCALER); break;
+  case F_1000_kHz : _i2c_master_configuration.setTWBR(1000000, TWI_PRESCALER); break;
   default: break;
   }
 }
 
 /**************************************************************************************
- * PROTECTED MEMBER FUNCTIONS
+ * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
 uint8_t I2CMaster::convertI2CAddress(uint8_t const address, bool is_read_access)
