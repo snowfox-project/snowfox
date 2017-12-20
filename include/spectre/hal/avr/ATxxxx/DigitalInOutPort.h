@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_ATXXXX_DIGITALINPIN_H_
-#define INCLUDE_SPECTRE_HAL_AVR_ATXXXX_DIGITALINPIN_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_ATXXXX_DIGITALINOUTPORT_H_
+#define INCLUDE_SPECTRE_HAL_AVR_ATXXXX_DIGITALINOUTPORT_H_
 
 /**************************************************************************************
  * INCLUDES
@@ -25,8 +25,7 @@
 
 #include <stdint.h>
 
-#include <spectre/hal/interface/gpio/DigitalInPin.h>
-#include <spectre/hal/interface/gpio/DigitalInConfiguration.h>
+#include <spectre/hal/interface/gpio/DigitalInOutPort.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -45,34 +44,25 @@ namespace ATxxxx
  * CLASS DECLARATION
  **************************************************************************************/
 
-class DigitalInPin : public interface::DigitalInPin,
-                     public interface::DigitalInConfiguration
+class DigitalInOutPort : public interface::DigitalInOutPort<uint8_t>
 {
 
 public:
 
-           DigitalInPin(volatile uint8_t * ddr, volatile uint8_t * out, volatile uint8_t * pin, uint8_t const in_pin_number);
-  virtual ~DigitalInPin();
+           DigitalInOutPort(volatile uint8_t * ddr, volatile uint8_t * out, volatile uint8_t * pin);
+  virtual ~DigitalInOutPort();
 
 
-  /* DigitalIn Interface */
+  /* Digital Input Port Interface */
 
-  virtual bool isSet() override;
-
-
-  /* Digital In Configuration */
-
-  virtual void setPullUpMode(interface::DigitalInConfiguration::PullUpMode const pullup_mode) override;
+  virtual uint8_t get(                 ) override;
+  virtual void    set(uint8_t const val) override;
 
 private:
 
   volatile uint8_t * _ddr,
                    * _out,
                    * _pin;
-
-  uint8_t            _in_pin_bitmask;
-
-  void setGpioPinAsInput();
 
 };
 
@@ -86,4 +76,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_ATXXXX_DIGITALINPIN_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_ATXXXX_DIGITALINOUTPORT_H_ */

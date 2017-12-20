@@ -16,17 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_ATXXXX_DIGITALINPIN_H_
-#define INCLUDE_SPECTRE_HAL_AVR_ATXXXX_DIGITALINPIN_H_
-
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <stdint.h>
-
-#include <spectre/hal/interface/gpio/DigitalInPin.h>
-#include <spectre/hal/interface/gpio/DigitalInConfiguration.h>
+#include <spectre/hal/avr/ATxxxx/DigitalInOutPort.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,39 +36,35 @@ namespace ATxxxx
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class DigitalInPin : public interface::DigitalInPin,
-                     public interface::DigitalInConfiguration
+DigitalInOutPort::DigitalInOutPort(volatile uint8_t * ddr, volatile uint8_t * out, volatile uint8_t * pin)
+: _ddr(ddr),
+  _out(out),
+  _pin(pin)
 {
 
-public:
+}
 
-           DigitalInPin(volatile uint8_t * ddr, volatile uint8_t * out, volatile uint8_t * pin, uint8_t const in_pin_number);
-  virtual ~DigitalInPin();
+DigitalInOutPort::~DigitalInOutPort()
+{
 
+}
 
-  /* DigitalIn Interface */
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
-  virtual bool isSet() override;
+uint8_t DigitalInOutPort::get()
+{
+  return *_pin;
+}
 
-
-  /* Digital In Configuration */
-
-  virtual void setPullUpMode(interface::DigitalInConfiguration::PullUpMode const pullup_mode) override;
-
-private:
-
-  volatile uint8_t * _ddr,
-                   * _out,
-                   * _pin;
-
-  uint8_t            _in_pin_bitmask;
-
-  void setGpioPinAsInput();
-
-};
+void DigitalInOutPort::set(uint8_t const val)
+{
+  *_out = val;
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -85,5 +75,3 @@ private:
 } /* hal */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_HAL_AVR_ATXXXX_DIGITALINPIN_H_ */

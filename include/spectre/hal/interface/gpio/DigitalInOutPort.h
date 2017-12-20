@@ -16,17 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_ATXXXX_DIGITALINPIN_H_
-#define INCLUDE_SPECTRE_HAL_AVR_ATXXXX_DIGITALINPIN_H_
+#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINOUTPORT_H_
+#define INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINOUTPORT_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <stdint.h>
+#include <spectre/hal/interface/gpio/DigitalInPort.h>
+#include <spectre/hal/interface/gpio/DigitalOutPort.h>
 
-#include <spectre/hal/interface/gpio/DigitalInPin.h>
-#include <spectre/hal/interface/gpio/DigitalInConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -38,41 +37,22 @@ namespace spectre
 namespace hal
 {
 
-namespace ATxxxx
+namespace interface
 {
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class DigitalInPin : public interface::DigitalInPin,
-                     public interface::DigitalInConfiguration
+template <typename T>
+class DigitalInOutPort : public DigitalInPort <T>,
+                         public DigitalOutPort<T>
 {
 
 public:
 
-           DigitalInPin(volatile uint8_t * ddr, volatile uint8_t * out, volatile uint8_t * pin, uint8_t const in_pin_number);
-  virtual ~DigitalInPin();
-
-
-  /* DigitalIn Interface */
-
-  virtual bool isSet() override;
-
-
-  /* Digital In Configuration */
-
-  virtual void setPullUpMode(interface::DigitalInConfiguration::PullUpMode const pullup_mode) override;
-
-private:
-
-  volatile uint8_t * _ddr,
-                   * _out,
-                   * _pin;
-
-  uint8_t            _in_pin_bitmask;
-
-  void setGpioPinAsInput();
+           DigitalInOutPort() { }
+  virtual ~DigitalInOutPort() { }
 
 };
 
@@ -80,10 +60,10 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATxxxx */
+} /* interface*/
 
 } /* hal */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_ATXXXX_DIGITALINPIN_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINOUTPORT_H_ */
