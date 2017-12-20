@@ -35,7 +35,7 @@ namespace spectre
 namespace hal
 {
 
-namespace avr
+namespace ATxxxx
 {
 
 namespace interface
@@ -68,7 +68,7 @@ public:
 
 } /* interface */
 
-} /* avr */
+} /* ATxxxx */
 
 } /* hal */
 

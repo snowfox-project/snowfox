@@ -26,8 +26,8 @@
 #include <spectre/hal/interface/i2c/I2CMaster.h>
 #include <spectre/hal/interface/i2c/I2CMasterConfiguration.h>
 
-#include <spectre/hal/avr/interface/i2c/I2CMaster.h>
-#include <spectre/hal/avr/interface/i2c/I2CMasterConfiguration.h>
+#include <spectre/hal/avr/ATxxxx/interface/i2c/I2CMaster.h>
+#include <spectre/hal/avr/ATxxxx/interface/i2c/I2CMasterConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -46,13 +46,13 @@ namespace ATxxxx
  * CLASS DECLARATION
  **************************************************************************************/
 
-class I2CMaster : public interface::I2CMaster,
-                  public interface::I2CMasterConfiguration
+class I2CMaster : public hal::interface::I2CMaster,
+                  public hal::interface::I2CMasterConfiguration
 {
 
 public:
 
-           I2CMaster(avr::interface::I2CMaster & i2c_master, avr::interface::I2CMasterConfiguration & i2c_master_configuration);
+           I2CMaster(interface::I2CMaster & i2c_master, interface::I2CMasterConfiguration & i2c_master_configuration);
   virtual ~I2CMaster();
 
 
@@ -66,15 +66,15 @@ public:
 
   /* I2C Master Configuration Interface */
 
-  virtual void setI2CClock(eI2CClock const i2c_clock) = 0;
+  virtual void setI2CClock(eI2CClock const i2c_clock) override;
 
 
 private:
 
-  avr::interface::I2CMaster              & _i2c_master;
-  avr::interface::I2CMasterConfiguration & _i2c_master_configuration;
+  interface::I2CMaster              & _i2c_master;
+  interface::I2CMasterConfiguration & _i2c_master_configuration;
 
-  static  uint8_t convertI2CAddress     (uint8_t const address, bool is_read_access);
+  static  uint8_t convertI2CAddress(uint8_t const address, bool is_read_access);
 
 };
 

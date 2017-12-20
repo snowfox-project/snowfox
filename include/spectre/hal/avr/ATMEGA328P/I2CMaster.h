@@ -23,8 +23,8 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/interface/i2c/I2CMaster.h>
-#include <spectre/hal/avr/interface/i2c/I2CMasterConfiguration.h>
+#include <spectre/hal/avr/ATxxxx/interface/i2c/I2CMaster.h>
+#include <spectre/hal/avr/ATxxxx/interface/i2c/I2CMasterConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -43,8 +43,8 @@ namespace ATMEGA328P
  * CLASS DECLARATION I2CMaster
  **************************************************************************************/
 
-class I2CMaster : public avr::interface::I2CMaster,
-                  public avr::interface::I2CMasterConfiguration
+class I2CMaster : public ATxxxx::interface::I2CMaster,
+                  public ATxxxx::interface::I2CMasterConfiguration
 {
 
 public:

@@ -47,7 +47,7 @@ namespace ATxxxx
  * CTOR/DTOR
  **************************************************************************************/
 
-I2CMaster::I2CMaster(avr::interface::I2CMaster & i2c_master, avr::interface::I2CMasterConfiguration & i2c_master_configuration)
+I2CMaster::I2CMaster(interface::I2CMaster & i2c_master, interface::I2CMasterConfiguration & i2c_master_configuration)
 : _i2c_master              (i2c_master              ),
   _i2c_master_configuration(i2c_master_configuration)
 {
