@@ -42,7 +42,6 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-template <typename T>
 class DigitalInOutPortConfiguration
 {
 
@@ -58,7 +57,7 @@ public:
     OUTPUT
   } ModeSelect;
 
-  virtual void setMode(ModeSelect const mode, PullUpMode const pullup_mode = NONE) = 0;
+  virtual void setMode(ModeSelect const mode, PullUpMode const pullup_mode = PullUpMode::NONE) = 0;
 
 };
 
@@ -71,7 +70,5 @@ public:
 } /* hal */
 
 } /* spectre */
-
-
 
 #endif /* INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINOUTPORTCONFIGURATION_H_ */

@@ -66,6 +66,41 @@ void DigitalInOutPort::set(uint8_t const val)
   *_out = val;
 }
 
+void DigitalInOutPort::setMode(interface::DigitalInOutPortConfiguration::ModeSelect const mode, interface::PullUpMode const pullup_mode)
+{
+  switch(mode)
+  {
+  case interface::DigitalInOutPortConfiguration::INPUT : { setGpioPortAsInput(); setGpioPortPullUpMode(pullup_mode); } break;
+  case interface::DigitalInOutPortConfiguration::OUTPUT: { setGpioPortAsOutput();                                    } break;
+  default                                              :                                                               break;
+  }
+}
+
+/**************************************************************************************
+ * PRIVATE MEMBER FUNCTIONS
+ **************************************************************************************/
+
+void DigitalInOutPort::setGpioPortAsInput()
+{
+  *_ddr = 0x00;
+}
+
+void DigitalInOutPort::setGpioPortAsOutput()
+{
+  *_ddr = 0xFF;
+}
+
+void DigitalInOutPort::setGpioPortPullUpMode(interface::PullUpMode const pullup_mode)
+{
+  switch(pullup_mode)
+  {
+  case interface::PullUpMode::NONE:      *_out = 0x00; break;
+  case interface::PullUpMode::PULL_UP:   *_out = 0xFF; break;
+  case interface::PullUpMode::PULL_DOWN:               break;
+  default:                                             break;
+  }
+}
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
