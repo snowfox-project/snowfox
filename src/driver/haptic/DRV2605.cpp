@@ -48,7 +48,7 @@ static uint32_t const DEVICE_RESET_DURATION_ms = 10;
  * CTOR/DTOR
  **************************************************************************************/
 
-DRV2605::DRV2605(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master, hal::interface::Delay & delay)
+DRV2605::DRV2605(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master, driver::interface::Delay & delay)
 : _i2c_address(i2c_address),
   _i2c_master (i2c_master ),
   _delay      (delay      )

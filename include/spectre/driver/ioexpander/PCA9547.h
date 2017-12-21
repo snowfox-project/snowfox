@@ -27,7 +27,6 @@
 
 #include <spectre/driver/interface/Debug.h>
 
-#include <spectre/hal/interface/delay/Delay.h>
 #include <spectre/hal/interface/i2c/I2CMaster.h>
 
 /**************************************************************************************

@@ -32,7 +32,7 @@
 namespace spectre
 {
 
-namespace hal
+namespace driver
 {
 
 namespace interface
@@ -62,7 +62,7 @@ public:
 
 } /* interface*/
 
-} /* hal */
+} /* driver */
 
 } /* spectre */
 

@@ -26,8 +26,8 @@
 #include <stdint.h>
 
 #include <spectre/driver/interface/Debug.h>
+#include <spectre/driver/interface/Delay.h>
 
-#include <spectre/hal/interface/delay/Delay.h>
 #include <spectre/hal/interface/i2c/I2CMaster.h>
 
 /**************************************************************************************
@@ -205,7 +205,7 @@ class DRV2605 : public Interface,
 
 public:
 
-           DRV2605(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master, hal::interface::Delay & delay);
+           DRV2605(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master, driver::interface::Delay & delay);
   virtual ~DRV2605();
 
 
@@ -232,7 +232,7 @@ private:
 
   uint8_t                     _i2c_address;
   hal::interface::I2CMaster & _i2c_master;
-  hal::interface::Delay     & _delay;
+  driver::interface::Delay  & _delay;
 
   bool readSingleRegister   (uint8_t const reg_addr, uint8_t       * data);
   bool writeSingleRegister  (uint8_t const reg_addr, uint8_t const   data);
