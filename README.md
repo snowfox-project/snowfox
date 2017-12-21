@@ -10,7 +10,7 @@ Spectre consists of an Real Time Operating System + an Hardware Abstraction Laye
 |:----------------------------:|:---------------------:|:-----------------:|
 | Atmel/Microchip ATMega328P   | avr                   | atmega328p        |
 
-## I/O Devive Drivers
+## I/O Device Drivers
 ### Haptic Actuator Drivers ([/haptic](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/haptic))
 
 * **DRV2605L** (Haptic Driver for LRA and ERM)
