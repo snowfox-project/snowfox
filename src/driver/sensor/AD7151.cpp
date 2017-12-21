@@ -108,7 +108,7 @@ bool AD7151::readConversionResult(uint16_t * raw_data)
   return true;
 }
 
-void AD7151::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
+void AD7151::debug_dumpAllRegs(driver::interface::Debug & debug_interface)
 {
   debug_dumpSingleReg(debug_interface, "REG_STATUS                     = ", REG_STATUS                    );
   debug_dumpSingleReg(debug_interface, "REG_DATA_HIGH                  = ", REG_DATA_HIGH                 );
@@ -155,7 +155,7 @@ bool AD7151::readMultipleRegister(uint8_t const reg_addr, uint8_t * data, uint16
   return true;
 }
 
-void AD7151::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
+void AD7151::debug_dumpSingleReg(driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
 {
   uint8_t reg_content = 0;
 

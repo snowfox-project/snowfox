@@ -160,7 +160,7 @@ bool DRV2605::setActuator(ActuatorSelect const actuator)
   return true;
 }
 
-void DRV2605::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
+void DRV2605::debug_dumpAllRegs(driver::interface::Debug & debug_interface)
 {
   debug_dumpSingleReg(debug_interface, "REG_STATUS            = ", REG_STATUS          );
   debug_dumpSingleReg(debug_interface, "REG_MODE              = ", REG_MODE            );
@@ -222,7 +222,7 @@ bool DRV2605::writeSingleRegister(uint8_t const reg_addr, uint8_t const data)
   return true;
 }
 
-void DRV2605::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
+void DRV2605::debug_dumpSingleReg(driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
 {
   uint8_t reg_content = 0;
 

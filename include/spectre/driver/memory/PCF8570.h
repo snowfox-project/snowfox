@@ -26,7 +26,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include <spectre/debug/interface/Debug.h>
+#include <spectre/driver/interface/Debug.h>
+
 #include <spectre/hal/interface/i2c/I2CMaster.h>
 
 /**************************************************************************************

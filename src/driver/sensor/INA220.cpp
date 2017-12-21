@@ -152,7 +152,7 @@ bool INA220::readBusVoltage(int16_t * bus_voltage)
   return true;
 }
 
-void INA220::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
+void INA220::debug_dumpAllRegs(driver::interface::Debug & debug_interface)
 {
   debug_dumpSingleReg(debug_interface, "REG_CONFIG      = ", REG_CONFIG     );
   debug_dumpSingleReg(debug_interface, "REG_V_SHUNT     = ", REG_V_SHUNT    );
@@ -195,7 +195,7 @@ bool INA220::writeRegister(uint8_t const reg_addr, uint16_t const data)
   return true;
 }
 
-void INA220::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
+void INA220::debug_dumpSingleReg(driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
 {
   uint16_t reg_content = 0;
 

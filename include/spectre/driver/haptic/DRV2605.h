@@ -25,7 +25,7 @@
 
 #include <stdint.h>
 
-#include <spectre/debug/interface/Debug.h>
+#include <spectre/driver/interface/Debug.h>
 
 #include <spectre/hal/interface/delay/Delay.h>
 #include <spectre/hal/interface/i2c/I2CMaster.h>
@@ -226,7 +226,7 @@ public:
   virtual bool setActuator        (ActuatorSelect           const   actuator                          ) override;
 
 
-          void debug_dumpAllRegs  (debug::interface::Debug                & debug_interface);
+          void debug_dumpAllRegs  (driver::interface::Debug                & debug_interface);
 
 private:
 
@@ -237,7 +237,7 @@ private:
   bool readSingleRegister   (uint8_t const reg_addr, uint8_t       * data);
   bool writeSingleRegister  (uint8_t const reg_addr, uint8_t const   data);
 
-  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel);
+  void debug_dumpSingleReg  (driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel);
 
 };
 

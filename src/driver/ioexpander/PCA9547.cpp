@@ -76,7 +76,7 @@ bool PCA9547::getChannel(I2CChannelSelect * sel)
   return true;
 }
 
-void PCA9547::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
+void PCA9547::debug_dumpAllRegs(driver::interface::Debug & debug_interface)
 {
   uint8_t control_reg_content = 0;
 

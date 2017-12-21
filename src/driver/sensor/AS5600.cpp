@@ -262,7 +262,7 @@ bool AS5600::isMagnetDetected(uint8_t const status)
   return (status & AS5600_STATUS_REG_MD_bm) != 0;
 }
 
-void AS5600::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
+void AS5600::debug_dumpAllRegs(driver::interface::Debug & debug_interface)
 {
   debug_dumpSingleReg(debug_interface, "REG_ZMCO                = ", REG_ZMCO               );
   debug_dumpSingleReg(debug_interface, "REG_ZPOS_HIGH_BYTE      = ", REG_ZPOS_HIGH_BYTE     );
@@ -319,7 +319,7 @@ bool AS5600::writeMultipleRegister(uint8_t const reg_addr, uint8_t const * data,
   return true;
 }
 
-void AS5600::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
+void AS5600::debug_dumpSingleReg(driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
 {
   uint8_t reg_content = 0;
 

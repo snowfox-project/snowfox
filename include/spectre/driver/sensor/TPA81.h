@@ -26,7 +26,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include <spectre/debug/interface/Debug.h>
+#include <spectre/driver/interface/Debug.h>
+
 #include <spectre/hal/interface/i2c/I2CMaster.h>
 
 /**************************************************************************************
@@ -113,7 +114,7 @@ public:
   virtual bool readThermophileArray   (ThermophileData * thermo_data        ) override;
 
 
-          void debug_dumpAllRegs      (debug::interface::Debug & debug_interface);
+          void debug_dumpAllRegs      (driver::interface::Debug & debug_interface);
 
 private:
 
@@ -124,7 +125,7 @@ private:
   bool writeSingleRegister  (uint8_t const reg_addr, uint8_t const    data);
   bool readMultipleRegister (uint8_t const reg_addr, uint8_t        * data, uint16_t const num_bytes);
 
-  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel);
+  void debug_dumpSingleReg  (driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel);
 
 };
 

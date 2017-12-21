@@ -26,7 +26,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include <spectre/debug/interface/Debug.h>
+#include <spectre/driver/interface/Debug.h>
+
 #include <spectre/hal/interface/i2c/I2CMaster.h>
 
 /**************************************************************************************
@@ -191,7 +192,7 @@ public:
   virtual bool setOperatingMode     (OperatingModeSelect       const sel) override;
 
 
-          void debug_dumpAllRegs    (debug::interface::Debug & debug_interface);
+          void debug_dumpAllRegs    (driver::interface::Debug & debug_interface);
 
 private:
 
@@ -201,7 +202,7 @@ private:
   bool readRegister   (uint8_t const reg_addr, uint16_t       * data);
   bool writeRegister  (uint8_t const reg_addr, uint16_t const   data);
 
-  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel);
+  void debug_dumpSingleReg  (driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel);
 
 };
 
