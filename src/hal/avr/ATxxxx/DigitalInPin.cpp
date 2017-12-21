@@ -64,14 +64,14 @@ bool DigitalInPin::isSet()
   return is_set;
 }
 
-void DigitalInPin::setPullUpMode(interface::DigitalInConfiguration::PullUpMode const pullup_mode)
+void DigitalInPin::setPullUpMode(interface::PullUpMode const pullup_mode)
 {
   switch(pullup_mode)
   {
-  case NONE:      *_out &= ~_in_pin_bitmask; break;
-  case PULL_UP:   *_out |=  _in_pin_bitmask; break;
-  case PULL_DOWN:                            break;
-  default:                                   break;
+  case interface::PullUpMode::NONE:      *_out &= ~_in_pin_bitmask; break;
+  case interface::PullUpMode::PULL_UP:   *_out |=  _in_pin_bitmask; break;
+  case interface::PullUpMode::PULL_DOWN:                            break;
+  default:                                                          break;
   }
 }
 

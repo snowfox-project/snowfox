@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINCONFIGURATION_H_
-#define INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINCONFIGURATION_H_
+#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINOUTPORTCONFIGURATION_H_
+#define INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINOUTPORTCONFIGURATION_H_
 
 /**************************************************************************************
  * INCLUDES
@@ -42,16 +42,23 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class DigitalInConfiguration
+template <typename T>
+class DigitalInOutPortConfiguration
 {
 
 public:
 
-           DigitalInConfiguration() { }
-  virtual ~DigitalInConfiguration() { }
+           DigitalInOutPortConfiguration() { }
+  virtual ~DigitalInOutPortConfiguration() { }
 
 
-  virtual void setPullUpMode(PullUpMode const pullup_mode) = 0;
+  typedef enum
+  {
+    INPUT,
+    OUTPUT
+  } ModeSelect;
+
+  virtual void setMode(ModeSelect const mode, PullUpMode const pullup_mode = NONE) = 0;
 
 };
 
@@ -65,4 +72,6 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINCONFIGURATION_H_ */
+
+
+#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINOUTPORTCONFIGURATION_H_ */

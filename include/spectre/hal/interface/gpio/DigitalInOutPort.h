@@ -26,7 +26,6 @@
 #include <spectre/hal/interface/gpio/DigitalInPort.h>
 #include <spectre/hal/interface/gpio/DigitalOutPort.h>
 
-
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/

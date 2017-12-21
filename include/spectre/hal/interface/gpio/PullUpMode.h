@@ -16,14 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINCONFIGURATION_H_
-#define INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINCONFIGURATION_H_
-
-/**************************************************************************************
- * INCLUDES
- **************************************************************************************/
-
-#include <spectre/hal/interface/gpio/PullUpMode.h>
+#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_PULLUPMODE_H_
+#define INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_PULLUPMODE_H_
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,20 +33,14 @@ namespace interface
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * TYPEDEFS
  **************************************************************************************/
 
-class DigitalInConfiguration
+enum class PullUpMode
 {
-
-public:
-
-           DigitalInConfiguration() { }
-  virtual ~DigitalInConfiguration() { }
-
-
-  virtual void setPullUpMode(PullUpMode const pullup_mode) = 0;
-
+  NONE,
+  PULL_UP,
+  PULL_DOWN
 };
 
 /**************************************************************************************
@@ -65,4 +53,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINCONFIGURATION_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_PULLUPMODE_H_ */
