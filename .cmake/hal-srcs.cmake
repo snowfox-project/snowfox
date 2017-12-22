@@ -16,6 +16,7 @@ if(${MCU_ARCH} STREQUAL "avr")
   
     set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} src/hal/avr/ATMEGA328P/I2CMaster.cpp          )
     set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} src/hal/avr/ATMEGA328P/InterruptController.cpp)
+    set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} src/hal/avr/ATMEGA328P/TIMER0.cpp             )
     set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} src/hal/avr/ATMEGA328P/UART0.cpp              )
     
   endif()
