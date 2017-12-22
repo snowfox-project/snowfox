@@ -35,7 +35,8 @@ using namespace spectre::hal;
  **************************************************************************************/
 
 SystemBuilder::SystemBuilder()
-: _uart0(&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0)
+: _uart0                (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0),
+  _interrupt_controller (&EIMSK, &PCICR, &WDTCSR, &TIMSK2, &TIMSK1, &TIMSK0, &SPCR, &UCSR0B)
 {
   /* Configure UART0 */
 

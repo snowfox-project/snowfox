@@ -80,7 +80,14 @@ class InterruptController : public interface::InterruptController,
 
 public:
 
-           InterruptController();
+           InterruptController(volatile uint8_t * EIMSK,
+                               volatile uint8_t * PCICR,
+                               volatile uint8_t * WDTCSR,
+                               volatile uint8_t * TIMSK2,
+                               volatile uint8_t * TIMSK1,
+                               volatile uint8_t * TIMSK0,
+                               volatile uint8_t * SPCR,
+                               volatile uint8_t * UCSR0B);
   virtual ~InterruptController();
 
 
@@ -95,6 +102,17 @@ public:
   virtual void registerISR(uint8_t            const int_num,
                            interface::ISRFunc       isr_func,
                            interface::ISRArg        isr_arg) override;
+
+private:
+
+  volatile uint8_t * _EIMSK,
+                   * _PCICR,
+                   * _WDTCSR,
+                   * _TIMSK2,
+                   * _TIMSK1,
+                   * _TIMSK0,
+                   * _SPCR,
+                   * _UCSR0B;
 
 };
 

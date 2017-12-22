@@ -24,9 +24,6 @@
 
 #include <assert.h>
 
-#include <avr/io.h>
-#include <avr/interrupt.h>
-
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -39,6 +36,46 @@ namespace hal
 
 namespace ATMEGA328P
 {
+
+/**************************************************************************************
+ * DEFINES
+ **************************************************************************************/
+
+/* EIMSK */
+#define INT0_bm (1<<0)
+#define INT1_bm (1<<1)
+
+/* PCICR */
+#define PCIE0_bm (1<<0)
+#define PCIE1_bm (1<<1)
+#define PCIE2_bm (1<<2)
+
+/* WDTCSR */
+#define WDIE_bm  (1<<6)
+
+/* TIMSK2 */
+#define TOIE2_bm  (1<<0)
+#define OCIE2A_bm (1<<1)
+#define OCIE2B_bm (1<<2)
+
+/* TIMSK1 */
+#define TOIE1_bm  (1<<0)
+#define OCIE1A_bm (1<<1)
+#define OCIE1B_bm (1<<2)
+#define ICIE1_bm  (1<<5)
+
+/* TIMSK0 */
+#define TOIE0_bm  (1<<0)
+#define OCIE0A_bm (1<<1)
+#define OCIE0B_bm (1<<2)
+
+/* SPCR */
+#define SPIE_bm   (1<<7)
+
+/* UCSR0B */
+#define UDRIE0_bm (1<<5)
+#define TXCIE0_bm (1<<6)
+#define RXCIE0_bm (1<<7)
 
 /**************************************************************************************
  * GLOBAL CONSTANTS
@@ -67,7 +104,22 @@ static InterruptCallbackArrayEntry _interrupt_callback_array[NUMBER_OF_INTERRUPT
  * CTOR/DTOR
  **************************************************************************************/
 
-InterruptController::InterruptController()
+InterruptController::InterruptController(volatile uint8_t * EIMSK,
+                                         volatile uint8_t * PCICR,
+                                         volatile uint8_t * WDTCSR,
+                                         volatile uint8_t * TIMSK2,
+                                         volatile uint8_t * TIMSK1,
+                                         volatile uint8_t * TIMSK0,
+                                         volatile uint8_t * SPCR,
+                                         volatile uint8_t * UCSR0B)
+: _EIMSK  (EIMSK ),
+  _PCICR  (PCICR ),
+  _WDTCSR (WDTCSR),
+  _TIMSK2 (TIMSK2),
+  _TIMSK1 (TIMSK1),
+  _TIMSK0 (TIMSK0),
+  _SPCR   (SPCR  ),
+  _UCSR0B (UCSR0B)
 {
   _this = this;
 
@@ -91,32 +143,36 @@ void InterruptController::enableInterrupt(uint8_t const int_num)
 {
   switch(int_num)
   {
-  case EXTERNAL_INT0                  : break;
-  case EXTERNAL_INT1                  : break;
-  case PIN_CHANGE_INT0                : break;
-  case PIN_CHANGE_INT1                : break;
-  case PIN_CHANGE_INT2                : break;
-  case WATCHDOG_TIMER                 : break;
-  case TIMER2_COMPARE_A               : break;
-  case TIMER2_COMPARE_B               : break;
-  case TIMER2_OVERFLOW                : break;
-  case TIMER1_CAPTURE                 : break;
-  case TIMER1_COMPARE_A               : break;
-  case TIMER1_COMPARE_B               : break;
-  case TIMER1_OVERFLOW                : break;
-  case TIMER0_COMPARE_A               : break;
-  case TIMER0_COMPARE_B               : break;
-  case TIMER0_OVERFLOW                : break;
-  case SPI_SERIAL_TRANSFER_COMPLETE   : break;
-  case USART_RECEIVE_COMPLETE         : break;
-  case USART_UART_DATA_REGISTER_EMPTY : break;
-  case USART_TRANSMIT_COMPLETE        : break;
+  case EXTERNAL_INT0                  : *_EIMSK   |= INT0_bm;   break;
+  case EXTERNAL_INT1                  : *_EIMSK   |= INT1_bm;   break;
+  case PIN_CHANGE_INT0                : *_PCICR   |= PCIE0_bm;  break;
+  case PIN_CHANGE_INT1                : *_PCICR   |= PCIE1_bm;  break;
+  case PIN_CHANGE_INT2                : *_PCICR   |= PCIE2_bm;  break;
+  case WATCHDOG_TIMER                 : *_WDTCSR  |= WDIE_bm;   break;
+  case TIMER2_COMPARE_A               : *_TIMSK2  |= OCIE2A_bm; break;
+  case TIMER2_COMPARE_B               : *_TIMSK2  |= OCIE2B_bm; break;
+  case TIMER2_OVERFLOW                : *_TIMSK2  |= TOIE2_bm;  break;
+  case TIMER1_CAPTURE                 : *_TIMSK1  |= ICIE1_bm;  break;
+  case TIMER1_COMPARE_A               : *_TIMSK1  |= OCIE1A_bm; break;
+  case TIMER1_COMPARE_B               : *_TIMSK1  |= OCIE1B_bm; break;
+  case TIMER1_OVERFLOW                : *_TIMSK1  |= TOIE1_bm;  break;
+  case TIMER0_COMPARE_A               : *_TIMSK0  |= OCIE0A_bm; break;
+  case TIMER0_COMPARE_B               : *_TIMSK0  |= OCIE0B_bm; break;
+  case TIMER0_OVERFLOW                : *_TIMSK0  |= TOIE0_bm;  break;
+  case SPI_SERIAL_TRANSFER_COMPLETE   : *_SPCR    |= SPIE_bm;   break;
+  case USART_RECEIVE_COMPLETE         : *_UCSR0B  |= UDRIE0_bm; break;
+  case USART_UART_DATA_REGISTER_EMPTY : *_UCSR0B  |= RXCIE0_bm; break;
+  case USART_TRANSMIT_COMPLETE        : *_UCSR0B  |= TXCIE0_bm; break;
   case ANALOG_DIGITAL_CONVERTER       : break;
   case EEPROM_READY                   : break;
   case ANALOG_COMPARATOR              : break;
   case TWO_WIRE_INT                   : break;
   case SPM_READY                      : break;
-  case GLOBAL                         : sei(); break;
+  case GLOBAL                         :
+#if (MCU_TYPE == atmega328p)
+    asm volatile("sei");
+#endif
+  break;
   }
 }
 
@@ -124,32 +180,36 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
 {
   switch(int_num)
   {
-  case EXTERNAL_INT0                  : break;
-  case EXTERNAL_INT1                  : break;
-  case PIN_CHANGE_INT0                : break;
-  case PIN_CHANGE_INT1                : break;
-  case PIN_CHANGE_INT2                : break;
-  case WATCHDOG_TIMER                 : break;
-  case TIMER2_COMPARE_A               : break;
-  case TIMER2_COMPARE_B               : break;
-  case TIMER2_OVERFLOW                : break;
-  case TIMER1_CAPTURE                 : break;
-  case TIMER1_COMPARE_A               : break;
-  case TIMER1_COMPARE_B               : break;
-  case TIMER1_OVERFLOW                : break;
-  case TIMER0_COMPARE_A               : break;
-  case TIMER0_COMPARE_B               : break;
-  case TIMER0_OVERFLOW                : break;
-  case SPI_SERIAL_TRANSFER_COMPLETE   : break;
-  case USART_RECEIVE_COMPLETE         : break;
-  case USART_UART_DATA_REGISTER_EMPTY : break;
-  case USART_TRANSMIT_COMPLETE        : break;
+  case EXTERNAL_INT0                  : *_EIMSK   &= ~INT0_bm;   break;
+  case EXTERNAL_INT1                  : *_EIMSK   &= ~INT1_bm;   break;
+  case PIN_CHANGE_INT0                : *_PCICR   &= ~PCIE0_bm;  break;
+  case PIN_CHANGE_INT1                : *_PCICR   &= ~PCIE1_bm;  break;
+  case PIN_CHANGE_INT2                : *_PCICR   &= ~PCIE2_bm;  break;
+  case WATCHDOG_TIMER                 : *_WDTCSR  &= ~WDIE_bm;   break;
+  case TIMER2_COMPARE_A               : *_TIMSK2  &= ~OCIE2A_bm; break;
+  case TIMER2_COMPARE_B               : *_TIMSK2  &= ~OCIE2B_bm; break;
+  case TIMER2_OVERFLOW                : *_TIMSK2  &= ~TOIE2_bm;  break;
+  case TIMER1_CAPTURE                 : *_TIMSK1  &= ~ICIE1_bm;  break;
+  case TIMER1_COMPARE_A               : *_TIMSK1  &= ~OCIE1A_bm; break;
+  case TIMER1_COMPARE_B               : *_TIMSK1  &= ~OCIE1B_bm; break;
+  case TIMER1_OVERFLOW                : *_TIMSK1  &= ~TOIE1_bm;  break;
+  case TIMER0_COMPARE_A               : *_TIMSK0  &= ~OCIE0A_bm; break;
+  case TIMER0_COMPARE_B               : *_TIMSK0  &= ~OCIE0B_bm; break;
+  case TIMER0_OVERFLOW                : *_TIMSK0  &= ~TOIE0_bm;  break;
+  case SPI_SERIAL_TRANSFER_COMPLETE   : *_SPCR    &= ~SPIE_bm;   break;
+  case USART_RECEIVE_COMPLETE         : *_UCSR0B  &= ~UDRIE0_bm; break;
+  case USART_UART_DATA_REGISTER_EMPTY : *_UCSR0B  &= ~RXCIE0_bm; break;
+  case USART_TRANSMIT_COMPLETE        : *_UCSR0B  &= ~TXCIE0_bm; break;
   case ANALOG_DIGITAL_CONVERTER       : break;
   case EEPROM_READY                   : break;
   case ANALOG_COMPARATOR              : break;
   case TWO_WIRE_INT                   : break;
   case SPM_READY                      : break;
-  case GLOBAL                         : cli(); break;
+  case GLOBAL                         :
+#if (MCU_TYPE == atmega328p)
+    asm volatile("cli");
+#endif
+break;
   }
 }
 
@@ -171,16 +231,27 @@ void InterruptController::registerISR(uint8_t const int_num, interface::ISRFunc 
 
 } /* spectre */
 
-/**************************************************************************************
- * INTERRUPT SERVICE ROUTINES
- **************************************************************************************/
+/**************************************************************************************/
 
 #if (MCU_TYPE == atmega328p)
+
+/**************************************************************************************
+ * INCLUDES
+ **************************************************************************************/
+
+#include <avr/io.h>
+#include <avr/interrupt.h>
+
+/**************************************************************************************
+ * NAMESPACES
+ **************************************************************************************/
 
 using namespace spectre::hal::interface;
 using namespace spectre::hal::ATMEGA328P;
 
-/**************************************************************************************/
+/**************************************************************************************
+ * INTERRUPT SERVICE ROUTINES
+ **************************************************************************************/
 
 ISR(INT0_vect)
 {
@@ -432,3 +503,5 @@ ISR(SPM_READY_vect)
 /**************************************************************************************/
 
 #endif /* (MCU_TYPE == atmega328p) */
+
+/**************************************************************************************/
