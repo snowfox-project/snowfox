@@ -1,3 +1,2 @@
 #!/bin/bash
-
-echo "Pre Build"
+cd $(dirname $(readlink -f $0))
