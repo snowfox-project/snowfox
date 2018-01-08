@@ -16,7 +16,7 @@ endif()
 
 set(DRIVER_IOEXPANDER_SRC_PATH src/driver/ioexpander)
 
-if(${DRIVER_HAPTIC_PCA9547} STREQUAL "yes")
+if(${DRIVER_IOEXPANDER_PCA9547} STREQUAL "yes")
 
   set(DRIVER_IOEXPANDER_PCA9547_SRCS
     ${DRIVER_IOEXPANDER_SRC_PATH}/PCA9547/PCA9547_IO_I2C.cpp
@@ -28,11 +28,11 @@ endif()
 
 ##########################################################################
 
-if(${DRIVER_HAPTIC_AT45DBX} STREQUAL "yes")
+if(${DRIVER_MEMORY_AT45DBX} STREQUAL "yes")
   set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} src/driver/memory/AT45DBx.cpp)
 endif()
 
-if(${DRIVER_HAPTIC_PCF8570} STREQUAL "yes")
+if(${DRIVER_MEMORY_PCF8570} STREQUAL "yes")
   set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} src/driver/memory/PCF8570.cpp)
 endif()
 
