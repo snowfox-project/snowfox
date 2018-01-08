@@ -14,8 +14,16 @@ endif()
 
 ##########################################################################
 
+set(DRIVER_IOEXPANDER_SRC_PATH src/driver/ioexpander)
+
 if(${DRIVER_HAPTIC_PCA9547} STREQUAL "yes")
-  set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} src/driver/ioexpander/PCA9547.cpp)
+
+  set(DRIVER_IOEXPANDER_PCA9547_SRCS
+    ${DRIVER_IOEXPANDER_SRC_PATH}/PCA9547/PCA9547_IO_I2C.cpp
+    ${DRIVER_IOEXPANDER_SRC_PATH}/PCA9547/PCA9547.cpp
+  )
+  
+  set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} ${DRIVER_IOEXPANDER_PCA9547_SRCS})
 endif()
 
 ##########################################################################

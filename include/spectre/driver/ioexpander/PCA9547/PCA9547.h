@@ -23,6 +23,9 @@
  * INCLUDES
  **************************************************************************************/
 
+#include <spectre/driver/ioexpander/PCA9547/interface/PCA9547_Interface.h>
+#include <spectre/driver/ioexpander/PCA9547/interface/PCA9547_IO_Interface.h>
+
 #include <stdint.h>
 
 #include <spectre/driver/interface/Debug.h>
@@ -46,50 +49,15 @@ namespace PCA9547
 {
 
 /**************************************************************************************
- * TYPEDEFS
- **************************************************************************************/
-
-typedef enum
-{
-  I2C_CHANNEL_0   = 0x08,
-  I2C_CHANNEL_1   = 0x09,
-  I2C_CHANNEL_2   = 0x0A,
-  I2C_CHANNEL_3   = 0x0B,
-  I2C_CHANNEL_4   = 0x0C,
-  I2C_CHANNEL_5   = 0x0D,
-  I2C_CHANNEL_6   = 0x0E,
-  I2C_CHANNEL_7   = 0x0F,
-  I2C_NO_CHANNEL  = 0x00
-} I2CChannelSelect;
-
-/**************************************************************************************
- * CLASS DECLARATION Interface
- **************************************************************************************/
-
-class Interface
-{
-
-public:
-
-           Interface() { }
-  virtual ~Interface() { }
-
-
-  virtual bool setChannel(I2CChannelSelect const   sel) = 0;
-  virtual bool getChannel(I2CChannelSelect       * sel) = 0;
-
-};
-
-/**************************************************************************************
  * CLASS DECLARATION PCA9547
  **************************************************************************************/
 
-class PCA9547 : public Interface
+class PCA9547 : public PCA9547_Interface
 {
 
 public:
 
-           PCA9547(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master);
+           PCA9547(PCA9547_IO_Interface & io);
   virtual ~PCA9547();
 
 
@@ -103,11 +71,7 @@ public:
 
 private:
 
-  uint8_t                     _i2c_address;
-  hal::interface::I2CMaster & _i2c_master;
-
-  bool readControlRegister   (uint8_t        * data);
-  bool writeControlRegister  (uint8_t const    data);
+  PCA9547_IO_Interface & _io;
 
 };
 
