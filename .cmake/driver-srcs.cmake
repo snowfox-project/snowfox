@@ -3,23 +3,23 @@
 ##########################################################################
 
 if(${DRIVER_HAPTIC_DRV2605} STREQUAL "yes")
-    set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} src/driver/haptic/DRV2605.cpp)
+  set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} src/driver/haptic/DRV2605/DRV2605.cpp)
 endif()
 
 ##########################################################################
 
 if(${DRIVER_HAPTIC_PCA9547} STREQUAL "yes")
-    set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} src/driver/ioexpander/PCA9547.cpp)
+  set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} src/driver/ioexpander/PCA9547.cpp)
 endif()
 
 ##########################################################################
 
 if(${DRIVER_HAPTIC_AT45DBX} STREQUAL "yes")
-    set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} src/driver/memory/AT45DBx.cpp)
+  set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} src/driver/memory/AT45DBx.cpp)
 endif()
 
 if(${DRIVER_HAPTIC_PCF8570} STREQUAL "yes")
-    set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} src/driver/memory/PCF8570.cpp)
+  set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} src/driver/memory/PCF8570.cpp)
 endif()
 
 ##########################################################################
