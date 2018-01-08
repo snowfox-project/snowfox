@@ -81,8 +81,8 @@ public:
 
 private:
 
-  DRV2605_IO_Interface      & _io;
-  driver::interface::Delay  & _delay;
+  DRV2605_IO_Interface     & _io;
+  driver::interface::Delay & _delay;
 
   void debug_dumpSingleReg  (driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel);
 
