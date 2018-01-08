@@ -77,6 +77,21 @@ namespace ATMEGA328P
 #define TXCIE0_bm (1<<6)
 #define RXCIE0_bm (1<<7)
 
+/* ADCSRA */
+#define ADIE_bm   (1<<3)
+
+/* EECR */
+#define EERIE_bm  (1<<3)
+
+/* ACSR */
+#define ACIE_bm   (1<<3)
+
+/* TWCR */
+#define TWIE_bm   (1<<0)
+
+/* SPMCSR */
+#define SPMIE_bm  (1<<7)
+
 /**************************************************************************************
  * GLOBAL CONSTANTS
  **************************************************************************************/
@@ -111,7 +126,12 @@ InterruptController::InterruptController(volatile uint8_t * EIMSK,
                                          volatile uint8_t * TIMSK1,
                                          volatile uint8_t * TIMSK0,
                                          volatile uint8_t * SPCR,
-                                         volatile uint8_t * UCSR0B)
+                                         volatile uint8_t * UCSR0B,
+                                         volatile uint8_t * ADCSRA,
+                                         volatile uint8_t * EECR,
+                                         volatile uint8_t * ACSR,
+                                         volatile uint8_t * TWCR,
+                                         volatile uint8_t * SPMCSR)
 : _EIMSK  (EIMSK ),
   _PCICR  (PCICR ),
   _WDTCSR (WDTCSR),
@@ -119,7 +139,12 @@ InterruptController::InterruptController(volatile uint8_t * EIMSK,
   _TIMSK1 (TIMSK1),
   _TIMSK0 (TIMSK0),
   _SPCR   (SPCR  ),
-  _UCSR0B (UCSR0B)
+  _UCSR0B (UCSR0B),
+  _ADCSRA (ADCSRA),
+  _EECR   (EECR  ),
+  _ACSR   (ACSR  ),
+  _TWCR   (TWCR  ),
+  _SPMCSR (SPMCSR)
 {
   _this = this;
 
@@ -163,11 +188,11 @@ void InterruptController::enableInterrupt(uint8_t const int_num)
   case USART_RECEIVE_COMPLETE         : *_UCSR0B  |= UDRIE0_bm; break;
   case USART_UART_DATA_REGISTER_EMPTY : *_UCSR0B  |= RXCIE0_bm; break;
   case USART_TRANSMIT_COMPLETE        : *_UCSR0B  |= TXCIE0_bm; break;
-  case ANALOG_DIGITAL_CONVERTER       : break;
-  case EEPROM_READY                   : break;
-  case ANALOG_COMPARATOR              : break;
-  case TWO_WIRE_INT                   : break;
-  case SPM_READY                      : break;
+  case ANALOG_DIGITAL_CONVERTER       : *_ADCSRA  |= ADIE_bm;   break;
+  case EEPROM_READY                   : *_EECR    |= EERIE_bm;  break;
+  case ANALOG_COMPARATOR              : *_ACSR    |= ACIE_bm;   break;
+  case TWO_WIRE_INT                   : *_TWCR    |= TWIE_bm;   break;
+  case SPM_READY                      : *_SPMCSR  |= SPMIE_bm; break;
   case GLOBAL                         :
 #if (MCU_TYPE == atmega328p)
     asm volatile("sei");
@@ -200,11 +225,11 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
   case USART_RECEIVE_COMPLETE         : *_UCSR0B  &= ~UDRIE0_bm; break;
   case USART_UART_DATA_REGISTER_EMPTY : *_UCSR0B  &= ~RXCIE0_bm; break;
   case USART_TRANSMIT_COMPLETE        : *_UCSR0B  &= ~TXCIE0_bm; break;
-  case ANALOG_DIGITAL_CONVERTER       : break;
-  case EEPROM_READY                   : break;
-  case ANALOG_COMPARATOR              : break;
-  case TWO_WIRE_INT                   : break;
-  case SPM_READY                      : break;
+  case ANALOG_DIGITAL_CONVERTER       : *_ADCSRA  &= ~ADIE_bm;   break;
+  case EEPROM_READY                   : *_EECR    &= ~EERIE_bm;  break;
+  case ANALOG_COMPARATOR              : *_ACSR    &= ~ACIE_bm;   break;
+  case TWO_WIRE_INT                   : *_TWCR    &= ~TWIE_bm;   break;
+  case SPM_READY                      : *_SPMCSR  |= SPMIE_bm;   break;
   case GLOBAL                         :
 #if (MCU_TYPE == atmega328p)
     asm volatile("cli");

@@ -87,7 +87,12 @@ public:
                                volatile uint8_t * TIMSK1,
                                volatile uint8_t * TIMSK0,
                                volatile uint8_t * SPCR,
-                               volatile uint8_t * UCSR0B);
+                               volatile uint8_t * UCSR0B,
+                               volatile uint8_t * ADCSRA,
+                               volatile uint8_t * EECR,
+                               volatile uint8_t * ACSR,
+                               volatile uint8_t * TWCR,
+                               volatile uint8_t * SPMCSR);
   virtual ~InterruptController();
 
 
@@ -112,7 +117,12 @@ private:
                    * _TIMSK1,
                    * _TIMSK0,
                    * _SPCR,
-                   * _UCSR0B;
+                   * _UCSR0B,
+                   * _ADCSRA,
+                   * _EECR,
+                   * _ACSR,
+                   * _TWCR,
+                   * _SPMCSR;
 
 };
 
