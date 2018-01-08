@@ -48,10 +48,9 @@ static uint32_t const DEVICE_RESET_DURATION_ms = 10;
  * CTOR/DTOR
  **************************************************************************************/
 
-DRV2605::DRV2605(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master, driver::interface::Delay & delay)
-: _i2c_address(i2c_address),
-  _i2c_master (i2c_master ),
-  _delay      (delay      )
+DRV2605::DRV2605(DRV2605_IO_Interface & io, driver::interface::Delay & delay)
+: _io   (io   ),
+  _delay(delay)
 {
 
 }
@@ -67,22 +66,22 @@ DRV2605::~DRV2605()
 
 bool DRV2605::setGo()
 {
-  return writeSingleRegister(REG_GO, DRV2605_REG_GO_GO_bm);
+  return _io.writeSingleRegister(REG_GO, DRV2605_REG_GO_GO_bm);
 }
 
 bool DRV2605::clrGo()
 {
-  return writeSingleRegister(REG_GO, 0);
+  return _io.writeSingleRegister(REG_GO, 0);
 }
 
 bool DRV2605::reset()
 {
-  if(!writeSingleRegister(REG_MODE, DRV2605_REG_MODE_DEV_RESET_bm)) return false;
+  if(!_io.writeSingleRegister(REG_MODE, DRV2605_REG_MODE_DEV_RESET_bm)) return false;
 
   _delay.delay_ms(DEVICE_RESET_DURATION_ms);
 
   uint8_t reg_mode_content = 0;
-  if(!readSingleRegister(REG_MODE, &reg_mode_content)) return false;
+  if(!_io.readSingleRegister(REG_MODE, &reg_mode_content)) return false;
 
   return ((reg_mode_content & DRV2605_REG_MODE_DEV_RESET_bm) == 0);
 }
@@ -91,11 +90,11 @@ bool DRV2605::setStandby()
 {
   uint8_t reg_mode_content = 0;
 
-  if(!readSingleRegister(REG_MODE, &reg_mode_content)) return false;
+  if(!_io.readSingleRegister(REG_MODE, &reg_mode_content)) return false;
 
   reg_mode_content |= DRV2605_REG_MODE_STANDBY_bm;
 
-  if(!writeSingleRegister(REG_MODE, reg_mode_content)) return false;
+  if(!_io.writeSingleRegister(REG_MODE, reg_mode_content)) return false;
 
   return true;
 }
@@ -104,11 +103,11 @@ bool DRV2605::clrStandby()
 {
   uint8_t reg_mode_content = 0;
 
-  if(!readSingleRegister(REG_MODE, &reg_mode_content)) return false;
+  if(!_io.readSingleRegister(REG_MODE, &reg_mode_content)) return false;
 
   reg_mode_content &= ~(DRV2605_REG_MODE_STANDBY_bm);
 
-  if(!writeSingleRegister(REG_MODE, reg_mode_content)) return false;
+  if(!_io.writeSingleRegister(REG_MODE, reg_mode_content)) return false;
 
   return true;
 }
@@ -117,12 +116,12 @@ bool DRV2605::setMode(ModeSelect const mode)
 {
   uint8_t reg_mode_content = 0;
 
-  if(!readSingleRegister(REG_MODE, &reg_mode_content)) return false;
+  if(!_io.readSingleRegister(REG_MODE, &reg_mode_content)) return false;
 
   reg_mode_content &= ~(DRV2605_REG_MODE_2_bm | DRV2605_REG_MODE_1_bm | DRV2605_REG_MODE_0_bm);
   reg_mode_content |= static_cast<uint8_t>(mode);
 
-  if(!writeSingleRegister(REG_MODE, reg_mode_content)) return false;
+  if(!_io.writeSingleRegister(REG_MODE, reg_mode_content)) return false;
 
   return true;
 }
@@ -131,31 +130,42 @@ bool DRV2605::setWaveformLibrary(WaveformLibrarySelect const library)
 {
   uint8_t reg_lib_content = 0;
 
-  if(!readSingleRegister(REG_LIB, &reg_lib_content)) return false;
+  if(!_io.readSingleRegister(REG_LIB, &reg_lib_content)) return false;
 
   reg_lib_content &= ~(DRV2605_REG_LIB_LIBRARY_SEL_2_bm | DRV2605_REG_LIB_LIBRARY_SEL_1_bm | DRV2605_REG_LIB_LIBRARY_SEL_0_bm);
   reg_lib_content |= static_cast<uint8_t>(library);
 
-  if(!writeSingleRegister(REG_LIB, reg_lib_content)) return false;
+  if(!_io.writeSingleRegister(REG_LIB, reg_lib_content)) return false;
 
   return true;
 }
 
 bool DRV2605::setWaveform(WaveformSequencerSelect const sequencer, uint8_t const waveform)
 {
-  return writeSingleRegister(REG_WAVESEQ1 + sequencer, (waveform & 0x7F));
+  switch(sequencer)
+  {
+  case WAVEFORM_SEQUENCER_1: return _io.writeSingleRegister(REG_WAVESEQ1, (waveform & 0x7F)); break;
+  case WAVEFORM_SEQUENCER_2: return _io.writeSingleRegister(REG_WAVESEQ2, (waveform & 0x7F)); break;
+  case WAVEFORM_SEQUENCER_3: return _io.writeSingleRegister(REG_WAVESEQ3, (waveform & 0x7F)); break;
+  case WAVEFORM_SEQUENCER_4: return _io.writeSingleRegister(REG_WAVESEQ4, (waveform & 0x7F)); break;
+  case WAVEFORM_SEQUENCER_5: return _io.writeSingleRegister(REG_WAVESEQ5, (waveform & 0x7F)); break;
+  case WAVEFORM_SEQUENCER_6: return _io.writeSingleRegister(REG_WAVESEQ6, (waveform & 0x7F)); break;
+  case WAVEFORM_SEQUENCER_7: return _io.writeSingleRegister(REG_WAVESEQ7, (waveform & 0x7F)); break;
+  case WAVEFORM_SEQUENCER_8: return _io.writeSingleRegister(REG_WAVESEQ8, (waveform & 0x7F)); break;
+  default                  : return false;                                                    break;
+  }
 }
 
 bool DRV2605::setActuator(ActuatorSelect const actuator)
 {
   uint8_t reg_feedback_content = 0;
 
-  if(!readSingleRegister(REG_FEEDBACK, &reg_feedback_content)) return false;
+  if(!_io.readSingleRegister(REG_FEEDBACK, &reg_feedback_content)) return false;
 
   reg_feedback_content &= ~(DRV2605_REG_FEEDBACK_N_ERM_LRA_bm);
   reg_feedback_content |= static_cast<uint8_t>(actuator);
 
-  if(!writeSingleRegister(REG_FEEDBACK, reg_feedback_content)) return false;
+  if(!_io.writeSingleRegister(REG_FEEDBACK, reg_feedback_content)) return false;
 
   return true;
 }
@@ -203,30 +213,11 @@ void DRV2605::debug_dumpAllRegs(driver::interface::Debug & debug_interface)
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool DRV2605::readSingleRegister(uint8_t const reg_addr, uint8_t * data)
-{
-  if(!_i2c_master.begin      (_i2c_address, false  )) return false;
-  if(!_i2c_master.write      (reg_addr             )) return false;
-  if(!_i2c_master.requestFrom(_i2c_address, data, 1)) return false;
-
-  return true;
-}
-
-bool DRV2605::writeSingleRegister(uint8_t const reg_addr, uint8_t const data)
-{
-  if(!_i2c_master.begin(_i2c_address, false)) return false;
-  if(!_i2c_master.write(reg_addr           )) return false;
-  if(!_i2c_master.write(data               )) return false;
-      _i2c_master.end  (                   );
-
-  return true;
-}
-
 void DRV2605::debug_dumpSingleReg(driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
 {
   uint8_t reg_content = 0;
 
-  readSingleRegister(reg_sel, &reg_content);
+  _io.readSingleRegister(reg_sel, &reg_content);
 
   debug_interface.print("%s%X\n", msg, reg_content);
 }

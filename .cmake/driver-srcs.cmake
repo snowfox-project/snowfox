@@ -3,7 +3,11 @@
 ##########################################################################
 
 if(${DRIVER_HAPTIC_DRV2605} STREQUAL "yes")
-  set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} src/driver/haptic/DRV2605/DRV2605.cpp)
+  set(DRIVER_HAPTIC_DRV2605_SRCS
+    src/driver/haptic/DRV2605/DRV2605_IO_I2C.cpp
+    src/driver/haptic/DRV2605/DRV2605.cpp
+  )
+  set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} ${DRIVER_HAPTIC_DRV2605_SRCS})
 endif()
 
 ##########################################################################
