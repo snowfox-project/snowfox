@@ -23,9 +23,9 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/haptic/DRV2605/DRV2605_Interface.h>
-#include <spectre/driver/haptic/DRV2605/DRV2605_ConfigurationInterface.h>
-#include <spectre/driver/haptic/DRV2605/DRV2605_IO_Interface.h>
+#include <spectre/driver/haptic/DRV2605/interface/DRV2605_Interface.h>
+#include <spectre/driver/haptic/DRV2605/interface/DRV2605_ConfigurationInterface.h>
+#include <spectre/driver/haptic/DRV2605/interface/DRV2605_IO_Interface.h>
 
 #include <spectre/driver/interface/Debug.h>
 #include <spectre/driver/interface/Delay.h>
