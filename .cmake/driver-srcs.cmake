@@ -2,10 +2,12 @@
 # DRIVER #################################################################
 ##########################################################################
 
+set(DRIVER_HAPTIC_SRC_PATH src/driver/haptic)
+
 if(${DRIVER_HAPTIC_DRV2605} STREQUAL "yes")
   set(DRIVER_HAPTIC_DRV2605_SRCS
-    src/driver/haptic/DRV2605/DRV2605_IO_I2C.cpp
-    src/driver/haptic/DRV2605/DRV2605.cpp
+    ${DRIVER_HAPTIC_SRC_PATH}/DRV2605/DRV2605_IO_I2C.cpp
+    ${DRIVER_HAPTIC_SRC_PATH}/DRV2605/DRV2605.cpp
   )
   set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} ${DRIVER_HAPTIC_DRV2605_SRCS})
 endif()
