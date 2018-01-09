@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/sensor/AD7151.h>
+#include <spectre/driver/sensor/AD7151/AD7151.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,12 +39,27 @@ namespace AD7151
 {
 
 /**************************************************************************************
+ * DEFINES
+ **************************************************************************************/
+
+/* AD7151_STATUS_REG Bit Definitions **************************************************/
+#define AD7151_SETUP_REG_nDRDY_bm                 (1<<0)
+
+/* AD7151_CONFIG_REG Bit Definitions **************************************************/
+#define AD7151_CONFIG_REG_THRESHOLD_FIXED_bm      (1<<7)
+#define AD7151_CONFIG_REG_THRESHOLD_MODE_1_bm     (1<<6)
+#define AD7151_CONFIG_REG_THRESHOLD_MODE_2_bm     (1<<5)
+#define AD7151_CONFIG_REG_ENABLE_CONVERSION_bm    (1<<4)
+#define AD7151_CONFIG_REG_MODE_2_bm               (1<<2)
+#define AD7151_CONFIG_REG_MODE_1_bm               (1<<1)
+#define AD7151_CONFIG_REG_MODE_0_bm               (1<<0)
+
+/**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
-AD7151::AD7151(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
-: _i2c_address(i2c_address),
-  _i2c_master (i2c_master )
+AD7151::AD7151(AD7151_IO_Interface & io)
+: _io(io)
 {
 
 }
@@ -101,7 +116,7 @@ bool AD7151::readConversionResult(uint16_t * raw_data)
 {
   uint8_t data_regs_content[2] = {0};
 
-  if(!readMultipleRegister(REG_DATA_HIGH, data_regs_content, 2)) return false;
+  if(!_io.readMultipleRegister(REG_DATA_HIGH, data_regs_content, 2)) return false;
 
   *raw_data = (static_cast<uint16_t>(data_regs_content[0]) << 8) + static_cast<uint16_t>(data_regs_content[1]);
 
@@ -131,28 +146,14 @@ void AD7151::debug_dumpAllRegs(driver::interface::Debug & debug_interface)
  * PRIVATE FUNCTIONS
  **************************************************************************************/
 
-bool AD7151::readSingleRegister(uint8_t const reg_addr, uint8_t * data)
+bool AD7151::readSingleRegister(RegisterSelect const reg_sel, uint8_t * data)
 {
-  return readMultipleRegister(reg_addr, data, 1);
+  return _io.readMultipleRegister(reg_sel, data, 1);
 }
 
-bool AD7151::writeSingleRegister(uint8_t const reg_addr, uint8_t const data)
+bool AD7151::writeSingleRegister(RegisterSelect const reg_sel, uint8_t const data)
 {
-  if(!_i2c_master.begin(_i2c_address, false)) return false;
-  if(!_i2c_master.write(reg_addr           )) return false;
-  if(!_i2c_master.write(data               )) return false;
-      _i2c_master.end  (                   );
-
-  return true;
-}
-
-bool AD7151::readMultipleRegister(uint8_t const reg_addr, uint8_t * data, uint16_t const num_bytes)
-{
-  if(!_i2c_master.begin      (_i2c_address, false          )) return false;
-  if(!_i2c_master.write      (reg_addr                     )) return false;
-  if(!_i2c_master.requestFrom(_i2c_address, data, num_bytes)) return false;
-
-  return true;
+  return _io.writeMultipleRegister(reg_sel, &data, 1);
 }
 
 void AD7151::debug_dumpSingleReg(driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
