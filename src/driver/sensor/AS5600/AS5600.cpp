@@ -42,9 +42,8 @@ namespace AS5600
  * CTOR/DTOR
  **************************************************************************************/
 
-AS5600::AS5600(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
-: _i2c_address(i2c_address),
-  _i2c_master (i2c_master )
+AS5600::AS5600(AS5600_IO_Interface & io)
+: _io(io)
 {
 
 }
@@ -176,7 +175,7 @@ bool AS5600::setAngularStartPosition(uint16_t const angle_start)
       (uint8_t)((angle_start & 0x00FF) >> 0)
   };
 
-  return writeMultipleRegister(REG_ZPOS_HIGH_BYTE, angle_start_buf, 2);
+  return _io.writeMultipleRegister(REG_ZPOS_HIGH_BYTE, angle_start_buf, 2);
 }
 
 bool AS5600::setAngularStopPosition(uint16_t const angle_stop)
@@ -187,7 +186,7 @@ bool AS5600::setAngularStopPosition(uint16_t const angle_stop)
       (uint8_t)((angle_stop & 0x00FF) >> 0)
   };
 
-  return writeMultipleRegister(REG_MPOS_HIGH_BYTE, angle_stop_buf, 2);
+  return _io.writeMultipleRegister(REG_MPOS_HIGH_BYTE, angle_stop_buf, 2);
 }
 
 bool AS5600::setMaximumAngle(uint16_t const angle_max)
@@ -198,14 +197,14 @@ bool AS5600::setMaximumAngle(uint16_t const angle_max)
       (uint8_t)((angle_max & 0x00FF) >> 0)
   };
 
-  return writeMultipleRegister(REG_MANG_HIGH_BYTE, angle_max_buf, 2);
+  return _io.writeMultipleRegister(REG_MANG_HIGH_BYTE, angle_max_buf, 2);
 }
 
 bool AS5600::readAngle(uint16_t * angle)
 {
   uint8_t angle_buf[2] = {0};
 
-  if(!readMultipleRegister(REG_ANGLE_HIGH_BYTE, angle_buf, 2)) return false;
+  if(!_io.readMultipleRegister(REG_ANGLE_HIGH_BYTE, angle_buf, 2)) return false;
 
   *angle  = (static_cast<uint16_t>(angle_buf[0]) << 8);
   *angle += (static_cast<uint16_t>(angle_buf[1]) << 0);
@@ -217,7 +216,7 @@ bool AS5600::readAngleRaw(uint16_t * angle_raw)
 {
   uint8_t angle_raw_buf[2] = {0};
 
-  if(!readMultipleRegister(REG_RAW_ANGLE_HIGH_BYTE, angle_raw_buf, 2)) return false;
+  if(!_io.readMultipleRegister(REG_RAW_ANGLE_HIGH_BYTE, angle_raw_buf, 2)) return false;
 
   *angle_raw  = (static_cast<uint16_t>(angle_raw_buf[0]) << 8);
   *angle_raw += (static_cast<uint16_t>(angle_raw_buf[1]) << 0);
@@ -239,7 +238,7 @@ bool AS5600::readMagnitude(uint16_t * mag)
 {
   uint8_t mag_buf[2] = {0};
 
-  if(!readMultipleRegister(REG_MAGNITUDE_HIGH_BYTE, mag_buf, 2)) return false;
+  if(!_io.readMultipleRegister(REG_MAGNITUDE_HIGH_BYTE, mag_buf, 2)) return false;
 
   *mag  = (static_cast<uint16_t>(mag_buf[0]) << 8);
   *mag += (static_cast<uint16_t>(mag_buf[1]) << 0);
@@ -286,37 +285,14 @@ void AS5600::debug_dumpAllRegs(driver::interface::Debug & debug_interface)
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool AS5600::readSingleRegister(uint8_t const reg_addr, uint8_t * data)
+bool AS5600::readSingleRegister(RegisterSelect const reg_sel, uint8_t * data)
 {
-  return readMultipleRegister(reg_addr, data, 1);
+  return _io.readMultipleRegister(reg_sel, data, 1);
 }
 
-bool AS5600::writeSingleRegister(uint8_t const reg_addr, uint8_t const data)
+bool AS5600::writeSingleRegister(RegisterSelect const reg_sel, uint8_t const data)
 {
-  return writeMultipleRegister(reg_addr, &data, 1);
-}
-
-bool AS5600::readMultipleRegister(uint8_t const reg_addr, uint8_t * data, uint16_t const num_bytes)
-{
-  if(!_i2c_master.begin      (_i2c_address, false          )) return false;
-  if(!_i2c_master.write      (reg_addr                     )) return false;
-  if(!_i2c_master.requestFrom(_i2c_address, data, num_bytes)) return false;
-
-  return true;
-}
-
-bool AS5600::writeMultipleRegister(uint8_t const reg_addr, uint8_t const * data, uint16_t const num_bytes)
-{
-  if(!_i2c_master.begin(_i2c_address, false)) return false;
-  if(!_i2c_master.write(reg_addr           )) return false;
-
-  for(uint16_t i = 0; i < num_bytes; i++)
-  {
-    if(!_i2c_master.write(data[i]          )) return false;
-  }
-      _i2c_master.end  (                   );
-
-  return true;
+  return _io.writeMultipleRegister(reg_sel, &data, 1);
 }
 
 void AS5600::debug_dumpSingleReg(driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)

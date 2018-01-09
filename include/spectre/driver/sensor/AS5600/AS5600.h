@@ -27,12 +27,7 @@
 #include <spectre/driver/sensor/AS5600/interface/AS5600_ConfigurationInterface.h>
 #include <spectre/driver/sensor/AS5600/interface/AS5600_IO_Interface.h>
 
-#include <stdint.h>
-#include <stdbool.h>
-
 #include <spectre/driver/interface/Debug.h>
-
-#include <spectre/hal/interface/i2c/I2CMaster.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -60,7 +55,7 @@ class AS5600 : public AS5600_Interface,
 
 public:
 
-           AS5600(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master);
+           AS5600(AS5600_IO_Interface & io);
   virtual ~AS5600();
 
 
@@ -98,13 +93,10 @@ public:
 
 private:
 
-  uint8_t                     _i2c_address;
-  hal::interface::I2CMaster & _i2c_master;
+  AS5600_IO_Interface & _io;
 
-  bool readSingleRegister   (uint8_t const reg_addr, uint8_t       * data);
-  bool writeSingleRegister  (uint8_t const reg_addr, uint8_t const    data);
-  bool readMultipleRegister (uint8_t const reg_addr, uint8_t       * data, uint16_t const num_bytes);
-  bool writeMultipleRegister(uint8_t const reg_addr, uint8_t const * data, uint16_t const num_bytes);
+  bool readSingleRegister   (RegisterSelect const reg_sel, uint8_t       * data);
+  bool writeSingleRegister  (RegisterSelect const reg_sel, uint8_t const   data);
 
   void debug_dumpSingleReg  (driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel);
 
