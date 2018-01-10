@@ -16,18 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_INA220_H_
-#define INCLUDE_SPECTRE_DRIVER_SENSOR_INA220_H_
-
 /**************************************************************************************
- * INCLUDE
+ * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/sensor/INA220/interface/INA220_Interface.h>
-#include <spectre/driver/sensor/INA220/interface/INA220_ConfigurationInterface.h>
-#include <spectre/driver/sensor/INA220/interface/INA220_IO_Interface.h>
-
-#include <spectre/driver/interface/Debug.h>
+#include <spectre/driver/sensor/INA220/INA220_IO_I2C.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -46,43 +39,52 @@ namespace INA220
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class INA220 : public INA220_Interface,
-               public INA220_ConfigurationInterface
+INA220_IO_I2C::INA220_IO_I2C(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
+: _i2c_address(i2c_address),
+  _i2c_master (i2c_master )
 {
 
-public:
+}
 
-           INA220(INA220_IO_Interface & io);
-  virtual ~INA220();
+INA220_IO_I2C::~INA220_IO_I2C()
+{
 
+}
 
-  /* INA220 Interface */
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
-  virtual bool readShuntVoltage(int16_t * shunt_voltage) override;
-  virtual bool readBusVoltage  (int16_t * bus_voltage  ) override;
+bool INA220_IO_I2C::readRegister(RegisterSelect const reg_sel, uint16_t * data)
+{
+  uint8_t data_buf[2] = {0};
 
+  if(!_i2c_master.begin      (_i2c_address, false      )) return false;
+  if(!_i2c_master.write      (reg_sel                  )) return false;
+  if(!_i2c_master.requestFrom(_i2c_address, data_buf, 2)) return false;
 
-  /* INA220 Configuration Interface */
+  *data  = (static_cast<uint16_t>(data[0]) << 8);
+  *data += (static_cast<uint16_t>(data[1]) << 0);
 
-  virtual bool setBusVoltageRange   (BusVoltageRangeSelect     const sel) override;
-  virtual bool setShuntPGAGain      (ShuntPGAGainSelect        const sel) override;
-  virtual bool setBusADCResolution  (BusADCResolutionSelect    const sel) override;
-  virtual bool setShuntADCResolution(ShuntADCResolutionSelect  const sel) override;
-  virtual bool setOperatingMode     (OperatingModeSelect       const sel) override;
+  return true;
+}
 
+bool INA220_IO_I2C::writeRegister(RegisterSelect const reg_sel, uint16_t const data)
+{
+  uint8_t const data_msb = static_cast<uint8_t>((data & 0xFF00) >> 8);
+  uint8_t const data_lsb = static_cast<uint8_t>((data & 0x00FF) >> 0);
 
-          void debug_dumpAllRegs    (driver::interface::Debug & debug_interface);
+  if(!_i2c_master.begin(_i2c_address, false)) return false;
+  if(!_i2c_master.write(reg_sel            )) return false;
+  if(!_i2c_master.write(data_msb           )) return false;
+  if(!_i2c_master.write(data_lsb           )) return false;
+      _i2c_master.end  (                   );
 
-private:
-
-  INA220_IO_Interface & _io;
-
-  void debug_dumpSingleReg  (driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel);
-
-};
+  return true;
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -95,5 +97,3 @@ private:
 } /* driver */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_INA220_H_ */

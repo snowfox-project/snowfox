@@ -16,18 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_INA220_H_
-#define INCLUDE_SPECTRE_DRIVER_SENSOR_INA220_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_INA220_INTERFACE_INA220_INTERFACE_H_
+#define INCLUDE_SPECTRE_DRIVER_SENSOR_INA220_INTERFACE_INA220_INTERFACE_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/sensor/INA220/interface/INA220_Interface.h>
-#include <spectre/driver/sensor/INA220/interface/INA220_ConfigurationInterface.h>
-#include <spectre/driver/sensor/INA220/interface/INA220_IO_Interface.h>
-
-#include <spectre/driver/interface/Debug.h>
+#include <stdint.h>
+#include <stdbool.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -49,38 +46,17 @@ namespace INA220
  * CLASS DECLARATION
  **************************************************************************************/
 
-class INA220 : public INA220_Interface,
-               public INA220_ConfigurationInterface
+class INA220_Interface
 {
 
 public:
 
-           INA220(INA220_IO_Interface & io);
-  virtual ~INA220();
+           INA220_Interface() { }
+  virtual ~INA220_Interface() { }
 
 
-  /* INA220 Interface */
-
-  virtual bool readShuntVoltage(int16_t * shunt_voltage) override;
-  virtual bool readBusVoltage  (int16_t * bus_voltage  ) override;
-
-
-  /* INA220 Configuration Interface */
-
-  virtual bool setBusVoltageRange   (BusVoltageRangeSelect     const sel) override;
-  virtual bool setShuntPGAGain      (ShuntPGAGainSelect        const sel) override;
-  virtual bool setBusADCResolution  (BusADCResolutionSelect    const sel) override;
-  virtual bool setShuntADCResolution(ShuntADCResolutionSelect  const sel) override;
-  virtual bool setOperatingMode     (OperatingModeSelect       const sel) override;
-
-
-          void debug_dumpAllRegs    (driver::interface::Debug & debug_interface);
-
-private:
-
-  INA220_IO_Interface & _io;
-
-  void debug_dumpSingleReg  (driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel);
+  virtual bool readShuntVoltage(int16_t * shunt_voltage) = 0;
+  virtual bool readBusVoltage  (int16_t * bus_voltage  ) = 0;
 
 };
 
@@ -96,4 +72,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_INA220_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_INA220_INTERFACE_INA220_INTERFACE_H_ */
