@@ -16,17 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_ATMEGA328P_TIMER0_H_
-#define INCLUDE_SPECTRE_HAL_AVR_ATMEGA328P_TIMER0_H_
-
-/**************************************************************************************
- * INCLUDES
- **************************************************************************************/
-
-#include <stdint.h>
-
-#include <spectre/hal/interface/timer/Timer.h>
-#include <spectre/hal/interface/timer/TimerConfiguration.h>
+#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_TIMER_TIMERCONFIGURATION_H_
+#define INCLUDE_SPECTRE_HAL_INTERFACE_TIMER_TIMERCONFIGURATION_H_
 
 /**************************************************************************************
  * NAMESPACE
@@ -38,42 +29,23 @@ namespace spectre
 namespace hal
 {
 
-namespace ATMEGA328P
+namespace interface
 {
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class TIMER0 : public interface::Timer<uint8_t>,
-               public interface::TimerConfiguration
+class TimerConfiguration
 {
 
 public:
 
-           TIMER0(volatile uint8_t * TCNT0,
-                  volatile uint8_t * TCCR0B);
-  virtual ~TIMER0();
+           TimerConfiguration() { }
+  virtual ~TimerConfiguration() { }
 
 
-  /* Timer Interface */
-
-  virtual void    start(                 ) override;
-  virtual void    stop (                 ) override;
-  virtual void    set  (uint8_t const val) override;
-  virtual uint8_t get  (                 ) override;
-
-
-  /* Timer Configuration Interface */
-
-  virtual void setPrescaler(uint32_t const prescaler) override;
-
-private:
-
-           uint32_t   _prescaler;
-
-  volatile uint8_t  * _TCNT0,
-                    * _TCCR0B;
+  virtual void setPrescaler(uint32_t const prescaler) = 0;
 
 };
 
@@ -81,10 +53,10 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA328P */
+} /* interface*/
 
 } /* hal */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_ATMEGA328P_TIMER0_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_TIMER_TIMERCONFIGURATION_H_ */

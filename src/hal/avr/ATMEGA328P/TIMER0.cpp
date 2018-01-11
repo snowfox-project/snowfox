@@ -36,11 +36,40 @@ namespace ATMEGA328P
 {
 
 /**************************************************************************************
+ * DEFINES
+ **************************************************************************************/
+
+/* TCCR0B */
+#define CS00_bm   (1<<0)
+#define CS01_bm   (1<<1)
+#define CS02_bm   (1<<2)
+#define WGM02_bm  (1<<3)
+#define FOC0B_bm  (1<<6)
+#define FOC0A_bm  (1<<7)
+
+/**************************************************************************************
+ * TYPEDEFS
+ **************************************************************************************/
+
+typedef enum
+{
+  TIMER0_Prescaler_0     = 0,
+  TIMER0_Prescaler_1     =                     CS00_bm,
+  TIMER0_Prescaler_8     =           CS01_bm,
+  TIMER0_Prescaler_64    =           CS01_bm | CS00_bm,
+  TIMER0_Prescaler_256   = CS02_bm,
+  TIMER0_Prescaler_1024  = CS02_bm |           CS00_bm
+} Timer0PrescalerSelect;
+
+/**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
-TIMER0::TIMER0(volatile uint8_t * TCNT0)
-: _TCNT0(TCNT0)
+TIMER0::TIMER0(volatile uint8_t * TCNT0,
+               volatile uint8_t * TCCR0B)
+: _prescaler(0     ),
+  _TCNT0    (TCNT0 ),
+  _TCCR0B   (TCCR0B)
 {
 
 }
@@ -56,12 +85,12 @@ TIMER0::~TIMER0()
 
 void TIMER0::start()
 {
-  /* TODO */
+  setPrescaler(_prescaler);
 }
 
 void TIMER0::stop()
 {
-  /* TODO */
+  setPrescaler(0);
 }
 
 void TIMER0::set(uint8_t const val)
@@ -72,6 +101,22 @@ void TIMER0::set(uint8_t const val)
 uint8_t TIMER0::get()
 {
   return *_TCNT0;
+}
+
+void TIMER0::setPrescaler(uint32_t const prescaler)
+{
+  *_TCCR0B &= ~(CS02_bm | CS01_bm | CS00_bm);
+
+  switch(prescaler)
+  {
+  case 0    : { *_TCCR0B |= static_cast<uint8_t>(TIMER0_Prescaler_0   ); _prescaler = prescaler; } break;
+  case 1    : { *_TCCR0B |= static_cast<uint8_t>(TIMER0_Prescaler_1   ); _prescaler = prescaler; } break;
+  case 8    : { *_TCCR0B |= static_cast<uint8_t>(TIMER0_Prescaler_8   ); _prescaler = prescaler; } break;
+  case 64   : { *_TCCR0B |= static_cast<uint8_t>(TIMER0_Prescaler_64  ); _prescaler = prescaler; } break;
+  case 256  : { *_TCCR0B |= static_cast<uint8_t>(TIMER0_Prescaler_256 ); _prescaler = prescaler; } break;
+  case 1024 : { *_TCCR0B |= static_cast<uint8_t>(TIMER0_Prescaler_1024); _prescaler = prescaler; } break;
+  default   :                                                                                      break;
+  }
 }
 
 /**************************************************************************************
