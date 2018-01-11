@@ -60,7 +60,7 @@ set_target_properties(
   ${SPECTRY_LIBRARY_NAME_MCU}
   
   PROPERTIES
-    COMPILE_FLAGS "-mmcu=${MCU_TYPE} -DF_CPU=${MCU_SPEED} -DMCU_TYPE=${MCU_TYPE} -Os -Wall -pedantic -pedantic-errors -funsigned-char -funsigned-bitfields -fshort-enums -ffunction-sections -fdata-sections -fno-exceptions -std=c++11"
+    COMPILE_FLAGS "-mmcu=${MCU_TYPE} -DF_CPU=${MCU_SPEED} -DMCU_ARCH=${MCU_ARCH} -DMCU_TYPE=${MCU_TYPE} -Os -Wall -pedantic -pedantic-errors -funsigned-char -funsigned-bitfields -fshort-enums -ffunction-sections -fdata-sections -fno-exceptions -std=c++11"
     OUTPUT_NAME   "${SPECTRE_LIBRARY_NAME}"
 )
 
