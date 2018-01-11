@@ -16,47 +16,50 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**************************************************************************************
- * INCLUDE
- **************************************************************************************/
-
-#include <stdlib.h>
-
-#include <avr/io.h>
-
-#include <spectre/hal/avr/ATMEGA328P/Delay.h>
-#include <spectre/hal/avr/ATMEGA328P/DigitalOutPin.h>
+#ifndef INCLUDE_SPECTRE_HAL_AVR_AT90CAN128_DELAY_H_
+#define INCLUDE_SPECTRE_HAL_AVR_AT90CAN128_DELAY_H_
 
 /**************************************************************************************
- * NAMESPACES
+ * INCLUDES
  **************************************************************************************/
 
-using namespace spectre::hal;
+#include <spectre/hal/avr/ATxxxx/Delay.h>
 
 /**************************************************************************************
- * GLOBAL VARIABLES
+ * NAMESPACE
  **************************************************************************************/
 
-ATMEGA328P::Delay         delay;
-ATMEGA328P::DigitalOutPin led_out(&DDRB, &PORTB, PB5);
-
-/**************************************************************************************
- * MAIN
- **************************************************************************************/
-
-int main()
+namespace spectre
 {
-  bool is_led_on = false;
 
-  for(;;)
-  {
-    if  (is_led_on) led_out.set();
-    else            led_out.clr();
+namespace hal
+{
 
-    is_led_on = !is_led_on;
+namespace AT90CAN128
+{
 
-    delay.delay_ms(100);
-  }
+/**************************************************************************************
+ * CLASS DECLARATION
+ **************************************************************************************/
 
-  return EXIT_SUCCESS;
-}
+class Delay : public ATxxxx::Delay
+{
+
+public:
+
+           Delay() { }
+  virtual ~Delay() { }
+
+};
+
+/**************************************************************************************
+ * NAMESPACE
+ **************************************************************************************/
+
+} /* AT90CAN128 */
+
+} /* hal */
+
+} /* spectre */
+
+#endif /* INCLUDE_SPECTRE_HAL_AVR_AT90CAN128_DELAY_H_ */
