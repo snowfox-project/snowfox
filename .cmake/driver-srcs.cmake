@@ -2,6 +2,17 @@
 # DRIVER #################################################################
 ##########################################################################
 
+set(DRIVER_GLCD_SRC_PATH src/driver/glcd)
+
+if(${DRIVER_GLCD_RA6963} STREQUAL "yes")
+  set(DRIVER_GLCD_RA6963_SRCS
+    ${DRIVER_GLCD_SRC_PATH}/RA6963/RA6963_IO_GPIO_8Bit.cpp
+  )
+  set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} ${DRIVER_GLCD_RA6963_SRCS})
+endif()
+
+##########################################################################
+
 set(DRIVER_HAPTIC_SRC_PATH src/driver/haptic)
 
 if(${DRIVER_HAPTIC_DRV2605} STREQUAL "yes")

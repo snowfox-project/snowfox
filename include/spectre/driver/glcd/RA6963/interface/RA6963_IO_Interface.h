@@ -16,11 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_DELAY_DELAY_H_
-#define INCLUDE_SPECTRE_HAL_INTERFACE_DELAY_DELAY_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_GLCD_RA6963_INTERFACE_RA6963_IO_INTERFACE_H_
+#define INCLUDE_SPECTRE_DRIVER_GLCD_RA6963_INTERFACE_RA6963_IO_INTERFACE_H_
 
 /**************************************************************************************
- * INCLUDE
+ * INCLUDES
  **************************************************************************************/
 
 #include <stdint.h>
@@ -32,27 +32,33 @@
 namespace spectre
 {
 
-namespace hal
+namespace driver
 {
 
-namespace interface
+namespace glcd
+{
+
+namespace RA6963
 {
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class Delay
+class RA6963_IO_Interface
 {
 
 public:
 
-           Delay() { }
-  virtual ~Delay() { }
+           RA6963_IO_Interface() { }
+  virtual ~RA6963_IO_Interface() { }
 
 
-  virtual void delay_ms(uint32_t const ms) = 0;
-  virtual void delay_us(uint32_t const us) = 0;
+  virtual void    reset       (                      ) = 0;
+  virtual uint8_t readStatus  (                      ) = 0;
+  virtual uint8_t readData    (                      ) = 0;
+  virtual void    writeData   (uint8_t const data_val) = 0;
+  virtual void    writeCommand(uint8_t const cmd_val ) = 0;
 
 };
 
@@ -60,10 +66,12 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface*/
+} /* RA6963 */
 
-} /* hal */
+} /* glcd */
+
+} /* driver */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_DELAY_DELAY_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_GLCD_RA6963_INTERFACE_RA6963_IO_INTERFACE_H_ */
