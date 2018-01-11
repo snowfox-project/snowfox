@@ -42,9 +42,8 @@ namespace LIS3DSH
  * CTOR/DTOR
  **************************************************************************************/
 
-LIS3DSH::LIS3DSH(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
-: _i2c_address(i2c_address),
-  _i2c_master (_i2c_master)
+LIS3DSH::LIS3DSH(LIS3DSH_IO_Interface & io)
+: _io(io)
 {
   enableBlockDataUpdate();
 }
@@ -283,7 +282,7 @@ bool LIS3DSH::readXYZAxis(int16_t * raw_x, int16_t * raw_y, int16_t * raw_z)
 {
   uint8_t raw_xyz_data[6];
 
-  if(!readMultipleRegister(0x80 | REG_OUT_X_L, raw_xyz_data, 6)) return false;
+  if(!_io.readMultipleRegister(static_cast<RegisterSelect>(0x80 | REG_OUT_X_L), raw_xyz_data, 6)) return false;
 
   uint8_t const x_l = raw_xyz_data[0];
   uint8_t const x_h = raw_xyz_data[1];
@@ -303,7 +302,7 @@ bool LIS3DSH::readXAxis(int16_t * raw_x)
 {
   uint8_t raw_x_data[2];
 
-  if(!readMultipleRegister(REG_OUT_X_L, raw_x_data, 2)) return false;
+  if(!_io.readMultipleRegister(static_cast<RegisterSelect>(REG_OUT_X_L), raw_x_data, 2)) return false;
 
   uint8_t const x_l = raw_x_data[0];
   uint8_t const x_h = raw_x_data[1];
@@ -317,7 +316,7 @@ bool LIS3DSH::readYAxis(int16_t * raw_y)
 {
   uint8_t raw_y_data[2];
 
-  if(!readMultipleRegister(0x80 | REG_OUT_Y_L, raw_y_data, 2)) return false;
+  if(!_io.readMultipleRegister(static_cast<RegisterSelect>(0x80 | REG_OUT_Y_L), raw_y_data, 2)) return false;
 
   uint8_t const y_l = raw_y_data[0];
   uint8_t const y_h = raw_y_data[1];
@@ -331,7 +330,7 @@ bool LIS3DSH::readZAxis(int16_t * raw_z)
 {
   uint8_t raw_z_data[2];
 
-  if(!readMultipleRegister(0x80 | REG_OUT_Z_L, raw_z_data, 2)) return false;
+  if(!_io.readMultipleRegister(static_cast<RegisterSelect>(0x80 | REG_OUT_Z_L), raw_z_data, 2)) return false;
 
   uint8_t const z_l = raw_z_data[0];
   uint8_t const z_h = raw_z_data[1];
@@ -391,28 +390,14 @@ void LIS3DSH::debug_dumpAllRegs(driver::interface::Debug & debug_interface)
  * PRIVATE FUNCTIONS
  **************************************************************************************/
 
-bool LIS3DSH::readSingleRegister(uint8_t const reg_addr, uint8_t * data)
+bool LIS3DSH::readSingleRegister(RegisterSelect const reg_sel, uint8_t * data)
 {
-  return readMultipleRegister(reg_addr, data, 1);
+  return _io.readMultipleRegister(reg_sel, data, 1);
 }
 
-bool LIS3DSH::writeSingleRegister(uint8_t const reg_addr, uint8_t const data)
+bool LIS3DSH::writeSingleRegister(RegisterSelect const reg_sel, uint8_t const data)
 {
-  if(!_i2c_master.begin(_i2c_address, false)) return false;
-  if(!_i2c_master.write(reg_addr           )) return false;
-  if(!_i2c_master.write(data               )) return false;
-      _i2c_master.end  (                   );
-
-  return true;
-}
-
-bool LIS3DSH::readMultipleRegister(uint8_t const reg_addr, uint8_t * data, uint16_t const num_bytes)
-{
-  if(!_i2c_master.begin      (_i2c_address, false          )) return false;
-  if(!_i2c_master.write      (reg_addr                     )) return false;
-  if(!_i2c_master.requestFrom(_i2c_address, data, num_bytes)) return false;
-
-  return true;
+  return _io.writeMultipleRegister(reg_sel, &data, 1);
 }
 
 void LIS3DSH::debug_dumpSingleReg(driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
