@@ -16,14 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_GLCD_RA6963_INTERFACE_RA6963_IO_INTERFACE_H_
-#define INCLUDE_SPECTRE_DRIVER_GLCD_RA6963_INTERFACE_RA6963_IO_INTERFACE_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_GLCD_RA6963_INTERFACE_RA6963_DATA_INTERFACE_H_
+#define INCLUDE_SPECTRE_DRIVER_GLCD_RA6963_INTERFACE_RA6963_DATA_INTERFACE_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
 #include <stdint.h>
+#include <stdbool.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -41,26 +42,32 @@ namespace glcd
 namespace RA6963
 {
 
+/**************************************************************************************
+ * TYPEDEFS
+ **************************************************************************************/
 
+typedef enum
+{
+  NORMAL,
+  AUTO
+} OperationMode;
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RA6963_IO_Interface
+class RA6963_Data_Interface
 {
 
 public:
 
-           RA6963_IO_Interface() { }
-  virtual ~RA6963_IO_Interface() { }
+           RA6963_Data_Interface() { }
+  virtual ~RA6963_Data_Interface() { }
 
 
-  virtual void    reset       (                      ) = 0;
-  virtual uint8_t readStatus  (                      ) = 0;
-  virtual uint8_t readData    (                      ) = 0;
-  virtual void    writeData   (uint8_t const data_val) = 0;
-  virtual void    writeCommand(uint8_t const cmd_val ) = 0;
+  virtual uint8_t readData    (OperationMode const mode                        ) = 0;
+  virtual void    writeData   (OperationMode const mode, uint8_t const data_val) = 0;
+  virtual void    writeCommand(OperationMode const mode, uint8_t const cmd_val ) = 0;
 
 };
 
@@ -76,4 +83,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_GLCD_RA6963_INTERFACE_RA6963_IO_INTERFACE_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_GLCD_RA6963_INTERFACE_RA6963_DATA_INTERFACE_H_ */

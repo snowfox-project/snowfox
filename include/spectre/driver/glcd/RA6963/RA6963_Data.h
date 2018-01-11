@@ -16,14 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_GLCD_RA6963_INTERFACE_RA6963_IO_INTERFACE_H_
-#define INCLUDE_SPECTRE_DRIVER_GLCD_RA6963_INTERFACE_RA6963_IO_INTERFACE_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_GLCD_RA6963_RA6963_DATA_H_
+#define INCLUDE_SPECTRE_DRIVER_GLCD_RA6963_RA6963_DATA_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <stdint.h>
+#include <spectre/driver/glcd/RA6963/interface/RA6963_Data_Interface.h>
+
+#include <spectre/driver/glcd/RA6963/interface/RA6963_IO_Interface.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -41,26 +43,31 @@ namespace glcd
 namespace RA6963
 {
 
-
-
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RA6963_IO_Interface
+class RA6963_Data : public RA6963_Data_Interface
 {
 
 public:
 
-           RA6963_IO_Interface() { }
-  virtual ~RA6963_IO_Interface() { }
+           RA6963_Data(RA6963_IO_Interface & io);
+  virtual ~RA6963_Data();
 
 
-  virtual void    reset       (                      ) = 0;
-  virtual uint8_t readStatus  (                      ) = 0;
-  virtual uint8_t readData    (                      ) = 0;
-  virtual void    writeData   (uint8_t const data_val) = 0;
-  virtual void    writeCommand(uint8_t const cmd_val ) = 0;
+  virtual uint8_t readData    (OperationMode const mode                        ) override;
+  virtual void    writeData   (OperationMode const mode, uint8_t const data_val) override;
+  virtual void    writeCommand(OperationMode const mode, uint8_t const cmd_val ) override;
+
+private:
+
+  RA6963_IO_Interface & _io;
+
+  void waitForReady     (OperationMode const mode                      ) const;
+  bool isReady          (OperationMode const mode, uint8_t const status) const;
+  bool isReadyNormalMode(                          uint8_t const status) const;
+  bool isReadyAutoMode  (                          uint8_t const status) const;
 
 };
 
@@ -76,4 +83,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_GLCD_RA6963_INTERFACE_RA6963_IO_INTERFACE_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_GLCD_RA6963_RA6963_DATA_H_ */

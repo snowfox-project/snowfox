@@ -9,22 +9,26 @@ Spectre consists of an Real Time Operating System + an Hardware Abstraction Laye
 | MCU                          | MCU_ARCH              | MCU_TYPE          |
 |:----------------------------:|:---------------------:|:-----------------:|
 | Atmel/Microchip ATMega328P   | avr                   | atmega328p        |
+| Atmel/Microchip AT90CAN128   | avr                   | at90can128        |
 
 ## I/O Device Drivers
+### GLCD Drivers ([/driver/glcd](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/glcd))
+* **RA6963** (GLCD Controller)
+
 ### Haptic Actuator Drivers ([/haptic](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/haptic))
 
 * **DRV2605L** (Haptic Driver for LRA and ERM)
 
-### I/O Expanders ([/ioexpander](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/ioexpander))
+### I/O Expanders ([/driver/ioexpander](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/ioexpander))
 
 * **PCA9547** (8-channel I2C-Bus multiplexer)
 
-### Memories ([/memory](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/memory))
+### Memories ([/driver/memory](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/memory))
 
 * **AT45DBx** (SPI Data Flash)
 * **PCF8570** (256 × 8-Bit Static Low-Voltage RAM)
 
-### Sensors ([/sensor](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/sensor))
+### Sensors ([/driver/sensor](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/sensor))
 * **AD7151** (Ultra-low power, 1-channel, capacitance converter for proximity sensing)
 * **AS5600** (12-Bit programmable contactless potentiometer)
 * **BMG160** (MEMS three-axis digital output gyroscope)
