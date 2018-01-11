@@ -16,14 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INTERFACE_SPI_MASTER_CONFIGURATION_H_
-#define INTERFACE_SPI_MASTER_CONFIGURATION_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_ATMEGA328P_SPIMASTER_H_
+#define INCLUDE_SPECTRE_HAL_AVR_ATMEGA328P_SPIMASTER_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <stdint.h>
+#include <spectre/hal/interface/spi/SPIMaster.h>
+#include <spectre/hal/interface/spi/SPIMasterConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -35,46 +36,53 @@ namespace spectre
 namespace hal
 {
 
-namespace interface
+namespace ATMEGA328P
 {
-
-/**************************************************************************************
- * TYPEDEFS
- **************************************************************************************/
-
-enum class SPIMode
-{
-  MODE_0,   /* CPOL = 0, CPHA = 0 */
-  MODE_1,   /* CPOL = 0, CPHA = 1 */
-  MODE_2,   /* CPOL = 1, CPHA = 0 */
-  MODE_3    /* CPOL = 1, CPHA = 1 */
-};
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class SPIMasterConfiguration
+class SPIMaster : public interface::SPIMaster,
+                  public interface::SPIMasterConfiguration
 {
 
 public:
 
-           SPIMasterConfiguration() { }
-  virtual ~SPIMasterConfiguration() { }
+           SPIMaster(volatile uint8_t * SPCR,
+                     volatile uint8_t * SPSR,
+                     volatile uint8_t * SPDR);
+  virtual ~SPIMaster();
 
-  virtual void setSpiMode     (SPIMode  const spi_mode     ) = 0;
-  virtual void setSpiPrescaler(uint32_t const spi_prescaler) = 0;
-  
+
+  /* SPI Master Interface */
+
+  virtual uint8_t exchange(uint8_t const data) override;
+
+
+  /* SPI Master Configuration Interface */
+
+  virtual void setSpiMode     (interface::SPIMode  const spi_mode     ) override;
+  virtual void setSpiPrescaler(uint32_t            const spi_prescaler) override;
+
+private:
+
+  volatile uint8_t * _SPCR,
+                   * _SPSR,
+                   * _SPDR;
+
+  void enableSPI();
+
 };
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface*/
+} /* ATMEGA328P */
 
 } /* hal */
 
 } /* spectre */
 
-#endif /* INTERFACE_SPI_MASTER_CONFIGURATION_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_ATMEGA328P_SPIMASTER_H_ */
