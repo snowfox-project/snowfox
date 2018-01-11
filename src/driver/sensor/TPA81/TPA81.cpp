@@ -42,9 +42,8 @@ namespace TPA81
  * CTOR/DTOR
  **************************************************************************************/
 
-TPA81::TPA81(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
-: _i2c_address(i2c_address),
-  _i2c_master (i2c_master )
+TPA81::TPA81(TPA81_IO_Interface & io)
+: _io(io)
 {
 
 }
@@ -103,28 +102,14 @@ void TPA81::debug_dumpAllRegs(driver::interface::Debug & debug_interface)
  * PRIVATE FUNCTIONS
  **************************************************************************************/
 
-bool TPA81::readSingleRegister(uint8_t const reg_addr, uint8_t * data)
+bool TPA81::readSingleRegister(RegisterSelect const reg_sel, uint8_t * data)
 {
-  return readMultipleRegister(reg_addr, data, 1);
+  return _io.readMultipleRegister(reg_sel, data, 1);
 }
 
-bool TPA81::writeSingleRegister(uint8_t const reg_addr, uint8_t const data)
+bool TPA81::writeSingleRegister(RegisterSelect const reg_sel, uint8_t const data)
 {
-  if(!_i2c_master.begin(_i2c_address, false)) return false;
-  if(!_i2c_master.write(reg_addr           )) return false;
-  if(!_i2c_master.write(data               )) return false;
-      _i2c_master.end  (                   );
-
-  return true;
-}
-
-bool TPA81::readMultipleRegister(uint8_t const reg_addr, uint8_t * data, uint16_t const num_bytes)
-{
-  if(!_i2c_master.begin      (_i2c_address, false          )) return false;
-  if(!_i2c_master.write      (reg_addr                     )) return false;
-  if(!_i2c_master.requestFrom(_i2c_address, data, num_bytes)) return false;
-
-  return true;
+  return _io.writeMultipleRegister(reg_sel, &data, 1);
 }
 
 void TPA81::debug_dumpSingleReg(driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)

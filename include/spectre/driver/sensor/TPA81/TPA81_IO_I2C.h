@@ -16,17 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_TPA81_H_
-#define INCLUDE_SPECTRE_DRIVER_SENSOR_TPA81_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_TPA81_TPA81_IO_I2C_H_
+#define INCLUDE_SPECTRE_DRIVER_SENSOR_TPA81_TPA81_IO_I2C_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/sensor/TPA81/interface/TPA81_Interface.h>
 #include <spectre/driver/sensor/TPA81/interface/TPA81_IO_Interface.h>
 
-#include <spectre/driver/interface/Debug.h>
+#include <spectre/hal/interface/i2c/I2CMaster.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -48,32 +47,22 @@ namespace TPA81
  * CLASS DECLARATION
  **************************************************************************************/
 
-class TPA81 : public TPA81_Interface
+class TPA81_IO_I2C : public TPA81_IO_Interface
 {
 
 public:
 
-           TPA81(TPA81_IO_Interface & io);
-  virtual ~TPA81();
+           TPA81_IO_I2C(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master);
+  virtual ~TPA81_IO_I2C();
 
 
-  /* TPA81 Interface */
-
-  virtual bool readSoftwareRevision   (uint8_t         * software_revision  ) override;
-  virtual bool readAmbientTemperature (uint8_t         * ambient_temperature) override;
-  virtual bool readThermophileArray   (ThermophileData * thermo_data        ) override;
-
-
-          void debug_dumpAllRegs      (driver::interface::Debug & debug_interface);
+  virtual bool writeMultipleRegister(RegisterSelect const reg_sel, uint8_t const  * data, uint16_t const num_bytes) override;
+  virtual bool readMultipleRegister (RegisterSelect const reg_sel, uint8_t        * data, uint16_t const num_bytes) override;
 
 private:
 
-  TPA81_IO_Interface & _io;
-
-  bool readSingleRegister   (RegisterSelect const reg_sel, uint8_t        * data);
-  bool writeSingleRegister  (RegisterSelect const reg_sel, uint8_t const    data);
-
-  void debug_dumpSingleReg  (driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel);
+  uint8_t                     _i2c_address;
+  hal::interface::I2CMaster & _i2c_master;
 
 };
 
@@ -89,4 +78,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_TPA81_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_TPA81_TPA81_IO_I2C_H_ */

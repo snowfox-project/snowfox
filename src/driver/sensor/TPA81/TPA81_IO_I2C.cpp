@@ -16,17 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_TPA81_H_
-#define INCLUDE_SPECTRE_DRIVER_SENSOR_TPA81_H_
-
 /**************************************************************************************
- * INCLUDE
+ * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/sensor/TPA81/interface/TPA81_Interface.h>
-#include <spectre/driver/sensor/TPA81/interface/TPA81_IO_Interface.h>
-
-#include <spectre/driver/interface/Debug.h>
+#include <spectre/driver/sensor/TPA81/TPA81_IO_I2C.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -45,37 +39,51 @@ namespace TPA81
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class TPA81 : public TPA81_Interface
+TPA81_IO_I2C::TPA81_IO_I2C(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
+: _i2c_address(i2c_address),
+  _i2c_master (i2c_master )
 {
 
-public:
+}
 
-           TPA81(TPA81_IO_Interface & io);
-  virtual ~TPA81();
+TPA81_IO_I2C::~TPA81_IO_I2C()
+{
 
+}
 
-  /* TPA81 Interface */
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
-  virtual bool readSoftwareRevision   (uint8_t         * software_revision  ) override;
-  virtual bool readAmbientTemperature (uint8_t         * ambient_temperature) override;
-  virtual bool readThermophileArray   (ThermophileData * thermo_data        ) override;
+bool TPA81_IO_I2C::readMultipleRegister(RegisterSelect const reg_sel, uint8_t * data, uint16_t const num_bytes)
+{
+  uint8_t const reg_addr = static_cast<uint8_t>(reg_sel);
 
+  if(!_i2c_master.begin      (_i2c_address, false  )) return false;
+  if(!_i2c_master.write      (reg_addr             )) return false;
+  if(!_i2c_master.requestFrom(_i2c_address, data, 1)) return false;
 
-          void debug_dumpAllRegs      (driver::interface::Debug & debug_interface);
+  return true;
+}
 
-private:
+bool TPA81_IO_I2C::writeMultipleRegister(RegisterSelect const reg_sel, uint8_t const  * data, uint16_t const num_bytes)
+{
+  uint8_t const reg_addr = static_cast<uint8_t>(reg_sel);
 
-  TPA81_IO_Interface & _io;
+  if(!_i2c_master.begin(_i2c_address, false)) return false;
+  if(!_i2c_master.write(reg_addr           )) return false;
 
-  bool readSingleRegister   (RegisterSelect const reg_sel, uint8_t        * data);
-  bool writeSingleRegister  (RegisterSelect const reg_sel, uint8_t const    data);
+  for(uint16_t i = 0; i < num_bytes; i++)
+  {
+    if(!_i2c_master.write(data[i]          )) return false;
+  }
+      _i2c_master.end  (                   );
 
-  void debug_dumpSingleReg  (driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel);
-
-};
+  return true;
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -88,5 +96,3 @@ private:
 } /* driver */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_TPA81_H_ */

@@ -16,17 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_TPA81_H_
-#define INCLUDE_SPECTRE_DRIVER_SENSOR_TPA81_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_TPA81_INTERFACE_TPA81_INTERFACE_H_
+#define INCLUDE_SPECTRE_DRIVER_SENSOR_TPA81_INTERFACE_TPA81_INTERFACE_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/sensor/TPA81/interface/TPA81_Interface.h>
-#include <spectre/driver/sensor/TPA81/interface/TPA81_IO_Interface.h>
-
-#include <spectre/driver/interface/Debug.h>
+#include <stdint.h>
+#include <stdbool.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -45,35 +43,36 @@ namespace TPA81
 {
 
 /**************************************************************************************
+ * TYPEDEFS
+ **************************************************************************************/
+
+typedef struct
+{
+  uint8_t pixel_1;
+  uint8_t pixel_2;
+  uint8_t pixel_3;
+  uint8_t pixel_4;
+  uint8_t pixel_5;
+  uint8_t pixel_6;
+  uint8_t pixel_7;
+  uint8_t pixel_8;
+} ThermophileData;
+
+/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class TPA81 : public TPA81_Interface
+class TPA81_Interface
 {
 
 public:
 
-           TPA81(TPA81_IO_Interface & io);
-  virtual ~TPA81();
+           TPA81_Interface() { }
+  virtual ~TPA81_Interface() { }
 
-
-  /* TPA81 Interface */
-
-  virtual bool readSoftwareRevision   (uint8_t         * software_revision  ) override;
-  virtual bool readAmbientTemperature (uint8_t         * ambient_temperature) override;
-  virtual bool readThermophileArray   (ThermophileData * thermo_data        ) override;
-
-
-          void debug_dumpAllRegs      (driver::interface::Debug & debug_interface);
-
-private:
-
-  TPA81_IO_Interface & _io;
-
-  bool readSingleRegister   (RegisterSelect const reg_sel, uint8_t        * data);
-  bool writeSingleRegister  (RegisterSelect const reg_sel, uint8_t const    data);
-
-  void debug_dumpSingleReg  (driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel);
+  virtual bool readSoftwareRevision   (uint8_t         * software_revision  ) = 0;
+  virtual bool readAmbientTemperature (uint8_t         * ambient_temperature) = 0;
+  virtual bool readThermophileArray   (ThermophileData * thermo_data        ) = 0;
 
 };
 
@@ -89,4 +88,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_TPA81_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_TPA81_INTERFACE_TPA81_INTERFACE_H_ */
