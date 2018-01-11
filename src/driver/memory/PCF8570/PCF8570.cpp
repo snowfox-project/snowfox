@@ -42,9 +42,8 @@ namespace PCF8570
  * CTOR/DTOR
  **************************************************************************************/
 
-PCF8570::PCF8570(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
-: _i2c_address(i2c_address),
-  _i2c_master (i2c_master )
+PCF8570::PCF8570(PCF8570_IO_Interface & io)
+: _io(io)
 {
 
 }
@@ -60,21 +59,12 @@ PCF8570::~PCF8570()
 
 bool PCF8570::write(uint8_t const address, uint8_t const data)
 {
-  if(!_i2c_master.begin(_i2c_address, false)) return false;
-  if(!_i2c_master.write(address            )) return false;
-  if(!_i2c_master.write(data               )) return false;
-      _i2c_master.end  (                   );
-
-  return true;
+  return _io.writeByte(address, data);
 }
 
 bool PCF8570::read(uint8_t const address, uint8_t * data)
 {
-  if(!_i2c_master.begin      (_i2c_address, false  )) return false;
-  if(!_i2c_master.write      (address              )) return false;
-  if(!_i2c_master.requestFrom(_i2c_address, data, 1)) return false;
-
-  return true;
+  return _io.readByte(address, data);
 }
 
 /**************************************************************************************

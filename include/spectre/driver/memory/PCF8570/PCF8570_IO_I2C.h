@@ -16,15 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_MEMORY_PCF8570_H_
-#define INCLUDE_SPECTRE_DRIVER_MEMORY_PCF8570_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_MEMORY_PCF8570_PCF8570_IO_I2C_H_
+#define INCLUDE_SPECTRE_DRIVER_MEMORY_PCF8570_PCF8570_IO_I2C_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/memory/PCF8570/interface/PCF8570_Interface.h>
 #include <spectre/driver/memory/PCF8570/interface/PCF8570_IO_Interface.h>
+
+#include <spectre/hal/interface/i2c/I2CMaster.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -46,23 +47,22 @@ namespace PCF8570
  * CLASS DECLARATION
  **************************************************************************************/
 
-class PCF8570 : public PCF8570_Interface
+class PCF8570_IO_I2C : public PCF8570_IO_Interface
 {
 
 public:
 
-           PCF8570(PCF8570_IO_Interface & io);
-  virtual ~PCF8570();
+           PCF8570_IO_I2C(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master);
+  virtual ~PCF8570_IO_I2C();
 
 
-  /* PCF8570 Interface */
-
-  virtual bool write(uint8_t const address, uint8_t const   data) override;
-  virtual bool read (uint8_t const address, uint8_t       * data) override;
+  virtual bool writeByte(uint8_t const address, uint8_t const   data) override;
+  virtual bool readByte (uint8_t const address, uint8_t       * data) override;
 
 private:
 
-  PCF8570_IO_Interface & _io;
+  uint8_t                     _i2c_address;
+  hal::interface::I2CMaster & _i2c_master;
 
 };
 
@@ -78,4 +78,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_MEMORY_PCF8570_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_MEMORY_PCF8570_PCF8570_IO_I2C_H_ */
