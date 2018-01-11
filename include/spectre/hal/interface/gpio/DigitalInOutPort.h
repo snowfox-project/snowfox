@@ -25,6 +25,7 @@
 
 #include <spectre/hal/interface/gpio/DigitalInPort.h>
 #include <spectre/hal/interface/gpio/DigitalOutPort.h>
+#include <spectre/hal/interface/gpio/DigitalInOutPortConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -45,7 +46,8 @@ namespace interface
 
 template <typename T>
 class DigitalInOutPort : public DigitalInPort <T>,
-                         public DigitalOutPort<T>
+                         public DigitalOutPort<T>,
+                         public DigitalInOutPortConfiguration
 {
 
 public:

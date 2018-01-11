@@ -26,7 +26,6 @@
 #include <stdint.h>
 
 #include <spectre/hal/interface/gpio/DigitalInOutPort.h>
-#include <spectre/hal/interface/gpio/DigitalInOutPortConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -45,8 +44,7 @@ namespace ATxxxx
  * CLASS DECLARATION
  **************************************************************************************/
 
-class DigitalInOutPort : public interface::DigitalInOutPort<uint8_t>,
-                         public interface::DigitalInOutPortConfiguration
+class DigitalInOutPort : public interface::DigitalInOutPort<uint8_t>
 {
 
 public:
@@ -59,9 +57,6 @@ public:
 
   virtual uint8_t get(                 ) override;
   virtual void    set(uint8_t const val) override;
-
-
-  /* Digital Input Port Configuration Interface */
 
   virtual void    setMode(interface::DigitalInOutPortConfiguration::ModeSelect const mode, interface::PullUpMode const pullup_mode = interface::PullUpMode::NONE) override;
 
