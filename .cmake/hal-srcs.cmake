@@ -36,11 +36,23 @@ set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA328P_SRCS
 )
 
 ##########################################################################
+# AT90CAN128 #############################################################
+##########################################################################
+
+set(SPECTRE_LIBRARY_HAL_AVR_AT90CAN128_SRCS
+)
+
+##########################################################################
 
 if(${MCU_ARCH} STREQUAL "avr")
   set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATxxxx_SRCS})
+
   if(${MCU_TYPE} STREQUAL "atmega328p")
     set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA328P_SRCS})  
+  endif()
+  
+  if(${MCU_TYPE} STREQUAL "at90can128")
+    set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_AT90CAN128_SRCS})  
   endif()
 endif()
 
