@@ -8,8 +8,10 @@ Spectre consists of an Real Time Operating System + an Hardware Abstraction Laye
 ## Hardware Abstraction Layers
 | MCU                          | MCU_ARCH              | MCU_TYPE          |
 |:----------------------------:|:---------------------:|:-----------------:|
-| Atmel/Microchip ATMega328P   | avr                   | atmega328p        |
 | Atmel/Microchip AT90CAN128   | avr                   | at90can128        |
+| Atmel/Microchip ATMega328P   | avr                   | atmega328p        |
+| Host (Test Build)            | host                  |                   |
+
 
 ## I/O Device Drivers
 ### GLCD Drivers ([/driver/glcd](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/glcd))
