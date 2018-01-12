@@ -20,8 +20,6 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <stdlib.h>
-
 #include <avr/io.h>
 
 #include <spectre/hal/avr/ATMEGA328P/DigitalInPin.h>
@@ -54,5 +52,5 @@ int main()
     else                    led_out.clr();
   }
 
-  return EXIT_SUCCESS;
+  return 0;
 }

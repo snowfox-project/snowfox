@@ -20,8 +20,6 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <stdlib.h>
-
 #include <avr/io.h>
 
 #include <spectre/hal/avr/ATMEGA328P/Delay.h>
@@ -58,5 +56,5 @@ int main()
     delay.delay_ms(100);
   }
 
-  return EXIT_SUCCESS;
+  return 0;
 }
