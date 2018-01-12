@@ -22,7 +22,7 @@
 
 #include <spectre/hal/avr/ATxxxx/Delay.h>
 
-#if (MCU_ARCH == avr)
+#ifdef MCU_ARCH_avr
 #include <util/delay.h>
 #endif
 
@@ -59,7 +59,7 @@ Delay::~Delay()
 
 void Delay::delay_ms(uint32_t const ms)
 {
-#if (MCU_ARCH == avr)
+#if MCU_ARCH_avr
   for(uint32_t i = 0; i < ms; i++)
   {
     _delay_ms(1);
@@ -69,7 +69,7 @@ void Delay::delay_ms(uint32_t const ms)
 
 void Delay::delay_us(uint32_t const us)
 {
-#if (MCU_ARCH == avr)
+#if MCU_ARCH_avr
   for(uint32_t i = 0; i < us; i++)
   {
     _delay_us(1);

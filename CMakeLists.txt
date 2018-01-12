@@ -48,6 +48,8 @@ if(${MCU_ARCH} STREQUAL "avr")
   include(.cmake/avr-gcc.cmake)
 endif()
 
+include(.cmake/all-gcc.cmake)
+
 ##########################################################################
 
 if(${MCU_ARCH} STREQUAL "host")
@@ -71,7 +73,7 @@ if(${MCU_ARCH} STREQUAL "avr")
     ${SPECTRY_LIBRARY_NAME_MCU}
   
     PROPERTIES
-      COMPILE_FLAGS "-mmcu=${MCU_TYPE} -DF_CPU=${MCU_SPEED} -DMCU_ARCH=${MCU_ARCH} -DMCU_TYPE=${MCU_TYPE} -Os -Wall -pedantic -pedantic-errors -funsigned-char -funsigned-bitfields -fshort-enums -ffunction-sections -fdata-sections -fno-exceptions -std=c++11"
+      COMPILE_FLAGS "-mmcu=${MCU_TYPE} -Os -Wall -pedantic -pedantic-errors -funsigned-char -funsigned-bitfields -fshort-enums -ffunction-sections -fdata-sections -fno-exceptions"
       OUTPUT_NAME   "${SPECTRE_LIBRARY_NAME}"
   )
 endif()

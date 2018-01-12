@@ -194,7 +194,7 @@ void InterruptController::enableInterrupt(uint8_t const int_num)
   case TWO_WIRE_INT                   : *_TWCR    |= TWIE_bm;   break;
   case SPM_READY                      : *_SPMCSR  |= SPMIE_bm; break;
   case GLOBAL                         :
-#if (MCU_TYPE == atmega328p)
+#if defined(MCU_ARCH_avr) && defined(MCU_TYPE_atmega328p)
     asm volatile("sei");
 #endif
   break;
@@ -231,7 +231,7 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
   case TWO_WIRE_INT                   : *_TWCR    &= ~TWIE_bm;   break;
   case SPM_READY                      : *_SPMCSR  |= SPMIE_bm;   break;
   case GLOBAL                         :
-#if (MCU_TYPE == atmega328p)
+#if defined(MCU_ARCH_avr) && defined(MCU_TYPE_atmega328p)
     asm volatile("cli");
 #endif
 break;
@@ -258,7 +258,7 @@ void InterruptController::registerISR(uint8_t const int_num, interface::ISRFunc 
 
 /**************************************************************************************/
 
-#if (MCU_TYPE == atmega328p)
+#if defined(MCU_ARCH_avr) && defined(MCU_TYPE_atmega328p)
 
 /**************************************************************************************
  * INCLUDES
@@ -527,6 +527,6 @@ ISR(SPM_READY_vect)
 
 /**************************************************************************************/
 
-#endif /* (MCU_TYPE == atmega328p) */
+#endif /* defined(MCU_ARCH_avr) && defined(MCU_TYPE_atmega328p) */
 
 /**************************************************************************************/
