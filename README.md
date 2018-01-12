@@ -52,18 +52,18 @@ sudo apt-get install avr-libc binutils-avr gcc-avr avrdude
 
 ### Clone repository
 ```
-git clone https://github.com/lxrobotics/Spectre.git
+git clone https://github.com/lxrobotics/spectre.git
 ```
 
-### Configure
-* Edit config.cmake
-  * MCU_ARCH
-  * MCU_TYPE
-  * MCU_SPEED 
+### Copy and edit configuration
+```
+cp config/atmega328p-default.cmake config.cmake
+vim config.cmake
+```
 
 ### Build
 ```
-cd Spectre
+cd spectre
 cmake .
 make
 ```
