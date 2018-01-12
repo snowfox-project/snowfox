@@ -7,7 +7,7 @@ if   [ "$1" = "-out=xml" ]; then
   mkdir -p ../build/report/cppcheck
   cd ../build/report/cppcheck
   cppcheck --enable=warning --xml-version=2 ../../../src ../../../examples 2> cppcheck.xml
-  cppcheck-htmlreport --file=cppcheck.xml --report-dir=./ --source-dir=../../../src ../../../examples
+#  cppcheck-htmlreport --file=cppcheck.xml --report-dir=./ --source-dir=../../../src ../../../examples
 
 elif [ "$1" = "-out=gcc" ]; then
 
