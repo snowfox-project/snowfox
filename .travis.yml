@@ -1,0 +1,17 @@
+language: cpp
+
+sudo: enabled
+
+install:
+  - .ci/scripts/run-pre-build.sh
+
+before_script:
+  - .ci/scripts/run-cppcheck.sh -out=xml
+
+script:
+  - .ci/scripts/run-build.sh at90can128-default.cmake
+  - .ci/scripts/run-build.sh atmega328p-default.cmake
+  - .ci/scripts/run-build.sh host-default.cmake
+
+after_script:
+  - .ci/scripts/run-post-build.sh
