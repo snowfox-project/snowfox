@@ -67,18 +67,6 @@ add_library(
 )
 
 ##########################################################################
-
-if(${MCU_ARCH} STREQUAL "avr")
-  set_target_properties(
-    ${SPECTRY_LIBRARY_NAME_MCU}
-  
-    PROPERTIES
-      COMPILE_FLAGS "-mmcu=${MCU_TYPE} -Os -Wall -pedantic -pedantic-errors -funsigned-char -funsigned-bitfields -fshort-enums -ffunction-sections -fdata-sections -fno-exceptions"
-      OUTPUT_NAME   "${SPECTRE_LIBRARY_NAME}"
-  )
-endif()
-
-##########################################################################
 # EXAMPLES ###############################################################
 ##########################################################################
 
