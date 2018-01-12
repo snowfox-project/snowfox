@@ -24,6 +24,11 @@
 
 #include <assert.h>
 
+/* Required for 'assert' which in turn needs 'abort' in avr-gcc */
+#if defined(MCU_ARCH_avr) && defined(MCU_TYPE_atmega328p) 
+  #include <stdlib.h> 
+#endif
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/

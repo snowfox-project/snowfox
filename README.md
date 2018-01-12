@@ -2,6 +2,7 @@ Spectre = RTOS + HAL + IO + COMSTACK + C++
 ==========================================
 [![GitHub license](https://img.shields.io/github/license/lxrobotics/spectre.svg)](https://github.com/lxrobotics/spectre)
 [![GitHub issues](https://img.shields.io/github/issues/lxrobotics/spectre.svg)](https://github.com/lxrobotics/spectre/issues)
+[![Build Status](https://travis-ci.org/lxrobotics/spectre.svg?branch=master)](https://travis-ci.org/lxrobotics/spectre)
 
 Spectre consists of an Real Time Operating System + an Hardware Abstraction Layer for dedicated architectures + IO driver support for various sensors and actuators + various industrial communication stacks encapsulated in a comfortable, small and elegant C++ API. Additionally a continous integration approach is employed with integrated unit testing ensuring code quality and functionality.
 
