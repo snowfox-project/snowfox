@@ -17,19 +17,10 @@
  */
 
 /**************************************************************************************
- * INCLUDES
- **************************************************************************************/
-
-#include <stdbool.h>
-
-/**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
 namespace spectre
-{
-
-namespace test
 {
 
 /**************************************************************************************
@@ -37,7 +28,7 @@ namespace test
  **************************************************************************************/
 
 template <typename T>
-Register::Register(T const initial_reg_val)
+Register<T>::Register(T const initial_reg_val)
 : _reg_val(initial_reg_val)
 {
 
@@ -48,13 +39,31 @@ Register::Register(T const initial_reg_val)
  **************************************************************************************/
 
 template <typename T>
-T * Register::getReg()
+T * Register<T>::operator()()
 {
   return &_reg_val;
 }
 
 template <typename T>
-bool Register::isBitSet(uint32_t const bit_pos)
+bool Register<T>::operator == (T const val) const
+{
+  return (_reg_val == val);
+}
+
+template <typename T>
+void Register<T>::setBit(uint32_t const bit_pos)
+{
+  _reg_val |= (1<<bit_pos);
+}
+
+template <typename T>
+void Register<T>::clrBit(uint32_t const bit_pos)
+{
+  _reg_val &= ~(1<<bit_pos);
+}
+
+template <typename T>
+bool Register<T>::isBitSet(uint32_t const bit_pos)
 {
   T const bit_mask = (1<<bit_pos);
   bool const is_bit_set = (_reg_val & bit_mask) == bit_mask;
@@ -62,7 +71,7 @@ bool Register::isBitSet(uint32_t const bit_pos)
 }
 
 template <typename T>
-bool Register::isBitClr(uint32_t const bis_pos)
+bool Register<T>::isBitClr(uint32_t const bit_pos)
 {
   T const bit_mask = (1<<bit_pos);
   bool const is_bit_clr = (_reg_val & bit_mask) == 0;
@@ -74,7 +83,3 @@ bool Register::isBitClr(uint32_t const bis_pos)
  **************************************************************************************/
 
 } /* test */
-
-} /* spectre */
-
-#endif /* TEST_INCLUDE_REGISTER_H_ */

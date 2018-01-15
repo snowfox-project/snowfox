@@ -33,9 +33,6 @@
 namespace spectre
 {
 
-namespace test
-{
-
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
@@ -49,8 +46,11 @@ public:
   Register(T const initial_reg_val);
 
 
-  T *  getReg();
+  T * operator() ();
+  bool operator == (T const val) const;
 
+  void setBit  (uint32_t const bit_pos);
+  void clrBit  (uint32_t const bit_pos);
   bool isBitSet(uint32_t const bit_pos);
   bool isBitClr(uint32_t const bis_pos);
 
@@ -63,8 +63,6 @@ private:
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
-
-} /* test */
 
 } /* spectre */
 
