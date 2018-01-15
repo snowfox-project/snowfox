@@ -3,7 +3,7 @@ language: cpp
 sudo: enabled
 
 install:
-  - .ci/run-pre-build.sh
+  - .ci/run-install.sh
 
 before_script:
   - .ci/run-cppcheck.sh -out=xml
@@ -12,7 +12,7 @@ script:
   - .ci/run-build.sh at90can128-default.cmake
   - .ci/run-build.sh atmega328p-default.cmake
   - .ci/run-build.sh host-default.cmake
-  - .ci/run-host-test.sh
+  - .ci/run-test.sh
 
 after_script:
-  - .ci/run-post-build.sh
+  - .ci/run-cleanup.sh
