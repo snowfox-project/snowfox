@@ -12,6 +12,7 @@ script:
   - .ci/run-build.sh at90can128-default.cmake
   - .ci/run-build.sh atmega328p-default.cmake
   - .ci/run-build.sh host-default.cmake
+  - .ci/run-host-test.sh
 
 after_script:
   - .ci/run-post-build.sh
