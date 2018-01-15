@@ -16,6 +16,14 @@ set(SPECTRE_HOST_TEST_SRCS
 
 ##########################################################################
 
-add_executable(${SPECTRE_HOST_TEST_SRCS} ${SPECTRE_HOST_TEST_TARGET})
+add_executable(
+  ${SPECTRE_HOST_TEST_TARGET}
+  ${SPECTRE_HOST_TEST_SRCS}
+)
+
+target_link_libraries(
+  ${SPECTRE_HOST_TEST_TARGET}
+  spectre-host
+)
 
 ##########################################################################
