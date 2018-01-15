@@ -2,4 +2,4 @@
 
 cd $(dirname $(readlink -f $0))
 
-../build/bin/test-host
+exec ("../build/bin/test-host")
