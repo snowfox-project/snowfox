@@ -67,7 +67,9 @@ vim config.cmake
 ### Build
 ```
 cd spectre
-cmake .
+mkdir build
+cd build
+cmake ..
 make
 ```
 
