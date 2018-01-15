@@ -2,5 +2,4 @@
 
 cd $(dirname $(readlink -f $0))
 
-cd ../build/bin
-./test-host
+../build/bin/test-host
