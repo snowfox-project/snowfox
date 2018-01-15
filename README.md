@@ -46,7 +46,7 @@ Spectre consists of an Real Time Operating System + an Hardware Abstraction Laye
 ### Install toolchain
 * **ALL**
 ```
-sudo apt-get install cmake cppcheck
+sudo apt-get install cmake
 ```
 * **AVR**
 ```
