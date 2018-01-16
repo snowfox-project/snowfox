@@ -24,7 +24,7 @@
 
 #include <Register.h>
 
-#include <spectre/hal/avr/ATxxxx/DigitalInPort.h>
+#include <spectre/hal/avr/ATxxxx/DigitalInPin.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -44,18 +44,17 @@ namespace test
 
 /**************************************************************************************/
 
-SCENARIO("A DigitalInPort object is constructed", "[ATxxxx::DigitalInPort]")
+SCENARIO("A DigitalInPin (Pin Number 0) object is constructed", "[ATxxxx::DigitalInPin]")
 {
   Register<uint8_t> DDR(0b00000000),
                     OUT(0b00000000),
                     PIN(0b00000000);
 
-
-  ATxxxx::DigitalInPort in_port(DDR(), OUT(), PIN());
+  ATxxxx::DigitalInPin in_pin(DDR(), OUT(), PIN(), 0);
 
   WHEN("the object is newly constructed")
   {
-    THEN("all bits in DDR should be clr")
+    THEN("all bits DDR should be clr")
     {
       REQUIRE(DDR == 0b00000000);
     }
@@ -72,60 +71,91 @@ SCENARIO("A DigitalInPort object is constructed", "[ATxxxx::DigitalInPort]")
 
 /**************************************************************************************/
 
-SCENARIO("A DigitalInPort interface::PullUpMode is manipulated", "[ATxxxx::DigitalInPort]")
+SCENARIO("A DigitalInPin (Pin Number 0) interface::PullUpMode is manipulated", "[ATxxxx::DigitalInPin]")
 {
   Register<uint8_t> DDR(0b00000000),
                     OUT(0b00000000),
                     PIN(0b00000000);
 
-
-  ATxxxx::DigitalInPort in_port(DDR(), OUT(), PIN());
+  ATxxxx::DigitalInPin in_pin(DDR(), OUT(), PIN(), 0);
 
   WHEN("interface::PullUpMode 'NONE' is selected")
   {
-    in_port.setPullUpMode(interface::PullUpMode::NONE);
+    in_pin.setPullUpMode(interface::PullUpMode::NONE);
 
-    THEN("all bits in OUT should be clr")
+    THEN("bit #0 of OUT should be clr")
     {
-      REQUIRE(OUT == 0b00000000);
+      REQUIRE(OUT.isBitClr(0));
     }
   }
   WHEN("interface::PullUpMode 'PULL_UP' is selected")
   {
-    in_port.setPullUpMode(interface::PullUpMode::PULL_UP);
+    in_pin.setPullUpMode(interface::PullUpMode::PULL_UP);
 
-    THEN("all bits in OUT should be set")
+    THEN("bit #0 of OUT should be set")
     {
-      REQUIRE(OUT == 0b11111111);
+      REQUIRE(OUT.isBitSet(0));
     }
   }
   WHEN("interface::PullUpMode 'NONE' is selected")
   {
-    in_port.setPullUpMode(interface::PullUpMode::PULL_DOWN);
+    in_pin.setPullUpMode(interface::PullUpMode::PULL_DOWN);
 
-    THEN("all bits in OUT should be (still) clr - ATMega does not support pull downs")
+    THEN("bit #0 of OUT should be (still) clr - ATMega does not support pull down")
     {
-      REQUIRE(OUT == 0b00000000);
+      REQUIRE(OUT.isBitClr(0));
     }
   }
 }
 
 /**************************************************************************************/
 
-SCENARIO("A DigitalInPort value is read", "[ATxxxx::DigitalInPort]")
+SCENARIO("A 'clr' DigitalInPin (Pin Number 0) current value is retrieved vis 'isSet' and 'isClr'", "[ATxxxx::DigitalInPin]")
 {
   Register<uint8_t> DDR(0b00000000),
                     OUT(0b00000000),
-                    PIN(0b10110011);
+                    PIN(0b00000000);
 
+  ATxxxx::DigitalInPin in_pin(DDR(), OUT(), PIN(), 0);
 
-  ATxxxx::DigitalInPort in_port(DDR(), OUT(), PIN());
-
-  WHEN("the current value of the PIN register is read via 'get'")
+  WHEN("'isSet' is called")
   {
-    THEN("the returned value should be equal with the current content of the PIN register")
+    THEN("the function call should return false")
     {
-      REQUIRE(PIN == in_port.get());
+      REQUIRE(in_pin.isSet() == false);
+    }
+  }
+  WHEN("'isClr' is called")
+  {
+    THEN("the function call should return true")
+    {
+      REQUIRE(in_pin.isClr() == true);
+    }
+  }
+}
+
+/**************************************************************************************/
+
+SCENARIO("A 'set' DigitalInPin (Pin Number 0) current value is retrieved vis 'isSet' and 'isClr'", "[ATxxxx::DigitalInPin]")
+{
+  Register<uint8_t> DDR(0b00000000),
+                    OUT(0b00000000),
+                    PIN(0b00000001);
+
+  ATxxxx::DigitalInPin in_pin(DDR(), OUT(), PIN(), 0);
+
+  WHEN("'isSet' is called")
+  {
+    THEN("the function call should return true")
+    {
+      REQUIRE(in_pin.isSet() == true);
+    }
+  }
+  WHEN("'isClr' is called")
+  {
+    THEN("the function call should return false")
+    {
+      REQUIRE(in_pin.isClr() == false);
     }
   }
 }

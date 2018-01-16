@@ -44,7 +44,7 @@ namespace test
 
 /**************************************************************************************/
 
-SCENARIO("A DigitalOutPin object is constructed for pin number #0", "[ATxxxx::DigitalOutPin]")
+SCENARIO("A DigitalOutPin (Pin number #0) object is constructed for pin number #0", "[ATxxxx::DigitalOutPin]")
 {
   Register<uint8_t> DDR(0b00000000),
                     OUT(0b00000000);
@@ -92,7 +92,7 @@ SCENARIO("A DigitalOutPin object is constructed for pin number #0", "[ATxxxx::Di
 
 /**************************************************************************************/
 
-SCENARIO("A 'clr' DigitalOutPin is manipulated via 'set' and 'clr'", "[ATxxxx::DigitalOutPin]")
+SCENARIO("A 'clr' DigitalOutPin (Pin number #0) is manipulated via 'set' and 'clr'", "[ATxxxx::DigitalOutPin]")
 {
   Register<uint8_t> DDR(0b00000000),
                     OUT(0b00000000);
@@ -124,7 +124,7 @@ SCENARIO("A 'clr' DigitalOutPin is manipulated via 'set' and 'clr'", "[ATxxxx::D
 
 /**************************************************************************************/
 
-SCENARIO("A 'set' DigitalOutPin is manipulated via 'set' and 'clr'", "[ATxxxx::DigitalOutPin]")
+SCENARIO("A 'set' DigitalOutPin (Pin number #0) is manipulated via 'set' and 'clr'", "[ATxxxx::DigitalOutPin]")
 {
   Register<uint8_t> DDR(0b00000000),
                     OUT(0b00000000);
