@@ -7,6 +7,7 @@ install:
 
 before_script:
   - .ci/run-cppcheck.sh -out=xml
+  - .ci/run-pre-build-create-coverage-report.sh
 
 script:
   - .ci/run-build.sh at90can128-default.cmake
@@ -15,4 +16,5 @@ script:
   - .ci/run-test.sh
 
 after_script:
+  - .ci/run-post-build-create-coverage-report.sh
   - .ci/run-cleanup.sh
