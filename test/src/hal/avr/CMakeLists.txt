@@ -9,6 +9,7 @@ set(SPECTRE_TEST_HOST_HAL_AVR_TARGET test-host-hal-avr)
 set(SPECTRE_TEST_HOST_HAL_AVR_SRCS
   test-main-hal-avr.cpp
   
+  ATxxxx/test_DigitalInPort.cpp
   ATxxxx/test_DigitalOutPin.cpp
   ATxxxx/test_DigitalOutPort.cpp
 )
