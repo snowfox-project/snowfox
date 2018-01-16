@@ -1,7 +1,6 @@
 Spectre = RTOS + HAL + IO + COMSTACK + C++
 ==========================================
-[![GitHub license](https://img.shields.io/github/license/lxrobotics/spectre.svg)](https://github.com/lxrobotics/spectre)
-[![GitHub issues](https://img.shields.io/github/issues/lxrobotics/spectre.svg)](https://github.com/lxrobotics/spectre/issues)
+[![GPLv3 License](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/lxrobotics/spectre/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/lxrobotics/spectre.svg?branch=master)](https://travis-ci.org/lxrobotics/spectre)
 [![Coverage Status](https://coveralls.io/repos/github/lxrobotics/spectre/badge.svg?branch=master)](https://coveralls.io/github/lxrobotics/spectre?branch=master)
 
