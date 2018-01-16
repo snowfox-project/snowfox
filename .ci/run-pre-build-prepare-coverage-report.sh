@@ -2,6 +2,6 @@
 
 cd $(dirname $(readlink -f $0))
 
-cd ../../build
+cd ../build
 
-- lcov --directory . --zerocounters
+lcov --directory . --zerocounters
