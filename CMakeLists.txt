@@ -25,6 +25,9 @@ include(config.cmake)
 # SRCS ###################################################################
 ##########################################################################
 
+set(SPECTRE_LIBRARY_CXX_SRCS "")
+include(.cmake/cxx-srcs.cmake)
+
 set(SPECTRE_LIBRARY_HAL_SRCS "")
 include(.cmake/hal-srcs.cmake)
 
@@ -32,6 +35,7 @@ set(SPECTRE_LIBRARY_DRIVER_SRCS "")
 include(.cmake/driver-srcs.cmake)
 
 set(SPECTRE_LIBRARY_SRCS
+  ${SPECTRE_LIBRARY_CXX_SRCS}
   ${SPECTRE_LIBRARY_HAL_SRCS}
   ${SPECTRE_LIBRARY_DRIVER}
 )

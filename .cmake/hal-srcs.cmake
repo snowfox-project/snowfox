@@ -22,13 +22,6 @@ set(SPECTRE_LIBRARY_HAL_AVR_ATxxxx_SRCS
   ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/I2CMaster.cpp       
 )
 
-if(${MCU_ARCH} STREQUAL "avr")
-  set(${SPECTRE_LIBRARY_HAL_AVR_ATxxxx_SRCS}
-    ${SPECTRE_LIBRARY_HAL_AVR_ATxxxx_SRCS}
-    ${SPECTRE_LIBRARY_HAL_AVR_PATH}/cxx/cxx.cpp                
-  )
-endif()
-
 ##########################################################################
 # ATMEGA328P #############################################################
 ##########################################################################
