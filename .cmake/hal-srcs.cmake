@@ -20,8 +20,14 @@ set(SPECTRE_LIBRARY_HAL_AVR_ATxxxx_SRCS
   ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/DigitalOutPin.cpp   
   ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/DigitalOutPort.cpp  
   ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/I2CMaster.cpp       
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/cxx/cxx.cpp                
 )
+
+if(${MCU_ARCH} STREQUAL "avr")
+  set(${SPECTRE_LIBRARY_HAL_AVR_ATxxxx_SRCS}
+    ${SPECTRE_LIBRARY_HAL_AVR_ATxxxx_SRCS}
+    ${SPECTRE_LIBRARY_HAL_AVR_PATH}/cxx/cxx.cpp                
+  )
+endif()
 
 ##########################################################################
 # ATMEGA328P #############################################################
