@@ -26,6 +26,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include <vector>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -46,16 +48,15 @@ public:
   Register(T const initial_reg_val);
 
 
-  T * operator() ();
-  bool operator == (T const val) const;
+  T    * operator () ();
+  bool   operator == (T const val) const;
 
-  void setBit       (uint32_t const bit_pos);
-  void clrBit       (uint32_t const bit_pos);
-  bool isBitSet     (uint32_t const bit_pos);
-  bool isBitClr     (uint32_t const bit_pos);
+  void   setBit      (uint32_t       const bit_pos ) const;
+  void   clrBit      (uint32_t       const bit_pos ) const;
+  bool   isBitSet    (uint32_t       const bit_pos ) const;
+  bool   isBitClr    (uint32_t       const bit_pos ) const;
 
-  bool isBitMaskSet (T const bit_mask);
-  bool isBitMaskClr (T const bit_mask);
+  bool   isBitVectSet(std::vector<uint32_t> const bit_pos_vect) const;
 
 private:
 

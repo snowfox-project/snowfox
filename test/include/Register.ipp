@@ -17,6 +17,12 @@
  */
 
 /**************************************************************************************
+ * INCLUDE
+ **************************************************************************************/
+
+#include <algorithm>
+
+/**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
@@ -51,19 +57,19 @@ bool Register<T>::operator == (T const val) const
 }
 
 template <typename T>
-void Register<T>::setBit(uint32_t const bit_pos)
+void Register<T>::setBit(uint32_t const bit_pos) const
 {
   _reg_val |= (1<<bit_pos);
 }
 
 template <typename T>
-void Register<T>::clrBit(uint32_t const bit_pos)
+void Register<T>::clrBit(uint32_t const bit_pos) const
 {
   _reg_val &= ~(1<<bit_pos);
 }
 
 template <typename T>
-bool Register<T>::isBitSet(uint32_t const bit_pos)
+bool Register<T>::isBitSet(uint32_t const bit_pos) const
 {
   T const bit_mask = (1<<bit_pos);
   bool const is_bit_set = (_reg_val & bit_mask) == bit_mask;
@@ -71,7 +77,7 @@ bool Register<T>::isBitSet(uint32_t const bit_pos)
 }
 
 template <typename T>
-bool Register<T>::isBitClr(uint32_t const bit_pos)
+bool Register<T>::isBitClr(uint32_t const bit_pos) const
 {
   T const bit_mask = (1<<bit_pos);
   bool const is_bit_clr = (_reg_val & bit_mask) == 0;
@@ -79,17 +85,17 @@ bool Register<T>::isBitClr(uint32_t const bit_pos)
 }
 
 template <typename T>
-bool Register<T>::isBitMaskSet(T const bit_mask)
+bool Register<T>::isBitVectSet(std::vector<uint32_t> const bit_pos_vect) const
 {
-  bool const is_bit_mask_set = (_reg_val & bit_mask) == bit_mask;
-  return is_bit_mask_set;
-}
-
-template <typename T>
-bool Register<T>::isBitMaskClr(T const bit_mask)
-{
-  bool const is_bit_mask_clr = (_reg_val & bit_mask) == 0;
-  return is_bit_mask_clr;
+  T bit_mask = 0;
+  std::for_each(std::begin(bit_pos_vect),
+                std::end  (bit_pos_vect),
+                [&bit_mask](uint32_t const bit_pos)
+                {
+                  bit_mask |= (1<<bit_pos);
+                });
+  bool const is_bit_vect_set = (_reg_val & bit_mask) == bit_mask;
+  return is_bit_vect_set; 
 }
 
 /**************************************************************************************

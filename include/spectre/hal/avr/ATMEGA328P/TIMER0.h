@@ -76,7 +76,7 @@ private:
                     * _TCCR0B;
 
 
-  void setPrescalerRegister(uint32_t const prescaler);
+  void setPrescaler_TCCR0B(uint32_t const prescaler);
 
 };
 
