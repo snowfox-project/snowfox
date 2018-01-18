@@ -10,6 +10,8 @@ set(SPECTRE_TEST_HOST_HAL_AVR_SRCS
   test-main-hal-avr.cpp
   
   ATMEGA328P/test_TIMER0.cpp
+  ATMEGA328P/test_TIMER1.cpp
+  ATMEGA328P/test_TIMER2.cpp
   
   ATxxxx/test_DigitalInPin.cpp
   ATxxxx/test_DigitalInPort.cpp

@@ -120,7 +120,7 @@ void TIMER1::setPrescaler_TCCR1B(uint32_t const prescaler)
   case 8    : *_TCCR1B |= static_cast<uint8_t>(TIMER1_Prescaler_8   ); break;
   case 64   : *_TCCR1B |= static_cast<uint8_t>(TIMER1_Prescaler_64  ); break;
   case 256  : *_TCCR1B |= static_cast<uint8_t>(TIMER1_Prescaler_256 ); break;
-  case 1124 : *_TCCR1B |= static_cast<uint8_t>(TIMER1_Prescaler_1024); break;
+  case 1024 : *_TCCR1B |= static_cast<uint8_t>(TIMER1_Prescaler_1024); break;
   }
 }
 

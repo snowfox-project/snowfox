@@ -52,7 +52,7 @@ class TIMER1 : public interface::Timer<uint16_t>,
 public:
 
            TIMER1(volatile uint16_t * TCNT1,
-                  volatile uint8_t * TCCR1B);
+                  volatile uint8_t  * TCCR1B);
   virtual ~TIMER1();
 
 
