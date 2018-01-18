@@ -44,37 +44,44 @@ namespace test
 
 /**************************************************************************************/
 
-SCENARIO("A Timer 0 prescaler is configured", "[ATMEGA328P::TIMER0]")
+SCENARIO("A Timer 0 is used", "[ATMEGA328P::TIMER0]")
 {
-  Register<uint8_t> TCNT0 (0b00000000),
-                    TCCR0B(0b00000000);
+  uint8_t const TCNT0_RESET_VALUE   = 0b00000000;
+  uint8_t const TCCR0B_RESET_VALUE  = 0b00000000;
+
+  Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE ),
+                    TCCR0B(TCCR0B_RESET_VALUE);
 
   ATMEGA328P::TIMER0 timer0(TCNT0(), TCCR0B());
 
-  WHEN("'setPrescaler' is called with the argument '0'")
+  WHEN("The prescaler is configured via calling 'setPrescaler' with an argument of '0'")
   {
     timer0.setPrescaler(0);
-
-    THEN("TCCR0B bits 2-0 == 0b000")
+    WHEN("'start' is called")
     {
-      REQUIRE(TCCR0B.isBitClr(2));
-      REQUIRE(TCCR0B.isBitClr(1));
-      REQUIRE(TCCR0B.isBitClr(0));
+      timer0.start();
+      THEN("TCCR0B bits 2-0 == 0b000") REQUIRE(TCCR0B_RESET_VALUE == TCNT0_RESET_VALUE);
+    }
+    WHEN("'start' is not called")
+    {
+      THEN("TCCR0B bits 2-0 == 0b000") REQUIRE(TCCR0B_RESET_VALUE == TCNT0_RESET_VALUE);
     }
   }
 
-  WHEN("'setPrescaler' is called with the argument '1'")
+  WHEN("The prescaler is configured via calling 'setPrescaler' with an argument of '1'")
   {
     timer0.setPrescaler(1);
-
-    THEN("TCCR0B bits 2-0 == 0b001")
+    WHEN("'start' is called")
     {
-      REQUIRE(TCCR0B.isBitClr(2));
-      REQUIRE(TCCR0B.isBitClr(1));
-      REQUIRE(TCCR0B.isBitSet(0));
+      timer0.start();
+      THEN("TCCR0B bits 2-0 == 0b001") REQUIRE(TCCR0B.isBitMaskSet(0b00000001));
+    }
+    WHEN("'start' is not called")
+    {
+      THEN("TCCR0B bits 2-0 == 0b000") REQUIRE(TCCR0B_RESET_VALUE == TCNT0_RESET_VALUE);
     }
   }
-
+/*
   WHEN("'setPrescaler' is called with the argument '8'")
   {
     timer0.setPrescaler(8);
@@ -134,6 +141,7 @@ SCENARIO("A Timer 0 prescaler is configured", "[ATMEGA328P::TIMER0]")
       REQUIRE(TCCR0B.isBitClr(0));
     }
   }
+  */
 }
 
 /**************************************************************************************/

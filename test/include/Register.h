@@ -49,10 +49,13 @@ public:
   T * operator() ();
   bool operator == (T const val) const;
 
-  void setBit  (uint32_t const bit_pos);
-  void clrBit  (uint32_t const bit_pos);
-  bool isBitSet(uint32_t const bit_pos);
-  bool isBitClr(uint32_t const bis_pos);
+  void setBit       (uint32_t const bit_pos);
+  void clrBit       (uint32_t const bit_pos);
+  bool isBitSet     (uint32_t const bit_pos);
+  bool isBitClr     (uint32_t const bit_pos);
+
+  bool isBitMaskSet (T const bit_mask);
+  bool isBitMaskClr (T const bit_mask);
 
 private:
 

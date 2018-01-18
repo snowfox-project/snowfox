@@ -78,6 +78,20 @@ bool Register<T>::isBitClr(uint32_t const bit_pos)
   return is_bit_clr;
 }
 
+template <typename T>
+bool Register<T>::isBitMaskSet(T const bit_mask)
+{
+  bool const is_bit_mask_set = (_reg_val & bit_mask) == bit_mask;
+  return is_bit_mask_set;
+}
+
+template <typename T>
+bool Register<T>::isBitMaskClr(T const bit_mask)
+{
+  bool const is_bit_mask_clr = (_reg_val & bit_mask) == 0;
+  return is_bit_mask_clr;
+}
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/

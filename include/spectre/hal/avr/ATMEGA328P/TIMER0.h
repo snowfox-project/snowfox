@@ -75,6 +75,9 @@ private:
   volatile uint8_t  * _TCNT0,
                     * _TCCR0B;
 
+
+  void setPrescalerRegister(uint32_t const prescaler);
+
 };
 
 /**************************************************************************************

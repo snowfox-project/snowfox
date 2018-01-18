@@ -85,12 +85,12 @@ TIMER0::~TIMER0()
 
 void TIMER0::start()
 {
-  setPrescaler(_prescaler);
+  setPrescalerRegister(_prescaler);
 }
 
 void TIMER0::stop()
 {
-  setPrescaler(0);
+  setPrescalerRegister(0);
 }
 
 void TIMER0::set(uint8_t const val)
@@ -104,6 +104,15 @@ uint8_t TIMER0::get()
 }
 
 void TIMER0::setPrescaler(uint32_t const prescaler)
+{
+  _prescaler = prescaler;
+}
+
+/**************************************************************************************
+ * PRIVATE FUNCTIONS
+ **************************************************************************************/
+
+void TIMER0::setPrescalerRegister(uint32_t const prescaler)
 {
   *_TCCR0B &= ~(CS02_bm | CS01_bm | CS00_bm);
 
