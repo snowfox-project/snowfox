@@ -23,8 +23,7 @@ set_target_properties(
   ${TARGET}
 
   PROPERTIES
-    COMPILE_FLAGS "-mmcu=${MCU_TYPE} -DF_CPU=${MCU_SPEED} -Os -Wall -pedantic -pedantic-errors -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -fno-exceptions -std=c++11"
-    LINK_FLAGS    "-mmcu=${MCU_TYPE}"
+    LINK_FLAGS "-mmcu=${MCU_TYPE}"
 )
 
 ##########################################################################
