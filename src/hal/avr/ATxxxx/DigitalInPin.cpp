@@ -71,7 +71,6 @@ void DigitalInPin::setPullUpMode(interface::PullUpMode const pullup_mode)
   case interface::PullUpMode::NONE:      *_out &= ~_in_pin_bitmask; break;
   case interface::PullUpMode::PULL_UP:   *_out |=  _in_pin_bitmask; break;
   case interface::PullUpMode::PULL_DOWN:                            break;
-  default:                                                          break;
   }
 }
 

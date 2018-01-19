@@ -68,7 +68,6 @@ void DigitalInPort::setPullUpMode(interface::PullUpMode const pullup_mode)
   case interface::PullUpMode::NONE:      *_out = 0x00; break;
   case interface::PullUpMode::PULL_UP:   *_out = 0xFF; break;
   case interface::PullUpMode::PULL_DOWN:               break;
-  default:                                             break;
   }
 }
 

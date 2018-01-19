@@ -72,7 +72,6 @@ void DigitalInOutPort::setMode(interface::DigitalInOutPortConfiguration::ModeSel
   {
   case interface::DigitalInOutPortConfiguration::INPUT : { setGpioPortAsInput(); setGpioPortPullUpMode(pullup_mode); } break;
   case interface::DigitalInOutPortConfiguration::OUTPUT: { setGpioPortAsOutput();                                    } break;
-  default                                              :                                                               break;
   }
 }
 
@@ -97,7 +96,6 @@ void DigitalInOutPort::setGpioPortPullUpMode(interface::PullUpMode const pullup_
   case interface::PullUpMode::NONE:      *_out = 0x00; break;
   case interface::PullUpMode::PULL_UP:   *_out = 0xFF; break;
   case interface::PullUpMode::PULL_DOWN:               break;
-  default:                                             break;
   }
 }
 
