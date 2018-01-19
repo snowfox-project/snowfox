@@ -24,9 +24,10 @@
 #include <algorithm>
 
 #include <catch.hpp>
-#include <hal/avr/ATMEGA328P/RegisterResetValueList.h>
 
 #include <Register.h>
+#include <hal/avr/ATMEGA328P/RegisterResetValueList.h>
+
 #include <spectre/hal/avr/ATMEGA328P/TIMER0.h>
 
 /**************************************************************************************
