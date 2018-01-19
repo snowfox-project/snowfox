@@ -24,9 +24,9 @@
 #include <algorithm>
 
 #include <catch.hpp>
+#include <hal/avr/ATMEGA328P/RegisterResetValueList.h>
 
 #include <Register.h>
-
 #include <spectre/hal/avr/ATMEGA328P/TIMER0.h>
 
 /**************************************************************************************
@@ -46,20 +46,17 @@ namespace test
 {
 
 /**************************************************************************************
- * CONSTANTS
+ * TEST CODE
  **************************************************************************************/
-
-static uint8_t const TCNT0_RESET_VALUE   = 0b00000000;
-static uint8_t const TCCR0B_RESET_VALUE  = 0b00000000;
-
-/**************************************************************************************/
 
 SCENARIO("ATMEGA328P::TIMER0 - A timer's prescaler is manipulated via 'setPrescaler'", "[ATMEGA328P::TIMER0]")
 {
   Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE ),
-                    TCCR0B(TCCR0B_RESET_VALUE);
+                    TCCR0B(TCCR0B_RESET_VALUE),
+                    OCR0A (OCR0A_RESET_VALUE ),
+                    OCR0B (OCR0B_RESET_VALUE );
 
-  ATMEGA328P::TIMER0 timer0(TCNT0(), TCCR0B());
+  ATMEGA328P::TIMER0 timer0(TCNT0(), TCCR0B(), OCR0A(), OCR0B());
 
   std::vector<uint32_t> const VALID_PRESCALER_VECT = {0, 1, 8, 64, 256, 1024};
 
@@ -101,11 +98,13 @@ SCENARIO("ATMEGA328P::TIMER0 - A timer's prescaler is manipulated via 'setPresca
 SCENARIO("ATMEGA328P::TIMER0 - A timer is started ('start') and stopped ('stop')", "[ATMEGA328P::TIMER0]")
 {
   Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE ),
-                    TCCR0B(TCCR0B_RESET_VALUE);
+                    TCCR0B(TCCR0B_RESET_VALUE),
+                    OCR0A (OCR0A_RESET_VALUE ),
+                    OCR0B (OCR0B_RESET_VALUE );
 
   uint32_t const prescaler = 8;
 
-  ATMEGA328P::TIMER0 timer0(TCNT0(), TCCR0B());
+  ATMEGA328P::TIMER0 timer0(TCNT0(), TCCR0B(), OCR0A(), OCR0B());
 
   timer0.setPrescaler(prescaler);
 
@@ -131,9 +130,11 @@ SCENARIO("ATMEGA328P::TIMER0 - A timer is started ('start') and stopped ('stop')
 SCENARIO("ATMEGA328P::TIMER0 - A timer's counter register is read ('get') and written ('set')", "[ATMEGA328P::TIMER0]")
 {
   Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE ),
-                    TCCR0B(TCCR0B_RESET_VALUE);
+                    TCCR0B(TCCR0B_RESET_VALUE),
+                    OCR0A (OCR0A_RESET_VALUE ),
+                    OCR0B (OCR0B_RESET_VALUE );
 
-  ATMEGA328P::TIMER0 timer0(TCNT0(), TCCR0B());
+  ATMEGA328P::TIMER0 timer0(TCNT0(), TCCR0B(), OCR0A(), OCR0B());
 
   WHEN("the counter register is read via 'get'")
   {
@@ -153,10 +154,8 @@ SCENARIO("ATMEGA328P::TIMER0 - A timer's counter register is read ('get') and wr
   }
 }
 
-/**************************************************************************************/
-
 /**************************************************************************************
- * TEST CODE
+ * NAMESPACES
  **************************************************************************************/
 
 } /* test */

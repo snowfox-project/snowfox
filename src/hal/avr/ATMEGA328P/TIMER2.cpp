@@ -66,10 +66,14 @@ typedef enum
  **************************************************************************************/
 
 TIMER2::TIMER2(volatile uint8_t * TCNT2,
-               volatile uint8_t * TCCR2B)
+               volatile uint8_t * TCCR2B,
+               volatile uint8_t * OCR2A,
+               volatile uint8_t * OCR2B)
 : _prescaler(0     ),
   _TCNT2    (TCNT2 ),
-  _TCCR2B   (TCCR2B)
+  _TCCR2B   (TCCR2B),
+  _OCR2A    (OCR2A ),
+  _OCR2B    (OCR2B )
 {
 
 }
@@ -101,6 +105,15 @@ void TIMER2::set(uint8_t const val)
 uint8_t TIMER2::get()
 {
   return *_TCNT2;
+}
+
+void TIMER2::setCompareRegister(uint8_t const reg_sel, uint8_t const reg_val)
+{
+  switch(reg_sel)
+  {
+  case COMPARE_A: *_OCR2A = reg_val; break;
+  case COMPARE_B: *_OCR2B = reg_val; break;
+  }
 }
 
 void TIMER2::setPrescaler(uint32_t const prescaler)

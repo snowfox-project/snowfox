@@ -46,10 +46,12 @@ public:
   virtual ~Timer() { }
 
 
-  virtual void start(           ) = 0;
-  virtual void stop (           ) = 0;
-  virtual void set  (T const val) = 0;
-  virtual T    get  (           ) = 0;
+  virtual void start              (           ) = 0;
+  virtual void stop               (           ) = 0;
+  virtual void set                (T const val) = 0;
+  virtual T    get                (           ) = 0;
+
+  virtual void setCompareRegister (uint8_t  const compare_reg_sel, T const val) = 0;
 
 };
 

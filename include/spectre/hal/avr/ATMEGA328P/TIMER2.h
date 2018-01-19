@@ -52,17 +52,24 @@ class TIMER2 : public interface::Timer<uint8_t>,
 public:
 
            TIMER2(volatile uint8_t * TCNT2,
-                  volatile uint8_t * TCCR2B);
+                  volatile uint8_t * TCCR2B,
+                  volatile uint8_t * OCR2A,
+                  volatile uint8_t * OCR2B);
   virtual ~TIMER2();
+
+
+  static uint8_t const COMPARE_A = 0;
+  static uint8_t const COMPARE_B = 1;
 
 
   /* Timer Interface */
 
-  virtual void    start(                 ) override;
-  virtual void    stop (                 ) override;
-  virtual void    set  (uint8_t const val) override;
-  virtual uint8_t get  (                 ) override;
+  virtual void    start             (                 ) override;
+  virtual void    stop              (                 ) override;
+  virtual void    set               (uint8_t const val) override;
+  virtual uint8_t get               (                 ) override;
 
+  virtual void    setCompareRegister(uint8_t const reg_sel, uint8_t const reg_val) override;
 
   /* Timer Configuration Interface */
 
@@ -73,7 +80,9 @@ private:
            uint32_t   _prescaler;
 
   volatile uint8_t  * _TCNT2,
-                    * _TCCR2B;
+                    * _TCCR2B,
+                    * _OCR2A,
+                    * _OCR2B;
 
 
   void setPrescaler_TCCR2B(uint32_t const prescaler);

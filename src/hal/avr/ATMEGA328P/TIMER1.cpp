@@ -63,10 +63,14 @@ typedef enum
  **************************************************************************************/
 
 TIMER1::TIMER1(volatile uint16_t * TCNT1,
-               volatile uint8_t  * TCCR1B)
+               volatile uint8_t  * TCCR1B,
+               volatile uint16_t * OCR1A,
+               volatile uint16_t * OCR1B)
 : _prescaler(0     ),
   _TCNT1    (TCNT1 ),
-  _TCCR1B   (TCCR1B)
+  _TCCR1B   (TCCR1B),
+  _OCR1A    (OCR1A ),
+  _OCR1B    (OCR1B )
 {
 
 }
@@ -98,6 +102,15 @@ void TIMER1::set(uint16_t const val)
 uint16_t TIMER1::get()
 {
   return *_TCNT1;
+}
+
+void TIMER1::setCompareRegister(uint8_t const reg_sel, uint16_t const reg_val)
+{
+  switch(reg_sel)
+  {
+  case COMPARE_A: *_OCR1A = reg_val; break;
+  case COMPARE_B: *_OCR1B = reg_val; break;
+  }
 }
 
 void TIMER1::setPrescaler(uint32_t const prescaler)

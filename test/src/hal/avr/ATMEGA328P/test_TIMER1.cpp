@@ -26,6 +26,7 @@
 #include <catch.hpp>
 
 #include <Register.h>
+#include <hal/avr/ATMEGA328P/RegisterResetValueList.h>
 
 #include <spectre/hal/avr/ATMEGA328P/TIMER1.h>
 
@@ -46,20 +47,17 @@ namespace test
 {
 
 /**************************************************************************************
- * CONSTANTS
+ * TEST CODE
  **************************************************************************************/
-
-static uint16_t const TCNT1_RESET_VALUE   = 0x0000;
-static uint8_t  const TCCR1B_RESET_VALUE  = 0b00000000;
-
-/**************************************************************************************/
 
 SCENARIO("ATMEGA328P::TIMER1 - A timer's prescaler is manipulated via 'setPrescaler'", "[ATMEGA328P::TIMER1]")
 {
   Register<uint16_t> TCNT1 (TCNT1_RESET_VALUE );
   Register<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE);
+  Register<uint16_t> OCR1A (OCR1A_RESET_VALUE ),
+                     OCR1B (OCR1B_RESET_VALUE );
 
-  ATMEGA328P::TIMER1 TIMER1(TCNT1(), TCCR1B());
+  ATMEGA328P::TIMER1 TIMER1(TCNT1(), TCCR1B(), OCR1A(), OCR1B());
 
   std::vector<uint32_t> const VALID_PRESCALER_VECT = {0, 1, 8, 64, 256, 1024};
 
@@ -102,10 +100,12 @@ SCENARIO("ATMEGA328P::TIMER1 - A timer is started ('start') and stopped ('stop')
 {
   Register<uint16_t> TCNT1 (TCNT1_RESET_VALUE );
   Register<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE);
+  Register<uint16_t> OCR1A (OCR1A_RESET_VALUE ),
+                     OCR1B (OCR1B_RESET_VALUE );
 
   uint32_t const prescaler = 8;
 
-  ATMEGA328P::TIMER1 TIMER1(TCNT1(), TCCR1B());
+  ATMEGA328P::TIMER1 TIMER1(TCNT1(), TCCR1B(), OCR1A(), OCR1B());
 
   TIMER1.setPrescaler(prescaler);
 
@@ -132,8 +132,10 @@ SCENARIO("ATMEGA328P::TIMER1 - A timer's counter register is read ('get') and wr
 {
   Register<uint16_t> TCNT1 (TCNT1_RESET_VALUE );
   Register<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE);
+  Register<uint16_t> OCR1A (OCR1A_RESET_VALUE ),
+                     OCR1B (OCR1B_RESET_VALUE );
 
-  ATMEGA328P::TIMER1 TIMER1(TCNT1(), TCCR1B());
+  ATMEGA328P::TIMER1 TIMER1(TCNT1(), TCCR1B(), OCR1A(), OCR1B());
 
   WHEN("the counter register is read via 'get'")
   {
@@ -153,10 +155,8 @@ SCENARIO("ATMEGA328P::TIMER1 - A timer's counter register is read ('get') and wr
   }
 }
 
-/**************************************************************************************/
-
 /**************************************************************************************
- * TEST CODE
+ * NAMESPACE
  **************************************************************************************/
 
 } /* test */
