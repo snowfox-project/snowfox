@@ -45,9 +45,23 @@ namespace test
  * CONSTANTS
  **************************************************************************************/
 
+/* TIMER3 */
+static uint16_t const TCNT3_RESET_VALUE   = 0;
+static uint8_t  const TCCR3B_RESET_VALUE  = 0b00000000;
+static uint16_t const OCR3A_RESET_VALUE   = 0;
+static uint16_t const OCR3B_RESET_VALUE   = 0;
+static uint16_t const OCR3C_RESET_VALUE   = 0;
+
+/* TIMER1 */
+static uint16_t const TCNT1_RESET_VALUE   = 0;
+static uint8_t  const TCCR1B_RESET_VALUE  = 0b00000000;
+static uint16_t const OCR1A_RESET_VALUE   = 0;
+static uint16_t const OCR1B_RESET_VALUE   = 0;
+static uint16_t const OCR1C_RESET_VALUE   = 0;
+
 /* TIMER0 */
 static uint8_t  const TCNT0_RESET_VALUE   = 0;
-static uint8_t  const TCCR0B_RESET_VALUE  = 0b00000000;
+static uint8_t  const TCCR0A_RESET_VALUE  = 0b00000000;
 static uint8_t  const OCR0A_RESET_VALUE   = 0;
 
 /**************************************************************************************

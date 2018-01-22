@@ -25,7 +25,7 @@
 #include <Register.h>
 #include <hal/avr/AT90CAN128/RegisterResetValueList.h>
 
-#include <spectre/hal/avr/AT90CAN128/TIMER0.h>
+#include <spectre/hal/avr/AT90CAN128/TIMER1.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -47,13 +47,15 @@ namespace test
  * TEST CODE
  **************************************************************************************/
 
-SCENARIO("AT90CAN128::TIMER0 - A timer's prescaler is manipulated via 'setPrescaler'", "[AT90CAN128::TIMER0]")
+SCENARIO("AT90CAN128::TIMER1 - A timer's prescaler is manipulated via 'setPrescaler'", "[AT90CAN128::TIMER1]")
 {
-  Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE ),
-                    TCCR0A(TCCR0A_RESET_VALUE),
-                    OCR0A (OCR0A_RESET_VALUE );
+  Register<uint16_t> TCNT1 (TCNT1_RESET_VALUE );
+  Register<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE);
+  Register<uint16_t> OCR1A (OCR1A_RESET_VALUE ),
+                     OCR1B (OCR1B_RESET_VALUE ),
+                     OCR1C (OCR1C_RESET_VALUE );
 
-  AT90CAN128::TIMER0 timer0(TCNT0(), TCCR0A(), OCR0A());
+  AT90CAN128::TIMER1 timer0(TCNT1(), TCCR1B(), OCR1A(), OCR1B(), OCR1C());
 
   /* TODO */
 
