@@ -16,14 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TEST_INCLUDE_HAL_AVR_AT90CAN128_REGISTERRESETVALUELIST_H_
-#define TEST_INCLUDE_HAL_AVR_AT90CAN128_REGISTERRESETVALUELIST_H_
-
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <stdint.h>
+#include <catch.hpp>
+
+#include <Register.h>
+#include <hal/avr/AT90CAN128/RegisterResetValueList.h>
+
+#include <spectre/hal/avr/AT90CAN128/TIMER2.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,35 +44,23 @@ namespace test
 {
 
 /**************************************************************************************
- * CONSTANTS
+ * TEST CODE
  **************************************************************************************/
 
-/* TIMER3 */
-static uint16_t const TCNT3_RESET_VALUE   = 0;
-static uint8_t  const TCCR3B_RESET_VALUE  = 0b00000000;
-static uint16_t const OCR3A_RESET_VALUE   = 0;
-static uint16_t const OCR3B_RESET_VALUE   = 0;
-static uint16_t const OCR3C_RESET_VALUE   = 0;
+SCENARIO("AT90CAN128::TIMER2 - A timer's prescaler is manipulated via 'setPrescaler'", "[AT90CAN128::TIMER2]")
+{
+  Register<uint8_t> TCNT2 (TCNT2_RESET_VALUE ),
+                    TCCR2A(TCCR2A_RESET_VALUE),
+                    OCR2A (OCR2A_RESET_VALUE );
 
-/* TIMER2 */
-static uint8_t  const TCNT2_RESET_VALUE   = 0;
-static uint8_t  const TCCR2A_RESET_VALUE  = 0b00000000;
-static uint8_t  const OCR2A_RESET_VALUE   = 0;
+  AT90CAN128::TIMER2 TIMER2(TCNT2(), TCCR2A(), OCR2A());
 
-/* TIMER1 */
-static uint16_t const TCNT1_RESET_VALUE   = 0;
-static uint8_t  const TCCR1B_RESET_VALUE  = 0b00000000;
-static uint16_t const OCR1A_RESET_VALUE   = 0;
-static uint16_t const OCR1B_RESET_VALUE   = 0;
-static uint16_t const OCR1C_RESET_VALUE   = 0;
+  /* TODO */
 
-/* TIMER0 */
-static uint8_t  const TCNT0_RESET_VALUE   = 0;
-static uint8_t  const TCCR0A_RESET_VALUE  = 0b00000000;
-static uint8_t  const OCR0A_RESET_VALUE   = 0;
+}
 
 /**************************************************************************************
- * TEST CODE
+ * NAMESPACES
  **************************************************************************************/
 
 } /* test */
@@ -80,5 +70,3 @@ static uint8_t  const OCR0A_RESET_VALUE   = 0;
 } /* hal */
 
 } /* spectre */
-
-#endif /* TEST_INCLUDE_HAL_AVR_AT90CAN128_REGISTERRESETVALUELIST_H_ */
