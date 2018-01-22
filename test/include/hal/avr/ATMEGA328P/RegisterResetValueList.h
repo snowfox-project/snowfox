@@ -77,6 +77,8 @@ static uint8_t  const TIMSK0_RESET_VALUE  = 0;
 
 /* SPI */
 static uint8_t  const SPCR_RESET_VALUE    = 0;
+static uint8_t  const SPSR_RESET_VALUE    = 0;
+static uint8_t  const SPDR_RESET_VALUE    = 0;
 
 /* UART0 */
 static uint8_t  const UCSR0B_RESET_VALUE  = 0;
