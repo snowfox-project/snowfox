@@ -40,9 +40,9 @@ namespace AT90CAN128
  **************************************************************************************/
 
 /* TCCR3B */
-#define CS10_bm   (1<<0)
-#define CS11_bm   (1<<1)
-#define CS12_bm   (1<<2)
+#define CS30_bm   (1<<0)
+#define CS31_bm   (1<<1)
+#define CS32_bm   (1<<2)
 
 /**************************************************************************************
  * TYPEDEFS
@@ -51,11 +51,11 @@ namespace AT90CAN128
 typedef enum
 {
   TIMER3_Prescaler_0     = 0,
-  TIMER3_Prescaler_1     =                     CS10_bm,
-  TIMER3_Prescaler_8     =           CS11_bm,
-  TIMER3_Prescaler_64    =           CS11_bm | CS10_bm,
-  TIMER3_Prescaler_256   = CS12_bm,
-  TIMER3_Prescaler_1024  = CS12_bm |           CS10_bm
+  TIMER3_Prescaler_1     =                     CS30_bm,
+  TIMER3_Prescaler_8     =           CS31_bm,
+  TIMER3_Prescaler_64    =           CS31_bm | CS30_bm,
+  TIMER3_Prescaler_256   = CS32_bm,
+  TIMER3_Prescaler_1024  = CS32_bm |           CS30_bm
 } TIMER3PrescalerSelect;
 
 /**************************************************************************************
@@ -127,7 +127,7 @@ void TIMER3::setPrescaler(uint32_t const prescaler)
 
 void TIMER3::setPrescaler_TCCR3B(uint32_t const prescaler)
 {
-  *_TCCR3B &= ~(CS12_bm | CS11_bm | CS10_bm);
+  *_TCCR3B &= ~(CS32_bm | CS31_bm | CS30_bm);
 
   switch(prescaler)
   {
