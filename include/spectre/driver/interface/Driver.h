@@ -55,7 +55,7 @@ public:
   virtual bool read (uint8_t        * buffer, uint32_t const   num_bytes) = 0;
   virtual bool write(uint8_t  const * buffer, uint32_t const   num_bytes) = 0;
   virtual bool ioctl(uint32_t const   cmd,    void           * arg      ) = 0;
-  virtual void close(                                                   ) = 0;
+  virtual bool close(                                                   ) = 0;
 
 };
 

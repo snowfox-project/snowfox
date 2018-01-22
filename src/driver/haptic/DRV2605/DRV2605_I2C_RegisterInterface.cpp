@@ -16,14 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_DRV2605_INTERFACE_H_
-#define INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_DRV2605_INTERFACE_H_
-
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <stdbool.h>
+#include <spectre/driver/haptic/DRV2605/DRV2605_I2C_RegisterInterface.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,22 +39,47 @@ namespace DRV2605
 {
 
 /**************************************************************************************
- * CLASS DECLARATION Interface
+ * CTOR/DTOR
  **************************************************************************************/
 
-class DRV2605_Interface
+DRV2605_I2C_RegisterInterface::DRV2605_I2C_RegisterInterface(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
+: _i2c_address(i2c_address),
+  _i2c_master (i2c_master )
 {
 
-public:
+}
 
-           DRV2605_Interface() { }
-  virtual ~DRV2605_Interface() { }
+DRV2605_I2C_RegisterInterface::~DRV2605_I2C_RegisterInterface()
+{
 
+}
 
-  virtual bool setGo() = 0;
-  virtual bool clrGo() = 0;
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
-};
+bool DRV2605_I2C_RegisterInterface::readSingleRegister(RegisterSelect const reg_sel, uint8_t * data)
+{
+  uint8_t const reg_addr = static_cast<uint8_t>(reg_sel);
+
+  if(!_i2c_master.begin      (_i2c_address, false  )) return false;
+  if(!_i2c_master.write      (reg_addr             )) return false;
+  if(!_i2c_master.requestFrom(_i2c_address, data, 1)) return false;
+
+  return true;
+}
+
+bool DRV2605_I2C_RegisterInterface::writeSingleRegister(RegisterSelect const reg_sel, uint8_t const data)
+{
+  uint8_t const reg_addr = static_cast<uint8_t>(reg_sel);
+
+  if(!_i2c_master.begin(_i2c_address, false)) return false;
+  if(!_i2c_master.write(reg_addr           )) return false;
+  if(!_i2c_master.write(data               )) return false;
+      _i2c_master.end  (                   );
+
+  return true;
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -70,5 +92,3 @@ public:
 } /* driver */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_DRV2605_INTERFACE_H_ */

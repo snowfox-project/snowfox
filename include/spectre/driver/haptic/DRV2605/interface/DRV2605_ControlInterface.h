@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_DRV2605_CONFIGURATIONINTERFACE_H_
-#define INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_DRV2605_CONFIGURATIONINTERFACE_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_DRV2605_INTERFACE_H_
+#define INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_DRV2605_INTERFACE_H_
 
 /**************************************************************************************
  * INCLUDES
@@ -111,16 +111,16 @@ typedef enum
 } ActuatorSelect;
 
 /**************************************************************************************
- * CLASS DECLARATION ConfigurationInterface
+ * CLASS DECLARATION
  **************************************************************************************/
 
-class DRV2605_ConfigurationInterface
+class DRV2605_ControlInterface
 {
 
 public:
 
-           DRV2605_ConfigurationInterface() { }
-  virtual ~DRV2605_ConfigurationInterface() { }
+           DRV2605_ControlInterface() { }
+  virtual ~DRV2605_ControlInterface() { }
 
 
   virtual bool reset              (                                                                   ) = 0;
@@ -130,6 +130,8 @@ public:
   virtual bool setWaveformLibrary (WaveformLibrarySelect    const   library                           ) = 0;
   virtual bool setWaveform        (WaveformSequencerSelect  const   sequencer, uint8_t const waveform ) = 0;
   virtual bool setActuator        (ActuatorSelect           const   actuator                          ) = 0;
+  virtual bool setGo              (                                                                   ) = 0;
+  virtual bool clrGo              (                                                                   ) = 0;
 
 };
 
@@ -145,4 +147,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_DRV2605_CONFIGURATIONINTERFACE_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_DRV2605_INTERFACE_H_ */

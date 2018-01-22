@@ -16,11 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_DRV2605_IO_INTERFACE_H_
+#define INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_DRV2605_IO_INTERFACE_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/haptic/DRV2605/DRV2605_IO_I2C.h>
+#include <stdint.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,47 +42,65 @@ namespace DRV2605
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * TYPEDEFS
  **************************************************************************************/
 
-DRV2605_IO_I2C::DRV2605_IO_I2C(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
-: _i2c_address(i2c_address),
-  _i2c_master (i2c_master )
+typedef enum
 {
-
-}
-
-DRV2605_IO_I2C::~DRV2605_IO_I2C()
-{
-
-}
+  REG_STATUS            = 0x00,
+  REG_MODE              = 0x01,
+  REG_RTP               = 0x02,
+  REG_LIB               = 0x03,
+  REG_WAVESEQ1          = 0x04,
+  REG_WAVESEQ2          = 0x05,
+  REG_WAVESEQ3          = 0x06,
+  REG_WAVESEQ4          = 0x07,
+  REG_WAVESEQ5          = 0x08,
+  REG_WAVESEQ6          = 0x09,
+  REG_WAVESEQ7          = 0x0A,
+  REG_WAVESEQ8          = 0x0B,
+  REG_GO                = 0x0C,
+  REG_OVERDRIVE         = 0x0D,
+  REG_SUSTAINOFFSETPOS  = 0x0E,
+  REG_SUSTAINOFFSETNEG  = 0x0F,
+  REG_BREAKTIME         = 0x10,
+  REG_AUDIOCTRL         = 0x11,
+  REG_AUDMINLVL         = 0x12,
+  REG_AUDMAXLVL         = 0x13,
+  REG_AUDMINDRIVE       = 0x14,
+  REG_AUDMAXDRIVE       = 0X15,
+  REG_RATEDVOLT         = 0x16,
+  REG_OVERDRIVECLAMP    = 0x17,
+  REG_COMPRESULT        = 0x18,
+  REG_BACKEMF           = 0x19,
+  REG_FEEDBACK          = 0x1A,
+  REG_CONTROL1          = 0x1B,
+  REG_CONTROL2          = 0x1C,
+  REG_CONTROL3          = 0x1D,
+  REG_CONTROL4          = 0x1E,
+  REG_CONTROL5          = 0x1F,
+  REG_OLP               = 0x20,
+  REG_VBATMONITOR       = 0x21,
+  REG_LRARESPERIOD      = 0x22
+} RegisterSelect;
 
 /**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
+ * CLASS DECLARATION DRV2605
  **************************************************************************************/
 
-bool DRV2605_IO_I2C::readSingleRegister(RegisterSelect const reg_sel, uint8_t * data)
+class DRV2605_RegisterInterface
 {
-  uint8_t const reg_addr = static_cast<uint8_t>(reg_sel);
 
-  if(!_i2c_master.begin      (_i2c_address, false  )) return false;
-  if(!_i2c_master.write      (reg_addr             )) return false;
-  if(!_i2c_master.requestFrom(_i2c_address, data, 1)) return false;
+public:
 
-  return true;
-}
+           DRV2605_RegisterInterface() { }
+  virtual ~DRV2605_RegisterInterface() { }
 
-bool DRV2605_IO_I2C::writeSingleRegister(RegisterSelect const reg_sel, uint8_t const data)
-{
-  uint8_t const reg_addr = static_cast<uint8_t>(reg_sel);
 
-  if(!_i2c_master.begin(_i2c_address, false)) return false;
-  if(!_i2c_master.write(reg_addr           )) return false;
-  if(!_i2c_master.write(data               )) return false;
-      _i2c_master.end  (                   );
+  virtual bool readSingleRegister (RegisterSelect const reg_sel, uint8_t       * data) = 0;
+  virtual bool writeSingleRegister(RegisterSelect const reg_sel, uint8_t const   data) = 0;
 
-  return true;
-}
+};
 
 /**************************************************************************************
  * NAMESPACE
@@ -92,3 +113,5 @@ bool DRV2605_IO_I2C::writeSingleRegister(RegisterSelect const reg_sel, uint8_t c
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_DRV2605_IO_INTERFACE_H_ */
