@@ -41,6 +41,7 @@ set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA328P_SRCS
 ##########################################################################
 
 set(SPECTRE_LIBRARY_HAL_AVR_AT90CAN128_SRCS
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CAN128/TIMER0.cpp
 )
 
 ##########################################################################
