@@ -74,7 +74,53 @@ bool DRV2605::write(uint8_t const * buffer, uint32_t const num_bytes)
 
 bool DRV2605::ioctl(uint32_t const cmd, void * arg)
 {
-  /* TODO */
+  switch(cmd)
+  {
+  /* SET_MODE *************************************************************************/
+  case IOCTL_SET_MODE:
+  {
+    uint8_t    const * arg_ptr     = static_cast<uint8_t *> (arg     );
+    ModeSelect const   mode_select = static_cast<ModeSelect>(*arg_ptr);
+    return _ctrl.setMode(mode_select);
+  }
+  break;
+  /* SET_WAVEFORM_LIBRARY *************************************************************/
+  case IOCTL_SET_WAVEFORM_LIBRARY:
+  {
+    uint8_t               const * arg_ptr             = static_cast<uint8_t *>            (arg     );
+    WaveformLibrarySelect const   waveform_lib_select = static_cast<WaveformLibrarySelect>(*arg_ptr);
+    return _ctrl.setWaveformLibrary(waveform_lib_select);
+  }
+  break;
+  /* SET_WAVEFORM ********************************************************************/
+  case IOCTL_SET_WAVEFORM:
+  {
+    sIoctlSetWaveFormArg const * arg_ptr = static_cast<sIoctlSetWaveFormArg const *>(arg);
+    return _ctrl.setWaveform(arg_ptr->waveform_sequencer_select, arg_ptr->waveform);
+  }
+  break;
+  /* SET_ACTUATOR *********************************************************************/
+  case IOCTL_SET_ACTUATOR:
+  {
+    uint8_t        const * arg_ptr         = static_cast<uint8_t *>     (arg     );
+    ActuatorSelect const   actuator_select = static_cast<ActuatorSelect>(*arg_ptr);
+    return _ctrl.setActuator(actuator_select);
+  }
+  break;
+  /* SET_GO ***************************************************************************/
+  case IOCTL_SET_GO:
+  {
+    return _ctrl.setGo();
+  }
+  break;
+  /* CLR_GO ***************************************************************************/
+  case IOCTL_CLR_GO:
+  {
+    return _ctrl.clrGo();
+  }
+  break;
+  }
+
   return false;
 }
 
