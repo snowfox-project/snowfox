@@ -16,13 +16,13 @@ Spectre consists of an Real Time Operating System + an Hardware Abstraction Laye
 
 ## I/O Device Drivers
 | Category                                                                                                    | I/O Device Drivers                                                  |
-| ---------------------------------------------------------------------------------------------------         | ------------------------------------------------------------------- |
-| ([/driver/glcd](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/glcd))             | **RA6963** (GLCD  Controller)                                       |
-| ([/driver/haptic](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/haptic))         | **DRV2605L** (Haptic Driver for LRA and ERM)                        |
-| ([/driver/ioexpander](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/ioexpander)) | **PCA9547** (8-channel I2C-Bus multiplexer)                         |
-| ([/driver/memory](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/memory))         | **AT45DBx** (SPI Data Flash)                                        |
+|:-----------------------------------------------------------------------------------------------------------:| --------------------------------------------------------------------- |
+| [/driver/glcd](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/glcd)               | **RA6963** (GLCD  Controller)                                       |
+| [/driver/haptic](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/haptic)           | **DRV2605L** (Haptic Driver for LRA and ERM)                        |
+| [/driver/ioexpander](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/ioexpander)   | **PCA9547** (8-channel I2C-Bus multiplexer)                         |
+| [/driver/memory](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/memory)           | **AT45DBx** (SPI Data Flash)                                        |
 |                                                                                                             | **PCF8570** (256 × 8-Bit Static Low-Voltage RAM)                    |
-| ([/driver/sensor](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/sensor))         | **AD7151** (1-channel capacitance converter for proximity sensing)  |
+| [/driver/sensor](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/sensor)           | **AD7151** (1-channel capacitance converter for proximity sensing)  |
 |                                                                                                             | **AS5600** (12-Bit programmable contactless potentiometer)          |
 |                                                                                                             | **BMG160** (3-axis digital output MEMS gyroscope)                   |
 |                                                                                                             | **INA220** (Low- or high-side, bidirectional, I2C current monitor)  |
