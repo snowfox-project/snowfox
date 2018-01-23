@@ -97,6 +97,39 @@ SCENARIO("AT90CAN128::TIMER3 - A timer's prescaler is manipulated via 'setPresca
 
 /**************************************************************************************/
 
+SCENARIO("AT90CAN128::TIMER3 - A timer is started ('start') and stopped ('stop')", "[AT90CAN128::TIMER3]")
+{
+  Register<uint16_t> TCNT3 (TCNT3_RESET_VALUE );
+  Register<uint8_t>  TCCR3B(TCCR3B_RESET_VALUE);
+  Register<uint16_t> OCR3A (OCR3A_RESET_VALUE ),
+                     OCR3B (OCR3B_RESET_VALUE ),
+                     OCR3C (OCR3C_RESET_VALUE );
+
+  uint32_t const prescaler = 8;
+
+  AT90CAN128::TIMER3 timer3(TCNT3(), TCCR3B(), OCR3A(), OCR3B(), OCR3C());
+
+  timer3.setPrescaler(prescaler);
+
+  WHEN("'start' is called")
+  {
+    timer3.start();
+    THEN("TCCR3B contains the expected prescaler bit pattern") REQUIRE(TCCR3B.isBitVectSet({1}));
+    WHEN("'stop' is called")
+    {
+      timer3.stop();
+      THEN("TCCR3B contains the RESET prescaler bit pattern") REQUIRE(TCCR3B == TCCR3B_RESET_VALUE);
+      WHEN("'start' is called (again)")
+      {
+        timer3.start();
+        THEN("TCCR3B contains the expected prescaler bit pattern (again)") REQUIRE(TCCR3B.isBitVectSet({1}));
+      }
+    }
+  }
+}
+
+/**************************************************************************************/
+
 SCENARIO("AT90CAN128::TIMER3 - A timer's counter register is read ('get') and written ('set')", "[AT90CAN128::TIMER3]")
 {
   Register<uint16_t> TCNT3 (TCNT3_RESET_VALUE );

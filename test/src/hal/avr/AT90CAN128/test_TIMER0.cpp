@@ -95,6 +95,37 @@ SCENARIO("AT90CAN128::TIMER0 - A timer's prescaler is manipulated via 'setPresca
 
 /**************************************************************************************/
 
+SCENARIO("AT90CAN128::TIMER0 - A timer is started ('start') and stopped ('stop')", "[AT90CAN128::TIMER0]")
+{
+  Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE ),
+                    TCCR0A(TCCR0A_RESET_VALUE),
+                    OCR0A (OCR0A_RESET_VALUE );
+
+  uint32_t const prescaler = 8;
+
+  AT90CAN128::TIMER0 timer0(TCNT0(), TCCR0A(), OCR0A());
+
+  timer0.setPrescaler(prescaler);
+
+  WHEN("'start' is called")
+  {
+    timer0.start();
+    THEN("TCCR0A contains the expected prescaler bit pattern") REQUIRE(TCCR0A.isBitVectSet({1}));
+    WHEN("'stop' is called")
+    {
+      timer0.stop();
+      THEN("TCCR0A contains the RESET prescaler bit pattern") REQUIRE(TCCR0A == TCCR0A_RESET_VALUE);
+      WHEN("'start' is called (again)")
+      {
+        timer0.start();
+        THEN("TCCR0A contains the expected prescaler bit pattern (again)") REQUIRE(TCCR0A.isBitVectSet({1}));
+      }
+    }
+  }
+}
+
+/**************************************************************************************/
+
 SCENARIO("AT90CAN128::TIMER0 - A timer's counter register is read ('get') and written ('set')", "[AT90CAN128::TIMER0]")
 {
   Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE ),
