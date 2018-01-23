@@ -59,6 +59,26 @@ SCENARIO("AT90CAN128::TIMER0 - A timer's prescaler is manipulated via 'setPresca
 
 }
 
+/**************************************************************************************/
+
+SCENARIO("AT90CAN128::TIMER0 - A timer's compare register are written via 'setCompareRegister'", "[AT90CAN128::TIMER0]")
+{
+  Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE ),
+                    TCCR0A(TCCR0A_RESET_VALUE),
+                    OCR0A (OCR0A_RESET_VALUE );
+
+  AT90CAN128::TIMER0 timer0(TCNT0(), TCCR0A(), OCR0A());
+
+  WHEN("compare register A is written via 'setCompareRegister'")
+  {
+    timer0.setCompareRegister(TIMER0::COMPARE_A, 0xCA);
+    THEN("OCR0A should contain the written value")
+    {
+      REQUIRE(OCR0A == 0xCA);
+    }
+  }
+}
+
 /**************************************************************************************
  * NAMESPACES
  **************************************************************************************/

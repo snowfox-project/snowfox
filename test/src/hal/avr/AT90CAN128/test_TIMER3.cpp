@@ -55,10 +55,49 @@ SCENARIO("AT90CAN128::TIMER3 - A timer's prescaler is manipulated via 'setPresca
                      OCR3B (OCR3B_RESET_VALUE ),
                      OCR3C (OCR3C_RESET_VALUE );
 
-  AT90CAN128::TIMER3 timer0(TCNT3(), TCCR3B(), OCR3A(), OCR3B(), OCR3C());
+  AT90CAN128::TIMER3 timer3(TCNT3(), TCCR3B(), OCR3A(), OCR3B(), OCR3C());
 
   /* TODO */
 
+}
+
+
+/**************************************************************************************/
+
+SCENARIO("AT90CAN128::TIMER3 - A timer's compare register are written via 'setCompareRegister'", "[AT90CAN128::TIMER3]")
+{
+  Register<uint16_t> TCNT3 (TCNT3_RESET_VALUE );
+  Register<uint8_t>  TCCR3B(TCCR3B_RESET_VALUE);
+  Register<uint16_t> OCR3A (OCR3A_RESET_VALUE ),
+                     OCR3B (OCR3B_RESET_VALUE ),
+                     OCR3C (OCR3C_RESET_VALUE );
+
+  AT90CAN128::TIMER3 timer3(TCNT3(), TCCR3B(), OCR3A(), OCR3B(), OCR3C());
+
+  WHEN("compare register A is written via 'setCompareRegister'")
+  {
+    timer3.setCompareRegister(TIMER3::COMPARE_A, 0xCA);
+    THEN("OCR0A should contain the written value")
+    {
+      REQUIRE(OCR3A == 0xCA);
+    }
+  }
+  WHEN("compare register B is written via 'setCompareRegister'")
+  {
+    timer3.setCompareRegister(TIMER3::COMPARE_B, 0xFF);
+    THEN("OCR0B should contain the written value")
+    {
+      REQUIRE(OCR3B == 0xFF);
+    }
+  }
+  WHEN("compare register C is written via 'setCompareRegister'")
+  {
+    timer3.setCompareRegister(TIMER3::COMPARE_C, 0xEE);
+    THEN("OCR0C should contain the written value")
+    {
+      REQUIRE(OCR3C == 0xEE);
+    }
+  }
 }
 
 /**************************************************************************************

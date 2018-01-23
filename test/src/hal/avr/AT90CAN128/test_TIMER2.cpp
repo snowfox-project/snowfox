@@ -53,10 +53,30 @@ SCENARIO("AT90CAN128::TIMER2 - A timer's prescaler is manipulated via 'setPresca
                     TCCR2A(TCCR2A_RESET_VALUE),
                     OCR2A (OCR2A_RESET_VALUE );
 
-  AT90CAN128::TIMER2 TIMER2(TCNT2(), TCCR2A(), OCR2A());
+  AT90CAN128::TIMER2 timer2(TCNT2(), TCCR2A(), OCR2A());
 
   /* TODO */
 
+}
+
+/**************************************************************************************/
+
+SCENARIO("AT90CAN128::TIMER2 - A timer's compare register are written via 'setCompareRegister'", "[AT90CAN128::TIMER2]")
+{
+  Register<uint8_t> TCNT2 (TCNT2_RESET_VALUE ),
+                    TCCR2A(TCCR2A_RESET_VALUE),
+                    OCR2A (OCR2A_RESET_VALUE );
+
+  AT90CAN128::TIMER2 timer2(TCNT2(), TCCR2A(), OCR2A());
+
+  WHEN("compare register A is written via 'setCompareRegister'")
+  {
+    timer2.setCompareRegister(TIMER2::COMPARE_A, 0xCA);
+    THEN("OCR2A should contain the written value")
+    {
+      REQUIRE(OCR2A == 0xCA);
+    }
+  }
 }
 
 /**************************************************************************************
