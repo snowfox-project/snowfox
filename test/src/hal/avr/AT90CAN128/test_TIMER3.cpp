@@ -20,6 +20,9 @@
  * INCLUDES
  **************************************************************************************/
 
+#include <sstream>
+#include <algorithm>
+
 #include <catch.hpp>
 
 #include <Register.h>
@@ -57,8 +60,39 @@ SCENARIO("AT90CAN128::TIMER3 - A timer's prescaler is manipulated via 'setPresca
 
   AT90CAN128::TIMER3 timer3(TCNT3(), TCCR3B(), OCR3A(), OCR3B(), OCR3C());
 
-  /* TODO */
+  std::vector<uint32_t> const VALID_PRESCALER_VECT = {0, 1, 8, 64, 256, 1024};
 
+  std::for_each(
+      std::begin(VALID_PRESCALER_VECT),
+      std::end  (VALID_PRESCALER_VECT),
+      [&timer3, &TCCR3B](uint32_t const prescaler)
+      {
+        std::stringstream when_msg;
+        when_msg << "The prescaler is configured via calling 'setPrescaler' with an argument of '" << prescaler << "'";
+
+        WHEN(when_msg.str())
+        {
+          timer3.setPrescaler(prescaler);
+          WHEN("'start' is called")
+          {
+            timer3.start();
+
+            switch(prescaler)
+            {
+            case 0    : THEN("TCCR3B bits 2-0 == 0b000") REQUIRE(TCCR3B.isBitVectSet({     })); break;
+            case 1    : THEN("TCCR3B bits 2-0 == 0b001") REQUIRE(TCCR3B.isBitVectSet({    0})); break;
+            case 8    : THEN("TCCR3B bits 2-0 == 0b010") REQUIRE(TCCR3B.isBitVectSet({  1  })); break;
+            case 64   : THEN("TCCR3B bits 2-0 == 0b011") REQUIRE(TCCR3B.isBitVectSet({  1,0})); break;
+            case 256  : THEN("TCCR3B bits 2-0 == 0b100") REQUIRE(TCCR3B.isBitVectSet({2    })); break;
+            case 1024 : THEN("TCCR3B bits 2-0 == 0b101") REQUIRE(TCCR3B.isBitVectSet({2,  0})); break;
+            }
+          }
+          WHEN("'start' is not called")
+          {
+            THEN("TCCR3B bits 2-0 == 0b000") REQUIRE(TCCR3B == TCCR3B_RESET_VALUE);
+          }
+        }
+      });
 }
 
 /**************************************************************************************/
