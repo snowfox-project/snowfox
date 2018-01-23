@@ -155,6 +155,35 @@ SCENARIO("ATMEGA328P::TIMER0 - A timer's counter register is read ('get') and wr
   }
 }
 
+/**************************************************************************************/
+
+SCENARIO("ATMEGA328P::TIMER0 - A timer's compare register are written via 'setCompareRegister'", "[ATMEGA328P::TIMER0]")
+{
+  Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE ),
+                    TCCR0B(TCCR0B_RESET_VALUE),
+                    OCR0A (OCR0A_RESET_VALUE ),
+                    OCR0B (OCR0B_RESET_VALUE );
+
+  ATMEGA328P::TIMER0 timer0(TCNT0(), TCCR0B(), OCR0A(), OCR0B());
+
+  WHEN("compare register A is written via 'setCompareRegister'")
+  {
+    timer0.setCompareRegister(TIMER0::COMPARE_A, 0xCA);
+    THEN("OCR0A should contain the written value")
+    {
+      REQUIRE(OCR0A == 0xCA);
+    }
+  }
+  WHEN("compare register B is written via 'setCompareRegister'")
+  {
+    timer0.setCompareRegister(TIMER0::COMPARE_B, 0xFE);
+    THEN("OCR0B should contain the written value")
+    {
+      REQUIRE(OCR0B == 0xFE);
+    }
+  }
+}
+
 /**************************************************************************************
  * NAMESPACES
  **************************************************************************************/

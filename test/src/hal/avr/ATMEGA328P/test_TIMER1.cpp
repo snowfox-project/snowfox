@@ -57,24 +57,24 @@ SCENARIO("ATMEGA328P::TIMER1 - A timer's prescaler is manipulated via 'setPresca
   Register<uint16_t> OCR1A (OCR1A_RESET_VALUE ),
                      OCR1B (OCR1B_RESET_VALUE );
 
-  ATMEGA328P::TIMER1 TIMER1(TCNT1(), TCCR1B(), OCR1A(), OCR1B());
+  ATMEGA328P::TIMER1 timer1(TCNT1(), TCCR1B(), OCR1A(), OCR1B());
 
   std::vector<uint32_t> const VALID_PRESCALER_VECT = {0, 1, 8, 64, 256, 1024};
 
   std::for_each(
       std::begin(VALID_PRESCALER_VECT),
       std::end  (VALID_PRESCALER_VECT),
-      [&TIMER1, &TCCR1B](uint32_t const prescaler)
+      [&timer1, &TCCR1B](uint32_t const prescaler)
       {
         std::stringstream when_msg;
         when_msg << "The prescaler is configured via calling 'setPrescaler' with an argument of '" << prescaler << "'";
 
         WHEN(when_msg.str())
         {
-          TIMER1.setPrescaler(prescaler);
+          timer1.setPrescaler(prescaler);
           WHEN("'start' is called")
           {
-            TIMER1.start();
+            timer1.start();
 
             switch(prescaler)
             {
@@ -105,21 +105,21 @@ SCENARIO("ATMEGA328P::TIMER1 - A timer is started ('start') and stopped ('stop')
 
   uint32_t const prescaler = 8;
 
-  ATMEGA328P::TIMER1 TIMER1(TCNT1(), TCCR1B(), OCR1A(), OCR1B());
+  ATMEGA328P::TIMER1 timer1(TCNT1(), TCCR1B(), OCR1A(), OCR1B());
 
-  TIMER1.setPrescaler(prescaler);
+  timer1.setPrescaler(prescaler);
 
   WHEN("'start' is called")
   {
-    TIMER1.start();
+    timer1.start();
     THEN("TCCR1B contains the expected prescaler bit pattern") REQUIRE(TCCR1B.isBitVectSet({1}));
     WHEN("'stop' is called")
     {
-      TIMER1.stop();
+      timer1.stop();
       THEN("TCCR1B contains the RESET prescaler bit pattern") REQUIRE(TCCR1B == TCCR1B_RESET_VALUE);
       WHEN("'start' is called (again)")
       {
-        TIMER1.start();
+        timer1.start();
         THEN("TCCR1B contains the expected prescaler bit pattern (again)") REQUIRE(TCCR1B.isBitVectSet({1}));
       }
     }
@@ -135,22 +135,51 @@ SCENARIO("ATMEGA328P::TIMER1 - A timer's counter register is read ('get') and wr
   Register<uint16_t> OCR1A (OCR1A_RESET_VALUE ),
                      OCR1B (OCR1B_RESET_VALUE );
 
-  ATMEGA328P::TIMER1 TIMER1(TCNT1(), TCCR1B(), OCR1A(), OCR1B());
+  ATMEGA328P::TIMER1 timer1(TCNT1(), TCCR1B(), OCR1A(), OCR1B());
 
   WHEN("the counter register is read via 'get'")
   {
     TCNT1 = 0xCAFF;
     THEN("the current value should be returned")
     {
-      REQUIRE(TIMER1.get() == 0xCAFF);
+      REQUIRE(timer1.get() == 0xCAFF);
     }
   }
   WHEN("the counter register is written via 'set'")
   {
-    TIMER1.set(0xFFEE);
+    timer1.set(0xFFEE);
     THEN("TCNT1 should contain the written value")
     {
       REQUIRE(TCNT1 == 0xFFEE);
+    }
+  }
+}
+
+/**************************************************************************************/
+
+SCENARIO("ATMEGA328P::TIMER1 - A timer's compare register are written via 'setCompareRegister'", "[ATMEGA328P::TIMER1]")
+{
+  Register<uint16_t> TCNT1 (TCNT1_RESET_VALUE );
+  Register<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE);
+  Register<uint16_t> OCR1A (OCR1A_RESET_VALUE ),
+                     OCR1B (OCR1B_RESET_VALUE );
+
+  ATMEGA328P::TIMER1 timer1(TCNT1(), TCCR1B(), OCR1A(), OCR1B());
+
+  WHEN("compare register A is written via 'setCompareRegister'")
+  {
+    timer1.setCompareRegister(TIMER1::COMPARE_A, 0xCA);
+    THEN("OCR0A should contain the written value")
+    {
+      REQUIRE(OCR1A == 0xCA);
+    }
+  }
+  WHEN("compare register B is written via 'setCompareRegister'")
+  {
+    timer1.setCompareRegister(TIMER1::COMPARE_B, 0xFE);
+    THEN("OCR0B should contain the written value")
+    {
+      REQUIRE(OCR1B == 0xFE);
     }
   }
 }
