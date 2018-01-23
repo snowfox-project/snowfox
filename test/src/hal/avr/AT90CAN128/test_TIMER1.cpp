@@ -63,6 +63,36 @@ SCENARIO("AT90CAN128::TIMER1 - A timer's prescaler is manipulated via 'setPresca
 
 /**************************************************************************************/
 
+SCENARIO("AT90CAN128::TIMER1 - A timer's counter register is read ('get') and written ('set')", "[AT90CAN128::TIMER1]")
+{
+  Register<uint16_t> TCNT1 (TCNT1_RESET_VALUE );
+  Register<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE);
+  Register<uint16_t> OCR1A (OCR1A_RESET_VALUE ),
+                     OCR1B (OCR1B_RESET_VALUE ),
+                     OCR1C (OCR1C_RESET_VALUE );
+
+  AT90CAN128::TIMER1 timer1(TCNT1(), TCCR1B(), OCR1A(), OCR1B(), OCR1C());
+
+  WHEN("the counter register is read via 'get'")
+  {
+    TCNT1 = 0xCAFF;
+    THEN("the current value should be returned")
+    {
+      REQUIRE(timer1.get() == 0xCAFF);
+    }
+  }
+  WHEN("the counter register is written via 'set'")
+  {
+    timer1.set(0xFFEE);
+    THEN("TCNT1 should contain the written value")
+    {
+      REQUIRE(TCNT1 == 0xFFEE);
+    }
+  }
+}
+
+/**************************************************************************************/
+
 SCENARIO("AT90CAN128::TIMER1 - A timer's compare register are written via 'setCompareRegister'", "[AT90CAN128::TIMER1]")
 {
   Register<uint16_t> TCNT1 (TCNT1_RESET_VALUE );

@@ -61,6 +61,35 @@ SCENARIO("AT90CAN128::TIMER3 - A timer's prescaler is manipulated via 'setPresca
 
 }
 
+/**************************************************************************************/
+
+SCENARIO("AT90CAN128::TIMER3 - A timer's counter register is read ('get') and written ('set')", "[AT90CAN128::TIMER3]")
+{
+  Register<uint16_t> TCNT3 (TCNT3_RESET_VALUE );
+  Register<uint8_t>  TCCR3B(TCCR3B_RESET_VALUE);
+  Register<uint16_t> OCR3A (OCR3A_RESET_VALUE ),
+                     OCR3B (OCR3B_RESET_VALUE ),
+                     OCR3C (OCR3C_RESET_VALUE );
+
+  AT90CAN128::TIMER3 timer3(TCNT3(), TCCR3B(), OCR3A(), OCR3B(), OCR3C());
+
+  WHEN("the counter register is read via 'get'")
+  {
+    TCNT3 = 0xCAFF;
+    THEN("the current value should be returned")
+    {
+      REQUIRE(timer3.get() == 0xCAFF);
+    }
+  }
+  WHEN("the counter register is written via 'set'")
+  {
+    timer3.set(0xFFEE);
+    THEN("TCNT3 should contain the written value")
+    {
+      REQUIRE(TCNT3 == 0xFFEE);
+    }
+  }
+}
 
 /**************************************************************************************/
 
