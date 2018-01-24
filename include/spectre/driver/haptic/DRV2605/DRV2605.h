@@ -51,7 +51,7 @@ typedef struct
 {
   WaveformSequencerSelect waveform_sequencer_select;
   uint8_t                 waveform;
-} sIoctlSetWaveFormArg;
+} IoctlSetWaveFormArg;
 
 /**************************************************************************************
  * CONSTANTS

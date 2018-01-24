@@ -95,7 +95,7 @@ bool DRV2605::ioctl(uint32_t const cmd, void * arg)
   /* SET_WAVEFORM ********************************************************************/
   case IOCTL_SET_WAVEFORM:
   {
-    sIoctlSetWaveFormArg const * arg_ptr = static_cast<sIoctlSetWaveFormArg const *>(arg);
+    IoctlSetWaveFormArg const * arg_ptr = static_cast<IoctlSetWaveFormArg const *>(arg);
     return _ctrl.setWaveform(arg_ptr->waveform_sequencer_select, arg_ptr->waveform);
   }
   break;

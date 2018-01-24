@@ -22,21 +22,28 @@
 
 #include <avr/io.h>
 
+#include <spectre/hal/avr/ATMEGA328P/Delay.h>
 #include <spectre/hal/avr/ATMEGA328P/I2CMaster.h>
 #include <spectre/hal/avr/ATxxxx/i2c/I2CMasterBase.h>
+
+#include <spectre/driver/haptic/DRV2605/DRV2605.h>
+#include <spectre/driver/haptic/DRV2605/DRV2605_Control.h>
+#include <spectre/driver/haptic/DRV2605/DRV2605_I2C_RegisterInterface.h>
 
 /**************************************************************************************
  * NAMESPACES
  **************************************************************************************/
 
+using namespace spectre;
 using namespace spectre::hal;
+using namespace spectre::driver;
 
 /**************************************************************************************
- * GLOBAL VARIABLES
+ * GLOBAL CONSTANTS
  **************************************************************************************/
 
-ATMEGA328P::I2CMaster i2c_master_atmega328p(&TWCR, &TWDR, &TWSR, &TWBR);
-ATxxxx::I2CMasterBase i2c_master           (i2c_master_atmega328p);
+static uint8_t  const DRV2605_I2C_ADDR = (0x5A << 1);
+static uint32_t const LOOP_DELAY_ms    = 1000; /* 1 s */
 
 /**************************************************************************************
  * MAIN
@@ -44,10 +51,51 @@ ATxxxx::I2CMasterBase i2c_master           (i2c_master_atmega328p);
 
 int main()
 {
-  for(;;)
-  {
+  /* HAL ******************************************************************************/
 
+  ATMEGA328P::I2CMaster i2c_master_atmega328p(&TWCR, &TWDR, &TWSR, &TWBR);
+  ATxxxx::I2CMasterBase i2c_master           (i2c_master_atmega328p);
+
+  i2c_master.setI2CClock(hal::interface::I2CMasterConfiguration::F_100_kHz);
+
+  ATMEGA328P::Delay     delay;
+
+  /* DRIVER ***************************************************************************/
+
+  haptic::DRV2605::DRV2605_I2C_RegisterInterface drv2605_i2c_reg_interface(DRV2605_I2C_ADDR, i2c_master);
+  haptic::DRV2605::DRV2605_Control               drv2605_ctrl             (drv2605_i2c_reg_interface, delay);
+  haptic::DRV2605::DRV2605                       drv2605                  (drv2605_ctrl);
+
+  uint8_t mode         = static_cast<uint8_t>(haptic::DRV2605::INTERNAL_TRIGGER);
+  uint8_t actuator     = static_cast<uint8_t>(haptic::DRV2605::LRA             );
+  uint8_t waveform_lib = static_cast<uint8_t>(haptic::DRV2605::LIB_LRA         );
+
+  /* APPLICATION **********************************************************************/
+
+  drv2605.open();
+  drv2605.ioctl(haptic::DRV2605::IOCTL_SET_MODE,             static_cast<void *>(&mode        ));
+  drv2605.ioctl(haptic::DRV2605::IOCTL_SET_ACTUATOR,         static_cast<void *>(&actuator    ));
+  drv2605.ioctl(haptic::DRV2605::IOCTL_SET_WAVEFORM_LIBRARY, static_cast<void *>(&waveform_lib));
+
+  uint8_t  const DRV2605_MIN_LRA_LIB_WAVEFORM_NUM = 1;
+  uint8_t  const DRV2605_MAX_LRA_LIB_WAVEFORM_NUM = 127;
+
+  for(uint8_t w = DRV2605_MIN_LRA_LIB_WAVEFORM_NUM; ; w++)
+  {
+    haptic::DRV2605::IoctlSetWaveFormArg waveform_arg;
+
+    waveform_arg.waveform_sequencer_select = haptic::DRV2605::WAVEFORM_SEQUENCER_1;
+    waveform_arg.waveform                  = w;
+
+    drv2605.ioctl(haptic::DRV2605::IOCTL_SET_WAVEFORM, static_cast<void *>(&waveform_arg));
+    drv2605.ioctl(haptic::DRV2605::IOCTL_SET_GO,       0                                 );
+
+    if(w == DRV2605_MAX_LRA_LIB_WAVEFORM_NUM) w = DRV2605_MIN_LRA_LIB_WAVEFORM_NUM;
+
+    delay.delay_ms(LOOP_DELAY_ms);
   }
+
+  drv2605.close();
 
   return 0;
 }
