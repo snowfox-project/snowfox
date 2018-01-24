@@ -190,19 +190,17 @@ void InterruptController::enableInterrupt(uint8_t const int_num)
   case TIMER0_COMPARE_B               : *_TIMSK0  |= OCIE0B_bm; break;
   case TIMER0_OVERFLOW                : *_TIMSK0  |= TOIE0_bm;  break;
   case SPI_SERIAL_TRANSFER_COMPLETE   : *_SPCR    |= SPIE_bm;   break;
-  case USART_RECEIVE_COMPLETE         : *_UCSR0B  |= UDRIE0_bm; break;
-  case USART_UART_DATA_REGISTER_EMPTY : *_UCSR0B  |= RXCIE0_bm; break;
+  case USART_RECEIVE_COMPLETE         : *_UCSR0B  |= RXCIE0_bm; break;
+  case USART_UART_DATA_REGISTER_EMPTY : *_UCSR0B  |= UDRIE0_bm; break;
   case USART_TRANSMIT_COMPLETE        : *_UCSR0B  |= TXCIE0_bm; break;
   case ANALOG_DIGITAL_CONVERTER       : *_ADCSRA  |= ADIE_bm;   break;
   case EEPROM_READY                   : *_EECR    |= EERIE_bm;  break;
   case ANALOG_COMPARATOR              : *_ACSR    |= ACIE_bm;   break;
   case TWO_WIRE_INT                   : *_TWCR    |= TWIE_bm;   break;
-  case SPM_READY                      : *_SPMCSR  |= SPMIE_bm; break;
-  case GLOBAL                         :
+  case SPM_READY                      : *_SPMCSR  |= SPMIE_bm;  break;
 #if defined(MCU_ARCH_avr) && defined(MCU_TYPE_atmega328p)
-    asm volatile("sei");
+  case GLOBAL                         : asm volatile("sei");    break;
 #endif
-  break;
   }
 }
 
@@ -227,19 +225,17 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
   case TIMER0_COMPARE_B               : *_TIMSK0  &= ~OCIE0B_bm; break;
   case TIMER0_OVERFLOW                : *_TIMSK0  &= ~TOIE0_bm;  break;
   case SPI_SERIAL_TRANSFER_COMPLETE   : *_SPCR    &= ~SPIE_bm;   break;
-  case USART_RECEIVE_COMPLETE         : *_UCSR0B  &= ~UDRIE0_bm; break;
-  case USART_UART_DATA_REGISTER_EMPTY : *_UCSR0B  &= ~RXCIE0_bm; break;
+  case USART_RECEIVE_COMPLETE         : *_UCSR0B  &= ~RXCIE0_bm; break;
+  case USART_UART_DATA_REGISTER_EMPTY : *_UCSR0B  &= ~UDRIE0_bm; break;
   case USART_TRANSMIT_COMPLETE        : *_UCSR0B  &= ~TXCIE0_bm; break;
   case ANALOG_DIGITAL_CONVERTER       : *_ADCSRA  &= ~ADIE_bm;   break;
   case EEPROM_READY                   : *_EECR    &= ~EERIE_bm;  break;
   case ANALOG_COMPARATOR              : *_ACSR    &= ~ACIE_bm;   break;
   case TWO_WIRE_INT                   : *_TWCR    &= ~TWIE_bm;   break;
-  case SPM_READY                      : *_SPMCSR  |= SPMIE_bm;   break;
-  case GLOBAL                         :
+  case SPM_READY                      : *_SPMCSR  &= ~SPMIE_bm;  break;
 #if defined(MCU_ARCH_avr) && defined(MCU_TYPE_atmega328p)
-    asm volatile("cli");
+  case GLOBAL                         : asm volatile("cli");     break;
 #endif
-break;
   }
 }
 
