@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/ATxxxx/I2CMaster.h>
+#include <spectre/hal/avr/ATxxxx/i2c/I2CMasterBase.h>
 
 /**************************************************************************************
  * NAMESPACE

@@ -26,8 +26,8 @@
 #include <spectre/hal/interface/i2c/I2CMaster.h>
 #include <spectre/hal/interface/i2c/I2CMasterConfiguration.h>
 
-#include <spectre/hal/avr/ATxxxx/interface/i2c/I2CMaster.h>
-#include <spectre/hal/avr/ATxxxx/interface/i2c/I2CMasterConfiguration.h>
+#include <spectre/hal/avr/ATxxxx/i2c/interface/I2CMaster.h>
+#include <spectre/hal/avr/ATxxxx/i2c/interface/I2CMasterConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE

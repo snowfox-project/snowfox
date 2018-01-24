@@ -87,11 +87,11 @@ namespace ATMEGA328P
  * CTOR/DTOR
  **************************************************************************************/
 
-I2CMaster::I2CMaster(volatile uint8_t * TWCR, volatile uint8_t * TWDR, volatile uint8_t * TWSR, volatile uint8_t * TWBR)
-: _TWCR(TWCR),
-  _TWDR(TWDR),
-  _TWSR(TWSR),
-  _TWBR(TWBR)
+I2CMaster::I2CMaster(volatile uint8_t * twcr, volatile uint8_t * twdr, volatile uint8_t * twsr, volatile uint8_t * twbr)
+: _TWCR(twcr),
+  _TWDR(twdr),
+  _TWSR(twsr),
+  _TWBR(twbr)
 {
 
 }

@@ -23,8 +23,8 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/ATxxxx/interface/i2c/I2CMaster.h>
-#include <spectre/hal/avr/ATxxxx/interface/i2c/I2CMasterConfiguration.h>
+#include <spectre/hal/avr/ATxxxx/i2c/interface/I2CMaster.h>
+#include <spectre/hal/avr/ATxxxx/i2c/interface/I2CMasterConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -49,7 +49,7 @@ class I2CMaster : public ATxxxx::interface::I2CMaster,
 
 public:
 
-           I2CMaster(volatile uint8_t * TWCR, volatile uint8_t * TWDR, volatile uint8_t * TWSR, volatile uint8_t * TWBR);
+           I2CMaster(volatile uint8_t * twcr, volatile uint8_t * twdr, volatile uint8_t * twsr, volatile uint8_t * twbr);
   virtual ~I2CMaster();
 
 

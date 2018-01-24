@@ -12,6 +12,7 @@ if(${MCU_ARCH} STREQUAL "avr")
   endif()
 
   if(${MCU_TYPE} STREQUAL "atmega328p")
+    add_subdirectory(driver-drv2605-i2c-atmega328p )
     add_subdirectory(hal-atmega328p-digital-in-pin )
     add_subdirectory(hal-atmega328p-digital-out-pin)
     add_subdirectory(hal-atmega328p-uart0          )
