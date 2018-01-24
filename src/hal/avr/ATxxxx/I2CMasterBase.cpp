@@ -47,8 +47,8 @@ namespace ATxxxx
  * CTOR/DTOR
  **************************************************************************************/
 
-I2CMasterBase::I2CMasterBase(interface::I2CMaster & i2c_master)
-: _i2c_master(i2c_master)
+I2CMasterBase::I2CMasterBase(interface::I2CMasterMCU & i2c_master_mcu)
+: _i2c_master_mcu(i2c_master_mcu)
 {
 
 }
@@ -64,17 +64,17 @@ I2CMasterBase::~I2CMasterBase()
 
 bool I2CMasterBase::begin(uint8_t const address, bool const is_read_access)
 {
-  return _i2c_master.start(convertI2CAddress(address, is_read_access));
+  return _i2c_master_mcu.start(convertI2CAddress(address, is_read_access));
 }
 
 bool I2CMasterBase::write(uint8_t const data)
 {
-  return _i2c_master.transmitByte(data);
+  return _i2c_master_mcu.transmitByte(data);
 }
 
 void I2CMasterBase::end()
 {
-  _i2c_master.stop();
+  _i2c_master_mcu.stop();
 }
 
 bool I2CMasterBase::requestFrom(uint8_t const address, uint8_t * data, uint16_t const num_bytes)
@@ -85,10 +85,10 @@ bool I2CMasterBase::requestFrom(uint8_t const address, uint8_t * data, uint16_t 
 
   for(uint16_t i = 0; i < (num_bytes - 1); i++)
   {
-    _i2c_master.receiveByteAndSendACK(data+i);
+    _i2c_master_mcu.receiveByteAndSendACK(data+i);
   }
 
-  _i2c_master.receiveByteAndSendNACK(data + num_bytes - 1);
+  _i2c_master_mcu.receiveByteAndSendNACK(data + num_bytes - 1);
 
   end();
 
@@ -99,13 +99,13 @@ void I2CMasterBase::setI2CClock(eI2CClock const i2c_clock)
 {
   uint32_t const TWI_PRESCALER = 1;
 
-  _i2c_master.setTWIPrescaler(TWI_PRESCALER);
+  _i2c_master_mcu.setTWIPrescaler(TWI_PRESCALER);
 
   switch(i2c_clock)
   {
-  case F_100_kHz  : _i2c_master.setTWBR( 100000, TWI_PRESCALER); break;
-  case F_400_kHz  : _i2c_master.setTWBR( 400000, TWI_PRESCALER); break;
-  case F_1000_kHz : _i2c_master.setTWBR(1000000, TWI_PRESCALER); break;
+  case F_100_kHz  : _i2c_master_mcu.setTWBR( 100000, TWI_PRESCALER); break;
+  case F_400_kHz  : _i2c_master_mcu.setTWBR( 400000, TWI_PRESCALER); break;
+  case F_1000_kHz : _i2c_master_mcu.setTWBR(1000000, TWI_PRESCALER); break;
   default: break;
   }
 }

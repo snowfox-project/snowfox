@@ -26,7 +26,7 @@
 #include <spectre/hal/interface/i2c/I2CMaster.h>
 #include <spectre/hal/interface/i2c/I2CMasterConfiguration.h>
 
-#include <spectre/hal/avr/ATxxxx/i2c/interface/I2CMaster.h>
+#include <spectre/hal/avr/ATxxxx/i2c/interface/I2CMasterMCU.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -51,7 +51,7 @@ class I2CMasterBase : public hal::interface::I2CMaster,
 
 public:
 
-           I2CMasterBase(interface::I2CMaster & i2c_master);
+           I2CMasterBase(interface::I2CMasterMCU & i2c_master_mcu);
   virtual ~I2CMasterBase();
 
 
@@ -70,9 +70,9 @@ public:
 
 private:
 
-  interface::I2CMaster              & _i2c_master;
+  interface::I2CMasterMCU & _i2c_master_mcu;
 
-  static  uint8_t convertI2CAddress(uint8_t const address, bool is_read_access);
+  static uint8_t convertI2CAddress(uint8_t const address, bool is_read_access);
 
 };
 
