@@ -23,6 +23,7 @@
 #include <avr/io.h>
 
 #include <spectre/hal/avr/ATMEGA328P/I2CMaster.h>
+#include <spectre/hal/avr/ATxxxx/i2c/I2CMasterBase.h>
 
 /**************************************************************************************
  * NAMESPACES
@@ -35,6 +36,7 @@ using namespace spectre::hal;
  **************************************************************************************/
 
 ATMEGA328P::I2CMaster i2c_master_atmega328p(&TWCR, &TWDR, &TWSR, &TWBR);
+ATxxxx::I2CMasterBase i2c_master           (i2c_master_atmega328p);
 
 /**************************************************************************************
  * MAIN

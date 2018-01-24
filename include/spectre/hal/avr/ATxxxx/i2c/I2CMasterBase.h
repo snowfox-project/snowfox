@@ -27,7 +27,6 @@
 #include <spectre/hal/interface/i2c/I2CMasterConfiguration.h>
 
 #include <spectre/hal/avr/ATxxxx/i2c/interface/I2CMaster.h>
-#include <spectre/hal/avr/ATxxxx/i2c/interface/I2CMasterConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -46,14 +45,14 @@ namespace ATxxxx
  * CLASS DECLARATION
  **************************************************************************************/
 
-class I2CMaster : public hal::interface::I2CMaster,
-                  public hal::interface::I2CMasterConfiguration
+class I2CMasterBase : public hal::interface::I2CMaster,
+                      public hal::interface::I2CMasterConfiguration
 {
 
 public:
 
-           I2CMaster(interface::I2CMaster & i2c_master, interface::I2CMasterConfiguration & i2c_master_configuration);
-  virtual ~I2CMaster();
+           I2CMasterBase(interface::I2CMaster & i2c_master);
+  virtual ~I2CMasterBase();
 
 
   /* I2C Master Interface */
@@ -72,7 +71,6 @@ public:
 private:
 
   interface::I2CMaster              & _i2c_master;
-  interface::I2CMasterConfiguration & _i2c_master_configuration;
 
   static  uint8_t convertI2CAddress(uint8_t const address, bool is_read_access);
 

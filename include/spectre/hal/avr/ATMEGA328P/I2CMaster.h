@@ -24,7 +24,6 @@
  **************************************************************************************/
 
 #include <spectre/hal/avr/ATxxxx/i2c/interface/I2CMaster.h>
-#include <spectre/hal/avr/ATxxxx/i2c/interface/I2CMasterConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -43,8 +42,7 @@ namespace ATMEGA328P
  * CLASS DECLARATION I2CMaster
  **************************************************************************************/
 
-class I2CMaster : public ATxxxx::interface::I2CMaster,
-                  public ATxxxx::interface::I2CMasterConfiguration
+class I2CMaster : public ATxxxx::interface::I2CMaster
 {
 
 public:
@@ -53,17 +51,11 @@ public:
   virtual ~I2CMaster();
 
 
-  /* I2CMaster Interface */
-
-  virtual bool start                 (uint8_t    const   address) override;
-  virtual bool transmitByte          (uint8_t    const   data   ) override;
-  virtual void receiveByteAndSendACK (uint8_t          * data   ) override;
-  virtual void receiveByteAndSendNACK(uint8_t          * data   ) override;
-  virtual void stop                  (                          ) override;
-
-
-  /* I2CMasterConfiguration Interface */
-
+  virtual bool start                 (uint8_t  const   address                                 ) override;
+  virtual bool transmitByte          (uint8_t  const   data                                    ) override;
+  virtual void receiveByteAndSendACK (uint8_t        * data                                    ) override;
+  virtual void receiveByteAndSendNACK(uint8_t        * data                                    ) override;
+  virtual void stop                  (                                                         ) override;
   virtual void setTWIPrescaler       (uint32_t const prescaler                                 ) override;
   virtual void setTWBR               (uint32_t const i2c_speed_Hz, uint32_t const i2c_prescaler) override;
 

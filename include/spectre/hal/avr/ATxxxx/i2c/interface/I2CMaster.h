@@ -54,11 +54,14 @@ public:
   virtual ~I2CMaster() { }
 
 
-  virtual bool start                 (uint8_t    const   address) = 0;
-  virtual bool transmitByte          (uint8_t    const   data   ) = 0;
-  virtual void receiveByteAndSendACK (uint8_t          * data   ) = 0;
-  virtual void receiveByteAndSendNACK(uint8_t          * data   ) = 0;
-  virtual void stop                  (                          ) = 0;
+  virtual bool start                 (uint8_t const   address                                  ) = 0;
+  virtual bool transmitByte          (uint8_t const   data                                     ) = 0;
+  virtual void receiveByteAndSendACK (uint8_t       * data                                     ) = 0;
+  virtual void receiveByteAndSendNACK(uint8_t       * data                                     ) = 0;
+  virtual void stop                  (                                                         ) = 0;
+
+  virtual void setTWIPrescaler       (uint32_t const prescaler                                 ) = 0;
+  virtual void setTWBR               (uint32_t const i2c_speed_Hz, uint32_t const i2c_prescaler) = 0;
 
 };
 
