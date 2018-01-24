@@ -108,7 +108,6 @@ void SPIMaster::setSpiMode(interface::SPIMode const spi_mode)
   case interface::SPIMode::MODE_1: *_SPCR |= CPHA_bm;             break;
   case interface::SPIMode::MODE_2: *_SPCR |= CPOL_bm;             break;
   case interface::SPIMode::MODE_3: *_SPCR |= (CPOL_bm | CPHA_bm); break;
-  default:                                                        break;
   }
 }
 
@@ -125,7 +124,7 @@ void SPIMaster::setSpiPrescaler(uint32_t const spi_prescaler)
   case 32 : { *_SPCR |= static_cast<uint8_t>(Prescaler_64 ); *_SPSR |=  SPI2X_bm; } break;
   case 64 : { *_SPCR |= static_cast<uint8_t>(Prescaler_64 ); *_SPSR &= ~SPI2X_bm; } break;
   case 128: { *_SPCR |= static_cast<uint8_t>(Prescaler_128); *_SPSR &= ~SPI2X_bm; } break;
-  default :                                                                         break;
+  default : {                                                *_SPSR &= ~SPI2X_bm; } break;
   }
 }
 
