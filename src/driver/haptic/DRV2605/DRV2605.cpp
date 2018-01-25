@@ -42,7 +42,7 @@ namespace DRV2605
  * CTOR/DTOR
  **************************************************************************************/
 
-DRV2605::DRV2605(DRV2605_ControlInterface & ctrl)
+DRV2605::DRV2605(interface::DRV2605_ControlInterface & ctrl)
 : _ctrl(ctrl)
 {
   _ctrl.reset();
@@ -79,16 +79,16 @@ bool DRV2605::ioctl(uint32_t const cmd, void * arg)
   /* SET_MODE *************************************************************************/
   case IOCTL_SET_MODE:
   {
-    uint8_t    const * arg_ptr     = static_cast<uint8_t *> (arg     );
-    ModeSelect const   mode_select = static_cast<ModeSelect>(*arg_ptr);
+    uint8_t               const * arg_ptr     = static_cast<uint8_t *>            (arg     );
+    interface::ModeSelect const   mode_select = static_cast<interface::ModeSelect>(*arg_ptr);
     return _ctrl.setMode(mode_select);
   }
   break;
   /* SET_WAVEFORM_LIBRARY *************************************************************/
   case IOCTL_SET_WAVEFORM_LIBRARY:
   {
-    uint8_t               const * arg_ptr             = static_cast<uint8_t *>            (arg     );
-    WaveformLibrarySelect const   waveform_lib_select = static_cast<WaveformLibrarySelect>(*arg_ptr);
+    uint8_t                          const * arg_ptr             = static_cast<uint8_t *>                       (arg     );
+    interface::WaveformLibrarySelect const   waveform_lib_select = static_cast<interface::WaveformLibrarySelect>(*arg_ptr);
     return _ctrl.setWaveformLibrary(waveform_lib_select);
   }
   break;
@@ -102,8 +102,8 @@ bool DRV2605::ioctl(uint32_t const cmd, void * arg)
   /* SET_ACTUATOR *********************************************************************/
   case IOCTL_SET_ACTUATOR:
   {
-    uint8_t        const * arg_ptr         = static_cast<uint8_t *>     (arg     );
-    ActuatorSelect const   actuator_select = static_cast<ActuatorSelect>(*arg_ptr);
+    uint8_t                   const * arg_ptr         = static_cast<uint8_t *>                (arg     );
+    interface::ActuatorSelect const   actuator_select = static_cast<interface::ActuatorSelect>(*arg_ptr);
     return _ctrl.setActuator(actuator_select);
   }
   break;

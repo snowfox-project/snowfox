@@ -49,8 +49,8 @@ namespace DRV2605
 
 typedef struct
 {
-  WaveformSequencerSelect waveform_sequencer_select;
-  uint8_t                 waveform;
+  interface::WaveformSequencerSelect waveform_sequencer_select;
+  uint8_t                            waveform;
 } IoctlSetWaveFormArg;
 
 /**************************************************************************************
@@ -59,7 +59,7 @@ typedef struct
 
 static uint32_t constexpr IOCTL_SET_MODE             = 0; /* Arg: ModeSelect *            -> uint8_t *  */
 static uint32_t constexpr IOCTL_SET_WAVEFORM_LIBRARY = 1; /* Arg: WaveformLibrarySelect * -> uint8_t *  */
-static uint32_t constexpr IOCTL_SET_WAVEFORM         = 2; /* Arg: sIoctlSetWaveFormArg *                */
+static uint32_t constexpr IOCTL_SET_WAVEFORM         = 2; /* Arg: IoctlSetWaveFormArg *                 */
 static uint32_t constexpr IOCTL_SET_ACTUATOR         = 3; /* Arg: ActuatorSelect *        -> uint8_t *  */
 static uint32_t constexpr IOCTL_SET_GO               = 4; /* Arg: None                                  */
 static uint32_t constexpr IOCTL_CLR_GO               = 5; /* Arg: None                                  */
@@ -68,12 +68,12 @@ static uint32_t constexpr IOCTL_CLR_GO               = 5; /* Arg: None          
  * CLASS DECLARATION
  **************************************************************************************/
 
-class DRV2605 : public interface::Driver
+class DRV2605 : public driver::interface::Driver
 {
 
 public:
 
-           DRV2605(DRV2605_ControlInterface & ctrl);
+           DRV2605(interface::DRV2605_ControlInterface & ctrl);
   virtual ~DRV2605();
 
 
@@ -85,7 +85,7 @@ public:
 
 private:
 
-  DRV2605_ControlInterface & _ctrl;
+  interface::DRV2605_ControlInterface & _ctrl;
 
 };
 

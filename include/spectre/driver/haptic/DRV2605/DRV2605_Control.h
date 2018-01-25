@@ -50,34 +50,34 @@ namespace DRV2605
  * CLASS DECLARATION DRV2605
  **************************************************************************************/
 
-class DRV2605_Control : public DRV2605_ControlInterface
+class DRV2605_Control : public interface::DRV2605_ControlInterface
 {
 
 public:
 
-           DRV2605_Control(DRV2605_RegisterInterface & io, hal::interface::Delay & delay);
+           DRV2605_Control(interface::DRV2605_RegisterInterface & io, hal::interface::Delay & delay);
   virtual ~DRV2605_Control();
 
 
-  virtual bool reset              (                                                                   ) override;
-  virtual bool setStandby         (                                                                   ) override;
-  virtual bool clrStandby         (                                                                   ) override;
-  virtual bool setMode            (ModeSelect               const   mode                              ) override;
-  virtual bool setWaveformLibrary (WaveformLibrarySelect    const   library                           ) override;
-  virtual bool setWaveform        (WaveformSequencerSelect  const   sequencer, uint8_t const waveform ) override;
-  virtual bool setActuator        (ActuatorSelect           const   actuator                          ) override;
-  virtual bool setGo              (                                                                   ) override;
-  virtual bool clrGo              (                                                                   ) override;
+  virtual bool reset              (                                                                             ) override;
+  virtual bool setStandby         (                                                                             ) override;
+  virtual bool clrStandby         (                                                                             ) override;
+  virtual bool setMode            (interface::ModeSelect               const   mode                             ) override;
+  virtual bool setWaveformLibrary (interface::WaveformLibrarySelect    const   library                          ) override;
+  virtual bool setWaveform        (interface::WaveformSequencerSelect  const   sequencer, uint8_t const waveform) override;
+  virtual bool setActuator        (interface::ActuatorSelect           const   actuator                         ) override;
+  virtual bool setGo              (                                                                             ) override;
+  virtual bool clrGo              (                                                                             ) override;
 
 
-          void debug_dumpAllRegs  (driver::interface::Debug                & debug_interface);
+          void debug_dumpAllRegs  (driver::interface::Debug                  & debug_interface);
 
 private:
 
-  DRV2605_RegisterInterface & _io;
-  hal::interface::Delay     & _delay;
+  interface::DRV2605_RegisterInterface & _io;
+  hal::interface::Delay                & _delay;
 
-  void debug_dumpSingleReg  (driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel);
+  void debug_dumpSingleReg  (driver::interface::Debug & debug_interface, char const * msg, interface::RegisterSelect const reg_sel);
 
 };
 
