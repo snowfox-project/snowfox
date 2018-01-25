@@ -48,7 +48,7 @@ static uint32_t const DEVICE_RESET_DURATION_ms = 10;
  * CTOR/DTOR
  **************************************************************************************/
 
-DRV2605_Control::DRV2605_Control(interface::DRV2605Io & io, hal::interface::Delay & delay)
+DRV2605_Control::DRV2605_Control(interface::DRV2605_Io & io, hal::interface::Delay & delay)
 : _io   (io   ),
   _delay(delay)
 {

@@ -23,7 +23,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/haptic/DRV2605/interface/DRV2605Io.h>
+#include <spectre/driver/haptic/DRV2605/interface/DRV2605_Io.h>
 
 #include <spectre/hal/interface/i2c/I2CMaster.h>
 
@@ -47,13 +47,13 @@ namespace DRV2605
  * CLASS DECLARATION DRV2605
  **************************************************************************************/
 
-class DRV2605IoI2C : public interface::DRV2605Io
+class DRV2605_IoI2C : public interface::DRV2605_Io
 {
 
 public:
 
-           DRV2605IoI2C(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master);
-  virtual ~DRV2605IoI2C();
+           DRV2605_IoI2C(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master);
+  virtual ~DRV2605_IoI2C();
 
 
   virtual bool readSingleRegister (interface::RegisterSelect const reg_sel, uint8_t       * data) override;

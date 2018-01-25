@@ -28,7 +28,7 @@
 #include <spectre/hal/interface/delay/Delay.h>
 
 #include <spectre/driver/interface/Debug.h>
-#include <spectre/driver/haptic/DRV2605/interface/DRV2605Io.h>
+#include <spectre/driver/haptic/DRV2605/interface/DRV2605_Io.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -55,7 +55,7 @@ class DRV2605_Control : public interface::DRV2605_Control
 
 public:
 
-           DRV2605_Control(interface::DRV2605Io & io, hal::interface::Delay & delay);
+           DRV2605_Control(interface::DRV2605_Io & io, hal::interface::Delay & delay);
   virtual ~DRV2605_Control();
 
 
@@ -74,7 +74,7 @@ public:
 
 private:
 
-  interface::DRV2605Io  & _io;
+  interface::DRV2605_Io & _io;
   hal::interface::Delay & _delay;
 
   void debug_dumpSingleReg  (driver::interface::Debug & debug_interface, char const * msg, interface::RegisterSelect const reg_sel);
