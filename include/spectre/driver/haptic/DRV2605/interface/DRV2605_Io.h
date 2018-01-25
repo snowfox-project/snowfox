@@ -48,44 +48,44 @@ namespace interface
  * TYPEDEFS
  **************************************************************************************/
 
-typedef enum
+enum class Register : uint8_t
 {
-  REG_STATUS            = 0x00,
-  REG_MODE              = 0x01,
-  REG_RTP               = 0x02,
-  REG_LIB               = 0x03,
-  REG_WAVESEQ1          = 0x04,
-  REG_WAVESEQ2          = 0x05,
-  REG_WAVESEQ3          = 0x06,
-  REG_WAVESEQ4          = 0x07,
-  REG_WAVESEQ5          = 0x08,
-  REG_WAVESEQ6          = 0x09,
-  REG_WAVESEQ7          = 0x0A,
-  REG_WAVESEQ8          = 0x0B,
-  REG_GO                = 0x0C,
-  REG_OVERDRIVE         = 0x0D,
-  REG_SUSTAINOFFSETPOS  = 0x0E,
-  REG_SUSTAINOFFSETNEG  = 0x0F,
-  REG_BREAKTIME         = 0x10,
-  REG_AUDIOCTRL         = 0x11,
-  REG_AUDMINLVL         = 0x12,
-  REG_AUDMAXLVL         = 0x13,
-  REG_AUDMINDRIVE       = 0x14,
-  REG_AUDMAXDRIVE       = 0X15,
-  REG_RATEDVOLT         = 0x16,
-  REG_OVERDRIVECLAMP    = 0x17,
-  REG_COMPRESULT        = 0x18,
-  REG_BACKEMF           = 0x19,
-  REG_FEEDBACK          = 0x1A,
-  REG_CONTROL1          = 0x1B,
-  REG_CONTROL2          = 0x1C,
-  REG_CONTROL3          = 0x1D,
-  REG_CONTROL4          = 0x1E,
-  REG_CONTROL5          = 0x1F,
-  REG_OLP               = 0x20,
-  REG_VBATMONITOR       = 0x21,
-  REG_LRARESPERIOD      = 0x22
-} RegisterSelect;
+  STATUS            = 0x00,
+  MODE              = 0x01,
+  RTP               = 0x02,
+  LIB               = 0x03,
+  WAVESEQ1          = 0x04,
+  WAVESEQ2          = 0x05,
+  WAVESEQ3          = 0x06,
+  WAVESEQ4          = 0x07,
+  WAVESEQ5          = 0x08,
+  WAVESEQ6          = 0x09,
+  WAVESEQ7          = 0x0A,
+  WAVESEQ8          = 0x0B,
+  GO                = 0x0C,
+  OVERDRIVE         = 0x0D,
+  SUSTAINOFFSETPOS  = 0x0E,
+  SUSTAINOFFSETNEG  = 0x0F,
+  BREAKTIME         = 0x10,
+  AUDIOCTRL         = 0x11,
+  AUDMINLVL         = 0x12,
+  AUDMAXLVL         = 0x13,
+  AUDMINDRIVE       = 0x14,
+  AUDMAXDRIVE       = 0X15,
+  RATEDVOLT         = 0x16,
+  OVERDRIVECLAMP    = 0x17,
+  COMPRESULT        = 0x18,
+  BACKEMF           = 0x19,
+  FEEDBACK          = 0x1A,
+  CONTROL1          = 0x1B,
+  CONTROL2          = 0x1C,
+  CONTROL3          = 0x1D,
+  CONTROL4          = 0x1E,
+  CONTROL5          = 0x1F,
+  OLP               = 0x20,
+  VBATMONITOR       = 0x21,
+  LRARESPERIOD      = 0x22
+};
 
 /**************************************************************************************
  * CLASS DECLARATION DRV2605
@@ -100,8 +100,8 @@ public:
   virtual ~DRV2605_Io() { }
 
 
-  virtual bool readSingleRegister (RegisterSelect const reg_sel, uint8_t       * data) = 0;
-  virtual bool writeSingleRegister(RegisterSelect const reg_sel, uint8_t const   data) = 0;
+  virtual bool readSingleRegister (Register const reg, uint8_t       * data) = 0;
+  virtual bool writeSingleRegister(Register const reg, uint8_t const   data) = 0;
 
 };
 

@@ -60,36 +60,47 @@ MCP2515_IoSpi::~MCP2515_IoSpi()
 
 void MCP2515_IoSpi::reset()
 {
+  uint8_t const instruction = static_cast<uint8_t>(interface::Instruction::RESET);
+
   _cs.clr();
-  _spi_master.exchange(static_cast<uint8_t>(interface::Instruction::RESET));
+  _spi_master.exchange(instruction);
   _cs.set();
 }
 
 void MCP2515_IoSpi::readRegister(interface::Register const reg, uint8_t * data)
 {
+  uint8_t const instruction = static_cast<uint8_t>(interface::Instruction::READ);
+  uint8_t const reg_addr    = static_cast<uint8_t>(reg                         );
+
   _cs.clr();
-          _spi_master.exchange(static_cast<uint8_t>(interface::Instruction::READ));
-          _spi_master.exchange(static_cast<uint8_t>(reg                         ));
-  *data = _spi_master.exchange(                     0                            );
+          _spi_master.exchange(instruction);
+          _spi_master.exchange(reg_addr   );
+  *data = _spi_master.exchange(0          );
   _cs.set();
 }
 
 void MCP2515_IoSpi::writeRegister(interface::Register const reg, uint8_t const data)
 {
+  uint8_t const instruction = static_cast<uint8_t>(interface::Instruction::WRITE);
+  uint8_t const reg_addr    = static_cast<uint8_t>(reg                          );
+
   _cs.clr();
-  _spi_master.exchange(static_cast<uint8_t>(interface::Instruction::WRITE));
-  _spi_master.exchange(static_cast<uint8_t>(reg                          ));
-  _spi_master.exchange(                     data                          );
+  _spi_master.exchange(instruction);
+  _spi_master.exchange(reg_addr   );
+  _spi_master.exchange(data       );
   _cs.set();
 }
 
 void MCP2515_IoSpi::modifyRegister(interface::Register const reg, uint8_t const   data, uint8_t const mask)
 {
+  uint8_t const instruction = static_cast<uint8_t>(interface::Instruction::BITMOD);
+  uint8_t const reg_addr    = static_cast<uint8_t>(reg                           );
+
   _cs.clr();
-  _spi_master.exchange(static_cast<uint8_t>(interface::Instruction::BITMOD));
-  _spi_master.exchange(static_cast<uint8_t>(reg                           ));
-  _spi_master.exchange(                     mask                           );
-  _spi_master.exchange(                     data                           );
+  _spi_master.exchange(instruction);
+  _spi_master.exchange(reg_addr   );
+  _spi_master.exchange(mask       );
+  _spi_master.exchange(data       );
   _cs.set();
 }
 

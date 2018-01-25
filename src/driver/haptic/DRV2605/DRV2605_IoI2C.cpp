@@ -58,9 +58,9 @@ DRV2605_IoI2C::~DRV2605_IoI2C()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool DRV2605_IoI2C::readSingleRegister(interface::RegisterSelect const reg_sel, uint8_t * data)
+bool DRV2605_IoI2C::readSingleRegister(interface::Register const reg, uint8_t * data)
 {
-  uint8_t const reg_addr = static_cast<uint8_t>(reg_sel);
+  uint8_t const reg_addr = static_cast<uint8_t>(reg);
 
   if(!_i2c_master.begin      (_i2c_address, false  )) return false;
   if(!_i2c_master.write      (reg_addr             )) return false;
@@ -69,9 +69,9 @@ bool DRV2605_IoI2C::readSingleRegister(interface::RegisterSelect const reg_sel, 
   return true;
 }
 
-bool DRV2605_IoI2C::writeSingleRegister(interface::RegisterSelect const reg_sel, uint8_t const data)
+bool DRV2605_IoI2C::writeSingleRegister(interface::Register const reg, uint8_t const data)
 {
-  uint8_t const reg_addr = static_cast<uint8_t>(reg_sel);
+  uint8_t const reg_addr = static_cast<uint8_t>(reg);
 
   if(!_i2c_master.begin(_i2c_address, false)) return false;
   if(!_i2c_master.write(reg_addr           )) return false;

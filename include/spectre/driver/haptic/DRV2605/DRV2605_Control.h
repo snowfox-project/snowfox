@@ -77,7 +77,7 @@ private:
   interface::DRV2605_Io & _io;
   hal::interface::Delay & _delay;
 
-  void debug_dumpSingleReg  (driver::interface::Debug & debug_interface, char const * msg, interface::RegisterSelect const reg_sel);
+  void debug_dumpSingleReg  (driver::interface::Debug & debug_interface, char const * msg, interface::Register const reg);
 
 };
 
