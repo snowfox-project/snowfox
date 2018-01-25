@@ -47,13 +47,13 @@ namespace DRV2605
  * CLASS DECLARATION DRV2605
  **************************************************************************************/
 
-class DRV2605_I2C_RegisterInterface : public interface::DRV2605Io
+class DRV2605IoI2C : public interface::DRV2605Io
 {
 
 public:
 
-           DRV2605_I2C_RegisterInterface(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master);
-  virtual ~DRV2605_I2C_RegisterInterface();
+           DRV2605IoI2C(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master);
+  virtual ~DRV2605IoI2C();
 
 
   virtual bool readSingleRegister (interface::RegisterSelect const reg_sel, uint8_t       * data) override;

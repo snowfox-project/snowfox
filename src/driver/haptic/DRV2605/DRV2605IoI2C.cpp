@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/haptic/DRV2605/DRV2605_I2C_RegisterInterface.h>
+#include <spectre/driver/haptic/DRV2605/DRV2605IoI2C.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,14 +42,14 @@ namespace DRV2605
  * CTOR/DTOR
  **************************************************************************************/
 
-DRV2605_I2C_RegisterInterface::DRV2605_I2C_RegisterInterface(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
+DRV2605IoI2C::DRV2605IoI2C(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
 : _i2c_address(i2c_address),
   _i2c_master (i2c_master )
 {
 
 }
 
-DRV2605_I2C_RegisterInterface::~DRV2605_I2C_RegisterInterface()
+DRV2605IoI2C::~DRV2605IoI2C()
 {
 
 }
@@ -58,7 +58,7 @@ DRV2605_I2C_RegisterInterface::~DRV2605_I2C_RegisterInterface()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool DRV2605_I2C_RegisterInterface::readSingleRegister(interface::RegisterSelect const reg_sel, uint8_t * data)
+bool DRV2605IoI2C::readSingleRegister(interface::RegisterSelect const reg_sel, uint8_t * data)
 {
   uint8_t const reg_addr = static_cast<uint8_t>(reg_sel);
 
@@ -69,7 +69,7 @@ bool DRV2605_I2C_RegisterInterface::readSingleRegister(interface::RegisterSelect
   return true;
 }
 
-bool DRV2605_I2C_RegisterInterface::writeSingleRegister(interface::RegisterSelect const reg_sel, uint8_t const data)
+bool DRV2605IoI2C::writeSingleRegister(interface::RegisterSelect const reg_sel, uint8_t const data)
 {
   uint8_t const reg_addr = static_cast<uint8_t>(reg_sel);
 
