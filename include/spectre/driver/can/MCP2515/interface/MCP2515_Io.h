@@ -161,8 +161,11 @@ public:
   virtual ~MCP2515_Io() { }
 
 
-  virtual bool readRegister (Register const reg, uint8_t       * data) = 0;
-  virtual bool writeRegister(Register const reg, uint8_t const   data) = 0;
+  virtual void reset          () = 0;
+
+  virtual void readRegister   (Register const reg, uint8_t       * data                    ) = 0;
+  virtual void writeRegister  (Register const reg, uint8_t const   data                    ) = 0;
+  virtual void modifyRegister (Register const reg, uint8_t const   data, uint8_t const mask) = 0;
 
 };
 

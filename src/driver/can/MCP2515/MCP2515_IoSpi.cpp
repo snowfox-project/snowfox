@@ -58,26 +58,39 @@ MCP2515_IoSpi::~MCP2515_IoSpi()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool MCP2515_IoSpi::readRegister (interface::Register const reg, uint8_t * data)
+void MCP2515_IoSpi::reset()
+{
+  _cs.clr();
+  _spi_master.exchange(static_cast<uint8_t>(interface::Instruction::RESET));
+  _cs.set();
+}
+
+void MCP2515_IoSpi::readRegister(interface::Register const reg, uint8_t * data)
 {
   _cs.clr();
           _spi_master.exchange(static_cast<uint8_t>(interface::Instruction::READ));
           _spi_master.exchange(static_cast<uint8_t>(reg                         ));
   *data = _spi_master.exchange(                     0                            );
   _cs.set();
-
-  return true;
 }
 
-bool MCP2515_IoSpi::writeRegister(interface::Register const reg, uint8_t const data)
+void MCP2515_IoSpi::writeRegister(interface::Register const reg, uint8_t const data)
 {
   _cs.clr();
   _spi_master.exchange(static_cast<uint8_t>(interface::Instruction::WRITE));
   _spi_master.exchange(static_cast<uint8_t>(reg                          ));
   _spi_master.exchange(                     data                          );
   _cs.set();
+}
 
-  return true;
+void MCP2515_IoSpi::modifyRegister(interface::Register const reg, uint8_t const   data, uint8_t const mask)
+{
+  _cs.clr();
+  _spi_master.exchange(static_cast<uint8_t>(interface::Instruction::BITMOD));
+  _spi_master.exchange(static_cast<uint8_t>(reg                           ));
+  _spi_master.exchange(                     mask                           );
+  _spi_master.exchange(                     data                           );
+  _cs.set();
 }
 
 /**************************************************************************************
