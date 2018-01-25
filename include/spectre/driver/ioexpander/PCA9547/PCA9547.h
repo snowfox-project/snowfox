@@ -16,21 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_IOEXPANDER_PCA9547_H_
-#define INCLUDE_SPECTRE_DRIVER_IOEXPANDER_PCA9547_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_IOEXPANDER_PCA9547_PCA9547_H_
+#define INCLUDE_SPECTRE_DRIVER_IOEXPANDER_PCA9547_PCA9547_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
+#include <spectre/driver/interface/Driver.h>
+
 #include <spectre/driver/ioexpander/PCA9547/interface/PCA9547_Control.h>
-#include <spectre/driver/ioexpander/PCA9547/interface/PCA9547_Io.h>
-
-#include <stdint.h>
-
-#include <spectre/driver/interface/Debug.h>
-
-#include <spectre/hal/interface/i2c/I2CMaster.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -49,29 +44,34 @@ namespace PCA9547
 {
 
 /**************************************************************************************
- * CLASS DECLARATION PCA9547
+ * CONSTANTS
  **************************************************************************************/
 
-class PCA9547 : public interface::PCA9547_Control
+static uint32_t constexpr IOCTL_SET_CHANNEL = 0; /* Arg: I2cChannel * -> uint8_t *  */
+static uint32_t constexpr IOCTL_GET_CHANNEL = 1; /* Arg: I2cChannel * -> uint8_t *  */
+
+/**************************************************************************************
+ * CLASS DECLARATION
+ **************************************************************************************/
+
+class PCA9547 : public driver::interface::Driver
 {
 
 public:
 
-           PCA9547(interface::PCA9547_Io & io);
+           PCA9547(interface::PCA9547_Control & ctrl);
   virtual ~PCA9547();
 
 
-  /* PCA9547 Interface */
-
-  virtual bool setChannel(interface::I2cChannel const   sel) override;
-  virtual bool getChannel(interface::I2cChannel       * sel) override;
-
-
-          void debug_dumpAllRegs(driver::interface::Debug & debug_interface);
+  virtual bool open (                                                   ) override;
+  virtual bool read (uint8_t        * buffer, uint32_t const   num_bytes) override;
+  virtual bool write(uint8_t  const * buffer, uint32_t const   num_bytes) override;
+  virtual bool ioctl(uint32_t const   cmd,    void           * arg      ) override;
+  virtual bool close(                                                   ) override;
 
 private:
 
-  interface::PCA9547_Io & _io;
+  interface::PCA9547_Control & _ctrl;
 
 };
 
@@ -87,4 +87,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_IOEXPANDER_PCA9547_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_IOEXPANDER_PCA9547_PCA9547_H_ */

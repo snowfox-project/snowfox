@@ -16,11 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_IOEXPANDER_PCA9547_H_
+#define INCLUDE_SPECTRE_DRIVER_IOEXPANDER_PCA9547_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/ioexpander/PCA9547/PCA9547.h>
+#include <spectre/driver/ioexpander/PCA9547/interface/PCA9547_Control.h>
+#include <spectre/driver/ioexpander/PCA9547/interface/PCA9547_Io.h>
+
+#include <stdint.h>
+
+#include <spectre/driver/interface/Debug.h>
+
+#include <spectre/hal/interface/i2c/I2CMaster.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,70 +49,31 @@ namespace PCA9547
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * CLASS DECLARATION PCA9547
  **************************************************************************************/
 
-PCA9547::PCA9547(interface::PCA9547_Control & ctrl)
-: _ctrl(ctrl)
+class PCA9547 : public interface::PCA9547_Control
 {
 
-}
+public:
 
-PCA9547::~PCA9547()
-{
+           PCA9547(interface::PCA9547_Io & io);
+  virtual ~PCA9547();
 
-}
 
-/**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
- **************************************************************************************/
+  /* PCA9547 Interface */
 
-bool PCA9547::open()
-{
-  return true;
-}
+  virtual bool setChannel(interface::I2cChannel const   sel) override;
+  virtual bool getChannel(interface::I2cChannel       * sel) override;
 
-bool PCA9547::read(uint8_t * buffer, uint32_t const num_bytes)
-{
-  return false;
-}
 
-bool PCA9547::write(uint8_t const * buffer, uint32_t const num_bytes)
-{
-  return false;
-}
+          void debug_dumpAllRegs(driver::interface::Debug & debug_interface);
 
-bool PCA9547::ioctl(uint32_t const cmd, void * arg)
-{
-  switch(cmd)
-  {
-  /* SET_CHANNEL **********************************************************************/
-  case IOCTL_SET_CHANNEL:
-  {
-    uint8_t               const * arg_ptr     = static_cast<uint8_t *>            (arg     );
-    interface::I2cChannel const   i2c_channel = static_cast<interface::I2cChannel>(*arg_ptr);
-    return _ctrl.setChannel(i2c_channel);
-  }
-  break;
-  /* GET_CHANNEL **********************************************************************/
-  case IOCTL_GET_CHANNEL:
-  {
-    interface::I2cChannel i2c_channel = interface::I2cChannel::NO_CHANNEL;
-    bool const success = _ctrl.getChannel(&i2c_channel);
-    uint8_t i2c_channel_val = static_cast<uint8_t>(i2c_channel);
-    arg = &i2c_channel_val;
-    return success;
-  }
-  break;
-  }
+private:
 
-  return false;
-}
+  interface::PCA9547_Io & _io;
 
-bool PCA9547::close()
-{
-  return true;
-}
+};
 
 /**************************************************************************************
  * NAMESPACE
@@ -115,3 +86,5 @@ bool PCA9547::close()
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_IOEXPANDER_PCA9547_H_ */

@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/ioexpander/PCA9547/PCA9547.h>
+#include <spectre/driver/ioexpander/PCA9547/PCA9547_Control.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,8 +42,8 @@ namespace PCA9547
  * CTOR/DTOR
  **************************************************************************************/
 
-PCA9547::PCA9547(interface::PCA9547_Control & ctrl)
-: _ctrl(ctrl)
+PCA9547::PCA9547(interface::PCA9547_Io & io)
+: _io(io)
 {
 
 }
@@ -57,51 +57,31 @@ PCA9547::~PCA9547()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool PCA9547::open()
+bool PCA9547::setChannel(interface::I2cChannel const sel)
 {
+  uint8_t const data = static_cast<uint8_t>(sel);
+
+  return _io.writeControlRegister(data);
+}
+
+bool PCA9547::getChannel(interface::I2cChannel * sel)
+{
+  uint8_t data = 0;
+
+  if(!_io.readControlRegister(&data)) return false;
+
+  *sel = static_cast<interface::I2cChannel>(data);
+
   return true;
 }
 
-bool PCA9547::read(uint8_t * buffer, uint32_t const num_bytes)
+void PCA9547::debug_dumpAllRegs(driver::interface::Debug & debug_interface)
 {
-  return false;
-}
+  uint8_t control_reg_content = 0;
 
-bool PCA9547::write(uint8_t const * buffer, uint32_t const num_bytes)
-{
-  return false;
-}
+  _io.readControlRegister(&control_reg_content);
 
-bool PCA9547::ioctl(uint32_t const cmd, void * arg)
-{
-  switch(cmd)
-  {
-  /* SET_CHANNEL **********************************************************************/
-  case IOCTL_SET_CHANNEL:
-  {
-    uint8_t               const * arg_ptr     = static_cast<uint8_t *>            (arg     );
-    interface::I2cChannel const   i2c_channel = static_cast<interface::I2cChannel>(*arg_ptr);
-    return _ctrl.setChannel(i2c_channel);
-  }
-  break;
-  /* GET_CHANNEL **********************************************************************/
-  case IOCTL_GET_CHANNEL:
-  {
-    interface::I2cChannel i2c_channel = interface::I2cChannel::NO_CHANNEL;
-    bool const success = _ctrl.getChannel(&i2c_channel);
-    uint8_t i2c_channel_val = static_cast<uint8_t>(i2c_channel);
-    arg = &i2c_channel_val;
-    return success;
-  }
-  break;
-  }
-
-  return false;
-}
-
-bool PCA9547::close()
-{
-  return true;
+  debug_interface.print("REG_CONTROL = %X\n", control_reg_content);
 }
 
 /**************************************************************************************
