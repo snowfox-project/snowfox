@@ -23,7 +23,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/haptic/DRV2605/interface/DRV2605_RegisterInterface.h>
+#include <spectre/driver/haptic/DRV2605/interface/DRV2605Io.h>
 
 #include <spectre/hal/interface/i2c/I2CMaster.h>
 
@@ -47,7 +47,7 @@ namespace DRV2605
  * CLASS DECLARATION DRV2605
  **************************************************************************************/
 
-class DRV2605_I2C_RegisterInterface : public interface::DRV2605_RegisterInterface
+class DRV2605_I2C_RegisterInterface : public interface::DRV2605Io
 {
 
 public:

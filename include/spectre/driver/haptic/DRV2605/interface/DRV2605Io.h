@@ -91,13 +91,13 @@ typedef enum
  * CLASS DECLARATION DRV2605
  **************************************************************************************/
 
-class DRV2605_RegisterInterface
+class DRV2605Io
 {
 
 public:
 
-           DRV2605_RegisterInterface() { }
-  virtual ~DRV2605_RegisterInterface() { }
+           DRV2605Io() { }
+  virtual ~DRV2605Io() { }
 
 
   virtual bool readSingleRegister (RegisterSelect const reg_sel, uint8_t       * data) = 0;

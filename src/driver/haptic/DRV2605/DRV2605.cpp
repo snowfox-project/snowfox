@@ -42,7 +42,7 @@ namespace DRV2605
  * CTOR/DTOR
  **************************************************************************************/
 
-DRV2605::DRV2605(interface::DRV2605_ControlInterface & ctrl)
+DRV2605::DRV2605(interface::DRV2605_Control & ctrl)
 : _ctrl(ctrl)
 {
   _ctrl.reset();

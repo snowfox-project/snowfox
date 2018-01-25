@@ -25,7 +25,7 @@
 
 #include <spectre/driver/interface/Driver.h>
 
-#include <spectre/driver/haptic/DRV2605/interface/DRV2605_ControlInterface.h>
+#include <spectre/driver/haptic/DRV2605/interface/DRV2605_Control.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -73,7 +73,7 @@ class DRV2605 : public driver::interface::Driver
 
 public:
 
-           DRV2605(interface::DRV2605_ControlInterface & ctrl);
+           DRV2605(interface::DRV2605_Control & ctrl);
   virtual ~DRV2605();
 
 
@@ -85,7 +85,7 @@ public:
 
 private:
 
-  interface::DRV2605_ControlInterface & _ctrl;
+  interface::DRV2605_Control & _ctrl;
 
 };
 
