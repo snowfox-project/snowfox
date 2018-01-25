@@ -42,7 +42,7 @@ namespace PCA9547
  * CTOR/DTOR
  **************************************************************************************/
 
-PCA9547::PCA9547(PCA9547_IO_Interface & io)
+PCA9547::PCA9547(interface::PCA9547_Io & io)
 : _io(io)
 {
 
@@ -57,20 +57,20 @@ PCA9547::~PCA9547()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool PCA9547::setChannel(I2CChannelSelect const sel)
+bool PCA9547::setChannel(interface::I2cChannel const sel)
 {
   uint8_t const data = static_cast<uint8_t>(sel);
 
   return _io.writeControlRegister(data);
 }
 
-bool PCA9547::getChannel(I2CChannelSelect * sel)
+bool PCA9547::getChannel(interface::I2cChannel * sel)
 {
   uint8_t data = 0;
 
   if(!_io.readControlRegister(&data)) return false;
 
-  *sel = static_cast<I2CChannelSelect>(data);
+  *sel = static_cast<interface::I2cChannel>(data);
 
   return true;
 }

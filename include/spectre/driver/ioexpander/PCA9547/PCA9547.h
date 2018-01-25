@@ -23,8 +23,8 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/ioexpander/PCA9547/interface/PCA9547_Interface.h>
-#include <spectre/driver/ioexpander/PCA9547/interface/PCA9547_IO_Interface.h>
+#include <spectre/driver/ioexpander/PCA9547/interface/PCA9547_Control.h>
+#include <spectre/driver/ioexpander/PCA9547/interface/PCA9547_Io.h>
 
 #include <stdint.h>
 
@@ -52,26 +52,26 @@ namespace PCA9547
  * CLASS DECLARATION PCA9547
  **************************************************************************************/
 
-class PCA9547 : public PCA9547_Interface
+class PCA9547 : public interface::PCA9547_Control
 {
 
 public:
 
-           PCA9547(PCA9547_IO_Interface & io);
+           PCA9547(interface::PCA9547_Io & io);
   virtual ~PCA9547();
 
 
   /* PCA9547 Interface */
 
-  virtual bool setChannel(I2CChannelSelect const   sel) override;
-  virtual bool getChannel(I2CChannelSelect       * sel) override;
+  virtual bool setChannel(interface::I2cChannel const   sel) override;
+  virtual bool getChannel(interface::I2cChannel       * sel) override;
 
 
           void debug_dumpAllRegs(driver::interface::Debug & debug_interface);
 
 private:
 
-  PCA9547_IO_Interface & _io;
+  interface::PCA9547_Io & _io;
 
 };
 

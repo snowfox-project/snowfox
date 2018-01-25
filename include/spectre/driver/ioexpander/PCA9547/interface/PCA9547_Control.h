@@ -16,11 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_IOEXPANDER_INTERFACE_PCA9547_INTERFACE_H_
+#define INCLUDE_SPECTRE_DRIVER_IOEXPANDER_INTERFACE_PCA9547_INTERFACE_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/ioexpander/PCA9547/PCA9547_IO_I2C.h>
+#include <stdint.h>
+#include <stdbool.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -38,43 +42,49 @@ namespace ioexpander
 namespace PCA9547
 {
 
-/**************************************************************************************
- * CTOR/DTOR
- **************************************************************************************/
-
-PCA9547_IO_I2C::PCA9547_IO_I2C(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
-: _i2c_address(i2c_address),
-  _i2c_master (i2c_master )
+namespace interface
 {
-
-}
-
-PCA9547_IO_I2C::~PCA9547_IO_I2C()
-{
-
-}
 
 /**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
+ * TYPEDEFS
  **************************************************************************************/
 
-bool PCA9547_IO_I2C::readControlRegister(uint8_t * data)
+enum class I2cChannel : uint8_t
 {
-  return _i2c_master.requestFrom(_i2c_address, data, 1);
-}
+  CH_0       = 0x08,
+  CH_1       = 0x09,
+  CH_2       = 0x0A,
+  CH_3       = 0x0B,
+  CH_4       = 0x0C,
+  CH_5       = 0x0D,
+  CH_6       = 0x0E,
+  CH_7       = 0x0F,
+  NO_CHANNEL = 0x00
+};
 
-bool PCA9547_IO_I2C::writeControlRegister(uint8_t const data)
+/**************************************************************************************
+ * CLASS DECLARATION
+ **************************************************************************************/
+
+class PCA9547_Control
 {
-  if(!_i2c_master.begin(_i2c_address, false)) return false;
-  if(!_i2c_master.write(data               )) return false;
-      _i2c_master.end  (                   );
 
-  return true;
-}
+public:
+
+           PCA9547_Control() { }
+  virtual ~PCA9547_Control() { }
+
+
+  virtual bool setChannel(I2cChannel const   sel) = 0;
+  virtual bool getChannel(I2cChannel       * sel) = 0;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* PCA9547 */
 
@@ -83,3 +93,5 @@ bool PCA9547_IO_I2C::writeControlRegister(uint8_t const data)
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_IOEXPANDER_INTERFACE_PCA9547_INTERFACE_H_ */

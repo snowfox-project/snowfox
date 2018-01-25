@@ -16,14 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_IOEXPANDER_INTERFACE_PCA9547_INTERFACE_H_
-#define INCLUDE_SPECTRE_DRIVER_IOEXPANDER_INTERFACE_PCA9547_INTERFACE_H_
-
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <stdbool.h>
+#include <spectre/driver/ioexpander/PCA9547/PCA9547_IoI2c.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,39 +39,38 @@ namespace PCA9547
 {
 
 /**************************************************************************************
- * TYPEDEFS
+ * CTOR/DTOR
  **************************************************************************************/
 
-typedef enum
+PCA9547_IoI2c::PCA9547_IoI2c(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
+: _i2c_address(i2c_address),
+  _i2c_master (i2c_master )
 {
-  I2C_CHANNEL_0   = 0x08,
-  I2C_CHANNEL_1   = 0x09,
-  I2C_CHANNEL_2   = 0x0A,
-  I2C_CHANNEL_3   = 0x0B,
-  I2C_CHANNEL_4   = 0x0C,
-  I2C_CHANNEL_5   = 0x0D,
-  I2C_CHANNEL_6   = 0x0E,
-  I2C_CHANNEL_7   = 0x0F,
-  I2C_NO_CHANNEL  = 0x00
-} I2CChannelSelect;
+
+}
+
+PCA9547_IoI2c::~PCA9547_IoI2c()
+{
+
+}
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-class PCA9547_Interface
+bool PCA9547_IoI2c::readControlRegister(uint8_t * data)
 {
+  return _i2c_master.requestFrom(_i2c_address, data, 1);
+}
 
-public:
+bool PCA9547_IoI2c::writeControlRegister(uint8_t const data)
+{
+  if(!_i2c_master.begin(_i2c_address, false)) return false;
+  if(!_i2c_master.write(data               )) return false;
+      _i2c_master.end  (                   );
 
-           PCA9547_Interface() { }
-  virtual ~PCA9547_Interface() { }
-
-
-  virtual bool setChannel(I2CChannelSelect const   sel) = 0;
-  virtual bool getChannel(I2CChannelSelect       * sel) = 0;
-
-};
+  return true;
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -87,5 +83,3 @@ public:
 } /* driver */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_IOEXPANDER_INTERFACE_PCA9547_INTERFACE_H_ */

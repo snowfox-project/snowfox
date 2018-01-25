@@ -41,17 +41,20 @@ namespace ioexpander
 namespace PCA9547
 {
 
+namespace interface
+{
+
 /**************************************************************************************
- * CLASS DECLARATION PCA9547
+ * CLASS DECLARATION
  **************************************************************************************/
 
-class PCA9547_IO_Interface
+class PCA9547_Io
 {
 
 public:
 
-           PCA9547_IO_Interface() { }
-  virtual ~PCA9547_IO_Interface() { }
+           PCA9547_Io() { }
+  virtual ~PCA9547_Io() { }
 
 
   virtual bool readControlRegister (uint8_t        * data) = 0;
@@ -62,6 +65,8 @@ public:
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* PCA9547 */
 
