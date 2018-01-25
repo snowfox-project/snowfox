@@ -2,6 +2,17 @@
 # DRIVER #################################################################
 ##########################################################################
 
+set(DRIVER_CAN_SRC_PATH src/driver/can)
+
+if(${DRIVER_CAN_MCP2515} STREQUAL "yes")
+  set(DRIVER_CAN_MCP2515_SRCS
+  	${DRIVER_CAN_SRC_PATH}/MCP2515/MCP2515_IoSpi.cpp
+  )
+  set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} ${DRIVER_CAN_MCP2515_SRCS})
+endif()
+
+##########################################################################
+
 set(DRIVER_GLCD_SRC_PATH src/driver/glcd)
 
 if(${DRIVER_GLCD_RA6963} STREQUAL "yes")
