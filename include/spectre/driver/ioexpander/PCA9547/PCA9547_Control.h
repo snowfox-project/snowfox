@@ -52,13 +52,13 @@ namespace PCA9547
  * CLASS DECLARATION PCA9547
  **************************************************************************************/
 
-class PCA9547 : public interface::PCA9547_Control
+class PCA9547_Control : public interface::PCA9547_Control
 {
 
 public:
 
-           PCA9547(interface::PCA9547_Io & io);
-  virtual ~PCA9547();
+           PCA9547_Control(interface::PCA9547_Io & io);
+  virtual ~PCA9547_Control();
 
 
   /* PCA9547 Interface */
