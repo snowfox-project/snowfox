@@ -16,16 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_MEMORY_PCF8570_PCF8570_H_
-#define INCLUDE_SPECTRE_DRIVER_MEMORY_PCF8570_PCF8570_H_
-
 /**************************************************************************************
- * INCLUDE
+ * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/interface/Driver.h>
-
-#include <spectre/driver/memory/PCF8570/interface/PCF8570_Control.h>
+#include <spectre/driver/memory/PCF8570/PCF8570_Control.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -44,32 +39,33 @@ namespace PCF8570
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class PCF8570 : public driver::interface::Driver
+PCF8570_Control::PCF8570_Control(interface::PCF8570_Io & io)
+: _io(io)
 {
 
-public:
+}
 
-           PCF8570(interface::PCF8570_Control & ctrl);
-  virtual ~PCF8570();
+PCF8570_Control::~PCF8570_Control()
+{
 
+}
 
-  virtual bool open (                                                   ) override;
-  virtual bool read (uint8_t        * buffer, uint32_t const   num_bytes) override;
-  virtual bool write(uint8_t  const * buffer, uint32_t const   num_bytes) override;
-  virtual bool ioctl(uint32_t const   cmd,    void           * arg      ) override;
-  virtual bool close(                                                   ) override;
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
-private:
+bool PCF8570_Control::write(uint8_t const address, uint8_t const data)
+{
+  return _io.writeByte(address, data);
+}
 
-  interface::PCF8570_Control & _ctrl;
-
-  bool read (uint8_t const address, uint8_t       * buffer, uint32_t const num_bytes);
-  bool write(uint8_t const address, uint8_t const * buffer, uint32_t const num_bytes);
-
-};
+bool PCF8570_Control::read(uint8_t const address, uint8_t * data)
+{
+  return _io.readByte(address, data);
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -82,5 +78,3 @@ private:
 } /* driver */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_MEMORY_PCF8570_PCF8570_H_ */

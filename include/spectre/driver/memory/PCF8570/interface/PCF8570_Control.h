@@ -16,16 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_MEMORY_PCF8570_PCF8570_H_
-#define INCLUDE_SPECTRE_DRIVER_MEMORY_PCF8570_PCF8570_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_MEMORY_PCF8570_INTERFACE_PCF8570_INTERFACE_H_
+#define INCLUDE_SPECTRE_DRIVER_MEMORY_PCF8570_INTERFACE_PCF8570_INTERFACE_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/interface/Driver.h>
-
-#include <spectre/driver/memory/PCF8570/interface/PCF8570_Control.h>
+#include <stdint.h>
+#include <stdbool.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -43,37 +42,32 @@ namespace memory
 namespace PCF8570
 {
 
+namespace interface
+{
+
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class PCF8570 : public driver::interface::Driver
+class PCF8570_Control
 {
 
 public:
 
-           PCF8570(interface::PCF8570_Control & ctrl);
-  virtual ~PCF8570();
+           PCF8570_Control() { }
+  virtual ~PCF8570_Control() { }
 
 
-  virtual bool open (                                                   ) override;
-  virtual bool read (uint8_t        * buffer, uint32_t const   num_bytes) override;
-  virtual bool write(uint8_t  const * buffer, uint32_t const   num_bytes) override;
-  virtual bool ioctl(uint32_t const   cmd,    void           * arg      ) override;
-  virtual bool close(                                                   ) override;
-
-private:
-
-  interface::PCF8570_Control & _ctrl;
-
-  bool read (uint8_t const address, uint8_t       * buffer, uint32_t const num_bytes);
-  bool write(uint8_t const address, uint8_t const * buffer, uint32_t const num_bytes);
+  virtual bool write(uint8_t const address, uint8_t const   data) = 0;
+  virtual bool read (uint8_t const address, uint8_t       * data) = 0;
 
 };
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* PCF8570 */
 
@@ -83,4 +77,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_MEMORY_PCF8570_PCF8570_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_MEMORY_PCF8570_INTERFACE_PCF8570_INTERFACE_H_ */

@@ -16,11 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_MEMORY_PCF8570_PCF8570_IO_I2C_H_
+#define INCLUDE_SPECTRE_DRIVER_MEMORY_PCF8570_PCF8570_IO_I2C_H_
+
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/memory/PCF8570/PCF8570_IO_I2C.h>
+#include <spectre/driver/memory/PCF8570/interface/PCF8570_Io.h>
+
+#include <spectre/hal/interface/i2c/I2CMaster.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,43 +44,27 @@ namespace PCF8570
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * CLASS DECLARATION
  **************************************************************************************/
 
-PCF8570_IO_I2C::PCF8570_IO_I2C(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
-: _i2c_address(i2c_address),
-  _i2c_master (i2c_master )
+class PCF8570_IoI2c : public interface::PCF8570_Io
 {
 
-}
+public:
 
-PCF8570_IO_I2C::~PCF8570_IO_I2C()
-{
+           PCF8570_IoI2c(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master);
+  virtual ~PCF8570_IoI2c();
 
-}
 
-/**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
- **************************************************************************************/
+  virtual bool writeByte(uint8_t const address, uint8_t const   data) override;
+  virtual bool readByte (uint8_t const address, uint8_t       * data) override;
 
-bool PCF8570_IO_I2C::writeByte(uint8_t const address, uint8_t const data)
-{
-  if(!_i2c_master.begin(_i2c_address, false)) return false;
-  if(!_i2c_master.write(address            )) return false;
-  if(!_i2c_master.write(data               )) return false;
-      _i2c_master.end  (                   );
+private:
 
-  return true;
-}
+  uint8_t                     _i2c_address;
+  hal::interface::I2CMaster & _i2c_master;
 
-bool PCF8570_IO_I2C::readByte(uint8_t const address, uint8_t * data)
-{
-  if(!_i2c_master.begin      (_i2c_address, false  )) return false;
-  if(!_i2c_master.write      (address              )) return false;
-  if(!_i2c_master.requestFrom(_i2c_address, data, 1)) return false;
-
-  return true;
-}
+};
 
 /**************************************************************************************
  * NAMESPACE
@@ -88,3 +77,5 @@ bool PCF8570_IO_I2C::readByte(uint8_t const address, uint8_t * data)
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_MEMORY_PCF8570_PCF8570_IO_I2C_H_ */

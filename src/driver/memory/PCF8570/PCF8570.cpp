@@ -42,8 +42,8 @@ namespace PCF8570
  * CTOR/DTOR
  **************************************************************************************/
 
-PCF8570::PCF8570(PCF8570_IO_Interface & io)
-: _io(io)
+PCF8570::PCF8570(interface::PCF8570_Control & ctrl)
+: _ctrl(ctrl)
 {
 
 }
@@ -57,14 +57,51 @@ PCF8570::~PCF8570()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool PCF8570::write(uint8_t const address, uint8_t const data)
+bool PCF8570::open()
 {
-  return _io.writeByte(address, data);
+  return true;
 }
 
-bool PCF8570::read(uint8_t const address, uint8_t * data)
+bool PCF8570::read(uint8_t * buffer, uint32_t const num_bytes)
 {
-  return _io.readByte(address, data);
+  return read(buffer[0], buffer + 1, num_bytes - 1);
+}
+
+bool PCF8570::write(uint8_t const * buffer, uint32_t const num_bytes)
+{
+  return write(buffer[0], buffer + 1, num_bytes - 1);
+}
+
+bool PCF8570::ioctl(uint32_t const cmd, void * arg)
+{
+  return false;
+}
+
+bool PCF8570::close()
+{
+  return true;
+}
+
+/**************************************************************************************
+ * PRIVATE MEMBER FUNCTIONS
+ **************************************************************************************/
+
+bool PCF8570::read(uint8_t const address, uint8_t * buffer, uint32_t const num_bytes)
+{
+  for(uint32_t b = 0; b < num_bytes; b++)
+  {
+    if(!_ctrl.read(address, buffer + b)) return false;
+  }
+  return true;
+}
+
+bool PCF8570::write(uint8_t const address, uint8_t const * buffer, uint32_t const num_bytes)
+{
+  for(uint32_t b = 0; b < num_bytes; b++)
+  {
+    if(!_ctrl.write(address, buffer[b])) return false;
+  }
+  return true;
 }
 
 /**************************************************************************************

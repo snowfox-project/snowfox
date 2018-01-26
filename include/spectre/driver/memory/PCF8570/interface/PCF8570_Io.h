@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_MEMORY_PCF8570_INTERFACE_PCF8570_INTERFACE_H_
-#define INCLUDE_SPECTRE_DRIVER_MEMORY_PCF8570_INTERFACE_PCF8570_INTERFACE_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_MEMORY_PCF8570_INTERFACE_PCF8570_IO_INTERFACE_H_
+#define INCLUDE_SPECTRE_DRIVER_MEMORY_PCF8570_INTERFACE_PCF8570_IO_INTERFACE_H_
 
 /**************************************************************************************
  * INCLUDE
@@ -42,27 +42,32 @@ namespace memory
 namespace PCF8570
 {
 
+namespace interface
+{
+
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class PCF8570_Interface
+class PCF8570_Io
 {
 
 public:
 
-           PCF8570_Interface() { }
-  virtual ~PCF8570_Interface() { }
+           PCF8570_Io() { }
+  virtual ~PCF8570_Io() { }
 
 
-  virtual bool write(uint8_t const address, uint8_t const   data) = 0;
-  virtual bool read (uint8_t const address, uint8_t       * data) = 0;
+  virtual bool writeByte(uint8_t const address, uint8_t const   data) = 0;
+  virtual bool readByte (uint8_t const address, uint8_t       * data) = 0;
 
 };
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* PCF8570 */
 
@@ -72,4 +77,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_MEMORY_PCF8570_INTERFACE_PCF8570_INTERFACE_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_MEMORY_PCF8570_INTERFACE_PCF8570_IO_INTERFACE_H_ */
