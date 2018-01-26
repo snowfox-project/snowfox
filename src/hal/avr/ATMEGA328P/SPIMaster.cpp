@@ -70,12 +70,12 @@ typedef enum
  * CTOR/DTOR
  **************************************************************************************/
 
-SPIMaster::SPIMaster(volatile uint8_t * SPCR,
-                     volatile uint8_t * SPSR,
-                     volatile uint8_t * SPDR)
-: _SPCR(SPCR),
-  _SPSR(SPSR),
-  _SPDR(SPDR)
+SPIMaster::SPIMaster(volatile uint8_t * spcr,
+                     volatile uint8_t * spsr,
+                     volatile uint8_t * spdr)
+: _SPCR(spcr),
+  _SPSR(spsr),
+  _SPDR(spdr)
 {
   enableSPI();
 }

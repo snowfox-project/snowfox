@@ -17,17 +17,20 @@
  */
 
 /**************************************************************************************
+ * This example programm is tailored for usage with Arduino Uno
+ * and Seedstudio CAN Bus Shield V2.0
+ **************************************************************************************/
+
+/**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
 #include <avr/io.h>
 
-#include <spectre/hal/avr/ATMEGA328P/I2CMaster.h>
-#include <spectre/hal/avr/ATxxxx/i2c/I2CMasterBase.h>
+#include <spectre/hal/avr/ATMEGA328P/SPIMaster.h>
+#include <spectre/hal/avr/ATMEGA328P/DigitalOutPin.h>
 
-#include <spectre/driver/ioexpander/PCA9547/PCA9547.h>
-#include <spectre/driver/ioexpander/PCA9547/PCA9547_IoI2c.h>
-#include <spectre/driver/ioexpander/PCA9547/PCA9547_Control.h>
+#include <spectre/driver/can/MCP2515/MCP2515_IoSpi.h>
 
 /**************************************************************************************
  * NAMESPACES
@@ -41,7 +44,8 @@ using namespace spectre::driver;
  * GLOBAL CONSTANTS
  **************************************************************************************/
 
-static uint8_t const PCA9547_I2C_ADDR = (0x70 << 1);
+static interface::SPIMode const MCP2515_SPI_MODE      = interface::SPIMode::MODE_0;
+static uint32_t           const MCP2515_SPI_PRESCALER = 16; /* Arduino Uno Clk = 16 MHz -> SPI Clk = 1 MHz */
 
 /**************************************************************************************
  * MAIN
@@ -51,26 +55,18 @@ int main()
 {
   /* HAL ******************************************************************************/
 
-  ATMEGA328P::I2CMaster i2c_master_atmega328p(&TWCR, &TWDR, &TWSR, &TWBR);
-  ATxxxx::I2CMasterBase i2c_master           (i2c_master_atmega328p);
+  ATMEGA328P::SPIMaster spi_master(&SPCR, &SPSR, &SPDR);
 
-  i2c_master.setI2CClock(hal::interface::I2CMasterConfiguration::F_100_kHz);
+  spi_master.setSpiMode     (MCP2515_SPI_MODE     );
+  spi_master.setSpiPrescaler(MCP2515_SPI_PRESCALER);
+
+  ATMEGA328P::DigitalOutPin cs(&DDRB, &PORTB, 1); /* D9 = PB1 */
 
   /* DRIVER ***************************************************************************/
 
-  ioexpander::PCA9547::PCA9547_IoI2c    pca9547_io_i2c(PCA9547_I2C_ADDR, i2c_master);
-  ioexpander::PCA9547::PCA9547_Control  pca9547_ctrl  (pca9547_io_i2c              );
-  ioexpander::PCA9547::PCA9547          pca9547       (pca9547_ctrl                );
+  can::MCP2515::MCP2515_IoSpi mcp2515_io_spi(spi_master, cs);
 
   /* APPLICATION **********************************************************************/
-
-  uint8_t i2c_channel_set = static_cast<uint8_t>(ioexpander::PCA9547::interface::I2cChannel::CH_0      );
-  uint8_t i2c_channel_get = static_cast<uint8_t>(ioexpander::PCA9547::interface::I2cChannel::NO_CHANNEL);
-
-  pca9547.open ();
-  pca9547.ioctl(ioexpander::PCA9547::IOCTL_SET_CHANNEL, static_cast<void *>(&i2c_channel_set));
-  pca9547.ioctl(ioexpander::PCA9547::IOCTL_GET_CHANNEL, static_cast<void *>(&i2c_channel_get));
-  pca9547.close();
 
   for(;;) { }
 
