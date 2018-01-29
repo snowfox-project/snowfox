@@ -44,8 +44,9 @@ using namespace spectre::driver;
  * GLOBAL CONSTANTS
  **************************************************************************************/
 
-static interface::SPIMode const MCP2515_SPI_MODE      = interface::SPIMode::MODE_0;
-static uint32_t           const MCP2515_SPI_PRESCALER = 16; /* Arduino Uno Clk = 16 MHz -> SPI Clk = 1 MHz */
+static interface::SpiMode     const MCP2515_SPI_MODE      = interface::SpiMode::MODE_0;
+static interface::SpiBitOrder const MCP2515_SPI_BIT_ORDER = interface::SpiBitOrder::MSB_FIRST;
+static uint32_t               const MCP2515_SPI_PRESCALER = 16; /* Arduino Uno Clk = 16 MHz -> SPI Clk = 1 MHz */
 
 /**************************************************************************************
  * MAIN
@@ -58,6 +59,7 @@ int main()
   ATMEGA328P::SPIMaster spi_master(&SPCR, &SPSR, &SPDR);
 
   spi_master.setSpiMode     (MCP2515_SPI_MODE     );
+  spi_master.setSpiBitOrder (MCP2515_SPI_BIT_ORDER);
   spi_master.setSpiPrescaler(MCP2515_SPI_PRESCALER);
 
   ATMEGA328P::DigitalOutPin cs(&DDRB, &PORTB, 1); /* D9 = PB1 */

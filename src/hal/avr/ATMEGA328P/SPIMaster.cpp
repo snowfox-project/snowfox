@@ -98,16 +98,25 @@ uint8_t SPIMaster::exchange(uint8_t const data)
   return *_SPDR;
 }
 
-void SPIMaster::setSpiMode(interface::SPIMode const spi_mode)
+void SPIMaster::setSpiMode(interface::SpiMode const spi_mode)
 {
   *_SPCR &= ~(CPOL_bm | CPHA_bm);
 
   switch(spi_mode)
   {
-  case interface::SPIMode::MODE_0:                                break;
-  case interface::SPIMode::MODE_1: *_SPCR |= CPHA_bm;             break;
-  case interface::SPIMode::MODE_2: *_SPCR |= CPOL_bm;             break;
-  case interface::SPIMode::MODE_3: *_SPCR |= (CPOL_bm | CPHA_bm); break;
+  case interface::SpiMode::MODE_0:                                break;
+  case interface::SpiMode::MODE_1: *_SPCR |= CPHA_bm;             break;
+  case interface::SpiMode::MODE_2: *_SPCR |= CPOL_bm;             break;
+  case interface::SpiMode::MODE_3: *_SPCR |= (CPOL_bm | CPHA_bm); break;
+  }
+}
+
+void SPIMaster::setSpiBitOrder(interface::SpiBitOrder const spi_bit_order)
+{
+  switch(spi_bit_order)
+  {
+  case interface::SpiBitOrder::LSB_FIRST: *_SPCR |=  (DORD_bm); break;
+  case interface::SpiBitOrder::MSB_FIRST: *_SPCR &= ~(DORD_bm); break;
   }
 }
 

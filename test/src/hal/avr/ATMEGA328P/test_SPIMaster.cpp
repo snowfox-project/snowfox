@@ -76,7 +76,7 @@ SCENARIO("ATMEGA328P::SPIMaster - A SPI mode is configured via 'setSpiMode'", "[
 
   WHEN("SPI Mode #0 is configured via 'setSpiMode'")
   {
-    spi_master.setSpiMode(interface::SPIMode::MODE_0);
+    spi_master.setSpiMode(interface::SpiMode::MODE_0);
     THEN("SPCR bits 3-2 = 0b00 (CPHA | CPOL)")
     {
       REQUIRE(SPCR.isBitClr(3));
@@ -85,7 +85,7 @@ SCENARIO("ATMEGA328P::SPIMaster - A SPI mode is configured via 'setSpiMode'", "[
   }
   WHEN("SPI Mode #1 is configured via 'setSpiMode'")
   {
-    spi_master.setSpiMode(interface::SPIMode::MODE_1);
+    spi_master.setSpiMode(interface::SpiMode::MODE_1);
     THEN("SPCR bits 3-2 = 0b01 (CPHA | CPOL)")
     {
       REQUIRE(SPCR.isBitVectSet({2}));
@@ -93,7 +93,7 @@ SCENARIO("ATMEGA328P::SPIMaster - A SPI mode is configured via 'setSpiMode'", "[
   }
   WHEN("SPI Mode #2 is configured via 'setSpiMode'")
   {
-    spi_master.setSpiMode(interface::SPIMode::MODE_2);
+    spi_master.setSpiMode(interface::SpiMode::MODE_2);
     THEN("SPCR bits 3-2 = 0b10 (CPHA | CPOL)")
     {
       REQUIRE(SPCR.isBitVectSet({3}));
@@ -101,10 +101,38 @@ SCENARIO("ATMEGA328P::SPIMaster - A SPI mode is configured via 'setSpiMode'", "[
   }
   WHEN("SPI Mode #3 is configured via 'setSpiMode'")
   {
-    spi_master.setSpiMode(interface::SPIMode::MODE_3);
+    spi_master.setSpiMode(interface::SpiMode::MODE_3);
     THEN("SPCR bits 3-2 = 0b11 (CPHA | CPOL)")
     {
       REQUIRE(SPCR.isBitVectSet({3,2}));
+    }
+  }
+}
+
+/**************************************************************************************/
+
+SCENARIO("ATMEGA328P::SPIMaster - A SPI bit order is configured via 'setSpiBitOrder'", "[ATMEGA328P::SPIMaster]")
+{
+  Register<uint8_t> SPCR(SPCR_RESET_VALUE),
+                    SPSR(SPSR_RESET_VALUE),
+                    SPDR(SPDR_RESET_VALUE);
+
+  ATMEGA328P::SPIMaster spi_master(SPCR(), SPSR(), SPDR());
+
+  WHEN("SPI bit order mode LSB_FIRST is selected")
+  {
+    spi_master.setSpiBitOrder(interface::SpiBitOrder::LSB_FIRST);
+    THEN("SPCR bit #5 should be set (DORD)")
+    {
+      REQUIRE(SPCR.isBitSet(5));
+    }
+  }
+  WHEN("SPI bit order mode MSB_FIRST is selected")
+  {
+    spi_master.setSpiBitOrder(interface::SpiBitOrder::MSB_FIRST);
+    THEN("SPCR bit #5 should be set (DORD)")
+    {
+      REQUIRE(SPCR.isBitClr(5));
     }
   }
 }

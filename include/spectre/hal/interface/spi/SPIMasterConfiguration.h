@@ -42,12 +42,18 @@ namespace interface
  * TYPEDEFS
  **************************************************************************************/
 
-enum class SPIMode
+enum class SpiMode
 {
   MODE_0,   /* CPOL = 0, CPHA = 0 */
   MODE_1,   /* CPOL = 0, CPHA = 1 */
   MODE_2,   /* CPOL = 1, CPHA = 0 */
   MODE_3    /* CPOL = 1, CPHA = 1 */
+};
+
+enum class SpiBitOrder
+{
+  LSB_FIRST,
+  MSB_FIRST
 };
 
 /**************************************************************************************
@@ -62,8 +68,9 @@ public:
            SPIMasterConfiguration() { }
   virtual ~SPIMasterConfiguration() { }
 
-  virtual void setSpiMode     (SPIMode  const spi_mode     ) = 0;
-  virtual void setSpiPrescaler(uint32_t const spi_prescaler) = 0;
+  virtual void setSpiMode     (SpiMode     const spi_mode     ) = 0;
+  virtual void setSpiBitOrder (SpiBitOrder const spi_bit_order) = 0;
+  virtual void setSpiPrescaler(uint32_t    const spi_prescaler) = 0;
   
 };
 
