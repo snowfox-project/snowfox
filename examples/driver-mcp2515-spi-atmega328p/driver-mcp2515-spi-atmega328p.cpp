@@ -31,6 +31,7 @@
 #include <spectre/hal/avr/ATMEGA328P/DigitalOutPin.h>
 
 #include <spectre/driver/can/MCP2515/MCP2515_IoSpi.h>
+#include <spectre/driver/can/MCP2515/MCP2515_Control.h>
 
 /**************************************************************************************
  * NAMESPACES
@@ -66,7 +67,8 @@ int main()
 
   /* DRIVER ***************************************************************************/
 
-  can::MCP2515::MCP2515_IoSpi mcp2515_io_spi(spi_master, cs);
+  can::MCP2515::MCP2515_IoSpi   mcp2515_io_spi  (spi_master, cs);
+  can::MCP2515::MCP2515_Control mcp2515_control (mcp2515_io_spi);
 
   /* APPLICATION **********************************************************************/
 
