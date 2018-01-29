@@ -25,7 +25,6 @@
 
 #include <spectre/driver/can/MCP2515/interface/MCP2515_Control.h>
 
-
 #include <spectre/driver/can/MCP2515/interface/MCP2515_Io.h>
 
 /**************************************************************************************
