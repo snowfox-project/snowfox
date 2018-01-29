@@ -15,8 +15,11 @@ Spectre consists of an Real Time Operating System + an Hardware Abstraction Laye
 
 
 ## I/O Device Drivers
+#### [/driver/can](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/can)
+* **MCP2515** (CAN Controller)
+
 #### [/driver/glcd](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/glcd)
-* **RA6963** (GLCD  Controller)
+* **RA6963** (GLCD Controller)
 
 #### [/driver/haptic](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/haptic)
 * **DRV2605L** (Haptic Driver for LRA and ERM)
