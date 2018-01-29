@@ -67,6 +67,18 @@ void MCP2515_IoSpi::reset()
   _cs.set();
 }
 
+uint8_t MCP2515_IoSpi::status()
+{
+  uint8_t const instruction = static_cast<uint8_t>(interface::Instruction::READ_STATUS);
+
+  _cs.clr();
+                         _spi_master.exchange(instruction);
+  uint8_t const status = _spi_master.exchange(0);
+  _cs.set();
+
+  return status;
+}
+
 void MCP2515_IoSpi::readRegister(interface::Register const reg, uint8_t * data)
 {
   uint8_t const instruction = static_cast<uint8_t>(interface::Instruction::READ);

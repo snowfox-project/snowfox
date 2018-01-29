@@ -57,11 +57,12 @@ public:
   virtual ~MCP2515_IoSpi();
 
 
-  virtual void reset         () override;
+  virtual void    reset         () override;
+  virtual uint8_t status        () override;
 
-  virtual void readRegister  (interface::Register const reg, uint8_t       * data                    ) override;
-  virtual void writeRegister (interface::Register const reg, uint8_t const   data                    ) override;
-  virtual void modifyRegister(interface::Register const reg, uint8_t const   data, uint8_t const mask) override;
+  virtual void    readRegister  (interface::Register const reg, uint8_t       * data                    ) override;
+  virtual void    writeRegister (interface::Register const reg, uint8_t const   data                    ) override;
+  virtual void    modifyRegister(interface::Register const reg, uint8_t const   data, uint8_t const mask) override;
 
 private:
 
