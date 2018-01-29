@@ -56,11 +56,6 @@ enum class CanBitRate
   BR_125kBPS
 };
 
-enum class Clock
-{
-  CLK_16MHz
-};
-
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
@@ -74,7 +69,7 @@ public:
   virtual ~MCP2515_Control() { }
 
 
-  virtual void setCanBitRate(Clock const clock, CanBitRate const can_bit_rate) = 0;
+  virtual void setCanBitRate(uint8_t const clk_MHz, CanBitRate const can_bit_rate) = 0;
 
 };
 
