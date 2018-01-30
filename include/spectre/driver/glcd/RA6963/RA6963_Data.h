@@ -56,18 +56,18 @@ public:
   virtual ~RA6963_Data();
 
 
-  virtual uint8_t readData    (interface::OperationMode const mode                        ) override;
-  virtual void    writeData   (interface::OperationMode const mode, uint8_t const data_val) override;
-  virtual void    writeCommand(interface::OperationMode const mode, uint8_t const cmd_val ) override;
+  virtual uint8_t readData    (interface::OpMode const mode                        ) override;
+  virtual void    writeData   (interface::OpMode const mode, uint8_t const data_val) override;
+  virtual void    writeCommand(interface::OpMode const mode, uint8_t const cmd_val ) override;
 
 private:
 
   interface::RA6963_Io & _io;
 
-  void waitForReady     (interface::OperationMode const mode                      ) const;
-  bool isReady          (interface::OperationMode const mode, uint8_t const status) const;
-  bool isReadyNormalMode(                                     uint8_t const status) const;
-  bool isReadyAutoMode  (                                     uint8_t const status) const;
+  void waitForReady     (interface::OpMode const mode                      ) const;
+  bool isReady          (interface::OpMode const mode, uint8_t const status) const;
+  bool isReadyNormalMode(                              uint8_t const status) const;
+  bool isReadyAutoMode  (                              uint8_t const status) const;
 
 };
 

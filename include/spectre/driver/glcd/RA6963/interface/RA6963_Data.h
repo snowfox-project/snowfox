@@ -49,11 +49,11 @@ namespace interface
  * TYPEDEFS
  **************************************************************************************/
 
-typedef enum
+enum class OpMode : uint8_t
 {
   NORMAL,
   AUTO
-} OperationMode;
+};
 
 /**************************************************************************************
  * CLASS DECLARATION
@@ -68,9 +68,9 @@ public:
   virtual ~RA6963_Data() { }
 
 
-  virtual uint8_t readData    (OperationMode const mode                        ) = 0;
-  virtual void    writeData   (OperationMode const mode, uint8_t const data_val) = 0;
-  virtual void    writeCommand(OperationMode const mode, uint8_t const cmd_val ) = 0;
+  virtual uint8_t readData    (OpMode const mode                        ) = 0;
+  virtual void    writeData   (OpMode const mode, uint8_t const data_val) = 0;
+  virtual void    writeCommand(OpMode const mode, uint8_t const cmd_val ) = 0;
 
 };
 
