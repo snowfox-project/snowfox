@@ -47,27 +47,27 @@ namespace RA6963
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RA6963_Data : public RA6963_Data_Interface
+class RA6963_Data : public interface::RA6963_Data_Interface
 {
 
 public:
 
-           RA6963_Data(RA6963_IO_Interface & io);
+           RA6963_Data(interface::RA6963_IO_Interface & io);
   virtual ~RA6963_Data();
 
 
-  virtual uint8_t readData    (OperationMode const mode                        ) override;
-  virtual void    writeData   (OperationMode const mode, uint8_t const data_val) override;
-  virtual void    writeCommand(OperationMode const mode, uint8_t const cmd_val ) override;
+  virtual uint8_t readData    (interface::OperationMode const mode                        ) override;
+  virtual void    writeData   (interface::OperationMode const mode, uint8_t const data_val) override;
+  virtual void    writeCommand(interface::OperationMode const mode, uint8_t const cmd_val ) override;
 
 private:
 
-  RA6963_IO_Interface & _io;
+  interface::RA6963_IO_Interface & _io;
 
-  void waitForReady     (OperationMode const mode                      ) const;
-  bool isReady          (OperationMode const mode, uint8_t const status) const;
-  bool isReadyNormalMode(                          uint8_t const status) const;
-  bool isReadyAutoMode  (                          uint8_t const status) const;
+  void waitForReady     (interface::OperationMode const mode                      ) const;
+  bool isReady          (interface::OperationMode const mode, uint8_t const status) const;
+  bool isReadyNormalMode(                                     uint8_t const status) const;
+  bool isReadyAutoMode  (                                     uint8_t const status) const;
 
 };
 

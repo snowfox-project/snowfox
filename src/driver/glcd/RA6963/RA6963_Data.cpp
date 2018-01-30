@@ -51,7 +51,7 @@ namespace RA6963
  * CTOR/DTOR
  **************************************************************************************/
 
-RA6963_Data::RA6963_Data(RA6963_IO_Interface & io)
+RA6963_Data::RA6963_Data(interface::RA6963_IO_Interface & io)
 : _io(io)
 {
   _io.reset();
@@ -66,21 +66,21 @@ RA6963_Data::~RA6963_Data()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-uint8_t RA6963_Data::readData(OperationMode const mode)
+uint8_t RA6963_Data::readData(interface::OperationMode const mode)
 {
   waitForReady(mode);
 
   return _io.readData();
 }
 
-void RA6963_Data::writeData(OperationMode const mode, uint8_t const data_val)
+void RA6963_Data::writeData(interface::OperationMode const mode, uint8_t const data_val)
 {
   waitForReady(mode);
 
   _io.writeData(data_val);
 }
 
-void RA6963_Data::writeCommand(OperationMode const mode, uint8_t const cmd_val)
+void RA6963_Data::writeCommand(interface::OperationMode const mode, uint8_t const cmd_val)
 {
   waitForReady(mode);
 
@@ -91,7 +91,7 @@ void RA6963_Data::writeCommand(OperationMode const mode, uint8_t const cmd_val)
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
-void RA6963_Data::waitForReady(OperationMode const mode) const
+void RA6963_Data::waitForReady(interface::OperationMode const mode) const
 {
   uint8_t status = 0;
   do
@@ -100,14 +100,14 @@ void RA6963_Data::waitForReady(OperationMode const mode) const
   } while(!isReady(mode, status));
 }
 
-bool RA6963_Data::isReady(OperationMode const mode, uint8_t const status) const
+bool RA6963_Data::isReady(interface::OperationMode const mode, uint8_t const status) const
 {
   bool is_ready = false;
 
   switch(mode)
   {
-  case NORMAL: is_ready = isReadyNormalMode(status); break;
-  case AUTO  : is_ready = isReadyAutoMode  (status); break;
+  case interface::NORMAL: is_ready = isReadyNormalMode(status); break;
+  case interface::AUTO  : is_ready = isReadyAutoMode  (status); break;
   }
 
   return is_ready;

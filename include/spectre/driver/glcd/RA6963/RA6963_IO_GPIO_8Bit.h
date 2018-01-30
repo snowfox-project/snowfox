@@ -49,7 +49,7 @@ namespace RA6963
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RA6963_IO_GPIO_8Bit : public RA6963_IO_Interface
+class RA6963_IO_GPIO_8Bit : public interface::RA6963_IO_Interface
 {
 
 public:
