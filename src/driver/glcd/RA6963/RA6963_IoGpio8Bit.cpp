@@ -42,14 +42,14 @@ namespace RA6963
  * CTOR/DTOR
  **************************************************************************************/
 
-RA6963_IO_GPIO_8Bit::RA6963_IO_GPIO_8Bit(hal::interface::Delay                     & delay,
-                                         hal::interface::DigitalOutPin             & wr,
-                                         hal::interface::DigitalOutPin             & rd,
-                                         hal::interface::DigitalOutPin             & ce,
-                                         hal::interface::DigitalOutPin             & c_d,
-                                         hal::interface::DigitalOutPin             & rst,
-                                         hal::interface::DigitalOutPin             & fs,
-                                         hal::interface::DigitalInOutPort<uint8_t> & data)
+RA6963_IoGpio8Bit::RA6963_IoGpio8Bit(hal::interface::Delay                     & delay,
+                                     hal::interface::DigitalOutPin             & wr,
+                                     hal::interface::DigitalOutPin             & rd,
+                                     hal::interface::DigitalOutPin             & ce,
+                                     hal::interface::DigitalOutPin             & c_d,
+                                     hal::interface::DigitalOutPin             & rst,
+                                     hal::interface::DigitalOutPin             & fs,
+                                     hal::interface::DigitalInOutPort<uint8_t> & data)
 : _delay(delay),
   _wr   (wr   ),
   _rd   (rd   ),
@@ -62,7 +62,7 @@ RA6963_IO_GPIO_8Bit::RA6963_IO_GPIO_8Bit(hal::interface::Delay                  
   _data.setMode(hal::interface::DigitalInOutPortConfiguration::INPUT);
 }
 
-RA6963_IO_GPIO_8Bit::~RA6963_IO_GPIO_8Bit()
+RA6963_IoGpio8Bit::~RA6963_IoGpio8Bit()
 {
 
 }
@@ -71,7 +71,7 @@ RA6963_IO_GPIO_8Bit::~RA6963_IO_GPIO_8Bit()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void RA6963_IO_GPIO_8Bit::reset()
+void RA6963_IoGpio8Bit::reset()
 {
   _rst.set();
 
@@ -84,7 +84,7 @@ void RA6963_IO_GPIO_8Bit::reset()
   _rst.set();
 }
 
-uint8_t RA6963_IO_GPIO_8Bit::readStatus()
+uint8_t RA6963_IoGpio8Bit::readStatus()
 {
   _data.setMode(hal::interface::DigitalInOutPortConfiguration::INPUT);
 
@@ -101,7 +101,7 @@ uint8_t RA6963_IO_GPIO_8Bit::readStatus()
   return status;
 }
 
-uint8_t RA6963_IO_GPIO_8Bit::readData()
+uint8_t RA6963_IoGpio8Bit::readData()
 {
   _data.setMode(hal::interface::DigitalInOutPortConfiguration::INPUT);
 
@@ -118,7 +118,7 @@ uint8_t RA6963_IO_GPIO_8Bit::readData()
   return data;
 }
 
-void RA6963_IO_GPIO_8Bit::writeData(uint8_t const data_val)
+void RA6963_IoGpio8Bit::writeData(uint8_t const data_val)
 {
   _data.setMode(hal::interface::DigitalInOutPortConfiguration::OUTPUT);
 
@@ -136,7 +136,7 @@ void RA6963_IO_GPIO_8Bit::writeData(uint8_t const data_val)
   _c_d.set();
 }
 
-void RA6963_IO_GPIO_8Bit::writeCommand(uint8_t const cmd_val)
+void RA6963_IoGpio8Bit::writeCommand(uint8_t const cmd_val)
 {
   _data.setMode(hal::interface::DigitalInOutPortConfiguration::OUTPUT);
 

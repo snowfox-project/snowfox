@@ -51,7 +51,7 @@ namespace RA6963
  * CTOR/DTOR
  **************************************************************************************/
 
-RA6963_Data::RA6963_Data(interface::RA6963_IO_Interface & io)
+RA6963_Data::RA6963_Data(interface::RA6963_Io & io)
 : _io(io)
 {
   _io.reset();

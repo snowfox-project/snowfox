@@ -48,13 +48,13 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RA6963_IO_Interface
+class RA6963_Io
 {
 
 public:
 
-           RA6963_IO_Interface() { }
-  virtual ~RA6963_IO_Interface() { }
+           RA6963_Io() { }
+  virtual ~RA6963_Io() { }
 
 
   virtual void    reset       (                      ) = 0;

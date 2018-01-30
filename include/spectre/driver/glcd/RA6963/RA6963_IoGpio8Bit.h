@@ -49,20 +49,20 @@ namespace RA6963
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RA6963_IO_GPIO_8Bit : public interface::RA6963_IO_Interface
+class RA6963_IoGpio8Bit : public interface::RA6963_Io
 {
 
 public:
 
-           RA6963_IO_GPIO_8Bit(hal::interface::Delay                     & delay,
-                               hal::interface::DigitalOutPin             & wr,
-                               hal::interface::DigitalOutPin             & rd,
-                               hal::interface::DigitalOutPin             & ce,
-                               hal::interface::DigitalOutPin             & c_d,
-                               hal::interface::DigitalOutPin             & rst,
-                               hal::interface::DigitalOutPin             & fs,
-                               hal::interface::DigitalInOutPort<uint8_t> & data);
-  virtual ~RA6963_IO_GPIO_8Bit();
+           RA6963_IoGpio8Bit(hal::interface::Delay                     & delay,
+                             hal::interface::DigitalOutPin             & wr,
+                             hal::interface::DigitalOutPin             & rd,
+                             hal::interface::DigitalOutPin             & ce,
+                             hal::interface::DigitalOutPin             & c_d,
+                             hal::interface::DigitalOutPin             & rst,
+                             hal::interface::DigitalOutPin             & fs,
+                             hal::interface::DigitalInOutPort<uint8_t> & data);
+  virtual ~RA6963_IoGpio8Bit();
 
 
   virtual void    reset       (                      ) override;

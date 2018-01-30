@@ -47,12 +47,12 @@ namespace RA6963
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RA6963_Data : public interface::RA6963_Data_Interface
+class RA6963_Data : public interface::RA6963_Data
 {
 
 public:
 
-           RA6963_Data(interface::RA6963_IO_Interface & io);
+           RA6963_Data(interface::RA6963_Io & io);
   virtual ~RA6963_Data();
 
 
@@ -62,7 +62,7 @@ public:
 
 private:
 
-  interface::RA6963_IO_Interface & _io;
+  interface::RA6963_Io & _io;
 
   void waitForReady     (interface::OperationMode const mode                      ) const;
   bool isReady          (interface::OperationMode const mode, uint8_t const status) const;

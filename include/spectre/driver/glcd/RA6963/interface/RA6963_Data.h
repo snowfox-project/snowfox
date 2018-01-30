@@ -59,13 +59,13 @@ typedef enum
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RA6963_Data_Interface
+class RA6963_Data
 {
 
 public:
 
-           RA6963_Data_Interface() { }
-  virtual ~RA6963_Data_Interface() { }
+           RA6963_Data() { }
+  virtual ~RA6963_Data() { }
 
 
   virtual uint8_t readData    (OperationMode const mode                        ) = 0;
