@@ -57,13 +57,18 @@ public:
   virtual ~MCP2515_IoSpi();
 
 
-  virtual void    reset         (                      ) override;
-  virtual uint8_t status        (                      ) override;
-  virtual void    loadTx0       (uint8_t const * tx_buf) override;
-  virtual void    loadTx1       (uint8_t const * tx_buf) override;
-  virtual void    loadTx2       (uint8_t const * tx_buf) override;
-  virtual void    readRx0       (uint8_t       * rx_buf) override;
-  virtual void    readRx1       (uint8_t       * rx_buf) override;
+  virtual void    reset   () override;
+  virtual uint8_t status  () override;
+
+  virtual void    loadTx0 (uint8_t const * tx_buf) override;
+  virtual void    loadTx1 (uint8_t const * tx_buf) override;
+  virtual void    loadTx2 (uint8_t const * tx_buf) override;
+  virtual void    readRx0 (uint8_t       * rx_buf) override;
+  virtual void    readRx1 (uint8_t       * rx_buf) override;
+
+  virtual void    requestToTrasmitTx0() override;
+  virtual void    requestToTrasmitTx1() override;
+  virtual void    requestToTrasmitTx2() override;
 
   virtual void    readRegister  (interface::Register const reg, uint8_t       * data                    ) override;
   virtual void    writeRegister (interface::Register const reg, uint8_t const   data                    ) override;
