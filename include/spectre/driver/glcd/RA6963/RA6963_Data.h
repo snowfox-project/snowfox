@@ -23,9 +23,9 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/glcd/RA6963/interface/RA6963_Data_Interface.h>
+#include <spectre/driver/glcd/RA6963/interface/RA6963_Data.h>
 
-#include <spectre/driver/glcd/RA6963/interface/RA6963_IO_Interface.h>
+#include <spectre/driver/glcd/RA6963/interface/RA6963_Io.h>
 
 /**************************************************************************************
  * NAMESPACE

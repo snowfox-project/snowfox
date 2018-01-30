@@ -23,7 +23,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/glcd/RA6963/interface/RA6963_IO_Interface.h>
+#include <spectre/driver/glcd/RA6963/interface/RA6963_Io.h>
 
 #include <spectre/hal/interface/delay/Delay.h>
 #include <spectre/hal/interface/gpio/DigitalOutPin.h>
