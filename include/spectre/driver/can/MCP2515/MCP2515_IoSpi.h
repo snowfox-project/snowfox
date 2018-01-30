@@ -57,8 +57,11 @@ public:
   virtual ~MCP2515_IoSpi();
 
 
-  virtual void    reset         () override;
-  virtual uint8_t status        () override;
+  virtual void    reset         (                      ) override;
+  virtual uint8_t status        (                      ) override;
+  virtual void    loadTx0       (uint8_t const * tx_buf) override;
+  virtual void    loadTx1       (uint8_t const * tx_buf) override;
+  virtual void    loadTx2       (uint8_t const * tx_buf) override;
 
   virtual void    readRegister  (interface::Register const reg, uint8_t       * data                    ) override;
   virtual void    writeRegister (interface::Register const reg, uint8_t const   data                    ) override;
@@ -68,6 +71,8 @@ private:
 
   hal::interface::SPIMaster     & _spi_master;
   hal::interface::DigitalOutPin & _cs;
+
+  void loadTxX(uint8_t const instruction, uint8_t const * tx_buf);
 
 };
 

@@ -163,8 +163,11 @@ public:
   virtual ~MCP2515_Io() { }
 
 
-  virtual void    reset         () = 0;
-  virtual uint8_t status        () = 0;
+  virtual void    reset         (                      ) = 0;
+  virtual uint8_t status        (                      ) = 0;
+  virtual void    loadTx0       (uint8_t const * tx_buf) = 0; /* buf = {SIDH, SIDL, EID8, EDI0, DLC, DATA[0-8 Byte] } */
+  virtual void    loadTx1       (uint8_t const * tx_buf) = 0;
+  virtual void    loadTx2       (uint8_t const * tx_buf) = 0;
 
   virtual void    readRegister  (Register const reg, uint8_t       * data                    ) = 0;
   virtual void    writeRegister (Register const reg, uint8_t const   data                    ) = 0;

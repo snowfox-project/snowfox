@@ -39,6 +39,20 @@ namespace MCP2515
 {
 
 /**************************************************************************************
+ * TYPEDEFS
+ **************************************************************************************/
+
+enum class TxBufferBytePos : uint8_t
+{
+  SIDH = 0,
+  SIDL = 1,
+  EID8 = 2,
+  EID0 = 3,
+  DLC  = 4,
+  DATA = 5
+};
+
+/**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
@@ -79,6 +93,21 @@ uint8_t MCP2515_IoSpi::status()
   return status;
 }
 
+void MCP2515_IoSpi::loadTx0(uint8_t const * tx_buf)
+{
+  loadTxX(static_cast<uint8_t>(interface::Instruction::LOAD_TX0), tx_buf);
+}
+
+void MCP2515_IoSpi::loadTx1(uint8_t const * tx_buf)
+{
+  loadTxX(static_cast<uint8_t>(interface::Instruction::LOAD_TX1), tx_buf);
+}
+
+void MCP2515_IoSpi::loadTx2(uint8_t const * tx_buf)
+{
+  loadTxX(static_cast<uint8_t>(interface::Instruction::LOAD_TX2), tx_buf);
+}
+
 void MCP2515_IoSpi::readRegister(interface::Register const reg, uint8_t * data)
 {
   uint8_t const instruction = static_cast<uint8_t>(interface::Instruction::READ);
@@ -113,6 +142,28 @@ void MCP2515_IoSpi::modifyRegister(interface::Register const reg, uint8_t const 
   _spi_master.exchange(reg_addr   );
   _spi_master.exchange(mask       );
   _spi_master.exchange(data       );
+  _cs.set();
+}
+
+/**************************************************************************************
+ * PRIVATE MEMBER FUNCTIONS
+ **************************************************************************************/
+
+void MCP2515_IoSpi::loadTxX(uint8_t const instruction, uint8_t const * tx_buf)
+{
+  uint8_t const num_data_bytes = tx_buf[static_cast<uint8_t>(TxBufferBytePos::DLC)] & 0x0F;
+
+  _cs.clr();
+  _spi_master.exchange(instruction);
+  _spi_master.exchange(tx_buf[static_cast<uint8_t>(TxBufferBytePos::SIDH)]);
+  _spi_master.exchange(tx_buf[static_cast<uint8_t>(TxBufferBytePos::SIDL)]);
+  _spi_master.exchange(tx_buf[static_cast<uint8_t>(TxBufferBytePos::EID8)]);
+  _spi_master.exchange(tx_buf[static_cast<uint8_t>(TxBufferBytePos::EID0)]);
+  _spi_master.exchange(tx_buf[static_cast<uint8_t>(TxBufferBytePos::DLC )]);
+  for(uint8_t b = 0; b < num_data_bytes; b++)
+  {
+    _spi_master.exchange(tx_buf[static_cast<uint8_t>(TxBufferBytePos::DATA) + b]);
+  }
   _cs.set();
 }
 
