@@ -108,6 +108,16 @@ void MCP2515_IoSpi::loadTx2(uint8_t const * tx_buf)
   loadTxX(static_cast<uint8_t>(interface::Instruction::LOAD_TX2), tx_buf);
 }
 
+void MCP2515_IoSpi::readRx0(uint8_t * rx_buf)
+{
+  loadRxX(static_cast<uint8_t>(interface::Instruction::READ_RX0), rx_buf);
+}
+
+void MCP2515_IoSpi::readRx1(uint8_t * rx_buf)
+{
+  loadRxX(static_cast<uint8_t>(interface::Instruction::READ_RX1), rx_buf);
+}
+
 void MCP2515_IoSpi::readRegister(interface::Register const reg, uint8_t * data)
 {
   uint8_t const instruction = static_cast<uint8_t>(interface::Instruction::READ);
@@ -163,6 +173,23 @@ void MCP2515_IoSpi::loadTxX(uint8_t const instruction, uint8_t const * tx_buf)
   for(uint8_t b = 0; b < num_data_bytes; b++)
   {
     _spi_master.exchange(tx_buf[static_cast<uint8_t>(TxBufferBytePos::DATA) + b]);
+  }
+  _cs.set();
+}
+
+void MCP2515_IoSpi::loadRxX(uint8_t const instruction, uint8_t * rx_buf)
+{
+  _cs.clr();
+                                                        _spi_master.exchange(instruction);
+  rx_buf[static_cast<uint8_t>(TxBufferBytePos::SIDH)] = _spi_master.exchange(0);
+  rx_buf[static_cast<uint8_t>(TxBufferBytePos::SIDL)] = _spi_master.exchange(0);
+  rx_buf[static_cast<uint8_t>(TxBufferBytePos::EID8)] = _spi_master.exchange(0);
+  rx_buf[static_cast<uint8_t>(TxBufferBytePos::EID0)] = _spi_master.exchange(0);
+  rx_buf[static_cast<uint8_t>(TxBufferBytePos::DLC )] = _spi_master.exchange(0);
+  uint8_t const num_data_bytes = rx_buf[static_cast<uint8_t>(TxBufferBytePos::DLC)] & 0x0F;
+  for(uint8_t b = 0; b < num_data_bytes; b++)
+  {
+    rx_buf[static_cast<uint8_t>(TxBufferBytePos::DATA) + b] = _spi_master.exchange(0);
   }
   _cs.set();
 }

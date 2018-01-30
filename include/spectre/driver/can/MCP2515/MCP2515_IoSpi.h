@@ -62,6 +62,8 @@ public:
   virtual void    loadTx0       (uint8_t const * tx_buf) override;
   virtual void    loadTx1       (uint8_t const * tx_buf) override;
   virtual void    loadTx2       (uint8_t const * tx_buf) override;
+  virtual void    readRx0       (uint8_t       * rx_buf) override;
+  virtual void    readRx1       (uint8_t       * rx_buf) override;
 
   virtual void    readRegister  (interface::Register const reg, uint8_t       * data                    ) override;
   virtual void    writeRegister (interface::Register const reg, uint8_t const   data                    ) override;
@@ -73,6 +75,7 @@ private:
   hal::interface::DigitalOutPin & _cs;
 
   void loadTxX(uint8_t const instruction, uint8_t const * tx_buf);
+  void loadRxX(uint8_t const instruction, uint8_t       * rx_buf);
 
 };
 
