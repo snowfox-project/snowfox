@@ -72,22 +72,35 @@ RA6963_Control::~RA6963_Control()
 
 void RA6963_Control::setGfxHomeAddress(uint16_t const gfx_home_address)
 {
-
+  _data.writeData   (_mode, static_cast<uint8_t>(gfx_home_address % 256)); /* D1 = Low  Byte */
+  _data.writeData   (_mode, static_cast<uint8_t>(gfx_home_address / 256)); /* D2 = High Byte */
+  _data.writeCommand(_mode, RA6963_CMD_SET_GFX_HOME_ADDRESS             );
 }
 
 void RA6963_Control::setGfxArea(uint8_t const gfx_columns)
 {
-
+  _data.writeData   (_mode, gfx_columns                    );
+  _data.writeData   (_mode, 0                              );
+  _data.writeCommand(_mode, RA6963_CMD_SET_GFX_HOME_ADDRESS);
 }
 
 void RA6963_Control::setAddressPointer(uint16_t const address_pointer)
 {
-
+  _data.writeData   (_mode, static_cast<uint8_t>(address_pointer % 256));
+  _data.writeData   (_mode, static_cast<uint8_t>(address_pointer / 256));
+  _data.writeCommand(_mode, RA6963_CMD_SET_ADDRESS_POINTER             );
 }
 
 void RA6963_Control::write(uint8_t const * data, uint32_t const num_bytes)
 {
+  setOperationMode(interface::OpMode::AUTO);
 
+  for(uint32_t b = 0; b < num_bytes; b++)
+  {
+    _data.writeData(_mode, data[b]);
+  }
+
+  setOperationMode(interface::OpMode::NORMAL);
 }
 
 /**************************************************************************************
