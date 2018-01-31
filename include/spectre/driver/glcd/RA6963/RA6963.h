@@ -25,6 +25,8 @@
 
 #include <spectre/driver/interface/Driver.h>
 
+#include <spectre/driver/glcd/RA6963/interface/RA6963_Control.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -42,16 +44,22 @@ namespace RA6963
 {
 
 /**************************************************************************************
+ * CONSTANTS
+ **************************************************************************************/
+
+static uint32_t constexpr IOCTL_SET_GFX_AREA = 0; /* Arg: uint16_t * */
+
+/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RA6963 : public interface::Driver
+class RA6963 : public driver::interface::Driver
 {
 
 public:
 
 
-           RA6963();
+           RA6963(interface::RA6963_Control & ctrl);
   virtual ~RA6963();
 
 
@@ -60,6 +68,11 @@ public:
   bool write(uint8_t  const * buffer, uint32_t const   num_bytes) override;
   bool ioctl(uint32_t const   cmd,    void           * arg      ) override;
   bool close(                                                   ) override;
+
+
+private:
+
+  interface::RA6963_Control & _ctrl;
 
 };
 

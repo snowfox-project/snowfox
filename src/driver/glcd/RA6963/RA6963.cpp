@@ -39,10 +39,17 @@ namespace RA6963
 {
 
 /**************************************************************************************
+ * CONSTANTS
+ **************************************************************************************/
+
+static uint16_t const GFX_HOME_ADDRESS = 0x0000;
+
+/**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
-RA6963::RA6963()
+RA6963::RA6963(interface::RA6963_Control & ctrl)
+: _ctrl(ctrl)
 {
 
 }
@@ -58,32 +65,41 @@ RA6963::~RA6963()
 
 bool RA6963::open()
 {
-  /* TODO */
-  return false;
+  _ctrl.setGfxHomeAddress(GFX_HOME_ADDRESS);
+  return true;
 }
 
 bool RA6963::read(uint8_t * buffer, uint32_t const num_bytes)
 {
-  /* TODO */
   return false;
 }
 
 bool RA6963::write(uint8_t const * buffer, uint32_t const num_bytes)
 {
-  /* TODO */
-  return false;
+  _ctrl.setAddressPointer(GFX_HOME_ADDRESS );
+  _ctrl.write            (buffer, num_bytes);
+  return true;
 }
 
 bool RA6963::ioctl(uint32_t const cmd, void * arg)
 {
-  /* TODO */
-  return false;
+  switch(cmd)
+  {
+  /* IOCTL_SET_GFX_AREA ***************************************************************/
+  case IOCTL_SET_GFX_AREA:
+  {
+    uint16_t const * arg_ptr = static_cast<uint16_t *>(arg);
+    _ctrl.setGfxArea(*arg_ptr);
+  }
+  break;
+  }
+
+  return true;
 }
 
 bool RA6963::close()
 {
-  /* TODO */
-  return false;
+  return true;
 }
 
 /**************************************************************************************

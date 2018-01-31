@@ -38,6 +38,13 @@
 #include <spectre/driver/glcd/RA6963/RA6963_IoGpio8Bit.h>
 
 /**************************************************************************************
+ * CONSTANTS
+ **************************************************************************************/
+
+static uint16_t const WIDTH    = 128;
+static uint16_t const HEIGTH   =  64;
+
+/**************************************************************************************
  * NAMESPACES
  **************************************************************************************/
 
@@ -69,11 +76,14 @@ int main()
   glcd::RA6963::RA6963_IoGpio8Bit ra6963_io     (delay, wr, rd, ce, c_d, rst, fs, data);
   glcd::RA6963::RA6963_Data       ra6963_data   (ra6963_io);
   glcd::RA6963::RA6963_Control    ra6963_control(ra6963_data);
-  glcd::RA6963::RA6963            ra6963;
+  glcd::RA6963::RA6963            ra6963        (ra6963_control);
 
   /* APPLICATION **********************************************************************/
 
   ra6963.open();
+
+  uint16_t gfx_area = WIDTH / 8;
+  ra6963.ioctl(glcd::RA6963::IOCTL_SET_GFX_AREA, static_cast<void *>(&gfx_area));
 
   for(;;) { }
 
