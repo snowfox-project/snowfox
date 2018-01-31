@@ -77,9 +77,9 @@ void RA6963_Control::setGfxHomeAddress(uint16_t const gfx_home_address)
 
 void RA6963_Control::setGfxArea(uint8_t const gfx_columns)
 {
-  writeData   (gfx_columns                    );
-  writeData   (0                              );
-  writeCommand(RA6963_CMD_SET_GFX_HOME_ADDRESS);
+  writeData   (gfx_columns            );
+  writeData   (0                      );
+  writeCommand(RA6963_CMD_SET_GFX_AREA);
 }
 
 void RA6963_Control::setAddressPointer(uint16_t const address_pointer)

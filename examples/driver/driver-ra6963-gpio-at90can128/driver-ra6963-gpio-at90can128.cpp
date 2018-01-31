@@ -34,6 +34,7 @@
 
 #include <spectre/driver/glcd/RA6963/RA6963.h>
 #include <spectre/driver/glcd/RA6963/RA6963_Data.h>
+#include <spectre/driver/glcd/RA6963/RA6963_Control.h>
 #include <spectre/driver/glcd/RA6963/RA6963_IoGpio8Bit.h>
 
 /**************************************************************************************
@@ -65,8 +66,9 @@ int main()
 
   /* DRIVER ***************************************************************************/
 
-  glcd::RA6963::RA6963_IoGpio8Bit ra6963_io   (delay, wr, rd, ce, c_d, rst, fs, data);
-  glcd::RA6963::RA6963_Data       ra6963_data (ra6963_io);
+  glcd::RA6963::RA6963_IoGpio8Bit ra6963_io     (delay, wr, rd, ce, c_d, rst, fs, data);
+  glcd::RA6963::RA6963_Data       ra6963_data   (ra6963_io);
+  glcd::RA6963::RA6963_Control    ra6963_control(ra6963_data);
   glcd::RA6963::RA6963            ra6963;
 
   /* APPLICATION **********************************************************************/
