@@ -31,8 +31,6 @@ static uint8_t const RA6963_CMD_SET_GFX_HOME_ADDRESS  = 0x42;
 static uint8_t const RA6963_CMD_SET_GFX_AREA          = 0x43;
 static uint8_t const RA6963_CMD_SET_DATA_AUTO_WRITE   = 0xB0;
 static uint8_t const RA6963_CMD_RESET_AUTO_READ_WRITE = 0xB1;
-static uint8_t const RA6963_CMD_SET_BIT_WITHIN_BYTE   = 0xF8;
-static uint8_t const RA6963_CMD_CLR_BIT_WITHIN_BYTE   = 0xF0;
 
 /**************************************************************************************
  * NAMESPACE
@@ -72,23 +70,23 @@ RA6963_Control::~RA6963_Control()
 
 void RA6963_Control::setGfxHomeAddress(uint16_t const gfx_home_address)
 {
-  _data.writeData   (_mode, static_cast<uint8_t>(gfx_home_address % 256)); /* D1 = Low  Byte */
-  _data.writeData   (_mode, static_cast<uint8_t>(gfx_home_address / 256)); /* D2 = High Byte */
-  _data.writeCommand(_mode, RA6963_CMD_SET_GFX_HOME_ADDRESS             );
+  writeData   (static_cast<uint8_t>(gfx_home_address % 256)); /* D1 = Low  Byte */
+  writeData   (static_cast<uint8_t>(gfx_home_address / 256)); /* D2 = High Byte */
+  writeCommand(RA6963_CMD_SET_GFX_HOME_ADDRESS             );
 }
 
 void RA6963_Control::setGfxArea(uint8_t const gfx_columns)
 {
-  _data.writeData   (_mode, gfx_columns                    );
-  _data.writeData   (_mode, 0                              );
-  _data.writeCommand(_mode, RA6963_CMD_SET_GFX_HOME_ADDRESS);
+  writeData   (gfx_columns                    );
+  writeData   (0                              );
+  writeCommand(RA6963_CMD_SET_GFX_HOME_ADDRESS);
 }
 
 void RA6963_Control::setAddressPointer(uint16_t const address_pointer)
 {
-  _data.writeData   (_mode, static_cast<uint8_t>(address_pointer % 256));
-  _data.writeData   (_mode, static_cast<uint8_t>(address_pointer / 256));
-  _data.writeCommand(_mode, RA6963_CMD_SET_ADDRESS_POINTER             );
+  writeData   (static_cast<uint8_t>(address_pointer % 256));
+  writeData   (static_cast<uint8_t>(address_pointer / 256));
+  writeCommand(RA6963_CMD_SET_ADDRESS_POINTER             );
 }
 
 void RA6963_Control::write(uint8_t const * data, uint32_t const num_bytes)
@@ -97,7 +95,7 @@ void RA6963_Control::write(uint8_t const * data, uint32_t const num_bytes)
 
   for(uint32_t b = 0; b < num_bytes; b++)
   {
-    _data.writeData(_mode, data[b]);
+    writeData(data[b]);
   }
 
   setOperationMode(interface::OpMode::NORMAL);
@@ -116,6 +114,16 @@ void RA6963_Control::setOperationMode(interface::OpMode const mode)
   }
 
   _mode = mode;
+}
+
+void RA6963_Control::writeData(uint8_t const data_val)
+{
+  _data.writeData(_mode, data_val);
+}
+
+void RA6963_Control::writeCommand(uint8_t const cmd_val)
+{
+  _data.writeCommand(_mode, cmd_val);
 }
 
 /**************************************************************************************

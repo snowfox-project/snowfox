@@ -67,7 +67,9 @@ private:
   interface::RA6963_Data & _data;
   interface::OpMode        _mode;
 
-  void setOperationMode(interface::OpMode const mode);
+  void setOperationMode(interface::OpMode const mode    );
+  void writeData       (uint8_t           const data_val);
+  void writeCommand    (uint8_t           const cmd_val );
 
 };
 
