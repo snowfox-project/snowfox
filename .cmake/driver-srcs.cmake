@@ -15,6 +15,17 @@ endif()
 
 ##########################################################################
 
+set(DRIVER_CONSOLE_SRC_PATH src/driver/console)
+
+if(${DRIVER_CONSOLE_SERIAL} STREQUAL "yes")
+  set(DRIVER_CONSOLE_SERIAL_SRCS
+    ${DRIVER_CONSOLE_SRC_PATH}/Serial/Serial.cpp
+  )
+  set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} ${DRIVER_CONSOLE_SERIAL_SRCS})
+endif()
+
+##########################################################################
+
 set(DRIVER_GLCD_SRC_PATH src/driver/glcd)
 
 if(${DRIVER_GLCD_RA6963} STREQUAL "yes")
