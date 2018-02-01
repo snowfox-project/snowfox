@@ -16,8 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_LOCKING_CRITICALSECTION_H_
-#define INCLUDE_SPECTRE_HAL_INTERFACE_LOCKING_CRITICALSECTION_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_ATXXXX_CRITICALSECTION_H_
+#define INCLUDE_SPECTRE_HAL_AVR_ATXXXX_CRITICALSECTION_H_
+
+/**************************************************************************************
+ * INCLUDES
+ **************************************************************************************/
+
+#include <spectre/hal/interface/locking/CriticalSection.h>
+
+#include <stdint.h>
+#include <stdbool.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -29,24 +38,33 @@ namespace spectre
 namespace hal
 {
 
-namespace interface
+namespace ATxxxx
 {
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class CriticalSection
+class CriticalSection : public interface::CriticalSection
 {
 
 public:
 
-           CriticalSection() { }
-  virtual ~CriticalSection() { }
+           CriticalSection(volatile uint8_t * sreg);
+  virtual ~CriticalSection();
 
 
-  virtual void lock  () = 0;
-  virtual void unlock() = 0;
+  virtual void lock  () override;
+  virtual void unlock() override;
+
+
+private:
+
+  volatile uint8_t * _sreg;
+           bool      _is_global_int_flag_set;
+
+
+  static bool isGobalIntFlagSet(uint8_t const sreg);
 
 };
 
@@ -54,10 +72,10 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface*/
+} /* ATxxxx */
 
 } /* hal */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_LOCKING_CRITICALSECTION_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_ATXXXX_CRITICALSECTION_H_ */

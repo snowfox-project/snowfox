@@ -25,6 +25,7 @@ set(SPECTRE_LIBRARY_HAL_AVR_PATH src/hal/avr)
 
 set(SPECTRE_LIBRARY_HAL_AVR_ATxxxx_SRCS
   ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/Delay.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/CriticalSection.cpp
   ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/DigitalInOutPort.cpp
   ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/DigitalInPin.cpp    
   ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/DigitalInPort.cpp   

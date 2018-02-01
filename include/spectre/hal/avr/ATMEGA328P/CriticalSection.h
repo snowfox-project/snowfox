@@ -16,8 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_LOCKING_CRITICALSECTION_H_
-#define INCLUDE_SPECTRE_HAL_INTERFACE_LOCKING_CRITICALSECTION_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_ATMEGA328P_CRITICALSECTION_H_
+#define INCLUDE_SPECTRE_HAL_AVR_ATMEGA328P_CRITICALSECTION_H_
+
+/**************************************************************************************
+ * INCLUDES
+ **************************************************************************************/
+
+#include <spectre/hal/avr/ATxxxx/CriticalSection.h>
+
 
 /**************************************************************************************
  * NAMESPACE
@@ -29,24 +36,20 @@ namespace spectre
 namespace hal
 {
 
-namespace interface
+namespace ATMEGA328P
 {
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class CriticalSection
+class CriticalSection : public ATxxxx::CriticalSection
 {
 
 public:
 
-           CriticalSection() { }
+           CriticalSection(volatile uint8_t * sreg) : ATxxxx::CriticalSection(sreg) { }
   virtual ~CriticalSection() { }
-
-
-  virtual void lock  () = 0;
-  virtual void unlock() = 0;
 
 };
 
@@ -54,10 +57,10 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface*/
+} /* ATMEGA328P */
 
 } /* hal */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_LOCKING_CRITICALSECTION_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_ATMEGA328P_CRITICALSECTION_H_ */

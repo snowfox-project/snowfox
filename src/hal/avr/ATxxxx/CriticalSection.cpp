@@ -16,8 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_LOCKING_CRITICALSECTION_H_
-#define INCLUDE_SPECTRE_HAL_INTERFACE_LOCKING_CRITICALSECTION_H_
+/**************************************************************************************
+ * INCLUDES
+ **************************************************************************************/
+
+#include <spectre/hal/avr/ATxxxx/CriticalSection.h>
+
+#ifdef MCU_ARCH_avr
+#include <avr/interrupt.h>
+#endif
 
 /**************************************************************************************
  * NAMESPACE
@@ -29,35 +36,53 @@ namespace spectre
 namespace hal
 {
 
-namespace interface
+namespace ATxxxx
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class CriticalSection
+CriticalSection::CriticalSection(volatile uint8_t * sreg)
+: _sreg                  (sreg ),
+  _is_global_int_flag_set(false)
 {
 
-public:
+}
 
-           CriticalSection() { }
-  virtual ~CriticalSection() { }
+CriticalSection::~CriticalSection()
+{
 
+}
 
-  virtual void lock  () = 0;
-  virtual void unlock() = 0;
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
-};
+void CriticalSection::lock()
+{
+#if MCU_ARCH_avr
+  _is_global_int_flag_set = isGobalIntFlagSet(*_sreg);
+  asm volatile("cli");
+#endif
+}
+
+void CriticalSection::unlock()
+{
+#if MCU_ARCH_avr
+  if(_is_global_int_flag_set)
+  {
+    asm volatile("sei");
+  }
+#endif
+}
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface*/
+} /* ATxxxx */
 
 } /* hal */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_LOCKING_CRITICALSECTION_H_ */
