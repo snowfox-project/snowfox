@@ -6,9 +6,11 @@
 # INTERFACE ##############################################################
 ##########################################################################
 
+set(SPECTRE_LIBRARY_HAL_INTERFACE_PATH src/hal/interface)
+
 set(SPECTRE_LIBRARY_HAL_INTERFACE_SRCS
-  src/hal/interface/can/CanFrame.cpp
-  src/hal/interface/locking/LockGuard.cpp
+  ${SPECTRE_LIBRARY_HAL_INTERFACE_PATH}/can/CanFrame.cpp
+  ${SPECTRE_LIBRARY_HAL_INTERFACE_PATH}/locking/LockGuard.cpp
 )
 
 ##########################################################################
