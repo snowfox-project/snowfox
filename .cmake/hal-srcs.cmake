@@ -8,6 +8,7 @@
 
 set(SPECTRE_LIBRARY_HAL_INTERFACE_SRCS
   src/hal/interface/can/CanFrame.cpp
+  src/hal/interface/locking/LockGuard.cpp
 )
 
 ##########################################################################
