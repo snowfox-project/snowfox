@@ -52,8 +52,9 @@ public:
    Queue(uint16_t const size);
   ~Queue();
 
-  bool push(T const   data);
-  bool pop (T       * data);
+  bool     push(T const   data);
+  bool     pop (T       * data);
+  uint16_t size(              ) const;
 
 private:
 
