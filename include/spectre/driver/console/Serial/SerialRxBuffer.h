@@ -25,7 +25,7 @@
 
 #include <stdint.h>
 
-#include <spectre/memory/container/RingBuffer.h>
+#include <spectre/memory/container/Queue.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -61,7 +61,7 @@ public:
 
 private:
 
-  memory::container::RingBuffer<uint8_t> _rx_buf;
+  memory::container::Queue<uint8_t> _rx_queue;
 
   void onSerialDataReceive(uint8_t const data);
 

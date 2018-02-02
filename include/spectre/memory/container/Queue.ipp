@@ -35,7 +35,7 @@ namespace container
  **************************************************************************************/
 
 template <class T>
-RingBuffer<T>::RingBuffer(uint16_t const size)
+Queue<T>::Queue(uint16_t const size)
 : _size         (size),
   _head         (0),
   _tail         (0),
@@ -46,7 +46,7 @@ RingBuffer<T>::RingBuffer(uint16_t const size)
 }
 
 template <class T>
-RingBuffer<T>::~RingBuffer()
+Queue<T>::~Queue()
 {
   delete []_data; _data = 0;
 }
@@ -56,7 +56,7 @@ RingBuffer<T>::~RingBuffer()
  **************************************************************************************/
 
 template <class T>
-bool RingBuffer<T>::push(T const data)
+bool Queue<T>::push(T const data)
 {
   if(isFull())  return false;
   else
@@ -67,7 +67,7 @@ bool RingBuffer<T>::push(T const data)
 }
 
 template <class T>
-bool RingBuffer<T>::pop(T * data)
+bool Queue<T>::pop(T * data)
 {
   if(isEmpty()) return false;
   else
@@ -82,19 +82,19 @@ bool RingBuffer<T>::pop(T * data)
  **************************************************************************************/
 
 template <class T>
-bool RingBuffer<T>::isFull() const
+bool Queue<T>::isFull() const
 {
   return (_num_entries == _size);
 }
 
 template <class T>
-bool RingBuffer<T>::isEmpty() const
+bool Queue<T>::isEmpty() const
 {
   return (_num_entries == 0);
 }
 
 template <class T>
-void RingBuffer<T>::pushData(T const data)
+void Queue<T>::pushData(T const data)
 {
   _data[_head] = data;
 
@@ -104,7 +104,7 @@ void RingBuffer<T>::pushData(T const data)
 }
 
 template <class T>
-void RingBuffer<T>::popData(T * data)
+void Queue<T>::popData(T * data)
 {
   *data = _data[_tail];
 
@@ -114,7 +114,7 @@ void RingBuffer<T>::popData(T * data)
 }
 
 template <class T>
-void RingBuffer<T>::incrementPtr(uint16_t * ptr) const
+void Queue<T>::incrementPtr(uint16_t * ptr) const
 {
   uint16_t const tmp_ptr = *ptr + 1;
 

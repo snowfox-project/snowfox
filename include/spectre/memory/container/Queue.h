@@ -44,13 +44,13 @@ namespace container
  **************************************************************************************/
 
 template <class T>
-class RingBuffer
+class Queue
 {
 
 public:
 
-   RingBuffer(uint16_t const size);
-  ~RingBuffer();
+   Queue(uint16_t const size);
+  ~Queue();
 
   bool push(T const   data);
   bool pop (T       * data);
@@ -86,6 +86,6 @@ private:
  * TEMPLATE CODE IMPLEMENTATION
  **************************************************************************************/
 
-#include "RingBuffer.ipp"
+#include "Queue.ipp"
 
 #endif /* INCLUDE_SPECTRE_MEMORY_RINGBUFFER_H_ */

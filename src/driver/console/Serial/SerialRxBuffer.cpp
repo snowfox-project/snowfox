@@ -43,7 +43,7 @@ namespace serial
  **************************************************************************************/
 
 SerialRxBuffer::SerialRxBuffer(uint16_t const size)
-: _rx_buf(size)
+: _rx_queue(size)
 {
 
 }
@@ -68,7 +68,7 @@ void SerialRxBuffer::onSerialDataReceive(SerialRxBuffer * _this, uint8_t const d
 
 void SerialRxBuffer::onSerialDataReceive(uint8_t const data)
 {
-  _rx_buf.push(data);
+  _rx_queue.push(data);
 }
 
 /**************************************************************************************
