@@ -97,9 +97,9 @@ bool RA6963::ioctl(uint32_t const cmd, void * arg)
   return true;
 }
 
-bool RA6963::close()
+void RA6963::close()
 {
-  return true;
+
 }
 
 /**************************************************************************************

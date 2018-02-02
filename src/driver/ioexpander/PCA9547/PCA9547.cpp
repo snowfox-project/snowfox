@@ -99,9 +99,9 @@ bool PCA9547::ioctl(uint32_t const cmd, void * arg)
   return false;
 }
 
-bool PCA9547::close()
+void PCA9547::close()
 {
-  return true;
+
 }
 
 /**************************************************************************************

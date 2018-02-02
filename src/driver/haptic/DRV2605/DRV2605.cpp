@@ -124,9 +124,9 @@ bool DRV2605::ioctl(uint32_t const cmd, void * arg)
   return false;
 }
 
-bool DRV2605::close()
+void DRV2605::close()
 {
-  return _ctrl.setStandby();
+  _ctrl.setStandby();
 }
 
 /**************************************************************************************

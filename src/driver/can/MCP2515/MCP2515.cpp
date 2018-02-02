@@ -80,10 +80,9 @@ bool MCP2515::ioctl(uint32_t const cmd, void * arg)
   return false;
 }
 
-bool MCP2515::close()
+void MCP2515::close()
 {
   /* TODO */
-  return false;
 }
 
 /**************************************************************************************

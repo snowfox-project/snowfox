@@ -67,7 +67,7 @@ public:
   virtual bool read (uint8_t        * buffer, uint32_t const   num_bytes) override;
   virtual bool write(uint8_t  const * buffer, uint32_t const   num_bytes) override;
   virtual bool ioctl(uint32_t const   cmd,    void           * arg      ) override;
-  virtual bool close(                                                   ) override;
+  virtual void close(                                                   ) override;
 
 private:
 

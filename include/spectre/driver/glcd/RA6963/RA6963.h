@@ -67,7 +67,7 @@ public:
   bool read (uint8_t        * buffer, uint32_t const   num_bytes) override;
   bool write(uint8_t  const * buffer, uint32_t const   num_bytes) override;
   bool ioctl(uint32_t const   cmd,    void           * arg      ) override;
-  bool close(                                                   ) override;
+  void close(                                                   ) override;
 
 
 private:

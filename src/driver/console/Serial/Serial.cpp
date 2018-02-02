@@ -80,10 +80,9 @@ bool Serial::ioctl(uint32_t const cmd, void * arg)
   return false;
 }
 
-bool Serial::close()
+void Serial::close()
 {
   /* TODO */
-  return false;
 }
 
 /**************************************************************************************

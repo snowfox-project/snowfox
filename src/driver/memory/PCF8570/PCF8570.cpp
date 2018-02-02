@@ -77,9 +77,9 @@ bool PCF8570::ioctl(uint32_t const cmd, void * arg)
   return false;
 }
 
-bool PCF8570::close()
+void PCF8570::close()
 {
-  return true;
+
 }
 
 /**************************************************************************************
