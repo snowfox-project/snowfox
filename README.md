@@ -4,11 +4,11 @@ Spectre = RTOS + HAL + IO + COMSTACK + CI + C++
 [![Build Status](https://travis-ci.org/lxrobotics/spectre.svg?branch=master)](https://travis-ci.org/lxrobotics/spectre)
 [![Coverage Status](https://coveralls.io/repos/github/lxrobotics/spectre/badge.svg?branch=master&service=github)](https://coveralls.io/github/lxrobotics/spectre?branch=master)
 
-### Why ? The usual stuff ...
+### What ?
 
 Spectre consists of an Real Time Operating System + an Hardware Abstraction Layer for dedicated architectures + IO driver support for various sensors and actuators + various industrial communication stacks encapsulated in a comfortable, small and elegant C++ API. Additionally a continous integration approach is employed with integrated unit testing ensuring code quality and functionality.
 
-### Why ? A philosophical approach ...
+### Why ?
 
 As Martin Fowler states so eloquently in his book *Refactoring: Improving the Design of Existing Code*: **“Any fool can write code that a computer can understand. Good programmers write code that humans can understand.”** While many will nod their head in agreement billions lines of code (both open and closed source) prove the exact opposite. Especially embedded code is prone to use mystic C and assembly constructs and after the passage of a couple of months their purpose eludes even their creator. This project attempts to do things differently by putting readability / maintainability / extensibility first while leveraging the powerful concept of Continous Integration with automated unit / regression / integration tests.
 
