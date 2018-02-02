@@ -40,12 +40,18 @@ namespace ATxxxx
 {
 
 /**************************************************************************************
+ * DEFINES
+ **************************************************************************************/
+
+#define GI_bm   (1<<7)
+
+/**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
 CriticalSection::CriticalSection(volatile uint8_t * sreg)
-: _sreg                  (sreg ),
-  _is_global_int_flag_set(false)
+: _sreg      (sreg),
+  _sreg_iflag(0   )
 {
 
 }
@@ -61,20 +67,17 @@ CriticalSection::~CriticalSection()
 
 void CriticalSection::lock()
 {
+  _sreg_iflag = *_sreg & GI_bm;
 #if MCU_ARCH_avr
-  _is_global_int_flag_set = isGobalIntFlagSet(*_sreg);
   asm volatile("cli");
+#else
+  *_sreg &= ~GI_bm; /* Has the same effect as 'cli' */
 #endif
 }
 
 void CriticalSection::unlock()
 {
-#if MCU_ARCH_avr
-  if(_is_global_int_flag_set)
-  {
-    asm volatile("sei");
-  }
-#endif
+  *_sreg |= _sreg_iflag;
 }
 
 /**************************************************************************************

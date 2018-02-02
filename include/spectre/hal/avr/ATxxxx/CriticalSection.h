@@ -61,10 +61,7 @@ public:
 private:
 
   volatile uint8_t * _sreg;
-           bool      _is_global_int_flag_set;
-
-
-  static bool isGobalIntFlagSet(uint8_t const sreg);
+           uint8_t   _sreg_iflag;
 
 };
 
