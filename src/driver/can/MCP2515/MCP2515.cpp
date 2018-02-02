@@ -62,13 +62,13 @@ bool MCP2515::open()
   return false;
 }
 
-bool MCP2515::read(uint8_t * buffer, uint32_t const num_bytes)
+ssize_t MCP2515::read(uint8_t * buffer, ssize_t const num_bytes)
 {
   /* TODO */
   return false;
 }
 
-bool MCP2515::write(uint8_t const * buffer, uint32_t const num_bytes)
+ssize_t MCP2515::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
   /* TODO */
   return false;

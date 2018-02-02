@@ -62,12 +62,12 @@ bool DRV2605::open()
   return _ctrl.clrStandby();
 }
 
-bool DRV2605::read(uint8_t * buffer, uint32_t const num_bytes)
+ssize_t DRV2605::read(uint8_t * buffer, ssize_t const num_bytes)
 {
   return false; /* Not supported for this driver */
 }
 
-bool DRV2605::write(uint8_t const * buffer, uint32_t const num_bytes)
+ssize_t DRV2605::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
   return false; /* Not supported for this driver */
 }

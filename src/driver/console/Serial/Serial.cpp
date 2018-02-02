@@ -62,13 +62,13 @@ bool Serial::open()
   return false;
 }
 
-bool Serial::read(uint8_t * buffer, uint32_t const num_bytes)
+ssize_t Serial::read(uint8_t * buffer, ssize_t const num_bytes)
 {
   /* TODO */
   return false;
 }
 
-bool Serial::write(uint8_t const * buffer, uint32_t const num_bytes)
+ssize_t Serial::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
   /* TODO */
   return false;

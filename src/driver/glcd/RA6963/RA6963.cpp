@@ -69,12 +69,12 @@ bool RA6963::open()
   return true;
 }
 
-bool RA6963::read(uint8_t * buffer, uint32_t const num_bytes)
+ssize_t RA6963::read(uint8_t * buffer, ssize_t const num_bytes)
 {
   return false;
 }
 
-bool RA6963::write(uint8_t const * buffer, uint32_t const num_bytes)
+ssize_t RA6963::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
   _ctrl.setAddressPointer(GFX_HOME_ADDRESS );
   _ctrl.write            (buffer, num_bytes);

@@ -62,12 +62,12 @@ bool PCA9547::open()
   return true;
 }
 
-bool PCA9547::read(uint8_t * buffer, uint32_t const num_bytes)
+ssize_t PCA9547::read(uint8_t * buffer, ssize_t const num_bytes)
 {
   return false;
 }
 
-bool PCA9547::write(uint8_t const * buffer, uint32_t const num_bytes)
+ssize_t PCA9547::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
   return false;
 }

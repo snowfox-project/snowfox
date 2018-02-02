@@ -62,12 +62,12 @@ bool PCF8570::open()
   return true;
 }
 
-bool PCF8570::read(uint8_t * buffer, uint32_t const num_bytes)
+ssize_t PCF8570::read(uint8_t * buffer, ssize_t const num_bytes)
 {
   return read(buffer[0], buffer + 1, num_bytes - 1);
 }
 
-bool PCF8570::write(uint8_t const * buffer, uint32_t const num_bytes)
+ssize_t PCF8570::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
   return write(buffer[0], buffer + 1, num_bytes - 1);
 }

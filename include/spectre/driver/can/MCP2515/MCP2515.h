@@ -55,11 +55,11 @@ public:
   virtual ~MCP2515();
 
 
-  bool open (                                                   ) override;
-  bool read (uint8_t        * buffer, uint32_t const   num_bytes) override;
-  bool write(uint8_t  const * buffer, uint32_t const   num_bytes) override;
-  bool ioctl(uint32_t const   cmd,    void           * arg      ) override;
-  void close(                                                   ) override;
+  bool    open (                                                  ) override;
+  ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) override;
+  ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override;
+  bool    ioctl(uint32_t const   cmd,    void          * arg      ) override;
+  void    close(                                                  ) override;
 
 };
 
