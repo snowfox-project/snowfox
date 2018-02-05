@@ -23,6 +23,8 @@
  * INCLUDES
  **************************************************************************************/
 
+#include <spectre/driver/console/Serial/interface/SerialController.h>
+
 #include <spectre/hal/interface/uart/UART.h>
 
 /**************************************************************************************
@@ -45,7 +47,7 @@ namespace serial
  * CLASS DECLARATION
  **************************************************************************************/
 
-class SerialController
+class SerialController : public interface::SerialController
 {
 
 public:

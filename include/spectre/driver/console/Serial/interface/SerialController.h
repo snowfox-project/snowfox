@@ -16,16 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_UARTCALLBACKHANDLER_H_
-#define INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_UARTCALLBACKHANDLER_H_
-
-/**************************************************************************************
- * INCLUDES
- **************************************************************************************/
-
-#include <spectre/hal/interface/uart/UARTCallback.h>
-
-#include <spectre/driver/console/Serial/interface/SerialController.h>
+#ifndef INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_INTERFACE_SERIALCONTROLLER_H_
+#define INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_INTERFACE_SERIALCONTROLLER_H_
 
 /**************************************************************************************
  * NAMESPACE
@@ -43,32 +35,29 @@ namespace console
 namespace serial
 {
 
+namespace interface
+{
+
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class SerialCallbackHandler : public spectre::hal::interface::UARTCallback
+class SerialController
 {
 
 public:
 
-           SerialCallbackHandler(interface::SerialController & serial_ctrl);
-  virtual ~SerialCallbackHandler();
 
-
-  virtual void onTransmitRegisterEmptyCallback() override;
-  virtual void onReceiveCompleteCallback      () override;
-
-
-private:
-
-  interface::SerialController & _serial_ctrl;
+           SerialController() { }
+  virtual ~SerialController() { }
 
 };
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* serial */
 
@@ -78,4 +67,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_UARTCALLBACKHANDLER_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_INTERFACE_SERIALCONTROLLER_H_ */

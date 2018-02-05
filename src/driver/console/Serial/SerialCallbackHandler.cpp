@@ -42,7 +42,8 @@ namespace serial
  * CTOR/DTOR
  **************************************************************************************/
 
-SerialCallbackHandler::SerialCallbackHandler()
+SerialCallbackHandler::SerialCallbackHandler(interface::SerialController & serial_ctrl)
+: _serial_ctrl(serial_ctrl)
 {
 
 }
