@@ -16,11 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_UARTCALLBACKHANDLER_H_
+#define INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_UARTCALLBACKHANDLER_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/console/Serial/UartCallbackHandler.h>
+#include <spectre/hal/interface/uart/UARTCallback.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,32 +42,22 @@ namespace serial
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * CLASS DECLARATION
  **************************************************************************************/
 
-UartCallbackHandler::UartCallbackHandler()
+class SerialCallbackHandler : public spectre::hal::interface::UARTCallback
 {
 
-}
+public:
 
-UartCallbackHandler::~UartCallbackHandler()
-{
+           SerialCallbackHandler();
+  virtual ~SerialCallbackHandler();
 
-}
 
-/**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
- **************************************************************************************/
+  virtual void onTransmitRegisterEmptyCallback() override;
+  virtual void onReceiveCompleteCallback      () override;
 
-void UartCallbackHandler::onTransmitRegisterEmptyCallback()
-{
-  /* TODO */
-}
-
-void UartCallbackHandler::onReceiveCompleteCallback()
-{
-  /* TODO */
-}
+};
 
 /**************************************************************************************
  * NAMESPACE
@@ -77,3 +70,5 @@ void UartCallbackHandler::onReceiveCompleteCallback()
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_UARTCALLBACKHANDLER_H_ */

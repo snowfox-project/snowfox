@@ -16,14 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_UARTCALLBACKHANDLER_H_
-#define INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_UARTCALLBACKHANDLER_H_
-
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/interface/uart/UARTCallback.h>
+#include <spectre/driver/console/Serial/SerialQueue.h>
+
+#include <spectre/hal/interface/locking/LockGuard.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,22 +41,37 @@ namespace serial
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class UartCallbackHandler : public spectre::hal::interface::UARTCallback
+SerialQueue::SerialQueue(hal::interface::CriticalSection & crit_sec, uint16_t const size)
+: _crit_sec(crit_sec),
+  _queue   (size    )
 {
 
-public:
+}
 
-           UartCallbackHandler();
-  virtual ~UartCallbackHandler();
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
+bool SerialQueue::push(uint8_t const data)
+{
+  hal::interface::LockGuard lock(_crit_sec);
+  return _queue.push(data);
+}
 
-  virtual void onTransmitRegisterEmptyCallback() override;
-  virtual void onReceiveCompleteCallback      () override;
+bool SerialQueue::pop(uint8_t * data)
+{
+  hal::interface::LockGuard lock(_crit_sec);
+  return _queue.pop(data);
+}
 
-};
+uint16_t SerialQueue::size()
+{
+  hal::interface::LockGuard lock(_crit_sec);
+  return _queue.size();
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -70,5 +84,3 @@ public:
 } /* driver */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_UARTCALLBACKHANDLER_H_ */

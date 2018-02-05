@@ -20,9 +20,9 @@ set(DRIVER_CONSOLE_SRC_PATH src/driver/console)
 if(${DRIVER_CONSOLE_SERIAL} STREQUAL "yes")
   set(DRIVER_CONSOLE_SERIAL_SRCS
     ${DRIVER_CONSOLE_SRC_PATH}/Serial/Serial.cpp
+    ${DRIVER_CONSOLE_SRC_PATH}/Serial/SerialCallbackHandler.cpp
     ${DRIVER_CONSOLE_SRC_PATH}/Serial/SerialController.cpp
-    ${DRIVER_CONSOLE_SRC_PATH}/Serial/UartQueue.cpp
-    ${DRIVER_CONSOLE_SRC_PATH}/Serial/UartCallbackHandler.cpp
+    ${DRIVER_CONSOLE_SRC_PATH}/Serial/SerialQueue.cpp
   )
   set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} ${DRIVER_CONSOLE_SERIAL_SRCS})
 endif()

@@ -47,12 +47,12 @@ namespace serial
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UartQueue
+class SerialQueue
 {
 
 public:
 
-  UartQueue(hal::interface::CriticalSection & crit_sec, uint16_t const size);
+  SerialQueue(hal::interface::CriticalSection & crit_sec, uint16_t const size);
 
   bool     push(uint8_t const   data);
   bool     pop (uint8_t       * data);

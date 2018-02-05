@@ -20,9 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/console/Serial/UartQueue.h>
-
-#include <spectre/hal/interface/locking/LockGuard.h>
+#include <spectre/driver/console/Serial/SerialCallbackHandler.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -44,9 +42,12 @@ namespace serial
  * CTOR/DTOR
  **************************************************************************************/
 
-UartQueue::UartQueue(hal::interface::CriticalSection & crit_sec, uint16_t const size)
-: _crit_sec(crit_sec),
-  _queue   (size    )
+SerialCallbackHandler::SerialCallbackHandler()
+{
+
+}
+
+SerialCallbackHandler::~SerialCallbackHandler()
 {
 
 }
@@ -55,22 +56,14 @@ UartQueue::UartQueue(hal::interface::CriticalSection & crit_sec, uint16_t const 
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool UartQueue::push(uint8_t const data)
+void SerialCallbackHandler::onTransmitRegisterEmptyCallback()
 {
-  hal::interface::LockGuard lock(_crit_sec);
-  return _queue.push(data);
+  /* TODO */
 }
 
-bool UartQueue::pop(uint8_t * data)
+void SerialCallbackHandler::onReceiveCompleteCallback()
 {
-  hal::interface::LockGuard lock(_crit_sec);
-  return _queue.pop(data);
-}
-
-uint16_t UartQueue::size()
-{
-  hal::interface::LockGuard lock(_crit_sec);
-  return _queue.size();
+  /* TODO */
 }
 
 /**************************************************************************************
