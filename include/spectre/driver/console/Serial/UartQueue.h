@@ -16,11 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_SERIALRXBUFFER_H_
+#define INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_SERIALRXBUFFER_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/console/Serial/SerialRxBuffer.h>
+#include <spectre/hal/interface/locking/CriticalSection.h>
+
+#include <spectre/memory/container/Queue.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,37 +44,26 @@ namespace serial
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * CLASS DECLARATION
  **************************************************************************************/
 
-SerialRxBuffer::SerialRxBuffer(uint16_t const size)
-: _rx_queue(size)
+class UartQueue
 {
 
-}
+public:
 
-SerialRxBuffer::~SerialRxBuffer()
-{
+  UartQueue(hal::interface::CriticalSection & crit_sec, uint16_t const size);
 
-}
+  bool     push(uint8_t const   data);
+  bool     pop (uint8_t       * data);
+  uint16_t size(                    );
 
-/**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
- **************************************************************************************/
+private:
 
-void SerialRxBuffer::onSerialDataReceive(SerialRxBuffer * _this, uint8_t const data)
-{
-  _this->onSerialDataReceive(data);
-}
+  hal::interface::CriticalSection   & _crit_sec;
+  memory::container::Queue<uint8_t>   _queue;
 
-/**************************************************************************************
- * PRIVATE MEMBER FUNCTIONS
- **************************************************************************************/
-
-void SerialRxBuffer::onSerialDataReceive(uint8_t const data)
-{
-  _rx_queue.push(data);
-}
+};
 
 /**************************************************************************************
  * NAMESPACE
@@ -82,3 +76,5 @@ void SerialRxBuffer::onSerialDataReceive(uint8_t const data)
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_SERIALRXBUFFER_H_ */

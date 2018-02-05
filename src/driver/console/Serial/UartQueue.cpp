@@ -16,16 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_SERIALRXBUFFER_H_
-#define INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_SERIALRXBUFFER_H_
-
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <stdint.h>
+#include <spectre/driver/console/Serial/UartQueue.h>
 
-#include <spectre/memory/container/Queue.h>
+#include <spectre/hal/interface/locking/LockGuard.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -44,28 +41,37 @@ namespace serial
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class SerialRxBuffer
+UartQueue::UartQueue(hal::interface::CriticalSection & crit_sec, uint16_t const size)
+: _crit_sec(crit_sec),
+  _queue   (size    )
 {
 
-public:
+}
 
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
-   SerialRxBuffer(uint16_t const size);
-  ~SerialRxBuffer();
+bool UartQueue::push(uint8_t const data)
+{
+  hal::interface::LockGuard lock(_crit_sec);
+  return _queue.push(data);
+}
 
+bool UartQueue::pop(uint8_t * data)
+{
+  hal::interface::LockGuard lock(_crit_sec);
+  return _queue.pop(data);
+}
 
-  static void onSerialDataReceive(SerialRxBuffer * _this, uint8_t const data);
-
-private:
-
-  memory::container::Queue<uint8_t> _rx_queue;
-
-  void onSerialDataReceive(uint8_t const data);
-
-};
+uint16_t UartQueue::size()
+{
+  hal::interface::LockGuard lock(_crit_sec);
+  return _queue.size();
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -78,5 +84,3 @@ private:
 } /* driver */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_SERIALRXBUFFER_H_ */
