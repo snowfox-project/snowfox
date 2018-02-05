@@ -50,7 +50,7 @@ namespace test
  * TEST CODE
  **************************************************************************************/
 
-SCENARIO("AT90CAN128::TIMER0 - A timer's prescaler is manipulated via 'setPrescaler'", "[AT90CAN128::TIMER0]")
+SCENARIO("AT90CAN128::TIMER0 - A valid prescaler value is set via 'setPrescaler'", "[AT90CAN128::TIMER0]")
 {
   Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE ),
                     TCCR0A(TCCR0A_RESET_VALUE),
@@ -91,6 +91,33 @@ SCENARIO("AT90CAN128::TIMER0 - A timer's prescaler is manipulated via 'setPresca
           }
         }
       });
+}
+
+/**************************************************************************************/
+
+SCENARIO("AT90CAN128::TIMER0 - A invalid prescaler value is set via 'setPrescaler'", "[AT90CAN128::TIMER0]")
+{
+  Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE ),
+                    TCCR0A(TCCR0A_RESET_VALUE),
+                    OCR0A (OCR0A_RESET_VALUE );
+
+  AT90CAN128::TIMER0 timer0(TCNT0(), TCCR0A(), OCR0A());
+
+  uint32_t INVALID_PRESCALER = 2;
+
+  WHEN("The prescaler is configured via calling 'setPrescaler' with an argument of '2'")
+  {
+    timer0.setPrescaler(INVALID_PRESCALER);
+    WHEN("'start' is called")
+    {
+      timer0.start();
+      THEN("TCCR0A bits 2-0 == 0b000 (Reset Value)") REQUIRE(TCCR0A == TCCR0A_RESET_VALUE);
+    }
+    WHEN("'start' is not called")
+    {
+      THEN("TCCR0A bits 2-0 == 0b000 (Reset Value)") REQUIRE(TCCR0A == TCCR0A_RESET_VALUE);
+    }
+  }
 }
 
 /**************************************************************************************/

@@ -50,7 +50,7 @@ namespace test
  * TEST CODE
  **************************************************************************************/
 
-SCENARIO("ATMEGA328P::TIMER1 - A timer's prescaler is manipulated via 'setPrescaler'", "[ATMEGA328P::TIMER1]")
+SCENARIO("ATMEGA328P::TIMER1 - A A valid prescaler value is set via 'setPrescaler'", "[ATMEGA328P::TIMER1]")
 {
   Register<uint16_t> TCNT1 (TCNT1_RESET_VALUE );
   Register<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE);
@@ -92,6 +92,34 @@ SCENARIO("ATMEGA328P::TIMER1 - A timer's prescaler is manipulated via 'setPresca
           }
         }
       });
+}
+
+/**************************************************************************************/
+
+SCENARIO("ATMEGA328P::TIMER1 - A invalid prescaler value is set via 'setPrescaler'", "[ATMEGA328P::TIMER1]")
+{
+  Register<uint16_t> TCNT1 (TCNT1_RESET_VALUE );
+  Register<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE);
+  Register<uint16_t> OCR1A (OCR1A_RESET_VALUE ),
+                     OCR1B (OCR1B_RESET_VALUE );
+
+  ATMEGA328P::TIMER1 timer1(TCNT1(), TCCR1B(), OCR1A(), OCR1B());
+
+  uint32_t INVALID_PRESCALER = 2;
+
+  WHEN("The prescaler is configured via calling 'setPrescaler' with an argument of '2'")
+  {
+    timer1.setPrescaler(INVALID_PRESCALER);
+    WHEN("'start' is called")
+    {
+      timer1.start();
+      THEN("TCCR1B bits 2-0 == 0b000 (Reset Value)") REQUIRE(TCCR1B == TCCR1B_RESET_VALUE);
+    }
+    WHEN("'start' is not called")
+    {
+      THEN("TCCR1B bits 2-0 == 0b000 (Reset Value)") REQUIRE(TCCR1B == TCCR1B_RESET_VALUE);
+    }
+  }
 }
 
 /**************************************************************************************/
