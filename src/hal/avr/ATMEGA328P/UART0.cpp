@@ -175,16 +175,6 @@ void UART0::ISR_onReceiveComplete (void * arg)
   reinterpret_cast<UART0 *>(arg)->ISR_onReceiveComplete();
 }
 
-void UART0::ISR_onTransmitRegisterEmpty()
-{
-  if(_uart_callback_interface) _uart_callback_interface->onReceiveCompleteCallback();
-}
-
-void UART0::ISR_onReceiveComplete()
-{
-  if(_uart_callback_interface) _uart_callback_interface->onReceiveCompleteCallback();
-}
-
 /**************************************************************************************
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
@@ -197,6 +187,16 @@ void UART0::enableTransmit()
 void UART0::enableReceive()
 {
   *_UCSR0B |= RXEN0_bm;
+}
+
+void UART0::ISR_onTransmitRegisterEmpty()
+{
+  if(_uart_callback_interface) _uart_callback_interface->onReceiveCompleteCallback();
+}
+
+void UART0::ISR_onReceiveComplete()
+{
+  if(_uart_callback_interface) _uart_callback_interface->onReceiveCompleteCallback();
 }
 
 uint16_t UART0::calcBaudRate(uint32_t const f_cpu, uint32_t const baud_rate)
