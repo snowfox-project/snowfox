@@ -22,6 +22,8 @@
 
 #include <spectre/hal/avr/ATMEGA328P/UART0.h>
 
+#include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -75,13 +77,14 @@ namespace ATMEGA328P
  * CTOR/DTOR
  **************************************************************************************/
 
-UART0::UART0(volatile uint8_t * UDR0, volatile uint8_t * UCSR0A, volatile uint8_t * UCSR0B, volatile uint8_t * UCSR0C, volatile uint16_t * UBRR0)
-: _UDR0                   (UDR0  ),
-  _UCSR0A                 (UCSR0A),
-  _UCSR0B                 (UCSR0B),
-  _UCSR0C                 (UCSR0C),
-  _UBRR0                  (UBRR0 ),
-  _uart_callback_interface(0     )
+UART0::UART0(volatile uint8_t * udr0, volatile uint8_t * ucsr0a, volatile uint8_t * ucsr0b, volatile uint8_t * ucsr0c, volatile uint16_t * ubrr0, interface::InterruptController & int_ctrl)
+: _UDR0                   (udr0    ),
+  _UCSR0A                 (ucsr0a  ),
+  _UCSR0B                 (ucsr0b  ),
+  _UCSR0C                 (ucsr0c  ),
+  _UBRR0                  (ubrr0   ),
+  _int_ctrl               (int_ctrl),
+  _uart_callback_interface(0       )
 {
   enableTransmit();
   enableReceive ();
@@ -106,39 +109,54 @@ void UART0::receive(uint8_t & data)
   data = *_UDR0;
 }
 
-void UART0::setBaudRate(eBaudRate const baud_rate, uint32_t const f_cpu)
+void UART0::setBaudRate(interface::UartBaudRate const baud_rate, uint32_t const f_cpu)
 {
   *_UCSR0A |= U2X0_bm;
 
   switch(baud_rate)
   {
-  case B115200: *_UBRR0 = calcBaudRate(f_cpu, 115200);  break;
-  default:                                              break;
+  case interface::UartBaudRate::B115200: *_UBRR0 = calcBaudRate(f_cpu, 115200); break;
   }
 }
 
-void UART0::setParity(eParity const parity)
+void UART0::setParity(interface::UartParity const parity)
 {
   *_UCSR0C &= ~(UPM01_bm | UPM00_bm);
 
   switch(parity)
   {
-  case None:                                    break;
-  case Even:  *_UCSR0C |= UPM01_bm;             break;
-  case Odd:   *_UCSR0C |= UPM01_bm | UPM00_bm;  break;
-  default:                                      break;
+  case interface::UartParity::None:                                  break;
+  case interface::UartParity::Even: *_UCSR0C |= UPM01_bm;            break;
+  case interface::UartParity::Odd : *_UCSR0C |= UPM01_bm | UPM00_bm; break;
   }
 }
 
-void UART0::setStopBit(eStopBit const stop_bit)
+void UART0::setStopBit(interface::UartStopBit const stop_bit)
 {
   *_UCSR0C &= ~USBS0_bm;
 
   switch(stop_bit)
   {
-  case _1:                        break;
-  case _2: *_UCSR0C |= USBS0_bm;  break;
-  default:                        break;
+  case interface::UartStopBit::_1:                       break;
+  case interface::UartStopBit::_2: *_UCSR0C |= USBS0_bm; break;
+  }
+}
+
+void UART0::enableInterrupt(interface::UartInt const uart_int)
+{
+  switch(uart_int)
+  {
+  case interface::UartInt::TxRegEmpty: _int_ctrl.enableInterrupt(USART_UART_DATA_REGISTER_EMPTY); break;
+  case interface::UartInt::RxComplete: _int_ctrl.enableInterrupt(USART_RECEIVE_COMPLETE        ); break;
+  }
+}
+
+void UART0::disableInterrupt(interface::UartInt const uart_int)
+{
+  switch(uart_int)
+  {
+  case interface::UartInt::TxRegEmpty: _int_ctrl.disableInterrupt(USART_UART_DATA_REGISTER_EMPTY); break;
+  case interface::UartInt::RxComplete: _int_ctrl.disableInterrupt(USART_RECEIVE_COMPLETE        ); break;
   }
 }
 

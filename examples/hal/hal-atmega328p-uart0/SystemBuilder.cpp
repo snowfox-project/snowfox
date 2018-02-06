@@ -35,16 +35,17 @@ using namespace spectre::hal;
  **************************************************************************************/
 
 SystemBuilder::SystemBuilder()
-: _uart0                (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0),
-  _interrupt_controller (&EIMSK, &PCICR, &WDTCSR, &TIMSK2, &TIMSK1, &TIMSK0, &SPCR, &UCSR0B, &ADCSRA, &EECR, &ACSR, &TWCR, &SPMCSR)
+: _interrupt_controller (&EIMSK, &PCICR, &WDTCSR, &TIMSK2, &TIMSK1, &TIMSK0, &SPCR, &UCSR0B, &ADCSRA, &EECR, &ACSR, &TWCR, &SPMCSR),
+  _uart0                (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, _interrupt_controller)
+
 {
   /* Configure UART0 */
 
-  _uart0.setBaudRate                  (interface::UARTConfiguration::B115200, F_CPU);
-  _uart0.setParity                    (interface::UARTConfiguration::None          );
-  _uart0.setStopBit                   (interface::UARTConfiguration::_1            );
+  _uart0.setBaudRate                  (interface::UartBaudRate::B115200, F_CPU);
+  _uart0.setParity                    (interface::UartParity::None            );
+  _uart0.setStopBit                   (interface::UartStopBit::_1             );
 
-  _uart0.registerUARTCallbackInterface(&_uart_task_input_handler                   );
+  _uart0.registerUARTCallbackInterface(&_uart_task_input_handler              );
 
 
   _interrupt_controller.registerISR   (ATMEGA328P::USART_UART_DATA_REGISTER_EMPTY,

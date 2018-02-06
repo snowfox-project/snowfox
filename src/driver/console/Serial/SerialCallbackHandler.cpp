@@ -59,12 +59,12 @@ SerialCallbackHandler::~SerialCallbackHandler()
 
 void SerialCallbackHandler::onTransmitRegisterEmptyCallback()
 {
-  /* TODO */
+  _serial_ctrl.onTransmitRegisterEmpty();
 }
 
 void SerialCallbackHandler::onReceiveCompleteCallback()
 {
-  /* TODO */
+  _serial_ctrl.onReceiveComplete();
 }
 
 /**************************************************************************************

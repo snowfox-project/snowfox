@@ -26,6 +26,9 @@
 #include <spectre/driver/console/Serial/interface/SerialController.h>
 
 #include <spectre/hal/interface/uart/UART.h>
+#include <spectre/hal/interface/uart/UARTConfiguration.h>
+
+#include <spectre/driver/console/Serial/SerialQueue.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -53,13 +56,19 @@ class SerialController : public interface::SerialController
 public:
 
 
-   SerialController(hal::interface::UART & uart);
-  ~SerialController();
+           SerialController(hal::interface::UART & uart, hal::interface::UARTConfiguration & uart_config, SerialQueue & rx_queue, SerialQueue & tx_queue);
+  virtual ~SerialController();
 
+
+  virtual void onTransmitRegisterEmpty() override;
+  virtual void onReceiveComplete      () override;
 
 private:
 
-  hal::interface::UART & _uart;
+  hal::interface::UART              & _uart;
+  hal::interface::UARTConfiguration & _uart_config;
+  SerialQueue                       & _rx_queue,
+                                    & _tx_queue;
 
 };
 

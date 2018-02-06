@@ -80,19 +80,19 @@ class InterruptController : public interface::InterruptController,
 
 public:
 
-           InterruptController(volatile uint8_t * EIMSK,
-                               volatile uint8_t * PCICR,
-                               volatile uint8_t * WDTCSR,
-                               volatile uint8_t * TIMSK2,
-                               volatile uint8_t * TIMSK1,
-                               volatile uint8_t * TIMSK0,
-                               volatile uint8_t * SPCR,
-                               volatile uint8_t * UCSR0B,
-                               volatile uint8_t * ADCSRA,
-                               volatile uint8_t * EECR,
-                               volatile uint8_t * ACSR,
-                               volatile uint8_t * TWCR,
-                               volatile uint8_t * SPMCSR);
+           InterruptController(volatile uint8_t * eimsk,
+                               volatile uint8_t * pcicr,
+                               volatile uint8_t * wdtcsr,
+                               volatile uint8_t * timsk2,
+                               volatile uint8_t * timsk1,
+                               volatile uint8_t * timsk0,
+                               volatile uint8_t * spcr,
+                               volatile uint8_t * ucsr0b,
+                               volatile uint8_t * adcsra,
+                               volatile uint8_t * eecr,
+                               volatile uint8_t * acsr,
+                               volatile uint8_t * twcr,
+                               volatile uint8_t * spmcsr);
   virtual ~InterruptController();
 
 

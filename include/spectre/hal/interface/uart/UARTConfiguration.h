@@ -39,6 +39,34 @@ namespace interface
 {
 
 /**************************************************************************************
+ * TYPEDEFS
+ **************************************************************************************/
+
+enum class UartBaudRate : uint8_t
+{
+  B115200
+};
+
+enum class UartParity : uint8_t
+{
+  None,
+  Even,
+  Odd
+};
+
+enum class UartStopBit : uint8_t
+{
+  _1,
+  _2
+};
+
+enum class UartInt : uint8_t
+{
+  TxRegEmpty,
+  RxComplete
+};
+
+/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
@@ -47,32 +75,15 @@ class UARTConfiguration
 
 public:
 
-  typedef enum
-  {
-    B115200
-  } eBaudRate;
-
-  typedef enum
-  {
-    None,
-    Even,
-    Odd
-  } eParity;
-
-  typedef enum
-  {
-    _1,
-    _2
-  } eStopBit;
-
-
            UARTConfiguration() { }
   virtual ~UARTConfiguration() { }
 
 
-  virtual void setBaudRate  (eBaudRate const baud_rate, uint32_t const f_cpu) = 0;
-  virtual void setParity    (eParity   const parity                         ) = 0;
-  virtual void setStopBit   (eStopBit  const stop_bit                       ) = 0;
+  virtual void setBaudRate      (UartBaudRate const baud_rate, uint32_t const f_cpu) = 0;
+  virtual void setParity        (UartParity   const parity                         ) = 0;
+  virtual void setStopBit       (UartStopBit  const stop_bit                       ) = 0;
+  virtual void enableInterrupt  (UartInt      const uart_int                       ) = 0;
+  virtual void disableInterrupt (UartInt      const uart_int                       ) = 0;
   
 };
 

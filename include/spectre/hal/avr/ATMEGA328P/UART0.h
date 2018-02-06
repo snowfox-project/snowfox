@@ -28,6 +28,8 @@
 #include <spectre/hal/interface/uart/UARTCallback.h>
 #include <spectre/hal/interface/uart/UARTConfiguration.h>
 
+#include <spectre/hal/interface/interrupt/InterruptController.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -53,24 +55,29 @@ class UART0 : public interface::UART,
 public:
 
 
-           UART0(volatile uint8_t * UDR0, volatile uint8_t * UCSR0A, volatile uint8_t * UCSR0B, volatile uint8_t * UCSR0C, volatile uint16_t * UBRR0);
+           UART0(volatile uint8_t * udr0, volatile uint8_t * ucsr0a, volatile uint8_t * ucsr0b, volatile uint8_t * ucsr0c, volatile uint16_t * ubrr0, interface::InterruptController & int_ctrl);
   virtual ~UART0();
 
 
   /* UART Interface */
 
-  virtual void transmit     (uint8_t const   data) override;
-  virtual void receive      (uint8_t       & data) override;
+  virtual void transmit         (uint8_t  const    data) override;
+  virtual void receive          (uint8_t         & data) override;
   
+
   /* UART Configuration Interface */
 
-  virtual void setBaudRate  (eBaudRate const    baud_rate, uint32_t const f_cpu) override;
-  virtual void setParity    (eParity   const    parity                         ) override;
-  virtual void setStopBit   (eStopBit  const    stop_bit                       ) override;
+  virtual void setBaudRate      (interface::UartBaudRate const   baud_rate, uint32_t const f_cpu) override;
+  virtual void setParity        (interface::UartParity   const   parity                         ) override;
+  virtual void setStopBit       (interface::UartStopBit  const   stop_bit                       ) override;
+  virtual void enableInterrupt  (interface::UartInt      const   uart_int                       ) override;
+  virtual void disableInterrupt (interface::UartInt      const   uart_int                       ) override;
+
 
   /* UART Assembly */
 
   virtual void registerUARTCallbackInterface(interface::UARTCallback * uart_callback_interface) override;
+
 
   /* Functions to be called upon execution of a interrupt service routine */
 
@@ -89,7 +96,8 @@ private:
                     * _UCSR0C;
   volatile uint16_t * _UBRR0;
 
-  interface::UARTCallback * _uart_callback_interface;
+  interface::InterruptController & _int_ctrl;
+  interface::UARTCallback        * _uart_callback_interface;
 
   /* Member functions */
 

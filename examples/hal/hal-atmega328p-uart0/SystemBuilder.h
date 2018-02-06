@@ -41,8 +41,8 @@ public:
 
 private:
 
-  spectre::hal::ATMEGA328P::UART0               _uart0;
   spectre::hal::ATMEGA328P::InterruptController _interrupt_controller;
+  spectre::hal::ATMEGA328P::UART0               _uart0;
 
   UARTTaskInputHandler _uart_task_input_handler;
 
