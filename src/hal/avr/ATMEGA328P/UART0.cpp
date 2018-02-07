@@ -77,14 +77,15 @@ namespace ATMEGA328P
  * CTOR/DTOR
  **************************************************************************************/
 
-UART0::UART0(volatile uint8_t * udr0, volatile uint8_t * ucsr0a, volatile uint8_t * ucsr0b, volatile uint8_t * ucsr0c, volatile uint16_t * ubrr0, interface::InterruptController & int_ctrl)
+UART0::UART0(volatile uint8_t * udr0, volatile uint8_t * ucsr0a, volatile uint8_t * ucsr0b, volatile uint8_t * ucsr0c, volatile uint16_t * ubrr0, interface::InterruptController & int_ctrl, uint32_t const f_cpu)
 : _UDR0                   (udr0    ),
   _UCSR0A                 (ucsr0a  ),
   _UCSR0B                 (ucsr0b  ),
   _UCSR0C                 (ucsr0c  ),
   _UBRR0                  (ubrr0   ),
   _int_ctrl               (int_ctrl),
-  _uart_callback_interface(0       )
+  _uart_callback_interface(0       ),
+  _f_cpu                  (f_cpu   )
 {
   enableTransmit();
   enableReceive ();
@@ -109,13 +110,13 @@ void UART0::receive(uint8_t & data)
   data = *_UDR0;
 }
 
-void UART0::setBaudRate(interface::UartBaudRate const baud_rate, uint32_t const f_cpu)
+void UART0::setBaudRate(interface::UartBaudRate const baud_rate)
 {
   *_UCSR0A |= U2X0_bm;
 
   switch(baud_rate)
   {
-  case interface::UartBaudRate::B115200: *_UBRR0 = calcBaudRate(f_cpu, 115200); break;
+  case interface::UartBaudRate::B115200: *_UBRR0 = calcBaudRate(_f_cpu, 115200); break;
   }
 }
 

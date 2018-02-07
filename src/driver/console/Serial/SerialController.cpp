@@ -42,12 +42,11 @@ namespace serial
  * CTOR/DTOR
  **************************************************************************************/
 
-SerialController::SerialController(hal::interface::UART & uart, hal::interface::UARTConfiguration & uart_config, SerialQueue & rx_queue, SerialQueue & tx_queue, uint32_t const f_cpu)
+SerialController::SerialController(hal::interface::UART & uart, hal::interface::UARTConfiguration & uart_config, SerialQueue & rx_queue, SerialQueue & tx_queue)
 : _uart       (uart       ),
   _uart_config(uart_config),
   _rx_queue   (rx_queue   ),
-  _tx_queue   (tx_queue   ),
-  _f_cpu      (f_cpu      )
+  _tx_queue   (tx_queue   )
 {
 
 }
@@ -70,7 +69,7 @@ void SerialController::setBaudRate(interface::SerialBaudRate const baud_rate)
 {
   switch(baud_rate)
   {
-  case interface::SerialBaudRate::B115200: _uart_config.setBaudRate(hal::interface::UartBaudRate::B115200, _f_cpu); break;
+  case interface::SerialBaudRate::B115200: _uart_config.setBaudRate(hal::interface::UartBaudRate::B115200); break;
   }
 }
 

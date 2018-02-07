@@ -56,7 +56,7 @@ class SerialController : public interface::SerialController
 public:
 
 
-           SerialController(hal::interface::UART & uart, hal::interface::UARTConfiguration & uart_config, SerialQueue & rx_queue, SerialQueue & tx_queue, uint32_t const f_cpu);
+           SerialController(hal::interface::UART & uart, hal::interface::UARTConfiguration & uart_config, SerialQueue & rx_queue, SerialQueue & tx_queue);
   virtual ~SerialController();
 
 
@@ -82,7 +82,6 @@ private:
   hal::interface::UARTConfiguration & _uart_config;
   SerialQueue                       & _rx_queue,
                                     & _tx_queue;
-  uint32_t                            _f_cpu;
 
 };
 

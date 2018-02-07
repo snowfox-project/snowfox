@@ -56,7 +56,7 @@ int main()
 
   ATMEGA328P::InterruptController int_ctrl  (&EIMSK, &PCICR, &WDTCSR, &TIMSK2, &TIMSK1, &TIMSK0, &SPCR, &UCSR0B, &ADCSRA, &EECR, &ACSR, &TWCR, &SPMCSR);
   ATMEGA328P::CriticalSection     crit_sec  (&SREG);
-  ATMEGA328P::UART0               uart0     (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl);
+  ATMEGA328P::UART0               uart0     (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl, F_CPU);
 
   int_ctrl.registerISR(ATMEGA328P::USART_UART_DATA_REGISTER_EMPTY, ATMEGA328P::UART0::ISR_onTransmitComplete, &uart0);
   int_ctrl.registerISR(ATMEGA328P::USART_RECEIVE_COMPLETE,         ATMEGA328P::UART0::ISR_onReceiveComplete,  &uart0);
@@ -66,7 +66,7 @@ int main()
   console::serial::SerialQueue            rx_queue        (crit_sec, RX_QUEUE_SIZE),
                                           tx_queue        (crit_sec, TX_QUEUE_SIZE);
 
-  console::serial::SerialController       serial_ctrl     (uart0, uart0, rx_queue, tx_queue, F_CPU);
+  console::serial::SerialController       serial_ctrl     (uart0, uart0, rx_queue, tx_queue);
   console::serial::SerialCallbackHandler  serial_callback (serial_ctrl);
   console::serial::Serial                 serial          (serial_ctrl);
 

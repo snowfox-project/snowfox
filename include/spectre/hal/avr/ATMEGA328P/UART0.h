@@ -55,7 +55,7 @@ class UART0 : public interface::UART,
 public:
 
 
-           UART0(volatile uint8_t * udr0, volatile uint8_t * ucsr0a, volatile uint8_t * ucsr0b, volatile uint8_t * ucsr0c, volatile uint16_t * ubrr0, interface::InterruptController & int_ctrl);
+           UART0(volatile uint8_t * udr0, volatile uint8_t * ucsr0a, volatile uint8_t * ucsr0b, volatile uint8_t * ucsr0c, volatile uint16_t * ubrr0, interface::InterruptController & int_ctrl, uint32_t const f_cpu);
   virtual ~UART0();
 
 
@@ -67,11 +67,11 @@ public:
 
   /* UART Configuration Interface */
 
-  virtual void setBaudRate      (interface::UartBaudRate const   baud_rate, uint32_t const f_cpu) override;
-  virtual void setParity        (interface::UartParity   const   parity                         ) override;
-  virtual void setStopBit       (interface::UartStopBit  const   stop_bit                       ) override;
-  virtual void enableInterrupt  (interface::UartInt      const   uart_int                       ) override;
-  virtual void disableInterrupt (interface::UartInt      const   uart_int                       ) override;
+  virtual void setBaudRate      (interface::UartBaudRate const   baud_rate) override;
+  virtual void setParity        (interface::UartParity   const   parity   ) override;
+  virtual void setStopBit       (interface::UartStopBit  const   stop_bit ) override;
+  virtual void enableInterrupt  (interface::UartInt      const   uart_int ) override;
+  virtual void disableInterrupt (interface::UartInt      const   uart_int ) override;
 
 
   /* UART Assembly */
@@ -93,8 +93,9 @@ private:
                     * _UCSR0C;
   volatile uint16_t * _UBRR0;
 
-  interface::InterruptController & _int_ctrl;
-  interface::UARTCallback        * _uart_callback_interface;
+  interface::InterruptController       & _int_ctrl;
+  interface::UARTCallback              * _uart_callback_interface;
+  uint32_t                       const   _f_cpu;
 
   /* Member functions */
 
