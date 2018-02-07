@@ -88,9 +88,12 @@ int main()
   uint8_t buf[5] = {0};
   for(;;)
   {
-    ssize_t const bytes_received = serial.read(buf, 5);
+    ssize_t const bytes_received = serial.read(buf, 4);
 
-    if(bytes_received > 0) serial.write(buf, bytes_received);
+    for(ssize_t bytes_written = 0; bytes_written != bytes_received; )
+    {
+      bytes_written += serial.write(buf + bytes_written, bytes_received - bytes_written);
+    }
   }
 
   serial.close();
