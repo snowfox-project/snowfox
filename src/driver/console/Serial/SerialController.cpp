@@ -73,6 +73,11 @@ uint8_t SerialController::getRxBufferData()
   return data;
 }
 
+bool SerialController::isTxBufferFull()
+{
+
+}
+
 void SerialController::onTransmitComplete()
 {
   bool const is_tx_data_available = _tx_queue.size() > 0;

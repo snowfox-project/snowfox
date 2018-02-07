@@ -54,9 +54,10 @@ public:
 
   SerialQueue(hal::interface::CriticalSection & crit_sec, uint16_t const size);
 
-  bool     push(uint8_t const   data);
-  bool     pop (uint8_t       * data);
-  uint16_t size(                    );
+  bool     push    (uint8_t const   data);
+  bool     pop     (uint8_t       * data);
+  uint16_t size    (                    );
+  uint16_t capacity(                    );
 
 private:
 

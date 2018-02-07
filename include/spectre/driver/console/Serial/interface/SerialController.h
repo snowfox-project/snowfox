@@ -61,6 +61,7 @@ public:
 
   virtual bool    isRxBufferEmpty   () = 0;
   virtual uint8_t getRxBufferData   () = 0;
+  virtual bool    isTxBufferFull    () = 0;
 
   virtual void    onTransmitComplete() = 0;
   virtual void    onReceiveComplete () = 0;

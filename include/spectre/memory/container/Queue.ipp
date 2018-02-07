@@ -83,6 +83,12 @@ uint16_t Queue<T>::size() const
   return _num_entries;
 }
 
+template <class T>
+uint16_t Queue<T>::capacity() const
+{
+  return _size;
+}
+
 /**************************************************************************************
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/

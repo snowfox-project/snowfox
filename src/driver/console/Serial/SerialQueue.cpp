@@ -73,6 +73,12 @@ uint16_t SerialQueue::size()
   return _queue.size();
 }
 
+uint16_t SerialQueue::capacity()
+{
+  hal::interface::LockGuard lock(_crit_sec);
+  return _queue.capacity();
+}
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
