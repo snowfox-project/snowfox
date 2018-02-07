@@ -165,9 +165,9 @@ void UART0::registerUARTCallbackInterface(interface::UARTCallback * uart_callbac
   _uart_callback_interface = uart_callback_interface;
 }
 
-void UART0::ISR_onTransmitRegisterEmpty(void * arg)
+void UART0::ISR_onTransmitComplete(void * arg)
 {
-  reinterpret_cast<UART0 *>(arg)->ISR_onTransmitRegisterEmpty();
+  reinterpret_cast<UART0 *>(arg)->ISR_onTransmitComplete();
 }
 
 void UART0::ISR_onReceiveComplete (void * arg)
@@ -189,9 +189,9 @@ void UART0::enableReceive()
   *_UCSR0B |= RXEN0_bm;
 }
 
-void UART0::ISR_onTransmitRegisterEmpty()
+void UART0::ISR_onTransmitComplete()
 {
-  if(_uart_callback_interface) _uart_callback_interface->onReceiveCompleteCallback();
+  if(_uart_callback_interface) _uart_callback_interface->onTransmitCompleteCallback();
 }
 
 void UART0::ISR_onReceiveComplete()

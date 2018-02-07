@@ -81,8 +81,8 @@ public:
 
   /* Functions to be called upon execution of a interrupt service routine */
 
-  static void ISR_onTransmitRegisterEmpty(void * arg);
-  static void ISR_onReceiveComplete      (void * arg);
+  static void ISR_onTransmitComplete(void * arg);
+  static void ISR_onReceiveComplete (void * arg);
 
 
 private:
@@ -98,10 +98,10 @@ private:
 
   /* Member functions */
 
-  void enableTransmit             ();
-  void enableReceive              ();
-  void ISR_onTransmitRegisterEmpty();
-  void ISR_onReceiveComplete      ();
+  void enableTransmit        ();
+  void enableReceive         ();
+  void ISR_onTransmitComplete();
+  void ISR_onReceiveComplete ();
 
   static uint16_t calcBaudRate  (uint32_t const f_cpu, uint32_t const baud_rate);
 

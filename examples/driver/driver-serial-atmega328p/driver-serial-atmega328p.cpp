@@ -62,8 +62,8 @@ int main()
   uart0.setParity     (hal::interface::UartParity::None            );
   uart0.setStopBit    (hal::interface::UartStopBit::_1             );
 
-  int_ctrl.registerISR(ATMEGA328P::USART_UART_DATA_REGISTER_EMPTY, ATMEGA328P::UART0::ISR_onTransmitRegisterEmpty, &uart0);
-  int_ctrl.registerISR(ATMEGA328P::USART_RECEIVE_COMPLETE,         ATMEGA328P::UART0::ISR_onReceiveComplete,       &uart0);
+  int_ctrl.registerISR(ATMEGA328P::USART_UART_DATA_REGISTER_EMPTY, ATMEGA328P::UART0::ISR_onTransmitComplete, &uart0);
+  int_ctrl.registerISR(ATMEGA328P::USART_RECEIVE_COMPLETE,         ATMEGA328P::UART0::ISR_onReceiveComplete,  &uart0);
 
   /* DRIVER ***************************************************************************/
 
