@@ -25,6 +25,8 @@
 
 #include <spectre/driver/interface/Driver.h>
 
+#include <spectre/driver/console/Serial/interface/SerialController.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -45,13 +47,13 @@ namespace serial
  * CLASS DECLARATION
  **************************************************************************************/
 
-class Serial : public interface::Driver
+class Serial : public driver::interface::Driver
 {
 
 public:
 
 
-           Serial();
+           Serial(interface::SerialController & serial_ctrl);
   virtual ~Serial();
 
 
@@ -60,6 +62,11 @@ public:
   ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override;
   bool    ioctl(uint32_t const   cmd,    void          * arg      ) override;
   void    close(                                                  ) override;
+
+
+private:
+
+  interface::SerialController & _serial_ctrl;
 
 };
 

@@ -42,7 +42,8 @@ namespace serial
  * CTOR/DTOR
  **************************************************************************************/
 
-Serial::Serial()
+Serial::Serial(interface::SerialController & serial_ctrl)
+: _serial_ctrl(serial_ctrl)
 {
 
 }

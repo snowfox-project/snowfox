@@ -26,6 +26,7 @@
 #include <spectre/hal/avr/ATMEGA328P/CriticalSection.h>
 #include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
 
+#include <spectre/driver/console/Serial/Serial.h>
 #include <spectre/driver/console/Serial/SerialQueue.h>
 #include <spectre/driver/console/Serial/SerialController.h>
 #include <spectre/driver/console/Serial/SerialCallbackHandler.h>
@@ -57,9 +58,9 @@ int main()
   ATMEGA328P::CriticalSection     crit_sec  (&SREG);
   ATMEGA328P::UART0               uart0     (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl);
 
-  uart0.setBaudRate   (interface::UartBaudRate::B115200, F_CPU);
-  uart0.setParity     (interface::UartParity::None            );
-  uart0.setStopBit    (interface::UartStopBit::_1             );
+  uart0.setBaudRate   (hal::interface::UartBaudRate::B115200, F_CPU);
+  uart0.setParity     (hal::interface::UartParity::None            );
+  uart0.setStopBit    (hal::interface::UartStopBit::_1             );
 
   int_ctrl.registerISR(ATMEGA328P::USART_UART_DATA_REGISTER_EMPTY, ATMEGA328P::UART0::ISR_onTransmitRegisterEmpty, &uart0);
   int_ctrl.registerISR(ATMEGA328P::USART_RECEIVE_COMPLETE,         ATMEGA328P::UART0::ISR_onReceiveComplete,       &uart0);
@@ -71,6 +72,7 @@ int main()
 
   console::serial::SerialController       serial_ctrl     (uart0, uart0, rx_queue, tx_queue);
   console::serial::SerialCallbackHandler  serial_callback (serial_ctrl);
+  console::serial::Serial                 serial          (serial_ctrl);
 
   uart0.registerUARTCallbackInterface (&serial_callback);
 
@@ -78,7 +80,17 @@ int main()
 
   /* APPLICATION **********************************************************************/
 
-  for(;;) { }
+  serial.open();
+
+  uint8_t buf[5] = {0};
+  for(;;)
+  {
+    ssize_t const bytes_received = serial.read(buf, 5);
+
+    if(bytes_received > 0) serial.write(buf, bytes_received);
+  }
+
+  serial.close();
 
   return 0;
 }
