@@ -49,7 +49,7 @@ namespace serial
 
 static uint32_t constexpr IOCTL_SET_BAUDRATE = 0; /* Arg: */
 static uint32_t constexpr IOCTL_SET_PARITY   = 1; /* Arg: */
-static uint32_t constexpr IOCTL_SET_STOPPBIT = 2; /* Arg: */
+static uint32_t constexpr IOCTL_SET_STOPBIT  = 2; /* Arg: */
 
 /**************************************************************************************
  * CLASS DECLARATION

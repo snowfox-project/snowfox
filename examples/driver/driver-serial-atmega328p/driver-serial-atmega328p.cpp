@@ -58,10 +58,6 @@ int main()
   ATMEGA328P::CriticalSection     crit_sec  (&SREG);
   ATMEGA328P::UART0               uart0     (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl);
 
-  uart0.setBaudRate   (hal::interface::UartBaudRate::B115200, F_CPU);
-  uart0.setParity     (hal::interface::UartParity::None            );
-  uart0.setStopBit    (hal::interface::UartStopBit::_1             );
-
   int_ctrl.registerISR(ATMEGA328P::USART_UART_DATA_REGISTER_EMPTY, ATMEGA328P::UART0::ISR_onTransmitComplete, &uart0);
   int_ctrl.registerISR(ATMEGA328P::USART_RECEIVE_COMPLETE,         ATMEGA328P::UART0::ISR_onReceiveComplete,  &uart0);
 
@@ -80,7 +76,14 @@ int main()
 
   /* APPLICATION **********************************************************************/
 
+  uint8_t baud_rate = static_cast<uint8_t>(console::serial::interface::SerialBaudRate::B115200);
+  uint8_t parity    = static_cast<uint8_t>(console::serial::interface::SerialParity::None     );
+  uint8_t stop_bit  = static_cast<uint8_t>(console::serial::interface::SerialStopBit::_1      );
+
   serial.open();
+  serial.ioctl(console::serial::IOCTL_SET_BAUDRATE, static_cast<void *>(&baud_rate));
+  serial.ioctl(console::serial::IOCTL_SET_PARITY,   static_cast<void *>(&parity   ));
+  serial.ioctl(console::serial::IOCTL_SET_STOPBIT,  static_cast<void *>(&stop_bit ));
 
   uint8_t buf[5] = {0};
   for(;;)
