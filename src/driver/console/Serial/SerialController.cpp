@@ -48,7 +48,7 @@ SerialController::SerialController(hal::interface::UART & uart, hal::interface::
   _rx_queue   (rx_queue   ),
   _tx_queue   (tx_queue   )
 {
-  _uart_config.enableInterrupt(hal::interface::UartInt::RxComplete);
+
 }
 
 SerialController::~SerialController()
@@ -59,6 +59,16 @@ SerialController::~SerialController()
 /**************************************************************************************
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
+
+void SerialController::enable()
+{
+  _uart_config.enableInterrupt(hal::interface::UartInt::RxComplete);
+}
+
+void SerialController::disable()
+{
+  _uart_config.disableInterrupt(hal::interface::UartInt::RxComplete);
+}
 
 bool SerialController::isRxBufferEmpty()
 {

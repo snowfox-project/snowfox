@@ -59,8 +59,8 @@ Serial::~Serial()
 
 bool Serial::open()
 {
-  /* TODO */
-  return false;
+  _serial_ctrl.enable();
+  return true;
 }
 
 ssize_t Serial::read(uint8_t * buffer, ssize_t const num_bytes)
@@ -115,7 +115,7 @@ bool Serial::ioctl(uint32_t const cmd, void * arg)
 
 void Serial::close()
 {
-  /* TODO */
+  _serial_ctrl.disable();
 }
 
 /**************************************************************************************

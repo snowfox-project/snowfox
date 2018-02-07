@@ -59,6 +59,10 @@ public:
            SerialController(hal::interface::UART & uart, hal::interface::UARTConfiguration & uart_config, SerialQueue & rx_queue, SerialQueue & tx_queue);
   virtual ~SerialController();
 
+
+  virtual void    enable            (                  ) override;
+  virtual void    disable           (                  ) override;
+
   virtual bool    isRxBufferEmpty   (                  ) override;
   virtual uint8_t getRxBufferData   (                  ) override;
   virtual bool    isTxBufferFull    (                  ) override;

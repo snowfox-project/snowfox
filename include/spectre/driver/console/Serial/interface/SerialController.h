@@ -59,6 +59,9 @@ public:
   virtual ~SerialController() { }
 
 
+  virtual void    enable            (                  ) = 0;
+  virtual void    disable           (                  ) = 0;
+
   virtual bool    isRxBufferEmpty   (                  ) = 0;
   virtual uint8_t getRxBufferData   (                  ) = 0;
   virtual bool    isTxBufferFull    (                  ) = 0;
