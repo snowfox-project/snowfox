@@ -77,7 +77,27 @@ ssize_t Serial::write(uint8_t const * buffer, ssize_t const num_bytes)
 
 bool Serial::ioctl(uint32_t const cmd, void * arg)
 {
-  /* TODO */
+  switch(cmd)
+  {
+  /* SET_BAUDRATE *********************************************************************/
+  case IOCTL_SET_BAUDRATE:
+  {
+    /* TODO */
+  }
+  break;
+  /* SET_PARITY ***********************************************************************/
+  case IOCTL_SET_PARITY:
+  {
+    /* TODO */
+  }
+  break;
+  /* SET_STOPPBIT *********************************************************************/
+  case IOCTL_SET_STOPPBIT:
+  {
+    /* TODO */
+  }
+  break;
+  }
   return false;
 }
 
