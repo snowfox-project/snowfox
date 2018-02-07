@@ -42,11 +42,12 @@ namespace serial
  * CTOR/DTOR
  **************************************************************************************/
 
-SerialController::SerialController(hal::interface::UART & uart, hal::interface::UARTConfiguration & uart_config, SerialQueue & rx_queue, SerialQueue & tx_queue)
+SerialController::SerialController(hal::interface::UART & uart, hal::interface::UARTConfiguration & uart_config, SerialQueue & rx_queue, SerialQueue & tx_queue, uint32_t const f_cpu)
 : _uart       (uart       ),
   _uart_config(uart_config),
   _rx_queue   (rx_queue   ),
-  _tx_queue   (tx_queue   )
+  _tx_queue   (tx_queue   ),
+  _f_cpu      (f_cpu      )
 {
 
 }
@@ -65,9 +66,31 @@ void SerialController::enable()
   _uart_config.enableInterrupt(hal::interface::UartInt::RxComplete);
 }
 
-void SerialController::disable()
+void SerialController::setBaudRate(interface::SerialBaudRate const baud_rate)
 {
-  _uart_config.disableInterrupt(hal::interface::UartInt::RxComplete);
+  switch(baud_rate)
+  {
+  case interface::SerialBaudRate::B115200: _uart_config.setBaudRate(hal::interface::UartBaudRate::B115200, _f_cpu); break;
+  }
+}
+
+void SerialController::setParity(interface::SerialParity const parity)
+{
+  switch(parity)
+  {
+  case interface::SerialParity::None: _uart_config.setParity(hal::interface::UartParity::None); break;
+  case interface::SerialParity::Even: _uart_config.setParity(hal::interface::UartParity::Even); break;
+  case interface::SerialParity::Odd : _uart_config.setParity(hal::interface::UartParity::Odd ); break;
+  }
+}
+
+void SerialController::setStopBit(interface::SerialStopBit const stop_bit)
+{
+  switch(stop_bit)
+  {
+  case interface::SerialStopBit::_1: _uart_config.setStopBit(hal::interface::UartStopBit::_1); break;
+  case interface::SerialStopBit::_2: _uart_config.setStopBit(hal::interface::UartStopBit::_2); break;
+  }
 }
 
 bool SerialController::isRxBufferEmpty()
@@ -117,6 +140,11 @@ void SerialController::onReceiveComplete()
 
   _uart.receive (data);
   _rx_queue.push(data);
+}
+
+void SerialController::disable()
+{
+  _uart_config.disableInterrupt(hal::interface::UartInt::RxComplete);
 }
 
 /**************************************************************************************

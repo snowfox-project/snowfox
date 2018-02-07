@@ -70,7 +70,7 @@ int main()
   console::serial::SerialQueue            rx_queue        (crit_sec, RX_QUEUE_SIZE),
                                           tx_queue        (crit_sec, TX_QUEUE_SIZE);
 
-  console::serial::SerialController       serial_ctrl     (uart0, uart0, rx_queue, tx_queue);
+  console::serial::SerialController       serial_ctrl     (uart0, uart0, rx_queue, tx_queue, F_CPU);
   console::serial::SerialCallbackHandler  serial_callback (serial_ctrl);
   console::serial::Serial                 serial          (serial_ctrl);
 

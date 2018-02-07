@@ -56,20 +56,25 @@ class SerialController : public interface::SerialController
 public:
 
 
-           SerialController(hal::interface::UART & uart, hal::interface::UARTConfiguration & uart_config, SerialQueue & rx_queue, SerialQueue & tx_queue);
+           SerialController(hal::interface::UART & uart, hal::interface::UARTConfiguration & uart_config, SerialQueue & rx_queue, SerialQueue & tx_queue, uint32_t const f_cpu);
   virtual ~SerialController();
 
 
-  virtual void    enable            (                  ) override;
-  virtual void    disable           (                  ) override;
+  virtual void    enable            () override;
+
+  virtual void    setBaudRate       (interface::SerialBaudRate const baud_rate) override;
+  virtual void    setParity         (interface::SerialParity   const parity   ) override;
+  virtual void    setStopBit        (interface::SerialStopBit  const stop_bit ) override;
 
   virtual bool    isRxBufferEmpty   (                  ) override;
   virtual uint8_t getRxBufferData   (                  ) override;
   virtual bool    isTxBufferFull    (                  ) override;
   virtual void    putDataTxBuffer   (uint8_t const data) override;
 
-  virtual void    onTransmitComplete(                  ) override;
-  virtual void    onReceiveComplete (                  ) override;
+  virtual void    onTransmitComplete() override;
+  virtual void    onReceiveComplete () override;
+
+  virtual void    disable           () override;
 
 private:
 
@@ -77,6 +82,7 @@ private:
   hal::interface::UARTConfiguration & _uart_config;
   SerialQueue                       & _rx_queue,
                                     & _tx_queue;
+  uint32_t                            _f_cpu;
 
 };
 
