@@ -75,7 +75,14 @@ uint8_t SerialController::getRxBufferData()
 
 bool SerialController::isTxBufferFull()
 {
+  bool const is_tx_buffer_full = (_tx_queue.size() == _tx_queue.capacity());
+  return is_tx_buffer_full;
+}
 
+void SerialController::putDataTxBuffer(uint8_t const data)
+{
+  _tx_queue.push(data);
+  _uart_config.enableInterrupt(hal::interface::UartInt::TxComplete);
 }
 
 void SerialController::onTransmitComplete()

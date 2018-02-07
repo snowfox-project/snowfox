@@ -77,8 +77,14 @@ ssize_t Serial::read(uint8_t * buffer, ssize_t const num_bytes)
 
 ssize_t Serial::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
-  /* TODO */
-  return false;
+  ssize_t bytes_written = 0;
+
+  for(; (bytes_written < num_bytes) && !_serial_ctrl.isTxBufferFull(); bytes_written++)
+  {
+    _serial_ctrl.putDataTxBuffer(buffer[bytes_written]);
+  }
+
+  return bytes_written;
 }
 
 bool Serial::ioctl(uint32_t const cmd, void * arg)
