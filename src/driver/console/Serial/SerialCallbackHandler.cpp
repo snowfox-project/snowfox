@@ -57,9 +57,9 @@ SerialCallbackHandler::~SerialCallbackHandler()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void SerialCallbackHandler::onTransmitRegisterEmptyCallback()
+void SerialCallbackHandler::onTransmitCompleteCallback()
 {
-  _serial_ctrl.onTransmitRegisterEmpty();
+  _serial_ctrl.onTransmitComplete();
 }
 
 void SerialCallbackHandler::onReceiveCompleteCallback()

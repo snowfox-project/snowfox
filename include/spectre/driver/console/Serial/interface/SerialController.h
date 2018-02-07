@@ -52,8 +52,8 @@ public:
   virtual ~SerialController() { }
 
 
-  virtual void onTransmitRegisterEmpty() = 0;
-  virtual void onReceiveComplete      () = 0;
+  virtual void onTransmitComplete() = 0;
+  virtual void onReceiveComplete () = 0;
 
 };
 

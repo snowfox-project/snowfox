@@ -51,8 +51,8 @@ public:
   virtual ~UARTCallback() { }
 
 
-  virtual void onTransmitRegisterEmptyCallback() = 0;
-  virtual void onReceiveCompleteCallback      () = 0;
+  virtual void onTransmitCompleteCallback() = 0;
+  virtual void onReceiveCompleteCallback () = 0;
   
 };
 

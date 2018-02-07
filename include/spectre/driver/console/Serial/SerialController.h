@@ -60,8 +60,8 @@ public:
   virtual ~SerialController();
 
 
-  virtual void onTransmitRegisterEmpty() override;
-  virtual void onReceiveComplete      () override;
+  virtual void onTransmitComplete() override;
+  virtual void onReceiveComplete () override;
 
 private:
 

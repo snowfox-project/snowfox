@@ -56,8 +56,8 @@ public:
   virtual ~SerialCallbackHandler();
 
 
-  virtual void onTransmitRegisterEmptyCallback() override;
-  virtual void onReceiveCompleteCallback      () override;
+  virtual void onTransmitCompleteCallback() override;
+  virtual void onReceiveCompleteCallback () override;
 
 
 private:

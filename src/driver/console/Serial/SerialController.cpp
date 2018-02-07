@@ -60,7 +60,7 @@ SerialController::~SerialController()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void SerialController::onTransmitRegisterEmpty()
+void SerialController::onTransmitComplete()
 {
   bool const is_tx_data_available = _tx_queue.size() > 0;
 
@@ -69,11 +69,11 @@ void SerialController::onTransmitRegisterEmpty()
     uint8_t data = 0;
     _tx_queue.pop(&data);
     _uart.transmit(data);
-    _uart_config.enableInterrupt(hal::interface::UartInt::TxRegEmpty);
+    _uart_config.enableInterrupt(hal::interface::UartInt::TxComplete);
   }
   else
   {
-    _uart_config.disableInterrupt(hal::interface::UartInt::TxRegEmpty);
+    _uart_config.disableInterrupt(hal::interface::UartInt::TxComplete);
   }
 }
 
