@@ -136,10 +136,15 @@ void SerialController::onTransmitComplete()
 
 void SerialController::onReceiveComplete()
 {
-  uint8_t data = 0;
+  bool const is_rx_buffer_full = (_rx_queue.size() == _rx_queue.capacity());
 
-  _uart.receive (data);
-  _rx_queue.push(data);
+  if(!is_rx_buffer_full)
+  {
+    uint8_t data = 0;
+
+    _uart.receive (data);
+    _rx_queue.push(data);
+  }
 }
 
 void SerialController::disable()
