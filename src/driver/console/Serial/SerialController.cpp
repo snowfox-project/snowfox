@@ -60,6 +60,19 @@ SerialController::~SerialController()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
+bool SerialController::isRxBufferEmpty()
+{
+  bool const is_rx_buffer_empty = (_rx_queue.size() == 0);
+  return is_rx_buffer_empty;
+}
+
+uint8_t SerialController::getRxBufferData()
+{
+  uint8_t data = 0;
+  _rx_queue.pop(&data);
+  return data;
+}
+
 void SerialController::onTransmitComplete()
 {
   bool const is_tx_data_available = _tx_queue.size() > 0;

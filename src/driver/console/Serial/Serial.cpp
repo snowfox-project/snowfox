@@ -65,8 +65,14 @@ bool Serial::open()
 
 ssize_t Serial::read(uint8_t * buffer, ssize_t const num_bytes)
 {
-  /* TODO */
-  return false;
+  ssize_t bytes_read = 0;
+
+  for(; (bytes_read < num_bytes) && !_serial_ctrl.isRxBufferEmpty(); bytes_read++)
+  {
+    buffer[bytes_read] = _serial_ctrl.getRxBufferData();
+  }
+
+  return bytes_read;
 }
 
 ssize_t Serial::write(uint8_t const * buffer, ssize_t const num_bytes)

@@ -23,6 +23,13 @@
  * NAMESPACE
  **************************************************************************************/
 
+#include <stdint.h>
+#include <stdbool.h>
+
+/**************************************************************************************
+ * NAMESPACE
+ **************************************************************************************/
+
 namespace spectre
 {
 
@@ -52,8 +59,11 @@ public:
   virtual ~SerialController() { }
 
 
-  virtual void onTransmitComplete() = 0;
-  virtual void onReceiveComplete () = 0;
+  virtual bool    isRxBufferEmpty   () = 0;
+  virtual uint8_t getRxBufferData   () = 0;
+
+  virtual void    onTransmitComplete() = 0;
+  virtual void    onReceiveComplete () = 0;
 
 };
 
