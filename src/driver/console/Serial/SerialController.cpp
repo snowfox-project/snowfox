@@ -126,6 +126,7 @@ void SerialController::onTransmitComplete()
     uint8_t data = 0;
     _tx_queue.pop(&data);
     _uart.transmit(data);
+    _uart_config.enableInterrupt(hal::interface::UartInt::TxComplete);
   }
   else
   {
