@@ -56,8 +56,8 @@ public:
 
   bool     push    (uint8_t const   data);
   bool     pop     (uint8_t       * data);
-  uint16_t size    (                    );
-  uint16_t capacity(                    );
+  bool     isEmpty (                    );
+  bool     isFull  (                    );
 
 private:
 

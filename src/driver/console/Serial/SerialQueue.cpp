@@ -67,16 +67,18 @@ bool SerialQueue::pop(uint8_t * data)
   return _queue.pop(data);
 }
 
-uint16_t SerialQueue::size()
+bool SerialQueue::isEmpty()
 {
   hal::interface::LockGuard lock(_crit_sec);
-  return _queue.size();
+  bool const is_empty = (_queue.size() == 0);
+  return is_empty;
 }
 
-uint16_t SerialQueue::capacity()
+bool SerialQueue::isFull()
 {
   hal::interface::LockGuard lock(_crit_sec);
-  return _queue.capacity();
+  bool const is_full = (_queue.size() == _queue.capacity());
+  return is_full;
 }
 
 /**************************************************************************************

@@ -94,8 +94,7 @@ void SerialController::setStopBit(interface::SerialStopBit const stop_bit)
 
 bool SerialController::isRxBufferEmpty()
 {
-  bool const is_rx_buffer_empty = (_rx_queue.size() == 0);
-  return is_rx_buffer_empty;
+  return _rx_queue.isEmpty();
 }
 
 uint8_t SerialController::getRxBufferData()
@@ -107,8 +106,7 @@ uint8_t SerialController::getRxBufferData()
 
 bool SerialController::isTxBufferFull()
 {
-  bool const is_tx_buffer_full = (_tx_queue.size() == _tx_queue.capacity());
-  return is_tx_buffer_full;
+  return _tx_queue.isFull();
 }
 
 void SerialController::putDataTxBuffer(uint8_t const data)
@@ -119,9 +117,7 @@ void SerialController::putDataTxBuffer(uint8_t const data)
 
 void SerialController::onTransmitComplete()
 {
-  bool const is_tx_data_available = _tx_queue.size() > 0;
-
-  if(is_tx_data_available)
+  if(!_tx_queue.isEmpty())
   {
     uint8_t data = 0;
     _tx_queue.pop(&data);
@@ -136,9 +132,7 @@ void SerialController::onTransmitComplete()
 
 void SerialController::onReceiveComplete()
 {
-  bool const is_rx_buffer_full = (_rx_queue.size() == _rx_queue.capacity());
-
-  if(!is_rx_buffer_full)
+  if(!_rx_queue.isFull())
   {
     uint8_t data = 0;
 
