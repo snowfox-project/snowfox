@@ -37,7 +37,7 @@ namespace driver
 namespace console
 {
 
-namespace serial
+namespace Serial
 {
 
 /**************************************************************************************
@@ -83,7 +83,7 @@ uint16_t SerialQueue::capacity()
  * NAMESPACE
  **************************************************************************************/
 
-} /* serial */
+} /* Serial */
 
 } /* console */
 

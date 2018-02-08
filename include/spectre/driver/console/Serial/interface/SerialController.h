@@ -39,7 +39,7 @@ namespace driver
 namespace console
 {
 
-namespace serial
+namespace Serial
 {
 
 namespace interface
@@ -105,7 +105,7 @@ public:
 
 } /* interface */
 
-} /* serial */
+} /* Serial */
 
 } /* console */
 

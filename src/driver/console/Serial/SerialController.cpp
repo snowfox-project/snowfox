@@ -35,7 +35,7 @@ namespace driver
 namespace console
 {
 
-namespace serial
+namespace Serial
 {
 
 /**************************************************************************************
@@ -156,7 +156,7 @@ void SerialController::disable()
  * NAMESPACE
  **************************************************************************************/
 
-} /* serial */
+} /* Serial */
 
 } /* console */
 

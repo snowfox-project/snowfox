@@ -35,7 +35,7 @@ namespace driver
 namespace console
 {
 
-namespace serial
+namespace Serial
 {
 
 /**************************************************************************************
@@ -71,7 +71,7 @@ void SerialCallbackHandler::onReceiveCompleteCallback()
  * NAMESPACE
  **************************************************************************************/
 
-} /* serial */
+} /* Serial */
 
 } /* console */
 
