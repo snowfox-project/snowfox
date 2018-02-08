@@ -49,7 +49,7 @@ class Queue
 
 public:
 
-   Queue(uint16_t const size);
+   Queue(uint16_t const capacity);
   ~Queue();
 
   bool     push    (T const   data);
@@ -59,10 +59,10 @@ public:
 
 private:
 
-  uint16_t    _size,
+  uint16_t    _capacity,
               _head,
               _tail,
-              _num_entries;
+              _size;
 
   T         * _data;
 

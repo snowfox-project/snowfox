@@ -35,12 +35,12 @@ namespace container
  **************************************************************************************/
 
 template <class T>
-Queue<T>::Queue(uint16_t const size)
-: _size         (size),
-  _head         (0),
-  _tail         (0),
-  _num_entries	(0),
-  _data         (new T[_size])
+Queue<T>::Queue(uint16_t const capacity)
+: _capacity(capacity),
+  _head    (0),
+  _tail    (0),
+  _size	   (0),
+  _data    (new T[_capacity])
 {
 
 }
@@ -80,13 +80,13 @@ bool Queue<T>::pop(T * data)
 template <class T>
 uint16_t Queue<T>::size() const
 {
-  return _num_entries;
+  return _size;
 }
 
 template <class T>
 uint16_t Queue<T>::capacity() const
 {
-  return _size;
+  return _capacity;
 }
 
 /**************************************************************************************
@@ -96,13 +96,13 @@ uint16_t Queue<T>::capacity() const
 template <class T>
 bool Queue<T>::isFull() const
 {
-  return (_num_entries == _size);
+  return (_size == _capacity);
 }
 
 template <class T>
 bool Queue<T>::isEmpty() const
 {
-  return (_num_entries == 0);
+  return (_size == 0);
 }
 
 template <class T>
@@ -112,7 +112,7 @@ void Queue<T>::pushData(T const data)
 
   incrementPtr(&_head);
 
-  _num_entries++;
+  _size++;
 }
 
 template <class T>
@@ -122,7 +122,7 @@ void Queue<T>::popData(T * data)
 
   incrementPtr(&_tail);
 
-  _num_entries--;
+  _size--;
 }
 
 template <class T>
@@ -130,8 +130,8 @@ void Queue<T>::incrementPtr(uint16_t * ptr) const
 {
   uint16_t const tmp_ptr = *ptr + 1;
 
-  if  (tmp_ptr == _size)  *ptr = 0;
-  else                    *ptr = tmp_ptr;
+  if  (tmp_ptr == _capacity)  *ptr = 0;
+  else                    	  *ptr = tmp_ptr;
 }
 
 /**************************************************************************************
