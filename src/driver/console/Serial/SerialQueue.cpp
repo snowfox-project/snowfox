@@ -22,8 +22,6 @@
 
 #include <spectre/driver/console/Serial/SerialQueue.h>
 
-#include <spectre/hal/interface/locking/LockGuard.h>
-
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -41,43 +39,18 @@ namespace Serial
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * FUNCTIONS
  **************************************************************************************/
 
-SerialQueue::SerialQueue(hal::interface::CriticalSection & crit_sec, uint16_t const size)
-: _crit_sec(crit_sec),
-  _queue   (size    )
+bool isEmpty(SerialQueue const & queue)
 {
-
-}
-
-/**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
- **************************************************************************************/
-
-bool SerialQueue::push(uint8_t const data)
-{
-  hal::interface::LockGuard lock(_crit_sec);
-  return _queue.push(data);
-}
-
-bool SerialQueue::pop(uint8_t * data)
-{
-  hal::interface::LockGuard lock(_crit_sec);
-  return _queue.pop(data);
-}
-
-bool SerialQueue::isEmpty()
-{
-  hal::interface::LockGuard lock(_crit_sec);
-  bool const is_empty = (_queue.size() == 0);
+  bool const is_empty = (queue.size() == 0);
   return is_empty;
 }
 
-bool SerialQueue::isFull()
+bool isFull(SerialQueue const & queue)
 {
-  hal::interface::LockGuard lock(_crit_sec);
-  bool const is_full = (_queue.size() == _queue.capacity());
+  bool const is_full = (queue.size() == queue.capacity());
   return is_full;
 }
 

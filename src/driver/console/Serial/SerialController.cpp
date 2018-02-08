@@ -22,6 +22,8 @@
 
 #include <spectre/driver/console/Serial/SerialController.h>
 
+#include <spectre/hal/interface/locking/LockGuard.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -42,9 +44,10 @@ namespace Serial
  * CTOR/DTOR
  **************************************************************************************/
 
-SerialController::SerialController(hal::interface::UART & uart, hal::interface::UARTConfiguration & uart_config, SerialQueue & rx_queue, SerialQueue & tx_queue)
+SerialController::SerialController(hal::interface::UART & uart, hal::interface::UARTConfiguration & uart_config, hal::interface::CriticalSection & crit_sec, SerialQueue & rx_queue, SerialQueue & tx_queue)
 : _uart       (uart       ),
   _uart_config(uart_config),
+  _crit_sec   (crit_sec   ),
   _rx_queue   (rx_queue   ),
   _tx_queue   (tx_queue   )
 {
@@ -94,33 +97,42 @@ void SerialController::setStopBit(interface::SerialStopBit const stop_bit)
 
 bool SerialController::isRxBufferEmpty()
 {
-  return _rx_queue.isEmpty();
+  hal::interface::LockGuard lock(_crit_sec);
+
+  return isEmpty(_rx_queue);
 }
 
 void SerialController::getRxBufferData(uint8_t * data)
 {
+  hal::interface::LockGuard lock(_crit_sec);
+
   _rx_queue.pop(data);
 }
 
 bool SerialController::isTxBufferFull()
 {
-  return _tx_queue.isFull();
+  hal::interface::LockGuard lock(_crit_sec);
+
+  return isFull(_tx_queue);
 }
 
 void SerialController::putDataTxBuffer(uint8_t const data)
 {
+  hal::interface::LockGuard lock(_crit_sec);
+
   _tx_queue.push(data);
   _uart_config.enableInterrupt(hal::interface::UartInt::TxComplete);
 }
 
 void SerialController::onTransmitComplete()
 {
-  if(!_tx_queue.isEmpty())
+  hal::interface::LockGuard lock(_crit_sec);
+
+  if(!isEmpty(_tx_queue))
   {
     uint8_t data = 0;
     _tx_queue.pop(&data);
     _uart.transmit(data);
-    _uart_config.enableInterrupt(hal::interface::UartInt::TxComplete);
   }
   else
   {
@@ -130,7 +142,9 @@ void SerialController::onTransmitComplete()
 
 void SerialController::onReceiveComplete()
 {
-  if(!_rx_queue.isFull())
+  hal::interface::LockGuard lock(_crit_sec);
+
+  if(!isFull(_rx_queue))
   {
     uint8_t data = 0;
 

@@ -23,8 +23,6 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/interface/locking/CriticalSection.h>
-
 #include <spectre/memory/container/Queue.h>
 
 /**************************************************************************************
@@ -44,27 +42,17 @@ namespace Serial
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * TYPEDEFS
  **************************************************************************************/
 
-class SerialQueue
-{
+typedef memory::container::Queue<uint8_t> SerialQueue;
 
-public:
+/**************************************************************************************
+ * PROTOTYPES
+ **************************************************************************************/
 
-  SerialQueue(hal::interface::CriticalSection & crit_sec, uint16_t const size);
-
-  bool     push    (uint8_t const   data);
-  bool     pop     (uint8_t       * data);
-  bool     isEmpty (                    );
-  bool     isFull  (                    );
-
-private:
-
-  hal::interface::CriticalSection   & _crit_sec;
-  memory::container::Queue<uint8_t>   _queue;
-
-};
+bool isEmpty(SerialQueue const & queue);
+bool isFull (SerialQueue const & queue);
 
 /**************************************************************************************
  * NAMESPACE

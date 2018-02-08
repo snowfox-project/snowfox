@@ -63,10 +63,9 @@ int main()
 
   /* DRIVER ***************************************************************************/
 
-  console::Serial::SerialQueue            rx_queue        (crit_sec, RX_QUEUE_SIZE),
-                                          tx_queue        (crit_sec, TX_QUEUE_SIZE);
-
-  console::Serial::SerialController       serial_ctrl     (uart0, uart0, rx_queue, tx_queue);
+  console::Serial::SerialQueue            rx_queue        (RX_QUEUE_SIZE),
+                                          tx_queue        (TX_QUEUE_SIZE);
+  console::Serial::SerialController       serial_ctrl     (uart0, uart0, crit_sec, rx_queue, tx_queue);
   console::Serial::SerialCallbackHandler  serial_callback (serial_ctrl);
   console::Serial::Serial                 serial          (serial_ctrl);
 
@@ -88,7 +87,7 @@ int main()
   uint8_t buf[5] = {0};
   for(;;)
   {
-    ssize_t const bytes_received = serial.read(buf, 4);
+    ssize_t const bytes_received = serial.read(buf, 5);
 
     for(ssize_t bytes_written = 0; bytes_written != bytes_received; )
     {
