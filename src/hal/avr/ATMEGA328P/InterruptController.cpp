@@ -25,7 +25,7 @@
 #include <assert.h>
 
 /* Required for 'assert' which in turn needs 'abort' in avr-gcc */
-#if defined(MCU_ARCH_avr) && defined(MCU_TYPE_atmega328p) 
+#if defined(MCU_ARCH_avr)
   #include <stdlib.h> 
 #endif
 
@@ -47,16 +47,16 @@ namespace ATMEGA328P
  **************************************************************************************/
 
 /* EIMSK */
-#define INT0_bm (1<<0)
-#define INT1_bm (1<<1)
+#define INT0_bm   (1<<0)
+#define INT1_bm   (1<<1)
 
 /* PCICR */
-#define PCIE0_bm (1<<0)
-#define PCIE1_bm (1<<1)
-#define PCIE2_bm (1<<2)
+#define PCIE0_bm  (1<<0)
+#define PCIE1_bm  (1<<1)
+#define PCIE2_bm  (1<<2)
 
 /* WDTCSR */
-#define WDIE_bm  (1<<6)
+#define WDIE_bm   (1<<6)
 
 /* TIMSK2 */
 #define TOIE2_bm  (1<<0)

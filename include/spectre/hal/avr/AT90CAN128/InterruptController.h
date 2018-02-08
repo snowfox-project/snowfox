@@ -41,6 +41,48 @@ namespace AT90CAN128
 {
 
 /**************************************************************************************
+ * CONSTANTS
+ **************************************************************************************/
+
+static uint8_t const EXTERNAL_INT0                    = 0;
+static uint8_t const EXTERNAL_INT1                    = 1;
+static uint8_t const EXTERNAL_INT2                    = 2;
+static uint8_t const EXTERNAL_INT3                    = 3;
+static uint8_t const EXTERNAL_INT4                    = 4;
+static uint8_t const EXTERNAL_INT5                    = 5;
+static uint8_t const EXTERNAL_INT6                    = 6;
+static uint8_t const EXTERNAL_INT7                    = 7;
+static uint8_t const TIMER2_COMPARE                   = 8;
+static uint8_t const TIMER2_OVERFLOW                  = 9;
+static uint8_t const TIMER1_CAPTURE                   = 10;
+static uint8_t const TIMER1_COMPARE_A                 = 11;
+static uint8_t const TIMER1_COMPARE_B                 = 12;
+static uint8_t const TIMER1_COMPARE_C                 = 13;
+static uint8_t const TIMER1_OVERFLOW                  = 14;
+static uint8_t const TIMER0_COMPARE                   = 15;
+static uint8_t const TIMER0_OVERFLOW                  = 16;
+static uint8_t const CAN_INT                          = 17;
+static uint8_t const CAN_TIMER_OVERRUN                = 18;
+static uint8_t const SPI_SERIAL_TRANSFER_COMPLETE     = 19;
+static uint8_t const USART0_RECEIVE_COMPLETE          = 20;
+static uint8_t const USART0_UART_DATA_REGISTER_EMPTY  = 21;
+static uint8_t const USART0_TRANSMIT_COMPLETE         = 22;
+static uint8_t const ANALOG_COMPARATOR                = 23;
+static uint8_t const ANALOG_DIGITAL_CONVERTER         = 24;
+static uint8_t const EEPROM_READY                     = 25;
+static uint8_t const TIMER3_CAPTURE                   = 26;
+static uint8_t const TIMER3_COMPARE_A                 = 27;
+static uint8_t const TIMER3_COMPARE_B                 = 28;
+static uint8_t const TIMER3_COMPARE_C                 = 29;
+static uint8_t const TIMER3_OVERFLOW                  = 30;
+static uint8_t const USART1_RECEIVE_COMPLETE          = 31;
+static uint8_t const USART1_UART_DATA_REGISTER_EMPTY  = 32;
+static uint8_t const USART1_TRANSMIT_COMPLETE         = 33;
+static uint8_t const TWO_WIRE_INT                     = 34;
+static uint8_t const SPM_READY                        = 35;
+static uint8_t const GLOBAL                           = 36;
+
+/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 

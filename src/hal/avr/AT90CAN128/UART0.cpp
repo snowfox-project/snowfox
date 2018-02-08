@@ -144,8 +144,8 @@ void UART0::enableInterrupt(interface::UartInt const uart_int)
 {
   switch(uart_int)
   {
-  case interface::UartInt::TxComplete: _int_ctrl.enableInterrupt(/* TODO */ 0); break;
-  case interface::UartInt::RxComplete: _int_ctrl.enableInterrupt(/* TODO */ 0); break;
+  case interface::UartInt::TxComplete: _int_ctrl.enableInterrupt(USART0_UART_DATA_REGISTER_EMPTY); break;
+  case interface::UartInt::RxComplete: _int_ctrl.enableInterrupt(USART0_RECEIVE_COMPLETE        ); break;
   }
 }
 
@@ -153,8 +153,8 @@ void UART0::disableInterrupt(interface::UartInt const uart_int)
 {
   switch(uart_int)
   {
-  case interface::UartInt::TxComplete: _int_ctrl.disableInterrupt(/* TODO */ 0); break;
-  case interface::UartInt::RxComplete: _int_ctrl.disableInterrupt(/* TODO */ 0); break;
+  case interface::UartInt::TxComplete: _int_ctrl.disableInterrupt(USART0_UART_DATA_REGISTER_EMPTY); break;
+  case interface::UartInt::RxComplete: _int_ctrl.disableInterrupt(USART0_RECEIVE_COMPLETE        ); break;
   }
 }
 
