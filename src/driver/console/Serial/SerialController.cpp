@@ -97,11 +97,9 @@ bool SerialController::isRxBufferEmpty()
   return _rx_queue.isEmpty();
 }
 
-uint8_t SerialController::getRxBufferData()
+void SerialController::getRxBufferData(uint8_t * data)
 {
-  uint8_t data = 0;
-  _rx_queue.pop(&data);
-  return data;
+  _rx_queue.pop(data);
 }
 
 bool SerialController::isTxBufferFull()

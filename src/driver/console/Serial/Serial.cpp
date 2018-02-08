@@ -69,7 +69,7 @@ ssize_t Serial::read(uint8_t * buffer, ssize_t const num_bytes)
 
   for(; (bytes_read < num_bytes) && !_serial_ctrl.isRxBufferEmpty(); bytes_read++)
   {
-    buffer[bytes_read] = _serial_ctrl.getRxBufferData();
+    _serial_ctrl.getRxBufferData(buffer + bytes_read);
   }
 
   return bytes_read;

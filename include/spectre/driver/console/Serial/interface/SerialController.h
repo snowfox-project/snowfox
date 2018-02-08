@@ -81,21 +81,21 @@ public:
   virtual ~SerialController() { }
 
 
-  virtual void    enable            () = 0;
+  virtual void enable            () = 0;
 
-  virtual void    setBaudRate       (SerialBaudRate const baud_rate) = 0;
-  virtual void    setParity         (SerialParity   const parity   ) = 0;
-  virtual void    setStopBit        (SerialStopBit  const stop_bit ) = 0;
+  virtual void setBaudRate       (SerialBaudRate const baud_rate) = 0;
+  virtual void setParity         (SerialParity   const parity   ) = 0;
+  virtual void setStopBit        (SerialStopBit  const stop_bit ) = 0;
 
-  virtual bool    isRxBufferEmpty   (                  ) = 0;
-  virtual uint8_t getRxBufferData   (                  ) = 0;
-  virtual bool    isTxBufferFull    (                  ) = 0;
-  virtual void    putDataTxBuffer   (uint8_t const data) = 0;
+  virtual bool isRxBufferEmpty   (                    ) = 0;
+  virtual void getRxBufferData   (uint8_t       * data) = 0;
+  virtual bool isTxBufferFull    (                    ) = 0;
+  virtual void putDataTxBuffer   (uint8_t const   data) = 0;
 
-  virtual void    onTransmitComplete() = 0;
-  virtual void    onReceiveComplete () = 0;
+  virtual void onTransmitComplete() = 0;
+  virtual void onReceiveComplete () = 0;
 
-  virtual void    disable           () = 0;
+  virtual void disable           () = 0;
 
 };
 
