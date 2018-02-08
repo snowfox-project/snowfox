@@ -65,13 +65,13 @@ bool MCP2515::open()
 ssize_t MCP2515::read(uint8_t * buffer, ssize_t const num_bytes)
 {
   /* TODO */
-  return false;
+  return -1;
 }
 
 ssize_t MCP2515::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
   /* TODO */
-  return false;
+  return -1;
 }
 
 bool MCP2515::ioctl(uint32_t const cmd, void * arg)

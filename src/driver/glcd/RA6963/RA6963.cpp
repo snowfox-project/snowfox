@@ -71,14 +71,14 @@ bool RA6963::open()
 
 ssize_t RA6963::read(uint8_t * buffer, ssize_t const num_bytes)
 {
-  return false;
+  return -1;
 }
 
 ssize_t RA6963::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
   _ctrl.setAddressPointer(GFX_HOME_ADDRESS );
   _ctrl.write            (buffer, num_bytes);
-  return true;
+  return num_bytes;
 }
 
 bool RA6963::ioctl(uint32_t const cmd, void * arg)

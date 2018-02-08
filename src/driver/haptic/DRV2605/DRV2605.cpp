@@ -64,12 +64,12 @@ bool DRV2605::open()
 
 ssize_t DRV2605::read(uint8_t * buffer, ssize_t const num_bytes)
 {
-  return false; /* Not supported for this driver */
+  return -1; /* Not supported for this driver */
 }
 
 ssize_t DRV2605::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
-  return false; /* Not supported for this driver */
+  return -1; /* Not supported for this driver */
 }
 
 bool DRV2605::ioctl(uint32_t const cmd, void * arg)

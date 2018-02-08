@@ -64,12 +64,12 @@ bool PCA9547::open()
 
 ssize_t PCA9547::read(uint8_t * buffer, ssize_t const num_bytes)
 {
-  return false;
+  return -1; /* Not supported by this driver */
 }
 
 ssize_t PCA9547::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
-  return false;
+  return -1; /* Not supported by this driver */
 }
 
 bool PCA9547::ioctl(uint32_t const cmd, void * arg)
