@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ATMEGA328P_UART_H_
-#define ATMEGA328P_UART_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_AT90CAN128_UART0_H_
+#define INCLUDE_SPECTRE_HAL_AVR_AT90CAN128_UART0_H_
 
 /**************************************************************************************
  * INCLUDES
@@ -40,7 +40,7 @@ namespace spectre
 namespace hal
 {
 
-namespace ATMEGA328P
+namespace AT90CAN128
 {
 
 /**************************************************************************************
@@ -63,7 +63,7 @@ public:
 
   virtual void transmit         (uint8_t  const    data) override;
   virtual void receive          (uint8_t         & data) override;
-  
+
 
   /* UART Configuration Interface */
 
@@ -112,10 +112,10 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA328P */
+} /* AT90CAN128 */
 
 } /* hal */
 
 } /* spectre */
 
-#endif /* ATMEGA328P_UART_H_*/
+#endif /* INCLUDE_SPECTRE_HAL_AVR_AT90CAN128_UART0_H_ */

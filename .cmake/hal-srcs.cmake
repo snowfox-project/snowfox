@@ -53,10 +53,12 @@ set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA328P_SRCS
 ##########################################################################
 
 set(SPECTRE_LIBRARY_HAL_AVR_AT90CAN128_SRCS
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CAN128/InterruptController.cpp
   ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CAN128/TIMER0.cpp
   ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CAN128/TIMER1.cpp
   ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CAN128/TIMER2.cpp
   ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CAN128/TIMER3.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CAN128/UART0.cpp
 )
 
 ##########################################################################

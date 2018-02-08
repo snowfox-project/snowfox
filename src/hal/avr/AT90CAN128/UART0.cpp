@@ -20,9 +20,9 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/ATMEGA328P/UART0.h>
+#include <spectre/hal/avr/AT90CAN128/UART0.h>
 
-#include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
+#include <spectre/hal/avr/AT90CAN128/InterruptController.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -34,7 +34,7 @@ namespace spectre
 namespace hal
 {
 
-namespace ATMEGA328P
+namespace AT90CAN128
 {
 
 /**************************************************************************************
@@ -68,8 +68,7 @@ namespace ATMEGA328P
 #define USBS0_bm    (1<<3)
 #define UPM00_bm    (1<<4)
 #define UPM01_bm    (1<<5)
-#define UMSEL00_bm  (1<<6)
-#define UMSEL01_bm  (1<<7)
+#define UMSEL0_bm   (1<<6)
 
 /**************************************************************************************
  * CTOR/DTOR
@@ -145,8 +144,8 @@ void UART0::enableInterrupt(interface::UartInt const uart_int)
 {
   switch(uart_int)
   {
-  case interface::UartInt::TxComplete: _int_ctrl.enableInterrupt(USART_UART_DATA_REGISTER_EMPTY); break;
-  case interface::UartInt::RxComplete: _int_ctrl.enableInterrupt(USART_RECEIVE_COMPLETE        ); break;
+  case interface::UartInt::TxComplete: _int_ctrl.enableInterrupt(/* TODO */ 0); break;
+  case interface::UartInt::RxComplete: _int_ctrl.enableInterrupt(/* TODO */ 0); break;
   }
 }
 
@@ -154,8 +153,8 @@ void UART0::disableInterrupt(interface::UartInt const uart_int)
 {
   switch(uart_int)
   {
-  case interface::UartInt::TxComplete: _int_ctrl.disableInterrupt(USART_UART_DATA_REGISTER_EMPTY); break;
-  case interface::UartInt::RxComplete: _int_ctrl.disableInterrupt(USART_RECEIVE_COMPLETE        ); break;
+  case interface::UartInt::TxComplete: _int_ctrl.disableInterrupt(/* TODO */ 0); break;
+  case interface::UartInt::RxComplete: _int_ctrl.disableInterrupt(/* TODO */ 0); break;
   }
 }
 
@@ -207,7 +206,7 @@ uint16_t UART0::calcBaudRate(uint32_t const f_cpu, uint32_t const baud_rate)
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA328P */
+} /* AT90CAN128 */
 
 } /* hal */
 
