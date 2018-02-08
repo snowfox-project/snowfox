@@ -42,7 +42,9 @@ namespace MCP2515
  * CTOR/DTOR
  **************************************************************************************/
 
-MCP2515::MCP2515()
+MCP2515::MCP2515(interface::MCP2515_Control & mcp2515_ctrl, uint8_t const f_mcp2515_MHz)
+: _mcp2515_ctrl (mcp2515_ctrl ),
+  _f_mcp2515_MHz(f_mcp2515_MHz)
 {
 
 }
@@ -76,7 +78,19 @@ ssize_t MCP2515::write(uint8_t const * buffer, ssize_t const num_bytes)
 
 bool MCP2515::ioctl(uint32_t const cmd, void * arg)
 {
-  /* TODO */
+  switch(cmd)
+  {
+  /* SET_BITRATE **********************************************************************/
+  case IOCTL_SET_BITRATE:
+  {
+    uint8_t               const * arg_ptr     = static_cast<uint8_t *>            (arg     );
+    interface::CanBitRate const   can_bitrate = static_cast<interface::CanBitRate>(*arg_ptr);
+    _mcp2515_ctrl.setCanBitRate(_f_mcp2515_MHz, can_bitrate);
+    return true;
+  }
+  break;
+  }
+
   return false;
 }
 

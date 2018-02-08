@@ -25,6 +25,8 @@
 
 #include <spectre/driver/interface/Driver.h>
 
+#include <spectre/driver/can/MCP2515/interface/MCP2515_Control.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -42,16 +44,21 @@ namespace MCP2515
 {
 
 /**************************************************************************************
+ * CONSTANTS
+ **************************************************************************************/
+
+static uint32_t constexpr IOCTL_SET_BITRATE = 0; /* Arg: CanBitRate -> uint8_t * */
+
+/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MCP2515 : public interface::Driver
+class MCP2515 : public driver::interface::Driver
 {
 
 public:
 
-
-           MCP2515();
+           MCP2515(interface::MCP2515_Control & mcp2515_ctrl, uint8_t const f_mcp2515_MHz);
   virtual ~MCP2515();
 
 
@@ -60,6 +67,12 @@ public:
   ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override;
   bool    ioctl(uint32_t const   cmd,    void          * arg      ) override;
   void    close(                                                  ) override;
+
+
+private:
+
+  interface::MCP2515_Control       & _mcp2515_ctrl;
+  uint8_t                    const   _f_mcp2515_MHz;
 
 };
 

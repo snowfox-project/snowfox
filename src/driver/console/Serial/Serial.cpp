@@ -97,6 +97,7 @@ bool Serial::ioctl(uint32_t const cmd, void * arg)
     uint8_t                   const * arg_ptr   = static_cast<uint8_t *>                (arg     );
     interface::SerialBaudRate const   baud_rate = static_cast<interface::SerialBaudRate>(*arg_ptr);
     _serial_ctrl.setBaudRate(baud_rate);
+    return true;
   }
   break;
   /* SET_PARITY ***********************************************************************/
@@ -105,6 +106,7 @@ bool Serial::ioctl(uint32_t const cmd, void * arg)
     uint8_t                 const * arg_ptr = static_cast<uint8_t *>              (arg     );
     interface::SerialParity const   parity  = static_cast<interface::SerialParity>(*arg_ptr);
     _serial_ctrl.setParity(parity);
+    return true;
   }
   break;
   /* SET_STOPBIT **********************************************************************/
@@ -113,9 +115,11 @@ bool Serial::ioctl(uint32_t const cmd, void * arg)
     uint8_t                  const * arg_ptr  = static_cast<uint8_t *>               (arg     );
     interface::SerialStopBit const   stop_bit = static_cast<interface::SerialStopBit>(*arg_ptr);
     _serial_ctrl.setStopBit(stop_bit);
+    return true;
   }
   break;
   }
+
   return false;
 }
 
