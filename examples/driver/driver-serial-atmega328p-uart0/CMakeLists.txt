@@ -4,13 +4,13 @@ cmake_minimum_required(VERSION 2.8)
 
 ##########################################################################
 
-set(TARGET driver-serial-atmega328p)
+set(TARGET driver-serial-atmega328p-uart0)
 
 ##########################################################################
 
 add_executable(
   ${TARGET}
-  driver-serial-atmega328p
+  driver-serial-atmega328p-uart0
 )
 
 target_link_libraries(
