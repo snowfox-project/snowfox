@@ -85,7 +85,7 @@ MCP2515_Control::~MCP2515_Control()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void MCP2515_Control::setCanBitRate(uint8_t const clk_MHz, interface::CanBitRate const can_bit_rate)
+void MCP2515_Control::setCanBitRate(interface::CanBitRate const can_bit_rate, uint8_t const clk_MHz)
 {
   switch(clk_MHz)
   {

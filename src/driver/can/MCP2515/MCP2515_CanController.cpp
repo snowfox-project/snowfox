@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/can/MCP2515/MCP2515.h>
+#include <spectre/driver/can/MCP2515/MCP2515_CanController.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,14 +42,14 @@ namespace MCP2515
  * CTOR/DTOR
  **************************************************************************************/
 
-MCP2515::MCP2515(interface::MCP2515_Control & mcp2515_ctrl, uint8_t const f_mcp2515_MHz)
+MCP2515_CanController::MCP2515_CanController(interface::MCP2515_Control & mcp2515_ctrl, uint8_t const f_mcp2515_MHz)
 : _mcp2515_ctrl (mcp2515_ctrl ),
   _f_mcp2515_MHz(f_mcp2515_MHz)
 {
 
 }
 
-MCP2515::~MCP2515()
+MCP2515_CanController::~MCP2515_CanController()
 {
 
 }
@@ -58,45 +58,15 @@ MCP2515::~MCP2515()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool MCP2515::open()
+void MCP2515_CanController::setCanBitRate(can::interface::CanBitRate const can_bit_rate)
 {
-  /* TODO */
-  return false;
-}
-
-ssize_t MCP2515::read(uint8_t * buffer, ssize_t const num_bytes)
-{
-  /* TODO */
-  return -1;
-}
-
-ssize_t MCP2515::write(uint8_t const * buffer, ssize_t const num_bytes)
-{
-  /* TODO */
-  return -1;
-}
-
-bool MCP2515::ioctl(uint32_t const cmd, void * arg)
-{
-  switch(cmd)
+  switch(can_bit_rate)
   {
-  /* SET_BITRATE **********************************************************************/
-  case IOCTL_SET_BITRATE:
-  {
-    uint8_t               const * arg_ptr     = static_cast<uint8_t *>            (arg     );
-    interface::CanBitRate const   can_bitrate = static_cast<interface::CanBitRate>(*arg_ptr);
-    _mcp2515_ctrl.setCanBitRate(_f_mcp2515_MHz, can_bitrate);
-    return true;
+  case can::interface::CanBitRate::BR_125kBPS: _mcp2515_ctrl.setCanBitRate(interface::CanBitRate::BR_125kBPS, _f_mcp2515_MHz); break;
+  case can::interface::CanBitRate::BR_250kBPS: _mcp2515_ctrl.setCanBitRate(interface::CanBitRate::BR_250kBPS, _f_mcp2515_MHz); break;
+  case can::interface::CanBitRate::BR_500kBPS: _mcp2515_ctrl.setCanBitRate(interface::CanBitRate::BR_500kBPS, _f_mcp2515_MHz); break;
+  case can::interface::CanBitRate::BR_1MBPS  : _mcp2515_ctrl.setCanBitRate(interface::CanBitRate::BR_1MBPS  , _f_mcp2515_MHz); break;
   }
-  break;
-  }
-
-  return false;
-}
-
-void MCP2515::close()
-{
-  /* TODO */
 }
 
 /**************************************************************************************

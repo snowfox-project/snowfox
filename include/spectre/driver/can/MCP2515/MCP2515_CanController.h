@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_H_
-#define INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_CANCONTROLLER_H_
+#define INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_CANCONTROLLER_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/interface/Driver.h>
+#include <spectre/driver/can/interface/CanController.h>
 
 #include <spectre/driver/can/MCP2515/interface/MCP2515_Control.h>
 
@@ -44,29 +44,19 @@ namespace MCP2515
 {
 
 /**************************************************************************************
- * CONSTANTS
- **************************************************************************************/
-
-static uint32_t constexpr IOCTL_SET_BITRATE = 0; /* Arg: CanBitRate -> uint8_t * */
-
-/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MCP2515 : public driver::interface::Driver
+class MCP2515_CanController : public can::interface::CanController
 {
 
 public:
 
-           MCP2515(interface::MCP2515_Control & mcp2515_ctrl, uint8_t const f_mcp2515_MHz);
-  virtual ~MCP2515();
+           MCP2515_CanController(interface::MCP2515_Control & mcp2515_ctrl, uint8_t const f_mcp2515_MHz);
+  virtual ~MCP2515_CanController();
 
 
-  bool    open (                                                  ) override;
-  ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) override;
-  ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override;
-  bool    ioctl(uint32_t const   cmd,    void          * arg      ) override;
-  void    close(                                                  ) override;
+  virtual void setCanBitRate(can::interface::CanBitRate const can_bit_rate) override;
 
 
 private:
@@ -88,4 +78,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_CANCONTROLLER_H_ */

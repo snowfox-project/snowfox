@@ -30,9 +30,11 @@
 #include <spectre/hal/avr/ATMEGA328P/SPIMaster.h>
 #include <spectre/hal/avr/ATMEGA328P/DigitalOutPin.h>
 
-#include <spectre/driver/can/MCP2515/MCP2515.h>
+#include <spectre/driver/can/Can.h>
+
 #include <spectre/driver/can/MCP2515/MCP2515_IoSpi.h>
 #include <spectre/driver/can/MCP2515/MCP2515_Control.h>
+#include <spectre/driver/can/MCP2515/MCP2515_CanController.h>
 
 /**************************************************************************************
  * NAMESPACES
@@ -69,20 +71,22 @@ int main()
 
   /* DRIVER ***************************************************************************/
 
-  can::MCP2515::MCP2515_IoSpi   mcp2515_io_spi  (spi_master, cs);
-  can::MCP2515::MCP2515_Control mcp2515_control (mcp2515_io_spi);
-  can::MCP2515::MCP2515         mcp2515         (mcp2515_control, F_MCP2515_MHz);
+  can::MCP2515::MCP2515_IoSpi         mcp2515_io_spi  (spi_master, cs);
+  can::MCP2515::MCP2515_Control       mcp2515_control (mcp2515_io_spi);
+  can::MCP2515::MCP2515_CanController mcp2515_can_ctrl(mcp2515_control, F_MCP2515_MHz);
+
+  can::Can                            can             (mcp2515_can_ctrl);
 
   uint8_t bitrate = static_cast<uint8_t>(can::MCP2515::interface::CanBitRate::BR_250kBPS);
 
   /* APPLICATION **********************************************************************/
 
-  mcp2515.open();
-  mcp2515.ioctl(can::MCP2515::IOCTL_SET_BITRATE, static_cast<void *>(&bitrate));
+  can.open();
+  can.ioctl(can::IOCTL_SET_BITRATE, static_cast<void *>(&bitrate));
 
   for(;;) { }
 
-  mcp2515.close();
+  can.close();
 
   return 0;
 }

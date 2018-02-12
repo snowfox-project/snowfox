@@ -56,7 +56,7 @@ public:
   virtual ~MCP2515_Control();
 
 
-  virtual void setCanBitRate(uint8_t const clk_MHz, interface::CanBitRate const can_bit_rate) override;
+  virtual void setCanBitRate(interface::CanBitRate const can_bit_rate, uint8_t const clk_MHz) override;
 
 
 private:

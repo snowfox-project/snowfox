@@ -50,10 +50,10 @@ namespace interface
 
 enum class CanBitRate
 {
-  BR_1MBPS,
-  BR_500kBPS,
+  BR_125kBPS,
   BR_250kBPS,
-  BR_125kBPS
+  BR_500kBPS,
+  BR_1MBPS
 };
 
 /**************************************************************************************
@@ -69,7 +69,7 @@ public:
   virtual ~MCP2515_Control() { }
 
 
-  virtual void setCanBitRate(uint8_t const clk_MHz, CanBitRate const can_bit_rate) = 0;
+  virtual void setCanBitRate(CanBitRate const can_bit_rate, uint8_t const clk_MHz) = 0;
 
 };
 

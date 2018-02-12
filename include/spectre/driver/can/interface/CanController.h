@@ -47,10 +47,10 @@ namespace interface
 
 enum class CanBitRate
 {
-  BR_1MBPS,
-  BR_500kBPS,
+  BR_125kBPS,
   BR_250kBPS,
-  BR_125kBPS
+  BR_500kBPS,
+  BR_1MBPS
 };
 
 /**************************************************************************************
