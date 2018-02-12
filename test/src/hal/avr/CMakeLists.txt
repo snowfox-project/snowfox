@@ -9,6 +9,7 @@ set(SPECTRE_TEST_HOST_HAL_AVR_TARGET test-host-hal-avr)
 set(SPECTRE_TEST_HOST_HAL_AVR_SRCS
   test-main-hal-avr.cpp
   
+  AT90CAN128/test_InterruptController.cpp
   AT90CAN128/test_TIMER0.cpp
   AT90CAN128/test_TIMER1.cpp
   AT90CAN128/test_TIMER2.cpp

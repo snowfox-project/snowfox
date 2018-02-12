@@ -45,17 +45,14 @@ namespace test
  * CONSTANTS
  **************************************************************************************/
 
-/* TIMER3 */
-static uint16_t const TCNT3_RESET_VALUE   = 0;
-static uint8_t  const TCCR3B_RESET_VALUE  = 0b00000000;
-static uint16_t const OCR3A_RESET_VALUE   = 0;
-static uint16_t const OCR3B_RESET_VALUE   = 0;
-static uint16_t const OCR3C_RESET_VALUE   = 0;
+/* EINT0-7 */
+static uint8_t  const EIMSK_RESET_VALUE   = 0;
 
 /* TIMER2 */
 static uint8_t  const TCNT2_RESET_VALUE   = 0;
 static uint8_t  const TCCR2A_RESET_VALUE  = 0b00000000;
 static uint8_t  const OCR2A_RESET_VALUE   = 0;
+static uint8_t  const TIMSK2_RESET_VALUE  = 0;
 
 /* TIMER1 */
 static uint16_t const TCNT1_RESET_VALUE   = 0;
@@ -63,11 +60,48 @@ static uint8_t  const TCCR1B_RESET_VALUE  = 0b00000000;
 static uint16_t const OCR1A_RESET_VALUE   = 0;
 static uint16_t const OCR1B_RESET_VALUE   = 0;
 static uint16_t const OCR1C_RESET_VALUE   = 0;
+static uint8_t  const TIMSK1_RESET_VALUE  = 0;
 
 /* TIMER0 */
 static uint8_t  const TCNT0_RESET_VALUE   = 0;
 static uint8_t  const TCCR0A_RESET_VALUE  = 0b00000000;
 static uint8_t  const OCR0A_RESET_VALUE   = 0;
+static uint8_t  const TIMSK0_RESET_VALUE  = 0;
+
+/* CAN */
+static uint8_t  const CANGIE_RESET_VALUE  = 0;
+
+/* SPI */
+static uint8_t  const SPCR_RESET_VALUE    = 0;
+
+/* UART0 */
+static uint8_t  const UCSR0B_RESET_VALUE  = 0;
+
+/* ANALOG COMPARATOR */
+static uint8_t  const ACSR_RESET_VALUE    = 0;
+
+/* ADC */
+static uint8_t  const ADCSRA_RESET_VALUE  = 0;
+
+/* EEPROM */
+static uint8_t  const EECR_RESET_VALUE    = 0;
+
+/* TIMER3 */
+static uint16_t const TCNT3_RESET_VALUE   = 0;
+static uint8_t  const TCCR3B_RESET_VALUE  = 0b00000000;
+static uint16_t const OCR3A_RESET_VALUE   = 0;
+static uint16_t const OCR3B_RESET_VALUE   = 0;
+static uint16_t const OCR3C_RESET_VALUE   = 0;
+static uint8_t  const TIMSK3_RESET_VALUE  = 0;
+
+/* UART1 */
+static uint8_t  const UCSR1B_RESET_VALUE  = 0;
+
+/* TWI (I2C) */
+static uint8_t  const TWCR_RESET_VALUE    = 0;
+
+/* STACK POINTER */
+static uint8_t  const SPMCSR_RESET_VALUE  = 0;
 
 /**************************************************************************************
  * TEST CODE
