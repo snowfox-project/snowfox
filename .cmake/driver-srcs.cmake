@@ -13,6 +13,13 @@ if(${DRIVER_CAN_MCP2515} STREQUAL "yes")
   set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} ${DRIVER_CAN_MCP2515_SRCS})
 endif()
 
+if(${DRIVER_CAN_MCP2515} STREQUAL "yes")
+  set(DRIVER_CAN_SRCS
+    ${DRIVER_CAN_SRC_PATH}/Can.cpp
+  )
+  set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} ${DRIVER_CAN_SRCS})
+endif()
+
 ##########################################################################
 
 set(DRIVER_GLCD_SRC_PATH src/driver/glcd)
