@@ -16,15 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_INTERFACE_SERIALCONTROLLER_H_
-#define INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_INTERFACE_SERIALCONTROLLER_H_
-
 /**************************************************************************************
- * NAMESPACE
+ * INCLUDES
  **************************************************************************************/
 
-#include <stdint.h>
-#include <stdbool.h>
+#include <spectre/driver/serial/SerialCallbackHandler.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -36,81 +32,44 @@ namespace spectre
 namespace driver
 {
 
-namespace console
-{
-
-namespace Serial
-{
-
-namespace interface
+namespace serial
 {
 
 /**************************************************************************************
- * TYPEDEFS
+ * CTOR/DTOR
  **************************************************************************************/
 
-enum class SerialBaudRate : uint8_t
+SerialCallbackHandler::SerialCallbackHandler(interface::SerialController & serial_ctrl)
+: _serial_ctrl(serial_ctrl)
 {
-  B115200
-};
 
-enum class SerialParity : uint8_t
-{
-  None,
-  Even,
-  Odd
-};
+}
 
-enum class SerialStopBit : uint8_t
+SerialCallbackHandler::~SerialCallbackHandler()
 {
-  _1,
-  _2
-};
+
+}
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-class SerialController
+void SerialCallbackHandler::onTransmitCompleteCallback()
 {
+  _serial_ctrl.onTransmitComplete();
+}
 
-public:
-
-
-           SerialController() { }
-  virtual ~SerialController() { }
-
-
-  virtual void enable            () = 0;
-
-  virtual void setBaudRate       (SerialBaudRate const baud_rate) = 0;
-  virtual void setParity         (SerialParity   const parity   ) = 0;
-  virtual void setStopBit        (SerialStopBit  const stop_bit ) = 0;
-
-  virtual bool isRxBufferEmpty   (                    ) = 0;
-  virtual void getRxBufferData   (uint8_t       * data) = 0;
-  virtual bool isTxBufferFull    (                    ) = 0;
-  virtual void putDataTxBuffer   (uint8_t const   data) = 0;
-
-  virtual void onTransmitComplete() = 0;
-  virtual void onReceiveComplete () = 0;
-
-  virtual void disable           () = 0;
-
-};
+void SerialCallbackHandler::onReceiveCompleteCallback()
+{
+  _serial_ctrl.onReceiveComplete();
+}
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
-
-} /* Serial */
-
-} /* console */
+} /* serial */
 
 } /* driver */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_INTERFACE_SERIALCONTROLLER_H_ */

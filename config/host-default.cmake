@@ -15,8 +15,6 @@ set(MCU_SPEED 16000000UL)
 
 set(DRIVER_CAN_MCP2515        yes)
 
-set(DRIVER_CONSOLE_SERIAL     yes)
-
 set(DRIVER_GLCD_RA6963        yes)
 
 set(DRIVER_HAPTIC_DRV2605     yes)
@@ -35,5 +33,7 @@ set(DRIVER_SENSOR_LIS2DSH     yes)
 set(DRIVER_SENSOR_LIS3DSH     yes)
 set(DRIVER_SENSOR_LIS3MDL     yes)
 set(DRIVER_SENSOR_TPA81       yes)
+
+set(DRIVER_SERIAL             yes)
 
 ##########################################################################

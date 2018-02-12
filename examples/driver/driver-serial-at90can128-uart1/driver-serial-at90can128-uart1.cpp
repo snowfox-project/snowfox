@@ -26,10 +26,10 @@
 #include <spectre/hal/avr/AT90CAN128/CriticalSection.h>
 #include <spectre/hal/avr/AT90CAN128/InterruptController.h>
 
-#include <spectre/driver/console/Serial/Serial.h>
-#include <spectre/driver/console/Serial/SerialQueue.h>
-#include <spectre/driver/console/Serial/SerialController.h>
-#include <spectre/driver/console/Serial/SerialCallbackHandler.h>
+#include <spectre/driver/serial/Serial.h>
+#include <spectre/driver/serial/SerialQueue.h>
+#include <spectre/driver/serial/SerialController.h>
+#include <spectre/driver/serial/SerialCallbackHandler.h>
 
 /**************************************************************************************
  * NAMESPACES
@@ -63,11 +63,11 @@ int main()
 
   /* DRIVER ***************************************************************************/
 
-  console::Serial::SerialQueue            rx_queue        (RX_QUEUE_SIZE),
-                                          tx_queue        (TX_QUEUE_SIZE);
-  console::Serial::SerialController       serial_ctrl     (uart1, uart1, crit_sec, rx_queue, tx_queue);
-  console::Serial::SerialCallbackHandler  serial_callback (serial_ctrl);
-  console::Serial::Serial                 serial          (serial_ctrl);
+  serial::SerialQueue            rx_queue        (RX_QUEUE_SIZE),
+                                 tx_queue        (TX_QUEUE_SIZE);
+  serial::SerialController       serial_ctrl     (uart1, uart1, crit_sec, rx_queue, tx_queue);
+  serial::SerialCallbackHandler  serial_callback (serial_ctrl);
+  serial::Serial                 serial          (serial_ctrl);
 
   uart1.registerUARTCallbackInterface (&serial_callback);
 
@@ -75,14 +75,14 @@ int main()
 
   /* APPLICATION **********************************************************************/
 
-  uint8_t baud_rate = static_cast<uint8_t>(console::Serial::interface::SerialBaudRate::B115200);
-  uint8_t parity    = static_cast<uint8_t>(console::Serial::interface::SerialParity::None     );
-  uint8_t stop_bit  = static_cast<uint8_t>(console::Serial::interface::SerialStopBit::_1      );
+  uint8_t baud_rate = static_cast<uint8_t>(serial::interface::SerialBaudRate::B115200);
+  uint8_t parity    = static_cast<uint8_t>(serial::interface::SerialParity::None     );
+  uint8_t stop_bit  = static_cast<uint8_t>(serial::interface::SerialStopBit::_1      );
 
   serial.open();
-  serial.ioctl(console::Serial::IOCTL_SET_BAUDRATE, static_cast<void *>(&baud_rate));
-  serial.ioctl(console::Serial::IOCTL_SET_PARITY,   static_cast<void *>(&parity   ));
-  serial.ioctl(console::Serial::IOCTL_SET_STOPBIT,  static_cast<void *>(&stop_bit ));
+  serial.ioctl(serial::IOCTL_SET_BAUDRATE, static_cast<void *>(&baud_rate));
+  serial.ioctl(serial::IOCTL_SET_PARITY,   static_cast<void *>(&parity   ));
+  serial.ioctl(serial::IOCTL_SET_STOPBIT,  static_cast<void *>(&stop_bit ));
 
   uint8_t buf[5] = {0};
   for(;;)

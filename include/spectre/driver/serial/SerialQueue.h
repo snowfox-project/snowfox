@@ -16,16 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_CONSOLE_CONSOLE_H_
-#define INCLUDE_SPECTRE_DRIVER_CONSOLE_CONSOLE_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_SERIALRXBUFFER_H_
+#define INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_SERIALRXBUFFER_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/interface/Driver.h>
-
-#include <spectre/driver/console/Serial/interface/SerialController.h>
+#include <spectre/memory/container/Queue.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -37,57 +35,30 @@ namespace spectre
 namespace driver
 {
 
-namespace console
-{
-
-namespace Serial
+namespace serial
 {
 
 /**************************************************************************************
- * CONSTANTS
+ * TYPEDEFS
  **************************************************************************************/
 
-static uint32_t constexpr IOCTL_SET_BAUDRATE = 0; /* Arg: SerialBaudRate -> uint8_t * */
-static uint32_t constexpr IOCTL_SET_PARITY   = 1; /* Arg: SerialParity   -> uint8_t * */
-static uint32_t constexpr IOCTL_SET_STOPBIT  = 2; /* Arg: SerialStopBit  -> uint8_t * */
+typedef memory::container::Queue<uint8_t> SerialQueue;
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * PROTOTYPES
  **************************************************************************************/
 
-class Serial : public driver::interface::Driver
-{
-
-public:
-
-
-           Serial(interface::SerialController & serial_ctrl);
-  virtual ~Serial();
-
-
-  bool    open (                                                  ) override;
-  ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) override;
-  ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override;
-  bool    ioctl(uint32_t const   cmd,    void          * arg      ) override;
-  void    close(                                                  ) override;
-
-
-private:
-
-  interface::SerialController & _serial_ctrl;
-
-};
+bool isEmpty(SerialQueue const & queue);
+bool isFull (SerialQueue const & queue);
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* Serial */
-
-} /* console */
+} /* serial */
 
 } /* driver */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_CONSOLE_CONSOLE_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_SERIALRXBUFFER_H_ */

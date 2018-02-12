@@ -16,16 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_UARTCALLBACKHANDLER_H_
-#define INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_UARTCALLBACKHANDLER_H_
-
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/interface/uart/UARTCallback.h>
-
-#include <spectre/driver/console/Serial/interface/SerialController.h>
+#include <spectre/driver/serial/SerialQueue.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -37,45 +32,31 @@ namespace spectre
 namespace driver
 {
 
-namespace console
-{
-
-namespace Serial
+namespace serial
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * FUNCTIONS
  **************************************************************************************/
 
-class SerialCallbackHandler : public spectre::hal::interface::UARTCallback
+bool isEmpty(SerialQueue const & queue)
 {
+  bool const is_empty = (queue.size() == 0);
+  return is_empty;
+}
 
-public:
-
-           SerialCallbackHandler(interface::SerialController & serial_ctrl);
-  virtual ~SerialCallbackHandler();
-
-
-  virtual void onTransmitCompleteCallback() override;
-  virtual void onReceiveCompleteCallback () override;
-
-
-private:
-
-  interface::SerialController & _serial_ctrl;
-
-};
+bool isFull(SerialQueue const & queue)
+{
+  bool const is_full = (queue.size() == queue.capacity());
+  return is_full;
+}
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* Serial */
-
-} /* console */
+} /* serial */
 
 } /* driver */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_UARTCALLBACKHANDLER_H_ */

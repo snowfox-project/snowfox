@@ -24,10 +24,6 @@ As Martin Fowler states so eloquently in his book *Refactoring: Improving the De
 #### [/driver/can](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/can)
 * **MCP2515** (CAN Controller)
 
-#### [/driver/console](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/console)
-* **Serial** (Serial UART Driver)
-
-
 #### [/driver/glcd](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/glcd)
 * **RA6963** (GLCD Controller)
 
@@ -51,6 +47,10 @@ As Martin Fowler states so eloquently in his book *Refactoring: Improving the De
 * **LIS3DSH** (3-axis digital output MEMS accelerometer)
 * **LIS3MDL** (3-axis digital output MEMS magnetometer)
 * **TPA81** (I2C infrared thermopile sensor array)
+
+#### [/driver/serial](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/serial)
+* **Serial** (Serial UART Driver)
+
 
 ## Getting started
 ### Install toolchain

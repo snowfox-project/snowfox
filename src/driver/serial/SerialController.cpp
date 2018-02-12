@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/console/Serial/SerialController.h>
+#include <spectre/driver/serial/SerialController.h>
 
 #include <spectre/hal/interface/locking/LockGuard.h>
 
@@ -34,10 +34,7 @@ namespace spectre
 namespace driver
 {
 
-namespace console
-{
-
-namespace Serial
+namespace serial
 {
 
 /**************************************************************************************
@@ -162,9 +159,7 @@ void SerialController::disable()
  * NAMESPACE
  **************************************************************************************/
 
-} /* Serial */
-
-} /* console */
+} /* serial */
 
 } /* driver */
 

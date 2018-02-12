@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/console/Serial/Serial.h>
+#include <spectre/driver/serial/Serial.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -32,10 +32,7 @@ namespace spectre
 namespace driver
 {
 
-namespace console
-{
-
-namespace Serial
+namespace serial
 {
 
 /**************************************************************************************
@@ -132,9 +129,7 @@ void Serial::close()
  * NAMESPACE
  **************************************************************************************/
 
-} /* Serial */
-
-} /* console */
+} /* serial */
 
 } /* driver */
 

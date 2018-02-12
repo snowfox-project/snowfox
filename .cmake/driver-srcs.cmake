@@ -15,20 +15,6 @@ endif()
 
 ##########################################################################
 
-set(DRIVER_CONSOLE_SRC_PATH src/driver/console)
-
-if(${DRIVER_CONSOLE_SERIAL} STREQUAL "yes")
-  set(DRIVER_CONSOLE_SERIAL_SRCS
-    ${DRIVER_CONSOLE_SRC_PATH}/Serial/Serial.cpp
-    ${DRIVER_CONSOLE_SRC_PATH}/Serial/SerialCallbackHandler.cpp
-    ${DRIVER_CONSOLE_SRC_PATH}/Serial/SerialController.cpp
-    ${DRIVER_CONSOLE_SRC_PATH}/Serial/SerialQueue.cpp
-  )
-  set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} ${DRIVER_CONSOLE_SERIAL_SRCS})
-endif()
-
-##########################################################################
-
 set(DRIVER_GLCD_SRC_PATH src/driver/glcd)
 
 if(${DRIVER_GLCD_RA6963} STREQUAL "yes")
@@ -162,6 +148,20 @@ if(${DRIVER_SENSOR_TPA81} STREQUAL "yes")
     ${DRIVER_SENSOR_SRC_PATH}/TPA81/TPA81.cpp
   )
   set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} ${DRIVER_SENSOR_TPA81_SRCS})
+endif()
+
+##########################################################################
+
+set(DRIVER_SERIAL_SRC_PATH src/driver/serial)
+
+if(${DRIVER_SERIAL} STREQUAL "yes")
+  set(DRIVER_SERIAL_SRCS
+    ${DRIVER_SERIAL_SRC_PATH}/Serial.cpp
+    ${DRIVER_SERIAL_SRC_PATH}/SerialCallbackHandler.cpp
+    ${DRIVER_SERIAL_SRC_PATH}/SerialController.cpp
+    ${DRIVER_SERIAL_SRC_PATH}/SerialQueue.cpp
+  )
+  set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} ${DRIVER_SERIAL_SRCS})
 endif()
 
 ##########################################################################

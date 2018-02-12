@@ -16,11 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_INTERFACE_SERIALCONTROLLER_H_
+#define INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_INTERFACE_SERIALCONTROLLER_H_
+
 /**************************************************************************************
- * INCLUDES
+ * NAMESPACE
  **************************************************************************************/
 
-#include <spectre/driver/console/Serial/SerialQueue.h>
+#include <stdint.h>
+#include <stdbool.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -32,36 +36,76 @@ namespace spectre
 namespace driver
 {
 
-namespace console
+namespace serial
 {
 
-namespace Serial
+namespace interface
 {
 
 /**************************************************************************************
- * FUNCTIONS
+ * TYPEDEFS
  **************************************************************************************/
 
-bool isEmpty(SerialQueue const & queue)
+enum class SerialBaudRate : uint8_t
 {
-  bool const is_empty = (queue.size() == 0);
-  return is_empty;
-}
+  B115200
+};
 
-bool isFull(SerialQueue const & queue)
+enum class SerialParity : uint8_t
 {
-  bool const is_full = (queue.size() == queue.capacity());
-  return is_full;
-}
+  None,
+  Even,
+  Odd
+};
+
+enum class SerialStopBit : uint8_t
+{
+  _1,
+  _2
+};
+
+/**************************************************************************************
+ * CLASS DECLARATION
+ **************************************************************************************/
+
+class SerialController
+{
+
+public:
+
+
+           SerialController() { }
+  virtual ~SerialController() { }
+
+
+  virtual void enable            () = 0;
+
+  virtual void setBaudRate       (SerialBaudRate const baud_rate) = 0;
+  virtual void setParity         (SerialParity   const parity   ) = 0;
+  virtual void setStopBit        (SerialStopBit  const stop_bit ) = 0;
+
+  virtual bool isRxBufferEmpty   (                    ) = 0;
+  virtual void getRxBufferData   (uint8_t       * data) = 0;
+  virtual bool isTxBufferFull    (                    ) = 0;
+  virtual void putDataTxBuffer   (uint8_t const   data) = 0;
+
+  virtual void onTransmitComplete() = 0;
+  virtual void onReceiveComplete () = 0;
+
+  virtual void disable           () = 0;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* Serial */
+} /* interface */
 
-} /* console */
+} /* serial */
 
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_INTERFACE_SERIALCONTROLLER_H_ */

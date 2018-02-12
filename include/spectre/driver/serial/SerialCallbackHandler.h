@@ -16,11 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_UARTCALLBACKHANDLER_H_
+#define INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_UARTCALLBACKHANDLER_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/console/Serial/SerialCallbackHandler.h>
+#include <spectre/hal/interface/uart/UARTCallback.h>
+
+#include <spectre/driver/serial/interface/SerialController.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -32,49 +37,40 @@ namespace spectre
 namespace driver
 {
 
-namespace console
-{
-
-namespace Serial
+namespace serial
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * CLASS DECLARATION
  **************************************************************************************/
 
-SerialCallbackHandler::SerialCallbackHandler(interface::SerialController & serial_ctrl)
-: _serial_ctrl(serial_ctrl)
+class SerialCallbackHandler : public spectre::hal::interface::UARTCallback
 {
 
-}
+public:
 
-SerialCallbackHandler::~SerialCallbackHandler()
-{
+           SerialCallbackHandler(interface::SerialController & serial_ctrl);
+  virtual ~SerialCallbackHandler();
 
-}
 
-/**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
- **************************************************************************************/
+  virtual void onTransmitCompleteCallback() override;
+  virtual void onReceiveCompleteCallback () override;
 
-void SerialCallbackHandler::onTransmitCompleteCallback()
-{
-  _serial_ctrl.onTransmitComplete();
-}
 
-void SerialCallbackHandler::onReceiveCompleteCallback()
-{
-  _serial_ctrl.onReceiveComplete();
-}
+private:
+
+  interface::SerialController & _serial_ctrl;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* Serial */
-
-} /* console */
+} /* serial */
 
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_UARTCALLBACKHANDLER_H_ */

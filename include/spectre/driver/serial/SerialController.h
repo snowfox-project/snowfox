@@ -23,13 +23,13 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/console/Serial/interface/SerialController.h>
+#include <spectre/driver/serial/interface/SerialController.h>
 
 #include <spectre/hal/interface/uart/UART.h>
 #include <spectre/hal/interface/uart/UARTConfiguration.h>
 #include <spectre/hal/interface/locking/CriticalSection.h>
 
-#include <spectre/driver/console/Serial/SerialQueue.h>
+#include <spectre/driver/serial/SerialQueue.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -41,10 +41,7 @@ namespace spectre
 namespace driver
 {
 
-namespace console
-{
-
-namespace Serial
+namespace serial
 {
 
 /**************************************************************************************
@@ -92,9 +89,7 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* Serial */
-
-} /* console */
+} /* serial */
 
 } /* driver */
 
