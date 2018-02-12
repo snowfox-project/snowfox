@@ -47,7 +47,7 @@ namespace test
  * TEST CODE
  **************************************************************************************/
 
-SCENARIO("AT90CAN128::InterruptController - interrupts are enabled via 'enableInterrupt' and disabled via 'clrInterrupt'"(), "[AT90CAN128::InterruptController]")
+SCENARIO("AT90CAN128::InterruptController - interrupts are enabled via 'enableInterrupt' and disabled via 'clrInterrupt'", "[AT90CAN128::InterruptController]")
 {
   Register<uint8_t> EIMSK   (EIMSK_RESET_VALUE  ),
                     TIMSK2  (TIMSK2_RESET_VALUE ),
