@@ -75,7 +75,11 @@ static uint8_t  const CANGIE_RESET_VALUE  = 0;
 static uint8_t  const SPCR_RESET_VALUE    = 0;
 
 /* UART0 */
+static uint8_t  const UDR0_RESET_VALUE    = 0;
+static uint8_t  const UCSR0A_RESET_VALUE  = 0;
 static uint8_t  const UCSR0B_RESET_VALUE  = 0;
+static uint8_t  const UCSR0C_RESET_VALUE  = 0;
+static uint16_t const UBRR0_RESET_VALUE   = 0;
 
 /* ANALOG COMPARATOR */
 static uint8_t  const ACSR_RESET_VALUE    = 0;
@@ -95,7 +99,11 @@ static uint16_t const OCR3C_RESET_VALUE   = 0;
 static uint8_t  const TIMSK3_RESET_VALUE  = 0;
 
 /* UART1 */
+static uint8_t  const UDR1_RESET_VALUE    = 0;
+static uint8_t  const UCSR1A_RESET_VALUE  = 0;
 static uint8_t  const UCSR1B_RESET_VALUE  = 0;
+static uint8_t  const UCSR1C_RESET_VALUE  = 0;
+static uint16_t const UBRR1_RESET_VALUE   = 0;
 
 /* TWI (I2C) */
 static uint8_t  const TWCR_RESET_VALUE    = 0;

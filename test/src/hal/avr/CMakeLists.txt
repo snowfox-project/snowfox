@@ -14,12 +14,15 @@ set(SPECTRE_TEST_HOST_HAL_AVR_SRCS
   AT90CAN128/test_TIMER1.cpp
   AT90CAN128/test_TIMER2.cpp
   AT90CAN128/test_TIMER3.cpp
+  AT90CAN128/test_UART0.cpp
+  AT90CAN128/test_UART1.cpp
   
   ATMEGA328P/test_InterruptController.cpp
   ATMEGA328P/test_SPIMaster.cpp
   ATMEGA328P/test_TIMER0.cpp
   ATMEGA328P/test_TIMER1.cpp
   ATMEGA328P/test_TIMER2.cpp
+  ATMEGA328P/test_UART0.cpp
   
   ATxxxx/test_DigitalInPin.cpp
   ATxxxx/test_DigitalInPort.cpp
