@@ -164,7 +164,6 @@ set(DRIVER_SERIAL_SRC_PATH src/driver/serial)
 if(${DRIVER_SERIAL} STREQUAL "yes")
   set(DRIVER_SERIAL_SRCS
     ${DRIVER_SERIAL_SRC_PATH}/Serial.cpp
-    ${DRIVER_SERIAL_SRC_PATH}/SerialQueue.cpp
     ${DRIVER_SERIAL_SRC_PATH}/UART/UART_CallbackHandler.cpp
     ${DRIVER_SERIAL_SRC_PATH}/UART/UART_SerialController.cpp
   )

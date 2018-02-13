@@ -56,6 +56,8 @@ public:
   bool     pop     (T       * data);
   uint16_t size    (              ) const;
   uint16_t capacity(              ) const;
+  bool     isFull  (              ) const;
+  bool     isEmpty (              ) const;
 
 private:
 
@@ -66,8 +68,6 @@ private:
 
   T         * _data;
 
-  bool isFull       (               ) const;
-  bool isEmpty      (               ) const;
   void pushData     (T  const   data);
   void popData      (T        * data);
   void incrementPtr (uint16_t * ptr ) const;

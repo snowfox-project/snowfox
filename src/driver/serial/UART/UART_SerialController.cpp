@@ -99,7 +99,7 @@ bool UART_SerialController::isRxBufferEmpty()
 {
   hal::interface::LockGuard lock(_crit_sec);
 
-  return isEmpty(_rx_queue);
+  return _rx_queue.isEmpty();
 }
 
 void UART_SerialController::getRxBufferData(uint8_t * data)
@@ -113,7 +113,7 @@ bool UART_SerialController::isTxBufferFull()
 {
   hal::interface::LockGuard lock(_crit_sec);
 
-  return isFull(_tx_queue);
+  return _tx_queue.isFull();
 }
 
 void UART_SerialController::putDataTxBuffer(uint8_t const data)
@@ -128,7 +128,7 @@ void UART_SerialController::onTransmitComplete()
 {
   hal::interface::LockGuard lock(_crit_sec);
 
-  if(!isEmpty(_tx_queue))
+  if(!_tx_queue.isEmpty())
   {
     uint8_t data = 0;
     _tx_queue.pop(&data);
@@ -144,7 +144,7 @@ void UART_SerialController::onReceiveComplete()
 {
   hal::interface::LockGuard lock(_crit_sec);
 
-  if(!isFull(_rx_queue))
+  if(!_rx_queue.isFull())
   {
     uint8_t data = 0;
 

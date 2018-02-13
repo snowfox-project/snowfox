@@ -89,10 +89,6 @@ uint16_t Queue<T>::capacity() const
   return _capacity;
 }
 
-/**************************************************************************************
- * PRIVATE MEMBER FUNCTIONS
- **************************************************************************************/
-
 template <class T>
 bool Queue<T>::isFull() const
 {
@@ -104,6 +100,10 @@ bool Queue<T>::isEmpty() const
 {
   return (_size == 0);
 }
+
+/**************************************************************************************
+ * PRIVATE MEMBER FUNCTIONS
+ **************************************************************************************/
 
 template <class T>
 void Queue<T>::pushData(T const data)
