@@ -44,34 +44,24 @@ namespace interface
 #define CAN_ERR_BITMASK (0x20000000U)
 
 /**************************************************************************************
- * CTOR/DTOR
- **************************************************************************************/
-
-CanFrame::CanFrame()
-: _id(0), _dlc(0)
-{
-
-}
-
-/**************************************************************************************
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool CanFrame::isExtendedId() const
+bool isExtendedId(CanFrame const & frame)
 {
-  bool const is_extended_id = (_id & CAN_EFF_BITMASK) == CAN_EFF_BITMASK;
+  bool const is_extended_id = (frame.id & CAN_EFF_BITMASK) == CAN_EFF_BITMASK;
   return is_extended_id;
 }
 
-bool CanFrame::isRTR() const
+bool isRTR(CanFrame const & frame)
 {
-  bool const is_remote_transmission_request = (_id & CAN_RTR_BITMASK) == CAN_RTR_BITMASK;
+  bool const is_remote_transmission_request = (frame.id & CAN_RTR_BITMASK) == CAN_RTR_BITMASK;
   return is_remote_transmission_request;
 }
 
-bool CanFrame::isErrorFrame() const
+bool isErrorFrame(CanFrame const & frame)
 {
-  bool const is_error_frame = (_id & CAN_ERR_BITMASK) == CAN_ERR_BITMASK;
+  bool const is_error_frame = (frame.id & CAN_ERR_BITMASK) == CAN_ERR_BITMASK;
   return is_error_frame;
 }
 

@@ -40,26 +40,23 @@ namespace interface
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * TYPEDEFS
  **************************************************************************************/
 
-class CanFrame
+typedef struct
 {
+  uint32_t id;
+  uint8_t  dlc,
+           data[8];
+} __attribute((packed)) CanFrame;
 
-public:
+/**************************************************************************************
+ * PROTOTYPES
+ **************************************************************************************/
 
-  CanFrame();
-
-  bool isExtendedId() const;
-  bool isRTR       () const;
-  bool isErrorFrame() const;
-
-private:
-
-  uint32_t _id;
-  uint8_t  _dlc,
-           _data[8];
-};
+bool isExtendedId(CanFrame const & frame);
+bool isRTR       (CanFrame const & frame);
+bool isErrorFrame(CanFrame const & frame);
 
 /**************************************************************************************
  * NAMESPACE
