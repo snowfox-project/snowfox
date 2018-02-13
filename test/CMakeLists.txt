@@ -10,5 +10,6 @@ include_directories(external/catch/current/include)
 ##########################################################################
 
 add_subdirectory(src/hal/avr)
+add_subdirectory(src/memory)
 
 ##########################################################################
