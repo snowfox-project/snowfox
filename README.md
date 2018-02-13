@@ -49,7 +49,7 @@ As Martin Fowler states so eloquently in his book *Refactoring: Improving the De
 * **TPA81** (I2C infrared thermopile sensor array)
 
 #### [/driver/serial](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/serial)
-* **Serial** (Serial UART Driver)
+* **UART** (Serial UART Driver)
 
 
 ## Getting started

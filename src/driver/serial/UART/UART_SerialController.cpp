@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/serial/SerialController.h>
+#include <spectre/driver/serial/UART/UART_SerialController.h>
 
 #include <spectre/hal/interface/locking/LockGuard.h>
 
@@ -37,11 +37,14 @@ namespace driver
 namespace serial
 {
 
+namespace UART
+{
+
 /**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
-SerialController::SerialController(hal::interface::UART & uart, hal::interface::UARTConfiguration & uart_config, hal::interface::CriticalSection & crit_sec, SerialQueue & rx_queue, SerialQueue & tx_queue)
+UART_SerialController::UART_SerialController(hal::interface::UART & uart, hal::interface::UARTConfiguration & uart_config, hal::interface::CriticalSection & crit_sec, SerialQueue & rx_queue, SerialQueue & tx_queue)
 : _uart       (uart       ),
   _uart_config(uart_config),
   _crit_sec   (crit_sec   ),
@@ -51,7 +54,7 @@ SerialController::SerialController(hal::interface::UART & uart, hal::interface::
 
 }
 
-SerialController::~SerialController()
+UART_SerialController::~UART_SerialController()
 {
 
 }
@@ -60,12 +63,12 @@ SerialController::~SerialController()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void SerialController::enable()
+void UART_SerialController::enable()
 {
   _uart_config.enableInterrupt(hal::interface::UartInt::RxComplete);
 }
 
-void SerialController::setBaudRate(interface::SerialBaudRate const baud_rate)
+void UART_SerialController::setBaudRate(interface::SerialBaudRate const baud_rate)
 {
   switch(baud_rate)
   {
@@ -73,7 +76,7 @@ void SerialController::setBaudRate(interface::SerialBaudRate const baud_rate)
   }
 }
 
-void SerialController::setParity(interface::SerialParity const parity)
+void UART_SerialController::setParity(interface::SerialParity const parity)
 {
   switch(parity)
   {
@@ -83,7 +86,7 @@ void SerialController::setParity(interface::SerialParity const parity)
   }
 }
 
-void SerialController::setStopBit(interface::SerialStopBit const stop_bit)
+void UART_SerialController::setStopBit(interface::SerialStopBit const stop_bit)
 {
   switch(stop_bit)
   {
@@ -92,28 +95,28 @@ void SerialController::setStopBit(interface::SerialStopBit const stop_bit)
   }
 }
 
-bool SerialController::isRxBufferEmpty()
+bool UART_SerialController::isRxBufferEmpty()
 {
   hal::interface::LockGuard lock(_crit_sec);
 
   return isEmpty(_rx_queue);
 }
 
-void SerialController::getRxBufferData(uint8_t * data)
+void UART_SerialController::getRxBufferData(uint8_t * data)
 {
   hal::interface::LockGuard lock(_crit_sec);
 
   _rx_queue.pop(data);
 }
 
-bool SerialController::isTxBufferFull()
+bool UART_SerialController::isTxBufferFull()
 {
   hal::interface::LockGuard lock(_crit_sec);
 
   return isFull(_tx_queue);
 }
 
-void SerialController::putDataTxBuffer(uint8_t const data)
+void UART_SerialController::putDataTxBuffer(uint8_t const data)
 {
   hal::interface::LockGuard lock(_crit_sec);
 
@@ -121,7 +124,7 @@ void SerialController::putDataTxBuffer(uint8_t const data)
   _uart_config.enableInterrupt(hal::interface::UartInt::TxComplete);
 }
 
-void SerialController::onTransmitComplete()
+void UART_SerialController::onTransmitComplete()
 {
   hal::interface::LockGuard lock(_crit_sec);
 
@@ -137,7 +140,7 @@ void SerialController::onTransmitComplete()
   }
 }
 
-void SerialController::onReceiveComplete()
+void UART_SerialController::onReceiveComplete()
 {
   hal::interface::LockGuard lock(_crit_sec);
 
@@ -150,7 +153,7 @@ void SerialController::onReceiveComplete()
   }
 }
 
-void SerialController::disable()
+void UART_SerialController::disable()
 {
   _uart_config.disableInterrupt(hal::interface::UartInt::RxComplete);
 }
@@ -158,6 +161,8 @@ void SerialController::disable()
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* UART */
 
 } /* serial */
 

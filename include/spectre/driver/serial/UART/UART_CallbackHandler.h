@@ -16,11 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_UARTCALLBACKHANDLER_H_
+#define INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_UARTCALLBACKHANDLER_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/serial/SerialCallbackHandler.h>
+#include <spectre/hal/interface/uart/UARTCallback.h>
+
+#include <spectre/driver/serial/interface/SerialController.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -35,41 +40,42 @@ namespace driver
 namespace serial
 {
 
-/**************************************************************************************
- * CTOR/DTOR
- **************************************************************************************/
-
-SerialCallbackHandler::SerialCallbackHandler(interface::SerialController & serial_ctrl)
-: _serial_ctrl(serial_ctrl)
+namespace UART
 {
-
-}
-
-SerialCallbackHandler::~SerialCallbackHandler()
-{
-
-}
 
 /**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
+ * CLASS DECLARATION
  **************************************************************************************/
 
-void SerialCallbackHandler::onTransmitCompleteCallback()
+class UART_CallbackHandler : public spectre::hal::interface::UARTCallback
 {
-  _serial_ctrl.onTransmitComplete();
-}
 
-void SerialCallbackHandler::onReceiveCompleteCallback()
-{
-  _serial_ctrl.onReceiveComplete();
-}
+public:
+
+           UART_CallbackHandler(interface::SerialController & serial_ctrl);
+  virtual ~UART_CallbackHandler();
+
+
+  virtual void onTransmitCompleteCallback() override;
+  virtual void onReceiveCompleteCallback () override;
+
+
+private:
+
+  interface::SerialController & _serial_ctrl;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* UART */
 
 } /* serial */
 
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_UARTCALLBACKHANDLER_H_ */

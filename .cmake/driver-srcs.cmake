@@ -164,9 +164,9 @@ set(DRIVER_SERIAL_SRC_PATH src/driver/serial)
 if(${DRIVER_SERIAL} STREQUAL "yes")
   set(DRIVER_SERIAL_SRCS
     ${DRIVER_SERIAL_SRC_PATH}/Serial.cpp
-    ${DRIVER_SERIAL_SRC_PATH}/SerialCallbackHandler.cpp
-    ${DRIVER_SERIAL_SRC_PATH}/SerialController.cpp
     ${DRIVER_SERIAL_SRC_PATH}/SerialQueue.cpp
+    ${DRIVER_SERIAL_SRC_PATH}/UART/UART_CallbackHandler.cpp
+    ${DRIVER_SERIAL_SRC_PATH}/UART/UART_SerialController.cpp
   )
   set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} ${DRIVER_SERIAL_SRCS})
 endif()

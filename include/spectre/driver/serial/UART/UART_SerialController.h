@@ -16,16 +16,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_UARTCALLBACKHANDLER_H_
-#define INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_UARTCALLBACKHANDLER_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_SERIALCONTROLLER_H_
+#define INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_SERIALCONTROLLER_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/interface/uart/UARTCallback.h>
-
 #include <spectre/driver/serial/interface/SerialController.h>
+
+#include <spectre/hal/interface/uart/UART.h>
+#include <spectre/hal/interface/uart/UARTConfiguration.h>
+#include <spectre/hal/interface/locking/CriticalSection.h>
+
+#include <spectre/driver/serial/SerialQueue.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -40,26 +44,47 @@ namespace driver
 namespace serial
 {
 
+namespace UART
+{
+
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class SerialCallbackHandler : public spectre::hal::interface::UARTCallback
+class UART_SerialController : public interface::SerialController
 {
 
 public:
 
-           SerialCallbackHandler(interface::SerialController & serial_ctrl);
-  virtual ~SerialCallbackHandler();
+
+           UART_SerialController(hal::interface::UART & uart, hal::interface::UARTConfiguration & uart_config, hal::interface::CriticalSection & crit_sec, SerialQueue & rx_queue, SerialQueue & tx_queue);
+  virtual ~UART_SerialController();
 
 
-  virtual void onTransmitCompleteCallback() override;
-  virtual void onReceiveCompleteCallback () override;
+  virtual void enable            () override;
 
+  virtual void setBaudRate       (interface::SerialBaudRate const baud_rate) override;
+  virtual void setParity         (interface::SerialParity   const parity   ) override;
+  virtual void setStopBit        (interface::SerialStopBit  const stop_bit ) override;
+
+  virtual bool isRxBufferEmpty   (                    ) override;
+  virtual void getRxBufferData   (uint8_t       * data) override;
+  virtual bool isTxBufferFull    (                    ) override;
+  virtual void putDataTxBuffer   (uint8_t const   data) override;
+
+
+  virtual void onTransmitComplete() override;
+  virtual void onReceiveComplete () override;
+
+  virtual void disable           () override;
 
 private:
 
-  interface::SerialController & _serial_ctrl;
+  hal::interface::UART              & _uart;
+  hal::interface::UARTConfiguration & _uart_config;
+  hal::interface::CriticalSection   & _crit_sec;
+  SerialQueue                       & _rx_queue,
+                                    & _tx_queue;
 
 };
 
@@ -67,10 +92,12 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
+} /* UART */
+
 } /* serial */
 
 } /* driver */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_UARTCALLBACKHANDLER_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_SERIALCONTROLLER_H_ */
