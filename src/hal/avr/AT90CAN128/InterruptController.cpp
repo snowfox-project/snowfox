@@ -81,6 +81,26 @@ namespace AT90CAN128
 #define ENERG_bm  (1<<1)
 #define ENOVRT_bm (1<<0)
 
+/* CANGIT */
+#define CANIT_bm  (1<<7)
+#define BOFFIT_bm (1<<6)
+#define OVRTIM_bm (1<<5)
+#define BXOK_bm   (1<<4)
+#define SERG_bm   (1<<3)
+#define CERG_bm   (1<<2)
+#define FERG_bm   (1<<1)
+#define AERG_bm   (1<<0)
+
+/* CANSTMOB */
+#define DLCW_bm   (1<<7)
+#define TXOK_bm   (1<<6)
+#define RXOK_bm   (1<<5)
+#define BERR_bm   (1<<4)
+#define SERR_bm   (1<<3)
+#define CERR_bm   (1<<2)
+#define FERR_bm   (1<<1)
+#define AERR_bm   (1<<0)
+
 /* SPCR */
 #define SPIE_bm   (1<<7)
 
@@ -120,7 +140,7 @@ namespace AT90CAN128
  * GLOBAL CONSTANTS
  **************************************************************************************/
 
-static uint8_t constexpr NUMBER_OF_INTERRUPT_SERVICE_ROUTINES = 36;
+static uint8_t constexpr NUMBER_OF_INTERRUPT_SERVICE_ROUTINES = 40;
 
 /**************************************************************************************
  * TYPEDEFS
@@ -211,7 +231,12 @@ void InterruptController::enableInterrupt(uint8_t const int_num)
   case TIMER1_OVERFLOW                : *_TIMSK1  |= TOIE1_bm;  break;
   case TIMER0_COMPARE                 : *_TIMSK0  |= OCIE0A_bm; break;
   case TIMER0_OVERFLOW                : *_TIMSK0  |= TOIE0_bm;  break;
-  case CAN_INT                        : *_CANGIE  |= ENIT_bm;   break;
+  case CAN_ALL                        : *_CANGIE  |= ENIT_bm;   break;
+  case CAN_BUS_OFF                    : *_CANGIE  |= ENBOFF_bm; break;
+  case CAN_RECEIVE                    : *_CANGIE  |= ENRX_bm;   break;
+  case CAN_TRANSMIT                   : *_CANGIE  |= ENTX_bm;   break;
+  case CAN_FRAME_BUFFER               : *_CANGIE  |= ENBX_bm;   break;
+  case CAN_GENERAL_ERROR              : *_CANGIE  |= ENERG_bm;  break;
   case CAN_TIMER_OVERRUN              : *_CANGIE  |= ENOVRT_bm; break;
   case SPI_SERIAL_TRANSFER_COMPLETE   : *_SPCR    |= SPIE_bm;   break;
   case USART0_RECEIVE_COMPLETE        : *_UCSR0B  |= RXCIE0_bm; break;
@@ -257,7 +282,12 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
   case TIMER1_OVERFLOW                : *_TIMSK1  &= ~TOIE1_bm;  break;
   case TIMER0_COMPARE                 : *_TIMSK0  &= ~OCIE0A_bm; break;
   case TIMER0_OVERFLOW                : *_TIMSK0  &= ~TOIE0_bm;  break;
-  case CAN_INT                        : *_CANGIE  &= ~ENIT_bm;   break;
+  case CAN_ALL                        : *_CANGIE  &= ~ENIT_bm;   break;
+  case CAN_BUS_OFF                    : *_CANGIE  &= ~ENBOFF_bm; break;
+  case CAN_RECEIVE                    : *_CANGIE  &= ~ENRX_bm;   break;
+  case CAN_TRANSMIT                   : *_CANGIE  &= ~ENTX_bm;   break;
+  case CAN_FRAME_BUFFER               : *_CANGIE  &= ~ENBX_bm;   break;
+  case CAN_GENERAL_ERROR              : *_CANGIE  &= ~ENERG_bm;  break;
   case CAN_TIMER_OVERRUN              : *_CANGIE  &= ~ENOVRT_bm; break;
   case SPI_SERIAL_TRANSFER_COMPLETE   : *_SPCR    &= ~SPIE_bm;   break;
   case USART0_RECEIVE_COMPLETE        : *_UCSR0B  &= ~RXCIE0_bm; break;
@@ -494,10 +524,46 @@ ISR(TIMER0_OVF_vect)
 
 ISR(CANIT_vect)
 {
-  ISRFunc isr_func = _interrupt_callback_array[CAN_INT].isr_func;
-  ISRArg  isr_arg  = _interrupt_callback_array[CAN_INT].isr_arg;
+  /* CAN_BUS_OFF **********************************************************************/
+  if(CANGIT & BOFFIT_bm)
+  {
+    ISRFunc isr_func = _interrupt_callback_array[CAN_BUS_OFF].isr_func;
+    ISRArg  isr_arg  = _interrupt_callback_array[CAN_BUS_OFF].isr_arg;
 
-  if(isr_func) isr_func(isr_arg);
+    if(isr_func) isr_func(isr_arg);
+  }
+  /* CAN_RECEIVE **********************************************************************/
+  if(CANSTMOB & RXOK_bm)
+  {
+    ISRFunc isr_func = _interrupt_callback_array[CAN_RECEIVE].isr_func;
+    ISRArg  isr_arg  = _interrupt_callback_array[CAN_RECEIVE].isr_arg;
+
+    if(isr_func) isr_func(isr_arg);
+  }
+  /* CAN_TRANSMIT *********************************************************************/
+  if(CANSTMOB & TXOK_bm)
+  {
+    ISRFunc isr_func = _interrupt_callback_array[CAN_TRANSMIT].isr_func;
+    ISRArg  isr_arg  = _interrupt_callback_array[CAN_TRANSMIT].isr_arg;
+
+    if(isr_func) isr_func(isr_arg);
+  }
+  /* CAN_FRAME_BUFFER *****************************************************************/
+  if(CANGIT & BXOK_bm)
+  {
+    ISRFunc isr_func = _interrupt_callback_array[CAN_FRAME_BUFFER].isr_func;
+    ISRArg  isr_arg  = _interrupt_callback_array[CAN_FRAME_BUFFER].isr_arg;
+
+    if(isr_func) isr_func(isr_arg);
+  }
+  /* CAN_GENERAL_ERROR ****************************************************************/
+  if((CANGIT & SERG_bm) || (CANGIT & CERG_bm) || (CANGIT & FERG_bm) || (CANGIT & AERG_bm))
+  {
+    ISRFunc isr_func = _interrupt_callback_array[CAN_GENERAL_ERROR].isr_func;
+    ISRArg  isr_arg  = _interrupt_callback_array[CAN_GENERAL_ERROR].isr_arg;
+
+    if(isr_func) isr_func(isr_arg);
+  }
 }
 
 /**************************************************************************************/
