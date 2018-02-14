@@ -71,7 +71,7 @@ int main()
 
   uart0.registerUARTCallbackInterface (&serial_callback);
 
-  int_ctrl.enableInterrupt            (AT90CAN128::GLOBAL);
+  int_ctrl.enableInterrupt            (AT90CAN128::toIntNum(AT90CAN128::Interrupt::GLOBAL));
 
   /* APPLICATION **********************************************************************/
 

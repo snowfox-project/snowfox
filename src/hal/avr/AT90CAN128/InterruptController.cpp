@@ -136,17 +136,113 @@ namespace AT90CAN128
 /* SPMCSR */
 #define SPMIE_bm  (1<<7)
 
-/**************************************************************************************
- * GLOBAL CONSTANTS
- **************************************************************************************/
-
-/**************************************************************************************
- * TYPEDEFS
- **************************************************************************************/
+/* INTERRUPT NUMBERS */
+#define INT_EXTERNAL_INT0                    0
+#define INT_EXTERNAL_INT1                    1
+#define INT_EXTERNAL_INT2                    2
+#define INT_EXTERNAL_INT3                    3
+#define INT_EXTERNAL_INT4                    4
+#define INT_EXTERNAL_INT5                    5
+#define INT_EXTERNAL_INT6                    6
+#define INT_EXTERNAL_INT7                    7
+#define INT_TIMER2_COMPARE                   8
+#define INT_TIMER2_OVERFLOW                  9
+#define INT_TIMER1_CAPTURE                   10
+#define INT_TIMER1_COMPARE_A                 11
+#define INT_TIMER1_COMPARE_B                 12
+#define INT_TIMER1_COMPARE_C                 13
+#define INT_TIMER1_OVERFLOW                  14
+#define INT_TIMER0_COMPARE                   15
+#define INT_TIMER0_OVERFLOW                  16
+#define INT_CAN_ALL                          17
+#define INT_CAN_BUS_OFF                      18
+#define INT_CAN_RECEIVE                      19
+#define INT_CAN_TRANSMIT                     20
+#define INT_CAN_FRAME_BUFFER                 21
+#define INT_CAN_GENERAL_ERROR                22
+#define INT_CAN_TIMER_OVERRUN                23
+#define INT_SPI_SERIAL_TRANSFER_COMPLETE     24
+#define INT_USART0_RECEIVE_COMPLETE          25
+#define INT_USART0_UART_DATA_REGISTER_EMPTY  26
+#define INT_USART0_TRANSMIT_COMPLETE         27
+#define INT_ANALOG_COMPARATOR                28
+#define INT_ANALOG_DIGITAL_CONVERTER         29
+#define INT_EEPROM_READY                     30
+#define INT_TIMER3_CAPTURE                   31
+#define INT_TIMER3_COMPARE_A                 32
+#define INT_TIMER3_COMPARE_B                 33
+#define INT_TIMER3_COMPARE_C                 34
+#define INT_TIMER3_OVERFLOW                  35
+#define INT_USART1_RECEIVE_COMPLETE          36
+#define INT_USART1_UART_DATA_REGISTER_EMPTY  37
+#define INT_USART1_TRANSMIT_COMPLETE         38
+#define INT_TWO_WIRE_INT                     39
+#define INT_SPM_READY                        40
+#define INT_GLOBAL                           41
+#define INT_INVALID                          255
 
 /**************************************************************************************
  * GLOBAL VARIABLES
  **************************************************************************************/
+
+/**************************************************************************************
+ * GLOBAL FUNCTIONS
+ **************************************************************************************/
+
+uint8_t toIntNum(Interrupt const interrupt)
+{
+  switch(interrupt)
+  {
+  case Interrupt::EXTERNAL_INT0                   : return 0; break;
+  case Interrupt::EXTERNAL_INT1                   : return 0; break;
+  case Interrupt::EXTERNAL_INT2                   : return 0; break;
+  case Interrupt::EXTERNAL_INT3                   : return 0; break;
+  case Interrupt::EXTERNAL_INT4                   : return 0; break;
+  case Interrupt::EXTERNAL_INT5                   : return 0; break;
+  case Interrupt::EXTERNAL_INT6                   : return 0; break;
+  case Interrupt::EXTERNAL_INT7                   : return 0; break;
+  case Interrupt::TIMER2_COMPARE                  : return 0; break;
+  case Interrupt::TIMER2_OVERFLOW                 : return 0; break;
+  case Interrupt::TIMER1_CAPTURE                  : return 0; break;
+  case Interrupt::TIMER1_COMPARE_A                : return 0; break;
+  case Interrupt::TIMER1_COMPARE_B                : return 0; break;
+  case Interrupt::TIMER1_COMPARE_C                : return 0; break;
+  case Interrupt::TIMER1_OVERFLOW                 : return 0; break;
+  case Interrupt::TIMER0_COMPARE                  : return 0; break;
+  case Interrupt::TIMER0_OVERFLOW                 : return 0; break;
+  case Interrupt::CAN_ALL                         : return 0; break;
+  case Interrupt::CAN_BUS_OFF                     : return 0; break;
+  case Interrupt::CAN_RECEIVE                     : return 0; break;
+  case Interrupt::CAN_TRANSMIT                    : return 0; break;
+  case Interrupt::CAN_FRAME_BUFFER                : return 0; break;
+  case Interrupt::CAN_GENERAL_ERROR               : return 0; break;
+  case Interrupt::CAN_TIMER_OVERRUN               : return 0; break;
+  case Interrupt::SPI_SERIAL_TRANSFER_COMPLETE    : return 0; break;
+  case Interrupt::USART0_RECEIVE_COMPLETE         : return 0; break;
+  case Interrupt::USART0_UART_DATA_REGISTER_EMPTY : return 0;
+  case Interrupt::USART0_TRANSMIT_COMPLETE        : return 0; break;
+  case Interrupt::ANALOG_COMPARATOR               : return 0; break;
+  case Interrupt::ANALOG_DIGITAL_CONVERTER        : return 0; break;
+  case Interrupt::EEPROM_READY                    : return 0; break;
+  case Interrupt::TIMER3_CAPTURE                  : return 0; break;
+  case Interrupt::TIMER3_COMPARE_A                : return 0; break;
+  case Interrupt::TIMER3_COMPARE_B                : return 0; break;
+  case Interrupt::TIMER3_COMPARE_C                : return 0; break;
+  case Interrupt::TIMER3_OVERFLOW                 : return 0; break;
+  case Interrupt::USART1_RECEIVE_COMPLETE         : return 0; break;
+  case Interrupt::USART1_UART_DATA_REGISTER_EMPTY : return 0; break;
+  case Interrupt::USART1_TRANSMIT_COMPLETE        : return 0; break;
+  case Interrupt::TWO_WIRE_INT                    : return 0; break;
+  case Interrupt::SPM_READY                       : return 0; break;
+  case Interrupt::GLOBAL                          : return 0; break;
+  default                                         : return INT_INVALID; break;
+  }
+}
+
+uint8_t toIsrNum(InterruptServiceRoutine const interrupt_service_routine)
+{
+  return 0;
+}
 
 /**************************************************************************************
  * CTOR/DTOR
@@ -197,49 +293,49 @@ void InterruptController::enableInterrupt(uint8_t const int_num)
 {
   switch(int_num)
   {
-  case EXTERNAL_INT0                  : *_EIMSK   |= INT0_bm;   break;
-  case EXTERNAL_INT1                  : *_EIMSK   |= INT1_bm;   break;
-  case EXTERNAL_INT2                  : *_EIMSK   |= INT2_bm;   break;
-  case EXTERNAL_INT3                  : *_EIMSK   |= INT3_bm;   break;
-  case EXTERNAL_INT4                  : *_EIMSK   |= INT4_bm;   break;
-  case EXTERNAL_INT5                  : *_EIMSK   |= INT5_bm;   break;
-  case EXTERNAL_INT6                  : *_EIMSK   |= INT6_bm;   break;
-  case EXTERNAL_INT7                  : *_EIMSK   |= INT7_bm;   break;
-  case TIMER2_COMPARE                 : *_TIMSK2  |= OCIE2A_bm; break;
-  case TIMER2_OVERFLOW                : *_TIMSK2  |= TOIE2_bm;  break;
-  case TIMER1_CAPTURE                 : *_TIMSK1  |= ICIE1_bm;  break;
-  case TIMER1_COMPARE_A               : *_TIMSK1  |= OCIE1C_bm; break;
-  case TIMER1_COMPARE_B               : *_TIMSK1  |= OCIE1B_bm; break;
-  case TIMER1_COMPARE_C               : *_TIMSK1  |= OCIE1A_bm; break;
-  case TIMER1_OVERFLOW                : *_TIMSK1  |= TOIE1_bm;  break;
-  case TIMER0_COMPARE                 : *_TIMSK0  |= OCIE0A_bm; break;
-  case TIMER0_OVERFLOW                : *_TIMSK0  |= TOIE0_bm;  break;
-  case CAN_ALL                        : *_CANGIE  |= ENIT_bm;   break;
-  case CAN_BUS_OFF                    : *_CANGIE  |= ENBOFF_bm; break;
-  case CAN_RECEIVE                    : *_CANGIE  |= ENRX_bm;   break;
-  case CAN_TRANSMIT                   : *_CANGIE  |= ENTX_bm;   break;
-  case CAN_FRAME_BUFFER               : *_CANGIE  |= ENBX_bm;   break;
-  case CAN_GENERAL_ERROR              : *_CANGIE  |= ENERG_bm;  break;
-  case CAN_TIMER_OVERRUN              : *_CANGIE  |= ENOVRT_bm; break;
-  case SPI_SERIAL_TRANSFER_COMPLETE   : *_SPCR    |= SPIE_bm;   break;
-  case USART0_RECEIVE_COMPLETE        : *_UCSR0B  |= RXCIE0_bm; break;
-  case USART0_UART_DATA_REGISTER_EMPTY: *_UCSR0B  |= UDRIE0_bm; break;
-  case USART0_TRANSMIT_COMPLETE       : *_UCSR0B  |= TXCIE0_bm; break;
-  case ANALOG_COMPARATOR              : *_ACSR    |= ACIE_bm;   break;
-  case ANALOG_DIGITAL_CONVERTER       : *_ADCSRA  |= ADIE_bm;   break;
-  case EEPROM_READY                   : *_EECR    |= EERIE_bm;  break;
-  case TIMER3_CAPTURE                 : *_TIMSK3  |= ICIE3_bm;  break;
-  case TIMER3_COMPARE_A               : *_TIMSK3  |= OCIE3C_bm; break;
-  case TIMER3_COMPARE_B               : *_TIMSK3  |= OCIE3B_bm; break;
-  case TIMER3_COMPARE_C               : *_TIMSK3  |= OCIE3A_bm; break;
-  case TIMER3_OVERFLOW                : *_TIMSK3  |= TOIE3_bm;  break;
-  case USART1_RECEIVE_COMPLETE        : *_UCSR1B  |= RXCIE1_bm; break;
-  case USART1_UART_DATA_REGISTER_EMPTY: *_UCSR1B  |= UDRIE1_bm; break;
-  case USART1_TRANSMIT_COMPLETE       : *_UCSR1B  |= TXCIE1_bm; break;
-  case TWO_WIRE_INT                   : *_TWCR    |= TWIE_bm;   break;
-  case SPM_READY                      : *_SPMCSR  |= SPMIE_bm;  break;
+  case INT_EXTERNAL_INT0                  : *_EIMSK   |= INT0_bm;   break;
+  case INT_EXTERNAL_INT1                  : *_EIMSK   |= INT1_bm;   break;
+  case INT_EXTERNAL_INT2                  : *_EIMSK   |= INT2_bm;   break;
+  case INT_EXTERNAL_INT3                  : *_EIMSK   |= INT3_bm;   break;
+  case INT_EXTERNAL_INT4                  : *_EIMSK   |= INT4_bm;   break;
+  case INT_EXTERNAL_INT5                  : *_EIMSK   |= INT5_bm;   break;
+  case INT_EXTERNAL_INT6                  : *_EIMSK   |= INT6_bm;   break;
+  case INT_EXTERNAL_INT7                  : *_EIMSK   |= INT7_bm;   break;
+  case INT_TIMER2_COMPARE                 : *_TIMSK2  |= OCIE2A_bm; break;
+  case INT_TIMER2_OVERFLOW                : *_TIMSK2  |= TOIE2_bm;  break;
+  case INT_TIMER1_CAPTURE                 : *_TIMSK1  |= ICIE1_bm;  break;
+  case INT_TIMER1_COMPARE_A               : *_TIMSK1  |= OCIE1C_bm; break;
+  case INT_TIMER1_COMPARE_B               : *_TIMSK1  |= OCIE1B_bm; break;
+  case INT_TIMER1_COMPARE_C               : *_TIMSK1  |= OCIE1A_bm; break;
+  case INT_TIMER1_OVERFLOW                : *_TIMSK1  |= TOIE1_bm;  break;
+  case INT_TIMER0_COMPARE                 : *_TIMSK0  |= OCIE0A_bm; break;
+  case INT_TIMER0_OVERFLOW                : *_TIMSK0  |= TOIE0_bm;  break;
+  case INT_CAN_ALL                        : *_CANGIE  |= ENIT_bm;   break;
+  case INT_CAN_BUS_OFF                    : *_CANGIE  |= ENBOFF_bm; break;
+  case INT_CAN_RECEIVE                    : *_CANGIE  |= ENRX_bm;   break;
+  case INT_CAN_TRANSMIT                   : *_CANGIE  |= ENTX_bm;   break;
+  case INT_CAN_FRAME_BUFFER               : *_CANGIE  |= ENBX_bm;   break;
+  case INT_CAN_GENERAL_ERROR              : *_CANGIE  |= ENERG_bm;  break;
+  case INT_CAN_TIMER_OVERRUN              : *_CANGIE  |= ENOVRT_bm; break;
+  case INT_SPI_SERIAL_TRANSFER_COMPLETE   : *_SPCR    |= SPIE_bm;   break;
+  case INT_USART0_RECEIVE_COMPLETE        : *_UCSR0B  |= RXCIE0_bm; break;
+  case INT_USART0_UART_DATA_REGISTER_EMPTY: *_UCSR0B  |= UDRIE0_bm; break;
+  case INT_USART0_TRANSMIT_COMPLETE       : *_UCSR0B  |= TXCIE0_bm; break;
+  case INT_ANALOG_COMPARATOR              : *_ACSR    |= ACIE_bm;   break;
+  case INT_ANALOG_DIGITAL_CONVERTER       : *_ADCSRA  |= ADIE_bm;   break;
+  case INT_EEPROM_READY                   : *_EECR    |= EERIE_bm;  break;
+  case INT_TIMER3_CAPTURE                 : *_TIMSK3  |= ICIE3_bm;  break;
+  case INT_TIMER3_COMPARE_A               : *_TIMSK3  |= OCIE3C_bm; break;
+  case INT_TIMER3_COMPARE_B               : *_TIMSK3  |= OCIE3B_bm; break;
+  case INT_TIMER3_COMPARE_C               : *_TIMSK3  |= OCIE3A_bm; break;
+  case INT_TIMER3_OVERFLOW                : *_TIMSK3  |= TOIE3_bm;  break;
+  case INT_USART1_RECEIVE_COMPLETE        : *_UCSR1B  |= RXCIE1_bm; break;
+  case INT_USART1_UART_DATA_REGISTER_EMPTY: *_UCSR1B  |= UDRIE1_bm; break;
+  case INT_USART1_TRANSMIT_COMPLETE       : *_UCSR1B  |= TXCIE1_bm; break;
+  case INT_TWO_WIRE_INT                   : *_TWCR    |= TWIE_bm;   break;
+  case INT_SPM_READY                      : *_SPMCSR  |= SPMIE_bm;  break;
 #if defined(MCU_ARCH_avr) && defined(MCU_TYPE_at90can128)
-  case GLOBAL                         : asm volatile("sei");    break;
+  case INT_GLOBAL                         : asm volatile("sei");    break;
 #endif
   }
 }
@@ -248,49 +344,49 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
 {
   switch(int_num)
   {
-  case EXTERNAL_INT0                  : *_EIMSK   &= ~INT0_bm;   break;
-  case EXTERNAL_INT1                  : *_EIMSK   &= ~INT1_bm;   break;
-  case EXTERNAL_INT2                  : *_EIMSK   &= ~INT2_bm;   break;
-  case EXTERNAL_INT3                  : *_EIMSK   &= ~INT3_bm;   break;
-  case EXTERNAL_INT4                  : *_EIMSK   &= ~INT4_bm;   break;
-  case EXTERNAL_INT5                  : *_EIMSK   &= ~INT5_bm;   break;
-  case EXTERNAL_INT6                  : *_EIMSK   &= ~INT6_bm;   break;
-  case EXTERNAL_INT7                  : *_EIMSK   &= ~INT7_bm;   break;
-  case TIMER2_COMPARE                 : *_TIMSK2  &= ~OCIE2A_bm; break;
-  case TIMER2_OVERFLOW                : *_TIMSK2  &= ~TOIE2_bm;  break;
-  case TIMER1_CAPTURE                 : *_TIMSK1  &= ~ICIE1_bm;  break;
-  case TIMER1_COMPARE_A               : *_TIMSK1  &= ~OCIE1C_bm; break;
-  case TIMER1_COMPARE_B               : *_TIMSK1  &= ~OCIE1B_bm; break;
-  case TIMER1_COMPARE_C               : *_TIMSK1  &= ~OCIE1A_bm; break;
-  case TIMER1_OVERFLOW                : *_TIMSK1  &= ~TOIE1_bm;  break;
-  case TIMER0_COMPARE                 : *_TIMSK0  &= ~OCIE0A_bm; break;
-  case TIMER0_OVERFLOW                : *_TIMSK0  &= ~TOIE0_bm;  break;
-  case CAN_ALL                        : *_CANGIE  &= ~ENIT_bm;   break;
-  case CAN_BUS_OFF                    : *_CANGIE  &= ~ENBOFF_bm; break;
-  case CAN_RECEIVE                    : *_CANGIE  &= ~ENRX_bm;   break;
-  case CAN_TRANSMIT                   : *_CANGIE  &= ~ENTX_bm;   break;
-  case CAN_FRAME_BUFFER               : *_CANGIE  &= ~ENBX_bm;   break;
-  case CAN_GENERAL_ERROR              : *_CANGIE  &= ~ENERG_bm;  break;
-  case CAN_TIMER_OVERRUN              : *_CANGIE  &= ~ENOVRT_bm; break;
-  case SPI_SERIAL_TRANSFER_COMPLETE   : *_SPCR    &= ~SPIE_bm;   break;
-  case USART0_RECEIVE_COMPLETE        : *_UCSR0B  &= ~RXCIE0_bm; break;
-  case USART0_UART_DATA_REGISTER_EMPTY: *_UCSR0B  &= ~UDRIE0_bm; break;
-  case USART0_TRANSMIT_COMPLETE       : *_UCSR0B  &= ~TXCIE0_bm; break;
-  case ANALOG_COMPARATOR              : *_ACSR    &= ~ACIE_bm;   break;
-  case ANALOG_DIGITAL_CONVERTER       : *_ADCSRA  &= ~ADIE_bm;   break;
-  case EEPROM_READY                   : *_EECR    &= ~EERIE_bm;  break;
-  case TIMER3_CAPTURE                 : *_TIMSK3  &= ~ICIE3_bm;  break;
-  case TIMER3_COMPARE_A               : *_TIMSK3  &= ~OCIE3C_bm; break;
-  case TIMER3_COMPARE_B               : *_TIMSK3  &= ~OCIE3B_bm; break;
-  case TIMER3_COMPARE_C               : *_TIMSK3  &= ~OCIE3A_bm; break;
-  case TIMER3_OVERFLOW                : *_TIMSK3  &= ~TOIE3_bm;  break;
-  case USART1_RECEIVE_COMPLETE        : *_UCSR1B  &= ~RXCIE1_bm; break;
-  case USART1_UART_DATA_REGISTER_EMPTY: *_UCSR1B  &= ~UDRIE1_bm; break;
-  case USART1_TRANSMIT_COMPLETE       : *_UCSR1B  &= ~TXCIE1_bm; break;
-  case TWO_WIRE_INT                   : *_TWCR    &= ~TWIE_bm;   break;
-  case SPM_READY                      : *_SPMCSR  &= ~SPMIE_bm;  break;
+  case INT_EXTERNAL_INT0                  : *_EIMSK   &= ~INT0_bm;   break;
+  case INT_EXTERNAL_INT1                  : *_EIMSK   &= ~INT1_bm;   break;
+  case INT_EXTERNAL_INT2                  : *_EIMSK   &= ~INT2_bm;   break;
+  case INT_EXTERNAL_INT3                  : *_EIMSK   &= ~INT3_bm;   break;
+  case INT_EXTERNAL_INT4                  : *_EIMSK   &= ~INT4_bm;   break;
+  case INT_EXTERNAL_INT5                  : *_EIMSK   &= ~INT5_bm;   break;
+  case INT_EXTERNAL_INT6                  : *_EIMSK   &= ~INT6_bm;   break;
+  case INT_EXTERNAL_INT7                  : *_EIMSK   &= ~INT7_bm;   break;
+  case INT_TIMER2_COMPARE                 : *_TIMSK2  &= ~OCIE2A_bm; break;
+  case INT_TIMER2_OVERFLOW                : *_TIMSK2  &= ~TOIE2_bm;  break;
+  case INT_TIMER1_CAPTURE                 : *_TIMSK1  &= ~ICIE1_bm;  break;
+  case INT_TIMER1_COMPARE_A               : *_TIMSK1  &= ~OCIE1C_bm; break;
+  case INT_TIMER1_COMPARE_B               : *_TIMSK1  &= ~OCIE1B_bm; break;
+  case INT_TIMER1_COMPARE_C               : *_TIMSK1  &= ~OCIE1A_bm; break;
+  case INT_TIMER1_OVERFLOW                : *_TIMSK1  &= ~TOIE1_bm;  break;
+  case INT_TIMER0_COMPARE                 : *_TIMSK0  &= ~OCIE0A_bm; break;
+  case INT_TIMER0_OVERFLOW                : *_TIMSK0  &= ~TOIE0_bm;  break;
+  case INT_CAN_ALL                        : *_CANGIE  &= ~ENIT_bm;   break;
+  case INT_CAN_BUS_OFF                    : *_CANGIE  &= ~ENBOFF_bm; break;
+  case INT_CAN_RECEIVE                    : *_CANGIE  &= ~ENRX_bm;   break;
+  case INT_CAN_TRANSMIT                   : *_CANGIE  &= ~ENTX_bm;   break;
+  case INT_CAN_FRAME_BUFFER               : *_CANGIE  &= ~ENBX_bm;   break;
+  case INT_CAN_GENERAL_ERROR              : *_CANGIE  &= ~ENERG_bm;  break;
+  case INT_CAN_TIMER_OVERRUN              : *_CANGIE  &= ~ENOVRT_bm; break;
+  case INT_SPI_SERIAL_TRANSFER_COMPLETE   : *_SPCR    &= ~SPIE_bm;   break;
+  case INT_USART0_RECEIVE_COMPLETE        : *_UCSR0B  &= ~RXCIE0_bm; break;
+  case INT_USART0_UART_DATA_REGISTER_EMPTY: *_UCSR0B  &= ~UDRIE0_bm; break;
+  case INT_USART0_TRANSMIT_COMPLETE       : *_UCSR0B  &= ~TXCIE0_bm; break;
+  case INT_ANALOG_COMPARATOR              : *_ACSR    &= ~ACIE_bm;   break;
+  case INT_ANALOG_DIGITAL_CONVERTER       : *_ADCSRA  &= ~ADIE_bm;   break;
+  case INT_EEPROM_READY                   : *_EECR    &= ~EERIE_bm;  break;
+  case INT_TIMER3_CAPTURE                 : *_TIMSK3  &= ~ICIE3_bm;  break;
+  case INT_TIMER3_COMPARE_A               : *_TIMSK3  &= ~OCIE3C_bm; break;
+  case INT_TIMER3_COMPARE_B               : *_TIMSK3  &= ~OCIE3B_bm; break;
+  case INT_TIMER3_COMPARE_C               : *_TIMSK3  &= ~OCIE3A_bm; break;
+  case INT_TIMER3_OVERFLOW                : *_TIMSK3  &= ~TOIE3_bm;  break;
+  case INT_USART1_RECEIVE_COMPLETE        : *_UCSR1B  &= ~RXCIE1_bm; break;
+  case INT_USART1_UART_DATA_REGISTER_EMPTY: *_UCSR1B  &= ~UDRIE1_bm; break;
+  case INT_USART1_TRANSMIT_COMPLETE       : *_UCSR1B  &= ~TXCIE1_bm; break;
+  case INT_TWO_WIRE_INT                   : *_TWCR    &= ~TWIE_bm;   break;
+  case INT_SPM_READY                      : *_SPMCSR  &= ~SPMIE_bm;  break;
 #if defined(MCU_ARCH_avr) && defined(MCU_TYPE_at90can128)
-  case GLOBAL                         : asm volatile("cli");     break;
+  case INT_GLOBAL                         : asm volatile("cli");     break;
 #endif
   }
 }

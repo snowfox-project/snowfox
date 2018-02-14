@@ -376,7 +376,7 @@ void InterruptController::registerInterruptCallback(uint8_t const isr_num, inter
   case ISR_EXTERNAL_INT1                  : isr_external_int1                  = interrupt_callback; break;
   case ISR_PIN_CHANGE_INT0                : isr_pin_change_int0                = interrupt_callback; break;
   case ISR_PIN_CHANGE_INT1                : isr_pin_change_int1                = interrupt_callback; break;
-  case ISR_PIN_CHANGE_INT2                : isr_pin_change_int1                = interrupt_callback; break;
+  case ISR_PIN_CHANGE_INT2                : isr_pin_change_int2                = interrupt_callback; break;
   case ISR_WATCHDOG_TIMER                 : isr_watchdog_timer                 = interrupt_callback; break;
   case ISR_TIMER2_COMPARE_A               : isr_timer2_compare_a               = interrupt_callback; break;
   case ISR_TIMER2_COMPARE_B               : isr_timer2_compare_b               = interrupt_callback; break;

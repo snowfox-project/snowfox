@@ -41,51 +41,66 @@ namespace AT90CAN128
 {
 
 /**************************************************************************************
- * CONSTANTS
+ * TYPEDEFS
  **************************************************************************************/
 
-static uint8_t const EXTERNAL_INT0                    = 0;
-static uint8_t const EXTERNAL_INT1                    = 1;
-static uint8_t const EXTERNAL_INT2                    = 2;
-static uint8_t const EXTERNAL_INT3                    = 3;
-static uint8_t const EXTERNAL_INT4                    = 4;
-static uint8_t const EXTERNAL_INT5                    = 5;
-static uint8_t const EXTERNAL_INT6                    = 6;
-static uint8_t const EXTERNAL_INT7                    = 7;
-static uint8_t const TIMER2_COMPARE                   = 8;
-static uint8_t const TIMER2_OVERFLOW                  = 9;
-static uint8_t const TIMER1_CAPTURE                   = 10;
-static uint8_t const TIMER1_COMPARE_A                 = 11;
-static uint8_t const TIMER1_COMPARE_B                 = 12;
-static uint8_t const TIMER1_COMPARE_C                 = 13;
-static uint8_t const TIMER1_OVERFLOW                  = 14;
-static uint8_t const TIMER0_COMPARE                   = 15;
-static uint8_t const TIMER0_OVERFLOW                  = 16;
-static uint8_t const CAN_ALL                          = 17;
-static uint8_t const CAN_BUS_OFF                      = 18;
-static uint8_t const CAN_RECEIVE                      = 19;
-static uint8_t const CAN_TRANSMIT                     = 20;
-static uint8_t const CAN_FRAME_BUFFER                 = 21;
-static uint8_t const CAN_GENERAL_ERROR                = 22;
-static uint8_t const CAN_TIMER_OVERRUN                = 23;
-static uint8_t const SPI_SERIAL_TRANSFER_COMPLETE     = 24;
-static uint8_t const USART0_RECEIVE_COMPLETE          = 25;
-static uint8_t const USART0_UART_DATA_REGISTER_EMPTY  = 26;
-static uint8_t const USART0_TRANSMIT_COMPLETE         = 27;
-static uint8_t const ANALOG_COMPARATOR                = 28;
-static uint8_t const ANALOG_DIGITAL_CONVERTER         = 29;
-static uint8_t const EEPROM_READY                     = 30;
-static uint8_t const TIMER3_CAPTURE                   = 31;
-static uint8_t const TIMER3_COMPARE_A                 = 32;
-static uint8_t const TIMER3_COMPARE_B                 = 33;
-static uint8_t const TIMER3_COMPARE_C                 = 34;
-static uint8_t const TIMER3_OVERFLOW                  = 35;
-static uint8_t const USART1_RECEIVE_COMPLETE          = 36;
-static uint8_t const USART1_UART_DATA_REGISTER_EMPTY  = 37;
-static uint8_t const USART1_TRANSMIT_COMPLETE         = 38;
-static uint8_t const TWO_WIRE_INT                     = 39;
-static uint8_t const SPM_READY                        = 40;
-static uint8_t const GLOBAL                           = 41;
+enum class Interrupt : uint8_t
+{
+  EXTERNAL_INT0,
+  EXTERNAL_INT1,
+  EXTERNAL_INT2,
+  EXTERNAL_INT3,
+  EXTERNAL_INT4,
+  EXTERNAL_INT5,
+  EXTERNAL_INT6,
+  EXTERNAL_INT7,
+  TIMER2_COMPARE,
+  TIMER2_OVERFLOW,
+  TIMER1_CAPTURE,
+  TIMER1_COMPARE_A,
+  TIMER1_COMPARE_B,
+  TIMER1_COMPARE_C,
+  TIMER1_OVERFLOW,
+  TIMER0_COMPARE,
+  TIMER0_OVERFLOW,
+  CAN_ALL,
+  CAN_BUS_OFF,
+  CAN_RECEIVE,
+  CAN_TRANSMIT,
+  CAN_FRAME_BUFFER,
+  CAN_GENERAL_ERROR,
+  CAN_TIMER_OVERRUN,
+  SPI_SERIAL_TRANSFER_COMPLETE,
+  USART0_RECEIVE_COMPLETE,
+  USART0_UART_DATA_REGISTER_EMPTY,
+  USART0_TRANSMIT_COMPLETE,
+  ANALOG_COMPARATOR,
+  ANALOG_DIGITAL_CONVERTER,
+  EEPROM_READY,
+  TIMER3_CAPTURE,
+  TIMER3_COMPARE_A,
+  TIMER3_COMPARE_B,
+  TIMER3_COMPARE_C,
+  TIMER3_OVERFLOW,
+  USART1_RECEIVE_COMPLETE,
+  USART1_UART_DATA_REGISTER_EMPTY,
+  USART1_TRANSMIT_COMPLETE,
+  TWO_WIRE_INT,
+  SPM_READY,
+  GLOBAL
+};
+
+enum class InterruptServiceRoutine : uint8_t
+{
+
+};
+
+/**************************************************************************************
+ * PROTOTYPES
+ **************************************************************************************/
+
+uint8_t toIntNum(Interrupt               const interrupt                );
+uint8_t toIsrNum(InterruptServiceRoutine const interrupt_service_routine);
 
 /**************************************************************************************
  * CLASS DECLARATION
