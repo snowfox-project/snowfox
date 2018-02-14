@@ -42,11 +42,168 @@ namespace test
 
 /**************************************************************************************/
 
-SCENARIO("A memory::container::Queue is constructed with a size of 0", "[memory::container::Queue]")
+SCENARIO("A queue is constructed with a size of 0 (queue of capacity of 0 elements -> makes no sense)", "[memory::container::Queue]")
 {
   Queue<uint8_t> queue(0);
 
-  /* TODO */
+  THEN("'size' should return 0")
+  {
+    REQUIRE(queue.size() == 0);
+  }
+  THEN("'capacity' should return 0")
+  {
+    REQUIRE(queue.capacity() == 0);
+  }
+  THEN("'isFull' should return true")
+  {
+    REQUIRE(queue.isFull() == true);
+  }
+  THEN("'isEmpty' should return true")
+  {
+    REQUIRE(queue.isEmpty() == true);
+  }
+
+  WHEN("trying to insert a new element via 'push'")
+  {
+    THEN("'push' should return false")
+    {
+      REQUIRE(queue.push(0xCA) == false);
+    }
+  }
+
+  WHEN("trying to remove a element via 'pop'")
+  {
+    THEN("'pop' should return false")
+    {
+      uint8_t data = 0;
+      REQUIRE(queue.pop(&data) == false);
+    }
+  }
+}
+
+/**************************************************************************************/
+
+SCENARIO("A queue is constructed with a size of > 0 and no elements are inserted (empty queue)", "[memory::container::Queue]")
+{
+  Queue<uint8_t> queue(5);
+
+  THEN("'size' should return 0")
+  {
+    REQUIRE(queue.size() == 0);
+  }
+  THEN("'capacity' should return the constructed size")
+  {
+    REQUIRE(queue.capacity() == 5);
+  }
+  THEN("'isFull' should return false")
+  {
+    REQUIRE(queue.isFull() == false);
+  }
+  THEN("'isEmpty' should return true")
+  {
+    REQUIRE(queue.isEmpty() == true);
+  }
+
+  WHEN("trying to insert a new element via 'push'")
+  {
+    THEN("'push' should return true")
+    {
+      REQUIRE(queue.push(0xCA) == true);
+    }
+  }
+
+  WHEN("trying to remove a element via 'pop'")
+  {
+    THEN("'pop' should return false")
+    {
+      uint8_t data = 0;
+      REQUIRE(queue.pop(&data) == false);
+    }
+  }
+}
+
+/**************************************************************************************/
+
+SCENARIO("A queue is constructed with a size of > 0 and it is filled completely with elements (full queue)", "[memory::container::Queue]")
+{
+  Queue<uint8_t> queue(5);
+
+  REQUIRE(queue.push(0xCA) == true);
+  REQUIRE(queue.push(0xFE) == true);
+  REQUIRE(queue.push(0xCA) == true);
+  REQUIRE(queue.push(0xFE) == true);
+  REQUIRE(queue.push(0xCA) == true);
+
+  THEN("'size' should return the number of elements inserted")
+  {
+    REQUIRE(queue.size() == 5);
+  }
+  THEN("'capacity' should return the constructed size")
+  {
+    REQUIRE(queue.capacity() == 5);
+  }
+  THEN("'isFull' should return true")
+  {
+    REQUIRE(queue.isFull() == true);
+  }
+  THEN("'isEmpty' should return false")
+  {
+    REQUIRE(queue.isEmpty() == false);
+  }
+
+  WHEN("trying to insert a new element via 'push'")
+  {
+    THEN("'push' should return false")
+    {
+      REQUIRE(queue.push(0xCA) == false);
+    }
+  }
+
+  WHEN("trying to remove a element via 'pop'")
+  {
+    THEN("'pop' should return true")
+    {
+      uint8_t data = 0;
+      REQUIRE(queue.pop(&data) == true);
+    }
+  }
+}
+
+/**************************************************************************************/
+
+SCENARIO("A queue is constructed with a size of > 0 and elements are inserted and removed (normal scenario)", "[memory::container::Queue]")
+{
+  Queue<uint8_t> queue(5);
+
+  WHEN("some elements are inserted via 'push'")
+  {
+    REQUIRE(queue.push(0x00) == true);
+    REQUIRE(queue.push(0x01) == true);
+    REQUIRE(queue.push(0x02) == true);
+
+    THEN("they can be retrieved ('pop') in the exact order with which they where 'push'ed into the system")
+    {
+      uint8_t data = 0;
+      REQUIRE(queue.pop(&data) == true); REQUIRE(data == 0x00);
+      REQUIRE(queue.pop(&data) == true); REQUIRE(data == 0x01);
+      REQUIRE(queue.pop(&data) == true); REQUIRE(data == 0x02);
+    }
+  }
+
+  WHEN("some elements are inserted via 'push'")
+  {
+    REQUIRE(queue.push(0x00) == true); THEN("'size' always returns the number of elements stored in the queue") REQUIRE(queue.size() == 1);
+    REQUIRE(queue.push(0x01) == true); THEN("'size' always returns the number of elements stored in the queue") REQUIRE(queue.size() == 2);
+    REQUIRE(queue.push(0x02) == true); THEN("'size' always returns the number of elements stored in the queue") REQUIRE(queue.size() == 3);
+
+    WHEN("they are retrieved afterwards via 'pop'")
+    {
+      uint8_t data = 0;
+      REQUIRE(queue.pop(&data) == true); REQUIRE(data == 0x00); THEN("'size' always returns the number of elements stored in the queue") REQUIRE(queue.size() == 2);
+      REQUIRE(queue.pop(&data) == true); REQUIRE(data == 0x01); THEN("'size' always returns the number of elements stored in the queue") REQUIRE(queue.size() == 1);
+      REQUIRE(queue.pop(&data) == true); REQUIRE(data == 0x02); THEN("'size' always returns the number of elements stored in the queue") REQUIRE(queue.size() == 0);
+    }
+  }
 }
 
 /**************************************************************************************
