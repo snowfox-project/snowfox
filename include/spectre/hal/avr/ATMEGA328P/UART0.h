@@ -110,13 +110,13 @@ private:
  * CLASS DECLARATION UsartUartDataRegisterEmptyCallback
  **************************************************************************************/
 
-class UsartUartDataRegisterEmptyCallback : public interface::InterruptCallback
+class UART0_DataRegisterEmptyCallback : public interface::InterruptCallback
 {
 
 public:
 
-           UsartUartDataRegisterEmptyCallback(UART0 & uart0) : _uart0(uart0) { }
-  virtual ~UsartUartDataRegisterEmptyCallback() { }
+           UART0_DataRegisterEmptyCallback(UART0 & uart0) : _uart0(uart0) { }
+  virtual ~UART0_DataRegisterEmptyCallback() { }
 
 
   virtual void interruptServiceRoutine() override
@@ -134,13 +134,13 @@ private:
  * CLASS DECLARATION UsartReceiveCompleteCallback
  **************************************************************************************/
 
-class UsartReceiveCompleteCallback : public interface::InterruptCallback
+class UART0_ReceiveCompleteCallback : public interface::InterruptCallback
 {
 
 public:
 
-           UsartReceiveCompleteCallback(UART0 & uart0) : _uart0(uart0) { }
-  virtual ~UsartReceiveCompleteCallback() { }
+           UART0_ReceiveCompleteCallback(UART0 & uart0) : _uart0(uart0) { }
+  virtual ~UART0_ReceiveCompleteCallback() { }
 
 
   virtual void interruptServiceRoutine() override
