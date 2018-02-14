@@ -121,7 +121,7 @@ void UART_SerialController::putDataTxBuffer(uint8_t const data)
   hal::interface::LockGuard lock(_crit_sec);
 
   _tx_queue.push(data);
-  _uart_config.enableInterrupt(hal::interface::UartInt::TxComplete);
+  _uart_config.enableInterrupt(hal::interface::UartInt::UartDataRegisterEmpty);
 }
 
 void UART_SerialController::onTransmitComplete()
@@ -136,7 +136,7 @@ void UART_SerialController::onTransmitComplete()
   }
   else
   {
-    _uart_config.disableInterrupt(hal::interface::UartInt::TxComplete);
+    _uart_config.disableInterrupt(hal::interface::UartInt::UartDataRegisterEmpty);
   }
 }
 

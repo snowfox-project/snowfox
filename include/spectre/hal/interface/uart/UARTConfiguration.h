@@ -62,7 +62,7 @@ enum class UartStopBit : uint8_t
 
 enum class UartInt : uint8_t
 {
-  TxComplete,
+  UartDataRegisterEmpty,
   RxComplete
 };
 

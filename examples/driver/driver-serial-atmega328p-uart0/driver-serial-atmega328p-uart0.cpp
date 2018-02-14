@@ -58,8 +58,11 @@ int main()
   ATMEGA328P::CriticalSection     crit_sec  (&SREG);
   ATMEGA328P::UART0               uart0     (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl, F_CPU);
 
-  int_ctrl.registerISR(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::USART_UART_DATA_REGISTER_EMPTY), ATMEGA328P::UART0::ISR_onTransmitComplete, &uart0);
-  int_ctrl.registerISR(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::USART_RECEIVE_COMPLETE        ), ATMEGA328P::UART0::ISR_onReceiveComplete,  &uart0);
+  ATMEGA328P::UsartUartDataRegisterEmptyCallback  uart0_uart_data_register_empty_callback(uart0);
+  ATMEGA328P::UsartReceiveCompleteCallback        uart0_receive_complete_callback        (uart0);
+
+  int_ctrl.registerInterruptCallback(ATMEGA328P::toIsrNum(ATMEGA328P::InterruptServiceRoutine::USART_UART_DATA_REGISTER_EMPTY), &uart0_uart_data_register_empty_callback);
+  int_ctrl.registerInterruptCallback(ATMEGA328P::toIsrNum(ATMEGA328P::InterruptServiceRoutine::USART_RECEIVE_COMPLETE        ), &uart0_receive_complete_callback        );
 
   /* DRIVER ***************************************************************************/
 
