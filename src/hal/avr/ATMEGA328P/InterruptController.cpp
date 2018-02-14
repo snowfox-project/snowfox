@@ -97,7 +97,7 @@ namespace ATMEGA328P
 /* SPMCSR */
 #define SPMIE_bm  (1<<7)
 
-/* INTERRUPT NUMBERS */
+/* INTERRUPT NUMBERS ******************************************************************/
 #define INT_EXTERNAL_INT0                    0
 #define INT_EXTERNAL_INT1                    1
 #define INT_PIN_CHANGE_INT0                  2
@@ -126,7 +126,7 @@ namespace ATMEGA328P
 #define INT_GLOBAL                          25
 #define INT_INVALID                         255
 
-/* INTERRUPT SERVICE ROUTINE NUMBERS */
+/* INTERRUPT SERVICE ROUTINE NUMBERS **************************************************/
 #define ISR_EXTERNAL_INT0                    0
 #define ISR_EXTERNAL_INT1                    1
 #define ISR_PIN_CHANGE_INT0                  2

@@ -136,7 +136,7 @@ namespace AT90CAN128
 /* SPMCSR */
 #define SPMIE_bm  (1<<7)
 
-/* INTERRUPT NUMBERS */
+/* INTERRUPT NUMBERS ******************************************************************/
 #define INT_EXTERNAL_INT0                      0
 #define INT_EXTERNAL_INT1                      1
 #define INT_EXTERNAL_INT2                      2
@@ -181,7 +181,7 @@ namespace AT90CAN128
 #define INT_GLOBAL                            41
 #define INT_INVALID                          255
 
-/* INTERRUPT SERVICE ROUTINE NUMBERS */
+/* INTERRUPT SERVICE ROUTINE NUMBERS **************************************************/
 #define ISR_EXTERNAL_INT0                      0
 #define ISR_EXTERNAL_INT1                      1
 #define ISR_EXTERNAL_INT2                      2
