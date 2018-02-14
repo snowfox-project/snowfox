@@ -103,6 +103,34 @@ namespace ATMEGA328P
 
 static uint8_t constexpr NUMBER_OF_INTERRUPT_SERVICE_ROUTINES = 25;
 
+static uint8_t constexpr EXTERNAL_INT0                  =  0;
+static uint8_t constexpr EXTERNAL_INT1                  =  1;
+static uint8_t constexpr PIN_CHANGE_INT0                =  2;
+static uint8_t constexpr PIN_CHANGE_INT1                =  3;
+static uint8_t constexpr PIN_CHANGE_INT2                =  4;
+static uint8_t constexpr WATCHDOG_TIMER                 =  5;
+static uint8_t constexpr TIMER2_COMPARE_A               =  6;
+static uint8_t constexpr TIMER2_COMPARE_B               =  7;
+static uint8_t constexpr TIMER2_OVERFLOW                =  8;
+static uint8_t constexpr TIMER1_CAPTURE                 =  9;
+static uint8_t constexpr TIMER1_COMPARE_A               = 10;
+static uint8_t constexpr TIMER1_COMPARE_B               = 11;
+static uint8_t constexpr TIMER1_OVERFLOW                = 12;
+static uint8_t constexpr TIMER0_COMPARE_A               = 13;
+static uint8_t constexpr TIMER0_COMPARE_B               = 14;
+static uint8_t constexpr TIMER0_OVERFLOW                = 15;
+static uint8_t constexpr SPI_SERIAL_TRANSFER_COMPLETE   = 16;
+static uint8_t constexpr USART_RECEIVE_COMPLETE         = 17;
+static uint8_t constexpr USART_UART_DATA_REGISTER_EMPTY = 18;
+static uint8_t constexpr USART_TRANSMIT_COMPLETE        = 19;
+static uint8_t constexpr ANALOG_DIGITAL_CONVERTER       = 20;
+static uint8_t constexpr EEPROM_READY                   = 21;
+static uint8_t constexpr ANALOG_COMPARATOR              = 22;
+static uint8_t constexpr TWO_WIRE_INT                   = 23;
+static uint8_t constexpr SPM_READY                      = 24;
+static uint8_t constexpr GLOBAL                         = 25;
+static uint8_t constexpr INVALID                        = 255;
+
 /**************************************************************************************
  * TYPEDEFS
  **************************************************************************************/
@@ -119,6 +147,44 @@ typedef struct
 
 static InterruptController * _this = 0;
 static InterruptCallbackArrayEntry _interrupt_callback_array[NUMBER_OF_INTERRUPT_SERVICE_ROUTINES];
+
+/**************************************************************************************
+ * GLOBAL FUNCTIONS
+ **************************************************************************************/
+
+uint8_t toIntNum(Interrupt const interrupt)
+{
+  switch(interrupt)
+  {
+  case Interrupt::EXTERNAL_INT0                  : return EXTERNAL_INT0;                  break;
+  case Interrupt::EXTERNAL_INT1                  : return EXTERNAL_INT1;                  break;
+  case Interrupt::PIN_CHANGE_INT0                : return PIN_CHANGE_INT0;                break;
+  case Interrupt::PIN_CHANGE_INT1                : return PIN_CHANGE_INT1;                break;
+  case Interrupt::PIN_CHANGE_INT2                : return PIN_CHANGE_INT2;                break;
+  case Interrupt::WATCHDOG_TIMER                 : return WATCHDOG_TIMER;                 break;
+  case Interrupt::TIMER2_COMPARE_A               : return TIMER2_COMPARE_A;               break;
+  case Interrupt::TIMER2_COMPARE_B               : return TIMER2_COMPARE_B;               break;
+  case Interrupt::TIMER2_OVERFLOW                : return TIMER2_OVERFLOW;                break;
+  case Interrupt::TIMER1_CAPTURE                 : return TIMER1_CAPTURE;                 break;
+  case Interrupt::TIMER1_COMPARE_A               : return TIMER1_COMPARE_A;               break;
+  case Interrupt::TIMER1_COMPARE_B               : return TIMER1_COMPARE_B;               break;
+  case Interrupt::TIMER1_OVERFLOW                : return TIMER1_OVERFLOW;                break;
+  case Interrupt::TIMER0_COMPARE_A               : return TIMER0_COMPARE_A;               break;
+  case Interrupt::TIMER0_COMPARE_B               : return TIMER0_COMPARE_B;               break;
+  case Interrupt::TIMER0_OVERFLOW                : return TIMER0_OVERFLOW;                break;
+  case Interrupt::SPI_SERIAL_TRANSFER_COMPLETE   : return SPI_SERIAL_TRANSFER_COMPLETE;   break;
+  case Interrupt::USART_RECEIVE_COMPLETE         : return USART_RECEIVE_COMPLETE;         break;
+  case Interrupt::USART_UART_DATA_REGISTER_EMPTY : return USART_UART_DATA_REGISTER_EMPTY; break;
+  case Interrupt::USART_TRANSMIT_COMPLETE        : return USART_TRANSMIT_COMPLETE;        break;
+  case Interrupt::ANALOG_DIGITAL_CONVERTER       : return ANALOG_DIGITAL_CONVERTER;       break;
+  case Interrupt::EEPROM_READY                   : return EEPROM_READY;                   break;
+  case Interrupt::ANALOG_COMPARATOR              : return ANALOG_COMPARATOR;              break;
+  case Interrupt::TWO_WIRE_INT                   : return TWO_WIRE_INT;                   break;
+  case Interrupt::SPM_READY                      : return SPM_READY;                      break;
+  case Interrupt::GLOBAL                         : return GLOBAL;                         break;
+  default                                        : return INVALID;                        break;
+  }
+}
 
 /**************************************************************************************
  * CTOR/DTOR

@@ -40,35 +40,44 @@ namespace ATMEGA328P
 {
 
 /**************************************************************************************
- * CONSTANTS
+ * TYPEDEFS
  **************************************************************************************/
 
-static uint8_t const EXTERNAL_INT0                  =  0;
-static uint8_t const EXTERNAL_INT1                  =  1;
-static uint8_t const PIN_CHANGE_INT0                =  2;
-static uint8_t const PIN_CHANGE_INT1                =  3;
-static uint8_t const PIN_CHANGE_INT2                =  4;
-static uint8_t const WATCHDOG_TIMER                 =  5;
-static uint8_t const TIMER2_COMPARE_A               =  6;
-static uint8_t const TIMER2_COMPARE_B               =  7;
-static uint8_t const TIMER2_OVERFLOW                =  8;
-static uint8_t const TIMER1_CAPTURE                 =  9;
-static uint8_t const TIMER1_COMPARE_A               = 10;
-static uint8_t const TIMER1_COMPARE_B               = 11;
-static uint8_t const TIMER1_OVERFLOW                = 12;
-static uint8_t const TIMER0_COMPARE_A               = 13;
-static uint8_t const TIMER0_COMPARE_B               = 14;
-static uint8_t const TIMER0_OVERFLOW                = 15;
-static uint8_t const SPI_SERIAL_TRANSFER_COMPLETE   = 16;
-static uint8_t const USART_RECEIVE_COMPLETE         = 17;
-static uint8_t const USART_UART_DATA_REGISTER_EMPTY = 18;
-static uint8_t const USART_TRANSMIT_COMPLETE        = 19;
-static uint8_t const ANALOG_DIGITAL_CONVERTER       = 20;
-static uint8_t const EEPROM_READY                   = 21;
-static uint8_t const ANALOG_COMPARATOR              = 22;
-static uint8_t const TWO_WIRE_INT                   = 23;
-static uint8_t const SPM_READY                      = 24;
-static uint8_t const GLOBAL                         = 25;
+enum class Interrupt : uint8_t
+{
+  EXTERNAL_INT0,
+  EXTERNAL_INT1,
+  PIN_CHANGE_INT0,
+  PIN_CHANGE_INT1,
+  PIN_CHANGE_INT2,
+  WATCHDOG_TIMER,
+  TIMER2_COMPARE_A,
+  TIMER2_COMPARE_B,
+  TIMER2_OVERFLOW,
+  TIMER1_CAPTURE,
+  TIMER1_COMPARE_A,
+  TIMER1_COMPARE_B,
+  TIMER1_OVERFLOW,
+  TIMER0_COMPARE_A,
+  TIMER0_COMPARE_B,
+  TIMER0_OVERFLOW,
+  SPI_SERIAL_TRANSFER_COMPLETE,
+  USART_RECEIVE_COMPLETE,
+  USART_UART_DATA_REGISTER_EMPTY,
+  USART_TRANSMIT_COMPLETE,
+  ANALOG_DIGITAL_CONVERTER,
+  EEPROM_READY,
+  ANALOG_COMPARATOR,
+  TWO_WIRE_INT,
+  SPM_READY,
+  GLOBAL,
+};
+
+/**************************************************************************************
+ * PROTOTYPES
+ **************************************************************************************/
+
+uint8_t toIntNum(Interrupt               const interrupt);
 
 /**************************************************************************************
  * CLASS DECLARATION
