@@ -28,6 +28,7 @@
 #include <spectre/hal/interface/uart/UARTCallback.h>
 #include <spectre/hal/interface/uart/UARTConfiguration.h>
 
+#include <spectre/hal/interface/interrupt/InterruptCallback.h>
 #include <spectre/hal/interface/interrupt/InterruptController.h>
 
 /**************************************************************************************
@@ -81,9 +82,8 @@ public:
 
   /* Functions to be called upon execution of a interrupt service routine */
 
-  static void ISR_onTransmitComplete(void * arg);
-  static void ISR_onReceiveComplete (void * arg);
-
+  void ISR_onUartDataRegisterEmpty();
+  void ISR_onReceiveComplete      ();
 
 private:
 
@@ -101,10 +101,56 @@ private:
 
   void enableTransmit        ();
   void enableReceive         ();
-  void ISR_onTransmitComplete();
-  void ISR_onReceiveComplete ();
 
   static uint16_t calcBaudRate(uint32_t const f_cpu, uint32_t const baud_rate);
+
+};
+
+/**************************************************************************************
+ * CLASS DECLARATION UsartUartDataRegisterEmptyCallback
+ **************************************************************************************/
+
+class UART0_DataRegisterEmptyCallback : public interface::InterruptCallback
+{
+
+public:
+
+           UART0_DataRegisterEmptyCallback(UART0 & uart0) : _uart0(uart0) { }
+  virtual ~UART0_DataRegisterEmptyCallback() { }
+
+
+  virtual void interruptServiceRoutine() override
+  {
+    _uart0.ISR_onUartDataRegisterEmpty();
+  }
+
+private:
+
+  UART0 & _uart0;
+
+};
+
+/**************************************************************************************
+ * CLASS DECLARATION UsartReceiveCompleteCallback
+ **************************************************************************************/
+
+class UART0_ReceiveCompleteCallback : public interface::InterruptCallback
+{
+
+public:
+
+           UART0_ReceiveCompleteCallback(UART0 & uart0) : _uart0(uart0) { }
+  virtual ~UART0_ReceiveCompleteCallback() { }
+
+
+  virtual void interruptServiceRoutine() override
+  {
+    _uart0.ISR_onReceiveComplete();
+  }
+
+private:
+
+  UART0 & _uart0;
 
 };
 

@@ -163,14 +163,14 @@ void UART1::registerUARTCallbackInterface(interface::UARTCallback * uart_callbac
   _uart_callback_interface = uart_callback_interface;
 }
 
-void UART1::ISR_onTransmitComplete(void * arg)
+void UART1::ISR_onUartDataRegisterEmpty()
 {
-  reinterpret_cast<UART1 *>(arg)->ISR_onTransmitComplete();
+  if(_uart_callback_interface) _uart_callback_interface->onTransmitCompleteCallback();
 }
 
-void UART1::ISR_onReceiveComplete (void * arg)
+void UART1::ISR_onReceiveComplete()
 {
-  reinterpret_cast<UART1 *>(arg)->ISR_onReceiveComplete();
+  if(_uart_callback_interface) _uart_callback_interface->onReceiveCompleteCallback();
 }
 
 /**************************************************************************************
@@ -185,16 +185,6 @@ void UART1::enableTransmit()
 void UART1::enableReceive()
 {
   *_UCSR1B |= RXEN1_bm;
-}
-
-void UART1::ISR_onTransmitComplete()
-{
-  if(_uart_callback_interface) _uart_callback_interface->onTransmitCompleteCallback();
-}
-
-void UART1::ISR_onReceiveComplete()
-{
-  if(_uart_callback_interface) _uart_callback_interface->onReceiveCompleteCallback();
 }
 
 uint16_t UART1::calcBaudRate(uint32_t const f_cpu, uint32_t const baud_rate)
