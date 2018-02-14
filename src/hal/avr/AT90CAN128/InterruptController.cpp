@@ -469,7 +469,45 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
 
 void InterruptController::registerInterruptCallback(uint8_t const isr_num, interface::InterruptCallback * interrupt_callback)
 {
-  /* TODO */
+  switch(isr_num)
+  {
+  case ISR_EXTERNAL_INT0                  : isr_external_int0                   = interrupt_callback; break;
+  case ISR_EXTERNAL_INT1                  : isr_external_int1                   = interrupt_callback; break;
+  case ISR_EXTERNAL_INT2                  : isr_external_int2                   = interrupt_callback; break;
+  case ISR_EXTERNAL_INT3                  : isr_external_int3                   = interrupt_callback; break;
+  case ISR_EXTERNAL_INT4                  : isr_external_int4                   = interrupt_callback; break;
+  case ISR_EXTERNAL_INT5                  : isr_external_int5                   = interrupt_callback; break;
+  case ISR_EXTERNAL_INT6                  : isr_external_int6                   = interrupt_callback; break;
+  case ISR_EXTERNAL_INT7                  : isr_external_int7                   = interrupt_callback; break;
+  case ISR_TIMER2_COMPARE                 : isr_timer2_compare                  = interrupt_callback; break;
+  case ISR_TIMER2_OVERFLOW                : isr_timer2_overflow                 = interrupt_callback; break;
+  case ISR_TIMER1_CAPTURE                 : isr_timer1_capture                  = interrupt_callback; break;
+  case ISR_TIMER1_COMPARE_A               : isr_timer1_compare_a                = interrupt_callback; break;
+  case ISR_TIMER1_COMPARE_B               : isr_timer1_compare_b                = interrupt_callback; break;
+  case ISR_TIMER1_COMPARE_C               : isr_timer1_compare_c                = interrupt_callback; break;
+  case ISR_TIMER1_OVERFLOW                : isr_timer1_overflow                 = interrupt_callback; break;
+  case ISR_TIMER0_COMPARE                 : isr_timer0_compare                  = interrupt_callback; break;
+  case ISR_TIMER0_OVERFLOW                : isr_timer0_overflow                 = interrupt_callback; break;
+  case ISR_CAN_ALL                        : isr_can_all                         = interrupt_callback; break;
+  case ISR_CAN_TIMER_OVERRUN              : isr_can_timer_overrun               = interrupt_callback; break;
+  case ISR_SPI_SERIAL_TRANSFER_COMPLETE   : isr_spi_serial_transfer_complete    = interrupt_callback; break;
+  case ISR_USART0_RECEIVE_COMPLETE        : isr_usart0_receive_complete         = interrupt_callback; break;
+  case ISR_USART0_UART_DATA_REGISTER_EMPTY: isr_usart0_uart_data_register_empty = interrupt_callback; break;
+  case ISR_USART0_TRANSMIT_COMPLETE       : isr_usart0_transmit_complete        = interrupt_callback; break;
+  case ISR_ANALOG_COMPARATOR              : isr_analog_comparator               = interrupt_callback; break;
+  case ISR_ANALOG_DIGITAL_CONVERTER       : isr_analog_digital_converter        = interrupt_callback; break;
+  case ISR_EEPROM_READY                   : isr_eeprom_ready                    = interrupt_callback; break;
+  case ISR_TIMER3_CAPTURE                 : isr_timer3_capture                  = interrupt_callback; break;
+  case ISR_TIMER3_COMPARE_A               : isr_timer3_compare_a                = interrupt_callback; break;
+  case ISR_TIMER3_COMPARE_B               : isr_timer3_compare_b                = interrupt_callback; break;
+  case ISR_TIMER3_COMPARE_C               : isr_timer3_compare_c                = interrupt_callback; break;
+  case ISR_TIMER3_OVERFLOW                : isr_timer3_overflow                 = interrupt_callback; break;
+  case ISR_USART1_RECEIVE_COMPLETE        : isr_usart1_receive_complete         = interrupt_callback; break;
+  case ISR_USART1_UART_DATA_REGISTER_EMPTY: isr_usart1_uart_data_register_empty = interrupt_callback; break;
+  case ISR_USART1_TRANSMIT_COMPLETE       : isr_usart1_transmit_complete        = interrupt_callback; break;
+  case ISR_TWO_WIRE_INT                   : isr_two_wire_int                    = interrupt_callback; break;
+  case ISR_SPM_READY                      : isr_spm_ready                       = interrupt_callback; break;
+  }
 }
 
 /**************************************************************************************
