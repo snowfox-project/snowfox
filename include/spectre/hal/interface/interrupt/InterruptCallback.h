@@ -16,16 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_INTERRUPT_INTERRUPTCONTROLLERASSEMBLY_H_
-#define INCLUDE_SPECTRE_HAL_INTERFACE_INTERRUPT_INTERRUPTCONTROLLERASSEMBLY_H_
-
-/**************************************************************************************
- * INCLUDES
- **************************************************************************************/
-
-#include <stdint.h>
-
-#include <spectre/hal/interface/interrupt/InterruptCallback.h>
+#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_INTERRUPT_INTERRUPTCALLBACK_H_
+#define INCLUDE_SPECTRE_HAL_INTERFACE_INTERRUPT_INTERRUPTCALLBACK_H_
 
 /**************************************************************************************
  * NAMESPACE
@@ -44,16 +36,16 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class InterruptControllerAssembly
+class InterruptCallback
 {
 
 public:
 
-           InterruptControllerAssembly() { }
-  virtual ~InterruptControllerAssembly() { }
+           InterruptCallback() { }
+  virtual ~InterruptCallback() { }
 
 
-  virtual void registerInterruptCallback(uint8_t const isr_num, InterruptCallback * interrupt_callback) = 0;
+  virtual void interruptServiceRoutine() = 0;
 
 };
 
@@ -67,4 +59,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_INTERRUPT_INTERRUPTCONTROLLERASSEMBLY_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_INTERRUPT_INTERRUPTCALLBACK_H_ */

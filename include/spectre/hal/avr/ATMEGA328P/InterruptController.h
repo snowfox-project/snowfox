@@ -70,14 +70,44 @@ enum class Interrupt : uint8_t
   ANALOG_COMPARATOR,
   TWO_WIRE_INT,
   SPM_READY,
-  GLOBAL,
+  GLOBAL
+};
+
+enum class InterruptServiceRoutine : uint8_t
+{
+  EXTERNAL_INT0,
+  EXTERNAL_INT1,
+  PIN_CHANGE_INT0,
+  PIN_CHANGE_INT1,
+  PIN_CHANGE_INT2,
+  WATCHDOG_TIMER,
+  TIMER2_COMPARE_A,
+  TIMER2_COMPARE_B,
+  TIMER2_OVERFLOW,
+  TIMER1_CAPTURE,
+  TIMER1_COMPARE_A,
+  TIMER1_COMPARE_B,
+  TIMER1_OVERFLOW,
+  TIMER0_COMPARE_A,
+  TIMER0_COMPARE_B,
+  TIMER0_OVERFLOW,
+  SPI_SERIAL_TRANSFER_COMPLETE,
+  USART_RECEIVE_COMPLETE,
+  USART_UART_DATA_REGISTER_EMPTY,
+  USART_TRANSMIT_COMPLETE,
+  ANALOG_DIGITAL_CONVERTER,
+  EEPROM_READY,
+  ANALOG_COMPARATOR,
+  TWO_WIRE_INT,
+  SPM_READY
 };
 
 /**************************************************************************************
  * PROTOTYPES
  **************************************************************************************/
 
-uint8_t toIntNum(Interrupt               const interrupt);
+uint8_t toIntNum(Interrupt               const interrupt                );
+uint8_t toIsrNum(InterruptServiceRoutine const interrupt_service_routine);
 
 /**************************************************************************************
  * CLASS DECLARATION
@@ -113,9 +143,8 @@ public:
 
   /* Interrupt Controller Assembly Interface */
 
-  virtual void registerISR(uint8_t            const int_num,
-                           interface::ISRFunc       isr_func,
-                           interface::ISRArg        isr_arg) override;
+  virtual void registerInterruptCallback(uint8_t const isr_num, interface::InterruptCallback * interrupt_callback) override;
+
 
 private:
 
