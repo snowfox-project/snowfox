@@ -56,8 +56,8 @@ public:
   virtual ~UART_CallbackHandler();
 
 
-  virtual void onTransmitCompleteCallback() override;
-  virtual void onReceiveCompleteCallback () override;
+  virtual void onTransmitCompleteCallback(                  ) override;
+  virtual void onReceiveCompleteCallback (uint8_t const data) override;
 
 
 private:

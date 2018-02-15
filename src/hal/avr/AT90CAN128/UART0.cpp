@@ -170,7 +170,12 @@ void UART0::ISR_onUartDataRegisterEmpty()
 
 void UART0::ISR_onReceiveComplete()
 {
-  if(_uart_callback_interface) _uart_callback_interface->onReceiveCompleteCallback();
+  if(_uart_callback_interface)
+  {
+    uint8_t data = 0;
+    receive(data);
+    _uart_callback_interface->onReceiveCompleteCallback(data);
+  }
 }
 
 /**************************************************************************************

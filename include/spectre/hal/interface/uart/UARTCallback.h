@@ -51,8 +51,8 @@ public:
   virtual ~UARTCallback() { }
 
 
-  virtual void onTransmitCompleteCallback() = 0;
-  virtual void onReceiveCompleteCallback () = 0;
+  virtual void onTransmitCompleteCallback(                  ) = 0;
+  virtual void onReceiveCompleteCallback (uint8_t const data) = 0;
   
 };
 

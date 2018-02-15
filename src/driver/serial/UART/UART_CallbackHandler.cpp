@@ -62,7 +62,7 @@ void UART_CallbackHandler::onTransmitCompleteCallback()
   _serial_ctrl.onTransmitComplete();
 }
 
-void UART_CallbackHandler::onReceiveCompleteCallback()
+void UART_CallbackHandler::onReceiveCompleteCallback(uint8_t const data)
 {
   _serial_ctrl.onReceiveComplete();
 }
