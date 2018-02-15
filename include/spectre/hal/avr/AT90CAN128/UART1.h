@@ -68,11 +68,14 @@ public:
 
   /* UART Configuration Interface */
 
+  virtual void enableTx         () override;
+  virtual void enableRx         () override;
+  virtual void disableTx        () override;
+  virtual void disableRx        () override;
+
   virtual void setBaudRate      (interface::UartBaudRate const   baud_rate) override;
   virtual void setParity        (interface::UartParity   const   parity   ) override;
   virtual void setStopBit       (interface::UartStopBit  const   stop_bit ) override;
-  virtual void enableInterrupt  (interface::UartInt      const   uart_int ) override;
-  virtual void disableInterrupt (interface::UartInt      const   uart_int ) override;
 
 
   /* UART Assembly */
@@ -98,10 +101,6 @@ private:
   interface::UARTCallback              * _uart_callback_interface;
   uint32_t                       const   _f_cpu;
 
-  /* Member functions */
-
-  void enableTransmit        ();
-  void enableReceive         ();
 
   static uint16_t calcBaudRate(uint32_t const f_cpu, uint32_t const baud_rate);
 

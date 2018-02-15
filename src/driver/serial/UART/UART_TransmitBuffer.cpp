@@ -76,7 +76,7 @@ void UART_TransmitBuffer::putData(uint8_t const data)
   if(!_tx_queue.isFull())
   {
     _tx_queue.push(data);
-    _uart_config.enableInterrupt(hal::interface::UartInt::UartDataRegisterEmpty);
+    _uart_config.enableTx();
   }
 }
 
@@ -92,7 +92,7 @@ void UART_TransmitBuffer::onTransmitRegisterEmpty()
   }
   else
   {
-    _uart_config.disableInterrupt(hal::interface::UartInt::UartDataRegisterEmpty);
+    _uart_config.disableTx();
   }
 }
 

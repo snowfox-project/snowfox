@@ -84,8 +84,7 @@ UART1::UART1(volatile uint8_t * udr1, volatile uint8_t * ucsr1a, volatile uint8_
   _uart_callback_interface(0       ),
   _f_cpu                  (f_cpu   )
 {
-  enableTransmit();
-  enableReceive ();
+
 }
 
 UART1::~UART1()
@@ -105,6 +104,30 @@ void UART1::transmit(uint8_t const data)
 void UART1::receive(uint8_t & data)
 {
   data = *_UDR1;
+}
+
+void UART1::enableTx()
+{
+  *_UCSR1B |= TXEN1_bm;
+  _int_ctrl.enableInterrupt(toIntNum(Interrupt::USART1_UART_DATA_REGISTER_EMPTY));
+}
+
+void UART1::enableRx()
+{
+  _int_ctrl.enableInterrupt(toIntNum(Interrupt::USART1_RECEIVE_COMPLETE));
+  *_UCSR1B |= RXEN1_bm;
+}
+
+void UART1::disableTx()
+{
+  _int_ctrl.disableInterrupt(toIntNum(Interrupt::USART1_UART_DATA_REGISTER_EMPTY));
+  *_UCSR1B &= ~TXEN1_bm;
+}
+
+void UART1::disableRx()
+{
+  *_UCSR1B &= ~RXEN1_bm;
+  _int_ctrl.disableInterrupt(toIntNum(Interrupt::USART1_RECEIVE_COMPLETE));
 }
 
 void UART1::setBaudRate(interface::UartBaudRate const baud_rate)
@@ -140,24 +163,6 @@ void UART1::setStopBit(interface::UartStopBit const stop_bit)
   }
 }
 
-void UART1::enableInterrupt(interface::UartInt const uart_int)
-{
-  switch(uart_int)
-  {
-  case interface::UartInt::UartDataRegisterEmpty: _int_ctrl.enableInterrupt(toIntNum(Interrupt::USART1_UART_DATA_REGISTER_EMPTY)); break;
-  case interface::UartInt::RxComplete           : _int_ctrl.enableInterrupt(toIntNum(Interrupt::USART1_RECEIVE_COMPLETE        )); break;
-  }
-}
-
-void UART1::disableInterrupt(interface::UartInt const uart_int)
-{
-  switch(uart_int)
-  {
-  case interface::UartInt::UartDataRegisterEmpty: _int_ctrl.disableInterrupt(toIntNum(Interrupt::USART1_UART_DATA_REGISTER_EMPTY)); break;
-  case interface::UartInt::RxComplete           : _int_ctrl.disableInterrupt(toIntNum(Interrupt::USART1_RECEIVE_COMPLETE        )); break;
-  }
-}
-
 void UART1::registerUARTCallbackInterface(interface::UARTCallback * uart_callback_interface)
 {
   _uart_callback_interface = uart_callback_interface;
@@ -165,7 +170,7 @@ void UART1::registerUARTCallbackInterface(interface::UARTCallback * uart_callbac
 
 void UART1::ISR_onUartDataRegisterEmpty()
 {
-  if(_uart_callback_interface) _uart_callback_interface->onTransmitCompleteCallback();
+  if(_uart_callback_interface) _uart_callback_interface->onTransmitRegisterEmptyCallback();
 }
 
 void UART1::ISR_onReceiveComplete()
@@ -181,16 +186,6 @@ void UART1::ISR_onReceiveComplete()
 /**************************************************************************************
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
-
-void UART1::enableTransmit()
-{
-  *_UCSR1B |= TXEN1_bm;
-}
-
-void UART1::enableReceive()
-{
-  *_UCSR1B |= RXEN1_bm;
-}
 
 uint16_t UART1::calcBaudRate(uint32_t const f_cpu, uint32_t const baud_rate)
 {

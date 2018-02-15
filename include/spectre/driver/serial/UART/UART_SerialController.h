@@ -57,13 +57,9 @@ public:
   virtual ~UART_SerialController();
 
 
-  virtual void enable            () override;
-
   virtual void setBaudRate       (interface::SerialBaudRate const baud_rate) override;
   virtual void setParity         (interface::SerialParity   const parity   ) override;
   virtual void setStopBit        (interface::SerialStopBit  const stop_bit ) override;
-
-  virtual void disable           () override;
 
 private:
 

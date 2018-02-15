@@ -25,6 +25,7 @@
 
 #include <spectre/driver/serial/interface/SerialReceiveBuffer.h>
 
+#include <spectre/hal/interface/uart/UARTConfiguration.h>
 #include <spectre/hal/interface/locking/CriticalSection.h>
 
 #include <spectre/memory/container/Queue.h>
@@ -54,7 +55,7 @@ class UART_ReceiveBuffer : public interface::SerialReceiveBuffer
 
 public:
 
-           UART_ReceiveBuffer(uint16_t const size, hal::interface::CriticalSection & crit_sec);
+           UART_ReceiveBuffer(uint16_t const size, hal::interface::CriticalSection & crit_sec, hal::interface::UARTConfiguration & uart_config);
   virtual ~UART_ReceiveBuffer();
 
 
@@ -66,6 +67,7 @@ private:
 
   memory::container::Queue<uint8_t>   _rx_queue;
   hal::interface::CriticalSection   & _crit_sec;
+  hal::interface::UARTConfiguration & _uart_config;
 
 };
 

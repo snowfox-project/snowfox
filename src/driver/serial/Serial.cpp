@@ -58,7 +58,6 @@ Serial::~Serial()
 
 bool Serial::open()
 {
-  _serial_ctrl.enable();
   return true;
 }
 
@@ -124,7 +123,7 @@ bool Serial::ioctl(uint32_t const cmd, void * arg)
 
 void Serial::close()
 {
-  _serial_ctrl.disable();
+
 }
 
 /**************************************************************************************

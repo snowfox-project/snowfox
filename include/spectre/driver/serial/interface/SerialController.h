@@ -78,13 +78,9 @@ public:
   virtual ~SerialController() { }
 
 
-  virtual void enable            () = 0;
-
   virtual void setBaudRate       (SerialBaudRate const baud_rate) = 0;
   virtual void setParity         (SerialParity   const parity   ) = 0;
   virtual void setStopBit        (SerialStopBit  const stop_bit ) = 0;
-
-  virtual void disable           () = 0;
 
 };
 

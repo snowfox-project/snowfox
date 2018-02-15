@@ -44,11 +44,12 @@ namespace UART
  * CTOR/DTOR
  **************************************************************************************/
 
-UART_ReceiveBuffer::UART_ReceiveBuffer(uint16_t const size, hal::interface::CriticalSection & crit_sec)
-: _rx_queue(size    ),
-  _crit_sec(crit_sec)
+UART_ReceiveBuffer::UART_ReceiveBuffer(uint16_t const size, hal::interface::CriticalSection & crit_sec, hal::interface::UARTConfiguration & uart_config)
+: _rx_queue   (size    ),
+  _crit_sec   (crit_sec),
+  _uart_config(uart_config)
 {
-
+  _uart_config.enableRx();
 }
 
 UART_ReceiveBuffer::~UART_ReceiveBuffer()

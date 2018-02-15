@@ -60,12 +60,6 @@ enum class UartStopBit : uint8_t
   _2
 };
 
-enum class UartInt : uint8_t
-{
-  UartDataRegisterEmpty,
-  RxComplete
-};
-
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
@@ -79,11 +73,14 @@ public:
   virtual ~UARTConfiguration() { }
 
 
+  virtual void enableTx         () = 0;
+  virtual void enableRx         () = 0;
+  virtual void disableTx        () = 0;
+  virtual void disableRx        () = 0;
+
   virtual void setBaudRate      (UartBaudRate const baud_rate) = 0;
   virtual void setParity        (UartParity   const parity   ) = 0;
   virtual void setStopBit       (UartStopBit  const stop_bit ) = 0;
-  virtual void enableInterrupt  (UartInt      const uart_int ) = 0;
-  virtual void disableInterrupt (UartInt      const uart_int ) = 0;
   
 };
 

@@ -44,8 +44,8 @@ using namespace spectre::driver;
  * CONSTANTS
  **************************************************************************************/
 
-static uint16_t const RX_QUEUE_SIZE = 16;
-static uint16_t const TX_QUEUE_SIZE = 16;
+static uint16_t const RX_BUFFER_SIZE = 16;
+static uint16_t const TX_BUFFER_SIZE = 16;
 
 /**************************************************************************************
  * MAIN
@@ -67,10 +67,10 @@ int main()
 
   /* DRIVER ***************************************************************************/
 
-  serial::UART::UART_TransmitBuffer   serial_tx_buffer  (TX_QUEUE_SIZE, crit_sec, uart0, uart0);
-  serial::UART::UART_ReceiveBuffer    serial_rx_buffer  (RX_QUEUE_SIZE, crit_sec);
-  serial::UART::UART_SerialController serial_ctrl       (uart0);
+  serial::UART::UART_TransmitBuffer   serial_tx_buffer  (TX_BUFFER_SIZE, crit_sec, uart0, uart0);
+  serial::UART::UART_ReceiveBuffer    serial_rx_buffer  (RX_BUFFER_SIZE, crit_sec, uart0);
   serial::UART::UART_CallbackHandler  serial_callback   (serial_tx_buffer, serial_rx_buffer);
+  serial::UART::UART_SerialController serial_ctrl       (uart0);
   serial::Serial                      serial            (serial_ctrl, serial_tx_buffer, serial_rx_buffer);
 
   uart0.registerUARTCallbackInterface (&serial_callback);

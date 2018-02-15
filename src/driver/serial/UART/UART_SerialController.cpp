@@ -59,11 +59,6 @@ UART_SerialController::~UART_SerialController()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void UART_SerialController::enable()
-{
-  _uart_config.enableInterrupt(hal::interface::UartInt::RxComplete);
-}
-
 void UART_SerialController::setBaudRate(interface::SerialBaudRate const baud_rate)
 {
   switch(baud_rate)
@@ -89,11 +84,6 @@ void UART_SerialController::setStopBit(interface::SerialStopBit const stop_bit)
   case interface::SerialStopBit::_1: _uart_config.setStopBit(hal::interface::UartStopBit::_1); break;
   case interface::SerialStopBit::_2: _uart_config.setStopBit(hal::interface::UartStopBit::_2); break;
   }
-}
-
-void UART_SerialController::disable()
-{
-  _uart_config.disableInterrupt(hal::interface::UartInt::RxComplete);
 }
 
 /**************************************************************************************

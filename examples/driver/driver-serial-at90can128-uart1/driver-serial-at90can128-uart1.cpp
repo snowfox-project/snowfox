@@ -27,7 +27,8 @@
 #include <spectre/hal/avr/AT90CAN128/InterruptController.h>
 
 #include <spectre/driver/serial/Serial.h>
-#include <spectre/driver/serial/SerialQueue.h>
+#include <spectre/driver/serial/UART/UART_ReceiveBuffer.h>
+#include <spectre/driver/serial/UART/UART_TransmitBuffer.h>
 #include <spectre/driver/serial/UART/UART_CallbackHandler.h>
 #include <spectre/driver/serial/UART/UART_SerialController.h>
 
@@ -43,8 +44,8 @@ using namespace spectre::driver;
  * CONSTANTS
  **************************************************************************************/
 
-static uint16_t const RX_QUEUE_SIZE = 16;
-static uint16_t const TX_QUEUE_SIZE = 16;
+static uint16_t const RX_BUFFER_SIZE = 16;
+static uint16_t const TX_BUFFER_SIZE = 16;
 
 /**************************************************************************************
  * MAIN
@@ -63,11 +64,11 @@ int main()
 
   /* DRIVER ***************************************************************************/
 
-  serial::SerialQueue                 rx_queue        (RX_QUEUE_SIZE),
-                                      tx_queue        (TX_QUEUE_SIZE);
-  serial::UART::UART_SerialController serial_ctrl     (uart1, uart1, crit_sec, rx_queue, tx_queue);
-  serial::UART::UART_CallbackHandler  serial_callback (serial_ctrl);
-  serial::Serial                      serial          (serial_ctrl);
+  serial::UART::UART_TransmitBuffer   serial_tx_buffer  (TX_BUFFER_SIZE, crit_sec, uart1, uart1);
+  serial::UART::UART_ReceiveBuffer    serial_rx_buffer  (RX_BUFFER_SIZE, crit_sec, uart1);
+  serial::UART::UART_CallbackHandler  serial_callback   (serial_tx_buffer, serial_rx_buffer);
+  serial::UART::UART_SerialController serial_ctrl       (uart1);
+  serial::Serial                      serial            (serial_ctrl, serial_tx_buffer, serial_rx_buffer);
 
   uart1.registerUARTCallbackInterface (&serial_callback);
 
