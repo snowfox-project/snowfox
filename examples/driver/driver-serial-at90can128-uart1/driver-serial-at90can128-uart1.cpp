@@ -55,12 +55,12 @@ int main()
 {
   /* HAL ******************************************************************************/
 
-  AT90CAN128::InterruptController int_ctrl                                           (&EIMSK, &TIMSK2, &TIMSK1, &TIMSK0, &CANGIE, &SPCR, &UCSR0B, &ACSR, &ADCSRA, &EECR, &TIMSK3, &UCSR1B, &TWCR, &SPMCSR);
-  AT90CAN128::CriticalSection     crit_sec                                           (&SREG);
+  AT90CAN128::InterruptController                 int_ctrl                               (&EIMSK, &TIMSK2, &TIMSK1, &TIMSK0, &CANGIE, &SPCR, &UCSR0B, &ACSR, &ADCSRA, &EECR, &TIMSK3, &UCSR1B, &TWCR, &SPMCSR);
+  AT90CAN128::CriticalSection                     crit_sec                               (&SREG);
 
-  AT90CAN128::UART1                           uart1                                  (&UDR1, &UCSR1A, &UCSR1B, &UCSR1C, &UBRR1, int_ctrl, F_CPU);
-  AT90CAN128::UART1_DataRegisterEmptyCallback uart1_uart_data_register_empty_callback(uart1);
-  AT90CAN128::UART1_ReceiveCompleteCallback   uart1_receive_complete_callback        (uart1);
+  AT90CAN128::UART1                               uart1                                  (&UDR1, &UCSR1A, &UCSR1B, &UCSR1C, &UBRR1, int_ctrl, F_CPU);
+  AT90CAN128::UART1_TransmitRegisterEmptyCallback uart1_uart_data_register_empty_callback(uart1);
+  AT90CAN128::UART1_ReceiveCompleteCallback       uart1_receive_complete_callback        (uart1);
 
   /* DRIVER ***************************************************************************/
 

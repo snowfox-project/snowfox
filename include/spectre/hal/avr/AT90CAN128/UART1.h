@@ -85,7 +85,7 @@ public:
 
   /* Functions to be called upon execution of a interrupt service routine */
 
-  void ISR_onUartDataRegisterEmpty();
+  void ISR_onTransmitRegisterEmpty();
   void ISR_onReceiveComplete      ();
 
 
@@ -110,18 +110,18 @@ private:
  * CLASS DECLARATION UsartUartDataRegisterEmptyCallback
  **************************************************************************************/
 
-class UART1_DataRegisterEmptyCallback : public interface::InterruptCallback
+class UART1_TransmitRegisterEmptyCallback : public interface::InterruptCallback
 {
 
 public:
 
-           UART1_DataRegisterEmptyCallback(UART1 & uart1) : _uart1(uart1) { }
-  virtual ~UART1_DataRegisterEmptyCallback() { }
+           UART1_TransmitRegisterEmptyCallback(UART1 & uart1) : _uart1(uart1) { }
+  virtual ~UART1_TransmitRegisterEmptyCallback() { }
 
 
   virtual void interruptServiceRoutine() override
   {
-    _uart1.ISR_onUartDataRegisterEmpty();
+    _uart1.ISR_onTransmitRegisterEmpty();
   }
 
 private:
