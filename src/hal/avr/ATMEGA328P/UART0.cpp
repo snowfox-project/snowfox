@@ -166,7 +166,7 @@ void UART0::registerUARTCallbackInterface(interface::UARTCallback * uart_callbac
 
 void UART0::ISR_onUartDataRegisterEmpty()
 {
-  if(_uart_callback_interface) _uart_callback_interface->onTransmitCompleteCallback();
+  if(_uart_callback_interface) _uart_callback_interface->onTransmitRegisterEmptyCallback();
 }
 
 void UART0::ISR_onReceiveComplete()

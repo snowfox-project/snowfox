@@ -25,7 +25,7 @@
 
 #include <spectre/hal/interface/uart/UARTCallback.h>
 
-#include <spectre/driver/serial/interface/SerialController.h>
+#include <spectre/driver/serial/interface/SerialTransmitBuffer.h>
 #include <spectre/driver/serial/interface/SerialReceiveBuffer.h>
 
 /**************************************************************************************
@@ -53,18 +53,18 @@ class UART_CallbackHandler : public spectre::hal::interface::UARTCallback
 
 public:
 
-           UART_CallbackHandler(interface::SerialController & serial_ctrl, interface::SerialReceiveBuffer & serial_rx_buf);
+           UART_CallbackHandler(interface::SerialTransmitBuffer & serial_tx_buf, interface::SerialReceiveBuffer & serial_rx_buf);
   virtual ~UART_CallbackHandler();
 
 
-  virtual void onTransmitCompleteCallback(                  ) override;
-  virtual void onReceiveCompleteCallback (uint8_t const data) override;
+  virtual void onTransmitRegisterEmptyCallback(                  ) override;
+  virtual void onReceiveCompleteCallback      (uint8_t const data) override;
 
 
 private:
 
-  interface::SerialController    & _serial_ctrl;
-  interface::SerialReceiveBuffer & _serial_rx_buf;
+  interface::SerialTransmitBuffer & _serial_tx_buf;
+  interface::SerialReceiveBuffer  & _serial_rx_buf;
 
 };
 

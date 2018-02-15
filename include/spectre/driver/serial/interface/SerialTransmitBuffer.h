@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_INTERFACE_SERIALCONTROLLER_H_
-#define INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_INTERFACE_SERIALCONTROLLER_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_SERIAL_INTERFACE_SERIALTRANSMITBUFFER_H_
+#define INCLUDE_SPECTRE_DRIVER_SERIAL_INTERFACE_SERIALTRANSMITBUFFER_H_
 
 /**************************************************************************************
  * NAMESPACE
@@ -43,48 +43,21 @@ namespace interface
 {
 
 /**************************************************************************************
- * TYPEDEFS
- **************************************************************************************/
-
-enum class SerialBaudRate : uint8_t
-{
-  B115200
-};
-
-enum class SerialParity : uint8_t
-{
-  None,
-  Even,
-  Odd
-};
-
-enum class SerialStopBit : uint8_t
-{
-  _1,
-  _2
-};
-
-/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class SerialController
+class SerialTransmitBuffer
 {
 
 public:
 
+           SerialTransmitBuffer() { }
+  virtual ~SerialTransmitBuffer() { }
 
-           SerialController() { }
-  virtual ~SerialController() { }
 
-
-  virtual void enable            () = 0;
-
-  virtual void setBaudRate       (SerialBaudRate const baud_rate) = 0;
-  virtual void setParity         (SerialParity   const parity   ) = 0;
-  virtual void setStopBit        (SerialStopBit  const stop_bit ) = 0;
-
-  virtual void disable           () = 0;
+  virtual bool isFull                 (                  ) = 0;
+  virtual void putData                (uint8_t const data) = 0;
+  virtual void onTransmitRegisterEmpty(                  ) = 0;
 
 };
 
@@ -100,4 +73,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_INTERFACE_SERIALCONTROLLER_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_SERIAL_INTERFACE_SERIALTRANSMITBUFFER_H_ */

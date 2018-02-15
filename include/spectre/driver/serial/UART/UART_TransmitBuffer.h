@@ -16,15 +16,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_INTERFACE_SERIALCONTROLLER_H_
-#define INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_INTERFACE_SERIALCONTROLLER_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_SERIAL_UART_UART_TRANSMITBUFFER_H_
+#define INCLUDE_SPECTRE_DRIVER_SERIAL_UART_UART_TRANSMITBUFFER_H_
 
 /**************************************************************************************
- * NAMESPACE
+ * INCLUDES
  **************************************************************************************/
 
-#include <stdint.h>
-#include <stdbool.h>
+#include <spectre/driver/serial/interface/SerialTransmitBuffer.h>
+
+#include <spectre/hal/interface/uart/UART.h>
+#include <spectre/hal/interface/uart/UARTConfiguration.h>
+#include <spectre/hal/interface/locking/CriticalSection.h>
+
+#include <spectre/memory/container/Queue.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,52 +44,32 @@ namespace driver
 namespace serial
 {
 
-namespace interface
+namespace UART
 {
-
-/**************************************************************************************
- * TYPEDEFS
- **************************************************************************************/
-
-enum class SerialBaudRate : uint8_t
-{
-  B115200
-};
-
-enum class SerialParity : uint8_t
-{
-  None,
-  Even,
-  Odd
-};
-
-enum class SerialStopBit : uint8_t
-{
-  _1,
-  _2
-};
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class SerialController
+class UART_TransmitBuffer : public interface::SerialTransmitBuffer
 {
 
 public:
 
+           UART_TransmitBuffer(uint16_t const size, hal::interface::CriticalSection & crit_sec, hal::interface::UART & uart, hal::interface::UARTConfiguration & uart_config);
+  virtual ~UART_TransmitBuffer();
 
-           SerialController() { }
-  virtual ~SerialController() { }
 
+  virtual bool isFull                 (                  ) override;
+  virtual void putData                (uint8_t const data) override;
+  virtual void onTransmitRegisterEmpty(                  ) override;
 
-  virtual void enable            () = 0;
+private:
 
-  virtual void setBaudRate       (SerialBaudRate const baud_rate) = 0;
-  virtual void setParity         (SerialParity   const parity   ) = 0;
-  virtual void setStopBit        (SerialStopBit  const stop_bit ) = 0;
-
-  virtual void disable           () = 0;
+  memory::container::Queue<uint8_t>   _tx_queue;
+  hal::interface::CriticalSection   & _crit_sec;
+  hal::interface::UART              & _uart;
+  hal::interface::UARTConfiguration & _uart_config;
 
 };
 
@@ -92,7 +77,7 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
+} /* UART */
 
 } /* serial */
 
@@ -100,4 +85,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_INTERFACE_SERIALCONTROLLER_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_SERIAL_UART_UART_TRANSMITBUFFER_H_ */

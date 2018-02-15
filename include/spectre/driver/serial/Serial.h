@@ -27,6 +27,7 @@
 
 #include <spectre/driver/serial/interface/SerialController.h>
 #include <spectre/driver/serial/interface/SerialReceiveBuffer.h>
+#include <spectre/driver/serial/interface/SerialTransmitBuffer.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -59,7 +60,7 @@ class Serial : public driver::interface::Driver
 public:
 
 
-           Serial(interface::SerialController & serial_ctrl, interface::SerialReceiveBuffer & serial_rx_buf);
+           Serial(interface::SerialController & serial_ctrl, interface::SerialTransmitBuffer & serial_tx_buf, interface::SerialReceiveBuffer & serial_rx_buf);
   virtual ~Serial();
 
 
@@ -72,8 +73,9 @@ public:
 
 private:
 
-  interface::SerialController    & _serial_ctrl;
-  interface::SerialReceiveBuffer & _serial_rx_buf;
+  interface::SerialController     & _serial_ctrl;
+  interface::SerialTransmitBuffer & _serial_tx_buf;
+  interface::SerialReceiveBuffer  & _serial_rx_buf;
 
 };
 

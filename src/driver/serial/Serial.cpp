@@ -39,8 +39,9 @@ namespace serial
  * CTOR/DTOR
  **************************************************************************************/
 
-Serial::Serial(interface::SerialController & serial_ctrl, interface::SerialReceiveBuffer & serial_rx_buf)
+Serial::Serial(interface::SerialController & serial_ctrl, interface::SerialTransmitBuffer & serial_tx_buf, interface::SerialReceiveBuffer & serial_rx_buf)
 : _serial_ctrl  (serial_ctrl  ),
+  _serial_tx_buf(serial_tx_buf),
   _serial_rx_buf(serial_rx_buf)
 {
 
@@ -77,9 +78,9 @@ ssize_t Serial::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
   ssize_t bytes_written = 0;
 
-  for(; (bytes_written < num_bytes) && !_serial_ctrl.isTxBufferFull(); bytes_written++)
+  for(; (bytes_written < num_bytes) && !_serial_tx_buf.isFull(); bytes_written++)
   {
-    _serial_ctrl.putDataTxBuffer(buffer[bytes_written]);
+    _serial_tx_buf.putData(buffer[bytes_written]);
   }
 
   return bytes_written;

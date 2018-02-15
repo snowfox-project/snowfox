@@ -25,11 +25,7 @@
 
 #include <spectre/driver/serial/interface/SerialController.h>
 
-#include <spectre/hal/interface/uart/UART.h>
 #include <spectre/hal/interface/uart/UARTConfiguration.h>
-#include <spectre/hal/interface/locking/CriticalSection.h>
-
-#include <spectre/driver/serial/SerialQueue.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -57,7 +53,7 @@ class UART_SerialController : public interface::SerialController
 public:
 
 
-           UART_SerialController(hal::interface::UART & uart, hal::interface::UARTConfiguration & uart_config, hal::interface::CriticalSection & crit_sec, SerialQueue & tx_queue);
+           UART_SerialController(hal::interface::UARTConfiguration & uart_config);
   virtual ~UART_SerialController();
 
 
@@ -67,21 +63,11 @@ public:
   virtual void setParity         (interface::SerialParity   const parity   ) override;
   virtual void setStopBit        (interface::SerialStopBit  const stop_bit ) override;
 
-  virtual bool isTxBufferFull    (                    ) override;
-  virtual void putDataTxBuffer   (uint8_t const   data) override;
-
-
-  virtual void onTransmitComplete() override;
-  virtual void onReceiveComplete () override;
-
   virtual void disable           () override;
 
 private:
 
-  hal::interface::UART              & _uart;
   hal::interface::UARTConfiguration & _uart_config;
-  hal::interface::CriticalSection   & _crit_sec;
-  SerialQueue                       & _tx_queue;
 
 };
 

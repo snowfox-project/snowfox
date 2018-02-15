@@ -16,14 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_SERIALRXBUFFER_H_
-#define INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_SERIALRXBUFFER_H_
-
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/memory/container/Queue.h>
+#include <spectre/driver/serial/UART/UART_TransmitBuffer.h>
+
+#include <spectre/hal/interface/locking/LockGuard.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -38,20 +37,73 @@ namespace driver
 namespace serial
 {
 
+namespace UART
+{
+
 /**************************************************************************************
- * TYPEDEFS
+ * CTOR/DTOR
  **************************************************************************************/
 
-typedef memory::container::Queue<uint8_t> SerialQueue;
+UART_TransmitBuffer::UART_TransmitBuffer(uint16_t const size, hal::interface::CriticalSection & crit_sec, hal::interface::UART & uart, hal::interface::UARTConfiguration & uart_config)
+: _tx_queue   (size      ),
+  _crit_sec   (crit_sec  ),
+  _uart       (uart      ),
+  _uart_config(uart_config)
+{
+
+}
+
+UART_TransmitBuffer::~UART_TransmitBuffer()
+{
+
+}
+
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
+
+bool UART_TransmitBuffer::isFull()
+{
+  hal::interface::LockGuard lock(_crit_sec);
+
+  return _tx_queue.isFull();
+}
+
+void UART_TransmitBuffer::putData(uint8_t const data)
+{
+  hal::interface::LockGuard lock(_crit_sec);
+
+  if(!_tx_queue.isFull())
+  {
+    _tx_queue.push(data);
+    _uart_config.enableInterrupt(hal::interface::UartInt::UartDataRegisterEmpty);
+  }
+}
+
+void UART_TransmitBuffer::onTransmitRegisterEmpty()
+{
+  hal::interface::LockGuard lock(_crit_sec);
+
+  if(!_tx_queue.isEmpty())
+  {
+    uint8_t data = 0;
+    _tx_queue.pop(&data);
+    _uart.transmit(data);
+  }
+  else
+  {
+    _uart_config.disableInterrupt(hal::interface::UartInt::UartDataRegisterEmpty);
+  }
+}
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* UART */
 
 } /* serial */
 
 } /* driver */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_SERIALRXBUFFER_H_ */
