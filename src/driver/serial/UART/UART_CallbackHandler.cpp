@@ -58,9 +58,9 @@ UART_CallbackHandler::~UART_CallbackHandler()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void UART_CallbackHandler::onTransmitRegisterEmptyCallback()
+bool UART_CallbackHandler::onTransmitRegisterEmptyCallback(uint8_t * tx_data)
 {
-  _serial_tx_buf.onTransmitRegisterEmpty();
+  return _serial_tx_buf.onTransmitRegisterEmpty(tx_data);
 }
 
 void UART_CallbackHandler::onReceiveCompleteCallback(uint8_t const data)

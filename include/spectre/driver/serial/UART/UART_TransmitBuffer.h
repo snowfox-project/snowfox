@@ -25,7 +25,6 @@
 
 #include <spectre/driver/serial/interface/SerialTransmitBuffer.h>
 
-#include <spectre/hal/interface/uart/UART.h>
 #include <spectre/hal/interface/uart/UARTConfiguration.h>
 #include <spectre/hal/interface/locking/CriticalSection.h>
 
@@ -56,19 +55,18 @@ class UART_TransmitBuffer : public interface::SerialTransmitBuffer
 
 public:
 
-           UART_TransmitBuffer(uint16_t const size, hal::interface::CriticalSection & crit_sec, hal::interface::UART & uart, hal::interface::UARTConfiguration & uart_config);
+           UART_TransmitBuffer(uint16_t const size, hal::interface::CriticalSection & crit_sec, hal::interface::UARTConfiguration & uart_config);
   virtual ~UART_TransmitBuffer();
 
 
-  virtual bool isFull                 (                  ) override;
-  virtual void putData                (uint8_t const data) override;
-  virtual void onTransmitRegisterEmpty(                  ) override;
+  virtual bool isFull                 (                       ) override;
+  virtual void putData                (uint8_t const   data   ) override;
+  virtual bool onTransmitRegisterEmpty(uint8_t       * tx_data) override;
 
 private:
 
   memory::container::Queue<uint8_t>   _tx_queue;
   hal::interface::CriticalSection   & _crit_sec;
-  hal::interface::UART              & _uart;
   hal::interface::UARTConfiguration & _uart_config;
 
 };

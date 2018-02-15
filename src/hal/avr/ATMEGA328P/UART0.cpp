@@ -171,16 +171,24 @@ void UART0::registerUARTCallbackInterface(interface::UARTCallback * uart_callbac
 
 void UART0::ISR_onTransmitRegisterEmpty()
 {
-  if(_uart_callback_interface) _uart_callback_interface->onTransmitRegisterEmptyCallback();
+  if(_uart_callback_interface)
+  {
+    uint8_t tx_data = 0;
+    bool const is_tx_requested = _uart_callback_interface->onTransmitRegisterEmptyCallback(&tx_data);
+    if(is_tx_requested)
+    {
+      this->transmit(tx_data);
+    }
+  }
 }
 
 void UART0::ISR_onReceiveComplete()
 {
   if(_uart_callback_interface)
   {
-    uint8_t data = 0;
-    receive(data);
-    _uart_callback_interface->onReceiveCompleteCallback(data);
+    uint8_t rx_data = 0;
+    this->receive(rx_data);
+    _uart_callback_interface->onReceiveCompleteCallback(rx_data);
   }
 }
 

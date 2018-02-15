@@ -24,6 +24,7 @@
  **************************************************************************************/
 
 #include <stdint.h>
+#include <stdbool.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -51,8 +52,8 @@ public:
   virtual ~UARTCallback() { }
 
 
-  virtual void onTransmitRegisterEmptyCallback(                  ) = 0;
-  virtual void onReceiveCompleteCallback      (uint8_t const data) = 0;
+  virtual bool onTransmitRegisterEmptyCallback(uint8_t       * tx_data) = 0;
+  virtual void onReceiveCompleteCallback      (uint8_t const   rx_data) = 0;
   
 };
 

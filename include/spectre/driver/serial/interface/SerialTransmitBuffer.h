@@ -55,9 +55,9 @@ public:
   virtual ~SerialTransmitBuffer() { }
 
 
-  virtual bool isFull                 (                  ) = 0;
-  virtual void putData                (uint8_t const data) = 0;
-  virtual void onTransmitRegisterEmpty(                  ) = 0;
+  virtual bool isFull                 (                       ) = 0;
+  virtual void putData                (uint8_t const   data   ) = 0;
+  virtual bool onTransmitRegisterEmpty(uint8_t       * tx_data) = 0;
 
 };
 
