@@ -28,6 +28,7 @@
 
 #include <spectre/driver/serial/Serial.h>
 #include <spectre/driver/serial/SerialQueue.h>
+#include <spectre/driver/serial/UART/UART_ReceiveBuffer.h>
 #include <spectre/driver/serial/UART/UART_CallbackHandler.h>
 #include <spectre/driver/serial/UART/UART_SerialController.h>
 
@@ -66,11 +67,11 @@ int main()
 
   /* DRIVER ***************************************************************************/
 
-  serial::SerialQueue                 rx_queue        (RX_QUEUE_SIZE),
-                                      tx_queue        (TX_QUEUE_SIZE);
-  serial::UART::UART_SerialController serial_ctrl     (uart0, uart0, crit_sec, rx_queue, tx_queue);
-  serial::UART::UART_CallbackHandler  serial_callback (serial_ctrl);
-  serial::Serial                      serial          (serial_ctrl);
+  serial::SerialQueue                 tx_queue          (TX_QUEUE_SIZE);
+  serial::UART::UART_ReceiveBuffer    serial_rx_buffer  (RX_QUEUE_SIZE, crit_sec);
+  serial::UART::UART_SerialController serial_ctrl       (uart0, uart0, crit_sec, tx_queue);
+  serial::UART::UART_CallbackHandler  serial_callback   (serial_ctrl, serial_rx_buffer);
+  serial::Serial                      serial            (serial_ctrl, serial_rx_buffer);
 
   uart0.registerUARTCallbackInterface (&serial_callback);
 

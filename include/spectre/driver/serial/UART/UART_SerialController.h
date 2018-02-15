@@ -57,7 +57,7 @@ class UART_SerialController : public interface::SerialController
 public:
 
 
-           UART_SerialController(hal::interface::UART & uart, hal::interface::UARTConfiguration & uart_config, hal::interface::CriticalSection & crit_sec, SerialQueue & rx_queue, SerialQueue & tx_queue);
+           UART_SerialController(hal::interface::UART & uart, hal::interface::UARTConfiguration & uart_config, hal::interface::CriticalSection & crit_sec, SerialQueue & tx_queue);
   virtual ~UART_SerialController();
 
 
@@ -67,8 +67,6 @@ public:
   virtual void setParity         (interface::SerialParity   const parity   ) override;
   virtual void setStopBit        (interface::SerialStopBit  const stop_bit ) override;
 
-  virtual bool isRxBufferEmpty   (                    ) override;
-  virtual void getRxBufferData   (uint8_t       * data) override;
   virtual bool isTxBufferFull    (                    ) override;
   virtual void putDataTxBuffer   (uint8_t const   data) override;
 
@@ -83,8 +81,7 @@ private:
   hal::interface::UART              & _uart;
   hal::interface::UARTConfiguration & _uart_config;
   hal::interface::CriticalSection   & _crit_sec;
-  SerialQueue                       & _rx_queue,
-                                    & _tx_queue;
+  SerialQueue                       & _tx_queue;
 
 };
 

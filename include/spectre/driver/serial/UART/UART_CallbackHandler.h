@@ -26,6 +26,7 @@
 #include <spectre/hal/interface/uart/UARTCallback.h>
 
 #include <spectre/driver/serial/interface/SerialController.h>
+#include <spectre/driver/serial/interface/SerialReceiveBuffer.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -52,7 +53,7 @@ class UART_CallbackHandler : public spectre::hal::interface::UARTCallback
 
 public:
 
-           UART_CallbackHandler(interface::SerialController & serial_ctrl);
+           UART_CallbackHandler(interface::SerialController & serial_ctrl, interface::SerialReceiveBuffer & serial_rx_buf);
   virtual ~UART_CallbackHandler();
 
 
@@ -62,7 +63,8 @@ public:
 
 private:
 
-  interface::SerialController & _serial_ctrl;
+  interface::SerialController    & _serial_ctrl;
+  interface::SerialReceiveBuffer & _serial_rx_buf;
 
 };
 

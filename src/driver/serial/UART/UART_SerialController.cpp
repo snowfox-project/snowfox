@@ -44,11 +44,10 @@ namespace UART
  * CTOR/DTOR
  **************************************************************************************/
 
-UART_SerialController::UART_SerialController(hal::interface::UART & uart, hal::interface::UARTConfiguration & uart_config, hal::interface::CriticalSection & crit_sec, SerialQueue & rx_queue, SerialQueue & tx_queue)
+UART_SerialController::UART_SerialController(hal::interface::UART & uart, hal::interface::UARTConfiguration & uart_config, hal::interface::CriticalSection & crit_sec, SerialQueue & tx_queue)
 : _uart       (uart       ),
   _uart_config(uart_config),
   _crit_sec   (crit_sec   ),
-  _rx_queue   (rx_queue   ),
   _tx_queue   (tx_queue   )
 {
 
@@ -95,20 +94,6 @@ void UART_SerialController::setStopBit(interface::SerialStopBit const stop_bit)
   }
 }
 
-bool UART_SerialController::isRxBufferEmpty()
-{
-  hal::interface::LockGuard lock(_crit_sec);
-
-  return _rx_queue.isEmpty();
-}
-
-void UART_SerialController::getRxBufferData(uint8_t * data)
-{
-  hal::interface::LockGuard lock(_crit_sec);
-
-  _rx_queue.pop(data);
-}
-
 bool UART_SerialController::isTxBufferFull()
 {
   hal::interface::LockGuard lock(_crit_sec);
@@ -142,15 +127,7 @@ void UART_SerialController::onTransmitComplete()
 
 void UART_SerialController::onReceiveComplete()
 {
-  hal::interface::LockGuard lock(_crit_sec);
 
-  if(!_rx_queue.isFull())
-  {
-    uint8_t data = 0;
-
-    _uart.receive (data);
-    _rx_queue.push(data);
-  }
 }
 
 void UART_SerialController::disable()

@@ -16,17 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_CONSOLE_CONSOLE_H_
-#define INCLUDE_SPECTRE_DRIVER_CONSOLE_CONSOLE_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_SERIAL_UART_UART_RECEIVEBUFFER_H_
+#define INCLUDE_SPECTRE_DRIVER_SERIAL_UART_UART_RECEIVEBUFFER_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/interface/Driver.h>
-
-#include <spectre/driver/serial/interface/SerialController.h>
 #include <spectre/driver/serial/interface/SerialReceiveBuffer.h>
+
+#include <spectre/hal/interface/locking/CriticalSection.h>
+
+#include <spectre/memory/container/Queue.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -41,39 +42,30 @@ namespace driver
 namespace serial
 {
 
-/**************************************************************************************
- * CONSTANTS
- **************************************************************************************/
-
-static uint32_t constexpr IOCTL_SET_BAUDRATE = 0; /* Arg: SerialBaudRate -> uint8_t * */
-static uint32_t constexpr IOCTL_SET_PARITY   = 1; /* Arg: SerialParity   -> uint8_t * */
-static uint32_t constexpr IOCTL_SET_STOPBIT  = 2; /* Arg: SerialStopBit  -> uint8_t * */
+namespace UART
+{
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class Serial : public driver::interface::Driver
+class UART_ReceiveBuffer : public interface::SerialReceiveBuffer
 {
 
 public:
 
+           UART_ReceiveBuffer(uint16_t const size, hal::interface::CriticalSection & crit_sec);
+  virtual ~UART_ReceiveBuffer();
 
-           Serial(interface::SerialController & serial_ctrl, interface::SerialReceiveBuffer & serial_rx_buf);
-  virtual ~Serial();
 
-
-  bool    open (                                                  ) override;
-  ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) override;
-  ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override;
-  bool    ioctl(uint32_t const   cmd,    void          * arg      ) override;
-  void    close(                                                  ) override;
-
+  virtual bool isEmpty          (                    ) override;
+  virtual void getData          (uint8_t       * data) override;
+  virtual void onReceiveComplete(uint8_t const   data) override;
 
 private:
 
-  interface::SerialController    & _serial_ctrl;
-  interface::SerialReceiveBuffer & _serial_rx_buf;
+  memory::container::Queue<uint8_t>   _rx_queue;
+  hal::interface::CriticalSection   & _crit_sec;
 
 };
 
@@ -81,10 +73,12 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
+} /* UART */
+
 } /* serial */
 
 } /* driver */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_CONSOLE_CONSOLE_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_SERIAL_UART_UART_RECEIVEBUFFER_H_ */

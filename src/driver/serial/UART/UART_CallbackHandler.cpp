@@ -42,8 +42,9 @@ namespace UART
  * CTOR/DTOR
  **************************************************************************************/
 
-UART_CallbackHandler::UART_CallbackHandler(interface::SerialController & serial_ctrl)
-: _serial_ctrl(serial_ctrl)
+UART_CallbackHandler::UART_CallbackHandler(interface::SerialController & serial_ctrl, interface::SerialReceiveBuffer & serial_rx_buf)
+: _serial_ctrl  (serial_ctrl  ),
+  _serial_rx_buf(serial_rx_buf)
 {
 
 }
@@ -64,7 +65,7 @@ void UART_CallbackHandler::onTransmitCompleteCallback()
 
 void UART_CallbackHandler::onReceiveCompleteCallback(uint8_t const data)
 {
-  _serial_ctrl.onReceiveComplete();
+  _serial_rx_buf.onReceiveComplete(data);
 }
 
 /**************************************************************************************

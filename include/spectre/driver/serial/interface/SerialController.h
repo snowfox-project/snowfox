@@ -84,8 +84,6 @@ public:
   virtual void setParity         (SerialParity   const parity   ) = 0;
   virtual void setStopBit        (SerialStopBit  const stop_bit ) = 0;
 
-  virtual bool isRxBufferEmpty   (                    ) = 0;
-  virtual void getRxBufferData   (uint8_t       * data) = 0;
   virtual bool isTxBufferFull    (                    ) = 0;
   virtual void putDataTxBuffer   (uint8_t const   data) = 0;
 

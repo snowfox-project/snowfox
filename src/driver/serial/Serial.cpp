@@ -39,8 +39,9 @@ namespace serial
  * CTOR/DTOR
  **************************************************************************************/
 
-Serial::Serial(interface::SerialController & serial_ctrl)
-: _serial_ctrl(serial_ctrl)
+Serial::Serial(interface::SerialController & serial_ctrl, interface::SerialReceiveBuffer & serial_rx_buf)
+: _serial_ctrl  (serial_ctrl  ),
+  _serial_rx_buf(serial_rx_buf)
 {
 
 }
@@ -64,9 +65,9 @@ ssize_t Serial::read(uint8_t * buffer, ssize_t const num_bytes)
 {
   ssize_t bytes_read = 0;
 
-  for(; (bytes_read < num_bytes) && !_serial_ctrl.isRxBufferEmpty(); bytes_read++)
+  for(; (bytes_read < num_bytes) && !_serial_rx_buf.isEmpty(); bytes_read++)
   {
-    _serial_ctrl.getRxBufferData(buffer + bytes_read);
+    _serial_rx_buf.getData(buffer + bytes_read);
   }
 
   return bytes_read;
