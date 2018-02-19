@@ -16,36 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_OS_TASK_H_
-#define INCLUDE_SPECTRE_OS_TASK_H_
+#ifndef INCLUDE_SPECTRE_OS_SCHEDULER_H_
+#define INCLUDE_SPECTRE_OS_SCHEDULER_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <stdint.h>
+#include <spectre/os/task.h>
 
 /**************************************************************************************
- * TYPEDEFS
+ * PROTOTYPES
  **************************************************************************************/
 
-typedef enum
-{
-  Ready, Running, Suspended, Blocked
-} TaskState;
+void schedule(struct TaskControlBlockListItem * head);
 
-typedef void * TaskArgument;
-
-typedef void (*TaskFunction)(TaskArgument);
-
-struct TaskControlBlockListItem
-{
-  void                            * top_of_stack;
-  TaskState                         task_state;
-  TaskFunction                      task_func;
-  TaskArgument                      task_arg;
-  struct TaskControlBlockListItem * next,
-                                  * prev;
-};
-
-#endif /* INCLUDE_SPECTRE_OS_TASK_H_ */
+#endif /* INCLUDE_SPECTRE_OS_SCHEDULER_H_ */

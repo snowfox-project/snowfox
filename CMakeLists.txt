@@ -34,10 +34,14 @@ include(.cmake/hal-srcs.cmake)
 set(SPECTRE_LIBRARY_DRIVER_SRCS "")
 include(.cmake/driver-srcs.cmake)
 
+set(SPECTRE_LIBRARY_OS_SRCS "")
+include(.cmake/os-srcs.cmake)
+
 set(SPECTRE_LIBRARY_SRCS
   ${SPECTRE_LIBRARY_CXX_SRCS}
   ${SPECTRE_LIBRARY_HAL_SRCS}
   ${SPECTRE_LIBRARY_DRIVER}
+  ${SPECTRE_LIBRARY_OS_SRCS}
 )
 
 ##########################################################################
