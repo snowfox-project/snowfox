@@ -20,13 +20,33 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/os/scheduler.h>
+#include <spectre/os/task_list.h>
+
+#include <stdlib.h>
 
 /**************************************************************************************
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-void spectre_os_switch(struct task_control_block_t * tcb_old, struct task_control_block_t * tcb_new)
+void spectre_add_task(struct task_list_t * task_list_head, struct task_control_block_t * tcb)
 {
-  /* TODO */
+  /* TODO - list is sorted from top to bottom according to priority - highest priority = lowest value = 0 = front */
+
+  /*
+   * First Task -> It does not matter which spot -> always the first task in the list
+   * Second Task -> Is always a insert
+   *  -> insert in the front
+   *  -> insert in the middle
+   *  -> insert in the end
+   */
+
+}
+
+void insert_task(struct task_list_t * task_list_node, struct task_control_block_t * tcb)
+{
+  struct task_list_t * new_task_list_node = (struct task_list_t *)malloc(sizeof(struct task_list_t));
+
+  new_task_list_node->next = task_list_node->next;
+  new_task_list_node->prev = task_list_node;
+  task_list_node->next     = new_task_list_node;
 }

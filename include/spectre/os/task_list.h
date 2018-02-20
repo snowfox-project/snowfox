@@ -16,17 +16,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_OS_TASK_LIST_H_
+#define INCLUDE_SPECTRE_OS_TASK_LIST_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/os/scheduler.h>
+#include <spectre/os/task.h>
 
 /**************************************************************************************
- * PUBLIC FUNCTIONS
+ * TYPEDEFS
  **************************************************************************************/
 
-void spectre_os_switch(struct task_control_block_t * tcb_old, struct task_control_block_t * tcb_new)
+struct task_list_t
 {
-  /* TODO */
-}
+  struct task_control_block_t   tcb;
+  struct task_list_t          * next,
+                              * prev;
+};
+
+/**************************************************************************************
+ * PROTOTYPES
+ **************************************************************************************/
+
+void spectre_add_task(struct task_list_t * task_list_head, struct task_control_block_t * tcb);
+
+#endif /* INCLUDE_SPECTRE_OS_TASK_LIST_H_ */

@@ -46,17 +46,10 @@ struct task_control_block_t
   uint16_t    task_prio;
 };
 
-struct task_list_t
-{
-  struct task_control_block_t   tcb;
-  struct task_list_t          * next,
-                              * prev;
-};
-
 /**************************************************************************************
  * PROTOTYPES
  **************************************************************************************/
 
-void createTask(struct task_list_t * task_list_head, TaskFunc task_func, void * task_arg, uint16_t const task_prio);
+struct task_control_block_t * spectre_create_task(TaskFunc task_func, void * task_arg, uint16_t const task_prio);
 
 #endif /* INCLUDE_SPECTRE_OS_TASK_H_ */

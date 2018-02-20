@@ -29,6 +29,6 @@
  * PROTOTYPES
  **************************************************************************************/
 
-void schedule(struct task_list_t * task_list_head);
+void spectre_os_switch(struct task_control_block_t * tcb_old, struct task_control_block_t * tcb_new);
 
 #endif /* INCLUDE_SPECTRE_OS_SCHEDULER_H_ */

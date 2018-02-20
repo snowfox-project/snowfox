@@ -22,22 +22,20 @@
 
 #include <spectre/os/task.h>
 
+#include <stdlib.h>
+
 /**************************************************************************************
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-void createTask(struct task_list_t * task_list_head, TaskFunc task_func, void * task_arg, uint16_t const task_prio)
+struct task_control_block_t * spectre_create_task(TaskFunc task_func, void * task_arg, uint16_t const task_prio)
 {
-  if(task_list_head == 0)
-  {
-    task_list_head = (struct task_list_t *)malloc(sizeof(struct task_list_t));
+  struct task_control_block_t * tcb = (struct task_control_block_t *)malloc(sizeof(struct task_control_block_t));
 
-    task_list_head->tcb.top_of_stack = 0; /* TODO */
-    task_list_head->tcb.task_func    = task_func;
-    task_list_head->tcb.task_arg     = task_arg;
-    task_list_head->tcb.task_prio    = task_prio;
+  tcb->top_of_stack = 0; /* TODO */
+  tcb->task_func    = task_func;
+  tcb->task_arg     = task_arg;
+  tcb->task_prio    = task_prio;
 
-    task_list_head->prev = 0;
-    task_list_head->next = 0;
-  }
+  return tcb;
 }
