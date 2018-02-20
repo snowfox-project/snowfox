@@ -16,47 +16,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_OS_TASK_H_
-#define INCLUDE_SPECTRE_OS_TASK_H_
-
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <stdint.h>
+#include <spectre/os/task.h>
 
 /**************************************************************************************
- * TYPEDEFS
+ * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-typedef enum
+void createTask(struct task_list_t * task_list_head, TaskFunc task_func, void * task_arg, uint16_t const task_prio)
 {
-  Ready, Running, Suspended, Blocked
-} TaskState;
+  if(task_list_head == 0)
+  {
+    task_list_head = (struct task_list_t *)malloc(sizeof(struct task_list_t));
 
-typedef void (*TaskFunc)(void *);
+    task_list_head->tcb.top_of_stack = 0; /* TODO */
+    task_list_head->tcb.task_func    = task_func;
+    task_list_head->tcb.task_arg     = task_arg;
+    task_list_head->tcb.task_prio    = task_prio;
 
-struct task_control_block_t
-{
-  void      * top_of_stack;
-
-  TaskState   task_state;
-  TaskFunc    task_func;
-  void      * task_arg;
-  uint16_t    task_prio;
-};
-
-struct task_list_t
-{
-  struct task_control_block_t   tcb;
-  struct task_list_t          * next,
-                              * prev;
-};
-
-/**************************************************************************************
- * PROTOTYPES
- **************************************************************************************/
-
-void createTask(struct task_list_t * task_list_head, TaskFunc task_func, void * task_arg, uint16_t const task_prio);
-
-#endif /* INCLUDE_SPECTRE_OS_TASK_H_ */
+    task_list_head->prev = 0;
+    task_list_head->next = 0;
+  }
+}
