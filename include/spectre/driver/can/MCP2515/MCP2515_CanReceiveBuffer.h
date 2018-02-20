@@ -16,16 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_CAN_INTERFACE_CANTRANSMITBUFFER_H_
-#define INCLUDE_SPECTRE_DRIVER_CAN_INTERFACE_CANTRANSMITBUFFER_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_CANRECEIVEBUFFER_H_
+#define INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_CANRECEIVEBUFFER_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <stdbool.h>
+#include <spectre/driver/can/interface/CanReceiveBuffer.h>
 
-#include <spectre/hal/interface/can/CanFrame.h>
+#include <stdint.h>
+
+#include <spectre/memory/container/Queue.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -40,25 +42,29 @@ namespace driver
 namespace can
 {
 
-namespace interface
+namespace MCP2515
 {
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class CanTransmitBuffer
+class MCP2515_CanReceiveBuffer : public can::interface::CanReceiveBuffer
 {
 
 public:
 
-           CanTransmitBuffer() { }
-  virtual ~CanTransmitBuffer() { }
+           MCP2515_CanReceiveBuffer(uint16_t const size);
+  virtual ~MCP2515_CanReceiveBuffer();
 
 
-  virtual bool isFull            (                                        ) = 0;
-  virtual void putData           (hal::interface::CanFrame const can_frame) = 0;
-  virtual void onTransmitComplete(                                        ) = 0;
+  virtual bool isEmpty          (                                          ) override;
+  virtual void getData          (hal::interface::CanFrame       * can_frame) override;
+  virtual void onReceiveComplete(hal::interface::CanFrame const   can_frame) override;
+
+private:
+
+  memory::container::Queue<hal::interface::CanFrame> _rx_queue;
 
 };
 
@@ -66,7 +72,7 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
+} /* MCP2515 */
 
 } /* can */
 
@@ -74,4 +80,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_CAN_INTERFACE_CANTRANSMITBUFFER_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_CANRECEIVEBUFFER_H_ */
