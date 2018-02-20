@@ -54,9 +54,9 @@ public:
            SerialReceiveBuffer() { }
   virtual ~SerialReceiveBuffer() { }
 
-  virtual bool isEmpty          (                    ) = 0;
-  virtual void getData          (uint8_t       * data) = 0;
-  virtual void onReceiveComplete(uint8_t const   data) = 0;
+  virtual bool isEmpty          (                       ) = 0;
+  virtual void getData          (uint8_t       * data   ) = 0;
+  virtual void onReceiveComplete(uint8_t const   rx_data) = 0;
 
 };
 

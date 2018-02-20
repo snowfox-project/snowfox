@@ -75,13 +75,13 @@ void UART_ReceiveBuffer::getData(uint8_t * data)
   _rx_queue.pop(data);
 }
 
-void UART_ReceiveBuffer::onReceiveComplete(uint8_t const data)
+void UART_ReceiveBuffer::onReceiveComplete(uint8_t const rx_data)
 {
   hal::interface::LockGuard lock(_crit_sec);
 
   if(!_rx_queue.isFull())
   {
-    _rx_queue.push(data);
+    _rx_queue.push(rx_data);
   }
 }
 

@@ -59,9 +59,9 @@ public:
   virtual ~UART_ReceiveBuffer();
 
 
-  virtual bool isEmpty          (                    ) override;
-  virtual void getData          (uint8_t       * data) override;
-  virtual void onReceiveComplete(uint8_t const   data) override;
+  virtual bool isEmpty          (                       ) override;
+  virtual void getData          (uint8_t       * data   ) override;
+  virtual void onReceiveComplete(uint8_t const   rx_data) override;
 
 private:
 
