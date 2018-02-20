@@ -34,22 +34,29 @@ typedef enum
   Ready, Running, Suspended, Blocked
 } TaskState;
 
-typedef void * TaskArgument;
+typedef void (*TaskFunc)(void *);
 
-typedef void (*TaskFunction)(TaskArgument);
-
-struct TaskControlBlockListItem
+typedef struct tcb_t
 {
+  void      * top_of_stack;
 
-  void                            * top_of_stack;
+  TaskState   task_state;
+  TaskFunc    task_func;
+  void      * task_arg;
+  uint16_t    task_prio;
+} tcb_t;
 
-  TaskState                         task_state;
-  TaskFunction                      task_func;
-  TaskArgument                      task_arg;
+typedef struct task_list_t
+{
+  struct tcb_t         tcb;
+  struct task_list_t * next,
+                     * prev;
+} task_list_t;
 
-  struct TaskControlBlockListItem * next;
-  struct TaskControlBlockListItem * prev;
+/**************************************************************************************
+ * PROTOTYPES
+ **************************************************************************************/
 
-};
+void createTask(struct task_list_t * task_list_head, TaskFunc task_func, void * task_arg, uint16_t const task_prio);
 
 #endif /* INCLUDE_SPECTRE_OS_TASK_H_ */

@@ -29,6 +29,6 @@
  * PROTOTYPES
  **************************************************************************************/
 
-void schedule(struct TaskControlBlockListItem * head);
+void schedule(struct task_list_t * task_list_head);
 
 #endif /* INCLUDE_SPECTRE_OS_SCHEDULER_H_ */

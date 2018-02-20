@@ -26,11 +26,13 @@
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-void schedule(struct TaskControlBlockListItem * head)
+void schedule(struct task_list_t * task_list_head)
 {
-  struct TaskControlBlockListItem * current_task = head;
+  struct task_list_t * current_task = task_list_head;
 
-  for(; current_task->next != 0 && current_task->task_state != Ready; current_task = current_task->next) { }
+  for(;
+      current_task->next != 0 && current_task->tcb.task_state != Ready;
+      current_task = current_task->next) { }
 
   /* dispatch current task  TODO */
 }
