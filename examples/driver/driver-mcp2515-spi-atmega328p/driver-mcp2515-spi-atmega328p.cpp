@@ -35,6 +35,8 @@
 #include <spectre/driver/can/MCP2515/MCP2515_IoSpi.h>
 #include <spectre/driver/can/MCP2515/MCP2515_Control.h>
 #include <spectre/driver/can/MCP2515/MCP2515_CanController.h>
+#include <spectre/driver/can/MCP2515/MCP2515_CanReceiveBuffer.h>
+#include <spectre/driver/can/MCP2515/MCP2515_CanTransmitBuffer.h>
 
 /**************************************************************************************
  * NAMESPACES
@@ -52,6 +54,9 @@ static hal::interface::SpiMode     const MCP2515_SPI_MODE      = hal::interface:
 static hal::interface::SpiBitOrder const MCP2515_SPI_BIT_ORDER = hal::interface::SpiBitOrder::MSB_FIRST;
 static uint32_t                    const MCP2515_SPI_PRESCALER = 16; /* Arduino Uno Clk = 16 MHz -> SPI Clk = 1 MHz                     */
 static uint8_t                     const F_MCP2515_MHz         = 16; /* Seedstudio CAN Bus Shield V2.0 is clocked with a 16 MHz crystal */
+
+static uint16_t                    const CAN_RX_BUFFER_SIZE    = 8;
+static uint16_t                    const CAN_TX_BUFFER_SIZE    = 8;
 
 /**************************************************************************************
  * MAIN
@@ -71,11 +76,13 @@ int main()
 
   /* DRIVER ***************************************************************************/
 
-  can::MCP2515::MCP2515_IoSpi         mcp2515_io_spi  (spi_master, cs);
-  can::MCP2515::MCP2515_Control       mcp2515_control (mcp2515_io_spi);
-  can::MCP2515::MCP2515_CanController mcp2515_can_ctrl(mcp2515_control, F_MCP2515_MHz);
+  can::MCP2515::MCP2515_IoSpi             mcp2515_io_spi    (spi_master, cs);
+  can::MCP2515::MCP2515_Control           mcp2515_control   (mcp2515_io_spi);
+  can::MCP2515::MCP2515_CanController     mcp2515_can_ctrl  (mcp2515_control, F_MCP2515_MHz);
+  can::MCP2515::MCP2515_CanReceiveBuffer  mcp2515_can_rx_buf(CAN_RX_BUFFER_SIZE);
+  can::MCP2515::MCP2515_CanTransmitBuffer mcp2515_can_tx_buf(CAN_TX_BUFFER_SIZE);
 
-  can::Can                            can             (mcp2515_can_ctrl);
+  can::Can                                can               (mcp2515_can_ctrl, mcp2515_can_tx_buf, mcp2515_can_rx_buf);
 
   uint8_t bitrate = static_cast<uint8_t>(can::MCP2515::interface::CanBitRate::BR_250kBPS);
 
