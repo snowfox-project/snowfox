@@ -16,14 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_CAN_CANFRAMEQUEUE_H_
-#define INCLUDE_SPECTRE_DRIVER_CAN_CANFRAMEQUEUE_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_CAN_INTERFACE_CANRECEIVEBUFFER_H_
+#define INCLUDE_SPECTRE_DRIVER_CAN_INTERFACE_CANRECEIVEBUFFER_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/memory/container/Queue.h>
+#include <stdbool.h>
+
 #include <spectre/hal/interface/can/CanFrame.h>
 
 /**************************************************************************************
@@ -39,15 +40,33 @@ namespace driver
 namespace can
 {
 
+namespace interface
+{
+
 /**************************************************************************************
- * TYPEDEFS
+ * CLASS DECLARATION
  **************************************************************************************/
 
-typedef memory::container::Queue<hal::interface::CanFrame> CanFrameQueue;
+class CanReceiveBuffer
+{
+
+public:
+
+           CanReceiveBuffer() { }
+  virtual ~CanReceiveBuffer() { }
+
+
+  virtual bool isEmpty          (                                          ) = 0;
+  virtual void getData          (hal::interface::CanFrame       * can_frame) = 0;
+  virtual void onReceiveComplete(hal::interface::CanFrame const   can_frame) = 0;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* can */
 
@@ -55,4 +74,4 @@ typedef memory::container::Queue<hal::interface::CanFrame> CanFrameQueue;
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_CAN_CANFRAMEQUEUE_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_CAN_INTERFACE_CANRECEIVEBUFFER_H_ */

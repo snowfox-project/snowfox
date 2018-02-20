@@ -22,6 +22,8 @@
 
 #include <spectre/driver/can/Can.h>
 
+#include <string.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -39,8 +41,10 @@ namespace can
  * CTOR/DTOR
  **************************************************************************************/
 
-Can::Can(interface::CanController & can_ctrl)
-: _can_ctrl(can_ctrl)
+Can::Can(interface::CanController & can_ctrl, interface::CanTransmitBuffer & can_tx_buf, interface::CanReceiveBuffer & can_rx_buf)
+: _can_ctrl  (can_ctrl  ),
+  _can_tx_buf(can_tx_buf),
+  _can_rx_buf(can_rx_buf)
 {
 
 }
@@ -62,14 +66,42 @@ bool Can::open()
 
 ssize_t Can::read(uint8_t * buffer, ssize_t const num_bytes)
 {
-  /* TODO */
-  return -1;
+  ssize_t const num_frames = num_bytes / sizeof(hal::interface::CanFrame);
+
+  if(num_frames < 0) return -1;
+
+  ssize_t bytes_read = 0;
+
+  for(ssize_t f = 0;
+      (f < num_frames) && !_can_rx_buf.isEmpty();
+      f++, bytes_read += sizeof(hal::interface::CanFrame))
+  {
+    hal::interface::CanFrame can_frame;
+    _can_rx_buf.getData(&can_frame);
+    memcpy(buffer + bytes_read, &can_frame, sizeof(hal::interface::CanFrame));
+  }
+
+  return bytes_read;
 }
 
 ssize_t Can::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
-  /* TODO */
-  return -1;
+  ssize_t const num_frames = num_bytes / sizeof(hal::interface::CanFrame);
+
+  if(num_frames < 0) return -1;
+
+  ssize_t bytes_written = 0;
+
+  for(ssize_t f = 0;
+      (f < num_frames) && !_can_tx_buf.isFull();
+      f++, bytes_written += sizeof(hal::interface::CanFrame))
+  {
+    hal::interface::CanFrame can_frame;
+    memcpy(&can_frame, buffer + bytes_written, sizeof(hal::interface::CanFrame));
+    _can_tx_buf.putData(can_frame);
+  }
+
+  return bytes_written;
 }
 
 bool Can::ioctl(uint32_t const cmd, void * arg)
