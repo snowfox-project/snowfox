@@ -40,12 +40,16 @@ typedef void (*TaskFunction)(TaskArgument);
 
 struct TaskControlBlockListItem
 {
+
   void                            * top_of_stack;
+
   TaskState                         task_state;
   TaskFunction                      task_func;
   TaskArgument                      task_arg;
-  struct TaskControlBlockListItem * next,
-                                  * prev;
+
+  struct TaskControlBlockListItem * next;
+  struct TaskControlBlockListItem * prev;
+
 };
 
 #endif /* INCLUDE_SPECTRE_OS_TASK_H_ */
