@@ -62,6 +62,9 @@ int main()
   AT90CAN128::UART1_TransmitRegisterEmptyCallback uart1_uart_data_register_empty_callback(uart1);
   AT90CAN128::UART1_ReceiveCompleteCallback       uart1_receive_complete_callback        (uart1);
 
+  int_ctrl.registerInterruptCallback(AT90CAN128::toIsrNum(AT90CAN128::InterruptServiceRoutine::USART1_UART_DATA_REGISTER_EMPTY), &uart1_uart_data_register_empty_callback);
+  int_ctrl.registerInterruptCallback(AT90CAN128::toIsrNum(AT90CAN128::InterruptServiceRoutine::USART1_RECEIVE_COMPLETE        ), &uart1_receive_complete_callback        );
+
   /* DRIVER ***************************************************************************/
 
   serial::UART::UART_TransmitBuffer   serial_tx_buffer  (TX_BUFFER_SIZE, crit_sec, uart1);
