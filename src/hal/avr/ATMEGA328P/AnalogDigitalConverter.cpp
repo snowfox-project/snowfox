@@ -66,6 +66,13 @@ namespace ATMEGA328P
 #define ADC4D_bm  (1<<4)
 #define ADC5D_bm  (1<<5)
 
+/* VREF NUMBERS */
+
+#define VREF_AREF           0
+#define VREF_AVCC           1
+#define VREF_BANDGAP_1_1V   2
+#define VREF_INVALID      255
+
 /**************************************************************************************
  * TYPEDEFS
  **************************************************************************************/
@@ -99,6 +106,7 @@ typedef enum
   ADC_CH_6 = MUX2_bm | MUX1_bm,
   ADC_CH_7 = MUX2_bm | MUX1_bm | MUX0_bm
 } AdcChannelSelect;
+
 
 /**************************************************************************************
  * CTOR/DTOR
@@ -179,10 +187,21 @@ void AnalogDigitalConverter::setReferenceVoltage(uint8_t const v_ref)
 
   switch(v_ref)
   {
-  case 0 : *_ADMUX |= static_cast<uint8_t>(AREF);         break;
-  case 1 : *_ADMUX |= static_cast<uint8_t>(AVCC);         break;
-  case 2 : *_ADMUX |= static_cast<uint8_t>(BANDGAP_1_1V); break;
-  default:                                                break;
+  case VREF_AREF        : *_ADMUX |= static_cast<uint8_t>(AREF);         break;
+  case VREF_AVCC        : *_ADMUX |= static_cast<uint8_t>(AVCC);         break;
+  case VREF_BANDGAP_1_1V: *_ADMUX |= static_cast<uint8_t>(BANDGAP_1_1V); break;
+  default               :                                                break;
+  }
+}
+
+uint8_t AnalogDigitalConverter::toVRefNum(VRef const vref)
+{
+  switch(vref)
+  {
+  case VRef::AREF        : return VREF_AREF;         break;
+  case VRef::AVCC        : return VREF_AVCC;         break;
+  case VRef::BANDGAP_1_1V: return VREF_BANDGAP_1_1V; break;
+  default                : return VREF_INVALID;      break;
   }
 }
 

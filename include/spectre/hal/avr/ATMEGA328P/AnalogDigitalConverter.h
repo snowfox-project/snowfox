@@ -40,6 +40,17 @@ namespace ATMEGA328P
 {
 
 /**************************************************************************************
+ * TYPEDEFS
+ **************************************************************************************/
+
+enum class VRef : uint8_t
+{
+  AREF,
+  AVCC,
+  BANDGAP_1_1V
+};
+
+/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
@@ -66,6 +77,8 @@ public:
   virtual void setPrescaler       (uint32_t const prescaler) override;
   virtual void setReferenceVoltage(uint8_t  const v_ref    ) override;
 
+
+  static uint8_t toVRefNum(VRef const vref);
 
 private:
 

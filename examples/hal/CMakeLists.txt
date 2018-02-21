@@ -12,8 +12,9 @@ if(${MCU_ARCH} STREQUAL "avr")
   endif()
 
   if(${MCU_TYPE} STREQUAL "atmega328p")
-    add_subdirectory(hal-atmega328p-digital-in-pin )
-    add_subdirectory(hal-atmega328p-digital-out-pin)
+    add_subdirectory(hal-atmega328p-analog-digital-converter)
+    add_subdirectory(hal-atmega328p-digital-in-pin          )
+    add_subdirectory(hal-atmega328p-digital-out-pin         )
   endif()
 
 endif()
