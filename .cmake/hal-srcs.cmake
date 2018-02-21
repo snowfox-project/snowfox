@@ -39,6 +39,7 @@ set(SPECTRE_LIBRARY_HAL_AVR_ATxxxx_SRCS
 ##########################################################################
 
 set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA328P_SRCS
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATMEGA328P/AnalogDigitalConverter.cpp        
   ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATMEGA328P/I2CMaster.cpp          
   ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATMEGA328P/InterruptController.cpp
   ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATMEGA328P/SPIMaster.cpp          
