@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/ATMEGA328P/EINT0.h>
+#include <spectre/hal/avr/ATMEGA328P/EINT1.h>
 
 #include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
 
@@ -42,14 +42,14 @@ namespace ATMEGA328P
  **************************************************************************************/
 
 /* EICRA */
-#define ISC00_bm (1<<0)
-#define ISC01_bm (1<<1)
+#define ISC10_bm (1<<2)
+#define ISC11_bm (1<<3)
 
 /**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
-EINT0::EINT0(volatile uint8_t * eicra, interface::InterruptController & int_ctrl)
+EINT1::EINT1(volatile uint8_t * eicra, interface::InterruptController & int_ctrl)
 : _EICRA                      (eicra   ),
   _int_ctrl                   (int_ctrl),
   _external_interrupt_callback(0       )
@@ -57,7 +57,7 @@ EINT0::EINT0(volatile uint8_t * eicra, interface::InterruptController & int_ctrl
 
 }
 
-EINT0::~EINT0()
+EINT1::~EINT1()
 {
 
 }
@@ -66,36 +66,36 @@ EINT0::~EINT0()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void EINT0::setTriggerMode(interface::TriggerMode const trigger_mode)
+void EINT1::setTriggerMode(interface::TriggerMode const trigger_mode)
 {
-  *_EICRA &= ~(ISC01_bm | ISC00_bm);
+  *_EICRA &= ~(ISC11_bm | ISC10_bm);
 
   switch(trigger_mode)
   {
-  case interface::TriggerMode::Any        : *_EICRA |=            ISC00_bm; break;
+  case interface::TriggerMode::Any        : *_EICRA |=            ISC10_bm; break;
   case interface::TriggerMode::Low        : *_EICRA |= 0;                   break;
   case interface::TriggerMode::High       : /* Not supported */             break;
-  case interface::TriggerMode::RisingEdge : *_EICRA |= ISC01_bm | ISC00_bm; break;
-  case interface::TriggerMode::FallingEdge: *_EICRA |= ISC01_bm;            break;
+  case interface::TriggerMode::RisingEdge : *_EICRA |= ISC11_bm | ISC10_bm; break;
+  case interface::TriggerMode::FallingEdge: *_EICRA |= ISC11_bm;            break;
   }
 }
 
-void EINT0::enable()
+void EINT1::enable()
 {
   _int_ctrl.enableInterrupt(toIntNum(Interrupt::EXTERNAL_INT0));
 }
 
-void EINT0::disable()
+void EINT1::disable()
 {
   _int_ctrl.disableInterrupt(toIntNum(Interrupt::EXTERNAL_INT0));
 }
 
-void EINT0::registerExternalInterruptCallback(interface::ExternalInterruptCallback * external_interrupt_callback)
+void EINT1::registerExternalInterruptCallback(interface::ExternalInterruptCallback * external_interrupt_callback)
 {
   _external_interrupt_callback = external_interrupt_callback;
 }
 
-void EINT0::ISR_onExternalInterruptEvent()
+void EINT1::ISR_onExternalInterruptEvent()
 {
   if(_external_interrupt_callback)
   {
