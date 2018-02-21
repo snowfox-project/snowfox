@@ -75,14 +75,14 @@ namespace AT90CAN128
  **************************************************************************************/
 
 UART1::UART1(volatile uint8_t * udr1, volatile uint8_t * ucsr1a, volatile uint8_t * ucsr1b, volatile uint8_t * ucsr1c, volatile uint16_t * ubrr1, interface::InterruptController & int_ctrl, uint32_t const f_cpu)
-: _UDR1                   (udr1    ),
-  _UCSR1A                 (ucsr1a  ),
-  _UCSR1B                 (ucsr1b  ),
-  _UCSR1C                 (ucsr1c  ),
-  _UBRR1                  (ubrr1   ),
-  _int_ctrl               (int_ctrl),
-  _uart_callback_interface(0       ),
-  _f_cpu                  (f_cpu   )
+: _UDR1         (udr1    ),
+  _UCSR1A       (ucsr1a  ),
+  _UCSR1B       (ucsr1b  ),
+  _UCSR1C       (ucsr1c  ),
+  _UBRR1        (ubrr1   ),
+  _int_ctrl     (int_ctrl),
+  _uart_callback(0       ),
+  _f_cpu        (f_cpu   )
 {
 
 }
@@ -163,17 +163,17 @@ void UART1::setStopBit(interface::UartStopBit const stop_bit)
   }
 }
 
-void UART1::registerUARTCallbackInterface(interface::UARTCallback * uart_callback_interface)
+void UART1::registerUARTCallback(interface::UARTCallback * uart_callback)
 {
-  _uart_callback_interface = uart_callback_interface;
+  _uart_callback = uart_callback;
 }
 
 void UART1::ISR_onTransmitRegisterEmpty()
 {
-  if(_uart_callback_interface)
+  if(_uart_callback)
   {
     uint8_t tx_data = 0;
-    bool const is_tx_requested = _uart_callback_interface->onTransmitRegisterEmptyCallback(&tx_data);
+    bool const is_tx_requested = _uart_callback->onTransmitRegisterEmptyCallback(&tx_data);
     if(is_tx_requested)
     {
       this->transmit(tx_data);
@@ -183,11 +183,11 @@ void UART1::ISR_onTransmitRegisterEmpty()
 
 void UART1::ISR_onReceiveComplete()
 {
-  if(_uart_callback_interface)
+  if(_uart_callback)
   {
     uint8_t rx_data = 0;
     this->receive(rx_data);
-    _uart_callback_interface->onReceiveCompleteCallback(rx_data);
+    _uart_callback->onReceiveCompleteCallback(rx_data);
   }
 }
 

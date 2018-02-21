@@ -70,7 +70,7 @@ int main()
   serial::UART::UART_SerialController serial_ctrl       (uart0);
   serial::Serial                      serial            (serial_ctrl, serial_tx_buffer, serial_rx_buffer);
 
-  uart0.registerUARTCallbackInterface (&serial_callback);
+  uart0.registerUARTCallback(&serial_callback);
 
   int_ctrl.enableInterrupt            (AT90CAN128::toIntNum(AT90CAN128::Interrupt::GLOBAL));
 

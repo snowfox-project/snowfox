@@ -53,7 +53,7 @@ public:
   virtual ~UARTAssembly() { }
 
 
-  virtual void registerUARTCallbackInterface(UARTCallback * uart_callback_interface) = 0;
+  virtual void registerUARTCallback(UARTCallback * uart_callback) = 0;
 
 };
 

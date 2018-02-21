@@ -80,7 +80,7 @@ public:
 
   /* UART Assembly */
 
-  virtual void registerUARTCallbackInterface(interface::UARTCallback * uart_callback_interface) override;
+  virtual void registerUARTCallback(interface::UARTCallback * uart_callback) override;
 
 
   /* Functions to be called upon execution of a interrupt service routine */
@@ -98,7 +98,7 @@ private:
   volatile uint16_t * _UBRR1;
 
   interface::InterruptController       & _int_ctrl;
-  interface::UARTCallback              * _uart_callback_interface;
+  interface::UARTCallback              * _uart_callback;
   uint32_t                       const   _f_cpu;
 
 
