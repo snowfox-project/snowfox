@@ -51,7 +51,7 @@ class DigitalInPin : public interface::DigitalInPin,
 
 public:
 
-           DigitalInPin(volatile uint8_t * ddr, volatile uint8_t * out, volatile uint8_t * pin, uint8_t const in_pin_number);
+           DigitalInPin(volatile uint8_t * ddr, volatile uint8_t * port, volatile uint8_t * pin, uint8_t const in_pin_number);
   virtual ~DigitalInPin();
 
 
@@ -67,7 +67,7 @@ public:
 private:
 
   volatile uint8_t * _ddr,
-                   * _out,
+                   * _port,
                    * _pin;
 
   uint8_t            _in_pin_bitmask;

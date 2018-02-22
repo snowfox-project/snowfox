@@ -39,9 +39,9 @@ namespace ATxxxx
  * CTOR/DTOR
  **************************************************************************************/
 
-DigitalOutPin::DigitalOutPin(volatile uint8_t *ddr, volatile uint8_t *out, uint8_t const out_pin_number)
+DigitalOutPin::DigitalOutPin(volatile uint8_t * ddr, volatile uint8_t * port, uint8_t const out_pin_number)
 : _ddr              (ddr                ),
-  _out              (out                ),
+  _port             (port               ),
   _out_pin_bitmask  (1 << out_pin_number)
 {
   setGpioPinAsOutput();
@@ -58,12 +58,12 @@ DigitalOutPin::~DigitalOutPin()
 
 void DigitalOutPin::set()
 {
-  *_out |= _out_pin_bitmask;
+  *_port |= _out_pin_bitmask;
 }
 
 void DigitalOutPin::clr()
 {
-  *_out &= ~_out_pin_bitmask;
+  *_port &= ~_out_pin_bitmask;
 }
 
 /**************************************************************************************

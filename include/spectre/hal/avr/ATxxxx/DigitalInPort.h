@@ -51,7 +51,7 @@ class DigitalInPort : public interface::DigitalInPort<uint8_t>,
 
 public:
 
-           DigitalInPort(volatile uint8_t * ddr, volatile uint8_t * out, volatile uint8_t * pin);
+           DigitalInPort(volatile uint8_t * ddr, volatile uint8_t * port, volatile uint8_t * pin);
   virtual ~DigitalInPort();
 
 
@@ -67,7 +67,7 @@ public:
 private:
 
   volatile uint8_t * _ddr,
-                   * _out,
+                   * _port,
                    * _pin;
 
   void setGpioPortAsInput();

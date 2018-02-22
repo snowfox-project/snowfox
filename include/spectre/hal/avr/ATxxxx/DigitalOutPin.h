@@ -49,7 +49,7 @@ class DigitalOutPin : public interface::DigitalOutPin
 
 public:
 
-           DigitalOutPin(volatile uint8_t * ddr, volatile uint8_t * out, uint8_t const out_pin_number);
+           DigitalOutPin(volatile uint8_t * ddr, volatile uint8_t * port, uint8_t const out_pin_number);
   virtual ~DigitalOutPin();
 
 
@@ -60,7 +60,7 @@ public:
 private:
 
   volatile uint8_t * _ddr,
-                   * _out;
+                   * _port;
 
   uint8_t            _out_pin_bitmask;
 

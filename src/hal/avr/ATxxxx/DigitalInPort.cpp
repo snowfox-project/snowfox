@@ -39,10 +39,10 @@ namespace ATxxxx
  * CTOR/DTOR
  **************************************************************************************/
 
-DigitalInPort::DigitalInPort(volatile uint8_t * ddr, volatile uint8_t * out, volatile uint8_t * pin)
-: _ddr(ddr),
-  _out(out),
-  _pin(pin)
+DigitalInPort::DigitalInPort(volatile uint8_t * ddr, volatile uint8_t * port, volatile uint8_t * pin)
+: _ddr (ddr ),
+  _port(port),
+  _pin (pin )
 {
   setGpioPortAsInput();
 }
@@ -65,9 +65,9 @@ void DigitalInPort::setPullUpMode(interface::PullUpMode const pullup_mode)
 {
   switch(pullup_mode)
   {
-  case interface::PullUpMode::NONE:      *_out = 0x00; break;
-  case interface::PullUpMode::PULL_UP:   *_out = 0xFF; break;
-  case interface::PullUpMode::PULL_DOWN:               break;
+  case interface::PullUpMode::NONE:      *_port = 0x00; break;
+  case interface::PullUpMode::PULL_UP:   *_port = 0xFF; break;
+  case interface::PullUpMode::PULL_DOWN:                break;
   }
 }
 

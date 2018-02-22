@@ -49,7 +49,7 @@ class DigitalOutPort : public interface::DigitalOutPort<uint8_t>
 
 public:
 
-           DigitalOutPort(volatile uint8_t * ddr, volatile uint8_t * out);
+           DigitalOutPort(volatile uint8_t * ddr, volatile uint8_t * port);
   virtual ~DigitalOutPort();
 
 
@@ -59,7 +59,7 @@ public:
 private:
 
   volatile uint8_t * _ddr,
-                   * _out;
+                   * _port;
 
   void setGpioPortAsOutput();
 

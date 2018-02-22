@@ -39,9 +39,9 @@ namespace ATxxxx
  * CTOR/DTOR
  **************************************************************************************/
 
-DigitalInPin::DigitalInPin(volatile uint8_t * ddr, volatile uint8_t * out, volatile uint8_t * pin, uint8_t const in_pin_number)
+DigitalInPin::DigitalInPin(volatile uint8_t * ddr, volatile uint8_t * port, volatile uint8_t * pin, uint8_t const in_pin_number)
 : _ddr           (ddr               ),
-  _out           (out               ),
+  _port          (port              ),
   _pin           (pin               ),
   _in_pin_bitmask(1 << in_pin_number)
 {
@@ -68,9 +68,9 @@ void DigitalInPin::setPullUpMode(interface::PullUpMode const pullup_mode)
 {
   switch(pullup_mode)
   {
-  case interface::PullUpMode::NONE:      *_out &= ~_in_pin_bitmask; break;
-  case interface::PullUpMode::PULL_UP:   *_out |=  _in_pin_bitmask; break;
-  case interface::PullUpMode::PULL_DOWN:                            break;
+  case interface::PullUpMode::NONE:      *_port &= ~_in_pin_bitmask; break;
+  case interface::PullUpMode::PULL_UP:   *_port |=  _in_pin_bitmask; break;
+  case interface::PullUpMode::PULL_DOWN:                             break;
   }
 }
 

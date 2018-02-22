@@ -39,9 +39,9 @@ namespace ATxxxx
  * CTOR/DTOR
  **************************************************************************************/
 
-DigitalOutPort::DigitalOutPort(volatile uint8_t *ddr, volatile uint8_t *out)
-: _ddr(ddr),
-  _out(out)
+DigitalOutPort::DigitalOutPort(volatile uint8_t * ddr, volatile uint8_t * port)
+: _ddr (ddr ),
+  _port(port)
 {
   setGpioPortAsOutput();
 }
@@ -57,7 +57,7 @@ DigitalOutPort::~DigitalOutPort()
 
 void DigitalOutPort::set(uint8_t const val)
 {
-  *_out = val;
+  *_port = val;
 }
 
 /**************************************************************************************
