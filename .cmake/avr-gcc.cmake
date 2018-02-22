@@ -1,24 +1,21 @@
 ##########################################################################
 
-SET(CMAKE_C_COMPILER avr-gcc)
-SET(CMAKE_CXX_COMPILER avr-g++)
+set(CMAKE_C_COMPILER avr-gcc)
+set(CMAKE_CXX_COMPILER avr-g++)
 
 ##########################################################################
 
-add_definitions(-mmcu=${MCU_TYPE})
-add_definitions(-Os)
-add_definitions(-Wall)
-add_definitions(-pedantic)
-add_definitions(-pedantic-errors)
-add_definitions(-funsigned-char)
-add_definitions(-funsigned-bitfields)
-add_definitions(-fshort-enums)
-add_definitions(-ffunction-sections)
-add_definitions(-fdata-sections)
-add_definitions(-fno-exceptions)
+set(SPECTRE_AVR_GCC_CMAKE_C_FLAGS     "")
+set(SPECTRE_AVR_GCC_CMAKE_CXX_FLAGS   "")
+set(SPECTRE_AVR_GCC_CMAKE_C_CXX_FLAGS "-mmcu=${MCU_TYPE} -Os -Wall -pedantic -pedantic-errors -funsigned-char -funsigned-bitfields -fshort-enums -ffunction-sections -fdata-sections -fno-exceptions")
 
 ##########################################################################
 
-SET(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "-Wl,--relax,--gc-sections")
+set(SPECTRE_CMAKE_C_FLAGS   "${SPECTRE_CMAKE_C_FLAGS}   ${SPECTRE_AVR_GCC_CMAKE_C_FLAGS}   ${SPECTRE_AVR_GCC_CMAKE_C_CXX_FLAGS}")
+set(SPECTRE_CMAKE_CXX_FLAGS "${SPECTRE_CMAKE_CXX_FLAGS} ${SPECTRE_AVR_GCC_CMAKE_CXX_FLAGS} ${SPECTRE_AVR_GCC_CMAKE_C_CXX_FLAGS}")
+ 
+##########################################################################
+
+set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "-Wl,--relax,--gc-sections")
 
 ##########################################################################

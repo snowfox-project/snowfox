@@ -51,6 +51,11 @@ set(SPECTRE_LIBRARY_SRCS
 # LIBRARY ################################################################
 ##########################################################################
 
+set(SPECTRE_CMAKE_C_FLAGS   "")
+set(SPECTRE_CMAKE_CXX_FLAGS "")
+
+##########################################################################
+
 if(${MCU_ARCH} STREQUAL "host")
   include(.cmake/host-gcc.cmake)
 endif()
@@ -60,6 +65,11 @@ if(${MCU_ARCH} STREQUAL "avr")
 endif()
 
 include(.cmake/all-gcc.cmake)
+
+##########################################################################
+
+set(CMAKE_C_FLAGS   ${CMAKE_C_FLAGS}   ${SPECTRE_CMAKE_C_FLAGS}  )
+set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} ${SPECTRE_CMAKE_CXX_FLAGS})
 
 ##########################################################################
 
