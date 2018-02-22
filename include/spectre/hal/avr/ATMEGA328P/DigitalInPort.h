@@ -47,7 +47,7 @@ class DigitalInPort : public ATxxxx::DigitalInPort
 
 public:
 
-           DigitalInPort(volatile uint8_t * ddr, volatile uint8_t * out, volatile uint8_t * pin) : ATxxxx::DigitalInPort(ddr, out, pin) { }
+           DigitalInPort(volatile uint8_t * ddr, volatile uint8_t * port, volatile uint8_t * pin) : ATxxxx::DigitalInPort(ddr, port, pin) { }
   virtual ~DigitalInPort() { }
 
 };
