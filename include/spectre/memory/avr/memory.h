@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_CXX_CXX_H_
-#define INCLUDE_SPECTRE_HAL_AVR_CXX_CXX_H_
+#ifndef INCLUDE_SPECTRE_MEMORY_AVR_MEMORY_H_
+#define INCLUDE_SPECTRE_MEMORY_AVR_MEMORY_H_
 
 /**************************************************************************************
  * INCLUDES
@@ -29,11 +29,9 @@
  * PUBLIC PROTOTYPES
  **************************************************************************************/
 
-__extension__ typedef int __guard __attribute__((mode (__DI__)));
+void *  operator new     (size_t   size);
+void    operator delete  (void   * ptr );
+void *  operator new[]   (size_t   size);
+void    operator delete[](void   * ptr );
 
-extern "C" int  __cxa_guard_acquire (__guard *);
-extern "C" void __cxa_guard_release (__guard *);
-extern "C" void __cxa_guard_abort   (__guard *);
-extern "C" void __cxa_pure_virtual  (void     );
-
-#endif /* INCLUDE_SPECTRE_HAL_AVR_CXX_CXX_H_ */
+#endif /* INCLUDE_SPECTRE_MEMORY_AVR_MEMORY_H_ */

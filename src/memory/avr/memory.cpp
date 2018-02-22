@@ -16,24 +16,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_CXX_CXX_H_
-#define INCLUDE_SPECTRE_HAL_AVR_CXX_CXX_H_
-
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <stdlib.h>
+#include <spectre/memory/avr/memory.h>
 
 /**************************************************************************************
- * PUBLIC PROTOTYPES
+ * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-__extension__ typedef int __guard __attribute__((mode (__DI__)));
+void * operator new(size_t size)
+{
+  return malloc(size);
+}
 
-extern "C" int  __cxa_guard_acquire (__guard *);
-extern "C" void __cxa_guard_release (__guard *);
-extern "C" void __cxa_guard_abort   (__guard *);
-extern "C" void __cxa_pure_virtual  (void     );
+void operator delete(void * ptr)
+{
+  if(ptr)
+  {
+    free(ptr);
+  }
+}
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_CXX_CXX_H_ */
+void* operator new[] (size_t size)
+{
+  return ::operator new(size);
+}
+
+void operator delete[] (void *ptr)
+{
+  return ::operator delete(ptr);
+}
