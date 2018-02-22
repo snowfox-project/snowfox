@@ -16,50 +16,40 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_AT90CAN128_DIGITALINPORT_H_
-#define INCLUDE_SPECTRE_HAL_AVR_AT90CAN128_DIGITALINPORT_H_
-
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/ATxxxx/DigitalInPort.h>
+#include <avr/io.h>
+
+#include <spectre/hal/avr/AT90CAN128/Delay.h>
+#include <spectre/hal/avr/AT90CAN128/DigitalOutPort.h>
 
 /**************************************************************************************
- * NAMESPACE
+ * NAMESPACES
  **************************************************************************************/
 
-namespace spectre
-{
-
-namespace hal
-{
-
-namespace AT90CAN128
-{
+using namespace spectre::hal;
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * GLOBAL VARIABLES
  **************************************************************************************/
 
-class DigitalInPort : public ATxxxx::DigitalInPort
-{
-
-public:
-
-           DigitalInPort(volatile uint8_t * ddr, volatile uint8_t * port, volatile uint8_t * pin) : ATxxxx::DigitalInPort(ddr, port, pin) { }
-  virtual ~DigitalInPort() { }
-
-};
+AT90CAN128::Delay          delay;
+AT90CAN128::DigitalOutPort out_port(&DDRB, &PORTB);
 
 /**************************************************************************************
- * NAMESPACE
+ * MAIN
  **************************************************************************************/
 
-} /* AT90CAN128 */
+int main()
+{
+  for(;;)
+  {
+    out_port.set(0xCA); delay.delay_ms(100);
+    out_port.set(0xFF); delay.delay_ms(100);
+    out_port.set(0xEE); delay.delay_ms(100);
+  }
 
-} /* hal */
-
-} /* spectre */
-
-#endif /* INCLUDE_SPECTRE_HAL_AVR_AT90CAN128_DIGITALINPORT_H_ */
+  return 0;
+}
