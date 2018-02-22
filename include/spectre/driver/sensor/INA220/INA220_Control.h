@@ -23,11 +23,11 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/sensor/INA220/interface/INA220_Interface.h>
-#include <spectre/driver/sensor/INA220/interface/INA220_ConfigurationInterface.h>
-#include <spectre/driver/sensor/INA220/interface/INA220_IO_Interface.h>
+#include <spectre/driver/sensor/INA220/interface/INA220_Control.h>
 
 #include <spectre/driver/interface/Debug.h>
+
+#include <spectre/driver/sensor/INA220/interface/INA220_Io.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -49,38 +49,33 @@ namespace INA220
  * CLASS DECLARATION
  **************************************************************************************/
 
-class INA220_Control : public INA220_Interface,
-                       public INA220_ConfigurationInterface
+class INA220_Control : public interface::INA220_Control
 {
 
 public:
 
-           INA220_Control(INA220_IO_Interface & io);
+           INA220_Control(interface::INA220_Io & io);
   virtual ~INA220_Control();
 
-
-  /* INA220 Interface */
 
   virtual bool readShuntVoltage(int16_t * shunt_voltage) override;
   virtual bool readBusVoltage  (int16_t * bus_voltage  ) override;
 
 
-  /* INA220 Configuration Interface */
-
-  virtual bool setBusVoltageRange   (BusVoltageRangeSelect     const sel) override;
-  virtual bool setShuntPGAGain      (ShuntPGAGainSelect        const sel) override;
-  virtual bool setBusADCResolution  (BusADCResolutionSelect    const sel) override;
-  virtual bool setShuntADCResolution(ShuntADCResolutionSelect  const sel) override;
-  virtual bool setOperatingMode     (OperatingModeSelect       const sel) override;
+  virtual bool setBusVoltageRange   (interface::BusVoltageRangeSelect     const sel) override;
+  virtual bool setShuntPGAGain      (interface::ShuntPGAGainSelect        const sel) override;
+  virtual bool setBusADCResolution  (interface::BusADCResolutionSelect    const sel) override;
+  virtual bool setShuntADCResolution(interface::ShuntADCResolutionSelect  const sel) override;
+  virtual bool setOperatingMode     (interface::OperatingModeSelect       const sel) override;
 
 
           void debug_dumpAllRegs    (driver::interface::Debug & debug_interface);
 
 private:
 
-  INA220_IO_Interface & _io;
+  interface::INA220_Io & _io;
 
-  void debug_dumpSingleReg  (driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel);
+  void debug_dumpSingleReg  (driver::interface::Debug & debug_interface, char const * msg, interface::RegisterSelect const reg_sel);
 
 };
 

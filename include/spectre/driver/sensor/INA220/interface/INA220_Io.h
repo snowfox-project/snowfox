@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_INA220_INTERFACE_INA220_IO_INTERFACE_H_
-#define INCLUDE_SPECTRE_DRIVER_SENSOR_INA220_INTERFACE_INA220_IO_INTERFACE_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_INA220_INTERFACE_INA220_IO_H_
+#define INCLUDE_SPECTRE_DRIVER_SENSOR_INA220_INTERFACE_INA220_IO_H_
 
 /**************************************************************************************
  * INCLUDE
@@ -42,6 +42,9 @@ namespace sensor
 namespace INA220
 {
 
+namespace interface
+{
+
 /**************************************************************************************
  * TYPEDEFS
  **************************************************************************************/
@@ -60,13 +63,13 @@ typedef enum
  * CLASS DECLARATION
  **************************************************************************************/
 
-class INA220_IO_Interface
+class INA220_Io
 {
 
 public:
 
-           INA220_IO_Interface() { }
-  virtual ~INA220_IO_Interface() { }
+           INA220_Io() { }
+  virtual ~INA220_Io() { }
 
 
   virtual bool readRegister (RegisterSelect const reg_sel, uint16_t       * data) = 0;
@@ -78,6 +81,8 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
+} /* interface */
+
 } /* INA220 */
 
 } /* sensor */
@@ -86,4 +91,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_INA220_INTERFACE_INA220_IO_INTERFACE_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_INA220_INTERFACE_INA220_IO_H_ */

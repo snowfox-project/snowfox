@@ -42,7 +42,7 @@ namespace INA220
  * CTOR/DTOR
  **************************************************************************************/
 
-INA220_Control::INA220_Control(INA220_IO_Interface & io)
+INA220_Control::INA220_Control(interface::INA220_Io & io)
 : _io(io)
 {
 
@@ -57,73 +57,73 @@ INA220_Control::~INA220_Control()
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-bool INA220_Control::setBusVoltageRange(BusVoltageRangeSelect const sel)
+bool INA220_Control::setBusVoltageRange(interface::BusVoltageRangeSelect const sel)
 {
   uint16_t config_reg_content = 0;
 
-  if(!_io.readRegister(REG_CONFIG, &config_reg_content)) return false;
+  if(!_io.readRegister(interface::REG_CONFIG, &config_reg_content)) return false;
 
   config_reg_content &= ~INA220_CONFIG_REG_BRNG_bm;
   config_reg_content |= static_cast<uint16_t>(sel);
 
-  if(!_io.writeRegister(REG_CONFIG, config_reg_content)) return false;
+  if(!_io.writeRegister(interface::REG_CONFIG, config_reg_content)) return false;
 
   return true;
 }
 
-bool INA220_Control::setShuntPGAGain(ShuntPGAGainSelect const sel)
+bool INA220_Control::setShuntPGAGain(interface::ShuntPGAGainSelect const sel)
 {
   uint16_t config_reg_content = 0;
 
-  if(!_io.readRegister(REG_CONFIG, &config_reg_content)) return false;
+  if(!_io.readRegister(interface::REG_CONFIG, &config_reg_content)) return false;
 
   config_reg_content &= ~(INA220_CONFIG_REG_PG1_bm | INA220_CONFIG_REG_PG0_bm);
   config_reg_content |= static_cast<uint16_t>(sel);
 
-  if(!_io.writeRegister(REG_CONFIG, config_reg_content)) return false;
+  if(!_io.writeRegister(interface::REG_CONFIG, config_reg_content)) return false;
 
   return true;
 }
 
-bool INA220_Control::setBusADCResolution(BusADCResolutionSelect const sel)
+bool INA220_Control::setBusADCResolution(interface::BusADCResolutionSelect const sel)
 {
   uint16_t config_reg_content = 0;
 
-  if(!_io.readRegister(REG_CONFIG, &config_reg_content)) return false;
+  if(!_io.readRegister(interface::REG_CONFIG, &config_reg_content)) return false;
 
   config_reg_content &= ~(INA220_CONFIG_REG_BADC4_bm | INA220_CONFIG_REG_BADC3_bm | INA220_CONFIG_REG_BADC2_bm | INA220_CONFIG_REG_BADC1_bm);
   config_reg_content |= static_cast<uint16_t>(sel);
 
-  if(!_io.writeRegister(REG_CONFIG, config_reg_content)) return false;
+  if(!_io.writeRegister(interface::REG_CONFIG, config_reg_content)) return false;
 
   return true;
 }
 
-bool INA220_Control::setShuntADCResolution(ShuntADCResolutionSelect const sel)
+bool INA220_Control::setShuntADCResolution(interface::ShuntADCResolutionSelect const sel)
 {
   uint16_t config_reg_content = 0;
 
-  if(!_io.readRegister(REG_CONFIG, &config_reg_content)) return false;
+  if(!_io.readRegister(interface::REG_CONFIG, &config_reg_content)) return false;
 
   config_reg_content &= ~(INA220_CONFIG_REG_SADC4_bm | INA220_CONFIG_REG_SADC3_bm | INA220_CONFIG_REG_SADC2_bm | INA220_CONFIG_REG_SADC1_bm);
   config_reg_content |= static_cast<uint16_t>(sel);
 
-  if(!_io.writeRegister(REG_CONFIG, config_reg_content)) return false;
+  if(!_io.writeRegister(interface::REG_CONFIG, config_reg_content)) return false;
 
   return true;
 
 }
 
-bool INA220_Control::setOperatingMode(OperatingModeSelect const sel)
+bool INA220_Control::setOperatingMode(interface::OperatingModeSelect const sel)
 {
   uint16_t config_reg_content = 0;
 
-  if(!_io.readRegister(REG_CONFIG, &config_reg_content)) return false;
+  if(!_io.readRegister(interface::REG_CONFIG, &config_reg_content)) return false;
 
   config_reg_content &= ~(INA220_CONFIG_REG_MODE3_bm | INA220_CONFIG_REG_MODE2_bm | INA220_CONFIG_REG_MODE1_bm);
   config_reg_content |= static_cast<uint16_t>(sel);
 
-  if(!_io.writeRegister(REG_CONFIG, config_reg_content)) return false;
+  if(!_io.writeRegister(interface::REG_CONFIG, config_reg_content)) return false;
 
   return true;
 }
@@ -132,7 +132,7 @@ bool INA220_Control::readShuntVoltage(int16_t * shunt_voltage)
 {
   uint16_t v_shunt_reg_content = 0;
 
-  if(!_io.readRegister(REG_V_SHUNT, &v_shunt_reg_content)) return false;
+  if(!_io.readRegister(interface::REG_V_SHUNT, &v_shunt_reg_content)) return false;
 
   *shunt_voltage = static_cast<int16_t>(v_shunt_reg_content);
 
@@ -144,7 +144,7 @@ bool INA220_Control::readBusVoltage(int16_t * bus_voltage)
 {
   uint16_t v_bus_reg_content = 0;
 
-  if(!_io.readRegister(REG_V_BUS, &v_bus_reg_content)) return false;
+  if(!_io.readRegister(interface::REG_V_BUS, &v_bus_reg_content)) return false;
 
   *bus_voltage = static_cast<int16_t>(v_bus_reg_content) >> 3;
 
@@ -153,19 +153,19 @@ bool INA220_Control::readBusVoltage(int16_t * bus_voltage)
 
 void INA220_Control::debug_dumpAllRegs(driver::interface::Debug & debug_interface)
 {
-  debug_dumpSingleReg(debug_interface, "REG_CONFIG      = ", REG_CONFIG     );
-  debug_dumpSingleReg(debug_interface, "REG_V_SHUNT     = ", REG_V_SHUNT    );
-  debug_dumpSingleReg(debug_interface, "REG_V_BUS       = ", REG_V_BUS      );
-  debug_dumpSingleReg(debug_interface, "REG_POWER       = ", REG_POWER      );
-  debug_dumpSingleReg(debug_interface, "REG_CURRENT     = ", REG_CURRENT    );
-  debug_dumpSingleReg(debug_interface, "REG_CALIBRATION = ", REG_CALIBRATION);
+  debug_dumpSingleReg(debug_interface, "REG_CONFIG      = ", interface::REG_CONFIG     );
+  debug_dumpSingleReg(debug_interface, "REG_V_SHUNT     = ", interface::REG_V_SHUNT    );
+  debug_dumpSingleReg(debug_interface, "REG_V_BUS       = ", interface::REG_V_BUS      );
+  debug_dumpSingleReg(debug_interface, "REG_POWER       = ", interface::REG_POWER      );
+  debug_dumpSingleReg(debug_interface, "REG_CURRENT     = ", interface::REG_CURRENT    );
+  debug_dumpSingleReg(debug_interface, "REG_CALIBRATION = ", interface::REG_CALIBRATION);
 }
 
 /**************************************************************************************
  * PRIVATE FUNCTIONS
  **************************************************************************************/
 
-void INA220_Control::debug_dumpSingleReg(driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
+void INA220_Control::debug_dumpSingleReg(driver::interface::Debug & debug_interface, char const * msg, interface::RegisterSelect const reg_sel)
 {
   uint16_t reg_content = 0;
 

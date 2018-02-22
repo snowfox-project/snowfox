@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/sensor/INA220/INA220_IO_I2C.h>
+#include <spectre/driver/sensor/INA220/INA220_IoI2c.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,14 +42,14 @@ namespace INA220
  * CTOR/DTOR
  **************************************************************************************/
 
-INA220_IO_I2C::INA220_IO_I2C(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
+INA220_IoI2c::INA220_IoI2c(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
 : _i2c_address(i2c_address),
   _i2c_master (i2c_master )
 {
 
 }
 
-INA220_IO_I2C::~INA220_IO_I2C()
+INA220_IoI2c::~INA220_IoI2c()
 {
 
 }
@@ -58,7 +58,7 @@ INA220_IO_I2C::~INA220_IO_I2C()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool INA220_IO_I2C::readRegister(RegisterSelect const reg_sel, uint16_t * data)
+bool INA220_IoI2c::readRegister(interface::RegisterSelect const reg_sel, uint16_t * data)
 {
   uint8_t data_buf[2] = {0};
 
@@ -72,7 +72,7 @@ bool INA220_IO_I2C::readRegister(RegisterSelect const reg_sel, uint16_t * data)
   return true;
 }
 
-bool INA220_IO_I2C::writeRegister(RegisterSelect const reg_sel, uint16_t const data)
+bool INA220_IoI2c::writeRegister(interface::RegisterSelect const reg_sel, uint16_t const data)
 {
   uint8_t const data_msb = static_cast<uint8_t>((data & 0xFF00) >> 8);
   uint8_t const data_lsb = static_cast<uint8_t>((data & 0x00FF) >> 0);

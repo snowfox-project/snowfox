@@ -16,15 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_INA220_INTERFACE_INA220_INTERFACE_H_
-#define INCLUDE_SPECTRE_DRIVER_SENSOR_INA220_INTERFACE_INA220_INTERFACE_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_INA220_INA220_IOI2C_H_
+#define INCLUDE_SPECTRE_DRIVER_SENSOR_INA220_INA220_IOI2C_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
-#include <stdbool.h>
+#include <spectre/driver/sensor/INA220/interface/INA220_Io.h>
+#include <spectre/hal/interface/i2c/I2CMaster.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -46,17 +46,22 @@ namespace INA220
  * CLASS DECLARATION
  **************************************************************************************/
 
-class INA220_Interface
+class INA220_IoI2c : public interface::INA220_Io
 {
 
 public:
 
-           INA220_Interface() { }
-  virtual ~INA220_Interface() { }
+           INA220_IoI2c(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master);
+  virtual ~INA220_IoI2c();
 
 
-  virtual bool readShuntVoltage(int16_t * shunt_voltage) = 0;
-  virtual bool readBusVoltage  (int16_t * bus_voltage  ) = 0;
+  virtual bool readRegister (interface::RegisterSelect const reg_sel, uint16_t       * data) override;
+  virtual bool writeRegister(interface::RegisterSelect const reg_sel, uint16_t const   data) override;
+
+private:
+
+  uint8_t                     _i2c_address;
+  hal::interface::I2CMaster & _i2c_master;
 
 };
 
@@ -72,4 +77,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_INA220_INTERFACE_INA220_INTERFACE_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_INA220_INA220_IOI2C_H_ */
