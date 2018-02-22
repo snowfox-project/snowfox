@@ -49,14 +49,14 @@ namespace INA220
  * CLASS DECLARATION
  **************************************************************************************/
 
-class INA220 : public INA220_Interface,
-               public INA220_ConfigurationInterface
+class INA220_Control : public INA220_Interface,
+                       public INA220_ConfigurationInterface
 {
 
 public:
 
-           INA220(INA220_IO_Interface & io);
-  virtual ~INA220();
+           INA220_Control(INA220_IO_Interface & io);
+  virtual ~INA220_Control();
 
 
   /* INA220 Interface */

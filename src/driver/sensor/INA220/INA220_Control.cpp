@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/sensor/INA220/INA220.h>
+#include <spectre/driver/sensor/INA220/INA220_Control.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,13 +42,13 @@ namespace INA220
  * CTOR/DTOR
  **************************************************************************************/
 
-INA220::INA220(INA220_IO_Interface & io)
+INA220_Control::INA220_Control(INA220_IO_Interface & io)
 : _io(io)
 {
 
 }
 
-INA220::~INA220()
+INA220_Control::~INA220_Control()
 {
 
 }
@@ -57,7 +57,7 @@ INA220::~INA220()
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-bool INA220::setBusVoltageRange(BusVoltageRangeSelect const sel)
+bool INA220_Control::setBusVoltageRange(BusVoltageRangeSelect const sel)
 {
   uint16_t config_reg_content = 0;
 
@@ -71,7 +71,7 @@ bool INA220::setBusVoltageRange(BusVoltageRangeSelect const sel)
   return true;
 }
 
-bool INA220::setShuntPGAGain(ShuntPGAGainSelect const sel)
+bool INA220_Control::setShuntPGAGain(ShuntPGAGainSelect const sel)
 {
   uint16_t config_reg_content = 0;
 
@@ -85,7 +85,7 @@ bool INA220::setShuntPGAGain(ShuntPGAGainSelect const sel)
   return true;
 }
 
-bool INA220::setBusADCResolution(BusADCResolutionSelect const sel)
+bool INA220_Control::setBusADCResolution(BusADCResolutionSelect const sel)
 {
   uint16_t config_reg_content = 0;
 
@@ -99,7 +99,7 @@ bool INA220::setBusADCResolution(BusADCResolutionSelect const sel)
   return true;
 }
 
-bool INA220::setShuntADCResolution(ShuntADCResolutionSelect const sel)
+bool INA220_Control::setShuntADCResolution(ShuntADCResolutionSelect const sel)
 {
   uint16_t config_reg_content = 0;
 
@@ -114,7 +114,7 @@ bool INA220::setShuntADCResolution(ShuntADCResolutionSelect const sel)
 
 }
 
-bool INA220::setOperatingMode(OperatingModeSelect const sel)
+bool INA220_Control::setOperatingMode(OperatingModeSelect const sel)
 {
   uint16_t config_reg_content = 0;
 
@@ -128,7 +128,7 @@ bool INA220::setOperatingMode(OperatingModeSelect const sel)
   return true;
 }
 
-bool INA220::readShuntVoltage(int16_t * shunt_voltage)
+bool INA220_Control::readShuntVoltage(int16_t * shunt_voltage)
 {
   uint16_t v_shunt_reg_content = 0;
 
@@ -140,7 +140,7 @@ bool INA220::readShuntVoltage(int16_t * shunt_voltage)
 
 }
 
-bool INA220::readBusVoltage(int16_t * bus_voltage)
+bool INA220_Control::readBusVoltage(int16_t * bus_voltage)
 {
   uint16_t v_bus_reg_content = 0;
 
@@ -151,7 +151,7 @@ bool INA220::readBusVoltage(int16_t * bus_voltage)
   return true;
 }
 
-void INA220::debug_dumpAllRegs(driver::interface::Debug & debug_interface)
+void INA220_Control::debug_dumpAllRegs(driver::interface::Debug & debug_interface)
 {
   debug_dumpSingleReg(debug_interface, "REG_CONFIG      = ", REG_CONFIG     );
   debug_dumpSingleReg(debug_interface, "REG_V_SHUNT     = ", REG_V_SHUNT    );
@@ -165,7 +165,7 @@ void INA220::debug_dumpAllRegs(driver::interface::Debug & debug_interface)
  * PRIVATE FUNCTIONS
  **************************************************************************************/
 
-void INA220::debug_dumpSingleReg(driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
+void INA220_Control::debug_dumpSingleReg(driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
 {
   uint16_t reg_content = 0;
 
