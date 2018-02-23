@@ -36,4 +36,6 @@ set(DRIVER_SENSOR_TPA81       yes)
 
 set(DRIVER_SERIAL             yes)
 
+set(DRIVER_STEPPER_TMC26x     yes)
+
 ##########################################################################

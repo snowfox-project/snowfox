@@ -177,3 +177,14 @@ if(${DRIVER_SERIAL} STREQUAL "yes")
 endif()
 
 ##########################################################################
+
+set(DRIVER_STEPPER_SRC_PATH src/driver/stepper)
+
+if(${DRIVER_STEPPER_TMC26x} STREQUAL "yes")
+  set(DRIVER_STEPPER_TMC26x_SRCS
+    ${DRIVER_STEPPER_SRC_PATH}/TMC26x/TMC26x.cpp
+  )
+  set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} ${DRIVER_STEPPER_TMC26x_SRCS})
+endif()
+
+##########################################################################
