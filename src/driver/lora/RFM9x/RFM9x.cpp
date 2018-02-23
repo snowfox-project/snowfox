@@ -32,10 +32,10 @@ namespace spectre
 namespace driver
 {
 
-namespace stepper
+namespace lora
 {
 
-namespace lora
+namespace RFM9x
 {
 
 /**************************************************************************************
