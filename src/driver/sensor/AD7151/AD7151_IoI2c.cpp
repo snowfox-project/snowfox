@@ -16,15 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_AD7151_INTERFACE_AD7151_CONFIGURATIONINTERFACE_H_
-#define INCLUDE_SPECTRE_DRIVER_SENSOR_AD7151_INTERFACE_AD7151_CONFIGURATIONINTERFACE_H_
-
 /**************************************************************************************
- * INCLUDE
+ * INCLUDES
  **************************************************************************************/
 
-#include <stdint.h>
-#include <stdbool.h>
+#include <spectre/driver/sensor/AD7151/AD7151_IoI2c.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,56 +38,56 @@ namespace sensor
 namespace AD7151
 {
 
-namespace interface
-{
-
 /**************************************************************************************
- * DEFINES
+ * CTOR/DTOR
  **************************************************************************************/
 
-/* AD7151_SETUP_REG Bit Definitions ***************************************************/
-#define AD7151_SETUP_REG_RNG_H_bm                 (1<<7)
-#define AD7151_SETUP_REG_RNG_L_bm                 (1<<6)
-#define AD7151_SETUP_REG_HYST_bm                  (1<<4)
-#define AD7151_SETUP_REG_THRESHOLD_SETTING_3_bm   (1<<3)
-#define AD7151_SETUP_REG_THRESHOLD_SETTING_2_bm   (1<<2)
-#define AD7151_SETUP_REG_THRESHOLD_SETTING_1_bm   (1<<1)
-#define AD7151_SETUP_REG_THRESHOLD_SETTING_0_bm   (1<<0)
-
-/**************************************************************************************
- * TYPEDEFS
- **************************************************************************************/
-
-typedef enum
-{
-  CAPACITIVE_INPUT_RANGE_2_0_pF = 0,
-  CAPACITIVE_INPUT_RANGE_0_5_pF =                             AD7151_SETUP_REG_RNG_L_bm,
-  CAPACITIVE_INPUT_RANGE_1_0_pF = AD7151_SETUP_REG_RNG_H_bm,
-  CAPACITIVE_INPUT_RANGE_4_0_pF = AD7151_SETUP_REG_RNG_H_bm | AD7151_SETUP_REG_RNG_L_bm
-} CapacitiveInputRangeSelect;
-
-/**************************************************************************************
- * CLASS DECLARATION
- **************************************************************************************/
-
-class AD7151_ConfigurationInterface
+AD7151_IO_I2C::AD7151_IO_I2C(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
+: _i2c_address(i2c_address),
+  _i2c_master (i2c_master )
 {
 
-public:
+}
 
-           AD7151_ConfigurationInterface() { }
-  virtual ~AD7151_ConfigurationInterface() { }
+AD7151_IO_I2C::~AD7151_IO_I2C()
+{
 
+}
 
-  virtual bool setCapacitiveInputRange(CapacitiveInputRangeSelect const sel) = 0;
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
-};
+bool AD7151_IO_I2C::readMultipleRegister(interface::RegisterSelect const reg_sel, uint8_t * data, uint16_t const num_bytes)
+{
+  uint8_t const reg_addr = static_cast<uint8_t>(reg_sel);
+
+  if(!_i2c_master.begin      (_i2c_address, false  )) return false;
+  if(!_i2c_master.write      (reg_addr             )) return false;
+  if(!_i2c_master.requestFrom(_i2c_address, data, 1)) return false;
+
+  return true;
+}
+
+bool AD7151_IO_I2C::writeMultipleRegister(interface::RegisterSelect const reg_sel, uint8_t const  * data, uint16_t const num_bytes)
+{
+  uint8_t const reg_addr = static_cast<uint8_t>(reg_sel);
+
+  if(!_i2c_master.begin(_i2c_address, false)) return false;
+  if(!_i2c_master.write(reg_addr           )) return false;
+
+  for(uint16_t i = 0; i < num_bytes; i++)
+  {
+    if(!_i2c_master.write(data[i]          )) return false;
+  }
+      _i2c_master.end  (                   );
+
+  return true;
+}
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
-
-} /* interface */
 
 } /* AD7151 */
 
@@ -100,5 +96,3 @@ public:
 } /* driver */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_AD7151_INTERFACE_AD7151_CONFIGURATIONINTERFACE_H_ */

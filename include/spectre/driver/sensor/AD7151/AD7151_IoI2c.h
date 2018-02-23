@@ -16,11 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_AD7151_AD7151_IO_I2C_H_
+#define INCLUDE_SPECTRE_DRIVER_SENSOR_AD7151_AD7151_IO_I2C_H_
+
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/sensor/AD7151/AD7151_IO_I2C.h>
+#include <spectre/driver/sensor/AD7151/interface/AD7151_Io.h>
+
+#include <spectre/hal/interface/i2c/I2CMaster.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,51 +44,28 @@ namespace AD7151
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * CLASS DECLARATION
  **************************************************************************************/
 
-AD7151_IO_I2C::AD7151_IO_I2C(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
-: _i2c_address(i2c_address),
-  _i2c_master (i2c_master )
+class AD7151_IO_I2C : public interface::AD7151_IO_Interface
 {
 
-}
+public:
 
-AD7151_IO_I2C::~AD7151_IO_I2C()
-{
+           AD7151_IO_I2C(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master);
+  virtual ~AD7151_IO_I2C();
 
-}
 
-/**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
- **************************************************************************************/
+  virtual bool writeMultipleRegister(interface::RegisterSelect const reg_sel, uint8_t const  * data, uint16_t const num_bytes) override;
+  virtual bool readMultipleRegister (interface::RegisterSelect const reg_sel, uint8_t        * data, uint16_t const num_bytes) override;
 
-bool AD7151_IO_I2C::readMultipleRegister(RegisterSelect const reg_sel, uint8_t * data, uint16_t const num_bytes)
-{
-  uint8_t const reg_addr = static_cast<uint8_t>(reg_sel);
 
-  if(!_i2c_master.begin      (_i2c_address, false  )) return false;
-  if(!_i2c_master.write      (reg_addr             )) return false;
-  if(!_i2c_master.requestFrom(_i2c_address, data, 1)) return false;
+private:
 
-  return true;
-}
+  uint8_t                     _i2c_address;
+  hal::interface::I2CMaster & _i2c_master;
 
-bool AD7151_IO_I2C::writeMultipleRegister(RegisterSelect const reg_sel, uint8_t const  * data, uint16_t const num_bytes)
-{
-  uint8_t const reg_addr = static_cast<uint8_t>(reg_sel);
-
-  if(!_i2c_master.begin(_i2c_address, false)) return false;
-  if(!_i2c_master.write(reg_addr           )) return false;
-
-  for(uint16_t i = 0; i < num_bytes; i++)
-  {
-    if(!_i2c_master.write(data[i]          )) return false;
-  }
-      _i2c_master.end  (                   );
-
-  return true;
-}
+};
 
 /**************************************************************************************
  * NAMESPACE
@@ -96,3 +78,5 @@ bool AD7151_IO_I2C::writeMultipleRegister(RegisterSelect const reg_sel, uint8_t 
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_AD7151_AD7151_IO_I2C_H_ */

@@ -16,18 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_AD7151_H_
-#define INCLUDE_SPECTRE_DRIVER_SENSOR_AD7151_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_AD7151_INTERFACE_AD7151_IO_H_
+#define INCLUDE_SPECTRE_DRIVER_SENSOR_AD7151_INTERFACE_AD7151_IO_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/sensor/AD7151/interface/AD7151_Interface.h>
-#include <spectre/driver/sensor/AD7151/interface/AD7151_ConfigurationInterface.h>
-#include <spectre/driver/sensor/AD7151/interface/AD7151_IO_Interface.h>
-
-#include <spectre/driver/interface/Debug.h>
+#include <stdint.h>
+#include <stdbool.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -45,48 +42,56 @@ namespace sensor
 namespace AD7151
 {
 
+namespace interface
+{
+
+/**************************************************************************************
+ * TYPEDEFS
+ **************************************************************************************/
+
+typedef enum
+{
+  REG_STATUS                      = 0x00,
+  REG_DATA_HIGH                   = 0x01,
+  REG_DATA_LOW                    = 0x02,
+  REG_AVERAGE_HIGH                = 0x05,
+  REG_AVERAGE_LOW                 = 0x06,
+  REG_SENSITIVITY_THRESHOLD_HIGH  = 0x09,
+  REG_SENSITIVITY_THRESHOLD_LOW   = 0x0A,
+  REG_SETUP                       = 0x0B,
+  REG_CONFIGURATION               = 0x0F,
+  REG_POWER_DOWN_TIMER            = 0x10,
+  REG_CAPDAC                      = 0x11,
+  REG_SERIAL_NUMBER_3             = 0x13,
+  REG_SERIAL_NUMBER_2             = 0x14,
+  REG_SERIAL_NUMBER_1             = 0x15,
+  REG_SERIAL_NUMBER_0             = 0x16,
+  REG_CHIP_ID                     = 0x17
+} RegisterSelect;
+
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class AD7151 : public AD7151_Interface,
-               public AD7151_ConfigurationInterface
+class AD7151_IO_Interface
 {
 
 public:
 
-   AD7151(AD7151_IO_Interface & io);
-  ~AD7151();
+           AD7151_IO_Interface() { }
+  virtual ~AD7151_IO_Interface() { }
 
 
-  /* AD7151 Interface */
-
-  virtual bool startSingleConversion        (                                 ) override;
-  virtual bool checkIfConversionIsComplete  (bool     * is_conversion_complete) override;
-  virtual bool readConversionResult         (uint16_t * raw_data              ) override;
-
-
-  /* AD7151 Configuration Interface */
-
-  virtual bool setCapacitiveInputRange      (CapacitiveInputRangeSelect const sel) override;
-
-
-          void debug_dumpAllRegs            (driver::interface::Debug & debug_interface);
-
-private:
-
-  AD7151_IO_Interface & _io;
-
-  bool readSingleRegister   (RegisterSelect const reg_sel, uint8_t        * data);
-  bool writeSingleRegister  (RegisterSelect const reg_sel, uint8_t const    data);
-
-  void debug_dumpSingleReg  (driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel);
+  virtual bool writeMultipleRegister(RegisterSelect const reg_sel, uint8_t const  * data, uint16_t const num_bytes) = 0;
+  virtual bool readMultipleRegister (RegisterSelect const reg_sel, uint8_t        * data, uint16_t const num_bytes) = 0;
 
 };
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+}
 
 } /* AD7151 */
 
@@ -96,4 +101,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_AD7151_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_AD7151_INTERFACE_AD7151_IO_H_ */

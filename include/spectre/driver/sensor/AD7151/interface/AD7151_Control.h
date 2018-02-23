@@ -16,16 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_AD7151_AD7151_IO_I2C_H_
-#define INCLUDE_SPECTRE_DRIVER_SENSOR_AD7151_AD7151_IO_I2C_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_AD7151_INTERFACE_AD7151_CONTROL_H_
+#define INCLUDE_SPECTRE_DRIVER_SENSOR_AD7151_INTERFACE_AD7151_CONTROL_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/sensor/AD7151/interface/AD7151_IO_Interface.h>
-
-#include <spectre/hal/interface/i2c/I2CMaster.h>
+#include <spectre/driver/sensor/AD7151/interface/AD7151_Interface.h>
+#include <spectre/driver/sensor/AD7151/interface/AD7151_ConfigurationInterface.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -43,33 +42,41 @@ namespace sensor
 namespace AD7151
 {
 
+namespace interface
+{
+
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class AD7151_IO_I2C : public AD7151_IO_Interface
+class AD7151_Control : public AD7151_Interface,
+                       public AD7151_ConfigurationInterface
 {
 
 public:
 
-           AD7151_IO_I2C(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master);
-  virtual ~AD7151_IO_I2C();
+           AD7151_Control() { }
+  virtual ~AD7151_Control() { }
 
 
-  virtual bool writeMultipleRegister(RegisterSelect const reg_sel, uint8_t const  * data, uint16_t const num_bytes) override;
-  virtual bool readMultipleRegister (RegisterSelect const reg_sel, uint8_t        * data, uint16_t const num_bytes) override;
+  /* Usage Interface */
+
+  virtual bool startSingleConversion        (                                 ) = 0;
+  virtual bool checkIfConversionIsComplete  (bool     * is_conversion_complete) = 0;
+  virtual bool readConversionResult         (uint16_t * raw_data              ) = 0;
 
 
-private:
+  /* Configuration Interface */
 
-  uint8_t                     _i2c_address;
-  hal::interface::I2CMaster & _i2c_master;
+  virtual bool setCapacitiveInputRange      (CapacitiveInputRangeSelect const sel) = 0;
 
 };
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* AD7151 */
 
@@ -79,4 +86,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_AD7151_AD7151_IO_I2C_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_AD7151_INTERFACE_AD7151_CONTROL_H_ */

@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/sensor/AD7151/AD7151.h>
+#include <spectre/driver/sensor/AD7151/AD7151_Control.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -58,13 +58,13 @@ namespace AD7151
  * CTOR/DTOR
  **************************************************************************************/
 
-AD7151::AD7151(AD7151_IO_Interface & io)
+AD7151_Control::AD7151_Control(interface::AD7151_IO_Interface & io)
 : _io(io)
 {
 
 }
 
-AD7151::~AD7151()
+AD7151_Control::~AD7151_Control()
 {
 
 }
@@ -73,90 +73,90 @@ AD7151::~AD7151()
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-bool AD7151::setCapacitiveInputRange(CapacitiveInputRangeSelect const sel)
+bool AD7151_Control::setCapacitiveInputRange(interface::CapacitiveInputRangeSelect const sel)
 {
   uint8_t setup_reg_content = 0;
 
-  if(!readSingleRegister(REG_SETUP, &setup_reg_content)) return false;
+  if(!readSingleRegister(interface::REG_SETUP, &setup_reg_content)) return false;
 
   setup_reg_content &= ~(AD7151_SETUP_REG_RNG_H_bm | AD7151_SETUP_REG_RNG_L_bm);
   setup_reg_content |= static_cast<uint8_t>(sel);
 
-  if(!writeSingleRegister(REG_SETUP, setup_reg_content)) return false;
+  if(!writeSingleRegister(interface::REG_SETUP, setup_reg_content)) return false;
 
   return true;
 }
 
-bool AD7151::startSingleConversion()
+bool AD7151_Control::startSingleConversion()
 {
   uint8_t configuration_reg_content = 0;
 
-  if(!readSingleRegister(REG_CONFIGURATION, &configuration_reg_content)) return false;
+  if(!readSingleRegister(interface::REG_CONFIGURATION, &configuration_reg_content)) return false;
 
   configuration_reg_content &= ~(AD7151_CONFIG_REG_ENABLE_CONVERSION_bm | AD7151_CONFIG_REG_MODE_2_bm | AD7151_CONFIG_REG_MODE_1_bm | AD7151_CONFIG_REG_MODE_0_bm);
   configuration_reg_content |= (AD7151_CONFIG_REG_ENABLE_CONVERSION_bm | AD7151_CONFIG_REG_MODE_1_bm);
 
-  if(!writeSingleRegister(REG_CONFIGURATION, configuration_reg_content)) return false;
+  if(!writeSingleRegister(interface::REG_CONFIGURATION, configuration_reg_content)) return false;
 
   return true;
 }
 
-bool AD7151::checkIfConversionIsComplete(bool *is_conversion_complete)
+bool AD7151_Control::checkIfConversionIsComplete(bool *is_conversion_complete)
 {
   uint8_t status_reg_content  = 0;
 
-  if(!readSingleRegister(REG_STATUS, &status_reg_content)) return false;
+  if(!readSingleRegister(interface::REG_STATUS, &status_reg_content)) return false;
 
   *is_conversion_complete = (status_reg_content & AD7151_SETUP_REG_nDRDY_bm) == 0;
 
   return true;
 }
 
-bool AD7151::readConversionResult(uint16_t * raw_data)
+bool AD7151_Control::readConversionResult(uint16_t * raw_data)
 {
   uint8_t data_regs_content[2] = {0};
 
-  if(!_io.readMultipleRegister(REG_DATA_HIGH, data_regs_content, 2)) return false;
+  if(!_io.readMultipleRegister(interface::REG_DATA_HIGH, data_regs_content, 2)) return false;
 
   *raw_data = (static_cast<uint16_t>(data_regs_content[0]) << 8) + static_cast<uint16_t>(data_regs_content[1]);
 
   return true;
 }
 
-void AD7151::debug_dumpAllRegs(driver::interface::Debug & debug_interface)
+void AD7151_Control::debug_dumpAllRegs(driver::interface::Debug & debug_interface)
 {
-  debug_dumpSingleReg(debug_interface, "REG_STATUS                     = ", REG_STATUS                    );
-  debug_dumpSingleReg(debug_interface, "REG_DATA_HIGH                  = ", REG_DATA_HIGH                 );
-  debug_dumpSingleReg(debug_interface, "REG_DATA_LOW                   = ", REG_DATA_LOW                  );
-  debug_dumpSingleReg(debug_interface, "REG_AVERAGE_HIGH               = ", REG_AVERAGE_HIGH              );
-  debug_dumpSingleReg(debug_interface, "REG_AVERAGE_LOW                = ", REG_AVERAGE_LOW               );
-  debug_dumpSingleReg(debug_interface, "REG_SENSITIVITY_THRESHOLD_HIGH = ", REG_SENSITIVITY_THRESHOLD_HIGH);
-  debug_dumpSingleReg(debug_interface, "REG_SENSITIVITY_THRESHOLD_LOW  = ", REG_SENSITIVITY_THRESHOLD_LOW );
-  debug_dumpSingleReg(debug_interface, "REG_SETUP                      = ", REG_SETUP                     );
-  debug_dumpSingleReg(debug_interface, "REG_CONFIGURATION              = ", REG_CONFIGURATION             );
-  debug_dumpSingleReg(debug_interface, "REG_POWER_DOWN_TIMER           = ", REG_POWER_DOWN_TIMER          );
-  debug_dumpSingleReg(debug_interface, "REG_SERIAL_NUMBER_3            = ", REG_SERIAL_NUMBER_3           );
-  debug_dumpSingleReg(debug_interface, "REG_SERIAL_NUMBER_2            = ", REG_SERIAL_NUMBER_2           );
-  debug_dumpSingleReg(debug_interface, "REG_SERIAL_NUMBER_1            = ", REG_SERIAL_NUMBER_1           );
-  debug_dumpSingleReg(debug_interface, "REG_SERIAL_NUMBER_0            = ", REG_SERIAL_NUMBER_0           );
-  debug_dumpSingleReg(debug_interface, "REG_CHIP_ID                    = ", REG_CHIP_ID                   );
+  debug_dumpSingleReg(debug_interface, "REG_STATUS                     = ", interface::REG_STATUS                    );
+  debug_dumpSingleReg(debug_interface, "REG_DATA_HIGH                  = ", interface::REG_DATA_HIGH                 );
+  debug_dumpSingleReg(debug_interface, "REG_DATA_LOW                   = ", interface::REG_DATA_LOW                  );
+  debug_dumpSingleReg(debug_interface, "REG_AVERAGE_HIGH               = ", interface::REG_AVERAGE_HIGH              );
+  debug_dumpSingleReg(debug_interface, "REG_AVERAGE_LOW                = ", interface::REG_AVERAGE_LOW               );
+  debug_dumpSingleReg(debug_interface, "REG_SENSITIVITY_THRESHOLD_HIGH = ", interface::REG_SENSITIVITY_THRESHOLD_HIGH);
+  debug_dumpSingleReg(debug_interface, "REG_SENSITIVITY_THRESHOLD_LOW  = ", interface::REG_SENSITIVITY_THRESHOLD_LOW );
+  debug_dumpSingleReg(debug_interface, "REG_SETUP                      = ", interface::REG_SETUP                     );
+  debug_dumpSingleReg(debug_interface, "REG_CONFIGURATION              = ", interface::REG_CONFIGURATION             );
+  debug_dumpSingleReg(debug_interface, "REG_POWER_DOWN_TIMER           = ", interface::REG_POWER_DOWN_TIMER          );
+  debug_dumpSingleReg(debug_interface, "REG_SERIAL_NUMBER_3            = ", interface::REG_SERIAL_NUMBER_3           );
+  debug_dumpSingleReg(debug_interface, "REG_SERIAL_NUMBER_2            = ", interface::REG_SERIAL_NUMBER_2           );
+  debug_dumpSingleReg(debug_interface, "REG_SERIAL_NUMBER_1            = ", interface::REG_SERIAL_NUMBER_1           );
+  debug_dumpSingleReg(debug_interface, "REG_SERIAL_NUMBER_0            = ", interface::REG_SERIAL_NUMBER_0           );
+  debug_dumpSingleReg(debug_interface, "REG_CHIP_ID                    = ", interface::REG_CHIP_ID                   );
 }
 
 /**************************************************************************************
  * PRIVATE FUNCTIONS
  **************************************************************************************/
 
-bool AD7151::readSingleRegister(RegisterSelect const reg_sel, uint8_t * data)
+bool AD7151_Control::readSingleRegister(interface::RegisterSelect const reg_sel, uint8_t * data)
 {
   return _io.readMultipleRegister(reg_sel, data, 1);
 }
 
-bool AD7151::writeSingleRegister(RegisterSelect const reg_sel, uint8_t const data)
+bool AD7151_Control::writeSingleRegister(interface::RegisterSelect const reg_sel, uint8_t const data)
 {
   return _io.writeMultipleRegister(reg_sel, &data, 1);
 }
 
-void AD7151::debug_dumpSingleReg(driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
+void AD7151_Control::debug_dumpSingleReg(driver::interface::Debug & debug_interface, char const * msg, interface::RegisterSelect const reg_sel)
 {
   uint8_t reg_content = 0;
 
