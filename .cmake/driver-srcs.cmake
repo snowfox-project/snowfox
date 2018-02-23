@@ -65,6 +65,17 @@ endif()
 
 ##########################################################################
 
+set(DRIVER_LORA_SRC_PATH src/driver/lora)
+
+if(${DRIVER_LORA_RFM9x} STREQUAL "yes")
+  set(DRIVER_LORA_RFM9x_SRCS
+    ${DRIVER_LORA_SRC_PATH}/RFM9x/RFM9x.cpp
+  )
+  set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} ${DRIVER_LORA_RFM9x_SRCS})
+endif()
+
+##########################################################################
+
 set(DRIVER_MEMORY_SRC_PATH src/driver/memory)
 
 if(${DRIVER_MEMORY_AT45DBX} STREQUAL "yes")

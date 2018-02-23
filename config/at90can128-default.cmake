@@ -21,6 +21,8 @@ set(DRIVER_HAPTIC_DRV2605     yes)
 
 set(DRIVER_IOEXPANDER_PCA9547 yes)
 
+set(DRIVER_LORA_RFM9x         yes)
+
 set(DRIVER_MEMORY_AT45DBX     yes)
 set(DRIVER_MEMORY_PCF8570     yes)
 
