@@ -20,6 +20,7 @@ if(${MCU_ARCH} STREQUAL "avr")
     add_subdirectory(driver-pcf8570-i2c-atmega328p )
     add_subdirectory(driver-serial-atmega328p-uart0)
     add_subdirectory(driver-tmc260x-spi-atmega328p )
+    add_subdirectory(driver-rfm9x-spi-atmega328p   )
   endif()
 
 endif()
