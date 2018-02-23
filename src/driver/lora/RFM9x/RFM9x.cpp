@@ -35,7 +35,7 @@ namespace driver
 namespace stepper
 {
 
-namespace RFM9x
+namespace lora
 {
 
 /**************************************************************************************
@@ -91,7 +91,7 @@ void RFM9x::close()
 
 } /* RFM9x */
 
-} /* stepper */
+} /* lora */
 
 } /* driver */
 

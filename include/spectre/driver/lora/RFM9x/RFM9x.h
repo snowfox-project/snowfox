@@ -35,7 +35,7 @@ namespace spectre
 namespace driver
 {
 
-namespace stepper
+namespace lora
 {
 
 namespace RFM9x
@@ -69,7 +69,7 @@ public:
 
 } /* RFM9x */
 
-} /* stepper */
+} /* lora */
 
 } /* driver */
 
