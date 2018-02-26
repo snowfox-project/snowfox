@@ -49,25 +49,25 @@ namespace interface
  * TYPEDEFS
  **************************************************************************************/
 
-typedef enum
+enum class Register : uint8_t
 {
-  REG_STATUS                      = 0x00,
-  REG_DATA_HIGH                   = 0x01,
-  REG_DATA_LOW                    = 0x02,
-  REG_AVERAGE_HIGH                = 0x05,
-  REG_AVERAGE_LOW                 = 0x06,
-  REG_SENSITIVITY_THRESHOLD_HIGH  = 0x09,
-  REG_SENSITIVITY_THRESHOLD_LOW   = 0x0A,
-  REG_SETUP                       = 0x0B,
-  REG_CONFIGURATION               = 0x0F,
-  REG_POWER_DOWN_TIMER            = 0x10,
-  REG_CAPDAC                      = 0x11,
-  REG_SERIAL_NUMBER_3             = 0x13,
-  REG_SERIAL_NUMBER_2             = 0x14,
-  REG_SERIAL_NUMBER_1             = 0x15,
-  REG_SERIAL_NUMBER_0             = 0x16,
-  REG_CHIP_ID                     = 0x17
-} RegisterSelect;
+  STATUS                      = 0x00,
+  DATA_HIGH                   = 0x01,
+  DATA_LOW                    = 0x02,
+  AVERAGE_HIGH                = 0x05,
+  AVERAGE_LOW                 = 0x06,
+  SENSITIVITY_THRESHOLD_HIGH  = 0x09,
+  SENSITIVITY_THRESHOLD_LOW   = 0x0A,
+  SETUP                       = 0x0B,
+  CONFIGURATION               = 0x0F,
+  POWER_DOWN_TIMER            = 0x10,
+  CAPDAC                      = 0x11,
+  SERIAL_NUMBER_3             = 0x13,
+  SERIAL_NUMBER_2             = 0x14,
+  SERIAL_NUMBER_1             = 0x15,
+  SERIAL_NUMBER_0             = 0x16,
+  CHIP_ID                     = 0x17
+};
 
 /**************************************************************************************
  * CLASS DECLARATION
@@ -82,8 +82,8 @@ public:
   virtual ~AD7151_IO_Interface() { }
 
 
-  virtual bool writeMultipleRegister(RegisterSelect const reg_sel, uint8_t const  * data, uint16_t const num_bytes) = 0;
-  virtual bool readMultipleRegister (RegisterSelect const reg_sel, uint8_t        * data, uint16_t const num_bytes) = 0;
+  virtual bool writeMultipleRegister(Register const reg, uint8_t const  * data, uint16_t const num_bytes) = 0;
+  virtual bool readMultipleRegister (Register const reg, uint8_t        * data, uint16_t const num_bytes) = 0;
 
 };
 

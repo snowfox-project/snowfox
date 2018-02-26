@@ -76,10 +76,10 @@ private:
 
   interface::AD7151_IO_Interface & _io;
 
-  bool readSingleRegister   (interface::RegisterSelect const reg_sel, uint8_t        * data);
-  bool writeSingleRegister  (interface::RegisterSelect const reg_sel, uint8_t const    data);
+  bool readSingleRegister   (interface::Register const reg, uint8_t        * data);
+  bool writeSingleRegister  (interface::Register const reg, uint8_t const    data);
 
-  void debug_dumpSingleReg  (driver::interface::Debug & debug_interface, char const * msg, interface::RegisterSelect const reg_sel);
+  void debug_dumpSingleReg  (driver::interface::Debug & debug_interface, char const * msg, interface::Register const reg);
 
 };
 

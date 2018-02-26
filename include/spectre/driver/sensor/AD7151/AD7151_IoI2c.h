@@ -56,8 +56,8 @@ public:
   virtual ~AD7151_IoI2c();
 
 
-  virtual bool writeMultipleRegister(interface::RegisterSelect const reg_sel, uint8_t const  * data, uint16_t const num_bytes) override;
-  virtual bool readMultipleRegister (interface::RegisterSelect const reg_sel, uint8_t        * data, uint16_t const num_bytes) override;
+  virtual bool writeMultipleRegister(interface::Register const reg, uint8_t const  * data, uint16_t const num_bytes) override;
+  virtual bool readMultipleRegister (interface::Register const reg, uint8_t        * data, uint16_t const num_bytes) override;
 
 
 private:
