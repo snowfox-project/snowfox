@@ -49,15 +49,15 @@ namespace interface
  * TYPEDEFS
  **************************************************************************************/
 
-typedef enum
+enum class Register: uint8_t
 {
-  REG_CONFIG      = 0x00,
-  REG_V_SHUNT     = 0x01,
-  REG_V_BUS       = 0x02,
-  REG_POWER       = 0x03,
-  REG_CURRENT     = 0x04,
-  REG_CALIBRATION = 0x05
-} RegisterSelect;
+  CONFIG      = 0x00,
+  V_SHUNT     = 0x01,
+  V_BUS       = 0x02,
+  POWER       = 0x03,
+  CURRENT     = 0x04,
+  CALIBRATION = 0x05
+};
 
 /**************************************************************************************
  * CLASS DECLARATION
@@ -72,8 +72,8 @@ public:
   virtual ~INA220_Io() { }
 
 
-  virtual bool readRegister (RegisterSelect const reg_sel, uint16_t       * data) = 0;
-  virtual bool writeRegister(RegisterSelect const reg_sel, uint16_t const   data) = 0;
+  virtual bool readRegister (Register const reg, uint16_t       * data) = 0;
+  virtual bool writeRegister(Register const reg, uint16_t const   data) = 0;
 
 };
 

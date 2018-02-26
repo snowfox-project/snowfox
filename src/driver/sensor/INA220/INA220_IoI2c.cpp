@@ -58,12 +58,13 @@ INA220_IoI2c::~INA220_IoI2c()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool INA220_IoI2c::readRegister(interface::RegisterSelect const reg_sel, uint16_t * data)
+bool INA220_IoI2c::readRegister(interface::Register const reg, uint16_t * data)
 {
+  uint8_t const reg_addr = static_cast<uint8_t>(reg                 );
   uint8_t data_buf[2] = {0};
 
   if(!_i2c_master.begin      (_i2c_address, false      )) return false;
-  if(!_i2c_master.write      (reg_sel                  )) return false;
+  if(!_i2c_master.write      (reg_addr                 )) return false;
   if(!_i2c_master.requestFrom(_i2c_address, data_buf, 2)) return false;
 
   *data  = (static_cast<uint16_t>(data[0]) << 8);
@@ -72,13 +73,14 @@ bool INA220_IoI2c::readRegister(interface::RegisterSelect const reg_sel, uint16_
   return true;
 }
 
-bool INA220_IoI2c::writeRegister(interface::RegisterSelect const reg_sel, uint16_t const data)
+bool INA220_IoI2c::writeRegister(interface::Register const reg, uint16_t const data)
 {
+  uint8_t const reg_addr = static_cast<uint8_t>(reg                 );
   uint8_t const data_msb = static_cast<uint8_t>((data & 0xFF00) >> 8);
   uint8_t const data_lsb = static_cast<uint8_t>((data & 0x00FF) >> 0);
 
   if(!_i2c_master.begin(_i2c_address, false)) return false;
-  if(!_i2c_master.write(reg_sel            )) return false;
+  if(!_i2c_master.write(reg_addr           )) return false;
   if(!_i2c_master.write(data_msb           )) return false;
   if(!_i2c_master.write(data_lsb           )) return false;
       _i2c_master.end  (                   );
