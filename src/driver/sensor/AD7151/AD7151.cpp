@@ -22,6 +22,8 @@
 
 #include <spectre/driver/sensor/AD7151/AD7151.h>
 
+#include <string.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -59,31 +61,59 @@ AD7151::~AD7151()
 
 bool AD7151::open()
 {
-  /* TODO*/
-  return false;
+  return true; /* Do nothing */
 }
 
 ssize_t AD7151::read(uint8_t * buffer, ssize_t const num_bytes)
 {
-  /* TODO*/
-  return -1;
+  uint16_t raw_data = 0;
+
+  if(num_bytes < sizeof(raw_data)          ) return -1;
+  if(!_ctrl.readConversionResult(&raw_data)) return -2;
+
+  memcpy(buffer, &raw_data, sizeof(raw_data));
+
+  return sizeof(raw_data);
 }
 
 ssize_t AD7151::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
-  /* TODO*/
-  return -1;
+  return -1; /* Not supported */
 }
 
 bool AD7151::ioctl(uint32_t const cmd, void * arg)
 {
-  /* TODO*/
+  switch(cmd)
+  {
+  /* IOCTL_SET_CAPACITIVE_INPUT_RANGE *************************************************/
+  case IOCTL_SET_CAPACITIVE_INPUT_RANGE:
+  {
+    uint8_t                               const * arg_ptr                = static_cast<uint8_t *>                            (arg     );
+    interface::CapacitiveInputRangeSelect const   capacitive_input_range = static_cast<interface::CapacitiveInputRangeSelect>(*arg_ptr);
+    return _ctrl.setCapacitiveInputRange(capacitive_input_range);
+  }
+  break;
+  /* IOCTL_START_CONVERSION ***********************************************************/
+  case IOCTL_START_CONVERSION:
+  {
+    return _ctrl.startSingleConversion();
+  }
+  break;
+  /* IOCTL_CHECK_IF_CONVERSION_IS_COMPLETE ********************************************/
+  case IOCTL_CHECK_IF_CONVERSION_IS_COMPLETE:
+  {
+    bool * arg_ptr = static_cast<bool *>(arg);
+    return _ctrl.checkIfConversionIsComplete(arg_ptr);
+  }
+  break;
+  }
+
   return false;
 }
 
 void AD7151::close()
 {
-  /* TODO*/
+  /* Do nothing */
 }
 
 /**************************************************************************************
