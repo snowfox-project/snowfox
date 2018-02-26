@@ -73,8 +73,8 @@ void RFM9x_IoSpi::writeRegister(interface::Register const reg, uint8_t const dat
   uint8_t const reg_addr = static_cast<uint8_t>(reg);
 
   _cs.clr();
-  _spi_master.exchange(reg_addr);
-  _spi_master.exchange(data    );
+  _spi_master.exchange(0x80 | reg_addr);
+  _spi_master.exchange(data           );
   _cs.set();
 }
 
