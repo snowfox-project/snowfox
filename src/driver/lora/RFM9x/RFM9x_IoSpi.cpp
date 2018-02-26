@@ -42,9 +42,11 @@ namespace RFM9x
  * CTOR/DTOR
  **************************************************************************************/
 
-RFM9x_IoSpi::RFM9x_IoSpi()
+RFM9x_IoSpi::RFM9x_IoSpi(hal::interface::SPIMaster & spi_master, hal::interface::DigitalOutPin & cs)
+: _spi_master(spi_master),
+  _cs        (cs        )
 {
-
+  _cs.set();
 }
 
 RFM9x_IoSpi::~RFM9x_IoSpi()
@@ -58,12 +60,22 @@ RFM9x_IoSpi::~RFM9x_IoSpi()
 
 void RFM9x_IoSpi::readRegister(interface::Register const reg, uint8_t * data)
 {
+  uint8_t const reg_addr = static_cast<uint8_t>(reg);
 
+  _cs.clr();
+          _spi_master.exchange(reg_addr);
+  *data = _spi_master.exchange(0       );
+  _cs.set();
 }
 
 void RFM9x_IoSpi::writeRegister(interface::Register const reg, uint8_t const data)
 {
+  uint8_t const reg_addr = static_cast<uint8_t>(reg);
 
+  _cs.clr();
+  _spi_master.exchange(reg_addr);
+  _spi_master.exchange(data    );
+  _cs.set();
 }
 
 /**************************************************************************************

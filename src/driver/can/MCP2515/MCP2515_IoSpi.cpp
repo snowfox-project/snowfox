@@ -60,7 +60,7 @@ MCP2515_IoSpi::MCP2515_IoSpi(hal::interface::SPIMaster & spi_master, hal::interf
 : _spi_master(spi_master),
   _cs        (cs        )
 {
-
+  _cs.set();
 }
 
 MCP2515_IoSpi::~MCP2515_IoSpi()
