@@ -31,6 +31,7 @@
 #include <spectre/hal/avr/ATMEGA328P/DigitalOutPin.h>
 
 #include <spectre/driver/lora/RFM9x/RFM9x.h>
+#include <spectre/driver/lora/RFM9x/RFM9x_IoSpi.h>
 
 /**************************************************************************************
  * NAMESPACES
@@ -65,6 +66,7 @@ int main()
 
   /* DRIVER ***************************************************************************/
 
+  lora::RFM9x::RFM9x_IoSpi rfm9x_spi(spi_master, rfm9x_cs);
   lora::RFM9x::RFM9x       rfm9x;
 
   /* APPLICATION **********************************************************************/
