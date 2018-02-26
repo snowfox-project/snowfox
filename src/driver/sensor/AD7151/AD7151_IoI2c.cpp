@@ -42,14 +42,14 @@ namespace AD7151
  * CTOR/DTOR
  **************************************************************************************/
 
-AD7151_IO_I2C::AD7151_IO_I2C(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
+AD7151_IoI2c::AD7151_IoI2c(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
 : _i2c_address(i2c_address),
   _i2c_master (i2c_master )
 {
 
 }
 
-AD7151_IO_I2C::~AD7151_IO_I2C()
+AD7151_IoI2c::~AD7151_IoI2c()
 {
 
 }
@@ -58,7 +58,7 @@ AD7151_IO_I2C::~AD7151_IO_I2C()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool AD7151_IO_I2C::readMultipleRegister(interface::RegisterSelect const reg_sel, uint8_t * data, uint16_t const num_bytes)
+bool AD7151_IoI2c::readMultipleRegister(interface::RegisterSelect const reg_sel, uint8_t * data, uint16_t const num_bytes)
 {
   uint8_t const reg_addr = static_cast<uint8_t>(reg_sel);
 
@@ -69,7 +69,7 @@ bool AD7151_IO_I2C::readMultipleRegister(interface::RegisterSelect const reg_sel
   return true;
 }
 
-bool AD7151_IO_I2C::writeMultipleRegister(interface::RegisterSelect const reg_sel, uint8_t const  * data, uint16_t const num_bytes)
+bool AD7151_IoI2c::writeMultipleRegister(interface::RegisterSelect const reg_sel, uint8_t const  * data, uint16_t const num_bytes)
 {
   uint8_t const reg_addr = static_cast<uint8_t>(reg_sel);
 

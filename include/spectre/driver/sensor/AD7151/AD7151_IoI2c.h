@@ -47,13 +47,13 @@ namespace AD7151
  * CLASS DECLARATION
  **************************************************************************************/
 
-class AD7151_IO_I2C : public interface::AD7151_IO_Interface
+class AD7151_IoI2c : public interface::AD7151_IO_Interface
 {
 
 public:
 
-           AD7151_IO_I2C(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master);
-  virtual ~AD7151_IO_I2C();
+           AD7151_IoI2c(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master);
+  virtual ~AD7151_IoI2c();
 
 
   virtual bool writeMultipleRegister(interface::RegisterSelect const reg_sel, uint8_t const  * data, uint16_t const num_bytes) override;
