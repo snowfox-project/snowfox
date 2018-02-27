@@ -78,7 +78,7 @@ enum class LoRaMode : uint8_t
   LoRa          = RFM9x_REG_OP_MODE_LONG_RANGE_MODE_bm
 };
 
-enum class ModulationMode : uint8_t
+enum class ModulationType : uint8_t
 {
   FSK           = 0,
   OOK           = RFM9x_REG_OP_MODE_MODULATION_TYPE_0_bm
@@ -97,7 +97,9 @@ public:
   virtual ~RFM9x_Configuration() { }
 
 
-  virtual void setOperatingMode(OperatingMode const op_mode) = 0;
+  virtual void setOperatingMode (OperatingMode  const op_mode        ) = 0;
+  virtual void setLoraMode      (LoRaMode       const lora_mode      ) = 0;
+  virtual void setModulationType(ModulationType const modulation_type) = 0;
 
 };
 

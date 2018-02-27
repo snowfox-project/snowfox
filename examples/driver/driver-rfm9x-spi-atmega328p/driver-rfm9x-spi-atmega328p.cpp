@@ -32,6 +32,7 @@
 
 #include <spectre/driver/lora/RFM9x/RFM9x.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_IoSpi.h>
+#include <spectre/driver/lora/RFM9x/RFM9x_Control.h>
 
 /**************************************************************************************
  * NAMESPACES
@@ -66,8 +67,9 @@ int main()
 
   /* DRIVER ***************************************************************************/
 
-  lora::RFM9x::RFM9x_IoSpi rfm9x_spi(spi_master, rfm9x_cs);
-  lora::RFM9x::RFM9x       rfm9x;
+  lora::RFM9x::RFM9x_IoSpi    rfm9x_spi     (spi_master, rfm9x_cs);
+  lora::RFM9x::RFM9x_Control  rfm9x_control (rfm9x_spi           );
+  lora::RFM9x::RFM9x          rfm9x;
 
   /* APPLICATION **********************************************************************/
 
