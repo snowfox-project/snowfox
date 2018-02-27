@@ -33,6 +33,9 @@ As Martin Fowler states so eloquently in his book *Refactoring: Improving the De
 #### [/driver/ioexpander](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/ioexpander)
 * **PCA9547** (8-channel I2C-Bus multiplexer)
 
+#### [/driver/lora](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/lora)
+* **RFM9x** (HopeRF RFM95/96/97/98 Long Power Long Range Transceiver Module)
+
 #### [/driver/memory](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/memory)
 * **AT45DBx** (SPI Data Flash)
 * **PCF8570** (256 × 8-Bit Static Low-Voltage RAM)
@@ -51,6 +54,8 @@ As Martin Fowler states so eloquently in his book *Refactoring: Improving the De
 #### [/driver/serial](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/serial)
 * **UART** (Serial UART Driver)
 
+#### [/driver/stepper](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/stepper)
+* **TCM26x** (Trinamic TCM26x configurable stepper driver)
 
 ## Getting started
 ### Install toolchain
