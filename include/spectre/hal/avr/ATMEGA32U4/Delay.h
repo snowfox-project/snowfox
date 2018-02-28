@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_AT90CAN128_CRITICALSECTION_H_
-#define INCLUDE_SPECTRE_HAL_AVR_AT90CAN128_CRITICALSECTION_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_ATMEGA32U4_DELAY_H_
+#define INCLUDE_SPECTRE_HAL_AVR_ATMEGA32U4_DELAY_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/ATxxxx/CriticalSection.h>
+#include <spectre/hal/avr/ATxxxx/Delay.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -35,20 +35,20 @@ namespace spectre
 namespace hal
 {
 
-namespace AT90CAN128
+namespace ATMEGA32U4
 {
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class CriticalSection : public ATxxxx::CriticalSection
+class Delay : public ATxxxx::Delay
 {
 
 public:
 
-           CriticalSection(volatile uint8_t * sreg) : ATxxxx::CriticalSection(sreg) { }
-  virtual ~CriticalSection() { }
+           Delay() { }
+  virtual ~Delay() { }
 
 };
 
@@ -56,10 +56,10 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CAN128 */
+} /* ATMEGA32U4 */
 
 } /* hal */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_AT90CAN128_CRITICALSECTION_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_ATMEGA32U4_DELAY_H_ */

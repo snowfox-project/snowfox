@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_AT90CAN128_CRITICALSECTION_H_
-#define INCLUDE_SPECTRE_HAL_AVR_AT90CAN128_CRITICALSECTION_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_ATMEGA32U4_CRITICALSECTION_H_
+#define INCLUDE_SPECTRE_HAL_AVR_ATMEGA32U4_CRITICALSECTION_H_
 
 /**************************************************************************************
  * INCLUDES
@@ -35,7 +35,7 @@ namespace spectre
 namespace hal
 {
 
-namespace AT90CAN128
+namespace ATMEGA32U4
 {
 
 /**************************************************************************************
@@ -56,10 +56,10 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CAN128 */
+} /* ATMEGA32U4 */
 
 } /* hal */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_AT90CAN128_CRITICALSECTION_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_ATMEGA32U4_CRITICALSECTION_H_ */
