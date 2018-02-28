@@ -84,7 +84,7 @@ bool TPA81::readThermophileArray(ThermophileData * thermo_data)
   return success;
 }
 
-void TPA81::debug_dumpAllRegs(driver::interface::Debug & debug_interface)
+void TPA81::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
 {
   debug_dumpSingleReg(debug_interface, "REG_COMMAND             = ", REG_COMMAND            );
   debug_dumpSingleReg(debug_interface, "REG_AMBIENT_TEMPERATURE = ", REG_AMBIENT_TEMPERATURE);
@@ -112,7 +112,7 @@ bool TPA81::writeSingleRegister(RegisterSelect const reg_sel, uint8_t const data
   return _io.writeMultipleRegister(reg_sel, &data, 1);
 }
 
-void TPA81::debug_dumpSingleReg(driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
+void TPA81::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
 {
   uint8_t reg_content = 0;
 

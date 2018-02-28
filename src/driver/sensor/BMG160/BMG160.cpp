@@ -158,7 +158,7 @@ bool BMG160::readTemperature(int8_t  * raw_temp)
   return true;
 }
 
-void BMG160::debug_dumpAllRegs(driver::interface::Debug & debug_interface)
+void BMG160::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
 {
   debug_dumpSingleReg(debug_interface, "REG_CHIP_ID       = ", REG_CHIP_ID      );
 
@@ -235,7 +235,7 @@ bool BMG160::writeSingleRegister(RegisterSelect const reg_sel, uint8_t const dat
   return _io.writeMultipleRegister(reg_sel, &data, 1);
 }
 
-void BMG160::debug_dumpSingleReg(driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
+void BMG160::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
 {
   uint8_t reg_content = 0;
 

@@ -151,7 +151,7 @@ bool INA220_Control::readBusVoltage(int16_t * bus_voltage)
   return true;
 }
 
-void INA220_Control::debug_dumpAllRegs(driver::interface::Debug & debug_interface)
+void INA220_Control::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
 {
   debug_dumpSingleReg(debug_interface, "REG_CONFIG      = ", interface::Register::CONFIG     );
   debug_dumpSingleReg(debug_interface, "REG_V_SHUNT     = ", interface::Register::V_SHUNT    );
@@ -165,7 +165,7 @@ void INA220_Control::debug_dumpAllRegs(driver::interface::Debug & debug_interfac
  * PRIVATE FUNCTIONS
  **************************************************************************************/
 
-void INA220_Control::debug_dumpSingleReg(driver::interface::Debug & debug_interface, char const * msg, interface::Register const reg)
+void INA220_Control::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, interface::Register const reg)
 {
   uint16_t reg_content = 0;
 

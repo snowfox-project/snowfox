@@ -28,7 +28,7 @@
 
 #include <stdint.h>
 
-#include <spectre/driver/interface/Debug.h>
+#include <spectre/debug/interface/Debug.h>
 
 #include <spectre/hal/interface/i2c/I2CMaster.h>
 
@@ -67,7 +67,7 @@ public:
   virtual bool getChannel(interface::I2cChannel       * sel) override;
 
 
-          void debug_dumpAllRegs(driver::interface::Debug & debug_interface);
+          void debug_dumpAllRegs(debug::interface::Debug & debug_interface);
 
 private:
 

@@ -170,7 +170,7 @@ bool DRV2605_Control::clrGo()
   return _io.writeSingleRegister(interface::Register::GO, 0);
 }
 
-void DRV2605_Control::debug_dumpAllRegs(driver::interface::Debug & debug_interface)
+void DRV2605_Control::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
 {
   debug_dumpSingleReg(debug_interface, "REG_STATUS            = ", interface::Register::STATUS          );
   debug_dumpSingleReg(debug_interface, "REG_MODE              = ", interface::Register::MODE            );
@@ -213,7 +213,7 @@ void DRV2605_Control::debug_dumpAllRegs(driver::interface::Debug & debug_interfa
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
-void DRV2605_Control::debug_dumpSingleReg(driver::interface::Debug & debug_interface, char const * msg, interface::Register const reg)
+void DRV2605_Control::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, interface::Register const reg)
 {
   uint8_t reg_content = 0;
 

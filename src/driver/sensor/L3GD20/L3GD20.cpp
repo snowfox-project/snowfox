@@ -289,7 +289,7 @@ bool L3GD20::readZAxis(int16_t * raw_z)
   return true;
 }
 
-void L3GD20::debug_dumpAllRegs(driver::interface::Debug & debug_interface)
+void L3GD20::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
 {
   debug_dumpSingleReg(debug_interface, "REG_WHO_AM_I      = ", REG_WHO_AM_I     );
   debug_dumpSingleReg(debug_interface, "REG_CTRL_REG1     = ", REG_CTRL_REG1    );
@@ -373,7 +373,7 @@ bool L3GD20::enableBlockDataUpdate()
   return true;
 }
 
-void L3GD20::debug_dumpSingleReg(driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
+void L3GD20::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
 {
   uint8_t reg_content = 0;
 

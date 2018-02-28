@@ -427,7 +427,7 @@ bool LIS2DSH::readTemperature(int16_t * raw_temp)
   return true;
 }
 
-void LIS2DSH::debug_dumpAllRegs(driver::interface::Debug & debug_interface)
+void LIS2DSH::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
 {
   debug_dumpSingleReg(debug_interface, "REG_STATUS_REG_AUX  = ", REG_STATUS_REG_AUX );
 
@@ -494,7 +494,7 @@ bool LIS2DSH::writeSingleRegister(RegisterSelect const reg_sel, uint8_t const da
   return _io.writeMultipleRegister(reg_sel, &data, 1);
 }
 
-void LIS2DSH::debug_dumpSingleReg(driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
+void LIS2DSH::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
 {
   uint8_t reg_content = 0;
 

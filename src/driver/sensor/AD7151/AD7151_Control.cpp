@@ -123,7 +123,7 @@ bool AD7151_Control::readConversionResult(uint16_t * raw_data)
   return true;
 }
 
-void AD7151_Control::debug_dumpAllRegs(driver::interface::Debug & debug_interface)
+void AD7151_Control::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
 {
   debug_dumpSingleReg(debug_interface, "REG_STATUS                     = ", interface::Register::STATUS                    );
   debug_dumpSingleReg(debug_interface, "REG_DATA_HIGH                  = ", interface::Register::DATA_HIGH                 );
@@ -156,7 +156,7 @@ bool AD7151_Control::writeSingleRegister(interface::Register const reg, uint8_t 
   return _io.writeMultipleRegister(reg, &data, 1);
 }
 
-void AD7151_Control::debug_dumpSingleReg(driver::interface::Debug & debug_interface, char const * msg, interface::Register const reg)
+void AD7151_Control::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, interface::Register const reg)
 {
   uint8_t reg_content = 0;
 

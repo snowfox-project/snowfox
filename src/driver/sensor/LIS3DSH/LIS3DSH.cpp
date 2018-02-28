@@ -351,7 +351,7 @@ bool LIS3DSH::readTemperature(int8_t * raw_temp)
   return true;
 }
 
-void LIS3DSH::debug_dumpAllRegs(driver::interface::Debug & debug_interface)
+void LIS3DSH::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
 {
   debug_dumpSingleReg(debug_interface, "REG_INFO_1 =      ", REG_INFO_1    );
   debug_dumpSingleReg(debug_interface, "REG_INFO_2 =      ", REG_INFO_2    );
@@ -400,7 +400,7 @@ bool LIS3DSH::writeSingleRegister(RegisterSelect const reg_sel, uint8_t const da
   return _io.writeMultipleRegister(reg_sel, &data, 1);
 }
 
-void LIS3DSH::debug_dumpSingleReg(driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
+void LIS3DSH::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
 {
   uint8_t reg_content = 0;
 

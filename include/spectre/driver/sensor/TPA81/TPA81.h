@@ -26,7 +26,7 @@
 #include <spectre/driver/sensor/TPA81/interface/TPA81_Interface.h>
 #include <spectre/driver/sensor/TPA81/interface/TPA81_IO_Interface.h>
 
-#include <spectre/driver/interface/Debug.h>
+#include <spectre/debug/interface/Debug.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -64,7 +64,7 @@ public:
   virtual bool readThermophileArray   (ThermophileData * thermo_data        ) override;
 
 
-          void debug_dumpAllRegs      (driver::interface::Debug & debug_interface);
+          void debug_dumpAllRegs      (debug::interface::Debug & debug_interface);
 
 private:
 
@@ -73,7 +73,7 @@ private:
   bool readSingleRegister   (RegisterSelect const reg_sel, uint8_t        * data);
   bool writeSingleRegister  (RegisterSelect const reg_sel, uint8_t const    data);
 
-  void debug_dumpSingleReg  (driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel);
+  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel);
 
 };
 

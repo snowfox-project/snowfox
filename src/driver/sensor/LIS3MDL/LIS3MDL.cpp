@@ -318,7 +318,7 @@ bool LIS3MDL::enableBlockDataUpdate()
   return true;
 }
 
-void LIS3MDL::debug_dumpAllRegs(driver::interface::Debug & debug_interface)
+void LIS3MDL::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
 {
   debug_dumpSingleReg(debug_interface, "REG_WHO_AM_I   = ", REG_WHO_AM_I  );
   debug_dumpSingleReg(debug_interface, "REG_CTRL_REG_1 = ", REG_CTRL_REG_1);
@@ -355,7 +355,7 @@ bool LIS3MDL::writeSingleRegister(RegisterSelect const reg_sel, uint8_t const da
   return _io.writeMultipleRegister(reg_sel, &data, 1);
 }
 
-void LIS3MDL::debug_dumpSingleReg(driver::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
+void LIS3MDL::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
 {
   uint8_t reg_content = 0;
 

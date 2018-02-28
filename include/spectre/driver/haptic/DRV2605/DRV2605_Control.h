@@ -25,9 +25,9 @@
 
 #include <spectre/driver/haptic/DRV2605/interface/DRV2605_Control.h>
 
+#include <spectre/debug/interface/Debug.h>
 #include <spectre/hal/interface/delay/Delay.h>
 
-#include <spectre/driver/interface/Debug.h>
 #include <spectre/driver/haptic/DRV2605/interface/DRV2605_Io.h>
 
 /**************************************************************************************
@@ -70,14 +70,14 @@ public:
   virtual bool clrGo              (                                                                             ) override;
 
 
-          void debug_dumpAllRegs  (driver::interface::Debug                  & debug_interface);
+          void debug_dumpAllRegs  (debug::interface::Debug & debug_interface);
 
 private:
 
   interface::DRV2605_Io & _io;
   hal::interface::Delay & _delay;
 
-  void debug_dumpSingleReg  (driver::interface::Debug & debug_interface, char const * msg, interface::Register const reg);
+  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, char const * msg, interface::Register const reg);
 
 };
 

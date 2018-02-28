@@ -93,7 +93,7 @@ void RFM9x_Control::setModulationType(interface::ModulationType const modulation
   _io.writeRegister(interface::Register::OP_MODE, reg_op_mode_content);
 }
 
-void RFM9x_Control::debug_dumpAllRegs(driver::interface::Debug & debug_interface)
+void RFM9x_Control::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
 {
   debug_dumpSingleReg(debug_interface, "OP_MODE                 = ", interface::Register::OP_MODE                );
   debug_dumpSingleReg(debug_interface, "FRF_MSB                 = ", interface::Register::FRF_MSB                );
@@ -157,7 +157,7 @@ void RFM9x_Control::debug_dumpAllRegs(driver::interface::Debug & debug_interface
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
-void RFM9x_Control::debug_dumpSingleReg(driver::interface::Debug & debug_interface, char const * msg, interface::Register const reg)
+void RFM9x_Control::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, interface::Register const reg)
 {
   uint8_t reg_content = 0;
 
