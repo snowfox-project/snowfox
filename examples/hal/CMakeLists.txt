@@ -21,6 +21,10 @@ if(${MCU_ARCH} STREQUAL "avr")
     add_subdirectory(hal-atmega328p-digital-out-port        )
   endif()
 
+  if(${MCU_TYPE} STREQUAL "atmega32u4")
+    add_subdirectory(hal-atmega32u4-digital-in-pin)
+  endif()
+  
 endif()
 
 ##########################################################################
