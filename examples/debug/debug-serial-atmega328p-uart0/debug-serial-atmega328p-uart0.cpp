@@ -77,10 +77,6 @@ int main()
 
   uart0.registerUARTCallback(&serial_callback);
 
-  int_ctrl.enableInterrupt            (ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
-
-  /* DEBUG ****************************************************************************/
-
   uint8_t baud_rate = static_cast<uint8_t>(serial::interface::SerialBaudRate::B115200);
   uint8_t parity    = static_cast<uint8_t>(serial::interface::SerialParity::None     );
   uint8_t stop_bit  = static_cast<uint8_t>(serial::interface::SerialStopBit::_1      );
@@ -89,7 +85,11 @@ int main()
   serial.ioctl(serial::IOCTL_SET_PARITY,   static_cast<void *>(&parity   ));
   serial.ioctl(serial::IOCTL_SET_STOPBIT,  static_cast<void *>(&stop_bit ));
 
+  /* DEBUG ****************************************************************************/
+
   debug::DebugSerial  debug_serial(serial);
+
+  int_ctrl.enableInterrupt            (ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
 
   /* APPLICATION **********************************************************************/
 
