@@ -4,8 +4,12 @@ cmake_minimum_required(VERSION 2.8)
 
 ##########################################################################
 
-add_subdirectory(debug)
-add_subdirectory(driver)
-add_subdirectory(hal)
+if(${MCU_ARCH} STREQUAL "avr")
+
+  if(${MCU_TYPE} STREQUAL "atmega328p")
+    add_subdirectory(debug-serial-atmega328p-uart0)
+  endif()
+
+endif()
 
 ##########################################################################
