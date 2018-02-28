@@ -16,8 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_DEBUGINTERFACE_H_
-#define INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_DEBUGINTERFACE_H_
+#ifndef INCLUDE_SPECTRE_DEBUG_SERIAL_DEBUGSERIAL_H_
+#define INCLUDE_SPECTRE_DEBUG_SERIAL_DEBUGSERIAL_H_
+
+/**************************************************************************************
+ * INCLUDES
+ **************************************************************************************/
+
+#include <spectre/debug/interface/Debug.h>
+
+#include <stdlib.h>
+
+#include <spectre/driver/interface/Driver.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -29,23 +39,27 @@ namespace spectre
 namespace debug
 {
 
-namespace interface
-{
-
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class Debug
+class DebugSerial : public interface::Debug
 {
 
 public:
 
-           Debug() { }
-  virtual ~Debug() { }
+           DebugSerial(driver::interface::Driver & serial);
+  virtual ~DebugSerial();
 
 
-  virtual void print(char const * fmt, ...) = 0;
+  virtual void print(char const * fmt, ...) override;
+
+
+private:
+
+  driver::interface::Driver & _serial;
+
+  static size_t constexpr DEBUG_SERIAL_BUFFER_SIZE = 128;
 
 };
 
@@ -53,10 +67,8 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
-
 } /* debug */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_DEBUGINTERFACE_H_ */
+#endif /* INCLUDE_SPECTRE_DEBUG_SERIAL_DEBUGSERIAL_H_ */

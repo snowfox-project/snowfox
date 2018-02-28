@@ -16,8 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_DEBUGINTERFACE_H_
-#define INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_DEBUGINTERFACE_H_
+/**************************************************************************************
+ * INCLUDES
+ **************************************************************************************/
+
+#include <spectre/debug/serial/DebugSerial.h>
+
+#include <stdio.h>
+#include <stdarg.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -29,34 +35,44 @@ namespace spectre
 namespace debug
 {
 
-namespace interface
-{
-
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class Debug
+DebugSerial::DebugSerial(driver::interface::Driver & serial)
+: _serial  (serial)
 {
+  _serial.open();
+}
 
-public:
+DebugSerial::~DebugSerial()
+{
+  _serial.close();
+}
 
-           Debug() { }
-  virtual ~Debug() { }
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
+void DebugSerial::print(char const * fmt, ...)
+{
+  uint8_t buf[DEBUG_SERIAL_BUFFER_SIZE];
+  va_list args;
 
-  virtual void print(char const * fmt, ...) = 0;
+  va_start (args, fmt);
+  ssize_t const length = vsnprintf (reinterpret_cast<char *>(buf), DEBUG_SERIAL_BUFFER_SIZE, fmt, args);
+  va_end   (args);
 
-};
+  for(ssize_t bytes_written = 0; bytes_written != length; )
+  {
+    bytes_written += _serial.write(buf + bytes_written, length - bytes_written);
+  }
+}
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
-
 } /* debug */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_DEBUGINTERFACE_H_ */
