@@ -20,18 +20,17 @@ set(SPECTRE_LIBRARY_HAL_INTERFACE_SRCS
 set(SPECTRE_LIBRARY_HAL_AVR_PATH src/hal/avr)
 
 ##########################################################################
-# ATxxxx #################################################################
+# AT90CAN128 #############################################################
 ##########################################################################
 
-set(SPECTRE_LIBRARY_HAL_AVR_ATxxxx_SRCS
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/Delay.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/CriticalSection.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/DigitalInOutPort.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/DigitalInPin.cpp    
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/DigitalInPort.cpp   
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/DigitalOutPin.cpp   
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/DigitalOutPort.cpp  
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/I2CMasterBase.cpp       
+set(SPECTRE_LIBRARY_HAL_AVR_AT90CAN128_SRCS
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CAN128/InterruptController.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CAN128/TIMER0.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CAN128/TIMER1.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CAN128/TIMER2.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CAN128/TIMER3.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CAN128/UART0.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CAN128/UART1.cpp
 )
 
 ##########################################################################
@@ -52,17 +51,25 @@ set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA328P_SRCS
 )
 
 ##########################################################################
-# AT90CAN128 #############################################################
+# ATMEGA32U4 #############################################################
 ##########################################################################
 
-set(SPECTRE_LIBRARY_HAL_AVR_AT90CAN128_SRCS
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CAN128/InterruptController.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CAN128/TIMER0.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CAN128/TIMER1.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CAN128/TIMER2.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CAN128/TIMER3.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CAN128/UART0.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CAN128/UART1.cpp
+set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA32U4_SRCS ""
+)
+
+##########################################################################
+# ATxxxx #################################################################
+##########################################################################
+
+set(SPECTRE_LIBRARY_HAL_AVR_ATxxxx_SRCS
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/Delay.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/CriticalSection.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/DigitalInOutPort.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/DigitalInPin.cpp    
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/DigitalInPort.cpp   
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/DigitalOutPin.cpp   
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/DigitalOutPort.cpp  
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/I2CMasterBase.cpp       
 )
 
 ##########################################################################
@@ -72,15 +79,21 @@ set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_I
 ##########################################################################
 
 if(${MCU_ARCH} STREQUAL "avr")
+
   set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATxxxx_SRCS})
 
-  if(${MCU_TYPE} STREQUAL "atmega328p")
-    set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA328P_SRCS})  
-  endif()
-  
   if(${MCU_TYPE} STREQUAL "at90can128")
     set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_AT90CAN128_SRCS})  
   endif()
+  
+  if(${MCU_TYPE} STREQUAL "atmega328p")
+    set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA328P_SRCS})  
+  endif()
+
+  if(${MCU_TYPE} STREQUAL "atmega32u4")
+    set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA32U4_SRCS})  
+  endif()
+
 endif()
 
 ##########################################################################
@@ -88,8 +101,9 @@ endif()
 if(${MCU_ARCH} STREQUAL "host")
   
   set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATxxxx_SRCS})
-  set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA328P_SRCS})  
   set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_AT90CAN128_SRCS})  
+  set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA328P_SRCS})  
+  set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA32U4_SRCS})  
 
 endif()
 
