@@ -68,6 +68,16 @@ void RFM9x_IoSpi::readRegister(interface::Register const reg, uint8_t * data)
   _cs.set();
 }
 
+void RFM9x_IoSpi::readRegister(interface::Register const reg, uint8_t * data, uint16_t const bytes)
+{
+  uint8_t const reg_addr = static_cast<uint8_t>(reg);
+
+  _cs.clr();
+  _spi_master.exchange(reg_addr);
+  for(uint16_t b = 0; b < bytes; b++) data[b] = _spi_master.exchange(0);
+  _cs.set();
+}
+
 void RFM9x_IoSpi::writeRegister(interface::Register const reg, uint8_t const data)
 {
   uint8_t const reg_addr = static_cast<uint8_t>(reg);
@@ -77,6 +87,17 @@ void RFM9x_IoSpi::writeRegister(interface::Register const reg, uint8_t const dat
   _spi_master.exchange(data           );
   _cs.set();
 }
+
+void RFM9x_IoSpi::writeRegister(interface::Register const reg, uint8_t const * data, uint16_t const bytes)
+{
+  uint8_t const reg_addr = static_cast<uint8_t>(reg);
+
+  _cs.clr();
+  _spi_master.exchange(0x80 | reg_addr);
+  for(uint16_t b = 0; b < bytes; b++) _spi_master.exchange(data[b]);
+  _cs.set();
+}
+
 
 /**************************************************************************************
  * NAMESPACE

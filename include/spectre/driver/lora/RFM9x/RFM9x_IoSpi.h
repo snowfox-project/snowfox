@@ -57,9 +57,10 @@ public:
   virtual ~RFM9x_IoSpi();
 
 
-  virtual void readRegister  (interface::Register const reg, uint8_t       * data) override;
-  virtual void writeRegister (interface::Register const reg, uint8_t const   data) override;
-
+  virtual void readRegister  (interface::Register const reg, uint8_t       * data                      ) override;
+  virtual void readRegister  (interface::Register const reg, uint8_t       * data, uint16_t const bytes) override;
+  virtual void writeRegister (interface::Register const reg, uint8_t const   data                      ) override;
+  virtual void writeRegister (interface::Register const reg, uint8_t const * data, uint16_t const bytes) override;
 
 private:
 
