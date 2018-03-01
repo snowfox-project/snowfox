@@ -112,6 +112,20 @@ void RFM9x_Control::setModulationType(interface::ModulationType const modulation
   _io.writeRegister(interface::Register::OP_MODE, reg_op_mode_content);
 }
 
+void RFM9x_Control::setFrequency(uint32_t const f_rf_Hz, uint32_t const fxosc_Hz)
+{
+  float    const f_step_Hz = static_cast<float>(fxosc_Hz) / 524288.0;
+  uint32_t const f_rf      = static_cast<uint32_t>(f_step_Hz / static_cast<float>(f_rf_Hz));
+
+  uint8_t const f_rf_msb = static_cast<uint8_t>((f_rf & 0x00FF0000) >> 16);
+  uint8_t const f_rf_mid = static_cast<uint8_t>((f_rf & 0x0000FF00) >>  8);
+  uint8_t const f_rf_lsb = static_cast<uint8_t>((f_rf & 0x000000FF) >>  0);
+
+  _io.writeRegister(interface::Register::FRF_MSB, f_rf_msb);
+  _io.writeRegister(interface::Register::FRF_MID, f_rf_mid);
+  _io.writeRegister(interface::Register::FRF_LSB, f_rf_lsb);
+}
+
 void RFM9x_Control::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
 {
   debug_dumpSingleReg(debug_interface, "OP_MODE                 = ", interface::Register::OP_MODE                );

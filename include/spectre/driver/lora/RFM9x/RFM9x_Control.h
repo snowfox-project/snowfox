@@ -67,9 +67,10 @@ public:
 
   /* RFM9x Configuration */
 
-  virtual void setOperatingMode (interface::OperatingMode  const op_mode        ) override;
-  virtual void setLoraMode      (interface::LoRaMode       const lora_mode      ) override;
-  virtual void setModulationType(interface::ModulationType const modulation_type) override;
+  virtual void setOperatingMode (interface::OperatingMode  const op_mode                                ) override;
+  virtual void setLoraMode      (interface::LoRaMode       const lora_mode                              ) override;
+  virtual void setModulationType(interface::ModulationType const modulation_type                        ) override;
+  virtual void setFrequency     (uint32_t                  const freq_Hz,        uint32_t const fxosc_Hz) override;
 
 
           void debug_dumpAllRegs(debug::interface::Debug & debug_interface);

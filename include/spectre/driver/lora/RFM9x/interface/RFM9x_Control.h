@@ -68,9 +68,10 @@ public:
 
   /* RFM9x Configuration */
 
-  virtual void setOperatingMode (OperatingMode  const op_mode        ) = 0;
-  virtual void setLoraMode      (LoRaMode       const lora_mode      ) = 0;
-  virtual void setModulationType(ModulationType const modulation_type) = 0;
+  virtual void setOperatingMode (OperatingMode  const op_mode                                ) = 0;
+  virtual void setLoraMode      (LoRaMode       const lora_mode                              ) = 0;
+  virtual void setModulationType(ModulationType const modulation_type                        ) = 0;
+  virtual void setFrequency     (uint32_t       const freq_Hz,        uint32_t const fxosc_Hz) = 0;
 
 };
 
