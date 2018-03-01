@@ -16,15 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CONTROL_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CONTROL_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_FIFOCONTROL_H_
+#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_FIFOCONTROL_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_FifoControl.h>
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_Configuration.h>
+#include <stdint.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -49,28 +48,21 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_Control : public RFM9x_FifoControl,
-                      public RFM9x_Configuration
+class RFM9x_FifoControl
 {
 
 public:
 
-           RFM9x_Control() { }
-  virtual ~RFM9x_Control() { }
+           RFM9x_FifoControl() { }
+  virtual ~RFM9x_FifoControl() { }
 
 
-  /* RFM9x Fifo Control */
+  static uint16_t constexpr FIFO_SIZE = 256;
+
 
   virtual void setTxFifoBaseAddress (uint8_t const tx_base_addr                ) = 0;
   virtual void setRxFifoBaseAddress (uint8_t const rx_base_addr                ) = 0;
   virtual void writeToTxFifo        (uint8_t const * data, uint16_t const bytes) = 0;
-
-
-  /* RFM9x Configuration */
-
-  virtual void setOperatingMode (OperatingMode  const op_mode        ) = 0;
-  virtual void setLoraMode      (LoRaMode       const lora_mode      ) = 0;
-  virtual void setModulationType(ModulationType const modulation_type) = 0;
 
 };
 
@@ -88,4 +80,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CONTROL_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_FIFOCONTROL_H_ */

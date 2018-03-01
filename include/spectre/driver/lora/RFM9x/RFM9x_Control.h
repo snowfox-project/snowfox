@@ -58,6 +58,13 @@ public:
   virtual ~RFM9x_Control();
 
 
+  /* RFM9x Fifo Control */
+
+  virtual void setTxFifoBaseAddress (uint8_t const tx_base_addr                ) override;
+  virtual void setRxFifoBaseAddress (uint8_t const rx_base_addr                ) override;
+  virtual void writeToTxFifo        (uint8_t const * data, uint16_t const bytes) override;
+
+
   /* RFM9x Configuration */
 
   virtual void setOperatingMode (interface::OperatingMode  const op_mode        ) override;
@@ -70,6 +77,8 @@ public:
 private:
 
   interface::RFM9x_Io & _io;
+  uint8_t               _fifo_tx_base_addr,
+                        _fifo_rx_base_addr;
 
   void debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, interface::Register const reg);
 
