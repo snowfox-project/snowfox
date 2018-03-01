@@ -22,9 +22,10 @@ if(${MCU_ARCH} STREQUAL "avr")
   endif()
 
   if(${MCU_TYPE} STREQUAL "atmega32u4")
-    add_subdirectory(hal-atmega32u4-digital-in-pin )
-    add_subdirectory(hal-atmega32u4-digital-in-port)
-    add_subdirectory(hal-atmega32u4-digital-out-pin)
+    add_subdirectory(hal-atmega32u4-digital-in-pin  )
+    add_subdirectory(hal-atmega32u4-digital-in-port )
+    add_subdirectory(hal-atmega32u4-digital-out-pin )
+    add_subdirectory(hal-atmega32u4-digital-out-port)
   endif()
   
 endif()
