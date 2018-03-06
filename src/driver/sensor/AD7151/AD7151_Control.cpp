@@ -125,21 +125,21 @@ bool AD7151_Control::readConversionResult(uint16_t * raw_data)
 
 void AD7151_Control::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
 {
-  debug_dumpSingleReg(debug_interface, "REG_STATUS                     = ", interface::Register::STATUS                    );
-  debug_dumpSingleReg(debug_interface, "REG_DATA_HIGH                  = ", interface::Register::DATA_HIGH                 );
-  debug_dumpSingleReg(debug_interface, "REG_DATA_LOW                   = ", interface::Register::DATA_LOW                  );
-  debug_dumpSingleReg(debug_interface, "REG_AVERAGE_HIGH               = ", interface::Register::AVERAGE_HIGH              );
-  debug_dumpSingleReg(debug_interface, "REG_AVERAGE_LOW                = ", interface::Register::AVERAGE_LOW               );
-  debug_dumpSingleReg(debug_interface, "REG_SENSITIVITY_THRESHOLD_HIGH = ", interface::Register::SENSITIVITY_THRESHOLD_HIGH);
-  debug_dumpSingleReg(debug_interface, "REG_SENSITIVITY_THRESHOLD_LOW  = ", interface::Register::SENSITIVITY_THRESHOLD_LOW );
-  debug_dumpSingleReg(debug_interface, "REG_SETUP                      = ", interface::Register::SETUP                     );
-  debug_dumpSingleReg(debug_interface, "REG_CONFIGURATION              = ", interface::Register::CONFIGURATION             );
-  debug_dumpSingleReg(debug_interface, "REG_POWER_DOWN_TIMER           = ", interface::Register::POWER_DOWN_TIMER          );
-  debug_dumpSingleReg(debug_interface, "REG_SERIAL_NUMBER_3            = ", interface::Register::SERIAL_NUMBER_3           );
-  debug_dumpSingleReg(debug_interface, "REG_SERIAL_NUMBER_2            = ", interface::Register::SERIAL_NUMBER_2           );
-  debug_dumpSingleReg(debug_interface, "REG_SERIAL_NUMBER_1            = ", interface::Register::SERIAL_NUMBER_1           );
-  debug_dumpSingleReg(debug_interface, "REG_SERIAL_NUMBER_0            = ", interface::Register::SERIAL_NUMBER_0           );
-  debug_dumpSingleReg(debug_interface, "REG_CHIP_ID                    = ", interface::Register::CHIP_ID                   );
+  debug_dumpSingleReg(debug_interface, "STATUS                     = ", interface::Register::STATUS                    );
+  debug_dumpSingleReg(debug_interface, "DATA_HIGH                  = ", interface::Register::DATA_HIGH                 );
+  debug_dumpSingleReg(debug_interface, "DATA_LOW                   = ", interface::Register::DATA_LOW                  );
+  debug_dumpSingleReg(debug_interface, "AVERAGE_HIGH               = ", interface::Register::AVERAGE_HIGH              );
+  debug_dumpSingleReg(debug_interface, "AVERAGE_LOW                = ", interface::Register::AVERAGE_LOW               );
+  debug_dumpSingleReg(debug_interface, "SENSITIVITY_THRESHOLD_HIGH = ", interface::Register::SENSITIVITY_THRESHOLD_HIGH);
+  debug_dumpSingleReg(debug_interface, "SENSITIVITY_THRESHOLD_LOW  = ", interface::Register::SENSITIVITY_THRESHOLD_LOW );
+  debug_dumpSingleReg(debug_interface, "SETUP                      = ", interface::Register::SETUP                     );
+  debug_dumpSingleReg(debug_interface, "CONFIGURATION              = ", interface::Register::CONFIGURATION             );
+  debug_dumpSingleReg(debug_interface, "POWER_DOWN_TIMER           = ", interface::Register::POWER_DOWN_TIMER          );
+  debug_dumpSingleReg(debug_interface, "SERIAL_NUMBER_3            = ", interface::Register::SERIAL_NUMBER_3           );
+  debug_dumpSingleReg(debug_interface, "SERIAL_NUMBER_2            = ", interface::Register::SERIAL_NUMBER_2           );
+  debug_dumpSingleReg(debug_interface, "SERIAL_NUMBER_1            = ", interface::Register::SERIAL_NUMBER_1           );
+  debug_dumpSingleReg(debug_interface, "SERIAL_NUMBER_0            = ", interface::Register::SERIAL_NUMBER_0           );
+  debug_dumpSingleReg(debug_interface, "CHIP_ID                    = ", interface::Register::CHIP_ID                   );
 }
 
 /**************************************************************************************
