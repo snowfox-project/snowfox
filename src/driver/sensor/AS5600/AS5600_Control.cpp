@@ -263,22 +263,22 @@ bool AS5600::isMagnetDetected(uint8_t const status)
 
 void AS5600::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
 {
-  debug_dumpSingleReg(debug_interface, "REG_ZMCO                = ", interface::Register::ZMCO               );
-  debug_dumpSingleReg(debug_interface, "REG_ZPOS_HIGH_BYTE      = ", interface::Register::ZPOS_HIGH_BYTE     );
-  debug_dumpSingleReg(debug_interface, "REG_ZPOS_LOW_BYTE       = ", interface::Register::ZPOS_LOW_BYTE      );
-  debug_dumpSingleReg(debug_interface, "REG_MPOS_HIGH_BYTE      = ", interface::Register::MPOS_HIGH_BYTE     );
-  debug_dumpSingleReg(debug_interface, "REG_MPOS_LOW_BYTE       = ", interface::Register::MPOS_LOW_BYTE      );
-  debug_dumpSingleReg(debug_interface, "REG_MANG_HIGH_BYTE      = ", interface::Register::MANG_HIGH_BYTE     );
-  debug_dumpSingleReg(debug_interface, "REG_MANG_LOW_BYTE       = ", interface::Register::MANG_LOW_BYTE      );
-  debug_dumpSingleReg(debug_interface, "REG_CONF_HIGH_BYTE      = ", interface::Register::CONF_HIGH_BYTE     );
-  debug_dumpSingleReg(debug_interface, "REG_CONF_LOW_BYTE       = ", interface::Register::CONF_LOW_BYTE      );
-  debug_dumpSingleReg(debug_interface, "REG_RAW_ANGLE_HIGH_BYTE = ", interface::Register::RAW_ANGLE_HIGH_BYTE);
-  debug_dumpSingleReg(debug_interface, "REG_RAW_ANGLE_LOW_BYTE  = ", interface::Register::RAW_ANGLE_LOW_BYTE );
-  debug_dumpSingleReg(debug_interface, "REG_ANGLE_HIGH_BYTE     = ", interface::Register::ANGLE_HIGH_BYTE    );
-  debug_dumpSingleReg(debug_interface, "REG_ANGLE_LOW_BYTE      = ", interface::Register::ANGLE_LOW_BYTE     );
-  debug_dumpSingleReg(debug_interface, "REG_AGC                 = ", interface::Register::AGC                );
-  debug_dumpSingleReg(debug_interface, "REG_MAGNITUDE_HIGH_BYTE = ", interface::Register::MAGNITUDE_HIGH_BYTE);
-  debug_dumpSingleReg(debug_interface, "REG_MAGNITUDE_LOW_BYTE  = ", interface::Register::MAGNITUDE_LOW_BYTE );
+  debug_dumpSingleReg(debug_interface, "ZMCO                = ", interface::Register::ZMCO               );
+  debug_dumpSingleReg(debug_interface, "ZPOS_HIGH_BYTE      = ", interface::Register::ZPOS_HIGH_BYTE     );
+  debug_dumpSingleReg(debug_interface, "ZPOS_LOW_BYTE       = ", interface::Register::ZPOS_LOW_BYTE      );
+  debug_dumpSingleReg(debug_interface, "MPOS_HIGH_BYTE      = ", interface::Register::MPOS_HIGH_BYTE     );
+  debug_dumpSingleReg(debug_interface, "MPOS_LOW_BYTE       = ", interface::Register::MPOS_LOW_BYTE      );
+  debug_dumpSingleReg(debug_interface, "MANG_HIGH_BYTE      = ", interface::Register::MANG_HIGH_BYTE     );
+  debug_dumpSingleReg(debug_interface, "MANG_LOW_BYTE       = ", interface::Register::MANG_LOW_BYTE      );
+  debug_dumpSingleReg(debug_interface, "CONF_HIGH_BYTE      = ", interface::Register::CONF_HIGH_BYTE     );
+  debug_dumpSingleReg(debug_interface, "CONF_LOW_BYTE       = ", interface::Register::CONF_LOW_BYTE      );
+  debug_dumpSingleReg(debug_interface, "RAW_ANGLE_HIGH_BYTE = ", interface::Register::RAW_ANGLE_HIGH_BYTE);
+  debug_dumpSingleReg(debug_interface, "RAW_ANGLE_LOW_BYTE  = ", interface::Register::RAW_ANGLE_LOW_BYTE );
+  debug_dumpSingleReg(debug_interface, "ANGLE_HIGH_BYTE     = ", interface::Register::ANGLE_HIGH_BYTE    );
+  debug_dumpSingleReg(debug_interface, "ANGLE_LOW_BYTE      = ", interface::Register::ANGLE_LOW_BYTE     );
+  debug_dumpSingleReg(debug_interface, "AGC                 = ", interface::Register::AGC                );
+  debug_dumpSingleReg(debug_interface, "MAGNITUDE_HIGH_BYTE = ", interface::Register::MAGNITUDE_HIGH_BYTE);
+  debug_dumpSingleReg(debug_interface, "MAGNITUDE_LOW_BYTE  = ", interface::Register::MAGNITUDE_LOW_BYTE );
 }
 
 /**************************************************************************************
