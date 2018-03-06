@@ -16,16 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_L3GD20_L3GD20_IO_I2C_H_
-#define INCLUDE_SPECTRE_DRIVER_SENSOR_L3GD20_L3GD20_IO_I2C_H_
-
 /**************************************************************************************
- * INCLUDE
+ * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/sensor/L3GD20/interface/L3GD20_IO_Interface.h>
-
-#include <spectre/hal/interface/i2c/I2CMaster.h>
+#include <spectre/driver/sensor/L3GD20/L3GD20_IoI2c.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -44,27 +39,51 @@ namespace L3GD20
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class L3GD20_IO_I2C : public L3GD20_IO_Interface
+L3GD20_IoI2c::L3GD20_IoI2c(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
+: _i2c_address(i2c_address),
+  _i2c_master (i2c_master )
 {
 
-public:
+}
 
-           L3GD20_IO_I2C(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master);
-  virtual ~L3GD20_IO_I2C();
+L3GD20_IoI2c::~L3GD20_IoI2c()
+{
 
+}
 
-  virtual bool writeMultipleRegister(RegisterSelect const reg_sel, uint8_t const  * data, uint16_t const num_bytes) override;
-  virtual bool readMultipleRegister (RegisterSelect const reg_sel, uint8_t        * data, uint16_t const num_bytes) override;
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
-private:
+bool L3GD20_IoI2c::readMultipleRegister(interface::RegisterSelect const reg_sel, uint8_t * data, uint16_t const num_bytes)
+{
+  uint8_t const reg_addr = static_cast<uint8_t>(reg_sel);
 
-  uint8_t                     _i2c_address;
-  hal::interface::I2CMaster & _i2c_master;
+  if(!_i2c_master.begin      (_i2c_address, false  )) return false;
+  if(!_i2c_master.write      (reg_addr             )) return false;
+  if(!_i2c_master.requestFrom(_i2c_address, data, 1)) return false;
 
-};
+  return true;
+}
+
+bool L3GD20_IoI2c::writeMultipleRegister(interface::RegisterSelect const reg_sel, uint8_t const  * data, uint16_t const num_bytes)
+{
+  uint8_t const reg_addr = static_cast<uint8_t>(reg_sel);
+
+  if(!_i2c_master.begin(_i2c_address, false)) return false;
+  if(!_i2c_master.write(reg_addr           )) return false;
+
+  for(uint16_t i = 0; i < num_bytes; i++)
+  {
+    if(!_i2c_master.write(data[i]          )) return false;
+  }
+      _i2c_master.end  (                   );
+
+  return true;
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -77,5 +96,3 @@ private:
 } /* driver */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_L3GD20_L3GD20_IO_I2C_H_ */

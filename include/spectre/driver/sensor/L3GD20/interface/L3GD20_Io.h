@@ -16,11 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_L3GD20_INTERFACE_L3GD20_IO_INTERFACE_H_
+#define INCLUDE_SPECTRE_DRIVER_SENSOR_L3GD20_INTERFACE_L3GD20_IO_INTERFACE_H_
+
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/sensor/L3GD20/L3GD20_IO_I2C.h>
+#include <stdint.h>
+#include <stdbool.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -38,56 +42,66 @@ namespace sensor
 namespace L3GD20
 {
 
-/**************************************************************************************
- * CTOR/DTOR
- **************************************************************************************/
-
-L3GD20_IO_I2C::L3GD20_IO_I2C(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
-: _i2c_address(i2c_address),
-  _i2c_master (i2c_master )
+namespace interface
 {
-
-}
-
-L3GD20_IO_I2C::~L3GD20_IO_I2C()
-{
-
-}
 
 /**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
+ * TYPEDEFS
  **************************************************************************************/
 
-bool L3GD20_IO_I2C::readMultipleRegister(RegisterSelect const reg_sel, uint8_t * data, uint16_t const num_bytes)
+typedef enum
 {
-  uint8_t const reg_addr = static_cast<uint8_t>(reg_sel);
+  REG_WHO_AM_I      = 0x0F,
+  REG_CTRL_REG1     = 0x20,
+  REG_CTRL_REG2     = 0x21,
+  REG_CTRL_REG3     = 0x22,
+  REG_CTRL_REG4     = 0x23,
+  REG_CTRL_REG5     = 0x24,
+  REG_REFERENCE     = 0x25,
+  REG_OUT_TEMP      = 0x26,
+  REG_STATUS_REG    = 0x27,
+  REG_OUT_X_L       = 0x28,
+  REG_OUT_X_H       = 0x29,
+  REG_OUT_Y_L       = 0x2A,
+  REG_OUT_Y_H       = 0x2B,
+  REG_OUT_Z_L       = 0x2C,
+  REG_OUT_Z_H       = 0x2D,
+  REG_FIFO_CTRL_REG = 0x2E,
+  REG_FIFO_SRC_REG  = 0x2F,
+  REG_INT1_CFG      = 0x30,
+  REG_INT1_SRC      = 0x31,
+  REG_TSH_XH        = 0x32,
+  REG_TSH_XL        = 0x33,
+  REG_TSH_YH        = 0x34,
+  REG_TSH_YL        = 0x35,
+  REG_TSH_ZH        = 0x36,
+  REG_TSH_ZL        = 0x37,
+  REG_INT1_DURATION = 0x38
+} RegisterSelect;
 
-  if(!_i2c_master.begin      (_i2c_address, false  )) return false;
-  if(!_i2c_master.write      (reg_addr             )) return false;
-  if(!_i2c_master.requestFrom(_i2c_address, data, 1)) return false;
+/**************************************************************************************
+ * CLASS DECLARATION
+ **************************************************************************************/
 
-  return true;
-}
-
-bool L3GD20_IO_I2C::writeMultipleRegister(RegisterSelect const reg_sel, uint8_t const  * data, uint16_t const num_bytes)
+class L3GD20_Io
 {
-  uint8_t const reg_addr = static_cast<uint8_t>(reg_sel);
 
-  if(!_i2c_master.begin(_i2c_address, false)) return false;
-  if(!_i2c_master.write(reg_addr           )) return false;
+public:
 
-  for(uint16_t i = 0; i < num_bytes; i++)
-  {
-    if(!_i2c_master.write(data[i]          )) return false;
-  }
-      _i2c_master.end  (                   );
+           L3GD20_Io() { }
+  virtual ~L3GD20_Io() { }
 
-  return true;
-}
+
+  virtual bool readMultipleRegister (RegisterSelect const reg_sel, uint8_t       * data, uint16_t const num_bytes) = 0;
+  virtual bool writeMultipleRegister(RegisterSelect const reg_sel, uint8_t const * data, uint16_t const num_bytes) = 0;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* L3GD20 */
 
@@ -96,3 +110,5 @@ bool L3GD20_IO_I2C::writeMultipleRegister(RegisterSelect const reg_sel, uint8_t 
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_L3GD20_INTERFACE_L3GD20_IO_INTERFACE_H_ */

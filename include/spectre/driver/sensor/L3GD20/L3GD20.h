@@ -25,7 +25,7 @@
 
 #include <spectre/driver/sensor/L3GD20/interface/L3GD20_Interface.h>
 #include <spectre/driver/sensor/L3GD20/interface/L3GD20_ConfigurationInterface.h>
-#include <spectre/driver/sensor/L3GD20/interface/L3GD20_IO_Interface.h>
+#include <spectre/driver/sensor/L3GD20/interface/L3GD20_Io.h>
 
 #include <spectre/debug/interface/Debug.h>
 
@@ -55,7 +55,7 @@ class L3GD20 : public L3GD20_Interface,
 
 public:
 
-           L3GD20(L3GD20_IO_Interface & io);
+           L3GD20(interface::L3GD20_Io & io);
   virtual ~L3GD20();
 
 
@@ -96,12 +96,12 @@ public:
 
 private:
 
-  L3GD20_IO_Interface & _io;
+  interface::L3GD20_Io & _io;
 
-  bool readSingleRegister   (RegisterSelect const reg_sel, uint8_t       * data);
-  bool writeSingleRegister  (RegisterSelect const reg_sel, uint8_t const   data);
+  bool readSingleRegister   (interface::RegisterSelect const reg_sel, uint8_t       * data);
+  bool writeSingleRegister  (interface::RegisterSelect const reg_sel, uint8_t const   data);
 
-  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel);
+  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, char const * msg, interface::RegisterSelect const reg_sel);
 
 };
 

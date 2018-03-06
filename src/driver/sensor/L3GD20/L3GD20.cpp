@@ -42,7 +42,7 @@ namespace L3GD20
  * CTOR/DTOR
  **************************************************************************************/
 
-L3GD20::L3GD20(L3GD20_IO_Interface & io)
+L3GD20::L3GD20(interface::L3GD20_Io & io)
 : _io(io)
 {
   enablePower          ();
@@ -63,12 +63,12 @@ bool L3GD20::setOutputDataRateAndBandwith(OutputDataRateAndBandwithSelect const 
 {
   uint8_t ctrl_reg1_content = 0;
 
-  if(!readSingleRegister(REG_CTRL_REG1, &ctrl_reg1_content)) return false;
+  if(!readSingleRegister(interface::REG_CTRL_REG1, &ctrl_reg1_content)) return false;
 
   ctrl_reg1_content &= ~(L3GD20_CTRL_REG1_DR1_bm | L3GD20_CTRL_REG1_DR0_bm | L3GD20_CTRL_REG1_BW1_bm | L3GD20_CTRL_REG1_BW0_bm);
   ctrl_reg1_content |= static_cast<uint8_t>(sel);
 
-  if(!writeSingleRegister(REG_CTRL_REG1, ctrl_reg1_content)) return false;
+  if(!writeSingleRegister(interface::REG_CTRL_REG1, ctrl_reg1_content)) return false;
 
   return true;
 }
@@ -77,12 +77,12 @@ bool L3GD20::setFullScale(FullScaleSelect const sel)
 {
   uint8_t ctrl_reg4_content = 0;
 
-  if(!readSingleRegister(REG_CTRL_REG4, &ctrl_reg4_content)) return false;
+  if(!readSingleRegister(interface::REG_CTRL_REG4, &ctrl_reg4_content)) return false;
 
   ctrl_reg4_content &= ~(L3GD20_CTRL_REG4_FS1_bm | L3GD20_CTRL_REG4_FS0_bm);
   ctrl_reg4_content |= static_cast<uint8_t>(sel);
 
-  if(!writeSingleRegister(REG_CTRL_REG4, ctrl_reg4_content)) return false;
+  if(!writeSingleRegister(interface::REG_CTRL_REG4, ctrl_reg4_content)) return false;
 
   return true;
 }
@@ -91,11 +91,11 @@ bool L3GD20::enableXYZAxis()
 {
   uint8_t ctrl_reg1_content = 0;
 
-  if(!readSingleRegister(REG_CTRL_REG1, &ctrl_reg1_content)) return false;
+  if(!readSingleRegister(interface::REG_CTRL_REG1, &ctrl_reg1_content)) return false;
 
   ctrl_reg1_content |= (L3GD20_CTRL_REG1_ZEN_bm | L3GD20_CTRL_REG1_YEN_bm | L3GD20_CTRL_REG1_XEN_bm);
 
-  if(!writeSingleRegister(REG_CTRL_REG1, ctrl_reg1_content)) return false;
+  if(!writeSingleRegister(interface::REG_CTRL_REG1, ctrl_reg1_content)) return false;
 
   return true;
 }
@@ -104,11 +104,11 @@ bool L3GD20::enableXAxis()
 {
   uint8_t ctrl_reg1_content = 0;
 
-  if(!readSingleRegister(REG_CTRL_REG1, &ctrl_reg1_content)) return false;
+  if(!readSingleRegister(interface::REG_CTRL_REG1, &ctrl_reg1_content)) return false;
 
   ctrl_reg1_content |= (L3GD20_CTRL_REG1_XEN_bm);
 
-  if(!writeSingleRegister(REG_CTRL_REG1, ctrl_reg1_content)) return false;
+  if(!writeSingleRegister(interface::REG_CTRL_REG1, ctrl_reg1_content)) return false;
 
   return true;
 }
@@ -117,11 +117,11 @@ bool L3GD20::enableYAxis()
 {
   uint8_t ctrl_reg1_content = 0;
 
-  if(!readSingleRegister(REG_CTRL_REG1, &ctrl_reg1_content)) return false;
+  if(!readSingleRegister(interface::REG_CTRL_REG1, &ctrl_reg1_content)) return false;
 
   ctrl_reg1_content |= (L3GD20_CTRL_REG1_YEN_bm);
 
-  if(!writeSingleRegister(REG_CTRL_REG1, ctrl_reg1_content)) return false;
+  if(!writeSingleRegister(interface::REG_CTRL_REG1, ctrl_reg1_content)) return false;
 
   return true;
 }
@@ -130,11 +130,11 @@ bool L3GD20::enableZAxis()
 {
   uint8_t ctrl_reg1_content = 0;
 
-  if(!readSingleRegister(REG_CTRL_REG1, &ctrl_reg1_content)) return false;
+  if(!readSingleRegister(interface::REG_CTRL_REG1, &ctrl_reg1_content)) return false;
 
   ctrl_reg1_content |= (L3GD20_CTRL_REG1_ZEN_bm);
 
-  if(!writeSingleRegister(REG_CTRL_REG1, ctrl_reg1_content)) return false;
+  if(!writeSingleRegister(interface::REG_CTRL_REG1, ctrl_reg1_content)) return false;
 
   return true;
 }
@@ -143,7 +143,7 @@ bool L3GD20::checkIfNewDataIsAvailable_XYZ(bool * is_new_data_available_xyz)
 {
   uint8_t status_reg_content  = 0;
 
-  if(!readSingleRegister(REG_STATUS_REG, &status_reg_content)) return false;
+  if(!readSingleRegister(interface::REG_STATUS_REG, &status_reg_content)) return false;
 
   *is_new_data_available_xyz = (status_reg_content & L3GD20_STATUS_REG_ZYXDA_bm) != 0;
 
@@ -154,7 +154,7 @@ bool L3GD20::checkIfNewDataIsAvailable_X(bool * is_new_data_available_x)
 {
   uint8_t status_reg_content  = 0;
 
-  if(!readSingleRegister(REG_STATUS_REG, &status_reg_content)) return false;
+  if(!readSingleRegister(interface::REG_STATUS_REG, &status_reg_content)) return false;
 
   *is_new_data_available_x = (status_reg_content & L3GD20_STATUS_REG_XDA_bm) != 0;
 
@@ -165,7 +165,7 @@ bool L3GD20::checkIfNewDataIsAvailable_Y(bool * is_new_data_available_y)
 {
   uint8_t status_reg_content  = 0;
 
-  if(!readSingleRegister(REG_STATUS_REG, &status_reg_content)) return false;
+  if(!readSingleRegister(interface::REG_STATUS_REG, &status_reg_content)) return false;
 
   *is_new_data_available_y = (status_reg_content & L3GD20_STATUS_REG_YDA_bm) != 0;
 
@@ -176,7 +176,7 @@ bool L3GD20::checkIfNewDataIsAvailable_Z(bool * is_new_data_available_z)
 {
   uint8_t status_reg_content  = 0;
 
-  if(!readSingleRegister(REG_STATUS_REG, &status_reg_content)) return false;
+  if(!readSingleRegister(interface::REG_STATUS_REG, &status_reg_content)) return false;
 
   *is_new_data_available_z = (status_reg_content & L3GD20_STATUS_REG_ZDA_bm) != 0;
 
@@ -187,7 +187,7 @@ bool L3GD20::checkIfDataOverrun_XYZ(bool * is_data_overrun_xyz)
 {
   uint8_t status_reg_content  = 0;
 
-  if(!readSingleRegister(REG_STATUS_REG, &status_reg_content)) return false;
+  if(!readSingleRegister(interface::REG_STATUS_REG, &status_reg_content)) return false;
 
   *is_data_overrun_xyz = (status_reg_content & L3GD20_STATUS_REG_ZYXOR_bm) != 0;
 
@@ -198,7 +198,7 @@ bool L3GD20::checkIfDataOverrun_X(bool * is_data_overrun_x)
 {
   uint8_t status_reg_content  = 0;
 
-  if(!readSingleRegister(REG_STATUS_REG, &status_reg_content)) return false;
+  if(!readSingleRegister(interface::REG_STATUS_REG, &status_reg_content)) return false;
 
   *is_data_overrun_x = (status_reg_content & L3GD20_STATUS_REG_XOR_bm) != 0;
 
@@ -209,7 +209,7 @@ bool L3GD20::checkIfDataOverrun_Y(bool * is_data_overrun_y)
 {
   uint8_t status_reg_content  = 0;
 
-  if(!readSingleRegister(REG_STATUS_REG, &status_reg_content)) return false;
+  if(!readSingleRegister(interface::REG_STATUS_REG, &status_reg_content)) return false;
 
   *is_data_overrun_y = (status_reg_content & L3GD20_STATUS_REG_YOR_bm) != 0;
 
@@ -220,7 +220,7 @@ bool L3GD20::checkIfDataOverrun_Z(bool * is_data_overrun_z)
 {
   uint8_t status_reg_content  = 0;
 
-  if(!readSingleRegister(REG_STATUS_REG, &status_reg_content)) return false;
+  if(!readSingleRegister(interface::REG_STATUS_REG, &status_reg_content)) return false;
 
   *is_data_overrun_z = (status_reg_content & L3GD20_STATUS_REG_ZOR_bm) != 0;
 
@@ -231,7 +231,7 @@ bool L3GD20::readXYZAxis(int16_t * raw_x, int16_t * raw_y, int16_t * raw_z)
 {
   uint8_t raw_xyz_data[6];
 
-  if(!_io.readMultipleRegister(static_cast<RegisterSelect>(0x80 | REG_OUT_X_L), raw_xyz_data, 6)) return false;
+  if(!_io.readMultipleRegister(static_cast<interface::RegisterSelect>(0x80 | interface::REG_OUT_X_L), raw_xyz_data, 6)) return false;
 
   uint8_t const x_l = raw_xyz_data[0];
   uint8_t const x_h = raw_xyz_data[1];
@@ -251,7 +251,7 @@ bool L3GD20::readXAxis(int16_t * raw_x)
 {
   uint8_t raw_x_data[2];
 
-  if(!_io.readMultipleRegister(static_cast<RegisterSelect>(0x80 | REG_OUT_X_L), raw_x_data, 2)) return false;
+  if(!_io.readMultipleRegister(static_cast<interface::RegisterSelect>(0x80 | interface::REG_OUT_X_L), raw_x_data, 2)) return false;
 
   uint8_t const x_l = raw_x_data[0];
   uint8_t const x_h = raw_x_data[1];
@@ -265,7 +265,7 @@ bool L3GD20::readYAxis(int16_t * raw_y)
 {
   uint8_t raw_y_data[2];
 
-  if(!_io.readMultipleRegister(static_cast<RegisterSelect>(0x80 | REG_OUT_Y_L), raw_y_data, 2)) return false;
+  if(!_io.readMultipleRegister(static_cast<interface::RegisterSelect>(0x80 | interface::REG_OUT_Y_L), raw_y_data, 2)) return false;
 
   uint8_t const y_l = raw_y_data[0];
   uint8_t const y_h = raw_y_data[1];
@@ -279,7 +279,7 @@ bool L3GD20::readZAxis(int16_t * raw_z)
 {
   uint8_t raw_z_data[2];
 
-  if(!_io.readMultipleRegister(static_cast<RegisterSelect>(0x80 | REG_OUT_Z_L), raw_z_data, 2)) return false;
+  if(!_io.readMultipleRegister(static_cast<interface::RegisterSelect>(0x80 | interface::REG_OUT_Z_L), raw_z_data, 2)) return false;
 
   uint8_t const z_l = raw_z_data[0];
   uint8_t const z_h = raw_z_data[1];
@@ -291,45 +291,45 @@ bool L3GD20::readZAxis(int16_t * raw_z)
 
 void L3GD20::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
 {
-  debug_dumpSingleReg(debug_interface, "REG_WHO_AM_I      = ", REG_WHO_AM_I     );
-  debug_dumpSingleReg(debug_interface, "REG_CTRL_REG1     = ", REG_CTRL_REG1    );
-  debug_dumpSingleReg(debug_interface, "REG_CTRL_REG2     = ", REG_CTRL_REG2    );
-  debug_dumpSingleReg(debug_interface, "REG_CTRL_REG3     = ", REG_CTRL_REG3    );
-  debug_dumpSingleReg(debug_interface, "REG_CTRL_REG4     = ", REG_CTRL_REG4    );
-  debug_dumpSingleReg(debug_interface, "REG_CTRL_REG5     = ", REG_CTRL_REG5    );
-  debug_dumpSingleReg(debug_interface, "REG_REFERENCE     = ", REG_REFERENCE    );
-  debug_dumpSingleReg(debug_interface, "REG_OUT_TEMP      = ", REG_OUT_TEMP     );
-  debug_dumpSingleReg(debug_interface, "REG_STATUS_REG    = ", REG_STATUS_REG   );
-  debug_dumpSingleReg(debug_interface, "REG_OUT_X_L       = ", REG_OUT_X_L      );
-  debug_dumpSingleReg(debug_interface, "REG_OUT_X_H       = ", REG_OUT_X_H      );
-  debug_dumpSingleReg(debug_interface, "REG_OUT_Y_L       = ", REG_OUT_Y_L      );
-  debug_dumpSingleReg(debug_interface, "REG_OUT_Y_H       = ", REG_OUT_Y_H      );
-  debug_dumpSingleReg(debug_interface, "REG_OUT_Z_L       = ", REG_OUT_Z_L      );
-  debug_dumpSingleReg(debug_interface, "REG_OUT_Z_H       = ", REG_OUT_Z_H      );
-  debug_dumpSingleReg(debug_interface, "REG_FIFO_CTRL_REG = ", REG_FIFO_CTRL_REG);
-  debug_dumpSingleReg(debug_interface, "REG_FIFO_SRC_REG  = ", REG_FIFO_SRC_REG );
-  debug_dumpSingleReg(debug_interface, "REG_INT1_CFG      = ", REG_INT1_CFG     );
-  debug_dumpSingleReg(debug_interface, "REG_INT1_SRC      = ", REG_INT1_SRC     );
-  debug_dumpSingleReg(debug_interface, "REG_TSH_XH        = ", REG_TSH_XH       );
-  debug_dumpSingleReg(debug_interface, "REG_TSH_XH        = ", REG_TSH_XH       );
-  debug_dumpSingleReg(debug_interface, "REG_TSH_XL        = ", REG_TSH_XL       );
-  debug_dumpSingleReg(debug_interface, "REG_TSH_YH        = ", REG_TSH_YH       );
-  debug_dumpSingleReg(debug_interface, "REG_TSH_YL        = ", REG_TSH_YL       );
-  debug_dumpSingleReg(debug_interface, "REG_TSH_ZH        = ", REG_TSH_ZH       );
-  debug_dumpSingleReg(debug_interface, "REG_TSH_ZL        = ", REG_TSH_ZL       );
-  debug_dumpSingleReg(debug_interface, "REG_INT1_DURATION = ", REG_INT1_DURATION);
+  debug_dumpSingleReg(debug_interface, "REG_WHO_AM_I      = ", interface::REG_WHO_AM_I     );
+  debug_dumpSingleReg(debug_interface, "REG_CTRL_REG1     = ", interface::REG_CTRL_REG1    );
+  debug_dumpSingleReg(debug_interface, "REG_CTRL_REG2     = ", interface::REG_CTRL_REG2    );
+  debug_dumpSingleReg(debug_interface, "REG_CTRL_REG3     = ", interface::REG_CTRL_REG3    );
+  debug_dumpSingleReg(debug_interface, "REG_CTRL_REG4     = ", interface::REG_CTRL_REG4    );
+  debug_dumpSingleReg(debug_interface, "REG_CTRL_REG5     = ", interface::REG_CTRL_REG5    );
+  debug_dumpSingleReg(debug_interface, "REG_REFERENCE     = ", interface::REG_REFERENCE    );
+  debug_dumpSingleReg(debug_interface, "REG_OUT_TEMP      = ", interface::REG_OUT_TEMP     );
+  debug_dumpSingleReg(debug_interface, "REG_STATUS_REG    = ", interface::REG_STATUS_REG   );
+  debug_dumpSingleReg(debug_interface, "REG_OUT_X_L       = ", interface::REG_OUT_X_L      );
+  debug_dumpSingleReg(debug_interface, "REG_OUT_X_H       = ", interface::REG_OUT_X_H      );
+  debug_dumpSingleReg(debug_interface, "REG_OUT_Y_L       = ", interface::REG_OUT_Y_L      );
+  debug_dumpSingleReg(debug_interface, "REG_OUT_Y_H       = ", interface::REG_OUT_Y_H      );
+  debug_dumpSingleReg(debug_interface, "REG_OUT_Z_L       = ", interface::REG_OUT_Z_L      );
+  debug_dumpSingleReg(debug_interface, "REG_OUT_Z_H       = ", interface::REG_OUT_Z_H      );
+  debug_dumpSingleReg(debug_interface, "REG_FIFO_CTRL_REG = ", interface::REG_FIFO_CTRL_REG);
+  debug_dumpSingleReg(debug_interface, "REG_FIFO_SRC_REG  = ", interface::REG_FIFO_SRC_REG );
+  debug_dumpSingleReg(debug_interface, "REG_INT1_CFG      = ", interface::REG_INT1_CFG     );
+  debug_dumpSingleReg(debug_interface, "REG_INT1_SRC      = ", interface::REG_INT1_SRC     );
+  debug_dumpSingleReg(debug_interface, "REG_TSH_XH        = ", interface::REG_TSH_XH       );
+  debug_dumpSingleReg(debug_interface, "REG_TSH_XH        = ", interface::REG_TSH_XH       );
+  debug_dumpSingleReg(debug_interface, "REG_TSH_XL        = ", interface::REG_TSH_XL       );
+  debug_dumpSingleReg(debug_interface, "REG_TSH_YH        = ", interface::REG_TSH_YH       );
+  debug_dumpSingleReg(debug_interface, "REG_TSH_YL        = ", interface::REG_TSH_YL       );
+  debug_dumpSingleReg(debug_interface, "REG_TSH_ZH        = ", interface::REG_TSH_ZH       );
+  debug_dumpSingleReg(debug_interface, "REG_TSH_ZL        = ", interface::REG_TSH_ZL       );
+  debug_dumpSingleReg(debug_interface, "REG_INT1_DURATION = ", interface::REG_INT1_DURATION);
 }
 
 /**************************************************************************************
  * PRIVATE FUNCTIONS
  **************************************************************************************/
 
-bool L3GD20::readSingleRegister(RegisterSelect const reg_sel, uint8_t * data)
+bool L3GD20::readSingleRegister(interface::RegisterSelect const reg_sel, uint8_t * data)
 {
   return _io.readMultipleRegister(reg_sel, data, 1);
 }
 
-bool L3GD20::writeSingleRegister(RegisterSelect const reg_sel, uint8_t const data)
+bool L3GD20::writeSingleRegister(interface::RegisterSelect const reg_sel, uint8_t const data)
 {
   return _io.writeMultipleRegister(reg_sel, &data, 1);
 }
@@ -338,11 +338,11 @@ bool L3GD20::enablePower()
 {
   uint8_t ctrl_reg1_content = 0;
 
-  if(!readSingleRegister(REG_CTRL_REG1, &ctrl_reg1_content)) return false;
+  if(!readSingleRegister(interface::REG_CTRL_REG1, &ctrl_reg1_content)) return false;
 
   ctrl_reg1_content |= L3GD20_CTRL_REG1_PD_bm;
 
-  if(!writeSingleRegister(REG_CTRL_REG1, ctrl_reg1_content)) return false;
+  if(!writeSingleRegister(interface::REG_CTRL_REG1, ctrl_reg1_content)) return false;
 
   return true;
 }
@@ -351,11 +351,11 @@ bool L3GD20::disableAllAxis()
 {
   uint8_t ctrl_reg1_content = 0;
 
-  if(!readSingleRegister(REG_CTRL_REG1, &ctrl_reg1_content)) return false;
+  if(!readSingleRegister(interface::REG_CTRL_REG1, &ctrl_reg1_content)) return false;
 
   ctrl_reg1_content &= ~(L3GD20_STATUS_REG_ZDA_bm | L3GD20_STATUS_REG_YDA_bm | L3GD20_STATUS_REG_XDA_bm);
 
-  if(!writeSingleRegister(REG_CTRL_REG1, ctrl_reg1_content)) return false;
+  if(!writeSingleRegister(interface::REG_CTRL_REG1, ctrl_reg1_content)) return false;
 
   return true;
 }
@@ -364,16 +364,16 @@ bool L3GD20::enableBlockDataUpdate()
 {
   uint8_t ctrl_reg4_content = 0;
 
-  if(!readSingleRegister(REG_CTRL_REG4, &ctrl_reg4_content)) return false;
+  if(!readSingleRegister(interface::REG_CTRL_REG4, &ctrl_reg4_content)) return false;
 
   ctrl_reg4_content |= L3GD20_CTRL_REG4_BDU_bm;
 
-  if(!writeSingleRegister(REG_CTRL_REG4, ctrl_reg4_content)) return false;
+  if(!writeSingleRegister(interface::REG_CTRL_REG4, ctrl_reg4_content)) return false;
 
   return true;
 }
 
-void L3GD20::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
+void L3GD20::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, interface::RegisterSelect const reg_sel)
 {
   uint8_t reg_content = 0;
 
