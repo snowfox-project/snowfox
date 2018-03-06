@@ -100,8 +100,8 @@ public:
   virtual ~DRV2605_Io() { }
 
 
-  virtual bool readSingleRegister (Register const reg, uint8_t       * data) = 0;
-  virtual bool writeSingleRegister(Register const reg, uint8_t const   data) = 0;
+  virtual bool readRegister (Register const reg, uint8_t       * data) = 0;
+  virtual bool writeRegister(Register const reg, uint8_t const   data) = 0;
 
 };
 
