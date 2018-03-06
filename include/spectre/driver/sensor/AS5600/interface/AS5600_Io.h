@@ -16,11 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_AS5600_INTERFACE_AS5600_IO_INTERFACE_H_
+#define INCLUDE_SPECTRE_DRIVER_SENSOR_AS5600_INTERFACE_AS5600_IO_INTERFACE_H_
+
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/sensor/AS5600/AS5600_IO_I2C.h>
+#include <stdint.h>
+#include <stdbool.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -38,56 +42,59 @@ namespace sensor
 namespace AS5600
 {
 
-/**************************************************************************************
- * CTOR/DTOR
- **************************************************************************************/
-
-AS5600_IO_I2C::AS5600_IO_I2C(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
-: _i2c_address(i2c_address),
-  _i2c_master (i2c_master )
+namespace interface
 {
-
-}
-
-AS5600_IO_I2C::~AS5600_IO_I2C()
-{
-
-}
 
 /**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
+ * TYPEDEFS
  **************************************************************************************/
 
-bool AS5600_IO_I2C::readMultipleRegister(RegisterSelect const reg_sel, uint8_t * data, uint16_t const num_bytes)
+enum class Register : uint8_t
 {
-  uint8_t const reg_addr = static_cast<uint8_t>(reg_sel);
+  ZMCO                = 0x00,
+  ZPOS_HIGH_BYTE      = 0x01,
+  ZPOS_LOW_BYTE       = 0x02,
+  MPOS_HIGH_BYTE      = 0x03,
+  MPOS_LOW_BYTE       = 0x04,
+  MANG_HIGH_BYTE      = 0x05,
+  MANG_LOW_BYTE       = 0x06,
+  CONF_HIGH_BYTE      = 0x07,
+  CONF_LOW_BYTE       = 0x08,
+  RAW_ANGLE_HIGH_BYTE = 0x0C,
+  RAW_ANGLE_LOW_BYTE  = 0x0D,
+  ANGLE_HIGH_BYTE     = 0x0E,
+  ANGLE_LOW_BYTE      = 0x0F,
+  STATUS              = 0x0B,
+  AGC                 = 0x1A,
+  MAGNITUDE_HIGH_BYTE = 0x1B,
+  MAGNITUDE_LOW_BYTE  = 0x1C
+};
 
-  if(!_i2c_master.begin      (_i2c_address, false  )) return false;
-  if(!_i2c_master.write      (reg_addr             )) return false;
-  if(!_i2c_master.requestFrom(_i2c_address, data, 1)) return false;
+/**************************************************************************************
+ * CLASS DECLARATION
+ **************************************************************************************/
 
-  return true;
-}
-
-bool AS5600_IO_I2C::writeMultipleRegister(RegisterSelect const reg_sel, uint8_t const  * data, uint16_t const num_bytes)
+class AS5600_Io
 {
-  uint8_t const reg_addr = static_cast<uint8_t>(reg_sel);
 
-  if(!_i2c_master.begin(_i2c_address, false)) return false;
-  if(!_i2c_master.write(reg_addr           )) return false;
+public:
 
-  for(uint16_t i = 0; i < num_bytes; i++)
-  {
-    if(!_i2c_master.write(data[i]          )) return false;
-  }
-      _i2c_master.end  (                   );
+           AS5600_Io() { }
+  virtual ~AS5600_Io() { }
 
-  return true;
-}
+
+  virtual bool readRegister (Register const reg, uint8_t       * data, uint16_t const num_bytes) = 0;
+  virtual bool readRegister (Register const reg, uint8_t       * data                          ) = 0;
+  virtual bool writeRegister(Register const reg, uint8_t const * data, uint16_t const num_bytes) = 0;
+  virtual bool writeRegister(Register const reg, uint8_t const   data                          ) = 0;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface*/
 
 } /* AS5600 */
 
@@ -96,3 +103,5 @@ bool AS5600_IO_I2C::writeMultipleRegister(RegisterSelect const reg_sel, uint8_t 
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_AS5600_INTERFACE_AS5600_IO_INTERFACE_H_ */

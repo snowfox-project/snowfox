@@ -16,15 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_AS5600_INTERFACE_AS5600_IO_INTERFACE_H_
-#define INCLUDE_SPECTRE_DRIVER_SENSOR_AS5600_INTERFACE_AS5600_IO_INTERFACE_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_AS5600_AS5600_IO_I2C_H_
+#define INCLUDE_SPECTRE_DRIVER_SENSOR_AS5600_AS5600_IO_I2C_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
-#include <stdbool.h>
+#include <spectre/driver/sensor/AS5600/interface/AS5600_Io.h>
+
+#include <spectre/hal/interface/i2c/I2CMaster.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -43,45 +44,28 @@ namespace AS5600
 {
 
 /**************************************************************************************
- * TYPEDEFS
- **************************************************************************************/
-
-typedef enum
-{
-  REG_ZMCO                = 0x00,
-  REG_ZPOS_HIGH_BYTE      = 0x01,
-  REG_ZPOS_LOW_BYTE       = 0x02,
-  REG_MPOS_HIGH_BYTE      = 0x03,
-  REG_MPOS_LOW_BYTE       = 0x04,
-  REG_MANG_HIGH_BYTE      = 0x05,
-  REG_MANG_LOW_BYTE       = 0x06,
-  REG_CONF_HIGH_BYTE      = 0x07,
-  REG_CONF_LOW_BYTE       = 0x08,
-  REG_RAW_ANGLE_HIGH_BYTE = 0x0C,
-  REG_RAW_ANGLE_LOW_BYTE  = 0x0D,
-  REG_ANGLE_HIGH_BYTE     = 0x0E,
-  REG_ANGLE_LOW_BYTE      = 0x0F,
-  REG_STATUS              = 0x0B,
-  REG_AGC                 = 0x1A,
-  REG_MAGNITUDE_HIGH_BYTE = 0x1B,
-  REG_MAGNITUDE_LOW_BYTE  = 0x1C
-} RegisterSelect;
-
-/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class AS5600_IO_Interface
+class AS5600_IoI2c : public interface::AS5600_Io
 {
 
 public:
 
-           AS5600_IO_Interface() { }
-  virtual ~AS5600_IO_Interface() { }
+           AS5600_IoI2c(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master);
+  virtual ~AS5600_IoI2c();
 
 
-  virtual bool readMultipleRegister (RegisterSelect const reg_sel, uint8_t       * data, uint16_t const num_bytes) = 0;
-  virtual bool writeMultipleRegister(RegisterSelect const reg_sel, uint8_t const * data, uint16_t const num_bytes) = 0;
+  virtual bool readRegister (interface::Register const reg, uint8_t       * data, uint16_t const num_bytes) override;
+  virtual bool readRegister (interface::Register const reg, uint8_t       * data                          ) override;
+  virtual bool writeRegister(interface::Register const reg, uint8_t const * data, uint16_t const num_bytes) override;
+  virtual bool writeRegister(interface::Register const reg, uint8_t const   data                          ) override;
+
+
+private:
+
+  uint8_t                     _i2c_address;
+  hal::interface::I2CMaster & _i2c_master;
 
 };
 
@@ -97,4 +81,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_AS5600_INTERFACE_AS5600_IO_INTERFACE_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_AS5600_AS5600_IO_I2C_H_ */

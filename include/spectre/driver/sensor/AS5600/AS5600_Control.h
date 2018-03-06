@@ -23,11 +23,11 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/sensor/AS5600/interface/AS5600_Interface.h>
-#include <spectre/driver/sensor/AS5600/interface/AS5600_ConfigurationInterface.h>
-#include <spectre/driver/sensor/AS5600/interface/AS5600_IO_Interface.h>
+#include <spectre/driver/sensor/AS5600/interface/AS5600_Control.h>
 
 #include <spectre/debug/interface/Debug.h>
+
+#include <spectre/driver/sensor/AS5600/interface/AS5600_Io.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -49,13 +49,12 @@ namespace AS5600
  * CLASS DECLARATION
  **************************************************************************************/
 
-class AS5600 : public AS5600_Interface,
-               public AS5600_ConfigurationInterface
+class AS5600 : public interface::AS5600_Control
 {
 
 public:
 
-           AS5600(AS5600_IO_Interface & io);
+           AS5600(interface::AS5600_Io & io);
   virtual ~AS5600();
 
 
@@ -71,34 +70,32 @@ public:
 
   /* AS5600 Configuration Interface */
 
-  virtual bool setPowerMode           (PowerModeSelect     const   sel        ) override;
-  virtual bool setHysteresis          (HysteresisSelect    const   sel        ) override;
-  virtual bool setOutputStage         (OutputStageSelect   const   sel        ) override;
-  virtual bool setPWMFrequency        (PWMFrequencySelect  const   sel        ) override;
-  virtual bool setSlowFilter          (SlowFilterSelect    const   sel        ) override;
-  virtual bool setFastFilterThreshold (FastFilterThreshold const   sel        ) override;
-  virtual bool enableWatchog          (                                       ) override;
-  virtual bool disableWatchog         (                                       ) override;
+  virtual bool setPowerMode           (interface::PowerModeSelect     const   sel        ) override;
+  virtual bool setHysteresis          (interface::HysteresisSelect    const   sel        ) override;
+  virtual bool setOutputStage         (interface::OutputStageSelect   const   sel        ) override;
+  virtual bool setPWMFrequency        (interface::PWMFrequencySelect  const   sel        ) override;
+  virtual bool setSlowFilter          (interface::SlowFilterSelect    const   sel        ) override;
+  virtual bool setFastFilterThreshold (interface::FastFilterThreshold const   sel        ) override;
+  virtual bool enableWatchog          (                                                  ) override;
+  virtual bool disableWatchog         (                                                  ) override;
 
-  virtual bool setAngularStartPosition(uint16_t            const   angle_start) override;
-  virtual bool setAngularStopPosition (uint16_t            const   angle_stop ) override;
-  virtual bool setMaximumAngle        (uint16_t            const   angle_max  ) override;
+  virtual bool setAngularStartPosition(uint16_t                       const   angle_start) override;
+  virtual bool setAngularStopPosition (uint16_t                       const   angle_stop ) override;
+  virtual bool setMaximumAngle        (uint16_t                       const   angle_max  ) override;
 
 
-  static bool  isMagnetTooStrong      (uint8_t             const   status     );
-  static bool  isMagnetTooWeak        (uint8_t             const   status     );
-  static bool  isMagnetDetected       (uint8_t             const   status     );
+  static bool  isMagnetTooStrong      (uint8_t                        const   status     );
+  static bool  isMagnetTooWeak        (uint8_t                        const   status     );
+  static bool  isMagnetDetected       (uint8_t                        const   status     );
+
 
          void  debug_dumpAllRegs      (debug::interface::Debug & debug_interface);
 
 private:
 
-  AS5600_IO_Interface & _io;
+  interface::AS5600_Io & _io;
 
-  bool readSingleRegister   (RegisterSelect const reg_sel, uint8_t       * data);
-  bool writeSingleRegister  (RegisterSelect const reg_sel, uint8_t const   data);
-
-  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel);
+  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, char const * msg, interface::Register const reg);
 
 };
 

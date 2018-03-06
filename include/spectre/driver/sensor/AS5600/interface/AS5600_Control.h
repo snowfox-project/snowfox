@@ -16,15 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_AS5600_INTERFACE_AS5600_INTERFACE_H_
-#define INCLUDE_SPECTRE_DRIVER_SENSOR_AS5600_INTERFACE_AS5600_INTERFACE_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_AS5600_INTERFACE_AS5600_CONTROL_H_
+#define INCLUDE_SPECTRE_DRIVER_SENSOR_AS5600_INTERFACE_AS5600_CONTROL_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
-#include <stdbool.h>
+#include <spectre/driver/sensor/AS5600/interface/AS5600_Interface.h>
+#include <spectre/driver/sensor/AS5600/interface/AS5600_ConfigurationInterface.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -49,14 +49,16 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class AS5600_Interface
+class AS5600_Control
 {
 
 public:
 
-           AS5600_Interface() { }
-  virtual ~AS5600_Interface() { }
+           AS5600_Control() { }
+  virtual ~AS5600_Control() { }
 
+
+  /* AS5600 Interface */
 
   virtual bool readAngle    (uint16_t * angle    ) = 0;
   virtual bool readAngleRaw (uint16_t * angle_raw) = 0;
@@ -64,6 +66,22 @@ public:
   virtual bool readStatus   (uint8_t  * status   ) = 0;
   virtual bool readAGC      (uint8_t  * agc      ) = 0;
   virtual bool readMagnitude(uint16_t * mag      ) = 0;
+
+
+  /* AS5600 Configuration Interface */
+
+  virtual bool setPowerMode           (PowerModeSelect     const   sel        ) = 0;
+  virtual bool setHysteresis          (HysteresisSelect    const   sel        ) = 0;
+  virtual bool setOutputStage         (OutputStageSelect   const   sel        ) = 0;
+  virtual bool setPWMFrequency        (PWMFrequencySelect  const   sel        ) = 0;
+  virtual bool setSlowFilter          (SlowFilterSelect    const   sel        ) = 0;
+  virtual bool setFastFilterThreshold (FastFilterThreshold const   sel        ) = 0;
+  virtual bool enableWatchog          (                                       ) = 0;
+  virtual bool disableWatchog         (                                       ) = 0;
+
+  virtual bool setAngularStartPosition(uint16_t            const   angle_start) = 0;
+  virtual bool setAngularStopPosition (uint16_t            const   angle_stop ) = 0;
+  virtual bool setMaximumAngle        (uint16_t            const   angle_max  ) = 0;
 
 };
 
@@ -81,4 +99,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_AS5600_INTERFACE_AS5600_INTERFACE_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_AS5600_INTERFACE_AS5600_CONTROL_H_ */
