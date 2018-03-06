@@ -58,7 +58,7 @@ AD7151_IoI2c::~AD7151_IoI2c()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool AD7151_IoI2c::readMultipleRegister(interface::Register const reg, uint8_t * data, uint16_t const num_bytes)
+bool AD7151_IoI2c::readRegister(interface::Register const reg, uint8_t * data, uint16_t const num_bytes)
 {
   uint8_t const reg_addr = static_cast<uint8_t>(reg);
 
@@ -69,7 +69,12 @@ bool AD7151_IoI2c::readMultipleRegister(interface::Register const reg, uint8_t *
   return true;
 }
 
-bool AD7151_IoI2c::writeMultipleRegister(interface::Register const reg, uint8_t const  * data, uint16_t const num_bytes)
+bool AD7151_IoI2c::readRegister(interface::Register const reg, uint8_t * data)
+{
+  return readRegister(reg, data, 1);
+}
+
+bool AD7151_IoI2c::writeRegister(interface::Register const reg, uint8_t const  * data, uint16_t const num_bytes)
 {
   uint8_t const reg_addr = static_cast<uint8_t>(reg);
 
@@ -83,6 +88,11 @@ bool AD7151_IoI2c::writeMultipleRegister(interface::Register const reg, uint8_t 
       _i2c_master.end  (                   );
 
   return true;
+}
+
+bool AD7151_IoI2c::writeRegister(interface::Register const reg, uint8_t const data)
+{
+  return writeRegister(reg, &data, 1);
 }
 
 /**************************************************************************************

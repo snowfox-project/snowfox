@@ -82,8 +82,10 @@ public:
   virtual ~AD7151_IO_Interface() { }
 
 
-  virtual bool writeMultipleRegister(Register const reg, uint8_t const  * data, uint16_t const num_bytes) = 0;
-  virtual bool readMultipleRegister (Register const reg, uint8_t        * data, uint16_t const num_bytes) = 0;
+  virtual bool readRegister (Register const reg, uint8_t        * data, uint16_t const num_bytes) = 0;
+  virtual bool readRegister (Register const reg, uint8_t        * data                          ) = 0;
+  virtual bool writeRegister(Register const reg, uint8_t const  * data, uint16_t const num_bytes) = 0;
+  virtual bool writeRegister(Register const reg, uint8_t const    data                          ) = 0;
 
 };
 

@@ -77,12 +77,12 @@ bool AD7151_Control::setCapacitiveInputRange(interface::CapacitiveInputRangeSele
 {
   uint8_t setup_reg_content = 0;
 
-  if(!readSingleRegister(interface::Register::SETUP, &setup_reg_content)) return false;
+  if(!_io.readRegister(interface::Register::SETUP, &setup_reg_content)) return false;
 
   setup_reg_content &= ~(AD7151_SETUP_REG_RNG_H_bm | AD7151_SETUP_REG_RNG_L_bm);
   setup_reg_content |= static_cast<uint8_t>(sel);
 
-  if(!writeSingleRegister(interface::Register::SETUP, setup_reg_content)) return false;
+  if(!_io.writeRegister(interface::Register::SETUP, setup_reg_content)) return false;
 
   return true;
 }
@@ -91,12 +91,12 @@ bool AD7151_Control::startSingleConversion()
 {
   uint8_t configuration_reg_content = 0;
 
-  if(!readSingleRegister(interface::Register::CONFIGURATION, &configuration_reg_content)) return false;
+  if(!_io.readRegister(interface::Register::CONFIGURATION, &configuration_reg_content)) return false;
 
   configuration_reg_content &= ~(AD7151_CONFIG_REG_ENABLE_CONVERSION_bm | AD7151_CONFIG_REG_MODE_2_bm | AD7151_CONFIG_REG_MODE_1_bm | AD7151_CONFIG_REG_MODE_0_bm);
   configuration_reg_content |= (AD7151_CONFIG_REG_ENABLE_CONVERSION_bm | AD7151_CONFIG_REG_MODE_1_bm);
 
-  if(!writeSingleRegister(interface::Register::CONFIGURATION, configuration_reg_content)) return false;
+  if(!_io.writeRegister(interface::Register::CONFIGURATION, configuration_reg_content)) return false;
 
   return true;
 }
@@ -105,7 +105,7 @@ bool AD7151_Control::checkIfConversionIsComplete(bool *is_conversion_complete)
 {
   uint8_t status_reg_content  = 0;
 
-  if(!readSingleRegister(interface::Register::STATUS, &status_reg_content)) return false;
+  if(!_io.readRegister(interface::Register::STATUS, &status_reg_content)) return false;
 
   *is_conversion_complete = (status_reg_content & AD7151_SETUP_REG_nDRDY_bm) == 0;
 
@@ -116,7 +116,7 @@ bool AD7151_Control::readConversionResult(uint16_t * raw_data)
 {
   uint8_t data_regs_content[2] = {0};
 
-  if(!_io.readMultipleRegister(interface::Register::DATA_HIGH, data_regs_content, 2)) return false;
+  if(!_io.readRegister(interface::Register::DATA_HIGH, data_regs_content, 2)) return false;
 
   *raw_data = (static_cast<uint16_t>(data_regs_content[0]) << 8) + static_cast<uint16_t>(data_regs_content[1]);
 
@@ -146,21 +146,11 @@ void AD7151_Control::debug_dumpAllRegs(debug::interface::Debug & debug_interface
  * PRIVATE FUNCTIONS
  **************************************************************************************/
 
-bool AD7151_Control::readSingleRegister(interface::Register const reg, uint8_t * data)
-{
-  return _io.readMultipleRegister(reg, data, 1);
-}
-
-bool AD7151_Control::writeSingleRegister(interface::Register const reg, uint8_t const data)
-{
-  return _io.writeMultipleRegister(reg, &data, 1);
-}
-
 void AD7151_Control::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, interface::Register const reg)
 {
   uint8_t reg_content = 0;
 
-  readSingleRegister(reg, &reg_content);
+  _io.readRegister(reg, &reg_content);
 
   debug_interface.print("%s%X\n", msg, reg_content);
 }

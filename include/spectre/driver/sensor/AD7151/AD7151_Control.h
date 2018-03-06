@@ -76,8 +76,6 @@ private:
 
   interface::AD7151_IO_Interface & _io;
 
-  bool readSingleRegister   (interface::Register const reg, uint8_t        * data);
-  bool writeSingleRegister  (interface::Register const reg, uint8_t const    data);
 
   void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, char const * msg, interface::Register const reg);
 
