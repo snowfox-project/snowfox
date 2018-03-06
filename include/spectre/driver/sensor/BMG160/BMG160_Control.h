@@ -23,11 +23,11 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/sensor/BMG160/interface/BMG160_Interface.h>
-#include <spectre/driver/sensor/BMG160/interface/BMG160_ConfigurationInterface.h>
-#include <spectre/driver/sensor/BMG160/interface/BMG160_IO_Interface.h>
+#include <spectre/driver/sensor/BMG160/interface/BMG160_Control.h>
 
 #include <spectre/debug/interface/Debug.h>
+
+#include <spectre/driver/sensor/BMG160/interface/BMG160_Io.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -49,14 +49,13 @@ namespace BMG160
  * CLASS DECLARATION
  **************************************************************************************/
 
-class BMG160 : public BMG160_Interface,
-               public BMG160_ConfigurationInterface
+class BMG160_Control : public interface::BMG160_Control
 {
 
 public:
 
-           BMG160(BMG160_IO_Interface & io);
-  virtual ~BMG160();
+           BMG160_Control(interface::BMG160_Io & io);
+  virtual ~BMG160_Control();
 
 
   /* BMG160 Interface */
@@ -70,19 +69,17 @@ public:
 
   /* BMG160 Configuration Interface */
 
-  virtual bool setOutputDataRateAndBandwith (OutputDataRateAndBandwithSelect const sel) override;
-  virtual bool setFullScale                 (FullScaleSelect                 const sel) override;
+  virtual bool setOutputDataRateAndBandwith (interface::OutputDataRateAndBandwithSelect const sel) override;
+  virtual bool setFullScale                 (interface::FullScaleSelect                 const sel) override;
+
 
           void debug_dumpAllRegs            (debug::interface::Debug & debug_interface);
 
 private:
 
-  BMG160_IO_Interface & _io;
+  interface::BMG160_Io & _io;
 
-  bool readSingleRegister   (RegisterSelect const reg_sel, uint8_t       * data);
-  bool writeSingleRegister  (RegisterSelect const reg_sel, uint8_t const   data);
-
-  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel);
+  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, char const * msg, interface::Register const reg);
 
 };
 

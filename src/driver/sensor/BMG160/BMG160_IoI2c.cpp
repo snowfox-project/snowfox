@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/sensor/BMG160/BMG160_IO_I2C.h>
+#include <spectre/driver/sensor/BMG160/BMG160_IoI2c.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,14 +42,14 @@ namespace BMG160
  * CTOR/DTOR
  **************************************************************************************/
 
-BMG160_IO_I2C::BMG160_IO_I2C(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
+BMG160_IoI2c::BMG160_IoI2c(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
 : _i2c_address(i2c_address),
   _i2c_master (i2c_master )
 {
 
 }
 
-BMG160_IO_I2C::~BMG160_IO_I2C()
+BMG160_IoI2c::~BMG160_IoI2c()
 {
 
 }
@@ -58,9 +58,20 @@ BMG160_IO_I2C::~BMG160_IO_I2C()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool BMG160_IO_I2C::readMultipleRegister(RegisterSelect const reg_sel, uint8_t * data, uint16_t const num_bytes)
+bool BMG160_IoI2c::readRegister(interface::Register const reg, uint8_t * data, uint16_t const num_bytes)
 {
-  uint8_t const reg_addr = static_cast<uint8_t>(reg_sel);
+  uint8_t const reg_addr = (0x80 | static_cast<uint8_t>(reg));
+
+  if(!_i2c_master.begin      (_i2c_address, false          )) return false;
+  if(!_i2c_master.write      (reg_addr                     )) return false;
+  if(!_i2c_master.requestFrom(_i2c_address, data, num_bytes)) return false;
+
+  return true;
+}
+
+bool BMG160_IoI2c::readRegister(interface::Register const reg, uint8_t * data)
+{
+  uint8_t const reg_addr = static_cast<uint8_t>(reg);
 
   if(!_i2c_master.begin      (_i2c_address, false  )) return false;
   if(!_i2c_master.write      (reg_addr             )) return false;
@@ -69,9 +80,9 @@ bool BMG160_IO_I2C::readMultipleRegister(RegisterSelect const reg_sel, uint8_t *
   return true;
 }
 
-bool BMG160_IO_I2C::writeMultipleRegister(RegisterSelect const reg_sel, uint8_t const  * data, uint16_t const num_bytes)
+bool BMG160_IoI2c::writeRegister(interface::Register const reg, uint8_t const  * data, uint16_t const num_bytes)
 {
-  uint8_t const reg_addr = static_cast<uint8_t>(reg_sel);
+  uint8_t const reg_addr = (0x80 | static_cast<uint8_t>(reg));
 
   if(!_i2c_master.begin(_i2c_address, false)) return false;
   if(!_i2c_master.write(reg_addr           )) return false;
@@ -80,6 +91,18 @@ bool BMG160_IO_I2C::writeMultipleRegister(RegisterSelect const reg_sel, uint8_t 
   {
     if(!_i2c_master.write(data[i]          )) return false;
   }
+      _i2c_master.end  (                   );
+
+  return true;
+}
+
+bool BMG160_IoI2c::writeRegister(interface::Register const reg, uint8_t const data)
+{
+  uint8_t const reg_addr = static_cast<uint8_t>(reg);
+
+  if(!_i2c_master.begin(_i2c_address, false)) return false;
+  if(!_i2c_master.write(reg_addr           )) return false;
+  if(!_i2c_master.write(data               )) return false;
       _i2c_master.end  (                   );
 
   return true;

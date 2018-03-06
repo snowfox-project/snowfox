@@ -16,15 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_BMG160_INTERFACE_BMG160_INTERFACE_H_
-#define INCLUDE_SPECTRE_DRIVER_SENSOR_BMG160_INTERFACE_BMG160_INTERFACE_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_BMG160_INTERFACE_BMG160_CONTROL_H_
+#define INCLUDE_SPECTRE_DRIVER_SENSOR_BMG160_INTERFACE_BMG160_CONTROL_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
-#include <stdbool.h>
+#include <spectre/driver/sensor/BMG160/interface/BMG160_Interface.h>
+#include <spectre/driver/sensor/BMG160/interface/BMG160_Configuration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -49,20 +49,29 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class BMG160_Interface
+class BMG160_Control : public BMG160_Interface,
+                       public BMG160_Configuration
 {
 
 public:
 
-           BMG160_Interface() { }
-  virtual ~BMG160_Interface() { }
+           BMG160_Control() { }
+  virtual ~BMG160_Control() { }
 
+
+  /* BMG160 Interface */
 
   virtual bool readXYZAxis    (int16_t * raw_x, int16_t * raw_y, int16_t * raw_z) = 0;
   virtual bool readXAxis      (int16_t * raw_x                                  ) = 0;
   virtual bool readYAxis      (int16_t * raw_y                                  ) = 0;
   virtual bool readZAxis      (int16_t * raw_z                                  ) = 0;
   virtual bool readTemperature(int8_t  * raw_temp                               ) = 0;
+
+
+  /* BMG160 Configuration Interface */
+
+  virtual bool setOutputDataRateAndBandwith (OutputDataRateAndBandwithSelect const sel) = 0;
+  virtual bool setFullScale                 (FullScaleSelect                 const sel) = 0;
 
 };
 
@@ -80,4 +89,6 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_BMG160_INTERFACE_BMG160_INTERFACE_H_ */
+
+
+#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_BMG160_INTERFACE_BMG160_CONTROL_H_ */

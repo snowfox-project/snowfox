@@ -42,6 +42,9 @@ namespace sensor
 namespace BMG160
 {
 
+namespace interface
+{
+
 /**************************************************************************************
  * DEFINES
  **************************************************************************************/
@@ -85,13 +88,13 @@ typedef enum
  * CLASS DECLARATION
  **************************************************************************************/
 
-class BMG160_ConfigurationInterface
+class BMG160_Configuration
 {
 
 public:
 
-           BMG160_ConfigurationInterface() { }
-  virtual ~BMG160_ConfigurationInterface() { }
+           BMG160_Configuration() { }
+  virtual ~BMG160_Configuration() { }
 
 
   virtual bool setOutputDataRateAndBandwith (OutputDataRateAndBandwithSelect const sel) = 0;
@@ -102,6 +105,8 @@ public:
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* BMG160 */
 

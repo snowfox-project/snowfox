@@ -23,7 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/sensor/BMG160/interface/BMG160_IO_Interface.h>
+#include <spectre/driver/sensor/BMG160/interface/BMG160_Io.h>
 
 #include <spectre/hal/interface/i2c/I2CMaster.h>
 
@@ -47,17 +47,19 @@ namespace BMG160
  * CLASS DECLARATION
  **************************************************************************************/
 
-class BMG160_IO_I2C : public BMG160_IO_Interface
+class BMG160_IoI2c : public interface::BMG160_Io
 {
 
 public:
 
-            BMG160_IO_I2C(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master);
-  virtual ~BMG160_IO_I2C();
+           BMG160_IoI2c(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master);
+  virtual ~BMG160_IoI2c();
 
 
-  virtual bool writeMultipleRegister(RegisterSelect const reg_sel, uint8_t const  * data, uint16_t const num_bytes) override;
-  virtual bool readMultipleRegister (RegisterSelect const reg_sel, uint8_t        * data, uint16_t const num_bytes) override;
+  virtual bool readRegister (interface::Register const reg, uint8_t       * data, uint16_t const num_bytes) override;
+  virtual bool readRegister (interface::Register const reg, uint8_t       * data                          ) override;
+  virtual bool writeRegister(interface::Register const reg, uint8_t const * data, uint16_t const num_bytes) override;
+  virtual bool writeRegister(interface::Register const reg, uint8_t const   data                          ) override;
 
 
 private:
