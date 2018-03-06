@@ -153,12 +153,12 @@ bool INA220_Control::readBusVoltage(int16_t * bus_voltage)
 
 void INA220_Control::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
 {
-  debug_dumpSingleReg(debug_interface, "REG_CONFIG      = ", interface::Register::CONFIG     );
-  debug_dumpSingleReg(debug_interface, "REG_V_SHUNT     = ", interface::Register::V_SHUNT    );
-  debug_dumpSingleReg(debug_interface, "REG_V_BUS       = ", interface::Register::V_BUS      );
-  debug_dumpSingleReg(debug_interface, "REG_POWER       = ", interface::Register::POWER      );
-  debug_dumpSingleReg(debug_interface, "REG_CURRENT     = ", interface::Register::CURRENT    );
-  debug_dumpSingleReg(debug_interface, "REG_CALIBRATION = ", interface::Register::CALIBRATION);
+  debug_dumpSingleReg(debug_interface, "CONFIG      = ", interface::Register::CONFIG     );
+  debug_dumpSingleReg(debug_interface, "V_SHUNT     = ", interface::Register::V_SHUNT    );
+  debug_dumpSingleReg(debug_interface, "V_BUS       = ", interface::Register::V_BUS      );
+  debug_dumpSingleReg(debug_interface, "POWER       = ", interface::Register::POWER      );
+  debug_dumpSingleReg(debug_interface, "CURRENT     = ", interface::Register::CURRENT    );
+  debug_dumpSingleReg(debug_interface, "CALIBRATION = ", interface::Register::CALIBRATION);
 }
 
 /**************************************************************************************
