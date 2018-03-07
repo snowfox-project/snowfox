@@ -23,11 +23,11 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/sensor/LIS2DSH/interface/LIS2DSH_Interface.h>
-#include <spectre/driver/sensor/LIS2DSH/interface/LIS2DSH_ConfigurationInterface.h>
-#include <spectre/driver/sensor/LIS2DSH/interface/LIS2DSH_IO_Interface.h>
+#include <spectre/driver/sensor/LIS2DSH/interface/LIS2DSH_Control.h>
 
 #include <spectre/debug/interface/Debug.h>
+
+#include <spectre/driver/sensor/LIS2DSH/interface/LIS2DSH_Io.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -49,13 +49,12 @@ namespace LIS2DSH
  * CLASS DECLARATION
  **************************************************************************************/
 
-class LIS2DSH : public LIS2DSH_Interface,
-                public LIS2DSH_ConfigurationInterface
+class LIS2DSH : public interface::LIS2DSH_Control
 {
 
 public:
 
-           LIS2DSH(LIS2DSH_IO_Interface & io);
+           LIS2DSH(interface::LIS2DSH_Io & io);
   virtual ~LIS2DSH();
 
 
@@ -82,32 +81,29 @@ public:
 
   /* LIS2DSH Configuration Interface */
 
-  virtual bool setOperatingMode       (OperatingModeSelect  const sel) override;
-  virtual bool setOutputDataRate      (OutputDataRateSelect const sel) override;
-  virtual bool setFullScaleRange      (FullScaleRangeSelect const sel) override;
-  virtual bool setFIFOMode            (FIFOModeSelect       const sel) override;
+  virtual bool setOperatingMode                     (interface::OperatingModeSelect  const sel) override;
+  virtual bool setOutputDataRate                    (interface::OutputDataRateSelect const sel) override;
+  virtual bool setFullScaleRange                    (interface::FullScaleRangeSelect const sel) override;
+  virtual bool setFIFOMode                          (interface::FIFOModeSelect       const sel) override;
 
-  virtual bool enableFIFO             () override;
-  virtual bool disableFIFO            () override;
-  virtual bool enableBlockDataUpdate  () override;
-  virtual bool enableTemperatureSensor() override;
+  virtual bool enableFIFO                           () override;
+  virtual bool disableFIFO                          () override;
+  virtual bool enableBlockDataUpdate                () override;
+  virtual bool enableTemperatureSensor              () override;
 
-  virtual bool enableXYZAxis          () override;
-  virtual bool enableXAxis            () override;
-  virtual bool enableYAxis            () override;
-  virtual bool enableZAxis            () override;
+  virtual bool enableXYZAxis                        () override;
+  virtual bool enableXAxis                          () override;
+  virtual bool enableYAxis                          () override;
+  virtual bool enableZAxis                          () override;
 
 
           void debug_dumpAllRegs      (debug::interface::Debug & debug_interface);
 
 private:
 
-  LIS2DSH_IO_Interface & _io;
+  interface::LIS2DSH_Io & _io;
 
-  bool readSingleRegister   (RegisterSelect const reg_sel, uint8_t       * data);
-  bool writeSingleRegister  (RegisterSelect const reg_sel, uint8_t const   data);
-
-  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel);
+  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, char const * msg, interface::Register const reg);
 
 };
 

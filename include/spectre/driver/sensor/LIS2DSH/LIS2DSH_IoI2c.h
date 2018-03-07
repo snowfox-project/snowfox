@@ -23,7 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/sensor/LIS2DSH/interface/LIS2DSH_IO_Interface.h>
+#include <spectre/driver/sensor/LIS2DSH/interface/LIS2DSH_Io.h>
 
 #include <spectre/hal/interface/i2c/I2CMaster.h>
 
@@ -47,17 +47,19 @@ namespace LIS2DSH
  * CLASS DECLARATION
  **************************************************************************************/
 
-class LIS2DSH_IO_I2C : public LIS2DSH_IO_Interface
+class LIS2DSH_IoI2c : public interface::LIS2DSH_Io
 {
 
 public:
 
-           LIS2DSH_IO_I2C(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master);
-  virtual ~LIS2DSH_IO_I2C();
+           LIS2DSH_IoI2c(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master);
+  virtual ~LIS2DSH_IoI2c();
 
 
-  virtual bool writeMultipleRegister(RegisterSelect const reg_sel, uint8_t const  * data, uint16_t const num_bytes) override;
-  virtual bool readMultipleRegister (RegisterSelect const reg_sel, uint8_t        * data, uint16_t const num_bytes) override;
+  virtual bool readRegister (interface::Register const reg, uint8_t       * data, uint16_t const num_bytes) override;
+  virtual bool readRegister (interface::Register const reg, uint8_t       * data                          ) override;
+  virtual bool writeRegister(interface::Register const reg, uint8_t const * data, uint16_t const num_bytes) override;
+  virtual bool writeRegister(interface::Register const reg, uint8_t const   data                          ) override;
 
 private:
 

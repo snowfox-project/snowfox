@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/sensor/LIS2DSH/LIS2DSH.h>
+#include <spectre/driver/sensor/LIS2DSH/LIS2DSH_Control.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,7 +42,7 @@ namespace LIS2DSH
  * CTOR/DTOR
  **************************************************************************************/
 
-LIS2DSH::LIS2DSH(LIS2DSH_IO_Interface & io)
+LIS2DSH::LIS2DSH(interface::LIS2DSH_Io & io)
 : _io(io)
 {
   enableBlockDataUpdate  ();
@@ -58,30 +58,30 @@ LIS2DSH::~LIS2DSH()
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-bool LIS2DSH::setOperatingMode(OperatingModeSelect const sel)
+bool LIS2DSH::setOperatingMode(interface::OperatingModeSelect const sel)
 {
   uint8_t ctrl_reg1_content = 0,
           ctrl_reg4_content = 0;
 
-  if(!readSingleRegister(REG_CTRL_REG1, &ctrl_reg1_content)) return false;
-  if(!readSingleRegister(REG_CTRL_REG4, &ctrl_reg4_content)) return false;
+  if(!_io.readRegister(interface::Register::CTRL_REG1, &ctrl_reg1_content)) return false;
+  if(!_io.readRegister(interface::Register::CTRL_REG4, &ctrl_reg4_content)) return false;
 
   ctrl_reg1_content &= ~(LIS2DSH_CTRL_REG_1_LPEN_bm);
   ctrl_reg4_content &= ~(LIS2DSH_CTRL_REG_4_HR_bm);
 
   switch(sel)
   {
-  case OM_8_Bit_Low_Power:
+  case interface::OM_8_Bit_Low_Power:
   {
     ctrl_reg1_content |= LIS2DSH_CTRL_REG_1_LPEN_bm;
   }
   break;
-  case OM_10_Bit_Normal:
+  case interface::OM_10_Bit_Normal:
   {
 
   }
   break;
-  case OM_12_Bit_High_Resolution:
+  case interface::OM_12_Bit_High_Resolution:
   {
     ctrl_reg4_content |= LIS2DSH_CTRL_REG_4_HR_bm;
   }
@@ -89,50 +89,50 @@ bool LIS2DSH::setOperatingMode(OperatingModeSelect const sel)
   default: break;
   }
 
-  if(!writeSingleRegister(REG_CTRL_REG1, ctrl_reg1_content)) return false;
-  if(!writeSingleRegister(REG_CTRL_REG4, ctrl_reg4_content)) return false;
+  if(!_io.writeRegister(interface::Register::CTRL_REG1, ctrl_reg1_content)) return false;
+  if(!_io.writeRegister(interface::Register::CTRL_REG4, ctrl_reg4_content)) return false;
 
   return true;
 }
 
-bool LIS2DSH::setOutputDataRate(OutputDataRateSelect const sel)
+bool LIS2DSH::setOutputDataRate(interface::OutputDataRateSelect const sel)
 {
   uint8_t ctrl_reg1_content = 0;
 
-  if(!readSingleRegister(REG_CTRL_REG1, &ctrl_reg1_content)) return false;
+  if(!_io.readRegister(interface::Register::CTRL_REG1, &ctrl_reg1_content)) return false;
 
   ctrl_reg1_content &=  ~(LIS2DSH_CTRL_REG_1_ODR_3_bm | LIS2DSH_CTRL_REG_1_ODR_2_bm | LIS2DSH_CTRL_REG_1_ODR_1_bm | LIS2DSH_CTRL_REG_1_ODR_0_bm);
   ctrl_reg1_content |= static_cast<uint8_t>(sel);
 
-  if(!writeSingleRegister(REG_CTRL_REG1, ctrl_reg1_content)) return false;
+  if(!_io.writeRegister(interface::Register::CTRL_REG1, ctrl_reg1_content)) return false;
 
   return true;
 }
 
-bool LIS2DSH::setFullScaleRange(FullScaleRangeSelect const sel)
+bool LIS2DSH::setFullScaleRange(interface::FullScaleRangeSelect const sel)
 {
   uint8_t ctrl_reg4_content = 0;
 
-  if(!readSingleRegister(REG_CTRL_REG4, &ctrl_reg4_content)) return false;
+  if(!_io.readRegister(interface::Register::CTRL_REG4, &ctrl_reg4_content)) return false;
 
   ctrl_reg4_content &= ~(LIS2DSH_CTRL_REG_4_FS1_bm | LIS2DSH_CTRL_REG_4_FS0_bm);
   ctrl_reg4_content |= static_cast<uint8_t>(sel);
 
-  if(!writeSingleRegister(REG_CTRL_REG4, ctrl_reg4_content)) return false;
+  if(!_io.writeRegister(interface::Register::CTRL_REG4, ctrl_reg4_content)) return false;
 
   return true;
 }
 
-bool LIS2DSH::setFIFOMode(FIFOModeSelect const sel)
+bool LIS2DSH::setFIFOMode(interface::FIFOModeSelect const sel)
 {
   uint8_t fifo_ctrl_reg_content = 0;
 
-  if(!readSingleRegister(REG_FIFO_CTRL_REG, &fifo_ctrl_reg_content)) return false;
+  if(!_io.readRegister(interface::Register::FIFO_CTRL_REG, &fifo_ctrl_reg_content)) return false;
 
   fifo_ctrl_reg_content &= ~(LIS2DSH_FIFO_CTRL_REG_FM1_bm | LIS2DSH_FIFO_CTRL_REG_FM0_bm);
   fifo_ctrl_reg_content |= static_cast<uint8_t>(sel);
 
-  if(!writeSingleRegister(REG_FIFO_CTRL_REG, fifo_ctrl_reg_content)) return false;
+  if(!_io.writeRegister(interface::Register::FIFO_CTRL_REG, fifo_ctrl_reg_content)) return false;
 
   return true;
 }
@@ -141,11 +141,11 @@ bool LIS2DSH::enableFIFO()
 {
   uint8_t ctrl_reg5_content = 0;
 
-  if(!readSingleRegister(REG_CTRL_REG5, &ctrl_reg5_content)) return false;
+  if(!_io.readRegister(interface::Register::CTRL_REG5, &ctrl_reg5_content)) return false;
 
   ctrl_reg5_content |= LIS2DSH_CTRL_REG_5_FIFO_EN_bm;
 
-  if(!writeSingleRegister(REG_CTRL_REG5, ctrl_reg5_content)) return false;
+  if(!_io.writeRegister(interface::Register::CTRL_REG5, ctrl_reg5_content)) return false;
 
   return true;
 }
@@ -154,11 +154,11 @@ bool LIS2DSH::disableFIFO()
 {
   uint8_t ctrl_reg5_content = 0;
 
-  if(!readSingleRegister(REG_CTRL_REG5, &ctrl_reg5_content)) return false;
+  if(!_io.readRegister(interface::Register::CTRL_REG5, &ctrl_reg5_content)) return false;
 
   ctrl_reg5_content &= ~LIS2DSH_CTRL_REG_5_FIFO_EN_bm;
 
-  if(!writeSingleRegister(REG_CTRL_REG5, ctrl_reg5_content)) return false;
+  if(!_io.writeRegister(interface::Register::CTRL_REG5, ctrl_reg5_content)) return false;
 
   return true;
 }
@@ -167,11 +167,11 @@ bool LIS2DSH::enableBlockDataUpdate()
 {
   uint8_t ctrl_reg4_content = 0;
 
-  if(!readSingleRegister(REG_CTRL_REG4, &ctrl_reg4_content)) return false;
+  if(!_io.readRegister(interface::Register::CTRL_REG4, &ctrl_reg4_content)) return false;
 
   ctrl_reg4_content |= (LIS2DSH_CTRL_REG_4_BDU_bm);
 
-  if(!writeSingleRegister(REG_CTRL_REG4, ctrl_reg4_content)) return false;
+  if(!_io.writeRegister(interface::Register::CTRL_REG4, ctrl_reg4_content)) return false;
 
   return true;
 }
@@ -180,11 +180,11 @@ bool LIS2DSH::enableTemperatureSensor()
 {
   uint8_t temp_cfg_reg_content = 0;
 
-  if(!readSingleRegister(REG_TEMP_CFG_REG, &temp_cfg_reg_content)) return false;
+  if(!_io.readRegister(interface::Register::TEMP_CFG_REG, &temp_cfg_reg_content)) return false;
 
   temp_cfg_reg_content |= (LIS2DSH_TEMP_CFG_REG_TEMP_EN_1_bm | LIS2DSH_TEMP_CFG_REG_TEMP_EN_0_bm);
 
-  if(!writeSingleRegister(REG_TEMP_CFG_REG, temp_cfg_reg_content)) return false;
+  if(!_io.writeRegister(interface::Register::TEMP_CFG_REG, temp_cfg_reg_content)) return false;
 
   return true;
 }
@@ -193,11 +193,11 @@ bool LIS2DSH::enableXYZAxis()
 {
   uint8_t ctrl_reg1_content = 0;
 
-  if(!readSingleRegister(REG_CTRL_REG1, &ctrl_reg1_content)) return false;
+  if(!_io.readRegister(interface::Register::CTRL_REG1, &ctrl_reg1_content)) return false;
 
   ctrl_reg1_content |= (LIS2DSH_CTRL_REG_1_ZEN_bm | LIS2DSH_CTRL_REG_1_YEN_bm | LIS2DSH_CTRL_REG_1_XEN_bm);
 
-  if(!writeSingleRegister(REG_CTRL_REG1, ctrl_reg1_content)) return false;
+  if(!_io.writeRegister(interface::Register::CTRL_REG1, ctrl_reg1_content)) return false;
 
   return true;
 }
@@ -206,11 +206,11 @@ bool LIS2DSH::enableXAxis()
 {
   uint8_t ctrl_reg1_content = 0;
 
-  if(!readSingleRegister(REG_CTRL_REG1, &ctrl_reg1_content)) return false;
+  if(!_io.readRegister(interface::Register::CTRL_REG1, &ctrl_reg1_content)) return false;
 
   ctrl_reg1_content |= (LIS2DSH_CTRL_REG_1_XEN_bm);
 
-  if(!writeSingleRegister(REG_CTRL_REG1, ctrl_reg1_content)) return false;
+  if(!_io.writeRegister(interface::Register::CTRL_REG1, ctrl_reg1_content)) return false;
 
   return true;
 }
@@ -219,11 +219,11 @@ bool LIS2DSH::enableYAxis()
 {
   uint8_t ctrl_reg1_content = 0;
 
-  if(!readSingleRegister(REG_CTRL_REG1, &ctrl_reg1_content)) return false;
+  if(!_io.readRegister(interface::Register::CTRL_REG1, &ctrl_reg1_content)) return false;
 
   ctrl_reg1_content |= (LIS2DSH_CTRL_REG_1_YEN_bm);
 
-  if(!writeSingleRegister(REG_CTRL_REG1, ctrl_reg1_content)) return false;
+  if(!_io.writeRegister(interface::Register::CTRL_REG1, ctrl_reg1_content)) return false;
 
   return true;
 }
@@ -232,11 +232,11 @@ bool LIS2DSH::enableZAxis()
 {
   uint8_t ctrl_reg1_content = 0;
 
-  if(!readSingleRegister(REG_CTRL_REG1, &ctrl_reg1_content)) return false;
+  if(!_io.readRegister(interface::Register::CTRL_REG1, &ctrl_reg1_content)) return false;
 
   ctrl_reg1_content |= (LIS2DSH_CTRL_REG_1_ZEN_bm);
 
-  if(!writeSingleRegister(REG_CTRL_REG1, ctrl_reg1_content)) return false;
+  if(!_io.writeRegister(interface::Register::CTRL_REG1, ctrl_reg1_content)) return false;
 
   return true;
 }
@@ -245,7 +245,7 @@ bool LIS2DSH::checkIfNewDataIsAvailable_XYZ(bool * is_new_data_available_xyz)
 {
   uint8_t status_reg_content  = 0;
 
-  if(!readSingleRegister(REG_STATUS_REG, &status_reg_content)) return false;
+  if(!_io.readRegister(interface::Register::STATUS_REG, &status_reg_content)) return false;
 
   *is_new_data_available_xyz = (status_reg_content & LIS2DSH_STATUS_REG_ZYXDA_bm) != 0;
 
@@ -256,7 +256,7 @@ bool LIS2DSH::checkIfNewDataIsAvailable_X(bool * is_new_data_available_x)
 {
   uint8_t status_reg_content  = 0;
 
-  if(!readSingleRegister(REG_STATUS_REG, &status_reg_content)) return false;
+  if(!_io.readRegister(interface::Register::STATUS_REG, &status_reg_content)) return false;
 
   *is_new_data_available_x = (status_reg_content & LIS2DSH_STATUS_REG_XDA_bm) != 0;
 
@@ -267,7 +267,7 @@ bool LIS2DSH::checkIfNewDataIsAvailable_Y(bool * is_new_data_available_y)
 {
   uint8_t status_reg_content  = 0;
 
-  if(!readSingleRegister(REG_STATUS_REG, &status_reg_content)) return false;
+  if(!_io.readRegister(interface::Register::STATUS_REG, &status_reg_content)) return false;
 
   *is_new_data_available_y = (status_reg_content & LIS2DSH_STATUS_REG_YDA_bm) != 0;
 
@@ -278,7 +278,7 @@ bool LIS2DSH::checkIfNewDataIsAvailable_Z(bool * is_new_data_available_z)
 {
   uint8_t status_reg_content  = 0;
 
-  if(!readSingleRegister(REG_STATUS_REG, &status_reg_content)) return false;
+  if(!_io.readRegister(interface::Register::STATUS_REG, &status_reg_content)) return false;
 
   *is_new_data_available_z = (status_reg_content & LIS2DSH_STATUS_REG_ZDA_bm) != 0;
 
@@ -289,7 +289,7 @@ bool LIS2DSH::checkIfNewDataIsAvailable_Temperature(bool * is_new_data_available
 {
   uint8_t status_aux_reg_content  = 0;
 
-  if(!readSingleRegister(REG_STATUS_REG_AUX, &status_aux_reg_content)) return false;
+  if(!_io.readRegister(interface::Register::STATUS_REG_AUX, &status_aux_reg_content)) return false;
 
   *is_new_data_available_temp = (status_aux_reg_content & LIS2DSH_STATUS_AUX_REG_TDA_bm) != 0;
 
@@ -300,7 +300,7 @@ bool LIS2DSH::checkIfDataOverrun_XYZ(bool * is_data_overrun_xyz)
 {
   uint8_t status_reg_content  = 0;
 
-  if(!readSingleRegister(REG_STATUS_REG, &status_reg_content)) return false;
+  if(!_io.readRegister(interface::Register::STATUS_REG, &status_reg_content)) return false;
 
   *is_data_overrun_xyz = (status_reg_content & LIS2DSH_STATUS_REG_ZYXOR_bm) != 0;
 
@@ -311,7 +311,7 @@ bool LIS2DSH::checkIfDataOverrun_X(bool * is_data_overrun_x)
 {
   uint8_t status_reg_content  = 0;
 
-  if(!readSingleRegister(REG_STATUS_REG, &status_reg_content)) return false;
+  if(!_io.readRegister(interface::Register::STATUS_REG, &status_reg_content)) return false;
 
   *is_data_overrun_x = (status_reg_content & LIS2DSH_STATUS_REG_XOR_bm) != 0;
 
@@ -322,7 +322,7 @@ bool LIS2DSH::checkIfDataOverrun_Y(bool * is_data_overrun_y)
 {
   uint8_t status_reg_content  = 0;
 
-  if(!readSingleRegister(REG_STATUS_REG, &status_reg_content)) return false;
+  if(!_io.readRegister(interface::Register::STATUS_REG, &status_reg_content)) return false;
 
   *is_data_overrun_y = (status_reg_content & LIS2DSH_STATUS_REG_YOR_bm) != 0;
 
@@ -333,7 +333,7 @@ bool LIS2DSH::checkIfDataOverrun_Z(bool * is_data_overrun_z)
 {
   uint8_t status_reg_content  = 0;
 
-  if(!readSingleRegister(REG_STATUS_REG, &status_reg_content)) return false;
+  if(!_io.readRegister(interface::Register::STATUS_REG, &status_reg_content)) return false;
 
   *is_data_overrun_z = (status_reg_content & LIS2DSH_STATUS_REG_ZOR_bm) != 0;
 
@@ -344,7 +344,7 @@ bool LIS2DSH::checkIfDataOverrun_Temperature(bool * is_data_overrun_temp)
 {
   uint8_t status_aux_reg_content  = 0;
 
-  if(!readSingleRegister(REG_STATUS_REG_AUX, &status_aux_reg_content)) return false;
+  if(!_io.readRegister(interface::Register::STATUS_REG_AUX, &status_aux_reg_content)) return false;
 
   *is_data_overrun_temp = (status_aux_reg_content & LIS2DSH_STATUS_AUX_REG_TOR_bm) != 0;
 
@@ -355,7 +355,7 @@ bool LIS2DSH::readXYZAxis(int16_t * raw_x, int16_t * raw_y, int16_t * raw_z)
 {
   uint8_t raw_xyz_data[6];
 
-  if(!_io.readMultipleRegister(static_cast<RegisterSelect>(0x80 | REG_OUT_X_L), raw_xyz_data, 6)) return false;
+  if(!_io.readRegister(interface::Register::OUT_X_L, raw_xyz_data, 6)) return false;
 
   uint8_t const x_l = raw_xyz_data[0];
   uint8_t const x_h = raw_xyz_data[1];
@@ -375,7 +375,7 @@ bool LIS2DSH::readXAxis(int16_t * raw_x)
 {
   uint8_t raw_x_data[2];
 
-  if(!_io.readMultipleRegister(static_cast<RegisterSelect>(0x80 | REG_OUT_X_L), raw_x_data, 2)) return false;
+  if(!_io.readRegister(interface::Register::OUT_X_L, raw_x_data, 2)) return false;
 
   uint8_t const x_l = raw_x_data[0];
   uint8_t const x_h = raw_x_data[1];
@@ -389,7 +389,7 @@ bool LIS2DSH::readYAxis(int16_t * raw_y)
 {
   uint8_t raw_y_data[2];
 
-  if(!_io.readMultipleRegister(static_cast<RegisterSelect>(0x80 | REG_OUT_Y_L), raw_y_data, 2)) return false;
+  if(!_io.readRegister(interface::Register::OUT_Y_L, raw_y_data, 2)) return false;
 
   uint8_t const y_l = raw_y_data[0];
   uint8_t const y_h = raw_y_data[1];
@@ -403,7 +403,7 @@ bool LIS2DSH::readZAxis(int16_t * raw_z)
 {
   uint8_t raw_z_data[2];
 
-  if(!_io.readMultipleRegister(static_cast<RegisterSelect>(0x80 | REG_OUT_Z_L), raw_z_data, 2)) return false;
+  if(!_io.readRegister(interface::Register::OUT_Z_L, raw_z_data, 2)) return false;
 
   uint8_t const z_l = raw_z_data[0];
   uint8_t const z_h = raw_z_data[1];
@@ -417,7 +417,7 @@ bool LIS2DSH::readTemperature(int16_t * raw_temp)
 {
   uint8_t raw_temp_data[2];
 
-  if(!_io.readMultipleRegister(static_cast<RegisterSelect>(0x80 | REG_OUT_TEMP_L), raw_temp_data, 2)) return false;
+  if(!_io.readRegister(interface::Register::OUT_TEMP_L, raw_temp_data, 2)) return false;
 
   uint8_t const temp_l = raw_temp_data[0];
   uint8_t const temp_h = raw_temp_data[1];
@@ -429,76 +429,66 @@ bool LIS2DSH::readTemperature(int16_t * raw_temp)
 
 void LIS2DSH::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
 {
-  debug_dumpSingleReg(debug_interface, "REG_STATUS_REG_AUX  = ", REG_STATUS_REG_AUX );
+  debug_dumpSingleReg(debug_interface, "STATUS_REG_AUX  = ", interface::Register::STATUS_REG_AUX );
 
-  debug_dumpSingleReg(debug_interface, "REG_OUT_TEMP_L      = ", REG_OUT_TEMP_L     );
-  debug_dumpSingleReg(debug_interface, "REG_OUT_TEMP_H      = ", REG_OUT_TEMP_H     );
+  debug_dumpSingleReg(debug_interface, "OUT_TEMP_L      = ", interface::Register::OUT_TEMP_L     );
+  debug_dumpSingleReg(debug_interface, "OUT_TEMP_H      = ", interface::Register::OUT_TEMP_H     );
 
-  debug_dumpSingleReg(debug_interface, "REG_INT_COUNTER_REG = ", REG_INT_COUNTER_REG);
+  debug_dumpSingleReg(debug_interface, "INT_COUNTER_REG = ", interface::Register::INT_COUNTER_REG);
 
-  debug_dumpSingleReg(debug_interface, "REG_WHO_AM_I        = ", REG_WHO_AM_I       );
+  debug_dumpSingleReg(debug_interface, "WHO_AM_I        = ", interface::Register::WHO_AM_I       );
 
-  debug_dumpSingleReg(debug_interface, "REG_TEMP_CFG_REG    = ", REG_TEMP_CFG_REG   );
-  debug_dumpSingleReg(debug_interface, "REG_CTRL_REG1       = ", REG_CTRL_REG1      );
-  debug_dumpSingleReg(debug_interface, "REG_CTRL_REG2       = ", REG_CTRL_REG2      );
-  debug_dumpSingleReg(debug_interface, "REG_CTRL_REG3       = ", REG_CTRL_REG3      );
-  debug_dumpSingleReg(debug_interface, "REG_CTRL_REG4       = ", REG_CTRL_REG4      );
-  debug_dumpSingleReg(debug_interface, "REG_CTRL_REG5       = ", REG_CTRL_REG5      );
-  debug_dumpSingleReg(debug_interface, "REG_CTRL_REG6       = ", REG_CTRL_REG6      );
+  debug_dumpSingleReg(debug_interface, "TEMP_CFG_REG    = ", interface::Register::TEMP_CFG_REG   );
+  debug_dumpSingleReg(debug_interface, "CTRL_REG1       = ", interface::Register::CTRL_REG1      );
+  debug_dumpSingleReg(debug_interface, "CTRL_REG2       = ", interface::Register::CTRL_REG2      );
+  debug_dumpSingleReg(debug_interface, "CTRL_REG3       = ", interface::Register::CTRL_REG3      );
+  debug_dumpSingleReg(debug_interface, "CTRL_REG4       = ", interface::Register::CTRL_REG4      );
+  debug_dumpSingleReg(debug_interface, "CTRL_REG5       = ", interface::Register::CTRL_REG5      );
+  debug_dumpSingleReg(debug_interface, "CTRL_REG6       = ", interface::Register::CTRL_REG6      );
 
-  debug_dumpSingleReg(debug_interface, "REG_STATUS_REG      = ", REG_STATUS_REG    );
+  debug_dumpSingleReg(debug_interface, "STATUS_REG      = ", interface::Register::STATUS_REG    );
 
-  debug_dumpSingleReg(debug_interface, "REG_OUT_X_L         = ", REG_OUT_X_L        );
-  debug_dumpSingleReg(debug_interface, "REG_OUT_X_H         = ", REG_OUT_X_H        );
-  debug_dumpSingleReg(debug_interface, "REG_OUT_Y_L         = ", REG_OUT_Y_L        );
-  debug_dumpSingleReg(debug_interface, "REG_OUT_Y_H         = ", REG_OUT_Y_H        );
-  debug_dumpSingleReg(debug_interface, "REG_OUT_Z_L         = ", REG_OUT_Z_L        );
-  debug_dumpSingleReg(debug_interface, "REG_OUT_Z_H         = ", REG_OUT_Z_H        );
+  debug_dumpSingleReg(debug_interface, "OUT_X_L         = ", interface::Register::OUT_X_L        );
+  debug_dumpSingleReg(debug_interface, "OUT_X_H         = ", interface::Register::OUT_X_H        );
+  debug_dumpSingleReg(debug_interface, "OUT_Y_L         = ", interface::Register::OUT_Y_L        );
+  debug_dumpSingleReg(debug_interface, "OUT_Y_H         = ", interface::Register::OUT_Y_H        );
+  debug_dumpSingleReg(debug_interface, "OUT_Z_L         = ", interface::Register::OUT_Z_L        );
+  debug_dumpSingleReg(debug_interface, "OUT_Z_H         = ", interface::Register::OUT_Z_H        );
 
-  debug_dumpSingleReg(debug_interface, "REG_FIFO_CTRL_REG   = ", REG_FIFO_CTRL_REG  );
-  debug_dumpSingleReg(debug_interface, "REG_FIFO_SRC_REG    = ", REG_FIFO_SRC_REG   );
+  debug_dumpSingleReg(debug_interface, "FIFO_CTRL_REG   = ", interface::Register::FIFO_CTRL_REG  );
+  debug_dumpSingleReg(debug_interface, "FIFO_SRC_REG    = ", interface::Register::FIFO_SRC_REG   );
 
-  debug_dumpSingleReg(debug_interface, "REG_INT1_CFG        = ", REG_INT1_CFG       );
-  debug_dumpSingleReg(debug_interface, "REG_INT1_SOURCE     = ", REG_INT1_SOURCE    );
-  debug_dumpSingleReg(debug_interface, "REG_INT1_THS        = ", REG_INT1_THS       );
-  debug_dumpSingleReg(debug_interface, "REG_INT1_DURATION   = ", REG_INT1_DURATION  );
+  debug_dumpSingleReg(debug_interface, "INT1_CFG        = ", interface::Register::INT1_CFG       );
+  debug_dumpSingleReg(debug_interface, "INT1_SOURCE     = ", interface::Register::INT1_SOURCE    );
+  debug_dumpSingleReg(debug_interface, "INT1_THS        = ", interface::Register::INT1_THS       );
+  debug_dumpSingleReg(debug_interface, "INT1_DURATION   = ", interface::Register::INT1_DURATION  );
 
-  debug_dumpSingleReg(debug_interface, "REG_INT2_CFG        = ", REG_INT2_CFG       );
-  debug_dumpSingleReg(debug_interface, "REG_INT2_SOURCE     = ", REG_INT2_SOURCE    );
-  debug_dumpSingleReg(debug_interface, "REG_INT2_THS        = ", REG_INT2_THS       );
-  debug_dumpSingleReg(debug_interface, "REG_INT2_DURATION   = ", REG_INT2_DURATION  );
+  debug_dumpSingleReg(debug_interface, "INT2_CFG        = ", interface::Register::INT2_CFG       );
+  debug_dumpSingleReg(debug_interface, "INT2_SOURCE     = ", interface::Register::INT2_SOURCE    );
+  debug_dumpSingleReg(debug_interface, "INT2_THS        = ", interface::Register::INT2_THS       );
+  debug_dumpSingleReg(debug_interface, "INT2_DURATION   = ", interface::Register::INT2_DURATION  );
 
-  debug_dumpSingleReg(debug_interface, "REG_CLICK_CFG       = ", REG_CLICK_CFG      );
-  debug_dumpSingleReg(debug_interface, "REG_CLICK_SRC       = ", REG_CLICK_SRC      );
-  debug_dumpSingleReg(debug_interface, "REG_CLICK_THS       = ", REG_CLICK_THS      );
+  debug_dumpSingleReg(debug_interface, "CLICK_CFG       = ", interface::Register::CLICK_CFG      );
+  debug_dumpSingleReg(debug_interface, "CLICK_SRC       = ", interface::Register::CLICK_SRC      );
+  debug_dumpSingleReg(debug_interface, "CLICK_THS       = ", interface::Register::CLICK_THS      );
 
-  debug_dumpSingleReg(debug_interface, "REG_TIME_LIMIT      = ", REG_TIME_LIMIT     );
-  debug_dumpSingleReg(debug_interface, "REG_TIME_LATENCY    = ", REG_TIME_LATENCY   );
-  debug_dumpSingleReg(debug_interface, "REG_TIME_WINDOW     = ", REG_TIME_WINDOW    );
+  debug_dumpSingleReg(debug_interface, "TIME_LIMIT      = ", interface::Register::TIME_LIMIT     );
+  debug_dumpSingleReg(debug_interface, "TIME_LATENCY    = ", interface::Register::TIME_LATENCY   );
+  debug_dumpSingleReg(debug_interface, "TIME_WINDOW     = ", interface::Register::TIME_WINDOW    );
 
-  debug_dumpSingleReg(debug_interface, "REG_ACT_THS         = ", REG_ACT_THS        );
-  debug_dumpSingleReg(debug_interface, "REG_ACT_DUR         = ", REG_ACT_DUR        );
+  debug_dumpSingleReg(debug_interface, "ACT_THS         = ", interface::Register::ACT_THS        );
+  debug_dumpSingleReg(debug_interface, "ACT_DUR         = ", interface::Register::ACT_DUR        );
 }
 
 /**************************************************************************************
  * PRIVATE FUNCTIONS
  **************************************************************************************/
 
-bool LIS2DSH::readSingleRegister(RegisterSelect const reg_sel, uint8_t * data)
-{
-  return _io.readMultipleRegister(reg_sel, data, 1);
-}
-
-bool LIS2DSH::writeSingleRegister(RegisterSelect const reg_sel, uint8_t const data)
-{
-  return _io.writeMultipleRegister(reg_sel, &data, 1);
-}
-
-void LIS2DSH::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel)
+void LIS2DSH::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, interface::Register const reg)
 {
   uint8_t reg_content = 0;
 
-  readSingleRegister(reg_sel, &reg_content);
+  _io.readRegister(reg, &reg_content);
 
   debug_interface.print("%s%X\n", msg, reg_content);
 }

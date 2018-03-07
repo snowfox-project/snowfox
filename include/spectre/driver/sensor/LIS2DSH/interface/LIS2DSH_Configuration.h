@@ -42,6 +42,9 @@ namespace sensor
 namespace LIS2DSH
 {
 
+namespace interface
+{
+
 /**************************************************************************************
  * DEFINES
  **************************************************************************************/
@@ -136,13 +139,13 @@ typedef enum
  * CLASS DECLARATION
  **************************************************************************************/
 
-class LIS2DSH_ConfigurationInterface
+class LIS2DSH_Configuration
 {
 
 public:
 
-           LIS2DSH_ConfigurationInterface() { }
-  virtual ~LIS2DSH_ConfigurationInterface() { }
+           LIS2DSH_Configuration() { }
+  virtual ~LIS2DSH_Configuration() { }
 
 
   virtual bool setOperatingMode       (OperatingModeSelect  const sel) = 0;
@@ -165,6 +168,8 @@ public:
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* LIS2DSH */
 

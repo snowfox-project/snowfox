@@ -16,15 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_LIS2DSH_INTERFACE_LIS2DSH_INTERFACE_H_
-#define INCLUDE_SPECTRE_DRIVER_SENSOR_LIS2DSH_INTERFACE_LIS2DSH_INTERFACE_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_LIS2DSH_INTERFACE_LIS2DSH_CONTROL_H_
+#define INCLUDE_SPECTRE_DRIVER_SENSOR_LIS2DSH_INTERFACE_LIS2DSH_CONTROL_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
-#include <stdbool.h>
+#include <spectre/driver/sensor/LIS2DSH/interface/LIS2DSH_Interface.h>
+#include <spectre/driver/sensor/LIS2DSH/interface/LIS2DSH_Configuration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -49,14 +49,17 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class LIS2DSH_Interface
+class LIS2DSH_Control : public LIS2DSH_Interface,
+                        public LIS2DSH_Configuration
 {
 
 public:
 
-           LIS2DSH_Interface() { }
-  virtual ~LIS2DSH_Interface() { }
+           LIS2DSH_Control() { }
+  virtual ~LIS2DSH_Control() { }
 
+
+  /* LIS2DSH Interface */
 
   virtual bool checkIfNewDataIsAvailable_XYZ        (bool * is_new_data_available_xyz ) = 0;
   virtual bool checkIfNewDataIsAvailable_X          (bool * is_new_data_available_x   ) = 0;
@@ -76,6 +79,24 @@ public:
   virtual bool readZAxis                            (int16_t * raw_z                                  ) = 0;
   virtual bool readTemperature                      (int16_t * raw_temp                               ) = 0;
 
+
+  /* LIS2DSH Configuration Interface */
+
+  virtual bool setOperatingMode                     (OperatingModeSelect  const sel) = 0;
+  virtual bool setOutputDataRate                    (OutputDataRateSelect const sel) = 0;
+  virtual bool setFullScaleRange                    (FullScaleRangeSelect const sel) = 0;
+  virtual bool setFIFOMode                          (FIFOModeSelect       const sel) = 0;
+
+  virtual bool enableFIFO                           () = 0;
+  virtual bool disableFIFO                          () = 0;
+  virtual bool enableBlockDataUpdate                () = 0;
+  virtual bool enableTemperatureSensor              () = 0;
+
+  virtual bool enableXYZAxis                        () = 0;
+  virtual bool enableXAxis                          () = 0;
+  virtual bool enableYAxis                          () = 0;
+  virtual bool enableZAxis                          () = 0;
+
 };
 
 /**************************************************************************************
@@ -92,4 +113,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_LIS2DSH_INTERFACE_LIS2DSH_INTERFACE_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_LIS2DSH_INTERFACE_LIS2DSH_CONTROL_H_ */
