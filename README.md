@@ -35,7 +35,7 @@ As Martin Fowler states so eloquently in his book *Refactoring: Improving the De
 * **PCA9547** (8-channel I2C-Bus multiplexer)
 
 #### [/driver/lora](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/lora)
-* **RFM9x** (HopeRF RFM95/96/97/98 Long Power Long Range Transceiver Module)
+* **RFM9x** (HopeRF RFM95/96/97/98 Low Power Long Range Transceiver Module)
 
 #### [/driver/memory](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/memory)
 * **AT45DBx** (SPI Data Flash)
