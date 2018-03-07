@@ -42,6 +42,9 @@ namespace sensor
 namespace L3GD20
 {
 
+namespace interface
+{
+
 /**************************************************************************************
  * DEFINES
  **************************************************************************************/
@@ -110,13 +113,13 @@ typedef enum
  * CLASS DECLARATION
  **************************************************************************************/
 
-class L3GD20_ConfigurationInterface
+class L3GD20_Configuration
 {
 
 public:
 
-           L3GD20_ConfigurationInterface() { }
-  virtual ~L3GD20_ConfigurationInterface() { }
+           L3GD20_Configuration() { }
+  virtual ~L3GD20_Configuration() { }
 
 
   virtual bool enablePower                  () = 0;
@@ -135,6 +138,8 @@ public:
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* L3GD20 */
 

@@ -58,9 +58,20 @@ L3GD20_IoI2c::~L3GD20_IoI2c()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool L3GD20_IoI2c::readMultipleRegister(interface::RegisterSelect const reg_sel, uint8_t * data, uint16_t const num_bytes)
+bool L3GD20_IoI2c::readRegister(interface::Register const reg, uint8_t * data, uint16_t const num_bytes)
 {
-  uint8_t const reg_addr = static_cast<uint8_t>(reg_sel);
+  uint8_t const reg_addr = (0x80 | static_cast<uint8_t>(reg));
+
+  if(!_i2c_master.begin      (_i2c_address, false          )) return false;
+  if(!_i2c_master.write      (reg_addr                     )) return false;
+  if(!_i2c_master.requestFrom(_i2c_address, data, num_bytes)) return false;
+
+  return true;
+}
+
+bool L3GD20_IoI2c::readRegister(interface::Register const reg, uint8_t * data)
+{
+  uint8_t const reg_addr = static_cast<uint8_t>(reg);
 
   if(!_i2c_master.begin      (_i2c_address, false  )) return false;
   if(!_i2c_master.write      (reg_addr             )) return false;
@@ -69,9 +80,9 @@ bool L3GD20_IoI2c::readMultipleRegister(interface::RegisterSelect const reg_sel,
   return true;
 }
 
-bool L3GD20_IoI2c::writeMultipleRegister(interface::RegisterSelect const reg_sel, uint8_t const  * data, uint16_t const num_bytes)
+bool L3GD20_IoI2c::writeRegister(interface::Register const reg, uint8_t const  * data, uint16_t const num_bytes)
 {
-  uint8_t const reg_addr = static_cast<uint8_t>(reg_sel);
+  uint8_t const reg_addr = (0x80 | static_cast<uint8_t>(reg));
 
   if(!_i2c_master.begin(_i2c_address, false)) return false;
   if(!_i2c_master.write(reg_addr           )) return false;
@@ -80,6 +91,18 @@ bool L3GD20_IoI2c::writeMultipleRegister(interface::RegisterSelect const reg_sel
   {
     if(!_i2c_master.write(data[i]          )) return false;
   }
+      _i2c_master.end  (                   );
+
+  return true;
+}
+
+bool L3GD20_IoI2c::writeRegister(interface::Register const reg, uint8_t const  data)
+{
+  uint8_t const reg_addr = static_cast<uint8_t>(reg);
+
+  if(!_i2c_master.begin(_i2c_address, false)) return false;
+  if(!_i2c_master.write(reg_addr           )) return false;
+  if(!_i2c_master.write(data               )) return false;
       _i2c_master.end  (                   );
 
   return true;

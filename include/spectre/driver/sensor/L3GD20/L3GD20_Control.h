@@ -23,11 +23,11 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/sensor/L3GD20/interface/L3GD20_Interface.h>
-#include <spectre/driver/sensor/L3GD20/interface/L3GD20_ConfigurationInterface.h>
-#include <spectre/driver/sensor/L3GD20/interface/L3GD20_Io.h>
+#include <spectre/driver/sensor/L3GD20/interface/L3GD20_Control.h>
 
 #include <spectre/debug/interface/Debug.h>
+
+#include <spectre/driver/sensor/L3GD20/interface/L3GD20_Io.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -49,14 +49,13 @@ namespace L3GD20
  * CLASS DECLARATION
  **************************************************************************************/
 
-class L3GD20 : public L3GD20_Interface,
-               public L3GD20_ConfigurationInterface
+class L3GD20_Control : public interface::L3GD20_Control
 {
 
 public:
 
-           L3GD20(interface::L3GD20_Io & io);
-  virtual ~L3GD20();
+           L3GD20_Control(interface::L3GD20_Io & io);
+  virtual ~L3GD20_Control();
 
 
   /* L3GD20 Interface */
@@ -83,8 +82,8 @@ public:
   virtual bool disableAllAxis               () override;
   virtual bool enableBlockDataUpdate        () override;
 
-  virtual bool setOutputDataRateAndBandwith (OutputDataRateAndBandwithSelect const sel) override;
-  virtual bool setFullScale                 (FullScaleSelect                 const sel) override;
+  virtual bool setOutputDataRateAndBandwith (interface::OutputDataRateAndBandwithSelect const sel) override;
+  virtual bool setFullScale                 (interface::FullScaleSelect                 const sel) override;
 
   virtual bool enableXYZAxis                () override;
   virtual bool enableXAxis                  () override;
@@ -98,10 +97,7 @@ private:
 
   interface::L3GD20_Io & _io;
 
-  bool readSingleRegister   (interface::RegisterSelect const reg_sel, uint8_t       * data);
-  bool writeSingleRegister  (interface::RegisterSelect const reg_sel, uint8_t const   data);
-
-  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, char const * msg, interface::RegisterSelect const reg_sel);
+  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, char const * msg, interface::Register const reg);
 
 };
 

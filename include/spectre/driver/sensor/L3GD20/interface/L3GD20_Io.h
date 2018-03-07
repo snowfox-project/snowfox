@@ -49,35 +49,35 @@ namespace interface
  * TYPEDEFS
  **************************************************************************************/
 
-typedef enum
+enum class Register : uint8_t
 {
-  REG_WHO_AM_I      = 0x0F,
-  REG_CTRL_REG1     = 0x20,
-  REG_CTRL_REG2     = 0x21,
-  REG_CTRL_REG3     = 0x22,
-  REG_CTRL_REG4     = 0x23,
-  REG_CTRL_REG5     = 0x24,
-  REG_REFERENCE     = 0x25,
-  REG_OUT_TEMP      = 0x26,
-  REG_STATUS_REG    = 0x27,
-  REG_OUT_X_L       = 0x28,
-  REG_OUT_X_H       = 0x29,
-  REG_OUT_Y_L       = 0x2A,
-  REG_OUT_Y_H       = 0x2B,
-  REG_OUT_Z_L       = 0x2C,
-  REG_OUT_Z_H       = 0x2D,
-  REG_FIFO_CTRL_REG = 0x2E,
-  REG_FIFO_SRC_REG  = 0x2F,
-  REG_INT1_CFG      = 0x30,
-  REG_INT1_SRC      = 0x31,
-  REG_TSH_XH        = 0x32,
-  REG_TSH_XL        = 0x33,
-  REG_TSH_YH        = 0x34,
-  REG_TSH_YL        = 0x35,
-  REG_TSH_ZH        = 0x36,
-  REG_TSH_ZL        = 0x37,
-  REG_INT1_DURATION = 0x38
-} RegisterSelect;
+  WHO_AM_I      = 0x0F,
+  CTRL_REG1     = 0x20,
+  CTRL_REG2     = 0x21,
+  CTRL_REG3     = 0x22,
+  CTRL_REG4     = 0x23,
+  CTRL_REG5     = 0x24,
+  REFERENCE     = 0x25,
+  OUT_TEMP      = 0x26,
+  STATUS_REG    = 0x27,
+  OUT_X_L       = 0x28,
+  OUT_X_H       = 0x29,
+  OUT_Y_L       = 0x2A,
+  OUT_Y_H       = 0x2B,
+  OUT_Z_L       = 0x2C,
+  OUT_Z_H       = 0x2D,
+  FIFO_CTRL_REG = 0x2E,
+  FIFO_SRC_REG  = 0x2F,
+  INT1_CFG      = 0x30,
+  INT1_SRC      = 0x31,
+  TSH_XH        = 0x32,
+  TSH_XL        = 0x33,
+  TSH_YH        = 0x34,
+  TSH_YL        = 0x35,
+  TSH_ZH        = 0x36,
+  TSH_ZL        = 0x37,
+  INT1_DURATION = 0x38
+};
 
 /**************************************************************************************
  * CLASS DECLARATION
@@ -92,8 +92,10 @@ public:
   virtual ~L3GD20_Io() { }
 
 
-  virtual bool readMultipleRegister (RegisterSelect const reg_sel, uint8_t       * data, uint16_t const num_bytes) = 0;
-  virtual bool writeMultipleRegister(RegisterSelect const reg_sel, uint8_t const * data, uint16_t const num_bytes) = 0;
+  virtual bool readRegister (Register const reg, uint8_t       * data, uint16_t const num_bytes) = 0;
+  virtual bool readRegister (Register const reg, uint8_t       * data                          ) = 0;
+  virtual bool writeRegister(Register const reg, uint8_t const * data, uint16_t const num_bytes) = 0;
+  virtual bool writeRegister(Register const reg, uint8_t const   data                          ) = 0;
 
 };
 

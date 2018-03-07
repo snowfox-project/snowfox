@@ -16,15 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_L3GD20_INTERFACE_L3GD20_INTERFACE_H_
-#define INCLUDE_SPECTRE_DRIVER_SENSOR_L3GD20_INTERFACE_L3GD20_INTERFACE_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_L3GD20_INTERFACE_L3GD20_CONTROL_H_
+#define INCLUDE_SPECTRE_DRIVER_SENSOR_L3GD20_INTERFACE_L3GD20_CONTROL_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
-#include <stdbool.h>
+#include <spectre/driver/sensor/L3GD20/interface/L3GD20_Interface.h>
+#include <spectre/driver/sensor/L3GD20/interface/L3GD20_Configuration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -49,14 +49,17 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class L3GD20_Interface
+class L3GD20_Control : public L3GD20_Interface,
+                       public L3GD20_Configuration
 {
 
 public:
 
-           L3GD20_Interface() { }
-  virtual ~L3GD20_Interface() { }
+           L3GD20_Control() { }
+  virtual ~L3GD20_Control() { }
 
+
+  /* L3GD20 Interface */
 
   virtual bool checkIfNewDataIsAvailable_XYZ(bool * is_new_data_available_xyz) = 0;
   virtual bool checkIfNewDataIsAvailable_X  (bool * is_new_data_available_x  ) = 0;
@@ -73,6 +76,20 @@ public:
   virtual bool readYAxis                    (int16_t * raw_y                                  ) = 0;
   virtual bool readZAxis                    (int16_t * raw_z                                  ) = 0;
 
+
+  /* L3GD20 Configuration Interface */
+
+  virtual bool enablePower                  () = 0;
+  virtual bool disableAllAxis               () = 0;
+  virtual bool enableBlockDataUpdate        () = 0;
+
+  virtual bool setOutputDataRateAndBandwith (OutputDataRateAndBandwithSelect const sel) = 0;
+  virtual bool setFullScale                 (FullScaleSelect                 const sel) = 0;
+
+  virtual bool enableXYZAxis                () = 0;
+  virtual bool enableXAxis                  () = 0;
+  virtual bool enableYAxis                  () = 0;
+  virtual bool enableZAxis                  () = 0;
 };
 
 /**************************************************************************************
@@ -89,4 +106,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_L3GD20_INTERFACE_L3GD20_INTERFACE_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_L3GD20_INTERFACE_L3GD20_CONTROL_H_ */
