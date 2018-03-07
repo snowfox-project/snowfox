@@ -50,7 +50,6 @@ As Martin Fowler states so eloquently in his book *Refactoring: Improving the De
 * **LIS2DSH** (3-axis digital output MEMS accelerometer)
 * **LIS3DSH** (3-axis digital output MEMS accelerometer)
 * **LIS3MDL** (3-axis digital output MEMS magnetometer)
-* **TPA81** (I2C infrared thermopile sensor array)
 
 #### [/driver/serial](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/serial)
 * **UART** (Serial UART Driver)
