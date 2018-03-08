@@ -16,15 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_LIS3DSH_INTERFACE_LIS3DSH_INTERFACE_H_
-#define INCLUDE_SPECTRE_DRIVER_SENSOR_LIS3DSH_INTERFACE_LIS3DSH_INTERFACE_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_LIS3DSH_INTERFACE_LIS3DSH_CONTROL_H_
+#define INCLUDE_SPECTRE_DRIVER_SENSOR_LIS3DSH_INTERFACE_LIS3DSH_CONTROL_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
-#include <stdbool.h>
+#include <spectre/driver/sensor/LIS3DSH/interface/LIS3DSH_Interface.h>
+#include <spectre/driver/sensor/LIS3DSH/interface/LIS3DSH_Configuration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -49,14 +49,17 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class LIS3DSH_Interface
+class LIS3DSH_Control : public LIS3DSH_Interface,
+                        public LIS3DSH_Configuration
 {
 
 public:
 
-           LIS3DSH_Interface() { }
-  virtual ~LIS3DSH_Interface() { }
+           LIS3DSH_Control() { }
+  virtual ~LIS3DSH_Control() { }
 
+
+  /* LIS3DSH Interface */
 
   virtual bool checkIfNewDataIsAvailable_XYZ(bool * is_new_data_available_xyz) = 0;
   virtual bool checkIfNewDataIsAvailable_X  (bool * is_new_data_available_x  ) = 0;
@@ -74,6 +77,22 @@ public:
   virtual bool readZAxis                    (int16_t * raw_z                                  ) = 0;
   virtual bool readTemperature              (int8_t  * raw_temp                               ) = 0;
 
+
+  /* LIS3DSH Configuration Interface */
+
+  virtual bool setOutputDataRate            (OutputDataRateSelect const sel) = 0;
+  virtual bool setFullScaleRange            (FullScaleRangeSelect const sel) = 0;
+  virtual bool setFilterBandwidth           (FilterBandwidth      const sel) = 0;
+
+  virtual bool enableFIFO                   () = 0;
+  virtual bool disableFIFO                  () = 0;
+  virtual bool enableBlockDataUpdate        () = 0;
+
+  virtual bool enableXYZAxis                () = 0;
+  virtual bool enableXAxis                  () = 0;
+  virtual bool enableYAxis                  () = 0;
+  virtual bool enableZAxis                  () = 0;
+
 };
 
 /**************************************************************************************
@@ -90,4 +109,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_LIS3DSH_INTERFACE_LIS3DSH_INTERFACE_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_LIS3DSH_INTERFACE_LIS3DSH_CONTROL_H_ */

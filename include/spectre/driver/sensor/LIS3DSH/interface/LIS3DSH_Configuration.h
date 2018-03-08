@@ -42,6 +42,9 @@ namespace sensor
 namespace LIS3DSH
 {
 
+namespace interface
+{
+
 /**************************************************************************************
  * DEFINES
  **************************************************************************************/
@@ -118,13 +121,13 @@ typedef enum
  * CLASS DECLARATION ConfigurationInterface
  **************************************************************************************/
 
-class LIS3DSH_ConfigurationInterface
+class LIS3DSH_Configuration
 {
 
 public:
 
-           LIS3DSH_ConfigurationInterface() { }
-  virtual ~LIS3DSH_ConfigurationInterface() { }
+           LIS3DSH_Configuration() { }
+  virtual ~LIS3DSH_Configuration() { }
 
 
   virtual bool setOutputDataRate    (OutputDataRateSelect const sel) = 0;
@@ -145,6 +148,8 @@ public:
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* LIS3DSH */
 

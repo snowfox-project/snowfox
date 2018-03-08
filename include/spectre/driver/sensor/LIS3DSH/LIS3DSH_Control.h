@@ -23,11 +23,11 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/sensor/LIS3DSH/interface/LIS3DSH_Interface.h>
-#include <spectre/driver/sensor/LIS3DSH/interface/LIS3DSH_ConfigurationInterface.h>
-#include <spectre/driver/sensor/LIS3DSH/interface/LIS3DSH_IO_Interface.h>
+#include <spectre/driver/sensor/LIS3DSH/interface/LIS3DSH_Control.h>
 
 #include <spectre/debug/interface/Debug.h>
+
+#include <spectre/driver/sensor/LIS3DSH/interface/LIS3DSH_Io.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -49,14 +49,13 @@ namespace LIS3DSH
  * CLASS DECLARATION
  **************************************************************************************/
 
-class LIS3DSH : public LIS3DSH_Interface,
-                public LIS3DSH_ConfigurationInterface
+class LIS3DSH_Control : public interface::LIS3DSH_Control
 {
 
 public:
 
-           LIS3DSH(LIS3DSH_IO_Interface & io);
-  virtual ~LIS3DSH();
+           LIS3DSH_Control(interface::LIS3DSH_Io & io);
+  virtual ~LIS3DSH_Control();
 
 
   /* LIS3DSH Interface */
@@ -80,30 +79,27 @@ public:
 
   /* LIS3DSH Configuration Interface */
 
-  virtual bool setOutputDataRate    (OutputDataRateSelect const sel) override;
-  virtual bool setFullScaleRange    (FullScaleRangeSelect const sel) override;
-  virtual bool setFilterBandwidth   (FilterBandwidth      const sel) override;
+  virtual bool setOutputDataRate            (interface::OutputDataRateSelect const sel) override;
+  virtual bool setFullScaleRange            (interface::FullScaleRangeSelect const sel) override;
+  virtual bool setFilterBandwidth           (interface::FilterBandwidth      const sel) override;
 
-  virtual bool enableFIFO           () override;
-  virtual bool disableFIFO          () override;
-  virtual bool enableBlockDataUpdate() override;
+  virtual bool enableFIFO                   () override;
+  virtual bool disableFIFO                  () override;
+  virtual bool enableBlockDataUpdate        () override;
 
-  virtual bool enableXYZAxis        () override;
-  virtual bool enableXAxis          () override;
-  virtual bool enableYAxis          () override;
-  virtual bool enableZAxis          () override;
+  virtual bool enableXYZAxis                () override;
+  virtual bool enableXAxis                  () override;
+  virtual bool enableYAxis                  () override;
+  virtual bool enableZAxis                  () override;
 
 
           void debug_dumpAllRegs    (debug::interface::Debug & debug_interface);
 
 private:
 
-  LIS3DSH_IO_Interface & _io;
+  interface::LIS3DSH_Io & _io;
 
-  bool readSingleRegister   (RegisterSelect const reg_sel, uint8_t       * data);
-  bool writeSingleRegister  (RegisterSelect const reg_sel, uint8_t const   data);
-
-  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, char const * msg, RegisterSelect const reg_sel);
+  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, char const * msg, interface::Register const reg);
 
 };
 
