@@ -16,15 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_LIS3MDL_INTERFACE_LIS3MDL_INTERFACE_H_
-#define INCLUDE_SPECTRE_DRIVER_SENSOR_LIS3MDL_INTERFACE_LIS3MDL_INTERFACE_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_LIS3MDL_INTERFACE_LIS3MDL_CONTROL_H_
+#define INCLUDE_SPECTRE_DRIVER_SENSOR_LIS3MDL_INTERFACE_LIS3MDL_CONTROL_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
-#include <stdbool.h>
+#include <spectre/driver/sensor/LIS3MDL/interface/LIS3MDL_Interface.h>
+#include <spectre/driver/sensor/LIS3MDL/interface/LIS3MDL_Configuration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -49,14 +49,17 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class LIS3MDL_Interface
+class LIS3MDL_Control : public LIS3MDL_Interface,
+                        public LIS3MDL_Configuration
 {
 
 public:
 
-           LIS3MDL_Interface() { }
-  virtual ~LIS3MDL_Interface() { }
+           LIS3MDL_Control() { }
+  virtual ~LIS3MDL_Control() { }
 
+
+  /* LIS3MDL Interface */
 
   virtual bool checkIfNewDataIsAvailable_XYZ(bool * is_new_data_available_xyz) = 0;
   virtual bool checkIfNewDataIsAvailable_X  (bool * is_new_data_available_x  ) = 0;
@@ -74,6 +77,17 @@ public:
   virtual bool readZAxis                    (int16_t * raw_z                                  ) = 0;
   virtual bool readTemperature              (int16_t * raw_temp                               ) = 0;
 
+
+  /* LIS3MDL Configuration */
+
+  virtual bool setOperativeMode_XY          (OperativeMode_XY        const sel) = 0;
+  virtual bool setOperativeMode_Z           (OperativeMode_Z         const sel) = 0;
+  virtual bool setOutputDataRate            (OutputDataRateSelection const sel) = 0;
+  virtual bool setFullScale                 (FullScaleRangeSelect    const sel) = 0;
+  virtual bool setConversionMode            (ConversionMode          const sel) = 0;
+  virtual bool enableTemperatureSensor      (                                 ) = 0;
+  virtual bool enableBlockDataUpdate        (                                 ) = 0;
+
 };
 
 /**************************************************************************************
@@ -90,4 +104,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_LIS3MDL_INTERFACE_LIS3MDL_INTERFACE_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_LIS3MDL_INTERFACE_LIS3MDL_CONTROL_H_ */

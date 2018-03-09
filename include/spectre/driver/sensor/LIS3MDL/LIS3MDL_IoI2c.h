@@ -16,15 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_LIS3MDL_INTERFACE_LIS3MDL_IO_INTERFACE_H_
-#define INCLUDE_SPECTRE_DRIVER_SENSOR_LIS3MDL_INTERFACE_LIS3MDL_IO_INTERFACE_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_LIS3MDL_LIS3MDL_IO_I2C_H_
+#define INCLUDE_SPECTRE_DRIVER_SENSOR_LIS3MDL_LIS3MDL_IO_I2C_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
-#include <stdbool.h>
+#include <spectre/driver/sensor/LIS3MDL/interface/LIS3MDL_Io.h>
+
+#include <spectre/hal/interface/i2c/I2CMaster.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -43,47 +44,27 @@ namespace LIS3MDL
 {
 
 /**************************************************************************************
- * TYPEDEFS
- **************************************************************************************/
-
-typedef enum
-{
-  REG_WHO_AM_I    = 0x0F,
-  REG_CTRL_REG_1  = 0x20,
-  REG_CTRL_REG_2  = 0x21,
-  REG_CTRL_REG_3  = 0x22,
-  REG_CTRL_REG_4  = 0x23,
-  REG_CTRL_REG_5  = 0x24,
-  REG_STATUS_REG  = 0x27,
-  REG_OUT_X_L     = 0x28,
-  REG_OUT_X_H     = 0x29,
-  REG_OUT_Y_L     = 0x2A,
-  REG_OUT_Y_H     = 0x2B,
-  REG_OUT_Z_L     = 0x2C,
-  REG_OUT_Z_H     = 0x2D,
-  REG_TEMP_OUT_L  = 0x2E,
-  REG_TEMP_OUT_H  = 0x2F,
-  REG_INT_CFG     = 0x30,
-  REG_INT_SRC     = 0x31,
-  REG_INT_THS_L   = 0x32,
-  REG_INT_THS_H   = 0x33
-} RegisterSelect;
-
-/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class LIS3MDL_IO_Interface
+class LIS3MDL_IoI2c : public interface::LIS3MDL_Io
 {
 
 public:
 
-           LIS3MDL_IO_Interface() { }
-  virtual ~LIS3MDL_IO_Interface() { }
+           LIS3MDL_IoI2c(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master);
+  virtual ~LIS3MDL_IoI2c();
 
 
-  virtual bool readMultipleRegister (RegisterSelect const reg_sel, uint8_t       * data, uint16_t const num_bytes) = 0;
-  virtual bool writeMultipleRegister(RegisterSelect const reg_sel, uint8_t const * data, uint16_t const num_bytes) = 0;
+  virtual bool readRegister (interface::Register const reg, uint8_t       * data, uint16_t const num_bytes) override;
+  virtual bool readRegister (interface::Register const reg, uint8_t       * data                          ) override;
+  virtual bool writeRegister(interface::Register const reg, uint8_t const * data, uint16_t const num_bytes) override;
+  virtual bool writeRegister(interface::Register const reg, uint8_t const   data                          ) override;
+
+private:
+
+  uint8_t                     _i2c_address;
+  hal::interface::I2CMaster & _i2c_master;
 
 };
 
@@ -99,4 +80,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_LIS3MDL_INTERFACE_LIS3MDL_IO_INTERFACE_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_LIS3MDL_LIS3MDL_IO_I2C_H_ */

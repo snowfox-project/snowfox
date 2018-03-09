@@ -23,11 +23,11 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/sensor/LIS3MDL/interface/LIS3MDL_Interface.h>
-#include <spectre/driver/sensor/LIS3MDL/interface/LIS3MDL_ConfigurationInterface.h>
-#include <spectre/driver/sensor/LIS3MDL/interface/LIS3MDL_IO_Interface.h>
+#include <spectre/driver/sensor/LIS3MDL/interface/LIS3MDL_Control.h>
 
 #include <spectre/debug/interface/Debug.h>
+
+#include <spectre/driver/sensor/LIS3MDL/interface/LIS3MDL_Io.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -49,14 +49,13 @@ namespace LIS3MDL
  * CLASS DECLARATION
  **************************************************************************************/
 
-class LIS3MDL : public LIS3MDL_Interface,
-                public LIS3MDL_ConfigurationInterface
+class LIS3MDL_Control : public interface::LIS3MDL_Control
 {
 
 public:
 
-           LIS3MDL(LIS3MDL_IO_Interface & io);
-  virtual ~LIS3MDL();
+           LIS3MDL_Control(interface::LIS3MDL_Io & io);
+  virtual ~LIS3MDL_Control();
 
 
   /* LIS3MDL Interface */
@@ -80,25 +79,22 @@ public:
 
   /* LIS3MDL Configuration Interface */
 
-  virtual bool setOperativeMode_XY          (OperativeMode_XY        const sel) override;
-  virtual bool setOperativeMode_Z           (OperativeMode_Z         const sel) override;
-  virtual bool setOutputDataRate            (OutputDataRateSelection const sel) override;
-  virtual bool setFullScale                 (FullScaleRangeSelect    const sel) override;
-  virtual bool setConversionMode            (ConversionMode          const sel) override;
-  virtual bool enableTemperatureSensor      (                                 ) override;
-  virtual bool enableBlockDataUpdate        (                                 ) override;
+  virtual bool setOperativeMode_XY          (interface::OperativeMode_XY        const sel) override;
+  virtual bool setOperativeMode_Z           (interface::OperativeMode_Z         const sel) override;
+  virtual bool setOutputDataRate            (interface::OutputDataRateSelection const sel) override;
+  virtual bool setFullScale                 (interface::FullScaleRangeSelect    const sel) override;
+  virtual bool setConversionMode            (interface::ConversionMode          const sel) override;
+  virtual bool enableTemperatureSensor      (                                            ) override;
+  virtual bool enableBlockDataUpdate        (                                            ) override;
 
 
           void debug_dumpAllRegs            (debug::interface::Debug & debug_interface);
 
 private:
 
-  LIS3MDL_IO_Interface & _io;
+  interface::LIS3MDL_Io & _io;
 
-  bool readSingleRegister   (RegisterSelect const reg_sel, uint8_t       * data);
-  bool writeSingleRegister  (RegisterSelect const reg_sel, uint8_t const   data);
-
-  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, char const *msg, RegisterSelect const reg_sel);
+  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, char const * msg, interface::Register const reg);
 
 };
 

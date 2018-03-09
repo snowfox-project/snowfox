@@ -16,11 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_LIS3MDL_INTERFACE_LIS3MDL_IO_INTERFACE_H_
+#define INCLUDE_SPECTRE_DRIVER_SENSOR_LIS3MDL_INTERFACE_LIS3MDL_IO_INTERFACE_H_
+
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/sensor/LIS3MDL/LIS3MDL_IO_I2C.h>
+#include <stdint.h>
+#include <stdbool.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -38,56 +42,61 @@ namespace sensor
 namespace LIS3MDL
 {
 
-/**************************************************************************************
- * CTOR/DTOR
- **************************************************************************************/
-
-LIS3MDL_IO_I2C::LIS3MDL_IO_I2C(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
-: _i2c_address(i2c_address),
-  _i2c_master (i2c_master )
+namespace interface
 {
-
-}
-
-LIS3MDL_IO_I2C::~LIS3MDL_IO_I2C()
-{
-
-}
 
 /**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
+ * TYPEDEFS
  **************************************************************************************/
 
-bool LIS3MDL_IO_I2C::readMultipleRegister(RegisterSelect const reg_sel, uint8_t * data, uint16_t const num_bytes)
+enum class Register : uint8_t
 {
-  uint8_t const reg_addr = static_cast<uint8_t>(reg_sel);
+  WHO_AM_I    = 0x0F,
+  CTRL_REG_1  = 0x20,
+  CTRL_REG_2  = 0x21,
+  CTRL_REG_3  = 0x22,
+  CTRL_REG_4  = 0x23,
+  CTRL_REG_5  = 0x24,
+  STATUS_REG  = 0x27,
+  OUT_X_L     = 0x28,
+  OUT_X_H     = 0x29,
+  OUT_Y_L     = 0x2A,
+  OUT_Y_H     = 0x2B,
+  OUT_Z_L     = 0x2C,
+  OUT_Z_H     = 0x2D,
+  TEMP_OUT_L  = 0x2E,
+  TEMP_OUT_H  = 0x2F,
+  INT_CFG     = 0x30,
+  INT_SRC     = 0x31,
+  INT_THS_L   = 0x32,
+  INT_THS_H   = 0x33
+};
 
-  if(!_i2c_master.begin      (_i2c_address, false  )) return false;
-  if(!_i2c_master.write      (reg_addr             )) return false;
-  if(!_i2c_master.requestFrom(_i2c_address, data, 1)) return false;
+/**************************************************************************************
+ * CLASS DECLARATION
+ **************************************************************************************/
 
-  return true;
-}
-
-bool LIS3MDL_IO_I2C::writeMultipleRegister(RegisterSelect const reg_sel, uint8_t const  * data, uint16_t const num_bytes)
+class LIS3MDL_Io
 {
-  uint8_t const reg_addr = static_cast<uint8_t>(reg_sel);
 
-  if(!_i2c_master.begin(_i2c_address, false)) return false;
-  if(!_i2c_master.write(reg_addr           )) return false;
+public:
 
-  for(uint16_t i = 0; i < num_bytes; i++)
-  {
-    if(!_i2c_master.write(data[i]          )) return false;
-  }
-      _i2c_master.end  (                   );
+           LIS3MDL_Io() { }
+  virtual ~LIS3MDL_Io() { }
 
-  return true;
-}
+
+  virtual bool readRegister (Register const reg, uint8_t       * data, uint16_t const num_bytes) = 0;
+  virtual bool readRegister (Register const reg, uint8_t       * data                          ) = 0;
+  virtual bool writeRegister(Register const reg, uint8_t const * data, uint16_t const num_bytes) = 0;
+  virtual bool writeRegister(Register const reg, uint8_t const   data                          ) = 0;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* LIS3MDL */
 
@@ -96,3 +105,5 @@ bool LIS3MDL_IO_I2C::writeMultipleRegister(RegisterSelect const reg_sel, uint8_t
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_LIS3MDL_INTERFACE_LIS3MDL_IO_INTERFACE_H_ */

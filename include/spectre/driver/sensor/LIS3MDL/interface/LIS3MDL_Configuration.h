@@ -42,6 +42,9 @@ namespace sensor
 namespace LIS3MDL
 {
 
+namespace interface
+{
+
 /**************************************************************************************
  * DEFINES
  **************************************************************************************/
@@ -132,13 +135,13 @@ typedef enum
  * CLASS DECLARATION
  **************************************************************************************/
 
-class LIS3MDL_ConfigurationInterface
+class LIS3MDL_Configuration
 {
 
 public:
 
-           LIS3MDL_ConfigurationInterface() { }
-  virtual ~LIS3MDL_ConfigurationInterface() { }
+           LIS3MDL_Configuration() { }
+  virtual ~LIS3MDL_Configuration() { }
 
 
   virtual bool setOperativeMode_XY    (OperativeMode_XY        const sel) = 0;
@@ -155,6 +158,8 @@ public:
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* LIS3MDL */
 
