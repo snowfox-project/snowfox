@@ -77,7 +77,59 @@ ssize_t LIS3DSH::write(uint8_t const * buffer, ssize_t const num_bytes)
 
 bool LIS3DSH::ioctl(uint32_t const cmd, void * arg)
 {
-  /* TODO */
+  switch(cmd)
+  {
+  break;
+  /* IOCTL_SET_OUTPUT_DATA_RATE *******************************************************/
+  case IOCTL_SET_OUTPUT_DATA_RATE:
+  {
+    uint8_t                         const * arg_ptr          = static_cast<uint8_t *>                      (arg     );
+    interface::OutputDataRateSelect const   output_data_rate = static_cast<interface::OutputDataRateSelect>(*arg_ptr);
+    return _ctrl.setOutputDataRate(output_data_rate);
+  }
+  break;
+  /* IOCTL_SET_FULL_SCALE_RANGE *******************************************************/
+  case IOCTL_SET_FULL_SCALE_RANGE:
+  {
+    uint8_t                         const * arg_ptr          = static_cast<uint8_t *>                      (arg     );
+    interface::FullScaleRangeSelect const   full_scale_range = static_cast<interface::FullScaleRangeSelect>(*arg_ptr);
+    return _ctrl.setFullScaleRange(full_scale_range);
+  }
+  break;
+  /* IOCTL_SET_FILTER_BANDWIDTH *******************************************************/
+  case IOCTL_SET_FILTER_BANDWIDTH:
+  {
+    uint8_t                    const * arg_ptr          = static_cast<uint8_t *>                 (arg     );
+    interface::FilterBandwidth const   filter_bandwidth = static_cast<interface::FilterBandwidth>(*arg_ptr);
+    return _ctrl.setFilterBandwidth(filter_bandwidth);
+  }
+  break;
+  /* IOCTL_ENABLE_XYZ *****************************************************************/
+  case IOCTL_ENABLE_XYZ:
+  {
+    return _ctrl.enableXYZAxis();
+  }
+  break;
+  /* IOCTL_ENABLE_X *******************************************************************/
+  case IOCTL_ENABLE_X:
+  {
+    return _ctrl.enableXAxis();
+  }
+  break;
+  /* IOCTL_ENABLE_Y *******************************************************************/
+  case IOCTL_ENABLE_Y:
+  {
+    return _ctrl.enableYAxis();
+  }
+  break;
+  /* IOCTL_ENABLE_Z *******************************************************************/
+  case IOCTL_ENABLE_Z:
+  {
+    return _ctrl.enableZAxis();
+  }
+  break;
+  }
+
   return false;
 }
 

@@ -44,6 +44,18 @@ namespace LIS3DSH
 {
 
 /**************************************************************************************
+ * CONSTANTS
+ **************************************************************************************/
+
+static uint32_t constexpr IOCTL_SET_OUTPUT_DATA_RATE  = 0; /* Arg: interface::OutputDataRateSelect * -> uint8_t *  */
+static uint32_t constexpr IOCTL_SET_FULL_SCALE_RANGE  = 1; /* Arg: interface::FullScaleRangeSelect * -> uint8_t *  */
+static uint32_t constexpr IOCTL_SET_FILTER_BANDWIDTH  = 2; /* Arg: interface::FilterBandwidth      * -> uint8_t *  */
+static uint32_t constexpr IOCTL_ENABLE_XYZ            = 3; /* Arg: none                                            */
+static uint32_t constexpr IOCTL_ENABLE_X              = 4; /* Arg: none                                            */
+static uint32_t constexpr IOCTL_ENABLE_Y              = 5; /* Arg: none                                            */
+static uint32_t constexpr IOCTL_ENABLE_Z              = 6; /* Arg: none                                            */
+
+/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
