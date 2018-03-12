@@ -44,6 +44,19 @@ namespace LIS2DSH
 {
 
 /**************************************************************************************
+ * CONSTANTS
+ **************************************************************************************/
+
+static uint32_t constexpr IOCTL_SET_OPERATING_MODE    = 0; /* Arg: interface::OperatingModeSelect  * -> uint8_t *  */
+static uint32_t constexpr IOCTL_SET_OUTPUT_DATA_RATE  = 1; /* Arg: interface::OutputDataRateSelect * -> uint8_t *  */
+static uint32_t constexpr IOCTL_SET_FULL_SCALE_RANGE  = 2; /* Arg: interface::FullScaleRangeSelect * -> uint8_t *  */
+static uint32_t constexpr IOCTL_SET_FIFO_MODE         = 3; /* Arg: interface::FIFOModeSelect       * -> uint8_t *  */
+static uint32_t constexpr IOCTL_ENABLE_XYZ            = 4; /* Arg: none                                            */
+static uint32_t constexpr IOCTL_ENABLE_X              = 5; /* Arg: none                                            */
+static uint32_t constexpr IOCTL_ENABLE_Y              = 6; /* Arg: none                                            */
+static uint32_t constexpr IOCTL_ENABLE_Z              = 7; /* Arg: none                                            */
+
+/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
