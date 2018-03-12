@@ -44,6 +44,17 @@ namespace L3GD20
 {
 
 /**************************************************************************************
+ * CONSTANTS
+ **************************************************************************************/
+
+static uint32_t constexpr IOCTL_SET_OUTPUT_DATA_RATE_AND_BANDWIDTH = 0; /* Arg: interface::OutputDataRateAndBandwithSelect * -> uint8_t *  */
+static uint32_t constexpr IOCTL_SET_FULL_SCALE_RANGE               = 1; /* Arg: interface::FullScaleSelect                 * -> uint8_t *  */
+static uint32_t constexpr IOCTL_ENABLE_XYZ                         = 2; /* Arg: none                                                       */
+static uint32_t constexpr IOCTL_ENABLE_X                           = 3; /* Arg: none                                                       */
+static uint32_t constexpr IOCTL_ENABLE_Y                           = 4; /* Arg: none                                                       */
+static uint32_t constexpr IOCTL_ENABLE_Z                           = 5; /* Arg: none                                                       */
+
+/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
