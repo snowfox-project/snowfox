@@ -71,7 +71,7 @@ public:
   /* BMG160 Configuration Interface */
 
   virtual bool setOutputDataRateAndBandwith (OutputDataRateAndBandwithSelect const sel) = 0;
-  virtual bool setFullScale                 (FullScaleSelect                 const sel) = 0;
+  virtual bool setFullScaleRange            (FullScaleRangeSelect            const sel) = 0;
 
 };
 

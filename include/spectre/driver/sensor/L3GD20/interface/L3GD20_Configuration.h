@@ -107,7 +107,7 @@ typedef enum
   FS_plus_minus_250_DPS  = 0,
   FS_plus_minus_500_DPS  =                           L3GD20_CTRL_REG4_FS0_bm,
   FS_plus_minus_2000_DPS = L3GD20_CTRL_REG4_FS1_bm | L3GD20_CTRL_REG4_FS0_bm
-} FullScaleSelect;
+} FullScaleRangeSelect;
 
 /**************************************************************************************
  * CLASS DECLARATION
@@ -127,7 +127,7 @@ public:
   virtual bool enableBlockDataUpdate        () = 0;
 
   virtual bool setOutputDataRateAndBandwith (OutputDataRateAndBandwithSelect const sel) = 0;
-  virtual bool setFullScale                 (FullScaleSelect                 const sel) = 0;
+  virtual bool setFullScaleRange            (FullScaleRangeSelect            const sel) = 0;
 
   virtual bool enableXYZAxis                () = 0;
   virtual bool enableXAxis                  () = 0;

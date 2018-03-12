@@ -73,7 +73,7 @@ bool L3GD20_Control::setOutputDataRateAndBandwith(interface::OutputDataRateAndBa
   return true;
 }
 
-bool L3GD20_Control::setFullScale(interface::FullScaleSelect const sel)
+bool L3GD20_Control::setFullScaleRange(interface::FullScaleRangeSelect const sel)
 {
   uint8_t ctrl_reg4_content = 0;
 

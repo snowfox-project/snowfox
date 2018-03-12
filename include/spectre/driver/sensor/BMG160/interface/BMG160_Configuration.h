@@ -82,7 +82,7 @@ typedef enum
   FS_plus_minus_500_DPS   =                             BMG160_RANGE_REG_FSR_1_bm,
   FS_plus_minus_250_DPS   =                             BMG160_RANGE_REG_FSR_1_bm | BMG160_RANGE_REG_FSR_0_bm,
   FS_plus_minus_125_DPS   = BMG160_RANGE_REG_FSR_2_bm
-} FullScaleSelect;
+} FullScaleRangeSelect;
 
 /**************************************************************************************
  * CLASS DECLARATION
@@ -98,7 +98,7 @@ public:
 
 
   virtual bool setOutputDataRateAndBandwith (OutputDataRateAndBandwithSelect const sel) = 0;
-  virtual bool setFullScale                 (FullScaleSelect                 const sel) = 0;
+  virtual bool setFullScaleRange            (FullScaleRangeSelect            const sel) = 0;
 
 };
 

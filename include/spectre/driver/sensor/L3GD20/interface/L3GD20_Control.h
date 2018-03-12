@@ -84,7 +84,7 @@ public:
   virtual bool enableBlockDataUpdate        () = 0;
 
   virtual bool setOutputDataRateAndBandwith (OutputDataRateAndBandwithSelect const sel) = 0;
-  virtual bool setFullScale                 (FullScaleSelect                 const sel) = 0;
+  virtual bool setFullScaleRange            (FullScaleRangeSelect            const sel) = 0;
 
   virtual bool enableXYZAxis                () = 0;
   virtual bool enableXAxis                  () = 0;

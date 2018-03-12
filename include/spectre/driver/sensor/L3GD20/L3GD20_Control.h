@@ -83,7 +83,7 @@ public:
   virtual bool enableBlockDataUpdate        () override;
 
   virtual bool setOutputDataRateAndBandwith (interface::OutputDataRateAndBandwithSelect const sel) override;
-  virtual bool setFullScale                 (interface::FullScaleSelect                 const sel) override;
+  virtual bool setFullScaleRange            (interface::FullScaleRangeSelect            const sel) override;
 
   virtual bool enableXYZAxis                () override;
   virtual bool enableXAxis                  () override;

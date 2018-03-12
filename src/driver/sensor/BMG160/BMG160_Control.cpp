@@ -71,7 +71,7 @@ bool BMG160_Control::setOutputDataRateAndBandwith(interface::OutputDataRateAndBa
   return true;
 }
 
-bool BMG160_Control::setFullScale(interface::FullScaleSelect const sel)
+bool BMG160_Control::setFullScaleRange(interface::FullScaleRangeSelect const sel)
 {
   uint8_t range_content = 0;
 
