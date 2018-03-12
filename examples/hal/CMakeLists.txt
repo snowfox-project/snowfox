@@ -13,6 +13,13 @@ if(${MCU_ARCH} STREQUAL "avr")
     add_subdirectory(hal-at90can128-digital-out-port)
   endif()
 
+  if(${MCU_TYPE} STREQUAL "atmega2560")
+    add_subdirectory(hal-atmega2560-digital-in-pin  )
+    add_subdirectory(hal-atmega2560-digital-in-port )
+    add_subdirectory(hal-atmega2560-digital-out-pin )
+    add_subdirectory(hal-atmega2560-digital-out-port)
+  endif()
+
   if(${MCU_TYPE} STREQUAL "atmega328p")
     add_subdirectory(hal-atmega328p-analog-digital-converter)
     add_subdirectory(hal-atmega328p-digital-in-pin          )
