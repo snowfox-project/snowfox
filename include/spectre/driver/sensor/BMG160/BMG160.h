@@ -44,6 +44,13 @@ namespace BMG160
 {
 
 /**************************************************************************************
+ * CONSTANTS
+ **************************************************************************************/
+
+static uint32_t constexpr IOCTL_SET_OUTPUT_DATA_RATE_AND_BANDWIDTH = 0; /* Arg: interface::OutputDataRateAndBandwithSelect * -> uint8_t *  */
+static uint32_t constexpr IOCTL_SET_FULL_SCALE_RANGE               = 1; /* Arg: interface::FullScaleSelect                 * -> uint8_t *  */
+
+/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
