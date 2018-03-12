@@ -79,7 +79,6 @@ bool LIS3DSH::ioctl(uint32_t const cmd, void * arg)
 {
   switch(cmd)
   {
-  break;
   /* IOCTL_SET_OUTPUT_DATA_RATE *******************************************************/
   case IOCTL_SET_OUTPUT_DATA_RATE:
   {

@@ -95,7 +95,7 @@ typedef enum
   XY_MP   =                              LIS3MDL_CTRL_REG_1_OM_0_bm,
   XY_HP   = LIS3MDL_CTRL_REG_1_OM_1_bm,
   XY_UHP  = LIS3MDL_CTRL_REG_1_OM_1_bm | LIS3MDL_CTRL_REG_1_OM_0_bm
-} OperativeMode_XY;
+} OperationMode_XY;
 
 typedef enum
 {
@@ -103,7 +103,7 @@ typedef enum
   Z_MP    =                              LIS3MDL_CTRL_REG_4_OMZ_0_bm,
   Z_HP    = LIS3MDL_CTRL_REG_4_OMZ_1_bm,
   Z_UHP   = LIS3MDL_CTRL_REG_4_OMZ_1_bm | LIS3MDL_CTRL_REG_4_OMZ_0_bm
-} OperativeMode_Z;
+} OperationMode_Z;
 
 typedef enum
 {
@@ -115,7 +115,7 @@ typedef enum
   ODR_20_Hz     = LIS3MDL_CTRL_REG_1_DO2_bm |                             LIS3MDL_CTRL_REG_1_DO0_bm,
   ODR_40_Hz     = LIS3MDL_CTRL_REG_1_DO2_bm | LIS3MDL_CTRL_REG_1_DO1_bm,
   ODR_80_Hz     = LIS3MDL_CTRL_REG_1_DO2_bm | LIS3MDL_CTRL_REG_1_DO1_bm | LIS3MDL_CTRL_REG_1_DO0_bm
-} OutputDataRateSelection;
+} OutputDataRateSelect;
 
 typedef enum
 {
@@ -144,13 +144,13 @@ public:
   virtual ~LIS3MDL_Configuration() { }
 
 
-  virtual bool setOperativeMode_XY    (OperativeMode_XY        const sel) = 0;
-  virtual bool setOperativeMode_Z     (OperativeMode_Z         const sel) = 0;
-  virtual bool setOutputDataRate      (OutputDataRateSelection const sel) = 0;
-  virtual bool setFullScale           (FullScaleRangeSelect    const sel) = 0;
-  virtual bool setConversionMode      (ConversionMode          const sel) = 0;
-  virtual bool enableTemperatureSensor(                                 ) = 0;
-  virtual bool enableBlockDataUpdate  (                                 ) = 0;
+  virtual bool setOperationMode_XY    (OperationMode_XY     const sel) = 0;
+  virtual bool setOperationMode_Z     (OperationMode_Z      const sel) = 0;
+  virtual bool setOutputDataRate      (OutputDataRateSelect const sel) = 0;
+  virtual bool setFullScaleRange      (FullScaleRangeSelect const sel) = 0;
+  virtual bool setConversionMode      (ConversionMode       const sel) = 0;
+  virtual bool enableTemperatureSensor(                              ) = 0;
+  virtual bool enableBlockDataUpdate  (                              ) = 0;
 
 
 };

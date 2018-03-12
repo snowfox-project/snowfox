@@ -79,13 +79,13 @@ public:
 
   /* LIS3MDL Configuration Interface */
 
-  virtual bool setOperativeMode_XY          (interface::OperativeMode_XY        const sel) override;
-  virtual bool setOperativeMode_Z           (interface::OperativeMode_Z         const sel) override;
-  virtual bool setOutputDataRate            (interface::OutputDataRateSelection const sel) override;
-  virtual bool setFullScale                 (interface::FullScaleRangeSelect    const sel) override;
-  virtual bool setConversionMode            (interface::ConversionMode          const sel) override;
-  virtual bool enableTemperatureSensor      (                                            ) override;
-  virtual bool enableBlockDataUpdate        (                                            ) override;
+  virtual bool setOperationMode_XY          (interface::OperationMode_XY     const sel) override;
+  virtual bool setOperationMode_Z           (interface::OperationMode_Z      const sel) override;
+  virtual bool setOutputDataRate            (interface::OutputDataRateSelect const sel) override;
+  virtual bool setFullScaleRange            (interface::FullScaleRangeSelect const sel) override;
+  virtual bool setConversionMode            (interface::ConversionMode       const sel) override;
+  virtual bool enableTemperatureSensor      (                                         ) override;
+  virtual bool enableBlockDataUpdate        (                                         ) override;
 
 
           void debug_dumpAllRegs            (debug::interface::Debug & debug_interface);

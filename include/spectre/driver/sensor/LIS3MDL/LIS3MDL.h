@@ -44,6 +44,16 @@ namespace LIS3MDL
 {
 
 /**************************************************************************************
+ * CONSTANTS
+ **************************************************************************************/
+
+static uint32_t constexpr IOCTL_SET_OPERATION_MODE_XY  = 0; /* Arg: interface::OperationMode_XY     * -> uint8_t *  */
+static uint32_t constexpr IOCTL_SET_OPERATION_MODE_Z   = 1; /* Arg: interface::OperationMode_Z      * -> uint8_t *  */
+static uint32_t constexpr IOCTL_SET_OUTPUT_DATA_RATE   = 2; /* Arg: interface::OutputDataRateSelect * -> uint8_t *  */
+static uint32_t constexpr IOCTL_SET_FULL_SCALE_RANGE   = 3; /* Arg: interface::FullScaleRangeSelect * -> uint8_t *  */
+static uint32_t constexpr IOCTL_SET_CONVERSION_MODE    = 4; /* Arg: interface::ConversionMode       * -> uint8_t *  */
+
+/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 

@@ -222,7 +222,7 @@ bool LIS3MDL_Control::readTemperature(int16_t * raw_temp)
   return true;
 }
 
-bool LIS3MDL_Control::setOperativeMode_XY(interface::OperativeMode_XY const sel)
+bool LIS3MDL_Control::setOperationMode_XY(interface::OperationMode_XY const sel)
 {
   uint8_t ctrl_reg1_content = 0;
 
@@ -236,7 +236,7 @@ bool LIS3MDL_Control::setOperativeMode_XY(interface::OperativeMode_XY const sel)
   return true;
 }
 
-bool LIS3MDL_Control::setOperativeMode_Z(interface::OperativeMode_Z const sel)
+bool LIS3MDL_Control::setOperationMode_Z(interface::OperationMode_Z const sel)
 {
   uint8_t ctrl_reg4_content = 0;
 
@@ -250,7 +250,7 @@ bool LIS3MDL_Control::setOperativeMode_Z(interface::OperativeMode_Z const sel)
   return true;
 }
 
-bool LIS3MDL_Control::setOutputDataRate(interface::OutputDataRateSelection const sel)
+bool LIS3MDL_Control::setOutputDataRate(interface::OutputDataRateSelect const sel)
 {
   uint8_t ctrl_reg1_content = 0;
 
@@ -264,7 +264,7 @@ bool LIS3MDL_Control::setOutputDataRate(interface::OutputDataRateSelection const
   return true;
 }
 
-bool LIS3MDL_Control::setFullScale(interface::FullScaleRangeSelect const sel)
+bool LIS3MDL_Control::setFullScaleRange(interface::FullScaleRangeSelect const sel)
 {
   uint8_t ctrl_reg2_content = 0;
 
