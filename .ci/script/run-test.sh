@@ -1,5 +1,5 @@
 #!/bin/bash
-cd $(dirname $(readlink -f $0))
-cd ..
 
-../build/bin/test-host
+cd $(dirname $(readlink -f $0))
+
+../../build/bin/test-host
