@@ -4,9 +4,12 @@ cmake_minimum_required(VERSION 2.8)
 
 ##########################################################################
 
-add_subdirectory(debug)
-add_subdirectory(driver)
-add_subdirectory(hal)
-add_subdirectory(os)
+if(${MCU_ARCH} STREQUAL "avr")
+
+  if(${MCU_TYPE} STREQUAL "at90can128")
+    add_subdirectory(os-create-task-at90can128)
+  endif()
+
+endif()
 
 ##########################################################################
