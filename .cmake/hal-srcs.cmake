@@ -67,7 +67,8 @@ set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA328P_SRCS
 # ATMEGA32U4 #############################################################
 ##########################################################################
 
-set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA32U4_SRCS ""
+set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA32U4_SRCS
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATMEGA32U4/TIMER0.cpp
 )
 
 ##########################################################################
