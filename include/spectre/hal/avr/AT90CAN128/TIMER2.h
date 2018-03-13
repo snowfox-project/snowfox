@@ -53,7 +53,7 @@ public:
 
            TIMER2(volatile uint8_t * TCNT2,
                   volatile uint8_t * TCCR2A,
-                  volatile uint8_t * OCR02);
+                  volatile uint8_t * OCR2A);
   virtual ~TIMER2();
 
 
