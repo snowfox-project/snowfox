@@ -76,7 +76,6 @@ set(SPECTRE_TEST_MEMORY_PATH src/memory)
 ##########################################################################
 
 set(SPECTRE_TEST_HOST_MEMORY_SRCS
-  ${SPECTRE_TEST_MEMORY_PATH}/container/test_List.cpp
   ${SPECTRE_TEST_MEMORY_PATH}/container/test_Queue.cpp
 )
 
