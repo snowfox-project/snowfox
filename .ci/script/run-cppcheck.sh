@@ -1,6 +1,6 @@
 #!/bin/bash
-
 cd $(dirname $(readlink -f $0))
+cd ..
 
 if   [ "$1" = "-out=xml" ]; then
 

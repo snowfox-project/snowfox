@@ -3,20 +3,20 @@ language: cpp
 sudo: enabled
 
 install:
-  - .ci/run-install.sh
+  - .ci/script/run-install.sh
 
 before_script:
-  - .ci/run-cppcheck.sh -out=xml
-  - .ci/run-pre-build-prepare-coverage-report.sh
+  - .ci/script/run-cppcheck.sh -out=xml
+  - .ci/script/run-pre-build-prepare-coverage-report.sh
 
 script:
-  - .ci/run-build.sh at90can128-default.cmake
-  - .ci/run-build.sh atmega2560-default.cmake
-  - .ci/run-build.sh atmega328p-default.cmake
-  - .ci/run-build.sh atmega32u4-default.cmake
-  - .ci/run-build.sh host-default.cmake
-  - .ci/run-test.sh
+  - .ci/script/run-build.sh at90can128-default.cmake
+  - .ci/script/run-build.sh atmega2560-default.cmake
+  - .ci/script/run-build.sh atmega328p-default.cmake
+  - .ci/script/run-build.sh atmega32u4-default.cmake
+  - .ci/script/run-build.sh host-default.cmake
+  - .ci/script/run-test.sh
 
 after_script:
-  - .ci/run-post-build-create-coverage-report.sh
-  - .ci/run-cleanup.sh
+  - .ci/script/run-post-build-create-coverage-report.sh
+  - .ci/script/run-cleanup.sh

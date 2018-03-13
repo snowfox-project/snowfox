@@ -1,5 +1,6 @@
 #!/bin/bash
 cd $(dirname $(readlink -f $0))
+cd ..
 
 sudo apt-get install cppcheck
 sudo apt-get install lcov
