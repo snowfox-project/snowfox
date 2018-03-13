@@ -28,14 +28,21 @@
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
+struct task_list_t * spectre_create_task(struct task_list_t * task_list_head, TaskFunc task_func, void * task_arg, uint16_t const task_prio)
+{
+  return 0;
+}
+
+/*
 struct task_control_block_t * spectre_create_task(TaskFunc task_func, void * task_arg, uint16_t const task_prio)
 {
   struct task_control_block_t * tcb = (struct task_control_block_t *)malloc(sizeof(struct task_control_block_t));
 
-  tcb->top_of_stack = 0; /* TODO */
+  tcb->top_of_stack = 0; // TODO
   tcb->task_func    = task_func;
   tcb->task_arg     = task_arg;
   tcb->task_prio    = task_prio;
 
   return tcb;
 }
+*/
