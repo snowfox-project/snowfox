@@ -45,69 +45,76 @@ namespace ATMEGA328P
 
 enum class Interrupt : uint8_t
 {
-  EXTERNAL_INT0,
-  EXTERNAL_INT1,
-  PIN_CHANGE_INT0,
-  PIN_CHANGE_INT1,
-  PIN_CHANGE_INT2,
-  WATCHDOG_TIMER,
-  TIMER2_COMPARE_A,
-  TIMER2_COMPARE_B,
-  TIMER2_OVERFLOW,
-  TIMER1_CAPTURE,
-  TIMER1_COMPARE_A,
-  TIMER1_COMPARE_B,
-  TIMER1_OVERFLOW,
-  TIMER0_COMPARE_A,
-  TIMER0_COMPARE_B,
-  TIMER0_OVERFLOW,
-  SPI_SERIAL_TRANSFER_COMPLETE,
-  USART_RECEIVE_COMPLETE,
-  USART_UART_DATA_REGISTER_EMPTY,
-  USART_TRANSMIT_COMPLETE,
-  ANALOG_DIGITAL_CONVERTER,
-  EEPROM_READY,
-  ANALOG_COMPARATOR,
-  TWO_WIRE_INT,
-  SPM_READY,
-  GLOBAL
+  EXTERNAL_INT0                   =  0,
+  EXTERNAL_INT1                   =  1,
+  PIN_CHANGE_INT0                 =  2,
+  PIN_CHANGE_INT1                 =  3,
+  PIN_CHANGE_INT2                 =  4,
+  WATCHDOG_TIMER                  =  5,
+  TIMER2_COMPARE_A                =  6,
+  TIMER2_COMPARE_B                =  7,
+  TIMER2_OVERFLOW                 =  8,
+  TIMER1_CAPTURE                  =  9,
+  TIMER1_COMPARE_A                = 11,
+  TIMER1_COMPARE_B                = 12,
+  TIMER1_OVERFLOW                 = 13,
+  TIMER0_COMPARE_A                = 14,
+  TIMER0_COMPARE_B                = 15,
+  TIMER0_OVERFLOW                 = 16,
+  SPI_SERIAL_TRANSFER_COMPLETE    = 17,
+  USART_RECEIVE_COMPLETE          = 18,
+  USART_UART_DATA_REGISTER_EMPTY  = 19,
+  USART_TRANSMIT_COMPLETE         = 20,
+  ANALOG_DIGITAL_CONVERTER        = 21,
+  EEPROM_READY                    = 22,
+  ANALOG_COMPARATOR               = 23,
+  TWO_WIRE_INT                    = 24,
+  SPM_READY                       = 25,
+  GLOBAL                          = 26
 };
 
 enum class InterruptServiceRoutine : uint8_t
 {
-  EXTERNAL_INT0,
-  EXTERNAL_INT1,
-  PIN_CHANGE_INT0,
-  PIN_CHANGE_INT1,
-  PIN_CHANGE_INT2,
-  WATCHDOG_TIMER,
-  TIMER2_COMPARE_A,
-  TIMER2_COMPARE_B,
-  TIMER2_OVERFLOW,
-  TIMER1_CAPTURE,
-  TIMER1_COMPARE_A,
-  TIMER1_COMPARE_B,
-  TIMER1_OVERFLOW,
-  TIMER0_COMPARE_A,
-  TIMER0_COMPARE_B,
-  TIMER0_OVERFLOW,
-  SPI_SERIAL_TRANSFER_COMPLETE,
-  USART_RECEIVE_COMPLETE,
-  USART_UART_DATA_REGISTER_EMPTY,
-  USART_TRANSMIT_COMPLETE,
-  ANALOG_DIGITAL_CONVERTER,
-  EEPROM_READY,
-  ANALOG_COMPARATOR,
-  TWO_WIRE_INT,
-  SPM_READY
+  EXTERNAL_INT0                   =  0,
+  EXTERNAL_INT1                   =  1,
+  PIN_CHANGE_INT0                 =  2,
+  PIN_CHANGE_INT1                 =  3,
+  PIN_CHANGE_INT2                 =  4,
+  WATCHDOG_TIMER                  =  5,
+  TIMER2_COMPARE_A                =  6,
+  TIMER2_COMPARE_B                =  7,
+  TIMER2_OVERFLOW                 =  8,
+  TIMER1_CAPTURE                  =  9,
+  TIMER1_COMPARE_A                = 10,
+  TIMER1_COMPARE_B                = 11,
+  TIMER1_OVERFLOW                 = 12,
+  TIMER0_COMPARE_A                = 13,
+  TIMER0_COMPARE_B                = 14,
+  TIMER0_OVERFLOW                 = 15,
+  SPI_SERIAL_TRANSFER_COMPLETE    = 16,
+  USART_RECEIVE_COMPLETE          = 17,
+  USART_UART_DATA_REGISTER_EMPTY  = 18,
+  USART_TRANSMIT_COMPLETE         = 19,
+  ANALOG_DIGITAL_CONVERTER        = 20,
+  EEPROM_READY                    = 21,
+  ANALOG_COMPARATOR               = 22,
+  TWO_WIRE_INT                    = 23,
+  SPM_READY                       = 24
 };
 
 /**************************************************************************************
- * PROTOTYPES
+ * CONSTEXPR FUNCTIONS
  **************************************************************************************/
 
-uint8_t toIntNum(Interrupt               const interrupt                );
-uint8_t toIsrNum(InterruptServiceRoutine const interrupt_service_routine);
+constexpr uint8_t toIntNum(Interrupt const interrupt)
+{
+  return static_cast<uint8_t>(interrupt);
+}
+
+constexpr uint8_t toIsrNum(InterruptServiceRoutine const interrupt_service_routine)
+{
+  return static_cast<uint8_t>(interrupt_service_routine);
+}
 
 /**************************************************************************************
  * CLASS DECLARATION
