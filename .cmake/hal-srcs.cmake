@@ -37,7 +37,8 @@ set(SPECTRE_LIBRARY_HAL_AVR_AT90CAN128_SRCS
 # ATMEGA2560 #############################################################
 ##########################################################################
 
-set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA2560_SRCS ""
+set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA2560_SRCS
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATMEGA2560/TIMER0.cpp
 )
 
 
