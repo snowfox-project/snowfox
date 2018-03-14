@@ -62,4 +62,6 @@ struct task_list_t
 
 struct task_list_t * spectre_create_task(struct task_list_t * task_list_head, TaskFunc task_func, void * task_arg, uint16_t const task_prio);
 
+void spectre_switch_task(struct task_list_t * new_task, struct task_list_t * old_task);
+
 #endif /* INCLUDE_SPECTRE_OS_TASK_H_ */
