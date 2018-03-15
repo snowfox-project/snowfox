@@ -28,7 +28,10 @@
 
 /* The current processor state in a AT90CAN128 is specified by the content of
  * the following registers:
- *
+ *  * General Purpose Registers : R0 - R31
+ *  * Status Register           : SREG
+ *  * Program Counter           : PC
+ *  * Stack Pointer             : SPH, SPL
  */
 
 void spectre_switch_task(struct task_list_t * new_task, struct task_list_t * old_task)
