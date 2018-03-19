@@ -59,4 +59,6 @@ struct task_list_t * spectre_create_task(struct task_list_t * task_list_head, Ta
   return task_list_head;
 }
 
+#if defined(MCU_ARCH_avr) && defined(MCU_TYPE_at90can128)
 #include "avr/at90can128/task-port.c"
+#endif
