@@ -44,6 +44,22 @@ namespace AS5600
 {
 
 /**************************************************************************************
+ * CONSTANTS
+ **************************************************************************************/
+
+static uint32_t constexpr IOCTL_SET_POWER_MODE              =  0; /* Arg: interface::PowerModeSelect     * -> uint8_t *  */
+static uint32_t constexpr IOCTL_SET_HYSTERESIS              =  1; /* Arg: interface::HysteresisSelect    * -> uint8_t *  */
+static uint32_t constexpr IOCTL_SET_OUTPUT_STAGE            =  2; /* Arg: interface::OutputStageSelect   * -> uint8_t *  */
+static uint32_t constexpr IOCTL_SET_PWM_FREQUENCY           =  3; /* Arg: interface::PWMFrequencySelect  * -> uint8_t *  */
+static uint32_t constexpr IOCTL_SET_SLOW_FILTER             =  4; /* Arg: interface::SlowFilterSelect    * -> uint8_t *  */
+static uint32_t constexpr IOCTL_SET_FAST_FILTER_THRESHOLD   =  5; /* Arg: interface::FastFilterThreshold * -> uint8_t *  */
+static uint32_t constexpr IOCTL_ENABLE_WATCHDOG             =  6; /* Arg: none                                           */
+static uint32_t constexpr IOCTL_DISABLE_WATCHDOG            =  7; /* Arg: none                                           */
+static uint32_t constexpr IOCTL_SET_ANGULAR_START_POSITION  =  8; /* Arg: uint16_t *                                     */
+static uint32_t constexpr IOCTL_SET_ANGULAR_STOP_POSITION   =  9; /* Arg: uint16_t *                                     */
+static uint32_t constexpr IOCTL_SET_MAX_ANGLE               = 10; /* Arg: uint16_t *                                     */
+
+/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
