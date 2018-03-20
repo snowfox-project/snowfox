@@ -80,9 +80,9 @@ public:
 
   /* LIS3DSH Configuration Interface */
 
-  virtual bool setOutputDataRate            (OutputDataRateSelect const sel) = 0;
-  virtual bool setFullScaleRange            (FullScaleRangeSelect const sel) = 0;
-  virtual bool setFilterBandwidth           (FilterBandwidth      const sel) = 0;
+  virtual bool setOutputDataRate            (OutputDataRate  const output_data_rate) = 0;
+  virtual bool setFullScaleRange            (FullScaleRange  const full_scale_range) = 0;
+  virtual bool setFilterBandwidth           (FilterBandwidth const filter_bandwidth) = 0;
 
   virtual bool enableFIFO                   () = 0;
   virtual bool disableFIFO                  () = 0;

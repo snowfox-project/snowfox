@@ -82,16 +82,16 @@ bool LIS3DSH::ioctl(uint32_t const cmd, void * arg)
   /* IOCTL_SET_OUTPUT_DATA_RATE *******************************************************/
   case IOCTL_SET_OUTPUT_DATA_RATE:
   {
-    uint8_t                         const * arg_ptr          = static_cast<uint8_t *>                      (arg     );
-    interface::OutputDataRateSelect const   output_data_rate = static_cast<interface::OutputDataRateSelect>(*arg_ptr);
+    uint8_t                   const * arg_ptr          = static_cast<uint8_t *>                (arg     );
+    interface::OutputDataRate const   output_data_rate = static_cast<interface::OutputDataRate>(*arg_ptr);
     return _ctrl.setOutputDataRate(output_data_rate);
   }
   break;
   /* IOCTL_SET_FULL_SCALE_RANGE *******************************************************/
   case IOCTL_SET_FULL_SCALE_RANGE:
   {
-    uint8_t                         const * arg_ptr          = static_cast<uint8_t *>                      (arg     );
-    interface::FullScaleRangeSelect const   full_scale_range = static_cast<interface::FullScaleRangeSelect>(*arg_ptr);
+    uint8_t                   const * arg_ptr          = static_cast<uint8_t *>                (arg     );
+    interface::FullScaleRange const   full_scale_range = static_cast<interface::FullScaleRange>(*arg_ptr);
     return _ctrl.setFullScaleRange(full_scale_range);
   }
   break;

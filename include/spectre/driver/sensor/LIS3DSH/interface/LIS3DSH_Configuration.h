@@ -86,7 +86,7 @@ namespace interface
  * TYPEDEFS
  **************************************************************************************/
 
-typedef enum
+enum class OutputDataRate : uint8_t
 {
   ODR_OFF       = 0,
   ODR_3_125_Hz  =                                                                                           LIS3DSH_CTRL_REG_4_ODR_0_bm,
@@ -98,24 +98,24 @@ typedef enum
   ODR_400_Hz    =                               LIS3DSH_CTRL_REG_4_ODR_2_bm | LIS3DSH_CTRL_REG_4_ODR_1_bm | LIS3DSH_CTRL_REG_4_ODR_0_bm,
   ODR_800_Hz    = LIS3DSH_CTRL_REG_4_ODR_3_bm,
   ODR_1600_Hz   = LIS3DSH_CTRL_REG_4_ODR_3_bm |                                                             LIS3DSH_CTRL_REG_4_ODR_0_bm
-} OutputDataRateSelect;
+};
 
-typedef enum
+enum class FullScaleRange : uint8_t
 {
   FS_plus_minus_2g  = 0,
   FS_plus_minus_4g  =                                                                   LIS3DSH_CTRL_REG_5_FSCALE_0_bm,
   FS_plus_minus_6g  =                                  LIS3DSH_CTRL_REG_5_FSCALE_1_bm,
   FS_plus_minus_8g  =                                  LIS3DSH_CTRL_REG_5_FSCALE_1_bm | LIS3DSH_CTRL_REG_5_FSCALE_0_bm,
   FS_plus_minus_16g = LIS3DSH_CTRL_REG_5_FSCALE_2_bm
-} FullScaleRangeSelect;
+};
 
-typedef enum
+enum class FilterBandwidth : uint8_t
 {
   BW_800_Hz = 0,
   BW_200_Hz =                              LIS3DSH_CTRL_REG_5_BW_1_bm,
   BW_400_Hz = LIS3DSH_CTRL_REG_5_BW_2_bm,
   BW_50_Hz  = LIS3DSH_CTRL_REG_5_BW_2_bm | LIS3DSH_CTRL_REG_5_BW_1_bm
-} FilterBandwidth;
+};
 
 /**************************************************************************************
  * CLASS DECLARATION ConfigurationInterface
@@ -130,9 +130,9 @@ public:
   virtual ~LIS3DSH_Configuration() { }
 
 
-  virtual bool setOutputDataRate    (OutputDataRateSelect const sel) = 0;
-  virtual bool setFullScaleRange    (FullScaleRangeSelect const sel) = 0;
-  virtual bool setFilterBandwidth   (FilterBandwidth      const sel) = 0;
+  virtual bool setOutputDataRate    (OutputDataRate  const output_data_rate) = 0;
+  virtual bool setFullScaleRange    (FullScaleRange  const full_scale_range) = 0;
+  virtual bool setFilterBandwidth   (FilterBandwidth const filter_bandwidth) = 0;
 
   virtual bool enableFIFO           () = 0;
   virtual bool disableFIFO          () = 0;

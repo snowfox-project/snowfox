@@ -57,42 +57,42 @@ LIS3DSH_Control::~LIS3DSH_Control()
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-bool LIS3DSH_Control::setOutputDataRate(interface::OutputDataRateSelect const sel)
+bool LIS3DSH_Control::setOutputDataRate(interface::OutputDataRate const output_data_rate)
 {
   uint8_t ctrl_reg4_content = 0;
 
   if(!_io.readRegister(interface::Register::CTRL_REG_4, &ctrl_reg4_content)) return false;
 
   ctrl_reg4_content &= ~(LIS3DSH_CTRL_REG_4_ODR_3_bm | LIS3DSH_CTRL_REG_4_ODR_2_bm | LIS3DSH_CTRL_REG_4_ODR_1_bm | LIS3DSH_CTRL_REG_4_ODR_0_bm);
-  ctrl_reg4_content |= static_cast<uint8_t>(sel);
+  ctrl_reg4_content |= static_cast<uint8_t>(output_data_rate);
 
   if(!_io.writeRegister(interface::Register::CTRL_REG_4, ctrl_reg4_content)) return false;
 
   return true;
 }
 
-bool LIS3DSH_Control::setFullScaleRange(interface::FullScaleRangeSelect const sel)
+bool LIS3DSH_Control::setFullScaleRange(interface::FullScaleRange const full_scale_range)
 {
   uint8_t ctrl_reg5_content = 0;
 
   if(!_io.readRegister(interface::Register::CTRL_REG_5, &ctrl_reg5_content)) return false;
 
   ctrl_reg5_content &= ~(LIS3DSH_CTRL_REG_5_FSCALE_2_bm | LIS3DSH_CTRL_REG_5_FSCALE_1_bm | LIS3DSH_CTRL_REG_5_FSCALE_0_bm);
-  ctrl_reg5_content |= static_cast<uint8_t>(sel);
+  ctrl_reg5_content |= static_cast<uint8_t>(full_scale_range);
 
   if(!_io.writeRegister(interface::Register::CTRL_REG_5, ctrl_reg5_content)) return false;
 
   return true;
 }
 
-bool LIS3DSH_Control::setFilterBandwidth(interface::FilterBandwidth const sel)
+bool LIS3DSH_Control::setFilterBandwidth(interface::FilterBandwidth const filter_bandwidth)
 {
   uint8_t ctrl_reg5_content = 0;
 
   if(!_io.readRegister(interface::Register::CTRL_REG_5, &ctrl_reg5_content)) return false;
 
   ctrl_reg5_content &= ~(LIS3DSH_CTRL_REG_5_BW_2_bm | LIS3DSH_CTRL_REG_5_BW_1_bm);
-  ctrl_reg5_content |= static_cast<uint8_t>(sel);
+  ctrl_reg5_content |= static_cast<uint8_t>(filter_bandwidth);
 
   if(!_io.writeRegister(interface::Register::CTRL_REG_5, ctrl_reg5_content)) return false;
 

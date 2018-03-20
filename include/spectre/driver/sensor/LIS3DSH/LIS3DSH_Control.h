@@ -79,9 +79,9 @@ public:
 
   /* LIS3DSH Configuration Interface */
 
-  virtual bool setOutputDataRate            (interface::OutputDataRateSelect const sel) override;
-  virtual bool setFullScaleRange            (interface::FullScaleRangeSelect const sel) override;
-  virtual bool setFilterBandwidth           (interface::FilterBandwidth      const sel) override;
+  virtual bool setOutputDataRate            (interface::OutputDataRate  const output_data_rate) override;
+  virtual bool setFullScaleRange            (interface::FullScaleRange  const full_scale_range) override;
+  virtual bool setFilterBandwidth           (interface::FilterBandwidth const filter_bandwidth) override;
 
   virtual bool enableFIFO                   () override;
   virtual bool disableFIFO                  () override;
