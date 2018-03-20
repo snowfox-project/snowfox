@@ -57,28 +57,28 @@ BMG160_Control::~BMG160_Control()
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-bool BMG160_Control::setOutputDataRateAndBandwith(interface::OutputDataRateAndBandwithSelect const sel)
+bool BMG160_Control::setOutputDataRateAndBandwith(interface::OutputDataRateAndBandwith const output_data_rate_and_bandwidth)
 {
   uint8_t bw_reg_content = 0;
 
   if(!_io.readRegister(interface::Register::BW, &bw_reg_content)) return false;
 
   bw_reg_content &= ~(BMG160_BW_REG_ODR_2_bm | BMG160_BW_REG_ODR_1_bm | BMG160_BW_REG_ODR_0_bm);
-  bw_reg_content |= static_cast<uint8_t>(sel);
+  bw_reg_content |= static_cast<uint8_t>(output_data_rate_and_bandwidth);
 
   if(!_io.writeRegister(interface::Register::BW, bw_reg_content)) return false;
 
   return true;
 }
 
-bool BMG160_Control::setFullScaleRange(interface::FullScaleRangeSelect const sel)
+bool BMG160_Control::setFullScaleRange(interface::FullScaleRange const full_scale_range)
 {
   uint8_t range_content = 0;
 
   if(!_io.readRegister(interface::Register::RANGE, &range_content)) return false;
 
   range_content &= ~(BMG160_RANGE_REG_FSR_2_bm | BMG160_RANGE_REG_FSR_1_bm | BMG160_RANGE_REG_FSR_0_bm);
-  range_content |= static_cast<uint8_t>(sel);
+  range_content |= static_cast<uint8_t>(full_scale_range);
 
   if(!_io.writeRegister(interface::Register::RANGE, range_content)) return false;
 

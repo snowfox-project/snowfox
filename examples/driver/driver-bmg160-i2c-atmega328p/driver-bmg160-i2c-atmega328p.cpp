@@ -70,8 +70,8 @@ int main()
 
   /* APPLICATION **********************************************************************/
 
-  uint8_t output_data_rate_and_bandwidth = static_cast<uint8_t>(sensor::BMG160::interface::OutputDataRateAndBandwithSelect::ODR_100_Hz_BandWidth_12_Hz);
-  uint8_t full_scale_range               = static_cast<uint8_t>(sensor::BMG160::interface::FullScaleRangeSelect::FS_plus_minus_125_DPS                );
+  uint8_t output_data_rate_and_bandwidth = static_cast<uint8_t>(sensor::BMG160::interface::OutputDataRateAndBandwith::ODR_100_Hz_BandWidth_12_Hz);
+  uint8_t full_scale_range               = static_cast<uint8_t>(sensor::BMG160::interface::FullScaleRange::FS_plus_minus_125_DPS                );
 
   bmg160.open();
 

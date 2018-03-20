@@ -63,7 +63,7 @@ namespace interface
  * TYPEDEFS
  **************************************************************************************/
 
-typedef enum
+enum class OutputDataRateAndBandwith : uint8_t
 {
   ODR_2000_Hz_BandWidth_523_Hz  = 0,
   ODR_2000_Hz_BandWidth_230_Hz  =                                                   BMG160_BW_REG_ODR_0_bm,
@@ -73,16 +73,16 @@ typedef enum
   ODR_100_Hz_BandWidth_12_Hz    = BMG160_BW_REG_ODR_2_bm |                          BMG160_BW_REG_ODR_0_bm,
   ODR_200_Hz_BandWidth_64_Hz    = BMG160_BW_REG_ODR_2_bm | BMG160_BW_REG_ODR_1_bm,
   ODR_100_Hz_BandWidth_32_Hz    = BMG160_BW_REG_ODR_2_bm | BMG160_BW_REG_ODR_1_bm | BMG160_BW_REG_ODR_0_bm
-} OutputDataRateAndBandwithSelect;
+};
 
-typedef enum
+enum class FullScaleRange : uint8_t
 {
   FS_plus_minus_2000_DPS  = 0,
   FS_plus_minus_1000_DPS  =                                                         BMG160_RANGE_REG_FSR_0_bm,
   FS_plus_minus_500_DPS   =                             BMG160_RANGE_REG_FSR_1_bm,
   FS_plus_minus_250_DPS   =                             BMG160_RANGE_REG_FSR_1_bm | BMG160_RANGE_REG_FSR_0_bm,
   FS_plus_minus_125_DPS   = BMG160_RANGE_REG_FSR_2_bm
-} FullScaleRangeSelect;
+};
 
 /**************************************************************************************
  * CLASS DECLARATION
@@ -97,8 +97,8 @@ public:
   virtual ~BMG160_Configuration() { }
 
 
-  virtual bool setOutputDataRateAndBandwith (OutputDataRateAndBandwithSelect const sel) = 0;
-  virtual bool setFullScaleRange            (FullScaleRangeSelect            const sel) = 0;
+  virtual bool setOutputDataRateAndBandwith (OutputDataRateAndBandwith const output_data_rate_and_bandwidth) = 0;
+  virtual bool setFullScaleRange            (FullScaleRange            const full_scale_range              ) = 0;
 
 };
 

@@ -69,8 +69,8 @@ public:
 
   /* BMG160 Configuration Interface */
 
-  virtual bool setOutputDataRateAndBandwith (interface::OutputDataRateAndBandwithSelect const sel) override;
-  virtual bool setFullScaleRange            (interface::FullScaleRangeSelect            const sel) override;
+  virtual bool setOutputDataRateAndBandwith (interface::OutputDataRateAndBandwith const output_data_rate_and_bandwidth) override;
+  virtual bool setFullScaleRange            (interface::FullScaleRange            const full_scale_range              ) override;
 
 
           void debug_dumpAllRegs            (debug::interface::Debug & debug_interface);
