@@ -47,11 +47,11 @@ namespace INA220
  * CONSTANTS
  **************************************************************************************/
 
-static uint32_t constexpr IOCTL_SET_BUS_VOLTAGE_RANGE    = 0; /* Arg: interface::BusVoltageRangeSelect *    -> uint8_t *  */
-static uint32_t constexpr IOCTL_SET_SHUNT_PGA_GAIN       = 1; /* Arg: interface::ShuntPGAGainSelect *       -> uint8_t *  */
-static uint32_t constexpr IOCTL_SET_BUS_ADC_RESOLUTION   = 2; /* Arg: interface::BusADCResolutionSelect *   -> uint8_t *  */
-static uint32_t constexpr IOCTL_SET_SHUNT_ADC_RESOLUTION = 3; /* Arg: interface::ShuntADCResolutionSelect * -> uint8_t *  */
-static uint32_t constexpr IOCTL_SET_OPERATING_MODE       = 4; /* Arg: interface::OperatingModeSelect *      -> uint8_t *  */
+static uint32_t constexpr IOCTL_SET_BUS_VOLTAGE_RANGE    = 0; /* Arg: interface::BusVoltageRangeSelect *    -> uint16_t *  */
+static uint32_t constexpr IOCTL_SET_SHUNT_PGA_GAIN       = 1; /* Arg: interface::ShuntPGAGainSelect *       -> uint16_t *  */
+static uint32_t constexpr IOCTL_SET_BUS_ADC_RESOLUTION   = 2; /* Arg: interface::BusADCResolutionSelect *   -> uint16_t *  */
+static uint32_t constexpr IOCTL_SET_SHUNT_ADC_RESOLUTION = 3; /* Arg: interface::ShuntADCResolutionSelect * -> uint16_t *  */
+static uint32_t constexpr IOCTL_SET_OPERATING_MODE       = 4; /* Arg: interface::OperatingModeSelect *      -> uint16_t *  */
 
 /**************************************************************************************
  * CLASS DECLARATION

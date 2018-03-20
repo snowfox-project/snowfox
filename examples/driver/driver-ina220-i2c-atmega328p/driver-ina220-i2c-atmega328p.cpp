@@ -70,11 +70,11 @@ int main()
 
   /* APPLICATION **********************************************************************/
 
-  uint8_t bus_voltage           = static_cast<uint8_t>(sensor::INA220::interface::V_BUS_RANGE_16V                );
-  uint8_t shunt_pga_gain        = static_cast<uint8_t>(sensor::INA220::interface::GAIN_0_5_RANGE_plus_minus_80_mV);
-  uint8_t bus_adc_resolution    = static_cast<uint8_t>(sensor::INA220::interface::RES_BUS_12_Bit                 );
-  uint8_t shunt_adc_resolution  = static_cast<uint8_t>(sensor::INA220::interface::RES_SHUNT_12_Bit               );
-  uint8_t operating_mode        = static_cast<uint8_t>(sensor::INA220::interface::OM_V_SHUNT_and_BUS_continous   );
+  uint16_t bus_voltage           = static_cast<uint8_t>(sensor::INA220::interface::BusVoltageRange::RANGE_16V                   );
+  uint16_t shunt_pga_gain        = static_cast<uint8_t>(sensor::INA220::interface::ShuntPgaGain::GAIN_1_0_RANGE_plus_minus_40_mV);
+  uint16_t bus_adc_resolution    = static_cast<uint8_t>(sensor::INA220::interface::BusAdcResolution::RES_12_Bit                 );
+  uint16_t shunt_adc_resolution  = static_cast<uint8_t>(sensor::INA220::interface::ShuntAdcResolution::RES_12_Bit               );
+  uint16_t operating_mode        = static_cast<uint8_t>(sensor::INA220::interface::OperatingMode::V_SHUNT_and_BUS_continous     );
 
   ina220.open();
 

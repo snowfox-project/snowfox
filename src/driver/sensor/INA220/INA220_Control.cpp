@@ -57,56 +57,56 @@ INA220_Control::~INA220_Control()
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-bool INA220_Control::setBusVoltageRange(interface::BusVoltageRangeSelect const sel)
+bool INA220_Control::setBusVoltageRange(interface::BusVoltageRange const bus_voltage_range)
 {
   uint16_t config_reg_content = 0;
 
   if(!_io.readRegister(interface::Register::CONFIG, &config_reg_content)) return false;
 
   config_reg_content &= ~INA220_CONFIG_REG_BRNG_bm;
-  config_reg_content |= static_cast<uint16_t>(sel);
+  config_reg_content |= static_cast<uint16_t>(bus_voltage_range);
 
   if(!_io.writeRegister(interface::Register::CONFIG, config_reg_content)) return false;
 
   return true;
 }
 
-bool INA220_Control::setShuntPGAGain(interface::ShuntPGAGainSelect const sel)
+bool INA220_Control::setShuntPgaGain(interface::ShuntPgaGain const shunt_pga_gain)
 {
   uint16_t config_reg_content = 0;
 
   if(!_io.readRegister(interface::Register::CONFIG, &config_reg_content)) return false;
 
   config_reg_content &= ~(INA220_CONFIG_REG_PG1_bm | INA220_CONFIG_REG_PG0_bm);
-  config_reg_content |= static_cast<uint16_t>(sel);
+  config_reg_content |= static_cast<uint16_t>(shunt_pga_gain);
 
   if(!_io.writeRegister(interface::Register::CONFIG, config_reg_content)) return false;
 
   return true;
 }
 
-bool INA220_Control::setBusADCResolution(interface::BusADCResolutionSelect const sel)
+bool INA220_Control::setBusAdcResolution(interface::BusAdcResolution const bus_adc_resolution)
 {
   uint16_t config_reg_content = 0;
 
   if(!_io.readRegister(interface::Register::CONFIG, &config_reg_content)) return false;
 
   config_reg_content &= ~(INA220_CONFIG_REG_BADC4_bm | INA220_CONFIG_REG_BADC3_bm | INA220_CONFIG_REG_BADC2_bm | INA220_CONFIG_REG_BADC1_bm);
-  config_reg_content |= static_cast<uint16_t>(sel);
+  config_reg_content |= static_cast<uint16_t>(bus_adc_resolution);
 
   if(!_io.writeRegister(interface::Register::CONFIG, config_reg_content)) return false;
 
   return true;
 }
 
-bool INA220_Control::setShuntADCResolution(interface::ShuntADCResolutionSelect const sel)
+bool INA220_Control::setShuntAdcResolution(interface::ShuntAdcResolution const shunt_adc_resolution)
 {
   uint16_t config_reg_content = 0;
 
   if(!_io.readRegister(interface::Register::CONFIG, &config_reg_content)) return false;
 
   config_reg_content &= ~(INA220_CONFIG_REG_SADC4_bm | INA220_CONFIG_REG_SADC3_bm | INA220_CONFIG_REG_SADC2_bm | INA220_CONFIG_REG_SADC1_bm);
-  config_reg_content |= static_cast<uint16_t>(sel);
+  config_reg_content |= static_cast<uint16_t>(shunt_adc_resolution);
 
   if(!_io.writeRegister(interface::Register::CONFIG, config_reg_content)) return false;
 
@@ -114,14 +114,14 @@ bool INA220_Control::setShuntADCResolution(interface::ShuntADCResolutionSelect c
 
 }
 
-bool INA220_Control::setOperatingMode(interface::OperatingModeSelect const sel)
+bool INA220_Control::setOperatingMode(interface::OperatingMode const operating_mode)
 {
   uint16_t config_reg_content = 0;
 
   if(!_io.readRegister(interface::Register::CONFIG, &config_reg_content)) return false;
 
   config_reg_content &= ~(INA220_CONFIG_REG_MODE3_bm | INA220_CONFIG_REG_MODE2_bm | INA220_CONFIG_REG_MODE1_bm);
-  config_reg_content |= static_cast<uint16_t>(sel);
+  config_reg_content |= static_cast<uint16_t>(operating_mode);
 
   if(!_io.writeRegister(interface::Register::CONFIG, config_reg_content)) return false;
 

@@ -93,40 +93,40 @@ bool INA220::ioctl(uint32_t const cmd, void * arg)
   /* IOCTL_SET_BUS_VOLTAGE_RANGE ******************************************************/
   case IOCTL_SET_BUS_VOLTAGE_RANGE:
   {
-    uint8_t                          const * arg_ptr           = static_cast<uint8_t *>                       (arg     );
-    interface::BusVoltageRangeSelect const   bus_voltage_range = static_cast<interface::BusVoltageRangeSelect>(*arg_ptr);
+    uint8_t                    const * arg_ptr           = static_cast<uint8_t *>                 (arg     );
+    interface::BusVoltageRange const   bus_voltage_range = static_cast<interface::BusVoltageRange>(*arg_ptr);
     return _ctrl.setBusVoltageRange(bus_voltage_range);
   }
   break;
   /* IOCTL_SET_SHUNT_PGA_GAIN *********************************************************/
   case IOCTL_SET_SHUNT_PGA_GAIN:
   {
-    uint8_t                       const * arg_ptr        = static_cast<uint8_t *>                    (arg     );
-    interface::ShuntPGAGainSelect const   shunt_pga_gain = static_cast<interface::ShuntPGAGainSelect>(*arg_ptr);
-    return _ctrl.setShuntPGAGain(shunt_pga_gain);
+    uint8_t                 const * arg_ptr        = static_cast<uint8_t *>              (arg     );
+    interface::ShuntPgaGain const   shunt_pga_gain = static_cast<interface::ShuntPgaGain>(*arg_ptr);
+    return _ctrl.setShuntPgaGain(shunt_pga_gain);
   }
   break;
   /* IOCTL_SET_BUS_ADC_RESOLUTION *****************************************************/
   case IOCTL_SET_BUS_ADC_RESOLUTION:
   {
-    uint8_t                           const * arg_ptr            = static_cast<uint8_t *>                        (arg     );
-    interface::BusADCResolutionSelect const   bus_adc_resolution = static_cast<interface::BusADCResolutionSelect>(*arg_ptr);
-    return _ctrl.setBusADCResolution(bus_adc_resolution);
+    uint8_t                     const * arg_ptr            = static_cast<uint8_t *>                  (arg     );
+    interface::BusAdcResolution const   bus_adc_resolution = static_cast<interface::BusAdcResolution>(*arg_ptr);
+    return _ctrl.setBusAdcResolution(bus_adc_resolution);
   }
   break;
   /* IOCTL_SET_SHUNT_ADC_RESOLUTION ***************************************************/
   case IOCTL_SET_SHUNT_ADC_RESOLUTION:
   {
-    uint8_t                             const * arg_ptr              = static_cast<uint8_t *>                          (arg     );
-    interface::ShuntADCResolutionSelect const   shunt_adc_resolution = static_cast<interface::ShuntADCResolutionSelect>(*arg_ptr);
-    return _ctrl.setShuntADCResolution(shunt_adc_resolution);
+    uint8_t                       const * arg_ptr              = static_cast<uint8_t *>                    (arg     );
+    interface::ShuntAdcResolution const   shunt_adc_resolution = static_cast<interface::ShuntAdcResolution>(*arg_ptr);
+    return _ctrl.setShuntAdcResolution(shunt_adc_resolution);
   }
   break;
   /* IOCTL_SET_OPERATING_MODE *********************************************************/
   case IOCTL_SET_OPERATING_MODE:
   {
-    uint8_t                        const * arg_ptr        = static_cast<uint8_t *>                     (arg     );
-    interface::OperatingModeSelect const   operating_mode = static_cast<interface::OperatingModeSelect>(*arg_ptr);
+    uint8_t                  const * arg_ptr        = static_cast<uint8_t *>               (arg     );
+    interface::OperatingMode const   operating_mode = static_cast<interface::OperatingMode>(*arg_ptr);
     return _ctrl.setOperatingMode(operating_mode);
   }
   break;

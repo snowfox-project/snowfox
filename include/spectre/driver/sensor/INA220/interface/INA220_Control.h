@@ -71,47 +71,47 @@ namespace interface
  * TYPEDEFS
  **************************************************************************************/
 
-typedef enum
+enum class BusVoltageRange : uint16_t
 {
-  V_BUS_RANGE_16V = 0,
-  V_BUS_RANGE_32V = INA220_CONFIG_REG_BRNG_bm
-} BusVoltageRangeSelect;
+  RANGE_16V = 0,
+  RANGE_32V = INA220_CONFIG_REG_BRNG_bm
+};
 
-typedef enum
+enum class ShuntPgaGain : uint16_t
 {
   GAIN_1_0_RANGE_plus_minus_40_mV     = 0,
   GAIN_0_5_RANGE_plus_minus_80_mV     =                            INA220_CONFIG_REG_PG0_bm,
   GAIN_0_25_RANGE_plus_minus_160_mV   = INA220_CONFIG_REG_PG1_bm,
   GAIN_0_125_RANGE_plus_minus_320_mV  = INA220_CONFIG_REG_PG1_bm | INA220_CONFIG_REG_PG0_bm
-} ShuntPGAGainSelect;
+};
 
-typedef enum
+enum class BusAdcResolution : uint16_t
 {
-  RES_BUS_9_Bit   = 0,
-  RES_BUS_10_Bit  =                              INA220_CONFIG_REG_BADC1_bm,
-  RES_BUS_11_Bit  = INA220_CONFIG_REG_BADC2_bm,
-  RES_BUS_12_Bit  = INA220_CONFIG_REG_BADC2_bm | INA220_CONFIG_REG_BADC1_bm
-} BusADCResolutionSelect;
+  RES_9_Bit   = 0,
+  RES_10_Bit  =                              INA220_CONFIG_REG_BADC1_bm,
+  RES_11_Bit  = INA220_CONFIG_REG_BADC2_bm,
+  RES_12_Bit  = INA220_CONFIG_REG_BADC2_bm | INA220_CONFIG_REG_BADC1_bm
+};
 
-typedef enum
+enum class ShuntAdcResolution : uint16_t
 {
-  RES_SHUNT_9_Bit   = 0,
-  RES_SHUNT_10_Bit  =                              INA220_CONFIG_REG_SADC1_bm,
-  RES_SHUNT_11_Bit  = INA220_CONFIG_REG_SADC2_bm,
-  RES_SHUNT_12_Bit  = INA220_CONFIG_REG_SADC2_bm | INA220_CONFIG_REG_SADC1_bm
-} ShuntADCResolutionSelect;
+  RES_9_Bit   = 0,
+  RES_10_Bit  =                              INA220_CONFIG_REG_SADC1_bm,
+  RES_11_Bit  = INA220_CONFIG_REG_SADC2_bm,
+  RES_12_Bit  = INA220_CONFIG_REG_SADC2_bm | INA220_CONFIG_REG_SADC1_bm
+};
 
-typedef enum
+enum class OperatingMode : uint16_t
 {
-  OM_Power_Down                 = 0,
-  OM_V_SHUNT_triggered          =                                                           INA220_CONFIG_REG_MODE1_bm,
-  OM_V_BUS_triggered            =                              INA220_CONFIG_REG_MODE2_bm,
-  OM_V_SHUNT_and_BUS_triggered  =                              INA220_CONFIG_REG_MODE2_bm | INA220_CONFIG_REG_MODE1_bm,
-  OM_ADC_OFF                    = INA220_CONFIG_REG_MODE3_bm,
-  OM_V_SHUNT_continous          = INA220_CONFIG_REG_MODE3_bm |                              INA220_CONFIG_REG_MODE1_bm,
-  OM_V_BUS_continous            = INA220_CONFIG_REG_MODE3_bm | INA220_CONFIG_REG_MODE2_bm,
-  OM_V_SHUNT_and_BUS_continous  = INA220_CONFIG_REG_MODE3_bm | INA220_CONFIG_REG_MODE2_bm | INA220_CONFIG_REG_MODE1_bm
-} OperatingModeSelect;
+  Power_Down                 = 0,
+  V_SHUNT_triggered          =                                                           INA220_CONFIG_REG_MODE1_bm,
+  V_BUS_triggered            =                              INA220_CONFIG_REG_MODE2_bm,
+  V_SHUNT_and_BUS_triggered  =                              INA220_CONFIG_REG_MODE2_bm | INA220_CONFIG_REG_MODE1_bm,
+  ADC_OFF                    = INA220_CONFIG_REG_MODE3_bm,
+  V_SHUNT_continous          = INA220_CONFIG_REG_MODE3_bm |                              INA220_CONFIG_REG_MODE1_bm,
+  V_BUS_continous            = INA220_CONFIG_REG_MODE3_bm | INA220_CONFIG_REG_MODE2_bm,
+  V_SHUNT_and_BUS_continous  = INA220_CONFIG_REG_MODE3_bm | INA220_CONFIG_REG_MODE2_bm | INA220_CONFIG_REG_MODE1_bm
+};
 
 /**************************************************************************************
  * CLASS DECLARATION
@@ -130,11 +130,11 @@ public:
   virtual bool readBusVoltage       (int16_t * bus_voltage  ) = 0;
 
 
-  virtual bool setBusVoltageRange   (BusVoltageRangeSelect    const sel) = 0;
-  virtual bool setShuntPGAGain      (ShuntPGAGainSelect       const sel) = 0;
-  virtual bool setBusADCResolution  (BusADCResolutionSelect   const sel) = 0;
-  virtual bool setShuntADCResolution(ShuntADCResolutionSelect const sel) = 0;
-  virtual bool setOperatingMode     (OperatingModeSelect      const sel) = 0;
+  virtual bool setBusVoltageRange   (BusVoltageRange    const bus_voltage_range   ) = 0;
+  virtual bool setShuntPgaGain      (ShuntPgaGain       const shunt_pga_gain      ) = 0;
+  virtual bool setBusAdcResolution  (BusAdcResolution   const bus_adc_resolution  ) = 0;
+  virtual bool setShuntAdcResolution(ShuntAdcResolution const shunt_adc_resolution) = 0;
+  virtual bool setOperatingMode     (OperatingMode      const operating_mode      ) = 0;
 
 };
 
