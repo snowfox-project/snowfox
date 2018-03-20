@@ -89,23 +89,23 @@ namespace interface
  * TYPEDEFS
  **************************************************************************************/
 
-typedef enum
+enum class OperationMode_XY : uint8_t
 {
-  XY_LP   = 0,
-  XY_MP   =                              LIS3MDL_CTRL_REG_1_OM_0_bm,
-  XY_HP   = LIS3MDL_CTRL_REG_1_OM_1_bm,
-  XY_UHP  = LIS3MDL_CTRL_REG_1_OM_1_bm | LIS3MDL_CTRL_REG_1_OM_0_bm
-} OperationMode_XY;
+  LP   = 0,
+  MP   =                              LIS3MDL_CTRL_REG_1_OM_0_bm,
+  HP   = LIS3MDL_CTRL_REG_1_OM_1_bm,
+  UHP  = LIS3MDL_CTRL_REG_1_OM_1_bm | LIS3MDL_CTRL_REG_1_OM_0_bm
+};
 
-typedef enum
+enum class OperationMode_Z : uint8_t
 {
-  Z_LP    = 0,
-  Z_MP    =                              LIS3MDL_CTRL_REG_4_OMZ_0_bm,
-  Z_HP    = LIS3MDL_CTRL_REG_4_OMZ_1_bm,
-  Z_UHP   = LIS3MDL_CTRL_REG_4_OMZ_1_bm | LIS3MDL_CTRL_REG_4_OMZ_0_bm
-} OperationMode_Z;
+  LP    = 0,
+  MP    =                              LIS3MDL_CTRL_REG_4_OMZ_0_bm,
+  HP    = LIS3MDL_CTRL_REG_4_OMZ_1_bm,
+  UHP   = LIS3MDL_CTRL_REG_4_OMZ_1_bm | LIS3MDL_CTRL_REG_4_OMZ_0_bm
+};
 
-typedef enum
+enum class OutputDataRate : uint8_t
 {
   ODR_0_625_Hz  = 0,
   ODR_1_25_Hz   =                                                         LIS3MDL_CTRL_REG_1_DO0_bm,
@@ -115,21 +115,21 @@ typedef enum
   ODR_20_Hz     = LIS3MDL_CTRL_REG_1_DO2_bm |                             LIS3MDL_CTRL_REG_1_DO0_bm,
   ODR_40_Hz     = LIS3MDL_CTRL_REG_1_DO2_bm | LIS3MDL_CTRL_REG_1_DO1_bm,
   ODR_80_Hz     = LIS3MDL_CTRL_REG_1_DO2_bm | LIS3MDL_CTRL_REG_1_DO1_bm | LIS3MDL_CTRL_REG_1_DO0_bm
-} OutputDataRateSelect;
+};
 
-typedef enum
+enum class FullScaleRange : uint8_t
 {
   FS_plus_minus_4_Gauss   = 0,
   FS_plus_minus_8_Gauss   =                              LIS3MDL_CTRL_REG_2_FS_0_bm,
   FS_plus_minus_12_Gauss  = LIS3MDL_CTRL_REG_2_FS_1_bm,
   FS_plus_minus_16_Gauss  = LIS3MDL_CTRL_REG_2_FS_1_bm | LIS3MDL_CTRL_REG_2_FS_0_bm
-} FullScaleRangeSelect;
+};
 
-typedef enum
+enum class ConversionMode : uint8_t
 {
-  MODE_CONTINOUS = 0,
-  MODE_SINGLE    = LIS3MDL_CTRL_REG_3_MD_0_bm
-} ConversionMode;
+  CONTINOUS = 0,
+  SINGLE    = LIS3MDL_CTRL_REG_3_MD_0_bm
+}Mode;
 
 /**************************************************************************************
  * CLASS DECLARATION
@@ -144,13 +144,13 @@ public:
   virtual ~LIS3MDL_Configuration() { }
 
 
-  virtual bool setOperationMode_XY    (OperationMode_XY     const sel) = 0;
-  virtual bool setOperationMode_Z     (OperationMode_Z      const sel) = 0;
-  virtual bool setOutputDataRate      (OutputDataRateSelect const sel) = 0;
-  virtual bool setFullScaleRange      (FullScaleRangeSelect const sel) = 0;
-  virtual bool setConversionMode      (ConversionMode       const sel) = 0;
-  virtual bool enableTemperatureSensor(                              ) = 0;
-  virtual bool enableBlockDataUpdate  (                              ) = 0;
+  virtual bool setOperationMode_XY    (OperationMode_XY const operation_mode_xy) = 0;
+  virtual bool setOperationMode_Z     (OperationMode_Z  const operation_mode_z ) = 0;
+  virtual bool setOutputDataRate      (OutputDataRate   const output_data_rate ) = 0;
+  virtual bool setFullScaleRange      (FullScaleRange   const full_scale_range ) = 0;
+  virtual bool setConversionMode      (ConversionMode   const conversion_mode  ) = 0;
+  virtual bool enableTemperatureSensor(                                        ) = 0;
+  virtual bool enableBlockDataUpdate  (                                        ) = 0;
 
 
 };

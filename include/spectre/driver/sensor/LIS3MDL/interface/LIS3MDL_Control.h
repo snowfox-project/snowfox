@@ -80,13 +80,13 @@ public:
 
   /* LIS3MDL Configuration */
 
-  virtual bool setOperationMode_XY          (OperationMode_XY     const sel) = 0;
-  virtual bool setOperationMode_Z           (OperationMode_Z      const sel) = 0;
-  virtual bool setOutputDataRate            (OutputDataRateSelect const sel) = 0;
-  virtual bool setFullScaleRange            (FullScaleRangeSelect const sel) = 0;
-  virtual bool setConversionMode            (ConversionMode       const sel) = 0;
-  virtual bool enableTemperatureSensor      (                              ) = 0;
-  virtual bool enableBlockDataUpdate        (                              ) = 0;
+  virtual bool setOperationMode_XY    (OperationMode_XY const operation_mode_xy) = 0;
+  virtual bool setOperationMode_Z     (OperationMode_Z  const operation_mode_z ) = 0;
+  virtual bool setOutputDataRate      (OutputDataRate   const output_data_rate ) = 0;
+  virtual bool setFullScaleRange      (FullScaleRange   const full_scale_range ) = 0;
+  virtual bool setConversionMode      (ConversionMode   const conversion_mode  ) = 0;
+  virtual bool enableTemperatureSensor(                                        ) = 0;
+  virtual bool enableBlockDataUpdate  (                                        ) = 0;
 
 };
 

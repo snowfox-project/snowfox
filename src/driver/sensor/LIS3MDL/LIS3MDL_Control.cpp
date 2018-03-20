@@ -222,70 +222,70 @@ bool LIS3MDL_Control::readTemperature(int16_t * raw_temp)
   return true;
 }
 
-bool LIS3MDL_Control::setOperationMode_XY(interface::OperationMode_XY const sel)
+bool LIS3MDL_Control::setOperationMode_XY(interface::OperationMode_XY const operation_mode_xy)
 {
   uint8_t ctrl_reg1_content = 0;
 
   if(!_io.readRegister(interface::Register::CTRL_REG_1, &ctrl_reg1_content)) return false;
 
   ctrl_reg1_content &= ~(LIS3MDL_CTRL_REG_1_OM_1_bm | LIS3MDL_CTRL_REG_1_OM_0_bm);
-  ctrl_reg1_content |= static_cast<uint8_t>(sel);
+  ctrl_reg1_content |= static_cast<uint8_t>(operation_mode_xy);
 
   if(!_io.writeRegister(interface::Register::CTRL_REG_1, ctrl_reg1_content)) return false;
 
   return true;
 }
 
-bool LIS3MDL_Control::setOperationMode_Z(interface::OperationMode_Z const sel)
+bool LIS3MDL_Control::setOperationMode_Z(interface::OperationMode_Z const operation_mode_z)
 {
   uint8_t ctrl_reg4_content = 0;
 
   if(!_io.readRegister(interface::Register::CTRL_REG_4, &ctrl_reg4_content)) return false;
 
   ctrl_reg4_content &= ~(LIS3MDL_CTRL_REG_4_OMZ_1_bm | LIS3MDL_CTRL_REG_4_OMZ_0_bm);
-  ctrl_reg4_content |= static_cast<uint8_t>(sel);
+  ctrl_reg4_content |= static_cast<uint8_t>(operation_mode_z);
 
   if(!_io.writeRegister(interface::Register::CTRL_REG_4, ctrl_reg4_content)) return false;
 
   return true;
 }
 
-bool LIS3MDL_Control::setOutputDataRate(interface::OutputDataRateSelect const sel)
+bool LIS3MDL_Control::setOutputDataRate(interface::OutputDataRate const output_data_rate)
 {
   uint8_t ctrl_reg1_content = 0;
 
   if(!_io.readRegister(interface::Register::CTRL_REG_1, &ctrl_reg1_content)) return false;
 
   ctrl_reg1_content &= ~(LIS3MDL_CTRL_REG_1_DO2_bm | LIS3MDL_CTRL_REG_1_DO1_bm | LIS3MDL_CTRL_REG_1_DO0_bm | LIS3MDL_CTRL_REG_1_FAST_ODR_bm);
-  ctrl_reg1_content |= static_cast<uint8_t>(sel);
+  ctrl_reg1_content |= static_cast<uint8_t>(output_data_rate);
 
   if(!_io.writeRegister(interface::Register::CTRL_REG_1, ctrl_reg1_content)) return false;
 
   return true;
 }
 
-bool LIS3MDL_Control::setFullScaleRange(interface::FullScaleRangeSelect const sel)
+bool LIS3MDL_Control::setFullScaleRange(interface::FullScaleRange const full_scale_range)
 {
   uint8_t ctrl_reg2_content = 0;
 
   if(!_io.readRegister(interface::Register::CTRL_REG_2, &ctrl_reg2_content)) return false;
 
   ctrl_reg2_content &= ~(LIS3MDL_CTRL_REG_2_FS_1_bm | LIS3MDL_CTRL_REG_2_FS_0_bm);
-  ctrl_reg2_content |= static_cast<uint8_t>(sel);
+  ctrl_reg2_content |= static_cast<uint8_t>(full_scale_range);
 
   if(!_io.writeRegister(interface::Register::CTRL_REG_2, ctrl_reg2_content)) return false;
 
   return true;
 }
 
-bool LIS3MDL_Control::setConversionMode(interface::ConversionMode const sel)
+bool LIS3MDL_Control::setConversionMode(interface::ConversionMode const conversion_mode)
 {
   uint8_t ctrl_reg3_content = 0;
 
   if(!_io.readRegister(interface::Register::CTRL_REG_3, &ctrl_reg3_content)) return false;
 
   ctrl_reg3_content &= ~(LIS3MDL_CTRL_REG_3_MD_1_bm | LIS3MDL_CTRL_REG_3_MD_0_bm);
-  ctrl_reg3_content |= static_cast<uint8_t>(sel);
+  ctrl_reg3_content |= static_cast<uint8_t>(conversion_mode);
 
   if(!_io.writeRegister(interface::Register::CTRL_REG_3, ctrl_reg3_content)) return false;
 
