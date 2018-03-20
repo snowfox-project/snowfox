@@ -42,13 +42,13 @@ namespace AS5600
  * CTOR/DTOR
  **************************************************************************************/
 
-AS5600::AS5600(interface::AS5600_Io & io)
+AS5600_Control::AS5600_Control(interface::AS5600_Io & io)
 : _io(io)
 {
 
 }
 
-AS5600::~AS5600()
+AS5600_Control::~AS5600_Control()
 {
 
 }
@@ -57,7 +57,7 @@ AS5600::~AS5600()
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-bool AS5600::setPowerMode(interface::PowerModeSelect const sel)
+bool AS5600_Control::setPowerMode(interface::PowerModeSelect const sel)
 {
   uint8_t conf_low_byte_content = 0;
 
@@ -71,7 +71,7 @@ bool AS5600::setPowerMode(interface::PowerModeSelect const sel)
   return true;
 }
 
-bool AS5600::setHysteresis(interface::HysteresisSelect const sel)
+bool AS5600_Control::setHysteresis(interface::HysteresisSelect const sel)
 {
   uint8_t conf_low_byte_content = 0;
 
@@ -85,7 +85,7 @@ bool AS5600::setHysteresis(interface::HysteresisSelect const sel)
   return true;
 }
 
-bool AS5600::setOutputStage(interface::OutputStageSelect const sel)
+bool AS5600_Control::setOutputStage(interface::OutputStageSelect const sel)
 {
   uint8_t conf_low_byte_content = 0;
 
@@ -99,7 +99,7 @@ bool AS5600::setOutputStage(interface::OutputStageSelect const sel)
   return true;
 }
 
-bool AS5600::setPWMFrequency(interface::PWMFrequencySelect const sel)
+bool AS5600_Control::setPWMFrequency(interface::PWMFrequencySelect const sel)
 {
   uint8_t conf_low_byte_content = 0;
 
@@ -113,7 +113,7 @@ bool AS5600::setPWMFrequency(interface::PWMFrequencySelect const sel)
   return true;
 }
 
-bool AS5600::setSlowFilter(interface::SlowFilterSelect const sel)
+bool AS5600_Control::setSlowFilter(interface::SlowFilterSelect const sel)
 {
   uint8_t conf_high_byte_content = 0;
 
@@ -127,7 +127,7 @@ bool AS5600::setSlowFilter(interface::SlowFilterSelect const sel)
   return true;
 }
 
-bool AS5600::setFastFilterThreshold(interface::FastFilterThreshold const sel)
+bool AS5600_Control::setFastFilterThreshold(interface::FastFilterThreshold const sel)
 {
   uint8_t conf_high_byte_content = 0;
 
@@ -141,7 +141,7 @@ bool AS5600::setFastFilterThreshold(interface::FastFilterThreshold const sel)
   return true;
 }
 
-bool AS5600::enableWatchog()
+bool AS5600_Control::enableWatchog()
 {
   uint8_t conf_high_byte_content = 0;
 
@@ -154,7 +154,7 @@ bool AS5600::enableWatchog()
   return true;
 }
 
-bool AS5600::disableWatchog()
+bool AS5600_Control::disableWatchog()
 {
   uint8_t conf_high_byte_content = 0;
 
@@ -167,7 +167,7 @@ bool AS5600::disableWatchog()
   return true;
 }
 
-bool AS5600::setAngularStartPosition(uint16_t const angle_start)
+bool AS5600_Control::setAngularStartPosition(uint16_t const angle_start)
 {
   uint8_t const angle_start_buf[2] =
   {
@@ -178,7 +178,7 @@ bool AS5600::setAngularStartPosition(uint16_t const angle_start)
   return _io.writeRegister(interface::Register::ZPOS_HIGH_BYTE, angle_start_buf, 2);
 }
 
-bool AS5600::setAngularStopPosition(uint16_t const angle_stop)
+bool AS5600_Control::setAngularStopPosition(uint16_t const angle_stop)
 {
   uint8_t const angle_stop_buf[2] =
   {
@@ -189,7 +189,7 @@ bool AS5600::setAngularStopPosition(uint16_t const angle_stop)
   return _io.writeRegister(interface::Register::MPOS_HIGH_BYTE, angle_stop_buf, 2);
 }
 
-bool AS5600::setMaximumAngle(uint16_t const angle_max)
+bool AS5600_Control::setMaximumAngle(uint16_t const angle_max)
 {
   uint8_t const angle_max_buf[2] =
   {
@@ -200,7 +200,7 @@ bool AS5600::setMaximumAngle(uint16_t const angle_max)
   return _io.writeRegister(interface::Register::MANG_HIGH_BYTE, angle_max_buf, 2);
 }
 
-bool AS5600::readAngle(uint16_t * angle)
+bool AS5600_Control::readAngle(uint16_t * angle)
 {
   uint8_t angle_buf[2] = {0};
 
@@ -212,7 +212,7 @@ bool AS5600::readAngle(uint16_t * angle)
   return true;
 }
 
-bool AS5600::readAngleRaw(uint16_t * angle_raw)
+bool AS5600_Control::readAngleRaw(uint16_t * angle_raw)
 {
   uint8_t angle_raw_buf[2] = {0};
 
@@ -224,17 +224,17 @@ bool AS5600::readAngleRaw(uint16_t * angle_raw)
   return true;
 }
 
-bool AS5600::readStatus(uint8_t * status)
+bool AS5600_Control::readStatus(uint8_t * status)
 {
   return _io.readRegister(interface::Register::STATUS, status);
 }
 
-bool AS5600::readAGC(uint8_t * agc)
+bool AS5600_Control::readAGC(uint8_t * agc)
 {
   return _io.readRegister(interface::Register::AGC, agc);
 }
 
-bool AS5600::readMagnitude(uint16_t * mag)
+bool AS5600_Control::readMagnitude(uint16_t * mag)
 {
   uint8_t mag_buf[2] = {0};
 
@@ -246,22 +246,22 @@ bool AS5600::readMagnitude(uint16_t * mag)
   return true;
 }
 
-bool AS5600::isMagnetTooStrong(uint8_t const status)
+bool AS5600_Control::isMagnetTooStrong(uint8_t const status)
 {
   return (status & AS5600_STATUS_REG_MH_bm) != 0;
 }
 
-bool AS5600::isMagnetTooWeak(uint8_t const status)
+bool AS5600_Control::isMagnetTooWeak(uint8_t const status)
 {
   return (status & AS5600_STATUS_REG_ML_bm) != 0;
 }
 
-bool AS5600::isMagnetDetected(uint8_t const status)
+bool AS5600_Control::isMagnetDetected(uint8_t const status)
 {
   return (status & AS5600_STATUS_REG_MD_bm) != 0;
 }
 
-void AS5600::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
+void AS5600_Control::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
 {
   debug_dumpSingleReg(debug_interface, "ZMCO                = ", interface::Register::ZMCO               );
   debug_dumpSingleReg(debug_interface, "ZPOS_HIGH_BYTE      = ", interface::Register::ZPOS_HIGH_BYTE     );
@@ -285,7 +285,7 @@ void AS5600::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
-void AS5600::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, interface::Register const reg)
+void AS5600_Control::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, interface::Register const reg)
 {
   uint8_t reg_content = 0;
 

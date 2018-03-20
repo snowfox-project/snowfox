@@ -49,13 +49,13 @@ namespace AS5600
  * CLASS DECLARATION
  **************************************************************************************/
 
-class AS5600 : public interface::AS5600_Control
+class AS5600_Control : public interface::AS5600_Control
 {
 
 public:
 
-           AS5600(interface::AS5600_Io & io);
-  virtual ~AS5600();
+           AS5600_Control(interface::AS5600_Io & io);
+  virtual ~AS5600_Control();
 
 
   /* AS5600 Interface */
