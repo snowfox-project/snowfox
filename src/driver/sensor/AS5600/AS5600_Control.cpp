@@ -57,84 +57,84 @@ AS5600_Control::~AS5600_Control()
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-bool AS5600_Control::setPowerMode(interface::PowerModeSelect const sel)
+bool AS5600_Control::setPowerMode(interface::PowerMode const power_mode)
 {
   uint8_t conf_low_byte_content = 0;
 
   if(!_io.readRegister(interface::Register::CONF_LOW_BYTE, &conf_low_byte_content)) return false;
 
   conf_low_byte_content &= ~(AS5600_CONF_LOW_BYTE_REG_PM1_bm | AS5600_CONF_LOW_BYTE_REG_PM0_bm);
-  conf_low_byte_content |= static_cast<uint8_t>(sel);
+  conf_low_byte_content |= static_cast<uint8_t>(power_mode);
 
   if(!_io.writeRegister(interface::Register::CONF_LOW_BYTE, conf_low_byte_content)) return false;
 
   return true;
 }
 
-bool AS5600_Control::setHysteresis(interface::HysteresisSelect const sel)
+bool AS5600_Control::setHysteresis(interface::Hysteresis const hysteresis)
 {
   uint8_t conf_low_byte_content = 0;
 
   if(!_io.readRegister(interface::Register::CONF_LOW_BYTE, &conf_low_byte_content)) return false;
 
   conf_low_byte_content &= ~(AS5600_CONF_LOW_BYTE_REG_HYST1_bm | AS5600_CONF_LOW_BYTE_REG_HYST0_bm);
-  conf_low_byte_content |= static_cast<uint8_t>(sel);
+  conf_low_byte_content |= static_cast<uint8_t>(hysteresis);
 
   if(!_io.writeRegister(interface::Register::CONF_LOW_BYTE, conf_low_byte_content)) return false;
 
   return true;
 }
 
-bool AS5600_Control::setOutputStage(interface::OutputStageSelect const sel)
+bool AS5600_Control::setOutputStage(interface::OutputStage const output_stage)
 {
   uint8_t conf_low_byte_content = 0;
 
   if(!_io.readRegister(interface::Register::CONF_LOW_BYTE, &conf_low_byte_content)) return false;
 
   conf_low_byte_content &= ~(AS5600_CONF_LOW_BYTE_REG_OUTS1_bm | AS5600_CONF_LOW_BYTE_REG_OUTS0_bm);
-  conf_low_byte_content |= static_cast<uint8_t>(sel);
+  conf_low_byte_content |= static_cast<uint8_t>(output_stage);
 
   if(!_io.writeRegister(interface::Register::CONF_LOW_BYTE, conf_low_byte_content)) return false;
 
   return true;
 }
 
-bool AS5600_Control::setPWMFrequency(interface::PWMFrequencySelect const sel)
+bool AS5600_Control::setPwmFrequency(interface::PwmFrequency const pwm_frequency)
 {
   uint8_t conf_low_byte_content = 0;
 
   if(!_io.readRegister(interface::Register::CONF_LOW_BYTE, &conf_low_byte_content)) return false;
 
   conf_low_byte_content &= ~(AS5600_CONF_LOW_BYTE_REG_PWMF1_bm | AS5600_CONF_LOW_BYTE_REG_PWMF0_bm);
-  conf_low_byte_content |= static_cast<uint8_t>(sel);
+  conf_low_byte_content |= static_cast<uint8_t>(pwm_frequency);
 
   if(!_io.writeRegister(interface::Register::CONF_LOW_BYTE, conf_low_byte_content)) return false;
 
   return true;
 }
 
-bool AS5600_Control::setSlowFilter(interface::SlowFilterSelect const sel)
+bool AS5600_Control::setSlowFilter(interface::SlowFilter const slow_filter)
 {
   uint8_t conf_high_byte_content = 0;
 
   if(!_io.readRegister(interface::Register::CONF_HIGH_BYTE, &conf_high_byte_content)) return false;
 
   conf_high_byte_content &= ~(AS5600_CONF_HIGH_BYTE_REG_SF1_bm | AS5600_CONF_HIGH_BYTE_REG_SF0_bm);
-  conf_high_byte_content |= static_cast<uint8_t>(sel);
+  conf_high_byte_content |= static_cast<uint8_t>(slow_filter);
 
   if(!_io.writeRegister(interface::Register::CONF_HIGH_BYTE, conf_high_byte_content)) return false;
 
   return true;
 }
 
-bool AS5600_Control::setFastFilterThreshold(interface::FastFilterThreshold const sel)
+bool AS5600_Control::setFastFilterThreshold(interface::FastFilterThreshold const fast_filter_threshold)
 {
   uint8_t conf_high_byte_content = 0;
 
   if(!_io.readRegister(interface::Register::CONF_HIGH_BYTE, &conf_high_byte_content)) return false;
 
   conf_high_byte_content &= ~(AS5600_CONF_HIGH_BYTE_REG_FTH2_bm | AS5600_CONF_HIGH_BYTE_REG_FTH1_bm | AS5600_CONF_HIGH_BYTE_REG_FTH0_bm);
-  conf_high_byte_content |= static_cast<uint8_t>(sel);
+  conf_high_byte_content |= static_cast<uint8_t>(fast_filter_threshold);
 
   if(!_io.writeRegister(interface::Register::CONF_HIGH_BYTE, conf_high_byte_content)) return false;
 

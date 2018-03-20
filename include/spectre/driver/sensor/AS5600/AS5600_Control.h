@@ -70,23 +70,23 @@ public:
 
   /* AS5600 Configuration Interface */
 
-  virtual bool setPowerMode           (interface::PowerModeSelect     const   sel        ) override;
-  virtual bool setHysteresis          (interface::HysteresisSelect    const   sel        ) override;
-  virtual bool setOutputStage         (interface::OutputStageSelect   const   sel        ) override;
-  virtual bool setPWMFrequency        (interface::PWMFrequencySelect  const   sel        ) override;
-  virtual bool setSlowFilter          (interface::SlowFilterSelect    const   sel        ) override;
-  virtual bool setFastFilterThreshold (interface::FastFilterThreshold const   sel        ) override;
-  virtual bool enableWatchog          (                                                  ) override;
-  virtual bool disableWatchog         (                                                  ) override;
+  virtual bool setPowerMode           (interface::PowerMode           const power_mode           ) override;
+  virtual bool setHysteresis          (interface::Hysteresis          const hysteresis           ) override;
+  virtual bool setOutputStage         (interface::OutputStage         const output_stage         ) override;
+  virtual bool setPwmFrequency        (interface::PwmFrequency        const pwm_frequency        ) override;
+  virtual bool setSlowFilter          (interface::SlowFilter          const slow_filter          ) override;
+  virtual bool setFastFilterThreshold (interface::FastFilterThreshold const fast_filter_threshold) override;
+  virtual bool enableWatchog          (                                                          ) override;
+  virtual bool disableWatchog         (                                                          ) override;
 
-  virtual bool setAngularStartPosition(uint16_t                       const   angle_start) override;
-  virtual bool setAngularStopPosition (uint16_t                       const   angle_stop ) override;
-  virtual bool setMaximumAngle        (uint16_t                       const   angle_max  ) override;
+  virtual bool setAngularStartPosition(uint16_t                       const   angle_start        ) override;
+  virtual bool setAngularStopPosition (uint16_t                       const   angle_stop         ) override;
+  virtual bool setMaximumAngle        (uint16_t                       const   angle_max          ) override;
 
 
-  static bool  isMagnetTooStrong      (uint8_t                        const   status     );
-  static bool  isMagnetTooWeak        (uint8_t                        const   status     );
-  static bool  isMagnetDetected       (uint8_t                        const   status     );
+  static bool  isMagnetTooStrong      (uint8_t                        const   status             );
+  static bool  isMagnetTooWeak        (uint8_t                        const   status             );
+  static bool  isMagnetDetected       (uint8_t                        const   status             );
 
 
          void  debug_dumpAllRegs      (debug::interface::Debug & debug_interface);

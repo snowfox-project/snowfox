@@ -70,18 +70,19 @@ public:
 
   /* AS5600 Configuration Interface */
 
-  virtual bool setPowerMode           (PowerModeSelect     const   sel        ) = 0;
-  virtual bool setHysteresis          (HysteresisSelect    const   sel        ) = 0;
-  virtual bool setOutputStage         (OutputStageSelect   const   sel        ) = 0;
-  virtual bool setPWMFrequency        (PWMFrequencySelect  const   sel        ) = 0;
-  virtual bool setSlowFilter          (SlowFilterSelect    const   sel        ) = 0;
-  virtual bool setFastFilterThreshold (FastFilterThreshold const   sel        ) = 0;
-  virtual bool enableWatchog          (                                       ) = 0;
-  virtual bool disableWatchog         (                                       ) = 0;
+  virtual bool setPowerMode           (PowerMode           const power_mode           ) = 0;
+  virtual bool setHysteresis          (Hysteresis          const hysteresis           ) = 0;
+  virtual bool setOutputStage         (OutputStage         const output_stage         ) = 0;
+  virtual bool setPwmFrequency        (PwmFrequency        const pwm_frequency        ) = 0;
+  virtual bool setSlowFilter          (SlowFilter          const slow_filter          ) = 0;
+  virtual bool setFastFilterThreshold (FastFilterThreshold const fast_filter_threshold) = 0;
+  virtual bool enableWatchog          (                                               ) = 0;
+  virtual bool disableWatchog         (                                               ) = 0;
 
-  virtual bool setAngularStartPosition(uint16_t            const   angle_start) = 0;
-  virtual bool setAngularStopPosition (uint16_t            const   angle_stop ) = 0;
-  virtual bool setMaximumAngle        (uint16_t            const   angle_max  ) = 0;
+  virtual bool setAngularStartPosition(uint16_t            const angle_start          ) = 0;
+  virtual bool setAngularStopPosition (uint16_t            const angle_stop           ) = 0;
+  virtual bool setMaximumAngle        (uint16_t            const angle_max            ) = 0;
+
 
 };
 

@@ -70,12 +70,12 @@ int main()
 
   /* APPLICATION **********************************************************************/
 
-  uint8_t power_mode            = static_cast<uint8_t>(sensor::AS5600::interface::PowerModeSelect::PM_NORMAL                    );
-  uint8_t hysteresis            = static_cast<uint8_t>(sensor::AS5600::interface::HysteresisSelect::HYST_OFF                    );
-  uint8_t output_stage          = static_cast<uint8_t>(sensor::AS5600::interface::OutputStageSelect::OUTPUT_STAGE_REDUCED_ANALOG);
-  uint8_t pwm_frequency         = static_cast<uint8_t>(sensor::AS5600::interface::PWMFrequencySelect::PWM_FREQ_115_Hz           );
-  uint8_t slow_filter           = static_cast<uint8_t>(sensor::AS5600::interface::SlowFilterSelect::SF_4x                       );
-  uint8_t fast_filter_threshold = static_cast<uint8_t>(sensor::AS5600::interface::FastFilterThreshold::FTH_ONLY_SLOW_FILTER     );
+  uint8_t power_mode            = static_cast<uint8_t>(sensor::AS5600::interface::PowerMode::NORMAL                    );
+  uint8_t hysteresis            = static_cast<uint8_t>(sensor::AS5600::interface::Hysteresis::HYST_OFF                 );
+  uint8_t output_stage          = static_cast<uint8_t>(sensor::AS5600::interface::OutputStage::REDUCED_ANALOG          );
+  uint8_t pwm_frequency         = static_cast<uint8_t>(sensor::AS5600::interface::PwmFrequency::F_115_Hz               );
+  uint8_t slow_filter           = static_cast<uint8_t>(sensor::AS5600::interface::SlowFilter::SF_4x                    );
+  uint8_t fast_filter_threshold = static_cast<uint8_t>(sensor::AS5600::interface::FastFilterThreshold::ONLY_SLOW_FILTER);
 
   as5600.open();
 
@@ -85,6 +85,7 @@ int main()
   as5600.ioctl(sensor::AS5600::IOCTL_SET_PWM_FREQUENCY,         static_cast<void *>(&pwm_frequency        ));
   as5600.ioctl(sensor::AS5600::IOCTL_SET_SLOW_FILTER,           static_cast<void *>(&slow_filter          ));
   as5600.ioctl(sensor::AS5600::IOCTL_SET_FAST_FILTER_THRESHOLD, static_cast<void *>(&fast_filter_threshold));
+  as5600.ioctl(sensor::AS5600::IOCTL_DISABLE_WATCHDOG,          0                                          );
 
   for(;;)
   {

@@ -76,56 +76,56 @@ namespace interface
  * TYPEDEFS
  **************************************************************************************/
 
-typedef enum
+enum class PowerMode : uint8_t
 {
-  PM_NORMAL = 0,
-  PM_LPM1   =                                   AS5600_CONF_LOW_BYTE_REG_PM0_bm,
-  PM_LPM2   = AS5600_CONF_LOW_BYTE_REG_PM1_bm,
-  PM_LPM3   = AS5600_CONF_LOW_BYTE_REG_PM1_bm | AS5600_CONF_LOW_BYTE_REG_PM0_bm
-} PowerModeSelect;
+  NORMAL = 0,
+  LPM1   =                                   AS5600_CONF_LOW_BYTE_REG_PM0_bm,
+  LPM2   = AS5600_CONF_LOW_BYTE_REG_PM1_bm,
+  LPM3   = AS5600_CONF_LOW_BYTE_REG_PM1_bm | AS5600_CONF_LOW_BYTE_REG_PM0_bm
+};
 
-typedef enum
+enum class Hysteresis : uint8_t
 {
   HYST_OFF   = 0,
   HYST_1_LSB =                                     AS5600_CONF_LOW_BYTE_REG_HYST0_bm,
   HYST_2_LSB = AS5600_CONF_LOW_BYTE_REG_HYST1_bm,
   HYST_3_LSB = AS5600_CONF_LOW_BYTE_REG_HYST1_bm | AS5600_CONF_LOW_BYTE_REG_HYST0_bm
-} HysteresisSelect;
+};
 
-typedef enum
+enum class OutputStage : uint8_t
 {
-  OUTPUT_STAGE_FULL_ANALOG    = 0,
-  OUTPUT_STAGE_REDUCED_ANALOG =                                     AS5600_CONF_LOW_BYTE_REG_OUTS0_bm,
-  OUTPUT_STAGE_DIGITAL_PWM    = AS5600_CONF_LOW_BYTE_REG_OUTS1_bm
-} OutputStageSelect;
+  FULL_ANALOG    = 0,
+  REDUCED_ANALOG =                                     AS5600_CONF_LOW_BYTE_REG_OUTS0_bm,
+  DIGITAL_PWM    = AS5600_CONF_LOW_BYTE_REG_OUTS1_bm
+};
 
-typedef enum
+enum class PwmFrequency : uint8_t
 {
-  PWM_FREQ_115_Hz = 0,
-  PWM_FREQ_230_Hz =                                     AS5600_CONF_LOW_BYTE_REG_PWMF0_bm,
-  PWM_FREQ_460_Hz = AS5600_CONF_LOW_BYTE_REG_PWMF1_bm,
-  PWM_FREQ_920_Hz = AS5600_CONF_LOW_BYTE_REG_PWMF1_bm | AS5600_CONF_LOW_BYTE_REG_PWMF0_bm
-} PWMFrequencySelect;
+  F_115_Hz = 0,
+  F_230_Hz =                                     AS5600_CONF_LOW_BYTE_REG_PWMF0_bm,
+  F_460_Hz = AS5600_CONF_LOW_BYTE_REG_PWMF1_bm,
+  F_920_Hz = AS5600_CONF_LOW_BYTE_REG_PWMF1_bm | AS5600_CONF_LOW_BYTE_REG_PWMF0_bm
+};
 
-typedef enum
+enum class SlowFilter : uint8_t
 {
   SF_16x  = 0,
   SF_8x   =                                    AS5600_CONF_HIGH_BYTE_REG_SF0_bm,
   SF_4x   = AS5600_CONF_HIGH_BYTE_REG_SF1_bm,
   SF_2x   = AS5600_CONF_HIGH_BYTE_REG_SF1_bm | AS5600_CONF_HIGH_BYTE_REG_SF0_bm
-} SlowFilterSelect;
+};
 
-typedef enum
+enum class FastFilterThreshold : uint8_t
 {
-  FTH_ONLY_SLOW_FILTER = 0,
-  FTH_6_LSB            =                                                                         AS5600_CONF_HIGH_BYTE_REG_FTH0_bm,
-  FTH_7_LSB            =                                     AS5600_CONF_HIGH_BYTE_REG_FTH1_bm,
-  FTH_9_LSB            =                                     AS5600_CONF_HIGH_BYTE_REG_FTH1_bm | AS5600_CONF_HIGH_BYTE_REG_FTH0_bm,
-  FTH_18_LSB           = AS5600_CONF_HIGH_BYTE_REG_FTH2_bm,
-  FTH_21_LSB           = AS5600_CONF_HIGH_BYTE_REG_FTH2_bm                                     | AS5600_CONF_HIGH_BYTE_REG_FTH0_bm,
-  FTH_24_LSB           = AS5600_CONF_HIGH_BYTE_REG_FTH2_bm | AS5600_CONF_HIGH_BYTE_REG_FTH1_bm,
-  FTH_10_LSB           = AS5600_CONF_HIGH_BYTE_REG_FTH2_bm | AS5600_CONF_HIGH_BYTE_REG_FTH1_bm | AS5600_CONF_HIGH_BYTE_REG_FTH0_bm
-} FastFilterThreshold;
+  ONLY_SLOW_FILTER = 0,
+  TH_6_LSB         =                                                                         AS5600_CONF_HIGH_BYTE_REG_FTH0_bm,
+  TH_7_LSB         =                                     AS5600_CONF_HIGH_BYTE_REG_FTH1_bm,
+  TH_9_LSB         =                                     AS5600_CONF_HIGH_BYTE_REG_FTH1_bm | AS5600_CONF_HIGH_BYTE_REG_FTH0_bm,
+  TH_18_LSB        = AS5600_CONF_HIGH_BYTE_REG_FTH2_bm,
+  TH_21_LSB        = AS5600_CONF_HIGH_BYTE_REG_FTH2_bm                                     | AS5600_CONF_HIGH_BYTE_REG_FTH0_bm,
+  TH_24_LSB        = AS5600_CONF_HIGH_BYTE_REG_FTH2_bm | AS5600_CONF_HIGH_BYTE_REG_FTH1_bm,
+  TH_10_LSB        = AS5600_CONF_HIGH_BYTE_REG_FTH2_bm | AS5600_CONF_HIGH_BYTE_REG_FTH1_bm | AS5600_CONF_HIGH_BYTE_REG_FTH0_bm
+};
 
 /**************************************************************************************
  * CLASS DECLARATION
@@ -140,18 +140,18 @@ public:
   virtual ~AS5600_ConfigurationInterface() { }
 
 
-  virtual bool setPowerMode           (PowerModeSelect     const   sel        ) = 0;
-  virtual bool setHysteresis          (HysteresisSelect    const   sel        ) = 0;
-  virtual bool setOutputStage         (OutputStageSelect   const   sel        ) = 0;
-  virtual bool setPWMFrequency        (PWMFrequencySelect  const   sel        ) = 0;
-  virtual bool setSlowFilter          (SlowFilterSelect    const   sel        ) = 0;
-  virtual bool setFastFilterThreshold (FastFilterThreshold const   sel        ) = 0;
-  virtual bool enableWatchog          (                                       ) = 0;
-  virtual bool disableWatchog         (                                       ) = 0;
+  virtual bool setPowerMode           (PowerMode           const power_mode           ) = 0;
+  virtual bool setHysteresis          (Hysteresis          const hysteresis           ) = 0;
+  virtual bool setOutputStage         (OutputStage         const output_stage         ) = 0;
+  virtual bool setPwmFrequency        (PwmFrequency        const pwm_frequency        ) = 0;
+  virtual bool setSlowFilter          (SlowFilter          const slow_filter          ) = 0;
+  virtual bool setFastFilterThreshold (FastFilterThreshold const fast_filter_threshold) = 0;
+  virtual bool enableWatchog          (                                               ) = 0;
+  virtual bool disableWatchog         (                                               ) = 0;
 
-  virtual bool setAngularStartPosition(uint16_t            const   angle_start) = 0;
-  virtual bool setAngularStopPosition (uint16_t            const   angle_stop ) = 0;
-  virtual bool setMaximumAngle        (uint16_t            const   angle_max  ) = 0;
+  virtual bool setAngularStartPosition(uint16_t            const angle_start          ) = 0;
+  virtual bool setAngularStopPosition (uint16_t            const angle_stop           ) = 0;
+  virtual bool setMaximumAngle        (uint16_t            const angle_max            ) = 0;
 
 };
 

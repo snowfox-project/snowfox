@@ -82,40 +82,40 @@ bool AS5600::ioctl(uint32_t const cmd, void * arg)
   /* IOCTL_SET_POWER_MODE *************************************************************/
   case IOCTL_SET_POWER_MODE:
   {
-    uint8_t                    const * arg_ptr    = static_cast<uint8_t *>                 (arg     );
-    interface::PowerModeSelect const   power_mode = static_cast<interface::PowerModeSelect>(*arg_ptr);
+    uint8_t              const * arg_ptr    = static_cast<uint8_t *>           (arg     );
+    interface::PowerMode const   power_mode = static_cast<interface::PowerMode>(*arg_ptr);
     return _ctrl.setPowerMode(power_mode);
   }
   break;
   /* IOCTL_SET_HYSTERESIS *************************************************************/
   case IOCTL_SET_HYSTERESIS:
   {
-    uint8_t                     const * arg_ptr    = static_cast<uint8_t *>                  (arg     );
-    interface::HysteresisSelect const   hysteresis = static_cast<interface::HysteresisSelect>(*arg_ptr);
+    uint8_t               const * arg_ptr    = static_cast<uint8_t *>            (arg     );
+    interface::Hysteresis const   hysteresis = static_cast<interface::Hysteresis>(*arg_ptr);
     return _ctrl.setHysteresis(hysteresis);
   }
   break;
   /* IOCTL_SET_OUTPUT_STAGE ***********************************************************/
   case IOCTL_SET_OUTPUT_STAGE:
   {
-    uint8_t                      const * arg_ptr      = static_cast<uint8_t *>                   (arg     );
-    interface::OutputStageSelect const   output_stage = static_cast<interface::OutputStageSelect>(*arg_ptr);
+    uint8_t                const * arg_ptr      = static_cast<uint8_t *>             (arg     );
+    interface::OutputStage const   output_stage = static_cast<interface::OutputStage>(*arg_ptr);
     return _ctrl.setOutputStage(output_stage);
   }
   break;
   /* IOCTL_SET_PWM_FREQUENCY **********************************************************/
   case IOCTL_SET_PWM_FREQUENCY:
   {
-    uint8_t                       const * arg_ptr       = static_cast<uint8_t *>                    (arg     );
-    interface::PWMFrequencySelect const   pwm_frequency = static_cast<interface::PWMFrequencySelect>(*arg_ptr);
-    return _ctrl.setPWMFrequency(pwm_frequency);
+    uint8_t                 const * arg_ptr       = static_cast<uint8_t *>              (arg     );
+    interface::PwmFrequency const   pwm_frequency = static_cast<interface::PwmFrequency>(*arg_ptr);
+    return _ctrl.setPwmFrequency(pwm_frequency);
   }
   break;
   /* IOCTL_SET_SLOW_FILTER ************************************************************/
   case IOCTL_SET_SLOW_FILTER:
   {
-    uint8_t                     const * arg_ptr     = static_cast<uint8_t *>                  (arg     );
-    interface::SlowFilterSelect const   slow_filter = static_cast<interface::SlowFilterSelect>(*arg_ptr);
+    uint8_t               const * arg_ptr     = static_cast<uint8_t *>            (arg     );
+    interface::SlowFilter const   slow_filter = static_cast<interface::SlowFilter>(*arg_ptr);
     return _ctrl.setSlowFilter(slow_filter);
   }
   break;
