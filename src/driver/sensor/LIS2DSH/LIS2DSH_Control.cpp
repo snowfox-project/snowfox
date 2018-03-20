@@ -42,14 +42,14 @@ namespace LIS2DSH
  * CTOR/DTOR
  **************************************************************************************/
 
-LIS2DSH::LIS2DSH(interface::LIS2DSH_Io & io)
+LIS2DSH_Control::LIS2DSH_Control(interface::LIS2DSH_Io & io)
 : _io(io)
 {
   enableBlockDataUpdate  ();
   enableTemperatureSensor();
 }
 
-LIS2DSH::~LIS2DSH()
+LIS2DSH_Control::~LIS2DSH_Control()
 {
 
 }
@@ -58,7 +58,7 @@ LIS2DSH::~LIS2DSH()
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-bool LIS2DSH::setOperatingMode(interface::OperatingModeSelect const sel)
+bool LIS2DSH_Control::setOperatingMode(interface::OperatingModeSelect const sel)
 {
   uint8_t ctrl_reg1_content = 0,
           ctrl_reg4_content = 0;
@@ -95,7 +95,7 @@ bool LIS2DSH::setOperatingMode(interface::OperatingModeSelect const sel)
   return true;
 }
 
-bool LIS2DSH::setOutputDataRate(interface::OutputDataRateSelect const sel)
+bool LIS2DSH_Control::setOutputDataRate(interface::OutputDataRateSelect const sel)
 {
   uint8_t ctrl_reg1_content = 0;
 
@@ -109,7 +109,7 @@ bool LIS2DSH::setOutputDataRate(interface::OutputDataRateSelect const sel)
   return true;
 }
 
-bool LIS2DSH::setFullScaleRange(interface::FullScaleRangeSelect const sel)
+bool LIS2DSH_Control::setFullScaleRange(interface::FullScaleRangeSelect const sel)
 {
   uint8_t ctrl_reg4_content = 0;
 
@@ -123,7 +123,7 @@ bool LIS2DSH::setFullScaleRange(interface::FullScaleRangeSelect const sel)
   return true;
 }
 
-bool LIS2DSH::setFIFOMode(interface::FIFOModeSelect const sel)
+bool LIS2DSH_Control::setFIFOMode(interface::FIFOModeSelect const sel)
 {
   uint8_t fifo_ctrl_reg_content = 0;
 
@@ -137,7 +137,7 @@ bool LIS2DSH::setFIFOMode(interface::FIFOModeSelect const sel)
   return true;
 }
 
-bool LIS2DSH::enableFIFO()
+bool LIS2DSH_Control::enableFIFO()
 {
   uint8_t ctrl_reg5_content = 0;
 
@@ -150,7 +150,7 @@ bool LIS2DSH::enableFIFO()
   return true;
 }
 
-bool LIS2DSH::disableFIFO()
+bool LIS2DSH_Control::disableFIFO()
 {
   uint8_t ctrl_reg5_content = 0;
 
@@ -163,7 +163,7 @@ bool LIS2DSH::disableFIFO()
   return true;
 }
 
-bool LIS2DSH::enableBlockDataUpdate()
+bool LIS2DSH_Control::enableBlockDataUpdate()
 {
   uint8_t ctrl_reg4_content = 0;
 
@@ -176,7 +176,7 @@ bool LIS2DSH::enableBlockDataUpdate()
   return true;
 }
 
-bool LIS2DSH::enableTemperatureSensor()
+bool LIS2DSH_Control::enableTemperatureSensor()
 {
   uint8_t temp_cfg_reg_content = 0;
 
@@ -189,7 +189,7 @@ bool LIS2DSH::enableTemperatureSensor()
   return true;
 }
 
-bool LIS2DSH::enableXYZAxis()
+bool LIS2DSH_Control::enableXYZAxis()
 {
   uint8_t ctrl_reg1_content = 0;
 
@@ -202,7 +202,7 @@ bool LIS2DSH::enableXYZAxis()
   return true;
 }
 
-bool LIS2DSH::enableXAxis()
+bool LIS2DSH_Control::enableXAxis()
 {
   uint8_t ctrl_reg1_content = 0;
 
@@ -215,7 +215,7 @@ bool LIS2DSH::enableXAxis()
   return true;
 }
 
-bool LIS2DSH::enableYAxis()
+bool LIS2DSH_Control::enableYAxis()
 {
   uint8_t ctrl_reg1_content = 0;
 
@@ -228,7 +228,7 @@ bool LIS2DSH::enableYAxis()
   return true;
 }
 
-bool LIS2DSH::enableZAxis()
+bool LIS2DSH_Control::enableZAxis()
 {
   uint8_t ctrl_reg1_content = 0;
 
@@ -241,7 +241,7 @@ bool LIS2DSH::enableZAxis()
   return true;
 }
 
-bool LIS2DSH::checkIfNewDataIsAvailable_XYZ(bool * is_new_data_available_xyz)
+bool LIS2DSH_Control::checkIfNewDataIsAvailable_XYZ(bool * is_new_data_available_xyz)
 {
   uint8_t status_reg_content  = 0;
 
@@ -252,7 +252,7 @@ bool LIS2DSH::checkIfNewDataIsAvailable_XYZ(bool * is_new_data_available_xyz)
   return true;
 }
 
-bool LIS2DSH::checkIfNewDataIsAvailable_X(bool * is_new_data_available_x)
+bool LIS2DSH_Control::checkIfNewDataIsAvailable_X(bool * is_new_data_available_x)
 {
   uint8_t status_reg_content  = 0;
 
@@ -263,7 +263,7 @@ bool LIS2DSH::checkIfNewDataIsAvailable_X(bool * is_new_data_available_x)
   return true;
 }
 
-bool LIS2DSH::checkIfNewDataIsAvailable_Y(bool * is_new_data_available_y)
+bool LIS2DSH_Control::checkIfNewDataIsAvailable_Y(bool * is_new_data_available_y)
 {
   uint8_t status_reg_content  = 0;
 
@@ -274,7 +274,7 @@ bool LIS2DSH::checkIfNewDataIsAvailable_Y(bool * is_new_data_available_y)
   return true;
 }
 
-bool LIS2DSH::checkIfNewDataIsAvailable_Z(bool * is_new_data_available_z)
+bool LIS2DSH_Control::checkIfNewDataIsAvailable_Z(bool * is_new_data_available_z)
 {
   uint8_t status_reg_content  = 0;
 
@@ -285,7 +285,7 @@ bool LIS2DSH::checkIfNewDataIsAvailable_Z(bool * is_new_data_available_z)
   return true;
 }
 
-bool LIS2DSH::checkIfNewDataIsAvailable_Temperature(bool * is_new_data_available_temp)
+bool LIS2DSH_Control::checkIfNewDataIsAvailable_Temperature(bool * is_new_data_available_temp)
 {
   uint8_t status_aux_reg_content  = 0;
 
@@ -296,7 +296,7 @@ bool LIS2DSH::checkIfNewDataIsAvailable_Temperature(bool * is_new_data_available
   return true;
 }
 
-bool LIS2DSH::checkIfDataOverrun_XYZ(bool * is_data_overrun_xyz)
+bool LIS2DSH_Control::checkIfDataOverrun_XYZ(bool * is_data_overrun_xyz)
 {
   uint8_t status_reg_content  = 0;
 
@@ -307,7 +307,7 @@ bool LIS2DSH::checkIfDataOverrun_XYZ(bool * is_data_overrun_xyz)
   return true;
 }
 
-bool LIS2DSH::checkIfDataOverrun_X(bool * is_data_overrun_x)
+bool LIS2DSH_Control::checkIfDataOverrun_X(bool * is_data_overrun_x)
 {
   uint8_t status_reg_content  = 0;
 
@@ -318,7 +318,7 @@ bool LIS2DSH::checkIfDataOverrun_X(bool * is_data_overrun_x)
   return true;
 }
 
-bool LIS2DSH::checkIfDataOverrun_Y(bool * is_data_overrun_y)
+bool LIS2DSH_Control::checkIfDataOverrun_Y(bool * is_data_overrun_y)
 {
   uint8_t status_reg_content  = 0;
 
@@ -329,7 +329,7 @@ bool LIS2DSH::checkIfDataOverrun_Y(bool * is_data_overrun_y)
   return true;
 }
 
-bool LIS2DSH::checkIfDataOverrun_Z(bool * is_data_overrun_z)
+bool LIS2DSH_Control::checkIfDataOverrun_Z(bool * is_data_overrun_z)
 {
   uint8_t status_reg_content  = 0;
 
@@ -340,7 +340,7 @@ bool LIS2DSH::checkIfDataOverrun_Z(bool * is_data_overrun_z)
   return true;
 }
 
-bool LIS2DSH::checkIfDataOverrun_Temperature(bool * is_data_overrun_temp)
+bool LIS2DSH_Control::checkIfDataOverrun_Temperature(bool * is_data_overrun_temp)
 {
   uint8_t status_aux_reg_content  = 0;
 
@@ -351,7 +351,7 @@ bool LIS2DSH::checkIfDataOverrun_Temperature(bool * is_data_overrun_temp)
   return true;
 }
 
-bool LIS2DSH::readXYZAxis(int16_t * raw_x, int16_t * raw_y, int16_t * raw_z)
+bool LIS2DSH_Control::readXYZAxis(int16_t * raw_x, int16_t * raw_y, int16_t * raw_z)
 {
   uint8_t raw_xyz_data[6];
 
@@ -371,7 +371,7 @@ bool LIS2DSH::readXYZAxis(int16_t * raw_x, int16_t * raw_y, int16_t * raw_z)
   return true;
 }
 
-bool LIS2DSH::readXAxis(int16_t * raw_x)
+bool LIS2DSH_Control::readXAxis(int16_t * raw_x)
 {
   uint8_t raw_x_data[2];
 
@@ -385,7 +385,7 @@ bool LIS2DSH::readXAxis(int16_t * raw_x)
   return true;
 }
 
-bool LIS2DSH::readYAxis(int16_t * raw_y)
+bool LIS2DSH_Control::readYAxis(int16_t * raw_y)
 {
   uint8_t raw_y_data[2];
 
@@ -399,7 +399,7 @@ bool LIS2DSH::readYAxis(int16_t * raw_y)
   return true;
 }
 
-bool LIS2DSH::readZAxis(int16_t * raw_z)
+bool LIS2DSH_Control::readZAxis(int16_t * raw_z)
 {
   uint8_t raw_z_data[2];
 
@@ -413,7 +413,7 @@ bool LIS2DSH::readZAxis(int16_t * raw_z)
   return true;
 }
 
-bool LIS2DSH::readTemperature(int16_t * raw_temp)
+bool LIS2DSH_Control::readTemperature(int16_t * raw_temp)
 {
   uint8_t raw_temp_data[2];
 
@@ -427,7 +427,7 @@ bool LIS2DSH::readTemperature(int16_t * raw_temp)
   return true;
 }
 
-void LIS2DSH::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
+void LIS2DSH_Control::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
 {
   debug_dumpSingleReg(debug_interface, "STATUS_REG_AUX  = ", interface::Register::STATUS_REG_AUX );
 
@@ -484,7 +484,7 @@ void LIS2DSH::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
  * PRIVATE FUNCTIONS
  **************************************************************************************/
 
-void LIS2DSH::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, interface::Register const reg)
+void LIS2DSH_Control::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, interface::Register const reg)
 {
   uint8_t reg_content = 0;
 

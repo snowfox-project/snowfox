@@ -49,13 +49,13 @@ namespace LIS2DSH
  * CLASS DECLARATION
  **************************************************************************************/
 
-class LIS2DSH : public interface::LIS2DSH_Control
+class LIS2DSH_Control : public interface::LIS2DSH_Control
 {
 
 public:
 
-           LIS2DSH(interface::LIS2DSH_Io & io);
-  virtual ~LIS2DSH();
+           LIS2DSH_Control(interface::LIS2DSH_Io & io);
+  virtual ~LIS2DSH_Control();
 
 
   /* LIS2DSH Interface */
