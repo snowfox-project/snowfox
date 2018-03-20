@@ -73,14 +73,14 @@ AD7151_Control::~AD7151_Control()
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-bool AD7151_Control::setCapacitiveInputRange(interface::CapacitiveInputRangeSelect const sel)
+bool AD7151_Control::setCapacitiveInputRange(interface::CapacitiveInputRange const capacitive_input_range)
 {
   uint8_t setup_reg_content = 0;
 
   if(!_io.readRegister(interface::Register::SETUP, &setup_reg_content)) return false;
 
   setup_reg_content &= ~(AD7151_SETUP_REG_RNG_H_bm | AD7151_SETUP_REG_RNG_L_bm);
-  setup_reg_content |= static_cast<uint8_t>(sel);
+  setup_reg_content |= static_cast<uint8_t>(capacitive_input_range);
 
   if(!_io.writeRegister(interface::Register::SETUP, setup_reg_content)) return false;
 
@@ -101,7 +101,7 @@ bool AD7151_Control::startSingleConversion()
   return true;
 }
 
-bool AD7151_Control::checkIfConversionIsComplete(bool *is_conversion_complete)
+bool AD7151_Control::checkIfConversionIsComplete(bool * is_conversion_complete)
 {
   uint8_t status_reg_content  = 0;
 

@@ -88,8 +88,8 @@ bool AD7151::ioctl(uint32_t const cmd, void * arg)
   /* IOCTL_SET_CAPACITIVE_INPUT_RANGE *************************************************/
   case IOCTL_SET_CAPACITIVE_INPUT_RANGE:
   {
-    uint8_t                               const * arg_ptr                = static_cast<uint8_t *>                            (arg     );
-    interface::CapacitiveInputRangeSelect const   capacitive_input_range = static_cast<interface::CapacitiveInputRangeSelect>(*arg_ptr);
+    uint8_t                         const * arg_ptr                = static_cast<uint8_t *>                      (arg     );
+    interface::CapacitiveInputRange const   capacitive_input_range = static_cast<interface::CapacitiveInputRange>(*arg_ptr);
     return _ctrl.setCapacitiveInputRange(capacitive_input_range);
   }
   break;

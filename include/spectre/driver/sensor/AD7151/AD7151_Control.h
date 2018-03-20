@@ -67,7 +67,7 @@ public:
 
   /* AD7151 Configuration Interface */
 
-  virtual bool setCapacitiveInputRange      (interface::CapacitiveInputRangeSelect const sel) override;
+  virtual bool setCapacitiveInputRange      (interface::CapacitiveInputRange const capacitive_input_range) override;
 
 
           void debug_dumpAllRegs            (debug::interface::Debug & debug_interface);

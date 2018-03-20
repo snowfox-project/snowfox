@@ -70,7 +70,7 @@ int main()
 
   /* APPLICATION **********************************************************************/
 
-  uint8_t capacitive_input_range = static_cast<uint8_t>(sensor::AD7151::interface::CAPACITIVE_INPUT_RANGE_1_0_pF);
+  uint8_t capacitive_input_range = static_cast<uint8_t>(sensor::AD7151::interface::CapacitiveInputRange::RANGE_1_0_pF);
 
   ad7151.open();
 

@@ -68,7 +68,7 @@ public:
 
   /* Configuration Interface */
 
-  virtual bool setCapacitiveInputRange      (CapacitiveInputRangeSelect const sel) = 0;
+  virtual bool setCapacitiveInputRange      (CapacitiveInputRange const capacitive_input_range) = 0;
 
 };
 

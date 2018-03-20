@@ -62,13 +62,13 @@ namespace interface
  * TYPEDEFS
  **************************************************************************************/
 
-typedef enum
+enum class CapacitiveInputRange : uint8_t
 {
-  CAPACITIVE_INPUT_RANGE_2_0_pF = 0,
-  CAPACITIVE_INPUT_RANGE_0_5_pF =                             AD7151_SETUP_REG_RNG_L_bm,
-  CAPACITIVE_INPUT_RANGE_1_0_pF = AD7151_SETUP_REG_RNG_H_bm,
-  CAPACITIVE_INPUT_RANGE_4_0_pF = AD7151_SETUP_REG_RNG_H_bm | AD7151_SETUP_REG_RNG_L_bm
-} CapacitiveInputRangeSelect;
+  RANGE_2_0_pF = 0,
+  RANGE_0_5_pF =                             AD7151_SETUP_REG_RNG_L_bm,
+  RANGE_1_0_pF = AD7151_SETUP_REG_RNG_H_bm,
+  RANGE_4_0_pF = AD7151_SETUP_REG_RNG_H_bm | AD7151_SETUP_REG_RNG_L_bm
+};
 
 /**************************************************************************************
  * CLASS DECLARATION
@@ -83,7 +83,7 @@ public:
   virtual ~AD7151_ConfigurationInterface() { }
 
 
-  virtual bool setCapacitiveInputRange(CapacitiveInputRangeSelect const sel) = 0;
+  virtual bool setCapacitiveInputRange(CapacitiveInputRange const capacitive_input_range) = 0;
 
 };
 
