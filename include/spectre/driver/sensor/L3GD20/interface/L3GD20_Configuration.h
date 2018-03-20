@@ -80,7 +80,7 @@ namespace interface
  * TYPEDEFS
  **************************************************************************************/
 
-typedef enum
+enum class OutputDataRateAndBandwith : uint8_t
 {
   /* ODR = 95 Hz  */
   ODR_95_Hz_CutOff_12_5_Hz    = 0,
@@ -100,14 +100,14 @@ typedef enum
   ODR_760_Hz_CutOff_35_Hz     = L3GD20_CTRL_REG1_DR1_bm | L3GD20_CTRL_REG1_DR0_bm |                           L3GD20_CTRL_REG1_BW0_bm,
   ODR_760_Hz_CutOff_50_Hz     = L3GD20_CTRL_REG1_DR1_bm | L3GD20_CTRL_REG1_DR0_bm | L3GD20_CTRL_REG1_BW1_bm,
   ODR_760_Hz_CutOff_100_Hz    = L3GD20_CTRL_REG1_DR1_bm | L3GD20_CTRL_REG1_DR0_bm | L3GD20_CTRL_REG1_BW1_bm | L3GD20_CTRL_REG1_BW0_bm
-} OutputDataRateAndBandwithSelect;
+};
 
-typedef enum
+enum class FullScaleRange : uint8_t
 {
   FS_plus_minus_250_DPS  = 0,
   FS_plus_minus_500_DPS  =                           L3GD20_CTRL_REG4_FS0_bm,
   FS_plus_minus_2000_DPS = L3GD20_CTRL_REG4_FS1_bm | L3GD20_CTRL_REG4_FS0_bm
-} FullScaleRangeSelect;
+};
 
 /**************************************************************************************
  * CLASS DECLARATION
@@ -126,8 +126,8 @@ public:
   virtual bool disableAllAxis               () = 0;
   virtual bool enableBlockDataUpdate        () = 0;
 
-  virtual bool setOutputDataRateAndBandwith (OutputDataRateAndBandwithSelect const sel) = 0;
-  virtual bool setFullScaleRange            (FullScaleRangeSelect            const sel) = 0;
+  virtual bool setOutputDataRateAndBandwith (OutputDataRateAndBandwith const output_data_rate_and_bandwidth) = 0;
+  virtual bool setFullScaleRange            (FullScaleRange            const full_scale_range              ) = 0;
 
   virtual bool enableXYZAxis                () = 0;
   virtual bool enableXAxis                  () = 0;

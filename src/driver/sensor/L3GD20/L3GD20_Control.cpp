@@ -59,28 +59,28 @@ L3GD20_Control::~L3GD20_Control()
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-bool L3GD20_Control::setOutputDataRateAndBandwith(interface::OutputDataRateAndBandwithSelect const sel)
+bool L3GD20_Control::setOutputDataRateAndBandwith(interface::OutputDataRateAndBandwith const output_data_rate_and_bandwidth)
 {
   uint8_t ctrl_reg1_content = 0;
 
   if(!_io.readRegister(interface::Register::CTRL_REG1, &ctrl_reg1_content)) return false;
 
   ctrl_reg1_content &= ~(L3GD20_CTRL_REG1_DR1_bm | L3GD20_CTRL_REG1_DR0_bm | L3GD20_CTRL_REG1_BW1_bm | L3GD20_CTRL_REG1_BW0_bm);
-  ctrl_reg1_content |= static_cast<uint8_t>(sel);
+  ctrl_reg1_content |= static_cast<uint8_t>(output_data_rate_and_bandwidth);
 
   if(!_io.writeRegister(interface::Register::CTRL_REG1, ctrl_reg1_content)) return false;
 
   return true;
 }
 
-bool L3GD20_Control::setFullScaleRange(interface::FullScaleRangeSelect const sel)
+bool L3GD20_Control::setFullScaleRange(interface::FullScaleRange const full_scale_range)
 {
   uint8_t ctrl_reg4_content = 0;
 
   if(!_io.readRegister(interface::Register::CTRL_REG4, &ctrl_reg4_content)) return false;
 
   ctrl_reg4_content &= ~(L3GD20_CTRL_REG4_FS1_bm | L3GD20_CTRL_REG4_FS0_bm);
-  ctrl_reg4_content |= static_cast<uint8_t>(sel);
+  ctrl_reg4_content |= static_cast<uint8_t>(full_scale_range);
 
   if(!_io.writeRegister(interface::Register::CTRL_REG4, ctrl_reg4_content)) return false;
 

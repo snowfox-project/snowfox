@@ -83,8 +83,8 @@ public:
   virtual bool disableAllAxis               () = 0;
   virtual bool enableBlockDataUpdate        () = 0;
 
-  virtual bool setOutputDataRateAndBandwith (OutputDataRateAndBandwithSelect const sel) = 0;
-  virtual bool setFullScaleRange            (FullScaleRangeSelect            const sel) = 0;
+  virtual bool setOutputDataRateAndBandwith (OutputDataRateAndBandwith const output_data_rate_and_bandwidth) = 0;
+  virtual bool setFullScaleRange            (FullScaleRange            const full_scale_range              ) = 0;
 
   virtual bool enableXYZAxis                () = 0;
   virtual bool enableXAxis                  () = 0;
