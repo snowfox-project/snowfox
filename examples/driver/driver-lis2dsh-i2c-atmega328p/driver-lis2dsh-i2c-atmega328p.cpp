@@ -79,7 +79,7 @@ int main()
   lis2dsh.ioctl(sensor::LIS2DSH::IOCTL_SET_OPERATING_MODE,   static_cast<void *>(&operating_mode  ));
   lis2dsh.ioctl(sensor::LIS2DSH::IOCTL_SET_OUTPUT_DATA_RATE, static_cast<void *>(&output_data_rate));
   lis2dsh.ioctl(sensor::LIS2DSH::IOCTL_SET_FULL_SCALE_RANGE, static_cast<void *>(&full_scale_range));
-  lis2dsh.ioctl(sensor::LIS2DSH::IOCTL_SET_OPERATING_MODE,   0                                     );
+  lis2dsh.ioctl(sensor::LIS2DSH::IOCTL_ENABLE_XYZ,           0                                     );
 
   for(;;)
   {
