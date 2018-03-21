@@ -82,33 +82,33 @@ bool LIS2DSH::ioctl(uint32_t const cmd, void * arg)
   /* IOCTL_SET_OPERATING_MODE *********************************************************/
   case IOCTL_SET_OPERATING_MODE:
   {
-    uint8_t                        const * arg_ptr        = static_cast<uint8_t *>                     (arg     );
-    interface::OperatingModeSelect const   operating_mode = static_cast<interface::OperatingModeSelect>(*arg_ptr);
+    uint8_t                  const * arg_ptr        = static_cast<uint8_t *>               (arg     );
+    interface::OperatingMode const   operating_mode = static_cast<interface::OperatingMode>(*arg_ptr);
     return _ctrl.setOperatingMode(operating_mode);
   }
   break;
   /* IOCTL_SET_OUTPUT_DATA_RATE *******************************************************/
   case IOCTL_SET_OUTPUT_DATA_RATE:
   {
-    uint8_t                         const * arg_ptr          = static_cast<uint8_t *>                      (arg     );
-    interface::OutputDataRateSelect const   output_data_rate = static_cast<interface::OutputDataRateSelect>(*arg_ptr);
+    uint8_t                   const * arg_ptr          = static_cast<uint8_t *>                (arg     );
+    interface::OutputDataRate const   output_data_rate = static_cast<interface::OutputDataRate>(*arg_ptr);
     return _ctrl.setOutputDataRate(output_data_rate);
   }
   break;
   /* IOCTL_SET_FULL_SCALE_RANGE *******************************************************/
   case IOCTL_SET_FULL_SCALE_RANGE:
   {
-    uint8_t                         const * arg_ptr          = static_cast<uint8_t *>                      (arg     );
-    interface::FullScaleRangeSelect const   full_scale_range = static_cast<interface::FullScaleRangeSelect>(*arg_ptr);
+    uint8_t                   const * arg_ptr          = static_cast<uint8_t *>                (arg     );
+    interface::FullScaleRange const   full_scale_range = static_cast<interface::FullScaleRange>(*arg_ptr);
     return _ctrl.setFullScaleRange(full_scale_range);
   }
   break;
   /* IOCTL_SET_FIFO_MODE **************************************************************/
   case IOCTL_SET_FIFO_MODE:
   {
-    uint8_t                   const * arg_ptr   = static_cast<uint8_t *>                (arg     );
-    interface::FIFOModeSelect const   fifo_mode = static_cast<interface::FIFOModeSelect>(*arg_ptr);
-    return _ctrl.setFIFOMode(fifo_mode);
+    uint8_t             const * arg_ptr   = static_cast<uint8_t *>          (arg     );
+    interface::FifoMode const   fifo_mode = static_cast<interface::FifoMode>(*arg_ptr);
+    return _ctrl.setFifoMode(fifo_mode);
   }
   break;
   /* IOCTL_ENABLE_XYZ *****************************************************************/

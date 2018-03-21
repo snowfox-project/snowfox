@@ -99,41 +99,41 @@ namespace interface
  * TYPEDEFS
  **************************************************************************************/
 
-typedef enum
- {
-   OM_8_Bit_Low_Power,
-   OM_10_Bit_Normal,
-   OM_12_Bit_High_Resolution
- } OperatingModeSelect;
+enum class OperatingMode : uint8_t
+{
+  OM_8_Bit_Low_Power,
+  OM_10_Bit_Normal,
+  OM_12_Bit_High_Resolution
+};
 
- typedef enum
- {
-   ODR_OFF     = 0,
-   ODR_1_Hz    =                                                                                           LIS2DSH_CTRL_REG_1_ODR_0_bm,
-   ODR_10_Hz   =                                                             LIS2DSH_CTRL_REG_1_ODR_1_bm,
-   ODR_25_Hz   =                                                             LIS2DSH_CTRL_REG_1_ODR_1_bm | LIS2DSH_CTRL_REG_1_ODR_0_bm,
-   ODR_50_Hz   =                               LIS2DSH_CTRL_REG_1_ODR_2_bm,
-   ODR_100_Hz  =                               LIS2DSH_CTRL_REG_1_ODR_2_bm |                               LIS2DSH_CTRL_REG_1_ODR_0_bm,
-   ODR_200_Hz  =                               LIS2DSH_CTRL_REG_1_ODR_2_bm | LIS2DSH_CTRL_REG_1_ODR_1_bm,
-   ODR_400_Hz  =                               LIS2DSH_CTRL_REG_1_ODR_2_bm | LIS2DSH_CTRL_REG_1_ODR_1_bm | LIS2DSH_CTRL_REG_1_ODR_0_bm,
-   ODR_1344_Hz = LIS2DSH_CTRL_REG_1_ODR_3_bm
- } OutputDataRateSelect;
+enum class OutputDataRate : uint8_t
+{
+  ODR_OFF     = 0,
+  ODR_1_Hz    =                                                                                           LIS2DSH_CTRL_REG_1_ODR_0_bm,
+  ODR_10_Hz   =                                                             LIS2DSH_CTRL_REG_1_ODR_1_bm,
+  ODR_25_Hz   =                                                             LIS2DSH_CTRL_REG_1_ODR_1_bm | LIS2DSH_CTRL_REG_1_ODR_0_bm,
+  ODR_50_Hz   =                               LIS2DSH_CTRL_REG_1_ODR_2_bm,
+  ODR_100_Hz  =                               LIS2DSH_CTRL_REG_1_ODR_2_bm |                               LIS2DSH_CTRL_REG_1_ODR_0_bm,
+  ODR_200_Hz  =                               LIS2DSH_CTRL_REG_1_ODR_2_bm | LIS2DSH_CTRL_REG_1_ODR_1_bm,
+  ODR_400_Hz  =                               LIS2DSH_CTRL_REG_1_ODR_2_bm | LIS2DSH_CTRL_REG_1_ODR_1_bm | LIS2DSH_CTRL_REG_1_ODR_0_bm,
+  ODR_1344_Hz = LIS2DSH_CTRL_REG_1_ODR_3_bm
+};
 
- typedef enum
- {
-   FS_plus_minus_2g  = 0,
-   FS_plus_minus_4g  =                             LIS2DSH_CTRL_REG_4_FS0_bm,
-   FS_plus_minus_8g  = LIS2DSH_CTRL_REG_4_FS1_bm,
-   FS_plus_minus_16g = LIS2DSH_CTRL_REG_4_FS1_bm | LIS2DSH_CTRL_REG_4_FS0_bm
- } FullScaleRangeSelect;
+enum class FullScaleRange : uint8_t
+{
+  FS_plus_minus_2g  = 0,
+  FS_plus_minus_4g  =                             LIS2DSH_CTRL_REG_4_FS0_bm,
+  FS_plus_minus_8g  = LIS2DSH_CTRL_REG_4_FS1_bm,
+  FS_plus_minus_16g = LIS2DSH_CTRL_REG_4_FS1_bm | LIS2DSH_CTRL_REG_4_FS0_bm
+};
 
- typedef enum
- {
-   FIFO_MODE_BYPASS  = 0,
-   FIFO_MODE_FIFO    =                                LIS2DSH_FIFO_CTRL_REG_FM0_bm,
-   FIFO_MODE_STREAM  = LIS2DSH_FIFO_CTRL_REG_FM1_bm,
-   FIFO_MODE_TRIGGER = LIS2DSH_FIFO_CTRL_REG_FM1_bm | LIS2DSH_FIFO_CTRL_REG_FM0_bm
- } FIFOModeSelect;
+enum class FifoMode : uint8_t
+{
+  BYPASS  = 0,
+  FIFO    =                                LIS2DSH_FIFO_CTRL_REG_FM0_bm,
+  STREAM  = LIS2DSH_FIFO_CTRL_REG_FM1_bm,
+  TRIGGER = LIS2DSH_FIFO_CTRL_REG_FM1_bm | LIS2DSH_FIFO_CTRL_REG_FM0_bm
+};
 
 /**************************************************************************************
  * CLASS DECLARATION
@@ -148,10 +148,10 @@ public:
   virtual ~LIS2DSH_Configuration() { }
 
 
-  virtual bool setOperatingMode       (OperatingModeSelect  const sel) = 0;
-  virtual bool setOutputDataRate      (OutputDataRateSelect const sel) = 0;
-  virtual bool setFullScaleRange      (FullScaleRangeSelect const sel) = 0;
-  virtual bool setFIFOMode            (FIFOModeSelect       const sel) = 0;
+  virtual bool setOperatingMode       (OperatingMode  const operating_mode  ) = 0;
+  virtual bool setOutputDataRate      (OutputDataRate const output_data_rate) = 0;
+  virtual bool setFullScaleRange      (FullScaleRange const full_scale_range) = 0;
+  virtual bool setFifoMode            (FifoMode       const fifo_mode       ) = 0;
 
   virtual bool enableFIFO             () = 0;
   virtual bool disableFIFO            () = 0;

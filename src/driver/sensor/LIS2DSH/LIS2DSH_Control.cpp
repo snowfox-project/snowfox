@@ -58,7 +58,7 @@ LIS2DSH_Control::~LIS2DSH_Control()
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-bool LIS2DSH_Control::setOperatingMode(interface::OperatingModeSelect const sel)
+bool LIS2DSH_Control::setOperatingMode(interface::OperatingMode const operating_mode)
 {
   uint8_t ctrl_reg1_content = 0,
           ctrl_reg4_content = 0;
@@ -69,24 +69,12 @@ bool LIS2DSH_Control::setOperatingMode(interface::OperatingModeSelect const sel)
   ctrl_reg1_content &= ~(LIS2DSH_CTRL_REG_1_LPEN_bm);
   ctrl_reg4_content &= ~(LIS2DSH_CTRL_REG_4_HR_bm);
 
-  switch(sel)
+  switch(operating_mode)
   {
-  case interface::OM_8_Bit_Low_Power:
-  {
-    ctrl_reg1_content |= LIS2DSH_CTRL_REG_1_LPEN_bm;
-  }
-  break;
-  case interface::OM_10_Bit_Normal:
-  {
-
-  }
-  break;
-  case interface::OM_12_Bit_High_Resolution:
-  {
-    ctrl_reg4_content |= LIS2DSH_CTRL_REG_4_HR_bm;
-  }
-  break;
-  default: break;
+  case interface::OperatingMode::OM_8_Bit_Low_Power       : ctrl_reg1_content |= LIS2DSH_CTRL_REG_1_LPEN_bm; break;
+  case interface::OperatingMode::OM_10_Bit_Normal         :                                                  break;
+  case interface::OperatingMode::OM_12_Bit_High_Resolution: ctrl_reg4_content |= LIS2DSH_CTRL_REG_4_HR_bm;   break;
+  default                                                 :                                                  break;
   }
 
   if(!_io.writeRegister(interface::Register::CTRL_REG1, ctrl_reg1_content)) return false;
@@ -95,42 +83,42 @@ bool LIS2DSH_Control::setOperatingMode(interface::OperatingModeSelect const sel)
   return true;
 }
 
-bool LIS2DSH_Control::setOutputDataRate(interface::OutputDataRateSelect const sel)
+bool LIS2DSH_Control::setOutputDataRate(interface::OutputDataRate const output_data_rate)
 {
   uint8_t ctrl_reg1_content = 0;
 
   if(!_io.readRegister(interface::Register::CTRL_REG1, &ctrl_reg1_content)) return false;
 
   ctrl_reg1_content &=  ~(LIS2DSH_CTRL_REG_1_ODR_3_bm | LIS2DSH_CTRL_REG_1_ODR_2_bm | LIS2DSH_CTRL_REG_1_ODR_1_bm | LIS2DSH_CTRL_REG_1_ODR_0_bm);
-  ctrl_reg1_content |= static_cast<uint8_t>(sel);
+  ctrl_reg1_content |= static_cast<uint8_t>(output_data_rate);
 
   if(!_io.writeRegister(interface::Register::CTRL_REG1, ctrl_reg1_content)) return false;
 
   return true;
 }
 
-bool LIS2DSH_Control::setFullScaleRange(interface::FullScaleRangeSelect const sel)
+bool LIS2DSH_Control::setFullScaleRange(interface::FullScaleRange const full_scale_range)
 {
   uint8_t ctrl_reg4_content = 0;
 
   if(!_io.readRegister(interface::Register::CTRL_REG4, &ctrl_reg4_content)) return false;
 
   ctrl_reg4_content &= ~(LIS2DSH_CTRL_REG_4_FS1_bm | LIS2DSH_CTRL_REG_4_FS0_bm);
-  ctrl_reg4_content |= static_cast<uint8_t>(sel);
+  ctrl_reg4_content |= static_cast<uint8_t>(full_scale_range);
 
   if(!_io.writeRegister(interface::Register::CTRL_REG4, ctrl_reg4_content)) return false;
 
   return true;
 }
 
-bool LIS2DSH_Control::setFIFOMode(interface::FIFOModeSelect const sel)
+bool LIS2DSH_Control::setFifoMode(interface::FifoMode const fifo_mode)
 {
   uint8_t fifo_ctrl_reg_content = 0;
 
   if(!_io.readRegister(interface::Register::FIFO_CTRL_REG, &fifo_ctrl_reg_content)) return false;
 
   fifo_ctrl_reg_content &= ~(LIS2DSH_FIFO_CTRL_REG_FM1_bm | LIS2DSH_FIFO_CTRL_REG_FM0_bm);
-  fifo_ctrl_reg_content |= static_cast<uint8_t>(sel);
+  fifo_ctrl_reg_content |= static_cast<uint8_t>(fifo_mode);
 
   if(!_io.writeRegister(interface::Register::FIFO_CTRL_REG, fifo_ctrl_reg_content)) return false;
 

@@ -81,10 +81,10 @@ public:
 
   /* LIS2DSH Configuration Interface */
 
-  virtual bool setOperatingMode                     (interface::OperatingModeSelect  const sel) override;
-  virtual bool setOutputDataRate                    (interface::OutputDataRateSelect const sel) override;
-  virtual bool setFullScaleRange                    (interface::FullScaleRangeSelect const sel) override;
-  virtual bool setFIFOMode                          (interface::FIFOModeSelect       const sel) override;
+  virtual bool setOperatingMode                     (interface::OperatingMode  const operating_mode  ) override;
+  virtual bool setOutputDataRate                    (interface::OutputDataRate const output_data_rate) override;
+  virtual bool setFullScaleRange                    (interface::FullScaleRange const full_scale_range) override;
+  virtual bool setFifoMode                          (interface::FifoMode       const fifo_mode       ) override;
 
   virtual bool enableFIFO                           () override;
   virtual bool disableFIFO                          () override;
