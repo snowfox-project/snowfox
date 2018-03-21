@@ -102,7 +102,7 @@ bool DRV2605_Control::clrStandby()
   return true;
 }
 
-bool DRV2605_Control::setMode(interface::ModeSelect const mode)
+bool DRV2605_Control::setMode(interface::Mode const mode)
 {
   uint8_t reg_mode_content = 0;
 
@@ -116,7 +116,7 @@ bool DRV2605_Control::setMode(interface::ModeSelect const mode)
   return true;
 }
 
-bool DRV2605_Control::setWaveformLibrary(interface::WaveformLibrarySelect const library)
+bool DRV2605_Control::setWaveformLibrary(interface::WaveformLibrary const library)
 {
   uint8_t reg_lib_content = 0;
 
@@ -130,23 +130,23 @@ bool DRV2605_Control::setWaveformLibrary(interface::WaveformLibrarySelect const 
   return true;
 }
 
-bool DRV2605_Control::setWaveform(interface::WaveformSequencerSelect const sequencer, uint8_t const waveform)
+bool DRV2605_Control::setWaveform(interface::WaveformSequencer const sequencer, uint8_t const waveform)
 {
   switch(sequencer)
   {
-  case interface::WAVEFORM_SEQUENCER_1: return _io.writeRegister(interface::Register::WAVESEQ1, (waveform & 0x7F)); break;
-  case interface::WAVEFORM_SEQUENCER_2: return _io.writeRegister(interface::Register::WAVESEQ2, (waveform & 0x7F)); break;
-  case interface::WAVEFORM_SEQUENCER_3: return _io.writeRegister(interface::Register::WAVESEQ3, (waveform & 0x7F)); break;
-  case interface::WAVEFORM_SEQUENCER_4: return _io.writeRegister(interface::Register::WAVESEQ4, (waveform & 0x7F)); break;
-  case interface::WAVEFORM_SEQUENCER_5: return _io.writeRegister(interface::Register::WAVESEQ5, (waveform & 0x7F)); break;
-  case interface::WAVEFORM_SEQUENCER_6: return _io.writeRegister(interface::Register::WAVESEQ6, (waveform & 0x7F)); break;
-  case interface::WAVEFORM_SEQUENCER_7: return _io.writeRegister(interface::Register::WAVESEQ7, (waveform & 0x7F)); break;
-  case interface::WAVEFORM_SEQUENCER_8: return _io.writeRegister(interface::Register::WAVESEQ8, (waveform & 0x7F)); break;
-  default                             : return false;                                                               break;
+  case interface::WaveformSequencer::SEQ_1: return _io.writeRegister(interface::Register::WAVESEQ1, (waveform & 0x7F)); break;
+  case interface::WaveformSequencer::SEQ_2: return _io.writeRegister(interface::Register::WAVESEQ2, (waveform & 0x7F)); break;
+  case interface::WaveformSequencer::SEQ_3: return _io.writeRegister(interface::Register::WAVESEQ3, (waveform & 0x7F)); break;
+  case interface::WaveformSequencer::SEQ_4: return _io.writeRegister(interface::Register::WAVESEQ4, (waveform & 0x7F)); break;
+  case interface::WaveformSequencer::SEQ_5: return _io.writeRegister(interface::Register::WAVESEQ5, (waveform & 0x7F)); break;
+  case interface::WaveformSequencer::SEQ_6: return _io.writeRegister(interface::Register::WAVESEQ6, (waveform & 0x7F)); break;
+  case interface::WaveformSequencer::SEQ_7: return _io.writeRegister(interface::Register::WAVESEQ7, (waveform & 0x7F)); break;
+  case interface::WaveformSequencer::SEQ_8: return _io.writeRegister(interface::Register::WAVESEQ8, (waveform & 0x7F)); break;
+  default                                 : return false;                                                               break;
   }
 }
 
-bool DRV2605_Control::setActuator(interface::ActuatorSelect const actuator)
+bool DRV2605_Control::setActuator(interface::Actuator const actuator)
 {
   uint8_t reg_feedback_content = 0;
 

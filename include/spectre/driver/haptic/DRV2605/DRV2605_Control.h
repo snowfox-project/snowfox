@@ -59,15 +59,15 @@ public:
   virtual ~DRV2605_Control();
 
 
-  virtual bool reset              (                                                                             ) override;
-  virtual bool setStandby         (                                                                             ) override;
-  virtual bool clrStandby         (                                                                             ) override;
-  virtual bool setMode            (interface::ModeSelect               const   mode                             ) override;
-  virtual bool setWaveformLibrary (interface::WaveformLibrarySelect    const   library                          ) override;
-  virtual bool setWaveform        (interface::WaveformSequencerSelect  const   sequencer, uint8_t const waveform) override;
-  virtual bool setActuator        (interface::ActuatorSelect           const   actuator                         ) override;
-  virtual bool setGo              (                                                                             ) override;
-  virtual bool clrGo              (                                                                             ) override;
+  virtual bool reset              (                                                                       ) override;
+  virtual bool setStandby         (                                                                       ) override;
+  virtual bool clrStandby         (                                                                       ) override;
+  virtual bool setMode            (interface::Mode               const   mode                             ) override;
+  virtual bool setWaveformLibrary (interface::WaveformLibrary    const   library                          ) override;
+  virtual bool setWaveform        (interface::WaveformSequencer  const   sequencer, uint8_t const waveform) override;
+  virtual bool setActuator        (interface::Actuator           const   actuator                         ) override;
+  virtual bool setGo              (                                                                       ) override;
+  virtual bool clrGo              (                                                                       ) override;
 
 
           void debug_dumpAllRegs  (debug::interface::Debug & debug_interface);

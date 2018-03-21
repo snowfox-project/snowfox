@@ -71,7 +71,7 @@ namespace interface
  * TYPEDEFS
  **************************************************************************************/
 
-typedef enum
+enum class Mode : uint8_t
 {
   INTERNAL_TRIGGER        = 0,
   EXTERNAL_TRIGGER_EDGE   =                                                 DRV2605_REG_MODE_0_bm,
@@ -81,37 +81,37 @@ typedef enum
   REAL_TIME_PLAYBACK      = DRV2605_REG_MODE_2_bm |                         DRV2605_REG_MODE_0_bm,
   DIAGNOSTICS             = DRV2605_REG_MODE_2_bm | DRV2605_REG_MODE_1_bm,
   AUTO_CALIBRATION        = DRV2605_REG_MODE_2_bm | DRV2605_REG_MODE_1_bm | DRV2605_REG_MODE_0_bm
-} ModeSelect;
+};
 
-typedef enum
+enum class WaveformLibrary : uint8_t
 {
-  LIB_NONE    = 0,
-  LIB_ERM_A   =                                                                       DRV2605_REG_LIB_LIBRARY_SEL_0_bm,
-  LIB_ERM_B   =                                    DRV2605_REG_LIB_LIBRARY_SEL_1_bm,
-  LIB_ERM_C   =                                    DRV2605_REG_LIB_LIBRARY_SEL_1_bm | DRV2605_REG_LIB_LIBRARY_SEL_0_bm,
-  LIB_ERM_D   = DRV2605_REG_LIB_LIBRARY_SEL_2_bm,
-  LIB_ERM_E   = DRV2605_REG_LIB_LIBRARY_SEL_2_bm |                                    DRV2605_REG_LIB_LIBRARY_SEL_0_bm,
-  LIB_LRA     = DRV2605_REG_LIB_LIBRARY_SEL_2_bm | DRV2605_REG_LIB_LIBRARY_SEL_1_bm,
-  LIB_ERM_F   = DRV2605_REG_LIB_LIBRARY_SEL_2_bm | DRV2605_REG_LIB_LIBRARY_SEL_1_bm | DRV2605_REG_LIB_LIBRARY_SEL_0_bm
-} WaveformLibrarySelect;
+  NONE    = 0,
+  ERM_A   =                                                                       DRV2605_REG_LIB_LIBRARY_SEL_0_bm,
+  ERM_B   =                                    DRV2605_REG_LIB_LIBRARY_SEL_1_bm,
+  ERM_C   =                                    DRV2605_REG_LIB_LIBRARY_SEL_1_bm | DRV2605_REG_LIB_LIBRARY_SEL_0_bm,
+  ERM_D   = DRV2605_REG_LIB_LIBRARY_SEL_2_bm,
+  ERM_E   = DRV2605_REG_LIB_LIBRARY_SEL_2_bm |                                    DRV2605_REG_LIB_LIBRARY_SEL_0_bm,
+  LRA     = DRV2605_REG_LIB_LIBRARY_SEL_2_bm | DRV2605_REG_LIB_LIBRARY_SEL_1_bm,
+  ERM_F   = DRV2605_REG_LIB_LIBRARY_SEL_2_bm | DRV2605_REG_LIB_LIBRARY_SEL_1_bm | DRV2605_REG_LIB_LIBRARY_SEL_0_bm
+};
 
-typedef enum
+enum class WaveformSequencer : uint8_t
 {
-  WAVEFORM_SEQUENCER_1 = 0,
-  WAVEFORM_SEQUENCER_2 = 1,
-  WAVEFORM_SEQUENCER_3 = 2,
-  WAVEFORM_SEQUENCER_4 = 3,
-  WAVEFORM_SEQUENCER_5 = 4,
-  WAVEFORM_SEQUENCER_6 = 5,
-  WAVEFORM_SEQUENCER_7 = 6,
-  WAVEFORM_SEQUENCER_8 = 7
-} WaveformSequencerSelect;
+  SEQ_1 = 0,
+  SEQ_2 = 1,
+  SEQ_3 = 2,
+  SEQ_4 = 3,
+  SEQ_5 = 4,
+  SEQ_6 = 5,
+  SEQ_7 = 6,
+  SEQ_8 = 7
+};
 
-typedef enum
+enum class Actuator : uint8_t
 {
   ERM = 0,
   LRA = DRV2605_REG_FEEDBACK_N_ERM_LRA_bm
-} ActuatorSelect;
+};
 
 /**************************************************************************************
  * CLASS DECLARATION
@@ -126,15 +126,15 @@ public:
   virtual ~DRV2605_Control() { }
 
 
-  virtual bool reset              (                                                                   ) = 0;
-  virtual bool setStandby         (                                                                   ) = 0;
-  virtual bool clrStandby         (                                                                   ) = 0;
-  virtual bool setMode            (ModeSelect               const   mode                              ) = 0;
-  virtual bool setWaveformLibrary (WaveformLibrarySelect    const   library                           ) = 0;
-  virtual bool setWaveform        (WaveformSequencerSelect  const   sequencer, uint8_t const waveform ) = 0;
-  virtual bool setActuator        (ActuatorSelect           const   actuator                          ) = 0;
-  virtual bool setGo              (                                                                   ) = 0;
-  virtual bool clrGo              (                                                                   ) = 0;
+  virtual bool reset              (                                                             ) = 0;
+  virtual bool setStandby         (                                                             ) = 0;
+  virtual bool clrStandby         (                                                             ) = 0;
+  virtual bool setMode            (Mode               const   mode                              ) = 0;
+  virtual bool setWaveformLibrary (WaveformLibrary    const   library                           ) = 0;
+  virtual bool setWaveform        (WaveformSequencer  const   sequencer, uint8_t const waveform ) = 0;
+  virtual bool setActuator        (Actuator           const   actuator                          ) = 0;
+  virtual bool setGo              (                                                             ) = 0;
+  virtual bool clrGo              (                                                             ) = 0;
 
 };
 

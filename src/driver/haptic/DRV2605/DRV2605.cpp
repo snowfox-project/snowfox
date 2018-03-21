@@ -79,16 +79,16 @@ bool DRV2605::ioctl(uint32_t const cmd, void * arg)
   /* SET_MODE *************************************************************************/
   case IOCTL_SET_MODE:
   {
-    uint8_t               const * arg_ptr     = static_cast<uint8_t *>            (arg     );
-    interface::ModeSelect const   mode_select = static_cast<interface::ModeSelect>(*arg_ptr);
+    uint8_t         const * arg_ptr     = static_cast<uint8_t *>      (arg     );
+    interface::Mode const   mode_select = static_cast<interface::Mode>(*arg_ptr);
     return _ctrl.setMode(mode_select);
   }
   break;
   /* SET_WAVEFORM_LIBRARY *************************************************************/
   case IOCTL_SET_WAVEFORM_LIBRARY:
   {
-    uint8_t                          const * arg_ptr             = static_cast<uint8_t *>                       (arg     );
-    interface::WaveformLibrarySelect const   waveform_lib_select = static_cast<interface::WaveformLibrarySelect>(*arg_ptr);
+    uint8_t                    const * arg_ptr             = static_cast<uint8_t *>                 (arg     );
+    interface::WaveformLibrary const   waveform_lib_select = static_cast<interface::WaveformLibrary>(*arg_ptr);
     return _ctrl.setWaveformLibrary(waveform_lib_select);
   }
   break;
@@ -102,8 +102,8 @@ bool DRV2605::ioctl(uint32_t const cmd, void * arg)
   /* SET_ACTUATOR *********************************************************************/
   case IOCTL_SET_ACTUATOR:
   {
-    uint8_t                   const * arg_ptr         = static_cast<uint8_t *>                (arg     );
-    interface::ActuatorSelect const   actuator_select = static_cast<interface::ActuatorSelect>(*arg_ptr);
+    uint8_t             const * arg_ptr         = static_cast<uint8_t *>          (arg     );
+    interface::Actuator const   actuator_select = static_cast<interface::Actuator>(*arg_ptr);
     return _ctrl.setActuator(actuator_select);
   }
   break;

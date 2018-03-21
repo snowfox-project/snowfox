@@ -66,9 +66,9 @@ int main()
   haptic::DRV2605::DRV2605_Control  drv2605_ctrl  (drv2605_io_i2c, delay       );
   haptic::DRV2605::DRV2605          drv2605       (drv2605_ctrl                );
 
-  uint8_t mode         = static_cast<uint8_t>(haptic::DRV2605::interface::INTERNAL_TRIGGER);
-  uint8_t actuator     = static_cast<uint8_t>(haptic::DRV2605::interface::LRA             );
-  uint8_t waveform_lib = static_cast<uint8_t>(haptic::DRV2605::interface::LIB_LRA         );
+  uint8_t mode         = static_cast<uint8_t>(haptic::DRV2605::interface::Mode::INTERNAL_TRIGGER);
+  uint8_t actuator     = static_cast<uint8_t>(haptic::DRV2605::interface::Actuator::LRA         );
+  uint8_t waveform_lib = static_cast<uint8_t>(haptic::DRV2605::interface::WaveformLibrary::LRA  );
 
   /* APPLICATION **********************************************************************/
 
@@ -84,7 +84,7 @@ int main()
   {
     haptic::DRV2605::IoctlSetWaveFormArg waveform_arg;
 
-    waveform_arg.waveform_sequencer_select = haptic::DRV2605::interface::WAVEFORM_SEQUENCER_1;
+    waveform_arg.waveform_sequencer_select = haptic::DRV2605::interface::WaveformSequencer::SEQ_1;
     waveform_arg.waveform                  = w;
 
     drv2605.ioctl(haptic::DRV2605::IOCTL_SET_WAVEFORM, static_cast<void *>(&waveform_arg));
