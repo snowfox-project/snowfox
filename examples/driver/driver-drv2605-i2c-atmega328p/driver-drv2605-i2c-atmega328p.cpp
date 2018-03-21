@@ -84,8 +84,8 @@ int main()
   {
     haptic::DRV2605::IoctlSetWaveFormArg waveform_arg;
 
-    waveform_arg.waveform_sequencer_select = haptic::DRV2605::interface::WaveformSequencer::SEQ_1;
-    waveform_arg.waveform                  = w;
+    waveform_arg.waveform_sequencer = haptic::DRV2605::interface::WaveformSequencer::SEQ_1;
+    waveform_arg.waveform           = w;
 
     drv2605.ioctl(haptic::DRV2605::IOCTL_SET_WAVEFORM, static_cast<void *>(&waveform_arg));
     drv2605.ioctl(haptic::DRV2605::IOCTL_SET_GO,       0                                 );

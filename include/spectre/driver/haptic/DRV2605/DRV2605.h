@@ -49,8 +49,8 @@ namespace DRV2605
 
 typedef struct
 {
-  interface::WaveformSequencerSelect waveform_sequencer_select;
-  uint8_t                            waveform;
+  interface::WaveformSequencer waveform_sequencer;
+  uint8_t                      waveform;
 } IoctlSetWaveFormArg;
 
 /**************************************************************************************
