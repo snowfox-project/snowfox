@@ -14,15 +14,15 @@ if(${MCU_ARCH} STREQUAL "avr")
     add_subdirectory(driver-mcp2515-spi-atmega328p )
     add_subdirectory(driver-pca9547-i2c-atmega328p )
     add_subdirectory(driver-pcf8570-i2c-atmega328p )
-    add_subdirectory(driver-tmc260x-spi-atmega328p )
-    add_subdirectory(driver-rfm9x-spi-atmega328p   )
   endif()
 
 endif()
 
 ##########################################################################
 
-add_subdirectory(sensor)
-add_subdirectory(serial)
+add_subdirectory(lora   )
+add_subdirectory(sensor )
+add_subdirectory(serial )
+add_subdirectory(stepper)
 
 ##########################################################################
