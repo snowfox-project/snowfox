@@ -26,11 +26,7 @@ endif()
 
 ##########################################################################
 
-add_subdirectory(AD7151 )
-add_subdirectory(AS5600 )
-add_subdirectory(BMG160 )
-add_subdirectory(DRV2605)
-add_subdirectory(INA220 )
-add_subdirectory(serial )
+add_subdirectory(sensor)
+add_subdirectory(serial)
 
 ##########################################################################
