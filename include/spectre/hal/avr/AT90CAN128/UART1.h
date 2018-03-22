@@ -23,13 +23,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/interface/uart/UART.h>
-#include <spectre/hal/interface/uart/UARTAssembly.h>
-#include <spectre/hal/interface/uart/UARTCallback.h>
-#include <spectre/hal/interface/uart/UARTConfiguration.h>
-
-#include <spectre/hal/interface/interrupt/InterruptCallback.h>
-#include <spectre/hal/interface/interrupt/InterruptController.h>
+#include <spectre/hal/avr/AT90CANxxxx/UART1.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -48,105 +42,44 @@ namespace AT90CAN128
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UART1 : public interface::UART,
-              public interface::UARTConfiguration,
-              public interface::UARTAssembly
+class UART1 : public AT90CANxxxx::UART1
 {
 
 public:
 
 
-           UART1(volatile uint8_t * udr1, volatile uint8_t * ucsr1a, volatile uint8_t * ucsr1b, volatile uint8_t * ucsr1c, volatile uint16_t * ubrr0, interface::InterruptController & int_ctrl, uint32_t const f_cpu);
-  virtual ~UART1();
-
-
-  /* UART Interface */
-
-  virtual void transmit         (uint8_t  const    data) override;
-  virtual void receive          (uint8_t         & data) override;
-
-
-  /* UART Configuration Interface */
-
-  virtual void enableTx         () override;
-  virtual void enableRx         () override;
-  virtual void disableTx        () override;
-  virtual void disableRx        () override;
-
-  virtual void setBaudRate      (interface::UartBaudRate const   baud_rate) override;
-  virtual void setParity        (interface::UartParity   const   parity   ) override;
-  virtual void setStopBit       (interface::UartStopBit  const   stop_bit ) override;
-
-
-  /* UART Assembly */
-
-  virtual void registerUARTCallback(interface::UARTCallback * uart_callback) override;
-
-
-  /* Functions to be called upon execution of a interrupt service routine */
-
-  void ISR_onTransmitRegisterEmpty();
-  void ISR_onReceiveComplete      ();
-
-
-private:
-
-  volatile uint8_t  * _UDR1,
-                    * _UCSR1A,
-                    * _UCSR1B,
-                    * _UCSR1C;
-  volatile uint16_t * _UBRR1;
-
-  interface::InterruptController       & _int_ctrl;
-  interface::UARTCallback              * _uart_callback;
-  uint32_t                       const   _f_cpu;
-
-
-  static uint16_t calcBaudRate(uint32_t const f_cpu, uint32_t const baud_rate);
+           UART1(volatile uint8_t                     * udr1,
+                 volatile uint8_t                     * ucsr1a,
+                 volatile uint8_t                     * ucsr1b,
+                 volatile uint8_t                     * ucsr1c,
+                 volatile uint16_t                    * ubrr1,
+                 interface::InterruptController       & int_ctrl,
+                 uint32_t                       const   f_cpu)  : AT90CANxxxx::UART1(udr1, ucsr1a, ucsr1b, ucsr1c, ubrr1, int_ctrl, f_cpu) { }
+  virtual ~UART1() { }
 
 };
 
 /**************************************************************************************/
 
-class UART1_TransmitRegisterEmptyCallback : public interface::InterruptCallback
+class UART1_TransmitRegisterEmptyCallback : public AT90CANxxxx::UART1_TransmitRegisterEmptyCallback
 {
 
 public:
 
-           UART1_TransmitRegisterEmptyCallback(UART1 & uart1) : _uart1(uart1) { }
+           UART1_TransmitRegisterEmptyCallback(UART1 & uart1) : AT90CANxxxx::UART1_TransmitRegisterEmptyCallback(uart1) { }
   virtual ~UART1_TransmitRegisterEmptyCallback() { }
 
-
-  virtual void interruptServiceRoutine() override
-  {
-    _uart1.ISR_onTransmitRegisterEmpty();
-  }
-
-private:
-
-  UART1 & _uart1;
-
 };
 
 /**************************************************************************************/
 
-class UART1_ReceiveCompleteCallback : public interface::InterruptCallback
+class UART1_ReceiveCompleteCallback : public AT90CANxxxx::UART1_ReceiveCompleteCallback
 {
 
 public:
 
-           UART1_ReceiveCompleteCallback(UART1 & uart1) : _uart1(uart1) { }
+           UART1_ReceiveCompleteCallback(UART1 & uart1) : AT90CANxxxx::UART1_ReceiveCompleteCallback(uart1) { }
   virtual ~UART1_ReceiveCompleteCallback() { }
-
-
-  virtual void interruptServiceRoutine() override
-  {
-    _uart1.ISR_onReceiveComplete();
-  }
-
-private:
-
-  UART1 & _uart1;
 
 };
 

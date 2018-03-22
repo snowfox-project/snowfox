@@ -23,10 +23,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <stdint.h>
-
-#include <spectre/hal/interface/timer/Timer.h>
-#include <spectre/hal/interface/timer/TimerConfiguration.h>
+#include <spectre/hal/avr/AT90CANxxxx/TIMER3.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -45,51 +42,13 @@ namespace AT90CAN128
  * CLASS DECLARATION
  **************************************************************************************/
 
-class TIMER3 : public interface::Timer<uint16_t>,
-               public interface::TimerConfiguration
+class TIMER3 : public AT90CANxxxx::TIMER3
 {
 
 public:
 
-           TIMER3(volatile uint16_t * TCNT3,
-                  volatile uint8_t  * TCCR3B,
-                  volatile uint16_t * OCR3A,
-                  volatile uint16_t * OCR3B,
-                  volatile uint16_t * OCR3C);
-  virtual ~TIMER3();
-
-
-  static uint8_t const COMPARE_A = 0;
-  static uint8_t const COMPARE_B = 1;
-  static uint8_t const COMPARE_C = 2;
-
-
-  /* Timer Interface */
-
-  virtual void     start             (                  ) override;
-  virtual void     stop              (                  ) override;
-  virtual void     set               (uint16_t const val) override;
-  virtual uint16_t get               (                  ) override;
-
-  virtual void     setCompareRegister(uint8_t const reg_sel, uint16_t const reg_val) override;
-
-
-  /* Timer Configuration Interface */
-
-  virtual void setPrescaler(uint32_t const prescaler) override;
-
-private:
-
-           uint32_t   _prescaler;
-
-  volatile uint16_t * _TCNT3;
-  volatile uint8_t  * _TCCR3B;
-  volatile uint16_t * _OCR3A,
-                    * _OCR3B,
-                    * _OCR3C;
-
-
-  void setPrescaler_TCCR3B(uint32_t const prescaler);
+           TIMER3(volatile uint16_t * TCNT3, volatile uint8_t  * TCCR3B, volatile uint16_t * OCR3A, volatile uint16_t * OCR3B, volatile uint16_t * OCR3C) : AT90CANxxxx::TIMER3(TCNT3, TCCR3B, OCR3A, OCR3B, OCR3C) { }
+  virtual ~TIMER3() { }
 
 };
 

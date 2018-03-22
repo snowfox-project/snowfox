@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/AT90CAN128/InterruptController.h>
+#include <spectre/hal/avr/AT90CANxxxx/InterruptController.h>
 
 #include <assert.h>
 
@@ -39,7 +39,7 @@ namespace spectre
 namespace hal
 {
 
-namespace AT90CAN128
+namespace AT90CANxxxx
 {
 
 /**************************************************************************************
@@ -267,7 +267,7 @@ void InterruptController::enableInterrupt(uint8_t const int_num)
   case toIntNum(Interrupt::USART1_TRANSMIT_COMPLETE        ): *_UCSR1B  |= TXCIE1_bm; break;
   case toIntNum(Interrupt::TWO_WIRE_INT                    ): *_TWCR    |= TWIE_bm;   break;
   case toIntNum(Interrupt::SPM_READY                       ): *_SPMCSR  |= SPMIE_bm;  break;
-#if defined(MCU_ARCH_avr) && defined(MCU_TYPE_at90can128)
+#if defined(MCU_ARCH_avr)
   case toIntNum(Interrupt::GLOBAL                          ): asm volatile("sei");    break;
 #endif
   }
@@ -318,7 +318,7 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
   case toIntNum(Interrupt::USART1_TRANSMIT_COMPLETE        ): *_UCSR1B  &= ~TXCIE1_bm; break;
   case toIntNum(Interrupt::TWO_WIRE_INT                    ): *_TWCR    &= ~TWIE_bm;   break;
   case toIntNum(Interrupt::SPM_READY                       ): *_SPMCSR  &= ~SPMIE_bm;  break;
-#if defined(MCU_ARCH_avr) && defined(MCU_TYPE_at90can128)
+#if defined(MCU_ARCH_avr)
   case toIntNum(Interrupt::GLOBAL                          ): asm volatile("cli");     break;
 #endif
   }
@@ -371,7 +371,7 @@ void InterruptController::registerInterruptCallback(uint8_t const isr_num, inter
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CAN128 */
+} /* AT90CANxxxx */
 
 } /* hal */
 
@@ -381,7 +381,7 @@ void InterruptController::registerInterruptCallback(uint8_t const isr_num, inter
  * INTERRUPT SERVICE ROUTINES
  **************************************************************************************/
 
-#if defined(MCU_ARCH_avr) && defined(MCU_TYPE_at90can128)
+#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_at90can32) || defined(MCU_TYPE_at90can64) || defined(MCU_TYPE_at90can128) )
 
 /**************************************************************************************
  * INCLUDES
@@ -394,7 +394,7 @@ void InterruptController::registerInterruptCallback(uint8_t const isr_num, inter
  * NAMESPACES
  **************************************************************************************/
 
-using namespace spectre::hal::AT90CAN128;
+using namespace spectre::hal::AT90CANxxxx;
 
 /**************************************************************************************
  * INTERRUPT SERVICE ROUTINES
@@ -580,4 +580,4 @@ ISR(SPM_READY_vect)
   if(isr_spm_ready) isr_spm_ready->interruptServiceRoutine();
 }
 
-#endif /* defined(MCU_ARCH_avr) && defined(MCU_TYPE_at90can128) */
+#endif /* defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_at90can32) || defined(MCU_TYPE_at90can64) || defined(MCU_TYPE_at90can128) ) */

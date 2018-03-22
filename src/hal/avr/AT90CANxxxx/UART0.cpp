@@ -20,9 +20,9 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/AT90CAN128/UART1.h>
+#include <spectre/hal/avr/AT90CANxxxx/UART0.h>
 
-#include <spectre/hal/avr/AT90CAN128/InterruptController.h>
+#include <spectre/hal/avr/AT90CANxxxx/InterruptController.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -34,52 +34,52 @@ namespace spectre
 namespace hal
 {
 
-namespace AT90CAN128
+namespace AT90CANxxxx
 {
 
 /**************************************************************************************
  * DEFINES
  **************************************************************************************/
 
-/* UXSR1A */
-#define MPCM1_bm    (1<<0)
-#define U2X1_bm     (1<<1)
-#define UPE1_bm     (1<<2)
-#define DOR1_bm     (1<<3)
-#define FE1_bm      (1<<4)
-#define UDRE1_bm    (1<<5)
-#define TXC1_bm     (1<<6)
-#define RXC1_bm     (1<<7)
+/* UXSR0A */
+#define MPCM0_bm    (1<<0)
+#define U2X0_bm     (1<<1)
+#define UPE0_bm     (1<<2)
+#define DOR0_bm     (1<<3)
+#define FE0_bm      (1<<4)
+#define UDRE0_bm    (1<<5)
+#define TXC0_bm     (1<<6)
+#define RXC0_bm     (1<<7)
 
-/* UXSR1B */
-#define TXB81_bm    (1<<0)
-#define RXB81_bm    (1<<1)
-#define UCSZ12_bm   (1<<2)
-#define TXEN1_bm    (1<<3)
-#define RXEN1_bm    (1<<4)
-#define UDRIE1_bm   (1<<5)
-#define TXCIE1_bm   (1<<6)
-#define RXCIE1_bm   (1<<7)
+/* UXSR0B */
+#define TXB80_bm    (1<<0)
+#define RXB80_bm    (1<<1)
+#define UCSZ02_bm   (1<<2)
+#define TXEN0_bm    (1<<3)
+#define RXEN0_bm    (1<<4)
+#define UDRIE0_bm   (1<<5)
+#define TXCIE0_bm   (1<<6)
+#define RXCIE0_bm   (1<<7)
 
-/* UCSR1C */
-#define UCPOL1_bm   (1<<0)
-#define UCSZ10_bm   (1<<1)
-#define UCSZ11_bm   (1<<2)
-#define USBS1_bm    (1<<3)
-#define UPM10_bm    (1<<4)
-#define UPM11_bm    (1<<5)
-#define UMSEL1_bm   (1<<6)
+/* UCSR0C */
+#define UCPOL0_bm   (1<<0)
+#define UCSZ00_bm   (1<<1)
+#define UCSZ01_bm   (1<<2)
+#define USBS0_bm    (1<<3)
+#define UPM00_bm    (1<<4)
+#define UPM01_bm    (1<<5)
+#define UMSEL0_bm   (1<<6)
 
 /**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
-UART1::UART1(volatile uint8_t * udr1, volatile uint8_t * ucsr1a, volatile uint8_t * ucsr1b, volatile uint8_t * ucsr1c, volatile uint16_t * ubrr1, interface::InterruptController & int_ctrl, uint32_t const f_cpu)
-: _UDR1         (udr1    ),
-  _UCSR1A       (ucsr1a  ),
-  _UCSR1B       (ucsr1b  ),
-  _UCSR1C       (ucsr1c  ),
-  _UBRR1        (ubrr1   ),
+UART0::UART0(volatile uint8_t * udr0, volatile uint8_t * ucsr0a, volatile uint8_t * ucsr0b, volatile uint8_t * ucsr0c, volatile uint16_t * ubrr0, interface::InterruptController & int_ctrl, uint32_t const f_cpu)
+: _UDR0         (udr0    ),
+  _UCSR0A       (ucsr0a  ),
+  _UCSR0B       (ucsr0b  ),
+  _UCSR0C       (ucsr0c  ),
+  _UBRR0        (ubrr0   ),
   _int_ctrl     (int_ctrl),
   _uart_callback(0       ),
   _f_cpu        (f_cpu   )
@@ -87,7 +87,7 @@ UART1::UART1(volatile uint8_t * udr1, volatile uint8_t * ucsr1a, volatile uint8_
 
 }
 
-UART1::~UART1()
+UART0::~UART0()
 {
 
 }
@@ -96,79 +96,79 @@ UART1::~UART1()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void UART1::transmit(uint8_t const data)
+void UART0::transmit(uint8_t const data)
 {
-  *_UDR1 = data;
+  *_UDR0 = data;
 }
 
-void UART1::receive(uint8_t & data)
+void UART0::receive(uint8_t & data)
 {
-  data = *_UDR1;
+  data = *_UDR0;
 }
 
-void UART1::enableTx()
+void UART0::enableTx()
 {
-  *_UCSR1B |= TXEN1_bm;
-  _int_ctrl.enableInterrupt(toIntNum(Interrupt::USART1_UART_DATA_REGISTER_EMPTY));
+  *_UCSR0B |= TXEN0_bm;
+  _int_ctrl.enableInterrupt(toIntNum(Interrupt::USART0_UART_DATA_REGISTER_EMPTY));
 }
 
-void UART1::enableRx()
+void UART0::enableRx()
 {
-  _int_ctrl.enableInterrupt(toIntNum(Interrupt::USART1_RECEIVE_COMPLETE));
-  *_UCSR1B |= RXEN1_bm;
+  _int_ctrl.enableInterrupt(toIntNum(Interrupt::USART0_RECEIVE_COMPLETE));
+  *_UCSR0B |= RXEN0_bm;
 }
 
-void UART1::disableTx()
+void UART0::disableTx()
 {
-  _int_ctrl.disableInterrupt(toIntNum(Interrupt::USART1_UART_DATA_REGISTER_EMPTY));
-  *_UCSR1B &= ~TXEN1_bm;
+  _int_ctrl.disableInterrupt(toIntNum(Interrupt::USART0_UART_DATA_REGISTER_EMPTY));
+  *_UCSR0B &= ~TXEN0_bm;
 }
 
-void UART1::disableRx()
+void UART0::disableRx()
 {
-  *_UCSR1B &= ~RXEN1_bm;
-  _int_ctrl.disableInterrupt(toIntNum(Interrupt::USART1_RECEIVE_COMPLETE));
+  *_UCSR0B &= ~RXEN0_bm;
+  _int_ctrl.disableInterrupt(toIntNum(Interrupt::USART0_RECEIVE_COMPLETE));
 }
 
-void UART1::setBaudRate(interface::UartBaudRate const baud_rate)
+void UART0::setBaudRate(interface::UartBaudRate const baud_rate)
 {
-  *_UCSR1A |= U2X1_bm;
+  *_UCSR0A |= U2X0_bm;
 
   switch(baud_rate)
   {
-  case interface::UartBaudRate::B115200: *_UBRR1 = calcBaudRate(_f_cpu, 115200); break;
+  case interface::UartBaudRate::B115200: *_UBRR0 = calcBaudRate(_f_cpu, 115200); break;
   }
 }
 
-void UART1::setParity(interface::UartParity const parity)
+void UART0::setParity(interface::UartParity const parity)
 {
-  *_UCSR1C &= ~(UPM11_bm | UPM10_bm);
+  *_UCSR0C &= ~(UPM01_bm | UPM00_bm);
 
   switch(parity)
   {
   case interface::UartParity::None:                                  break;
-  case interface::UartParity::Even: *_UCSR1C |= UPM11_bm;            break;
-  case interface::UartParity::Odd : *_UCSR1C |= UPM11_bm | UPM10_bm; break;
+  case interface::UartParity::Even: *_UCSR0C |= UPM01_bm;            break;
+  case interface::UartParity::Odd : *_UCSR0C |= UPM01_bm | UPM00_bm; break;
   }
 }
 
-void UART1::setStopBit(interface::UartStopBit const stop_bit)
+void UART0::setStopBit(interface::UartStopBit const stop_bit)
 {
-  *_UCSR1C &= ~USBS1_bm;
+  *_UCSR0C &= ~USBS0_bm;
 
   switch(stop_bit)
   {
   case interface::UartStopBit::_1:                       break;
-  case interface::UartStopBit::_2: *_UCSR1C |= USBS1_bm; break;
+  case interface::UartStopBit::_2: *_UCSR0C |= USBS0_bm; break;
   }
 }
 
-void UART1::registerUARTCallback(interface::UARTCallback * uart_callback)
+void UART0::registerUARTCallback(interface::UARTCallback * uart_callback)
 {
   _uart_callback = uart_callback;
 }
 
-void UART1::ISR_onTransmitRegisterEmpty()
+void UART0::ISR_onTransmitRegisterEmpty()
 {
   if(_uart_callback)
   {
@@ -181,7 +181,7 @@ void UART1::ISR_onTransmitRegisterEmpty()
   }
 }
 
-void UART1::ISR_onReceiveComplete()
+void UART0::ISR_onReceiveComplete()
 {
   if(_uart_callback)
   {
@@ -195,7 +195,7 @@ void UART1::ISR_onReceiveComplete()
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
-uint16_t UART1::calcBaudRate(uint32_t const f_cpu, uint32_t const baud_rate)
+uint16_t UART0::calcBaudRate(uint32_t const f_cpu, uint32_t const baud_rate)
 {
   return (static_cast<uint16_t>(f_cpu/(8*baud_rate)) - 1);
 }
@@ -204,7 +204,7 @@ uint16_t UART1::calcBaudRate(uint32_t const f_cpu, uint32_t const baud_rate)
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CAN128 */
+} /* AT90CANxxxx */
 
 } /* hal */
 

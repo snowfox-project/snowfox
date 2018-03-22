@@ -20,17 +20,41 @@ set(SPECTRE_LIBRARY_HAL_INTERFACE_SRCS
 set(SPECTRE_LIBRARY_HAL_AVR_PATH src/hal/avr)
 
 ##########################################################################
+# AT90CANxxxx ############################################################
+##########################################################################
+
+set(SPECTRE_LIBRARY_HAL_AVR_AT90CANxxxx_SRCS
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CANxxxx/InterruptController.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CANxxxx/TIMER0.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CANxxxx/TIMER1.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CANxxxx/TIMER2.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CANxxxx/TIMER3.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CANxxxx/UART0.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CANxxxx/UART1.cpp
+)
+
+##########################################################################
+# AT90CAN32  #############################################################
+##########################################################################
+
+set(SPECTRE_LIBRARY_HAL_AVR_AT90CAN32_SRCS
+  ${SPECTRE_LIBRARY_HAL_AVR_AT90CANxxxx_SRCS}
+)
+
+##########################################################################
+# AT90CAN64  #############################################################
+##########################################################################
+
+set(SPECTRE_LIBRARY_HAL_AVR_AT90CAN64_SRCS
+  ${SPECTRE_LIBRARY_HAL_AVR_AT90CANxxxx_SRCS}
+)
+
+##########################################################################
 # AT90CAN128 #############################################################
 ##########################################################################
 
 set(SPECTRE_LIBRARY_HAL_AVR_AT90CAN128_SRCS
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CAN128/InterruptController.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CAN128/TIMER0.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CAN128/TIMER1.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CAN128/TIMER2.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CAN128/TIMER3.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CAN128/UART0.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CAN128/UART1.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_AT90CANxxxx_SRCS}
 )
 
 ##########################################################################
@@ -98,6 +122,14 @@ if(${MCU_ARCH} STREQUAL "avr")
 
   set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATxxxx_SRCS})
 
+  if(${MCU_TYPE} STREQUAL "at90can32")
+    set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_AT90CAN32_SRCS})  
+  endif()
+
+  if(${MCU_TYPE} STREQUAL "at90can64")
+    set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_AT90CAN64_SRCS})  
+  endif()
+
   if(${MCU_TYPE} STREQUAL "at90can128")
     set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_AT90CAN128_SRCS})  
   endif()
@@ -121,6 +153,8 @@ endif()
 if(${MCU_ARCH} STREQUAL "host")
   
   set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATxxxx_SRCS})
+  set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_AT90CAN32_SRCS})
+  set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_AT90CAN64_SRCS})
   set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_AT90CAN128_SRCS})
   set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA2560_SRCS})
   set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA328P_SRCS})

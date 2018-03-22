@@ -23,10 +23,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <stdint.h>
-
-#include <spectre/hal/interface/timer/Timer.h>
-#include <spectre/hal/interface/timer/TimerConfiguration.h>
+#include <spectre/hal/avr/AT90CANxxxx/TIMER0.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -45,45 +42,14 @@ namespace AT90CAN128
  * CLASS DECLARATION
  **************************************************************************************/
 
-class TIMER0 : public interface::Timer<uint8_t>,
-               public interface::TimerConfiguration
+class TIMER0 : public AT90CANxxxx::TIMER0
+
 {
 
 public:
 
-           TIMER0(volatile uint8_t * TCNT0,
-                  volatile uint8_t * TCCR0A,
-                  volatile uint8_t * OCR0A);
-  virtual ~TIMER0();
-
-
-  static uint8_t const COMPARE_A = 0;
-
-
-  /* Timer Interface */
-
-  virtual void    start             (                 ) override;
-  virtual void    stop              (                 ) override;
-  virtual void    set               (uint8_t const val) override;
-  virtual uint8_t get               (                 ) override;
-
-  virtual void    setCompareRegister(uint8_t const reg_sel, uint8_t const reg_val) override;
-
-
-  /* Timer Configuration Interface */
-
-  virtual void setPrescaler(uint32_t const prescaler) override;
-
-private:
-
-           uint32_t   _prescaler;
-
-  volatile uint8_t  * _TCNT0,
-                    * _TCCR0A,
-                    * _OCR0A;
-
-
-  void setPrescaler_TCCR0A(uint32_t const prescaler);
+           TIMER0(volatile uint8_t * TCNT0, volatile uint8_t * TCCR0A, volatile uint8_t * OCR0A) : AT90CANxxxx::TIMER0(TCNT0, TCCR0A, OCR0A) { }
+  virtual ~TIMER0() { }
 
 };
 

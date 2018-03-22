@@ -16,14 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_AT90CAN128_TIMER2_H_
-#define INCLUDE_SPECTRE_HAL_AVR_AT90CAN128_TIMER2_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_AT90CANxxxx_TIMER1_H_
+#define INCLUDE_SPECTRE_HAL_AVR_AT90CANxxxx_TIMER1_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/AT90CANxxxx/TIMER2.h>
+#include <stdint.h>
+
+#include <spectre/hal/interface/timer/Timer.h>
+#include <spectre/hal/interface/timer/TimerConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -35,20 +38,58 @@ namespace spectre
 namespace hal
 {
 
-namespace AT90CAN128
+namespace AT90CANxxxx
 {
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class TIMER2 : public AT90CANxxxx::TIMER2
+class TIMER1 : public interface::Timer<uint16_t>,
+               public interface::TimerConfiguration
 {
 
 public:
 
-           TIMER2(volatile uint8_t * TCNT2, volatile uint8_t * TCCR2A, volatile uint8_t * OCR2A) : AT90CANxxxx::TIMER2(TCNT2, TCCR2A, OCR2A) { }
-  virtual ~TIMER2() { }
+           TIMER1(volatile uint16_t * TCNT1,
+                  volatile uint8_t  * TCCR1B,
+                  volatile uint16_t * OCR1A,
+                  volatile uint16_t * OCR1B,
+                  volatile uint16_t * OCR1C);
+  virtual ~TIMER1();
+
+
+  static uint8_t const COMPARE_A = 0;
+  static uint8_t const COMPARE_B = 1;
+  static uint8_t const COMPARE_C = 2;
+
+
+  /* Timer Interface */
+
+  virtual void     start             (                  ) override;
+  virtual void     stop              (                  ) override;
+  virtual void     set               (uint16_t const val) override;
+  virtual uint16_t get               (                  ) override;
+
+  virtual void     setCompareRegister(uint8_t const reg_sel, uint16_t const reg_val) override;
+
+
+  /* Timer Configuration Interface */
+
+  virtual void setPrescaler(uint32_t const prescaler) override;
+
+private:
+
+           uint32_t   _prescaler;
+
+  volatile uint16_t * _TCNT1;
+  volatile uint8_t  * _TCCR1B;
+  volatile uint16_t * _OCR1A,
+                    * _OCR1B,
+                    * _OCR1C;
+
+
+  void setPrescaler_TCCR1B(uint32_t const prescaler);
 
 };
 
@@ -56,10 +97,10 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CAN128 */
+} /* AT90CANxxxx */
 
 } /* hal */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_AT90CAN128_TIMER2_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_AT90CANxxxx_TIMER1_H_ */

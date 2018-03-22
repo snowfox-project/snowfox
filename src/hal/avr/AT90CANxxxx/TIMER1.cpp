@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/AT90CAN128/TIMER1.h>
+#include <spectre/hal/avr/AT90CANxxxx/TIMER1.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -32,7 +32,7 @@ namespace spectre
 namespace hal
 {
 
-namespace AT90CAN128
+namespace AT90CANxxxx
 {
 
 /**************************************************************************************
@@ -144,7 +144,7 @@ void TIMER1::setPrescaler_TCCR1B(uint32_t const prescaler)
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CAN128 */
+} /* AT90CANxxxx */
 
 } /* hal */
 
