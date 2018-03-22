@@ -4,13 +4,7 @@ cmake_minimum_required(VERSION 2.8)
 
 ##########################################################################
 
-add_subdirectory(AD7151 )
-add_subdirectory(AS5600 )
-add_subdirectory(BMG160 )
-add_subdirectory(INA220 )
-add_subdirectory(L3GD20 )
-add_subdirectory(LIS2DSH)
-add_subdirectory(LIS3DSH)
-add_subdirectory(LIS3MDL)
+add_subdirectory(DRV2605)
 
 ##########################################################################
+
