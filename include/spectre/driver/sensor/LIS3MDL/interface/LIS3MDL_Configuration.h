@@ -129,7 +129,7 @@ enum class ConversionMode : uint8_t
 {
   CONTINOUS = 0,
   SINGLE    = LIS3MDL_CTRL_REG_3_MD_0_bm
-}Mode;
+};
 
 /**************************************************************************************
  * CLASS DECLARATION
