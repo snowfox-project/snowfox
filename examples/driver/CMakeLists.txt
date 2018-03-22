@@ -11,7 +11,6 @@ if(${MCU_ARCH} STREQUAL "avr")
   endif()
 
   if(${MCU_TYPE} STREQUAL "atmega328p")
-    add_subdirectory(driver-mcp2515-spi-atmega328p )
     add_subdirectory(driver-pca9547-i2c-atmega328p )
     add_subdirectory(driver-pcf8570-i2c-atmega328p )
   endif()
@@ -20,6 +19,7 @@ endif()
 
 ##########################################################################
 
+add_subdirectory(can    )
 add_subdirectory(lora   )
 add_subdirectory(sensor )
 add_subdirectory(serial )
