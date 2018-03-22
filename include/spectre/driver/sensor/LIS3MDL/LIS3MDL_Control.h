@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_LIS3MDL_LIS3MDL_H_
-#define INCLUDE_SPECTRE_DRIVER_SENSOR_LIS3MDL_LIS3MDL_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_LIS3MDL_LIS3MDL_CONTROL_H_
+#define INCLUDE_SPECTRE_DRIVER_SENSOR_LIS3MDL_LIS3MDL_CONTROL_H_
 
 /**************************************************************************************
  * INCLUDE
@@ -110,4 +110,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_LIS3MDL_LIS3MDL_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_LIS3MDL_LIS3MDL_CONTROL_H_ */
