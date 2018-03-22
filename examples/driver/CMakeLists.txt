@@ -11,11 +11,6 @@ if(${MCU_ARCH} STREQUAL "avr")
   endif()
 
   if(${MCU_TYPE} STREQUAL "atmega328p")
-    add_subdirectory(driver-ad7151-i2c-atmega328p  )
-    add_subdirectory(driver-as5600-i2c-atmega328p  )
-    add_subdirectory(driver-bmg160-i2c-atmega328p  )
-    add_subdirectory(driver-drv2605-i2c-atmega328p )
-    add_subdirectory(driver-ina220-i2c-atmega328p  )
     add_subdirectory(driver-l3gd20-i2c-atmega328p  )
     add_subdirectory(driver-lis2dsh-i2c-atmega328p )
     add_subdirectory(driver-lis3dsh-i2c-atmega328p )
@@ -31,6 +26,11 @@ endif()
 
 ##########################################################################
 
-add_subdirectory(serial)
+add_subdirectory(AD7151 )
+add_subdirectory(AS5600 )
+add_subdirectory(BMG160 )
+add_subdirectory(DRV2605)
+add_subdirectory(INA220 )
+add_subdirectory(serial )
 
 ##########################################################################
