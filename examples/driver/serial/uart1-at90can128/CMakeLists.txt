@@ -4,13 +4,13 @@ cmake_minimum_required(VERSION 2.8)
 
 ##########################################################################
 
-set(TARGET driver-serial-at90can128-uart1)
+set(TARGET driver-serial-uart1-at90can128)
 
 ##########################################################################
 
 add_executable(
   ${TARGET}
-  driver-serial-at90can128-uart1
+  driver-serial-uart1-at90can128
 )
 
 target_link_libraries(

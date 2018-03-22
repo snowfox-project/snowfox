@@ -4,18 +4,18 @@ cmake_minimum_required(VERSION 2.8)
 
 ##########################################################################
 
-set(TARGET driver-serial-at90can128-uart0)
+set(TARGET driver-serial-uart0-atmega328p)
 
 ##########################################################################
 
 add_executable(
   ${TARGET}
-  driver-serial-at90can128-uart0.cpp
+  driver-serial-uart0-atmega328p
 )
 
 target_link_libraries(
   ${TARGET}
-  spectre-at90can128
+  spectre-atmega328p
 )
 
 set_target_properties(
