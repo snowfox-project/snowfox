@@ -4,13 +4,12 @@ cmake_minimum_required(VERSION 2.8)
 
 ##########################################################################
 
-add_subdirectory(can       )
-add_subdirectory(glcd      )
-add_subdirectory(ioexpander)
-add_subdirectory(lora      )
-add_subdirectory(memory    )
-add_subdirectory(sensor    )
-add_subdirectory(serial    )
-add_subdirectory(stepper   )
+if(${MCU_ARCH} STREQUAL "avr")
+
+  if(${MCU_TYPE} STREQUAL "atmega328p")
+    add_subdirectory(driver-pcf8570-i2c-atmega328p)
+  endif()
+
+endif()
 
 ##########################################################################
