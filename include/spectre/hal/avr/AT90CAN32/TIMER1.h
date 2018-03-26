@@ -23,7 +23,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/AT90CANxxxx/TIMER1.h>
+#include <spectre/hal/avr/common/AT90CANxxxx/TIMER1.h>
 
 /**************************************************************************************
  * NAMESPACE

@@ -24,7 +24,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/AT90CANxxxx/InterruptController.h>
+#include <spectre/hal/avr/common/AT90CANxxxx/InterruptController.h>
 
 /**************************************************************************************
  * NAMESPACE

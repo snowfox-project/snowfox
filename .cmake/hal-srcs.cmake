@@ -20,17 +20,17 @@ set(SPECTRE_LIBRARY_HAL_INTERFACE_SRCS
 set(SPECTRE_LIBRARY_HAL_AVR_PATH src/hal/avr)
 
 ##########################################################################
-# AT90CANxxxx ############################################################
+# common/AT90CANxxxx #####################################################
 ##########################################################################
 
 set(SPECTRE_LIBRARY_HAL_AVR_AT90CANxxxx_SRCS
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CANxxxx/InterruptController.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CANxxxx/TIMER0.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CANxxxx/TIMER1.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CANxxxx/TIMER2.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CANxxxx/TIMER3.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CANxxxx/UART0.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/AT90CANxxxx/UART1.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/AT90CANxxxx/InterruptController.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/AT90CANxxxx/TIMER0.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/AT90CANxxxx/TIMER1.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/AT90CANxxxx/TIMER2.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/AT90CANxxxx/TIMER3.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/AT90CANxxxx/UART0.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/AT90CANxxxx/UART1.cpp
 )
 
 ##########################################################################
