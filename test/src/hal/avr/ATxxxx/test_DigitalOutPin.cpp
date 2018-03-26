@@ -24,7 +24,7 @@
 
 #include <Register.h>
 
-#include <spectre/hal/avr/ATxxxx/DigitalOutPin.h>
+#include <spectre/hal/avr/common/ATxxxx/DigitalOutPin.h>
 
 /**************************************************************************************
  * NAMESPACE

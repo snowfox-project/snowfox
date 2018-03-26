@@ -23,7 +23,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/ATxxxx/DigitalInPort.h>
+#include <spectre/hal/avr/common/ATxxxx/DigitalInPort.h>
 
 /**************************************************************************************
  * NAMESPACE

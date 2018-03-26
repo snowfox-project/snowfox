@@ -23,7 +23,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/ATxxxx/CriticalSection.h>
+#include <spectre/hal/avr/common/ATxxxx/CriticalSection.h>
 
 /**************************************************************************************
  * NAMESPACE

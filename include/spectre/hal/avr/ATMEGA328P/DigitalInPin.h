@@ -23,7 +23,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/ATxxxx/DigitalInPin.h>
+#include <spectre/hal/avr/common/ATxxxx/DigitalInPin.h>
 
 /**************************************************************************************
  * NAMESPACE

@@ -20,11 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/ATxxxx/Delay.h>
-
-#ifdef MCU_ARCH_avr
-#include <util/delay.h>
-#endif
+#include <spectre/hal/avr/common/ATxxxx/DigitalInPin.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -43,12 +39,16 @@ namespace ATxxxx
  * CTOR/DTOR
  **************************************************************************************/
 
-Delay::Delay()
+DigitalInPin::DigitalInPin(volatile uint8_t * ddr, volatile uint8_t * port, volatile uint8_t * pin, uint8_t const in_pin_number)
+: _ddr           (ddr               ),
+  _port          (port              ),
+  _pin           (pin               ),
+  _in_pin_bitmask(1 << in_pin_number)
 {
-
+  setGpioPinAsInput();
 }
 
-Delay::~Delay()
+DigitalInPin::~DigitalInPin()
 {
 
 }
@@ -57,24 +57,30 @@ Delay::~Delay()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void Delay::delay_ms(uint32_t const ms)
+bool DigitalInPin::isSet()
 {
-#if MCU_ARCH_avr
-  for(uint32_t i = 0; i < ms; i++)
-  {
-    _delay_ms(1);
-  }
-#endif
+  bool const is_set = (*_pin & _in_pin_bitmask) == _in_pin_bitmask;
+
+  return is_set;
 }
 
-void Delay::delay_us(uint32_t const us)
+void DigitalInPin::setPullUpMode(interface::PullUpMode const pullup_mode)
 {
-#if MCU_ARCH_avr
-  for(uint32_t i = 0; i < us; i++)
+  switch(pullup_mode)
   {
-    _delay_us(1);
+  case interface::PullUpMode::NONE:      *_port &= ~_in_pin_bitmask; break;
+  case interface::PullUpMode::PULL_UP:   *_port |=  _in_pin_bitmask; break;
+  case interface::PullUpMode::PULL_DOWN:                             break;
   }
-#endif
+}
+
+/**************************************************************************************
+ * PRIVATE MEMBER FUNCTIONS
+ **************************************************************************************/
+
+void DigitalInPin::setGpioPinAsInput()
+{
+  *_ddr &= ~_in_pin_bitmask;
 }
 
 /**************************************************************************************

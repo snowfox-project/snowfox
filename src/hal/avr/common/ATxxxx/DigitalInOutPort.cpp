@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/ATxxxx/DigitalInPin.h>
+#include <spectre/hal/avr/common/ATxxxx/DigitalInOutPort.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,16 +39,15 @@ namespace ATxxxx
  * CTOR/DTOR
  **************************************************************************************/
 
-DigitalInPin::DigitalInPin(volatile uint8_t * ddr, volatile uint8_t * port, volatile uint8_t * pin, uint8_t const in_pin_number)
-: _ddr           (ddr               ),
-  _port          (port              ),
-  _pin           (pin               ),
-  _in_pin_bitmask(1 << in_pin_number)
+DigitalInOutPort::DigitalInOutPort(volatile uint8_t * ddr, volatile uint8_t * port, volatile uint8_t * pin)
+: _ddr (ddr ),
+  _port(port),
+  _pin (pin )
 {
-  setGpioPinAsInput();
+
 }
 
-DigitalInPin::~DigitalInPin()
+DigitalInOutPort::~DigitalInOutPort()
 {
 
 }
@@ -57,20 +56,22 @@ DigitalInPin::~DigitalInPin()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool DigitalInPin::isSet()
+uint8_t DigitalInOutPort::get()
 {
-  bool const is_set = (*_pin & _in_pin_bitmask) == _in_pin_bitmask;
-
-  return is_set;
+  return *_pin;
 }
 
-void DigitalInPin::setPullUpMode(interface::PullUpMode const pullup_mode)
+void DigitalInOutPort::set(uint8_t const val)
 {
-  switch(pullup_mode)
+  *_port = val;
+}
+
+void DigitalInOutPort::setMode(interface::DigitalInOutPortConfiguration::ModeSelect const mode, interface::PullUpMode const pullup_mode)
+{
+  switch(mode)
   {
-  case interface::PullUpMode::NONE:      *_port &= ~_in_pin_bitmask; break;
-  case interface::PullUpMode::PULL_UP:   *_port |=  _in_pin_bitmask; break;
-  case interface::PullUpMode::PULL_DOWN:                             break;
+  case interface::DigitalInOutPortConfiguration::INPUT : { setGpioPortAsInput(); setGpioPortPullUpMode(pullup_mode); } break;
+  case interface::DigitalInOutPortConfiguration::OUTPUT: { setGpioPortAsOutput();                                    } break;
   }
 }
 
@@ -78,9 +79,24 @@ void DigitalInPin::setPullUpMode(interface::PullUpMode const pullup_mode)
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
-void DigitalInPin::setGpioPinAsInput()
+void DigitalInOutPort::setGpioPortAsInput()
 {
-  *_ddr &= ~_in_pin_bitmask;
+  *_ddr = 0x00;
+}
+
+void DigitalInOutPort::setGpioPortAsOutput()
+{
+  *_ddr = 0xFF;
+}
+
+void DigitalInOutPort::setGpioPortPullUpMode(interface::PullUpMode const pullup_mode)
+{
+  switch(pullup_mode)
+  {
+  case interface::PullUpMode::NONE:      *_port = 0x00; break;
+  case interface::PullUpMode::PULL_UP:   *_port = 0xFF; break;
+  case interface::PullUpMode::PULL_DOWN:                break;
+  }
 }
 
 /**************************************************************************************

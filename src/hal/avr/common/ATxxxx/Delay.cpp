@@ -20,7 +20,11 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/ATxxxx/DigitalInOutPort.h>
+#include <spectre/hal/avr/common/ATxxxx/Delay.h>
+
+#ifdef MCU_ARCH_avr
+#include <util/delay.h>
+#endif
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,15 +43,12 @@ namespace ATxxxx
  * CTOR/DTOR
  **************************************************************************************/
 
-DigitalInOutPort::DigitalInOutPort(volatile uint8_t * ddr, volatile uint8_t * port, volatile uint8_t * pin)
-: _ddr (ddr ),
-  _port(port),
-  _pin (pin )
+Delay::Delay()
 {
 
 }
 
-DigitalInOutPort::~DigitalInOutPort()
+Delay::~Delay()
 {
 
 }
@@ -56,47 +57,24 @@ DigitalInOutPort::~DigitalInOutPort()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-uint8_t DigitalInOutPort::get()
+void Delay::delay_ms(uint32_t const ms)
 {
-  return *_pin;
-}
-
-void DigitalInOutPort::set(uint8_t const val)
-{
-  *_port = val;
-}
-
-void DigitalInOutPort::setMode(interface::DigitalInOutPortConfiguration::ModeSelect const mode, interface::PullUpMode const pullup_mode)
-{
-  switch(mode)
+#if MCU_ARCH_avr
+  for(uint32_t i = 0; i < ms; i++)
   {
-  case interface::DigitalInOutPortConfiguration::INPUT : { setGpioPortAsInput(); setGpioPortPullUpMode(pullup_mode); } break;
-  case interface::DigitalInOutPortConfiguration::OUTPUT: { setGpioPortAsOutput();                                    } break;
+    _delay_ms(1);
   }
+#endif
 }
 
-/**************************************************************************************
- * PRIVATE MEMBER FUNCTIONS
- **************************************************************************************/
-
-void DigitalInOutPort::setGpioPortAsInput()
+void Delay::delay_us(uint32_t const us)
 {
-  *_ddr = 0x00;
-}
-
-void DigitalInOutPort::setGpioPortAsOutput()
-{
-  *_ddr = 0xFF;
-}
-
-void DigitalInOutPort::setGpioPortPullUpMode(interface::PullUpMode const pullup_mode)
-{
-  switch(pullup_mode)
+#if MCU_ARCH_avr
+  for(uint32_t i = 0; i < us; i++)
   {
-  case interface::PullUpMode::NONE:      *_port = 0x00; break;
-  case interface::PullUpMode::PULL_UP:   *_port = 0xFF; break;
-  case interface::PullUpMode::PULL_DOWN:                break;
+    _delay_us(1);
   }
+#endif
 }
 
 /**************************************************************************************

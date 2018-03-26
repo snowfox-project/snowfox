@@ -23,7 +23,7 @@
 #include <avr/io.h>
 
 #include <spectre/hal/avr/ATMEGA328P/I2CMaster.h>
-#include <spectre/hal/avr/ATxxxx/i2c/I2CMasterBase.h>
+#include <spectre/hal/avr/common/ATxxxx/i2c/I2CMasterBase.h>
 
 #include <spectre/driver/ioexpander/PCA9547/PCA9547.h>
 #include <spectre/driver/ioexpander/PCA9547/PCA9547_IoI2c.h>

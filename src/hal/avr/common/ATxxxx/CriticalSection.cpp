@@ -20,7 +20,11 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/ATxxxx/i2c/I2CMasterBase.h>
+#include <spectre/hal/avr/common/ATxxxx/CriticalSection.h>
+
+#ifdef MCU_ARCH_avr
+#include <avr/interrupt.h>
+#endif
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,21 +43,20 @@ namespace ATxxxx
  * DEFINES
  **************************************************************************************/
 
-/* TWSR */
-#define TWPS1_bm (1<<TWPS1)
-#define TWPS0_bm (1<<TWPS0)
+#define GI_bm   (1<<7)
 
 /**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
-I2CMasterBase::I2CMasterBase(interface::I2CMasterMCU & i2c_master_mcu)
-: _i2c_master_mcu(i2c_master_mcu)
+CriticalSection::CriticalSection(volatile uint8_t * sreg)
+: _sreg      (sreg),
+  _sreg_iflag(0   )
 {
 
 }
 
-I2CMasterBase::~I2CMasterBase()
+CriticalSection::~CriticalSection()
 {
 
 }
@@ -62,62 +65,19 @@ I2CMasterBase::~I2CMasterBase()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool I2CMasterBase::begin(uint8_t const address, bool const is_read_access)
+void CriticalSection::lock()
 {
-  return _i2c_master_mcu.start(convertI2CAddress(address, is_read_access));
+  _sreg_iflag = *_sreg & GI_bm;
+#if MCU_ARCH_avr
+  asm volatile("cli");
+#else
+  *_sreg &= ~GI_bm; /* Has the same effect as 'cli' */
+#endif
 }
 
-bool I2CMasterBase::write(uint8_t const data)
+void CriticalSection::unlock()
 {
-  return _i2c_master_mcu.transmitByte(data);
-}
-
-void I2CMasterBase::end()
-{
-  _i2c_master_mcu.stop();
-}
-
-bool I2CMasterBase::requestFrom(uint8_t const address, uint8_t * data, uint16_t const num_bytes)
-{
-  if(num_bytes == 0        ) return false;
-
-  if(!begin(address, true )) return false;
-
-  for(uint16_t i = 0; i < (num_bytes - 1); i++)
-  {
-    _i2c_master_mcu.receiveByteAndSendACK(data+i);
-  }
-
-  _i2c_master_mcu.receiveByteAndSendNACK(data + num_bytes - 1);
-
-  end();
-
-  return true;
-}
-
-void I2CMasterBase::setI2CClock(eI2CClock const i2c_clock)
-{
-  uint32_t const TWI_PRESCALER = 1;
-
-  _i2c_master_mcu.setTWIPrescaler(TWI_PRESCALER);
-
-  switch(i2c_clock)
-  {
-  case F_100_kHz  : _i2c_master_mcu.setTWBR( 100000, TWI_PRESCALER); break;
-  case F_400_kHz  : _i2c_master_mcu.setTWBR( 400000, TWI_PRESCALER); break;
-  case F_1000_kHz : _i2c_master_mcu.setTWBR(1000000, TWI_PRESCALER); break;
-  default: break;
-  }
-}
-
-/**************************************************************************************
- * PRIVATE MEMBER FUNCTIONS
- **************************************************************************************/
-
-uint8_t I2CMasterBase::convertI2CAddress(uint8_t const address, bool is_read_access)
-{
-  if(is_read_access)  return (address | 0x01);
-  else                return address;
+  *_sreg |= _sreg_iflag;
 }
 
 /**************************************************************************************

@@ -26,7 +26,7 @@
 
 #include <spectre/hal/avr/ATMEGA328P/Delay.h>
 #include <spectre/hal/avr/ATMEGA328P/I2CMaster.h>
-#include <spectre/hal/avr/ATxxxx/i2c/I2CMasterBase.h>
+#include <spectre/hal/avr/common/ATxxxx/i2c/I2CMasterBase.h>
 
 #include <spectre/driver/sensor/BMG160/BMG160.h>
 #include <spectre/driver/sensor/BMG160/BMG160_IoI2c.h>

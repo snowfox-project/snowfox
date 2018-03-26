@@ -34,6 +34,21 @@ set(SPECTRE_LIBRARY_HAL_AVR_AT90CANxxxx_SRCS
 )
 
 ##########################################################################
+# common/ATxxxx ##########################################################
+##########################################################################
+
+set(SPECTRE_LIBRARY_HAL_AVR_ATxxxx_SRCS
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/Delay.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/CriticalSection.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/DigitalInOutPort.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/DigitalInPin.cpp    
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/DigitalInPort.cpp   
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/DigitalOutPin.cpp   
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/DigitalOutPort.cpp  
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/I2CMasterBase.cpp       
+)
+
+##########################################################################
 # AT90CAN32  #############################################################
 ##########################################################################
 
@@ -95,21 +110,6 @@ set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA32U4_SRCS
   ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATMEGA32U4/TIMER0.cpp
   ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATMEGA32U4/TIMER1.cpp
   ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATMEGA32U4/TIMER3.cpp
-)
-
-##########################################################################
-# ATxxxx #################################################################
-##########################################################################
-
-set(SPECTRE_LIBRARY_HAL_AVR_ATxxxx_SRCS
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/Delay.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/CriticalSection.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/DigitalInOutPort.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/DigitalInPin.cpp    
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/DigitalInPort.cpp   
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/DigitalOutPin.cpp   
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/DigitalOutPort.cpp  
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATxxxx/I2CMasterBase.cpp       
 )
 
 ##########################################################################

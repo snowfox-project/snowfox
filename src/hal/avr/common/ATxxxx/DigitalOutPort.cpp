@@ -16,17 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_MCU_AVR_ATXXXX_I2CMASTER_H_
-#define INCLUDE_SPECTRE_MCU_AVR_ATXXXX_I2CMASTER_H_
-
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/interface/i2c/I2CMaster.h>
-#include <spectre/hal/interface/i2c/I2CMasterConfiguration.h>
-
-#include <spectre/hal/avr/ATxxxx/i2c/interface/I2CMasterMCU.h>
+#include <spectre/hal/avr/common/ATxxxx/DigitalOutPort.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,39 +36,38 @@ namespace ATxxxx
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class I2CMasterBase : public hal::interface::I2CMaster,
-                      public hal::interface::I2CMasterConfiguration
+DigitalOutPort::DigitalOutPort(volatile uint8_t * ddr, volatile uint8_t * port)
+: _ddr (ddr ),
+  _port(port)
+{
+  setGpioPortAsOutput();
+}
+
+DigitalOutPort::~DigitalOutPort()
 {
 
-public:
+}
 
-           I2CMasterBase(interface::I2CMasterMCU & i2c_master_mcu);
-  virtual ~I2CMasterBase();
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
+void DigitalOutPort::set(uint8_t const val)
+{
+  *_port = val;
+}
 
-  /* I2C Master Interface */
+/**************************************************************************************
+ * PRIVATE MEMBER FUNCTIONS
+ **************************************************************************************/
 
-  virtual bool begin      (uint8_t const address, bool const is_read_access               ) override;
-  virtual void end        (                                                               ) override;
-  virtual bool write      (uint8_t const data                                             ) override;
-  virtual bool requestFrom(uint8_t const address, uint8_t * data, uint16_t const num_bytes) override;
-
-
-  /* I2C Master Configuration Interface */
-
-  virtual void setI2CClock(eI2CClock const i2c_clock) override;
-
-
-private:
-
-  interface::I2CMasterMCU & _i2c_master_mcu;
-
-  static uint8_t convertI2CAddress(uint8_t const address, bool is_read_access);
-
-};
+void DigitalOutPort::setGpioPortAsOutput()
+{
+  *_ddr = 0xFF;
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -85,5 +78,3 @@ private:
 } /* hal */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_MCU_AVR_ATXXXX_I2CMASTER_H_ */
