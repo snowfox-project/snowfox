@@ -15,6 +15,8 @@ As Martin Fowler states so eloquently in his book *Refactoring: Improving the De
 ## Hardware Abstraction Layers
 | MCU                          | MCU_ARCH              | MCU_TYPE          |
 |:----------------------------:|:---------------------:|:-----------------:|
+| Atmel/Microchip AT90CAN32    | avr                   | at90can32         |
+| Atmel/Microchip AT90CAN64    | avr                   | at90can64         |
 | Atmel/Microchip AT90CAN128   | avr                   | at90can128        |
 | Atmel/Microchip ATMega2560   | avr                   | atmega2560        |
 | Atmel/Microchip ATMega328P   | avr                   | atmega328p        |
