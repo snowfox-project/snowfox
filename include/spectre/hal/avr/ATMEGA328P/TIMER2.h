@@ -51,10 +51,10 @@ class TIMER2 : public interface::Timer<uint8_t>,
 
 public:
 
-           TIMER2(volatile uint8_t * TCNT2,
-                  volatile uint8_t * TCCR2B,
-                  volatile uint8_t * OCR2A,
-                  volatile uint8_t * OCR2B);
+           TIMER2(volatile uint8_t * tcnt2,
+                  volatile uint8_t * tccr2b,
+                  volatile uint8_t * ocr2a,
+                  volatile uint8_t * ocr2b);
   virtual ~TIMER2();
 
 

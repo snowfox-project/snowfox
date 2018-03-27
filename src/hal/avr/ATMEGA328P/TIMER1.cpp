@@ -62,15 +62,15 @@ typedef enum
  * CTOR/DTOR
  **************************************************************************************/
 
-TIMER1::TIMER1(volatile uint16_t * TCNT1,
-               volatile uint8_t  * TCCR1B,
-               volatile uint16_t * OCR1A,
-               volatile uint16_t * OCR1B)
+TIMER1::TIMER1(volatile uint16_t * tcnt1,
+               volatile uint8_t  * tccr1b,
+               volatile uint16_t * ocr1a,
+               volatile uint16_t * ocr1b)
 : _prescaler(0     ),
-  _TCNT1    (TCNT1 ),
-  _TCCR1B   (TCCR1B),
-  _OCR1A    (OCR1A ),
-  _OCR1B    (OCR1B )
+  _TCNT1    (tcnt1 ),
+  _TCCR1B   (tccr1b),
+  _OCR1A    (ocr1a ),
+  _OCR1B    (ocr1b )
 {
 
 }
