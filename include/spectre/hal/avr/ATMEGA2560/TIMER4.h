@@ -51,11 +51,11 @@ class TIMER4 : public interface::Timer<uint16_t>,
 
 public:
 
-           TIMER4(volatile uint16_t * TCNT4,
-                  volatile uint8_t  * TCCR4B,
-                  volatile uint16_t * OCR4A,
-                  volatile uint16_t * OCR4B,
-                  volatile uint16_t * OCR4C);
+           TIMER4(volatile uint16_t * tcnt4,
+                  volatile uint8_t  * tccr4b,
+                  volatile uint16_t * ocr4a,
+                  volatile uint16_t * ocr4b,
+                  volatile uint16_t * ocr4c);
   virtual ~TIMER4();
 
 

@@ -51,10 +51,10 @@ class TIMER0 : public interface::Timer<uint8_t>,
 
 public:
 
-           TIMER0(volatile uint8_t * TCNT0,
-                  volatile uint8_t * TCCR0B,
-                  volatile uint8_t * OCR0A,
-                  volatile uint8_t * OCR0B);
+           TIMER0(volatile uint8_t * tcnt0,
+                  volatile uint8_t * tccr0b,
+                  volatile uint8_t * ocr0a,
+                  volatile uint8_t * ocr0b);
   virtual ~TIMER0();
 
 

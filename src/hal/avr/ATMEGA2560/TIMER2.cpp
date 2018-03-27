@@ -64,15 +64,15 @@ typedef enum
  * CTOR/DTOR
  **************************************************************************************/
 
-TIMER2::TIMER2(volatile uint8_t * TCNT2,
-               volatile uint8_t * TCCR2A,
-               volatile uint8_t * OCR2A,
-               volatile uint8_t * OCR2B)
+TIMER2::TIMER2(volatile uint8_t * tcnt2,
+               volatile uint8_t * tccr2a,
+               volatile uint8_t * ocr2a,
+               volatile uint8_t * ocr2b)
 : _prescaler(0     ),
-  _TCNT2    (TCNT2 ),
-  _TCCR2A   (TCCR2A),
-  _OCR2A    (OCR2A ),
-  _OCR2B    (OCR2B )
+  _TCNT2    (tcnt2 ),
+  _TCCR2A   (tccr2a),
+  _OCR2A    (ocr2a ),
+  _OCR2B    (ocr2b )
 {
 
 }

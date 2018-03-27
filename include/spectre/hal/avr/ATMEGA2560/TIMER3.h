@@ -51,11 +51,11 @@ class TIMER3 : public interface::Timer<uint16_t>,
 
 public:
 
-           TIMER3(volatile uint16_t * TCNT3,
-                  volatile uint8_t  * TCCR3B,
-                  volatile uint16_t * OCR3A,
-                  volatile uint16_t * OCR3B,
-                  volatile uint16_t * OCR3C);
+           TIMER3(volatile uint16_t * tcnt3,
+                  volatile uint8_t  * tccr3a,
+                  volatile uint16_t * ocr3a,
+                  volatile uint16_t * ocr3b,
+                  volatile uint16_t * ocr3c);
   virtual ~TIMER3();
 
 

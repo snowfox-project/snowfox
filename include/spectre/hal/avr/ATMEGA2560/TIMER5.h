@@ -51,11 +51,11 @@ class TIMER5 : public interface::Timer<uint16_t>,
 
 public:
 
-           TIMER5(volatile uint16_t * TCNT5,
-                  volatile uint8_t  * TCCR5B,
-                  volatile uint16_t * OCR5A,
-                  volatile uint16_t * OCR5B,
-                  volatile uint16_t * OCR5C);
+           TIMER5(volatile uint16_t * tcnt5,
+                  volatile uint8_t  * tccr5b,
+                  volatile uint16_t * ocr5a,
+                  volatile uint16_t * ocr5b,
+                  volatile uint16_t * ocr5c);
   virtual ~TIMER5();
 
 

@@ -62,17 +62,17 @@ typedef enum
  * CTOR/DTOR
  **************************************************************************************/
 
-TIMER5::TIMER5(volatile uint16_t * TCNT5,
-               volatile uint8_t  * TCCR5B,
-               volatile uint16_t * OCR5A,
-               volatile uint16_t * OCR5B,
-               volatile uint16_t * OCR5C)
+TIMER5::TIMER5(volatile uint16_t * tcnt5,
+               volatile uint8_t  * tccr5b,
+               volatile uint16_t * ocr5a,
+               volatile uint16_t * ocr5b,
+               volatile uint16_t * ocr5c)
 : _prescaler(0     ),
-  _TCNT5    (TCNT5 ),
-  _TCCR5B   (TCCR5B),
-  _OCR5A    (OCR5A ),
-  _OCR5B    (OCR5B ),
-  _OCR5C    (OCR5C )
+  _TCNT5    (tcnt5 ),
+  _TCCR5B   (tccr5b),
+  _OCR5A    (ocr5a ),
+  _OCR5B    (ocr5b ),
+  _OCR5C    (ocr5c )
 {
 
 }
