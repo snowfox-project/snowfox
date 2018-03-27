@@ -47,7 +47,11 @@ class TIMER3 : public AT90CANxxxx::TIMER3
 
 public:
 
-           TIMER3(volatile uint16_t * TCNT3, volatile uint8_t  * TCCR3B, volatile uint16_t * OCR3A, volatile uint16_t * OCR3B, volatile uint16_t * OCR3C) : AT90CANxxxx::TIMER3(TCNT3, TCCR3B, OCR3A, OCR3B, OCR3C) { }
+           TIMER3(volatile uint16_t * tcnt3,
+                  volatile uint8_t  * tccr3b,
+                  volatile uint16_t * ocr3a,
+                  volatile uint16_t * ocr3b,
+                  volatile uint16_t * ocr3c) : AT90CANxxxx::TIMER3(tcnt3, tccr3b, ocr3a, ocr3b, ocr3c) { }
   virtual ~TIMER3() { }
 
 };

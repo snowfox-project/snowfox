@@ -47,7 +47,9 @@ class TIMER2 : public AT90CANxxxx::TIMER2
 
 public:
 
-           TIMER2(volatile uint8_t * TCNT2, volatile uint8_t * TCCR2A, volatile uint8_t * OCR2A) : AT90CANxxxx::TIMER2(TCNT2, TCCR2A, OCR2A) { }
+           TIMER2(volatile uint8_t * tcnt2,
+                  volatile uint8_t * tccr2a,
+                  volatile uint8_t * ocr2a) : AT90CANxxxx::TIMER2(tcnt2, tccr2a, ocr2a) { }
   virtual ~TIMER2() { }
 
 };
