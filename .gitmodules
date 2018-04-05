@@ -1,3 +1,0 @@
-[submodule "application/lorawan-sniffer-spectre"]
-	path = application/lorawan-sniffer-spectre
-	url = https://github.com/lxrobotics/lorawan-sniffer-spectre
