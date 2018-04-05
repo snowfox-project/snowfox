@@ -95,9 +95,9 @@ add_library(
 # APPLICATIONS ###########################################################
 ##########################################################################
 
-if(${BUILD_APP_LORAWAN_SNIFFER})
-  if(${BUILD_APP_LORAWAN_SNIFFER} STREQUAL "yes")
-    add_subdirectory(application/lorawan-sniffer-spectre)
+if(${BUILD_APP_LORA_SNIFFER})
+  if(${BUILD_APP_LORA_SNIFFER} STREQUAL "yes")
+    add_subdirectory(application/lora-sniffer)
   endif()
 endif()
 
