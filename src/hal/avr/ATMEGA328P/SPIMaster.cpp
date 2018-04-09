@@ -77,7 +77,7 @@ SPIMaster::SPIMaster(volatile uint8_t * spcr,
   _SPSR(spsr),
   _SPDR(spdr)
 {
-  enableSPI();
+  enableSpiMaster();
 }
 
 SPIMaster::~SPIMaster()
@@ -141,9 +141,9 @@ void SPIMaster::setSpiPrescaler(uint32_t const spi_prescaler)
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
-void SPIMaster::enableSPI()
+void SPIMaster::enableSpiMaster()
 {
-  *_SPCR |= SPE_bm;
+  *_SPCR |= (SPE_bm | MSTR_bm);
 }
 
 /**************************************************************************************

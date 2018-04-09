@@ -72,7 +72,7 @@ private:
                    * _SPSR,
                    * _SPDR;
 
-  void enableSPI();
+  void enableSpiMaster();
 
 };
 
