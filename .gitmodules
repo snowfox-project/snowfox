@@ -1,3 +1,0 @@
-[submodule "application/lora-sniffer"]
-	path = application/lora-sniffer
-	url = https://github.com/lxrobotics/lora-sniffer
