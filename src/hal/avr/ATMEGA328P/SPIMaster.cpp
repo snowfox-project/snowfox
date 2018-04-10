@@ -122,7 +122,7 @@ void SPIMaster::setSpiBitOrder(interface::SpiBitOrder const spi_bit_order)
 
 void SPIMaster::setSpiPrescaler(uint32_t const spi_prescaler)
 {
-  *_SPCR &= (SPR1_bm | SPR0_bm);
+  *_SPCR &= ~(SPR1_bm | SPR0_bm);
 
   switch(spi_prescaler)
   {
