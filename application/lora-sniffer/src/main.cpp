@@ -87,7 +87,9 @@ int main()
   /* SPI/CS for RFM95 *****************************************************************/
 
   ATMEGA328P::SPIMaster     spi_master(&SPCR, &SPSR, &SPDR);
-  ATMEGA328P::DigitalOutPin rfm9x_cs  (&DDRB, &PORTB, 2);     /* CS = D10 = PB2 */
+  ATMEGA328P::DigitalOutPin rfm9x_mosi(&DDRB, &PORTB, 3);     /* MOSI = D11 = PB3 */
+  ATMEGA328P::DigitalOutPin rfm9x_sck (&DDRB, &PORTB, 5);     /* SCK  = D13 = PB5 */
+  ATMEGA328P::DigitalOutPin rfm9x_cs  (&DDRB, &PORTB, 2);     /* CS   = D10 = PB2 */
 
   spi_master.setSpiMode     (RFM9x_SPI_MODE     );
   spi_master.setSpiBitOrder (RFM9x_SPI_BIT_ORDER);
@@ -136,7 +138,7 @@ int main()
   SerialReader serial_reader(serial);
   SerialWriter serial_writer(serial);
 
-  serial_writer.write("INIT COMPLETE\n\r");
+  serial_writer.print("%s\r\n", "INIT COMPLETE");
 
   for(;;)
   {
@@ -146,7 +148,7 @@ int main()
     {
       if(CommandParser::isDebugCommand(cmd_str))
       {
-        serial_writer.write("JUHU ;) \n\r");
+        serial_writer.print("%s\r\n", "DEBUG COMMAND ;)");
       }
     }
   }

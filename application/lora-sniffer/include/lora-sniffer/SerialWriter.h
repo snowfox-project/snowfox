@@ -23,7 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/serial/Serial.h>
+#include <spectre/debug/serial/DebugSerial.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -36,19 +36,7 @@ namespace application
  * CLASS DECLARATION
  **************************************************************************************/
 
-class SerialWriter
-{
-
-public:
-
-  SerialWriter(spectre::driver::interface::Driver & serial);
-
-  void write(char const * str);
-
-private:
-
-  spectre::driver::interface::Driver & _serial;
-};
+typedef spectre::debug::DebugSerial SerialWriter;
 
 /**************************************************************************************
  * NAMESPACE

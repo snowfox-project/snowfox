@@ -19,7 +19,6 @@ add_executable(
   
   src/CommandParser.cpp
   src/SerialReader.cpp
-  src/SerialWriter.cpp
 )
 
 target_link_libraries(
