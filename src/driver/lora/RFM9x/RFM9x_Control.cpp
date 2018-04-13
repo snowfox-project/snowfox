@@ -45,8 +45,8 @@ namespace RFM9x
 RFM9x_Control::RFM9x_Control(interface::RFM9x_Io & io)
 : _io(io)
 {
-  setTxFifoBaseAddress(0);
-  setRxFifoBaseAddress(0);
+//  setTxFifoBaseAddress(0);
+//  setRxFifoBaseAddress(0);
 }
 
 RFM9x_Control::~RFM9x_Control()

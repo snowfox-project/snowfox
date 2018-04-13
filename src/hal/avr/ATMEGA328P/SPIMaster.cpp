@@ -77,7 +77,7 @@ SPIMaster::SPIMaster(volatile uint8_t * spcr,
   _SPSR(spsr),
   _SPDR(spdr)
 {
-  enableSpiMaster();
+//  enableSpiMaster();
 }
 
 SPIMaster::~SPIMaster()

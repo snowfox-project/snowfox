@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/AT90CANxxxx/TIMER0.h>
+#include <spectre/hal/avr/common/AT90CAN32_64_128/TIMER1.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,10 +39,10 @@ namespace AT90CANxxxx
  * DEFINES
  **************************************************************************************/
 
-/* TCCR0A */
-#define CS00_bm   (1<<0)
-#define CS01_bm   (1<<1)
-#define CS02_bm   (1<<2)
+/* TCCR1B */
+#define CS10_bm   (1<<0)
+#define CS11_bm   (1<<1)
+#define CS12_bm   (1<<2)
 
 /**************************************************************************************
  * TYPEDEFS
@@ -50,30 +50,34 @@ namespace AT90CANxxxx
 
 typedef enum
 {
-  TIMER0_Prescaler_0     = 0,
-  TIMER0_Prescaler_1     =                     CS00_bm,
-  TIMER0_Prescaler_8     =           CS01_bm,
-  TIMER0_Prescaler_64    =           CS01_bm | CS00_bm,
-  TIMER0_Prescaler_256   = CS02_bm,
-  TIMER0_Prescaler_1024  = CS02_bm |           CS00_bm
-} Timer0PrescalerSelect;
+  TIMER1_Prescaler_0     = 0,
+  TIMER1_Prescaler_1     =                     CS10_bm,
+  TIMER1_Prescaler_8     =           CS11_bm,
+  TIMER1_Prescaler_64    =           CS11_bm | CS10_bm,
+  TIMER1_Prescaler_256   = CS12_bm,
+  TIMER1_Prescaler_1024  = CS12_bm |           CS10_bm
+} Timer1PrescalerSelect;
 
 /**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
-TIMER0::TIMER0(volatile uint8_t * TCNT0,
-               volatile uint8_t * TCCR0A,
-               volatile uint8_t * OCR0A)
+TIMER1::TIMER1(volatile uint16_t * TCNT1,
+               volatile uint8_t  * TCCR1B,
+               volatile uint16_t * OCR1A,
+               volatile uint16_t * OCR1B,
+               volatile uint16_t * OCR1C)
 : _prescaler(0     ),
-  _TCNT0    (TCNT0 ),
-  _TCCR0A   (TCCR0A),
-  _OCR0A    (OCR0A )
+  _TCNT1    (TCNT1 ),
+  _TCCR1B   (TCCR1B),
+  _OCR1A    (OCR1A ),
+  _OCR1B    (OCR1B ),
+  _OCR1C    (OCR1C )
 {
 
 }
 
-TIMER0::~TIMER0()
+TIMER1::~TIMER1()
 {
 
 }
@@ -82,35 +86,37 @@ TIMER0::~TIMER0()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void TIMER0::start()
+void TIMER1::start()
 {
-  setPrescaler_TCCR0A(_prescaler);
+  setPrescaler_TCCR1B(_prescaler);
 }
 
-void TIMER0::stop()
+void TIMER1::stop()
 {
-  setPrescaler_TCCR0A(0);
+  setPrescaler_TCCR1B(0);
 }
 
-void TIMER0::set(uint8_t const val)
+void TIMER1::set(uint16_t const val)
 {
-  *_TCNT0 = val;
+  *_TCNT1 = val;
 }
 
-uint8_t TIMER0::get()
+uint16_t TIMER1::get()
 {
-  return *_TCNT0;
+  return *_TCNT1;
 }
 
-void TIMER0::setCompareRegister(uint8_t const reg_sel, uint8_t const reg_val)
+void TIMER1::setCompareRegister(uint8_t const reg_sel, uint16_t const reg_val)
 {
   switch(reg_sel)
   {
-  case COMPARE_A: *_OCR0A = reg_val; break;
+  case COMPARE_A: *_OCR1A = reg_val; break;
+  case COMPARE_B: *_OCR1B = reg_val; break;
+  case COMPARE_C: *_OCR1C = reg_val; break;
   }
 }
 
-void TIMER0::setPrescaler(uint32_t const prescaler)
+void TIMER1::setPrescaler(uint32_t const prescaler)
 {
   _prescaler = prescaler;
 }
@@ -119,18 +125,18 @@ void TIMER0::setPrescaler(uint32_t const prescaler)
  * PRIVATE FUNCTIONS
  **************************************************************************************/
 
-void TIMER0::setPrescaler_TCCR0A(uint32_t const prescaler)
+void TIMER1::setPrescaler_TCCR1B(uint32_t const prescaler)
 {
-  *_TCCR0A &= ~(CS02_bm | CS01_bm | CS00_bm);
+  *_TCCR1B &= ~(CS12_bm | CS11_bm | CS10_bm);
 
   switch(prescaler)
   {
-  case 0    : *_TCCR0A |= static_cast<uint8_t>(TIMER0_Prescaler_0   ); break;
-  case 1    : *_TCCR0A |= static_cast<uint8_t>(TIMER0_Prescaler_1   ); break;
-  case 8    : *_TCCR0A |= static_cast<uint8_t>(TIMER0_Prescaler_8   ); break;
-  case 64   : *_TCCR0A |= static_cast<uint8_t>(TIMER0_Prescaler_64  ); break;
-  case 256  : *_TCCR0A |= static_cast<uint8_t>(TIMER0_Prescaler_256 ); break;
-  case 1024 : *_TCCR0A |= static_cast<uint8_t>(TIMER0_Prescaler_1024); break;
+  case 0    : *_TCCR1B |= static_cast<uint8_t>(TIMER1_Prescaler_0   ); break;
+  case 1    : *_TCCR1B |= static_cast<uint8_t>(TIMER1_Prescaler_1   ); break;
+  case 8    : *_TCCR1B |= static_cast<uint8_t>(TIMER1_Prescaler_8   ); break;
+  case 64   : *_TCCR1B |= static_cast<uint8_t>(TIMER1_Prescaler_64  ); break;
+  case 256  : *_TCCR1B |= static_cast<uint8_t>(TIMER1_Prescaler_256 ); break;
+  case 1024 : *_TCCR1B |= static_cast<uint8_t>(TIMER1_Prescaler_1024); break;
   }
 }
 

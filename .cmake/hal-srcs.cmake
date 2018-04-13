@@ -23,14 +23,14 @@ set(SPECTRE_LIBRARY_HAL_AVR_PATH src/hal/avr)
 # common/AT90CANxxxx #####################################################
 ##########################################################################
 
-set(SPECTRE_LIBRARY_HAL_AVR_AT90CANxxxx_SRCS
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/AT90CANxxxx/InterruptController.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/AT90CANxxxx/TIMER0.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/AT90CANxxxx/TIMER1.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/AT90CANxxxx/TIMER2.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/AT90CANxxxx/TIMER3.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/AT90CANxxxx/UART0.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/AT90CANxxxx/UART1.cpp
+set(SPECTRE_LIBRARY_HAL_AVR_AT90CAN32_64_128_SRCS
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/AT90CAN32_64_128/InterruptController.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/AT90CAN32_64_128/TIMER0.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/AT90CAN32_64_128/TIMER1.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/AT90CAN32_64_128/TIMER2.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/AT90CAN32_64_128/TIMER3.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/AT90CAN32_64_128/UART0.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/AT90CAN32_64_128/UART1.cpp
 )
 
 ##########################################################################
@@ -53,7 +53,7 @@ set(SPECTRE_LIBRARY_HAL_AVR_ATxxxx_SRCS
 ##########################################################################
 
 set(SPECTRE_LIBRARY_HAL_AVR_AT90CAN32_SRCS
-  ${SPECTRE_LIBRARY_HAL_AVR_AT90CANxxxx_SRCS}
+  ${SPECTRE_LIBRARY_HAL_AVR_AT90CAN32_64_128_SRCS}
 )
 
 ##########################################################################
@@ -61,7 +61,7 @@ set(SPECTRE_LIBRARY_HAL_AVR_AT90CAN32_SRCS
 ##########################################################################
 
 set(SPECTRE_LIBRARY_HAL_AVR_AT90CAN64_SRCS
-  ${SPECTRE_LIBRARY_HAL_AVR_AT90CANxxxx_SRCS}
+  ${SPECTRE_LIBRARY_HAL_AVR_AT90CAN32_64_128_SRCS}
 )
 
 ##########################################################################
@@ -69,7 +69,7 @@ set(SPECTRE_LIBRARY_HAL_AVR_AT90CAN64_SRCS
 ##########################################################################
 
 set(SPECTRE_LIBRARY_HAL_AVR_AT90CAN128_SRCS
-  ${SPECTRE_LIBRARY_HAL_AVR_AT90CANxxxx_SRCS}
+  ${SPECTRE_LIBRARY_HAL_AVR_AT90CAN32_64_128_SRCS}
 )
 
 ##########################################################################

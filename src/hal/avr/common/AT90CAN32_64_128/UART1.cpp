@@ -20,9 +20,9 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/AT90CANxxxx/UART1.h>
+#include <spectre/hal/avr/common/AT90CAN32_64_128/UART1.h>
 
-#include <spectre/hal/avr/common/AT90CANxxxx/InterruptController.h>
+#include <spectre/hal/avr/common/AT90CAN32_64_128/InterruptController.h>
 
 /**************************************************************************************
  * NAMESPACE
