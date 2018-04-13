@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/ATMEGA2560/TIMER3.h>
+#include <spectre/hal/avr/common/ATMEGA640_1280_2560/TIMER0.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -32,17 +32,17 @@ namespace spectre
 namespace hal
 {
 
-namespace ATMEGA2560
+namespace ATMEGA640_1280_2560
 {
 
 /**************************************************************************************
  * DEFINES
  **************************************************************************************/
 
-/* TCCR3B */
-#define CS30_bm   (1<<0)
-#define CS31_bm   (1<<1)
-#define CS32_bm   (1<<2)
+/* TCCR0B */
+#define CS00_bm   (1<<0)
+#define CS01_bm   (1<<1)
+#define CS02_bm   (1<<2)
 
 /**************************************************************************************
  * TYPEDEFS
@@ -50,34 +50,32 @@ namespace ATMEGA2560
 
 typedef enum
 {
-  TIMER3_Prescaler_0     = 0,
-  TIMER3_Prescaler_1     =                     CS30_bm,
-  TIMER3_Prescaler_8     =           CS31_bm,
-  TIMER3_Prescaler_64    =           CS31_bm | CS30_bm,
-  TIMER3_Prescaler_256   = CS32_bm,
-  TIMER3_Prescaler_1024  = CS32_bm |           CS30_bm
-} TIMER3PrescalerSelect;
+  TIMER0_Prescaler_0     = 0,
+  TIMER0_Prescaler_1     =                     CS00_bm,
+  TIMER0_Prescaler_8     =           CS01_bm,
+  TIMER0_Prescaler_64    =           CS01_bm | CS00_bm,
+  TIMER0_Prescaler_256   = CS02_bm,
+  TIMER0_Prescaler_1024  = CS02_bm |           CS00_bm
+} Timer0PrescalerSelect;
 
 /**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
-TIMER3::TIMER3(volatile uint16_t * tcnt3,
-               volatile uint8_t  * tccr3a,
-               volatile uint16_t * ocr3a,
-               volatile uint16_t * ocr3b,
-               volatile uint16_t * ocr3c)
+TIMER0::TIMER0(volatile uint8_t * tcnt0,
+               volatile uint8_t * tccr0b,
+               volatile uint8_t * ocr0a,
+               volatile uint8_t * ocr0b)
 : _prescaler(0     ),
-  _TCNT3    (tcnt3 ),
-  _TCCR3B   (tccr3a),
-  _OCR3A    (ocr3a ),
-  _OCR3B    (ocr3b ),
-  _OCR3C    (ocr3c )
+  _TCNT0    (tcnt0 ),
+  _TCCR0B   (tccr0b),
+  _OCR0A    (ocr0a ),
+  _OCR0B    (ocr0b )
 {
 
 }
 
-TIMER3::~TIMER3()
+TIMER0::~TIMER0()
 {
 
 }
@@ -86,37 +84,36 @@ TIMER3::~TIMER3()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void TIMER3::start()
+void TIMER0::start()
 {
-  setPrescaler_TCCR3B(_prescaler);
+  setPrescaler_TCCR0B(_prescaler);
 }
 
-void TIMER3::stop()
+void TIMER0::stop()
 {
-  setPrescaler_TCCR3B(0);
+  setPrescaler_TCCR0B(0);
 }
 
-void TIMER3::set(uint16_t const val)
+void TIMER0::set(uint8_t const val)
 {
-  *_TCNT3 = val;
+  *_TCNT0 = val;
 }
 
-uint16_t TIMER3::get()
+uint8_t TIMER0::get()
 {
-  return *_TCNT3;
+  return *_TCNT0;
 }
 
-void TIMER3::setCompareRegister(uint8_t const reg_sel, uint16_t const reg_val)
+void TIMER0::setCompareRegister(uint8_t const reg_sel, uint8_t const reg_val)
 {
   switch(reg_sel)
   {
-  case COMPARE_A: *_OCR3A = reg_val; break;
-  case COMPARE_B: *_OCR3B = reg_val; break;
-  case COMPARE_C: *_OCR3C = reg_val; break;
+  case COMPARE_A: *_OCR0A = reg_val; break;
+  case COMPARE_B: *_OCR0B = reg_val; break;
   }
 }
 
-void TIMER3::setPrescaler(uint32_t const prescaler)
+void TIMER0::setPrescaler(uint32_t const prescaler)
 {
   _prescaler = prescaler;
 }
@@ -125,18 +122,18 @@ void TIMER3::setPrescaler(uint32_t const prescaler)
  * PRIVATE FUNCTIONS
  **************************************************************************************/
 
-void TIMER3::setPrescaler_TCCR3B(uint32_t const prescaler)
+void TIMER0::setPrescaler_TCCR0B(uint32_t const prescaler)
 {
-  *_TCCR3B &= ~(CS32_bm | CS31_bm | CS30_bm);
+  *_TCCR0B &= ~(CS02_bm | CS01_bm | CS00_bm);
 
   switch(prescaler)
   {
-  case 0    : *_TCCR3B |= static_cast<uint8_t>(TIMER3_Prescaler_0   ); break;
-  case 1    : *_TCCR3B |= static_cast<uint8_t>(TIMER3_Prescaler_1   ); break;
-  case 8    : *_TCCR3B |= static_cast<uint8_t>(TIMER3_Prescaler_8   ); break;
-  case 64   : *_TCCR3B |= static_cast<uint8_t>(TIMER3_Prescaler_64  ); break;
-  case 256  : *_TCCR3B |= static_cast<uint8_t>(TIMER3_Prescaler_256 ); break;
-  case 1024 : *_TCCR3B |= static_cast<uint8_t>(TIMER3_Prescaler_1024); break;
+  case 0    : *_TCCR0B |= static_cast<uint8_t>(TIMER0_Prescaler_0   ); break;
+  case 1    : *_TCCR0B |= static_cast<uint8_t>(TIMER0_Prescaler_1   ); break;
+  case 8    : *_TCCR0B |= static_cast<uint8_t>(TIMER0_Prescaler_8   ); break;
+  case 64   : *_TCCR0B |= static_cast<uint8_t>(TIMER0_Prescaler_64  ); break;
+  case 256  : *_TCCR0B |= static_cast<uint8_t>(TIMER0_Prescaler_256 ); break;
+  case 1024 : *_TCCR0B |= static_cast<uint8_t>(TIMER0_Prescaler_1024); break;
   }
 }
 
@@ -144,7 +141,7 @@ void TIMER3::setPrescaler_TCCR3B(uint32_t const prescaler)
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA2560 */
+} /* ATMEGA640_1280_2560 */
 
 } /* hal */
 

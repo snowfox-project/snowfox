@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/ATMEGA2560/TIMER5.h>
+#include <spectre/hal/avr/common/ATMEGA640_1280_2560/TIMER5.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -32,7 +32,7 @@ namespace spectre
 namespace hal
 {
 
-namespace ATMEGA2560
+namespace ATMEGA640_1280_2560
 {
 
 /**************************************************************************************
@@ -144,7 +144,7 @@ void TIMER5::setPrescaler_TCCR5B(uint32_t const prescaler)
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA2560 */
+} /* ATMEGA640_1280_2560 */
 
 } /* hal */
 

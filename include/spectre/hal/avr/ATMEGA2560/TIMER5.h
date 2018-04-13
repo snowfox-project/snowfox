@@ -23,10 +23,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <stdint.h>
-
-#include <spectre/hal/interface/timer/Timer.h>
-#include <spectre/hal/interface/timer/TimerConfiguration.h>
+#include <spectre/hal/avr/common/ATMEGA640_1280_2560/TIMER5.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -45,8 +42,7 @@ namespace ATMEGA2560
  * CLASS DECLARATION
  **************************************************************************************/
 
-class TIMER5 : public interface::Timer<uint16_t>,
-               public interface::TimerConfiguration
+class TIMER5 : public ATMEGA640_1280_2560::TIMER5
 {
 
 public:
@@ -55,41 +51,8 @@ public:
                   volatile uint8_t  * tccr5b,
                   volatile uint16_t * ocr5a,
                   volatile uint16_t * ocr5b,
-                  volatile uint16_t * ocr5c);
-  virtual ~TIMER5();
-
-
-  static uint8_t const COMPARE_A = 0;
-  static uint8_t const COMPARE_B = 1;
-  static uint8_t const COMPARE_C = 2;
-
-
-  /* Timer Interface */
-
-  virtual void     start             (                  ) override;
-  virtual void     stop              (                  ) override;
-  virtual void     set               (uint16_t const val) override;
-  virtual uint16_t get               (                  ) override;
-
-  virtual void     setCompareRegister(uint8_t const reg_sel, uint16_t const reg_val) override;
-
-
-  /* Timer Configuration Interface */
-
-  virtual void setPrescaler(uint32_t const prescaler) override;
-
-private:
-
-           uint32_t   _prescaler;
-
-  volatile uint16_t * _TCNT5;
-  volatile uint8_t  * _TCCR5B;
-  volatile uint16_t * _OCR5A,
-                    * _OCR5B,
-                    * _OCR5C;
-
-
-  void setPrescaler_TCCR5B(uint32_t const prescaler);
+                  volatile uint16_t * ocr5c) : ATMEGA640_1280_2560::TIMER5(tcnt5, tccr5b, ocr5a, ocr5b, ocr5c) { }
+  virtual ~TIMER5() { }
 
 };
 

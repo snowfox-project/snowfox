@@ -34,6 +34,19 @@ set(SPECTRE_LIBRARY_HAL_AVR_AT90CAN32_64_128_SRCS
 )
 
 ##########################################################################
+# common/ATMEGA640_1280_2560 #############################################
+##########################################################################
+
+set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA640_1280_2560_SRCS
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATMEGA640_1280_2560/TIMER0.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATMEGA640_1280_2560/TIMER1.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATMEGA640_1280_2560/TIMER2.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATMEGA640_1280_2560/TIMER3.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATMEGA640_1280_2560/TIMER4.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATMEGA640_1280_2560/TIMER5.cpp
+)
+
+##########################################################################
 # common/ATxxxx ##########################################################
 ##########################################################################
 
@@ -77,12 +90,7 @@ set(SPECTRE_LIBRARY_HAL_AVR_AT90CAN128_SRCS
 ##########################################################################
 
 set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA2560_SRCS
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATMEGA2560/TIMER0.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATMEGA2560/TIMER1.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATMEGA2560/TIMER2.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATMEGA2560/TIMER3.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATMEGA2560/TIMER4.cpp
-  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATMEGA2560/TIMER5.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA640_1280_2560_SRCS}
 )
 
 ##########################################################################
