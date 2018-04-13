@@ -42,12 +42,12 @@ namespace AT90CAN64
  * CLASS DECLARATION
  **************************************************************************************/
 
-class TIMER3 : public AT90CANxxxx::TIMER3
+class TIMER3 : public AT90CAN32_64_128::TIMER3
 {
 
 public:
 
-           TIMER3(volatile uint16_t * TCNT3, volatile uint8_t  * TCCR3B, volatile uint16_t * OCR3A, volatile uint16_t * OCR3B, volatile uint16_t * OCR3C) : AT90CANxxxx::TIMER3(TCNT3, TCCR3B, OCR3A, OCR3B, OCR3C) { }
+           TIMER3(volatile uint16_t * TCNT3, volatile uint8_t  * TCCR3B, volatile uint16_t * OCR3A, volatile uint16_t * OCR3B, volatile uint16_t * OCR3C) : AT90CAN32_64_128::TIMER3(TCNT3, TCCR3B, OCR3A, OCR3B, OCR3C) { }
   virtual ~TIMER3() { }
 
 };

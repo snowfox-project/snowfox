@@ -39,7 +39,7 @@ namespace spectre
 namespace hal
 {
 
-namespace AT90CANxxxx
+namespace AT90CAN32_64_128
 {
 
 /**************************************************************************************
@@ -371,7 +371,7 @@ void InterruptController::registerInterruptCallback(uint8_t const isr_num, inter
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CANxxxx */
+} /* AT90CAN32_64_128 */
 
 } /* hal */
 
@@ -394,7 +394,7 @@ void InterruptController::registerInterruptCallback(uint8_t const isr_num, inter
  * NAMESPACES
  **************************************************************************************/
 
-using namespace spectre::hal::AT90CANxxxx;
+using namespace spectre::hal::AT90CAN32_64_128;
 
 /**************************************************************************************
  * INTERRUPT SERVICE ROUTINES

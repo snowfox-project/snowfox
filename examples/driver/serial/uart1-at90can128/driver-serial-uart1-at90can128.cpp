@@ -62,8 +62,8 @@ int main()
   AT90CAN128::UART1_TransmitRegisterEmptyCallback uart1_uart_data_register_empty_callback(uart1);
   AT90CAN128::UART1_ReceiveCompleteCallback       uart1_receive_complete_callback        (uart1);
 
-  int_ctrl.registerInterruptCallback(AT90CANxxxx::toIsrNum(AT90CANxxxx::InterruptServiceRoutine::USART1_UART_DATA_REGISTER_EMPTY), &uart1_uart_data_register_empty_callback);
-  int_ctrl.registerInterruptCallback(AT90CANxxxx::toIsrNum(AT90CANxxxx::InterruptServiceRoutine::USART1_RECEIVE_COMPLETE        ), &uart1_receive_complete_callback        );
+  int_ctrl.registerInterruptCallback(AT90CAN32_64_128::toIsrNum(AT90CAN32_64_128::InterruptServiceRoutine::USART1_UART_DATA_REGISTER_EMPTY), &uart1_uart_data_register_empty_callback);
+  int_ctrl.registerInterruptCallback(AT90CAN32_64_128::toIsrNum(AT90CAN32_64_128::InterruptServiceRoutine::USART1_RECEIVE_COMPLETE        ), &uart1_receive_complete_callback        );
 
   /* DRIVER ***************************************************************************/
 
@@ -75,7 +75,7 @@ int main()
 
   uart1.registerUARTCallback(&serial_callback);
 
-  int_ctrl.enableInterrupt            (AT90CANxxxx::toIntNum(AT90CANxxxx::Interrupt::GLOBAL));
+  int_ctrl.enableInterrupt            (AT90CAN32_64_128::toIntNum(AT90CAN32_64_128::Interrupt::GLOBAL));
 
   /* APPLICATION **********************************************************************/
 

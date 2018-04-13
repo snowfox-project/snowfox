@@ -34,7 +34,7 @@ namespace spectre
 namespace hal
 {
 
-namespace AT90CANxxxx
+namespace AT90CAN32_64_128
 {
 
 /**************************************************************************************
@@ -204,7 +204,7 @@ uint16_t UART0::calcBaudRate(uint32_t const f_cpu, uint32_t const baud_rate)
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CANxxxx */
+} /* AT90CAN32_64_128 */
 
 } /* hal */
 

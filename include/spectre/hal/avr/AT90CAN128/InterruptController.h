@@ -43,7 +43,7 @@ namespace AT90CAN128
  * CLASS DECLARATION
  **************************************************************************************/
 
-class InterruptController : public AT90CANxxxx::InterruptController
+class InterruptController : public AT90CAN32_64_128::InterruptController
 {
 
 public:
@@ -61,7 +61,7 @@ public:
                                volatile uint8_t * timsk3,
                                volatile uint8_t * ucsr1b,
                                volatile uint8_t * twcr,
-                               volatile uint8_t * spmcsr) : AT90CANxxxx::InterruptController(eimsk, timsk2, timsk1, timsk0, cangie, spcr, ucsr0b, acsr, adcsra, eecr, timsk3, ucsr1b, twcr, spmcsr) { }
+                               volatile uint8_t * spmcsr) : AT90CAN32_64_128::InterruptController(eimsk, timsk2, timsk1, timsk0, cangie, spcr, ucsr0b, acsr, adcsra, eecr, timsk3, ucsr1b, twcr, spmcsr) { }
   virtual ~InterruptController() { }
 
 };

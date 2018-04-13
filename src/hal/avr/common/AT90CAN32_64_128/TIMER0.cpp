@@ -32,7 +32,7 @@ namespace spectre
 namespace hal
 {
 
-namespace AT90CANxxxx
+namespace AT90CAN32_64_128
 {
 
 /**************************************************************************************
@@ -138,7 +138,7 @@ void TIMER0::setPrescaler_TCCR0A(uint32_t const prescaler)
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CANxxxx */
+} /* AT90CAN32_64_128 */
 
 } /* hal */
 

@@ -42,7 +42,7 @@ namespace AT90CAN128
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UART0 : public AT90CANxxxx::UART0
+class UART0 : public AT90CAN32_64_128::UART0
 {
 
 public:
@@ -54,31 +54,31 @@ public:
                  volatile uint8_t                     * ucsr0c,
                  volatile uint16_t                    * ubrr0,
                  interface::InterruptController       & int_ctrl,
-                 uint32_t                       const   f_cpu) : AT90CANxxxx::UART0(udr0, ucsr0a, ucsr0b, ucsr0c, ubrr0, int_ctrl, f_cpu) { }
+                 uint32_t                       const   f_cpu) : AT90CAN32_64_128::UART0(udr0, ucsr0a, ucsr0b, ucsr0c, ubrr0, int_ctrl, f_cpu) { }
   virtual ~UART0() { }
 
 };
 
 /**************************************************************************************/
 
-class UART0_TransmitRegisterEmptyCallback : public AT90CANxxxx::UART0_TransmitRegisterEmptyCallback
+class UART0_TransmitRegisterEmptyCallback : public AT90CAN32_64_128::UART0_TransmitRegisterEmptyCallback
 {
 
 public:
 
-           UART0_TransmitRegisterEmptyCallback(UART0 & uart0) : AT90CANxxxx::UART0_TransmitRegisterEmptyCallback(uart0) { }
+           UART0_TransmitRegisterEmptyCallback(UART0 & uart0) : AT90CAN32_64_128::UART0_TransmitRegisterEmptyCallback(uart0) { }
   virtual ~UART0_TransmitRegisterEmptyCallback() { }
 
 };
 
 /**************************************************************************************/
 
-class UART0_ReceiveCompleteCallback : public AT90CANxxxx::UART0_ReceiveCompleteCallback
+class UART0_ReceiveCompleteCallback : public AT90CAN32_64_128::UART0_ReceiveCompleteCallback
 {
 
 public:
 
-           UART0_ReceiveCompleteCallback(UART0 & uart0) : AT90CANxxxx::UART0_ReceiveCompleteCallback(uart0) { }
+           UART0_ReceiveCompleteCallback(UART0 & uart0) : AT90CAN32_64_128::UART0_ReceiveCompleteCallback(uart0) { }
   virtual ~UART0_ReceiveCompleteCallback() { }
 
 };

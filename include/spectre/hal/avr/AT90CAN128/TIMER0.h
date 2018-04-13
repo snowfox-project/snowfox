@@ -42,7 +42,7 @@ namespace AT90CAN128
  * CLASS DECLARATION
  **************************************************************************************/
 
-class TIMER0 : public AT90CANxxxx::TIMER0
+class TIMER0 : public AT90CAN32_64_128::TIMER0
 
 {
 
@@ -50,7 +50,7 @@ public:
 
            TIMER0(volatile uint8_t * tcnt0,
                   volatile uint8_t * tccr0a,
-                  volatile uint8_t * ocr0a) : AT90CANxxxx::TIMER0(tcnt0, tccr0a, ocr0a) { }
+                  volatile uint8_t * ocr0a) : AT90CAN32_64_128::TIMER0(tcnt0, tccr0a, ocr0a) { }
   virtual ~TIMER0() { }
 
 };

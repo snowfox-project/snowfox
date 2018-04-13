@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_AT90CANxxxx_TIMER0_H_
-#define INCLUDE_SPECTRE_HAL_AVR_AT90CANxxxx_TIMER0_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_AT90CAN32_64_128_TIMER0_H_
+#define INCLUDE_SPECTRE_HAL_AVR_AT90CAN32_64_128_TIMER0_H_
 
 /**************************************************************************************
  * INCLUDES
@@ -38,7 +38,7 @@ namespace spectre
 namespace hal
 {
 
-namespace AT90CANxxxx
+namespace AT90CAN32_64_128
 {
 
 /**************************************************************************************
@@ -91,10 +91,10 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CANxxxx */
+} /* AT90CAN32_64_128 */
 
 } /* hal */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_AT90CANxxxx_TIMER0_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_AT90CAN32_64_128_TIMER0_H_ */
