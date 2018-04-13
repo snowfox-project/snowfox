@@ -58,6 +58,12 @@ SCENARIO("ATMEGA328P::SPIMaster - A SPIMaster object is constructed", "[ATMEGA32
 
   ATMEGA328P::SPIMaster spi_master(SPCR(), SPSR(), SPDR());
 
+
+  THEN("SPCR bit #4 should be set (SPI MASTER/SLAVE SELECT)")
+  {
+    REQUIRE(SPCR.isBitSet(4));
+  }
+
   THEN("SPCR bit #6 should be set (SPI ENABLE)")
   {
     REQUIRE(SPCR.isBitSet(6));
