@@ -58,13 +58,13 @@ namespace ATMEGA328P
  * TYPEDEFS
  **************************************************************************************/
 
-typedef enum
+enum class SpiPrescaler : uint8_t
 {
   Prescaler_4   = 0,
   Prescaler_16  =           SPR0_bm,
   Prescaler_64  = SPR1_bm,
   Prescaler_128 = SPR1_bm | SPR0_bm
-} SPIPrescalerSelect;
+};
 
 /**************************************************************************************
  * CTOR/DTOR
@@ -126,14 +126,14 @@ void SPIMaster::setSpiPrescaler(uint32_t const spi_prescaler)
 
   switch(spi_prescaler)
   {
-  case 2  : { *_SPCR |= static_cast<uint8_t>(Prescaler_4  ); *_SPSR |=  SPI2X_bm; } break;
-  case 4  : { *_SPCR |= static_cast<uint8_t>(Prescaler_4  ); *_SPSR &= ~SPI2X_bm; } break;
-  case 8  : { *_SPCR |= static_cast<uint8_t>(Prescaler_16 ); *_SPSR |=  SPI2X_bm; } break;
-  case 16 : { *_SPCR |= static_cast<uint8_t>(Prescaler_16 ); *_SPSR &= ~SPI2X_bm; } break;
-  case 32 : { *_SPCR |= static_cast<uint8_t>(Prescaler_64 ); *_SPSR |=  SPI2X_bm; } break;
-  case 64 : { *_SPCR |= static_cast<uint8_t>(Prescaler_64 ); *_SPSR &= ~SPI2X_bm; } break;
-  case 128: { *_SPCR |= static_cast<uint8_t>(Prescaler_128); *_SPSR &= ~SPI2X_bm; } break;
-  default : {                                                *_SPSR &= ~SPI2X_bm; } break;
+  case 2  : { *_SPCR |= static_cast<uint8_t>(SpiPrescaler::Prescaler_4  ); *_SPSR |=  SPI2X_bm; } break;
+  case 4  : { *_SPCR |= static_cast<uint8_t>(SpiPrescaler::Prescaler_4  ); *_SPSR &= ~SPI2X_bm; } break;
+  case 8  : { *_SPCR |= static_cast<uint8_t>(SpiPrescaler::Prescaler_16 ); *_SPSR |=  SPI2X_bm; } break;
+  case 16 : { *_SPCR |= static_cast<uint8_t>(SpiPrescaler::Prescaler_16 ); *_SPSR &= ~SPI2X_bm; } break;
+  case 32 : { *_SPCR |= static_cast<uint8_t>(SpiPrescaler::Prescaler_64 ); *_SPSR |=  SPI2X_bm; } break;
+  case 64 : { *_SPCR |= static_cast<uint8_t>(SpiPrescaler::Prescaler_64 ); *_SPSR &= ~SPI2X_bm; } break;
+  case 128: { *_SPCR |= static_cast<uint8_t>(SpiPrescaler::Prescaler_128); *_SPSR &= ~SPI2X_bm; } break;
+  default : {                                                              *_SPSR &= ~SPI2X_bm; } break;
   }
 }
 
