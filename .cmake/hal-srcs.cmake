@@ -86,6 +86,22 @@ set(SPECTRE_LIBRARY_HAL_AVR_AT90CAN128_SRCS
 )
 
 ##########################################################################
+# ATMEGA640 ##############################################################
+##########################################################################
+
+set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA640_SRCS
+  ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA640_1280_2560_SRCS}
+)
+
+##########################################################################
+# ATMEGA1280 #############################################################
+##########################################################################
+
+set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA1280_SRCS
+  ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA640_1280_2560_SRCS}
+)
+
+##########################################################################
 # ATMEGA2560 #############################################################
 ##########################################################################
 
@@ -141,6 +157,14 @@ if(${MCU_ARCH} STREQUAL "avr")
   if(${MCU_TYPE} STREQUAL "at90can128")
     set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_AT90CAN128_SRCS})  
   endif()
+
+  if(${MCU_TYPE} STREQUAL "atmega640")
+    set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA640_SRCS})
+  endif()
+
+  if(${MCU_TYPE} STREQUAL "atmega1280")
+    set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA1280_SRCS})
+  endif()
   
   if(${MCU_TYPE} STREQUAL "atmega2560")
     set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA2560_SRCS})
@@ -164,6 +188,8 @@ if(${MCU_ARCH} STREQUAL "host")
   set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_AT90CAN32_SRCS})
   set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_AT90CAN64_SRCS})
   set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_AT90CAN128_SRCS})
+  set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA640_SRCS})
+  set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA1280_SRCS})
   set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA2560_SRCS})
   set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA328P_SRCS})
   set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA32U4_SRCS})
