@@ -106,6 +106,14 @@ bool RFM9x::ioctl(uint32_t const cmd, void * arg)
     return true;
   }
   break;
+  /* IOCTL_SET_FREQUENCY_HZ ***********************************************************/
+  case IOCTL_SET_FREQUENCY_HZ:
+  {
+    uint32_t const * frequency_hz = static_cast<uint32_t *>(arg);
+    _ctrl.setFrequency(*frequency_hz);
+    return true;
+  }
+  break;
   }
 
 
