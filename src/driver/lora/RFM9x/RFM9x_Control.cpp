@@ -121,8 +121,9 @@ char const * loadFromFlash(const char * flash_str);
  * CTOR/DTOR
  **************************************************************************************/
 
-RFM9x_Control::RFM9x_Control(interface::RFM9x_Io & io)
-: _io(io)
+RFM9x_Control::RFM9x_Control(interface::RFM9x_Io & io, uint32_t const fxosc_Hz)
+: _io      (io      ),
+  _fxosc_Hz(fxosc_Hz)
 {
   setTxFifoBaseAddress(0);
   setRxFifoBaseAddress(0);
@@ -191,9 +192,9 @@ void RFM9x_Control::setModulationType(interface::ModulationType const modulation
   _io.writeRegister(interface::Register::OP_MODE, reg_op_mode_content);
 }
 
-void RFM9x_Control::setFrequency(uint32_t const f_rf_Hz, uint32_t const fxosc_Hz)
+void RFM9x_Control::setFrequency(uint32_t const f_rf_Hz)
 {
-  float    const f_step_Hz = static_cast<float>(fxosc_Hz) / 524288.0;
+  float    const f_step_Hz = static_cast<float>(_fxosc_Hz) / 524288.0;
   uint32_t const f_rf      = static_cast<uint32_t>(f_step_Hz / static_cast<float>(f_rf_Hz));
 
   uint8_t const f_rf_msb = static_cast<uint8_t>((f_rf & 0x00FF0000) >> 16);

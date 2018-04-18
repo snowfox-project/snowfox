@@ -42,7 +42,8 @@ namespace RFM9x
  * CTOR/DTOR
  **************************************************************************************/
 
-RFM9x::RFM9x()
+RFM9x::RFM9x(interface::RFM9x_Control & ctrl)
+: _ctrl(ctrl)
 {
 
 }
@@ -76,7 +77,20 @@ ssize_t RFM9x::write(uint8_t const * buffer, ssize_t const num_bytes)
 
 bool RFM9x::ioctl(uint32_t const cmd, void * arg)
 {
-  /* TODO*/
+  switch(cmd)
+  {
+  /* IOCTL_SET_LORA_MODE **************************************************************/
+  case IOCTL_SET_LORA_MODE:
+  {
+    uint8_t             const * arg_ptr   = static_cast<uint8_t *>          (arg     );
+    interface::LoRaMode const   lora_mode = static_cast<interface::LoRaMode>(*arg_ptr);
+    _ctrl.setLoraMode(lora_mode);
+    return true;
+  }
+  break;
+  }
+
+
   return false;
 }
 

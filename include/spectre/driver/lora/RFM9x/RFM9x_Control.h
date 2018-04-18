@@ -54,7 +54,7 @@ class RFM9x_Control : public interface::RFM9x_Control
 
 public:
 
-           RFM9x_Control(interface::RFM9x_Io & io);
+           RFM9x_Control(interface::RFM9x_Io & io, uint32_t const fxosc_Hz);
   virtual ~RFM9x_Control();
 
 
@@ -67,19 +67,20 @@ public:
 
   /* RFM9x Configuration */
 
-  virtual void setOperatingMode (interface::OperatingMode  const op_mode                                ) override;
-  virtual void setLoraMode      (interface::LoRaMode       const lora_mode                              ) override;
-  virtual void setModulationType(interface::ModulationType const modulation_type                        ) override;
-  virtual void setFrequency     (uint32_t                  const freq_Hz,        uint32_t const fxosc_Hz) override;
+  virtual void setOperatingMode (interface::OperatingMode  const op_mode        ) override;
+  virtual void setLoraMode      (interface::LoRaMode       const lora_mode      ) override;
+  virtual void setModulationType(interface::ModulationType const modulation_type) override;
+  virtual void setFrequency     (uint32_t                  const freq_Hz        ) override;
 
 
           void debug_dumpAllRegs(debug::interface::Debug & debug_interface);
 
 private:
 
-  interface::RFM9x_Io & _io;
-  uint8_t               _fifo_tx_base_addr,
-                        _fifo_rx_base_addr;
+  interface::RFM9x_Io       & _io;
+  uint32_t            const   _fxosc_Hz;
+  uint8_t                     _fifo_tx_base_addr,
+                              _fifo_rx_base_addr;
 
   void debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, interface::Register const reg);
 

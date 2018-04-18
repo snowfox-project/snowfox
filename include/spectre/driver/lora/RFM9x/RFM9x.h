@@ -25,6 +25,8 @@
 
 #include <spectre/driver/interface/Driver.h>
 
+#include <spectre/driver/lora/RFM9x/interface/RFM9x_Control.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -42,6 +44,12 @@ namespace RFM9x
 {
 
 /**************************************************************************************
+ * CONSTANTS
+ **************************************************************************************/
+
+static uint32_t constexpr IOCTL_SET_LORA_MODE = 0; /* Arg: interface::LoRaMode * -> uint8_t *  */
+
+/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
@@ -50,7 +58,7 @@ class RFM9x : public driver::interface::Driver
 
 public:
 
-           RFM9x();
+           RFM9x(interface::RFM9x_Control & ctrl);
   virtual ~RFM9x();
 
 
@@ -60,6 +68,10 @@ public:
   bool    ioctl(uint32_t const   cmd,    void          * arg      ) override;
   void    close(                                                  ) override;
 
+
+private:
+
+  interface::RFM9x_Control & _ctrl;
 
 };
 

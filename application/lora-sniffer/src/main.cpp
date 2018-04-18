@@ -63,7 +63,8 @@ static uint16_t                    const TX_BUFFER_SIZE         = 128;
 
 static hal::interface::SpiMode     const RFM9x_SPI_MODE         = hal::interface::SpiMode::MODE_0;
 static hal::interface::SpiBitOrder const RFM9x_SPI_BIT_ORDER    = hal::interface::SpiBitOrder::MSB_FIRST;
-static uint32_t                    const RFM9x_SPI_PRESCALER    = 16; /* Arduino Uno Clk = 16 MHz -> SPI Clk = 1 MHz                     */
+static uint32_t                    const RFM9x_SPI_PRESCALER    = 16;       /* Arduino Uno Clk = 16 MHz -> SPI Clk = 1 MHz */
+static uint32_t                    const RFM9x_F_XOSC_Hz        = 32000000; /* 32 MHz                                      */
 
 /**************************************************************************************
  * MAIN
@@ -128,9 +129,9 @@ int main()
   serial.ioctl(serial::IOCTL_SET_STOPBIT,  static_cast<void *>(&stop_bit ));
 
   /* RFM95********* *******************************************************************/
-  lora::RFM9x::RFM9x_IoSpi    rfm9x_spi     (spi_master, rfm9x_cs);
-  lora::RFM9x::RFM9x_Control  rfm9x_control (rfm9x_spi           ); /* COMMENTING THIS IN FUCKS IT UP - WHY ? */
-  lora::RFM9x::RFM9x          rfm9x;
+  lora::RFM9x::RFM9x_IoSpi    rfm9x_spi     (spi_master, rfm9x_cs      );
+  lora::RFM9x::RFM9x_Control  rfm9x_control (rfm9x_spi, RFM9x_F_XOSC_Hz);
+  lora::RFM9x::RFM9x          rfm9x         (rfm9x_control             );
 
   rfm9x.open();
 
@@ -142,7 +143,9 @@ int main()
   /* APPLICATION **********************************************************************/
 
   /* COMMANDS
-   * 'DB\r' -> print all registers of the RFM95 chip
+   * 'DB\r'                 Print all registers of the RFM95 chip
+   * 'MD [LORA|FSK_OOK]\r'  Set LoRa mode
+   * 'FR 433000000\r'       Set frequency of module
    */
 
   SerialReader serial_reader(serial);
