@@ -84,7 +84,7 @@ bool RFM9x::ioctl(uint32_t const cmd, void * arg)
   {
     uint8_t             const * arg_ptr   = static_cast<uint8_t *>          (arg     );
     interface::LoRaMode const   lora_mode = static_cast<interface::LoRaMode>(*arg_ptr);
-    _ctrl.setLoraMode(lora_mode);
+    _ctrl.setLoRaMode(lora_mode);
     return true;
   }
   break;

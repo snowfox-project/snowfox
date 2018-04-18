@@ -168,7 +168,7 @@ void RFM9x_Control::setOperatingMode(interface::OperatingMode const op_mode)
   _io.writeRegister(interface::Register::OP_MODE, reg_op_mode_content);
 }
 
-void RFM9x_Control::setLoraMode(interface::LoRaMode const lora_mode)
+void RFM9x_Control::setLoRaMode(interface::LoRaMode const lora_mode)
 {
   uint8_t reg_op_mode_content = 0;
 
