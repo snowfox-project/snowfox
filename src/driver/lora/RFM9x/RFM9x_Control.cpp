@@ -47,7 +47,7 @@ namespace RFM9x
  **************************************************************************************/
 
 #if not defined(MCU_ARCH_avr)
-//#define PROGMEM /* Define PROGMEM as empty string if we are not using avr-gcc since this macro is used to store the strings into flash instead of RAM */
+#define PROGMEM /* Define PROGMEM as empty string if we are not using avr-gcc since this macro is used to store the strings into flash instead of RAM */
 #endif
 
 /**************************************************************************************
@@ -288,7 +288,7 @@ char const * loadFromFlash(const char * flash_str)
   static char buffer[32];
   strcpy_P(buffer, flash_str);
   return buffer;
-#else
+#elif defined(MCU_ARCH_host)
   return flash_str;
 #endif
 }
