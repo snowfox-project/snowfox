@@ -23,10 +23,10 @@
 #include <string.h>
 
 #include <avr/io.h>
-#include <util/delay.h>
 
 #include <spectre/hal/avr/ATMEGA328P/UART0.h>
 #include <spectre/hal/avr/ATMEGA328P/SPIMaster.h>
+#include <spectre/hal/avr/ATMEGA328P/DigitalInPin.h>
 #include <spectre/hal/avr/ATMEGA328P/DigitalOutPin.h>
 #include <spectre/hal/avr/ATMEGA328P/CriticalSection.h>
 #include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
@@ -86,10 +86,20 @@ int main()
 
   /* SPI/CS for RFM95 *****************************************************************/
 
+  /* As the datasheet state: 'If SS is configured as an input and is driven low
+   * while MSTR is set, MSTR will be cleared.'. This means that in this special
+   * case where the CS pin is equal with SS pin we need to set it before configuring
+   * the SPI interface.
+   */
+  ATMEGA328P::DigitalOutPin rfm9x_cs  (&DDRB, &PORTB,        2);     /* CS   = D10 = PB2 */
+  ATMEGA328P::DigitalOutPin rfm9x_sck (&DDRB, &PORTB,        5);     /* SCK  = D13 = PB5 */
+  ATMEGA328P::DigitalInPin  rfm9x_miso(&DDRB, &PORTB, &PINB, 4);     /* MOSI = D12 = PB4 */
+  ATMEGA328P::DigitalOutPin rfm9x_mosi(&DDRB, &PORTB,        3);     /* MOSI = D11 = PB3 */
+
+  rfm9x_cs.set();
+  rfm9x_miso.setPullUpMode(hal::interface::PullUpMode::PULL_UP);
+
   ATMEGA328P::SPIMaster     spi_master(&SPCR, &SPSR, &SPDR);
-  ATMEGA328P::DigitalOutPin rfm9x_mosi(&DDRB, &PORTB, 3);     /* MOSI = D11 = PB3 */
-  ATMEGA328P::DigitalOutPin rfm9x_sck (&DDRB, &PORTB, 5);     /* SCK  = D13 = PB5 */
-  ATMEGA328P::DigitalOutPin rfm9x_cs  (&DDRB, &PORTB, 2);     /* CS   = D10 = PB2 */
 
   spi_master.setSpiMode     (RFM9x_SPI_MODE     );
   spi_master.setSpiBitOrder (RFM9x_SPI_BIT_ORDER);
@@ -119,7 +129,7 @@ int main()
 
   /* RFM95********* *******************************************************************/
   lora::RFM9x::RFM9x_IoSpi    rfm9x_spi     (spi_master, rfm9x_cs);
-  lora::RFM9x::RFM9x_Control  rfm9x_control (rfm9x_spi           );
+  lora::RFM9x::RFM9x_Control  rfm9x_control (rfm9x_spi           ); /* COMMENTING THIS IN FUCKS IT UP - WHY ? */
   lora::RFM9x::RFM9x          rfm9x;
 
   rfm9x.open();
@@ -138,8 +148,6 @@ int main()
   SerialReader serial_reader(serial);
   SerialWriter serial_writer(serial);
 
-  serial_writer.print("%s\r\n", "INIT COMPLETE");
-
   for(;;)
   {
     char cmd_str[16];
@@ -148,7 +156,7 @@ int main()
     {
       if(CommandParser::isDebugCommand(cmd_str))
       {
-        serial_writer.print("%s\r\n", "DEBUG COMMAND ;)");
+        rfm9x_control.debug_dumpAllRegs(serial_writer);
       }
     }
   }
