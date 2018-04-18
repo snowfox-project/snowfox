@@ -47,8 +47,9 @@ namespace RFM9x
  * CONSTANTS
  **************************************************************************************/
 
-static uint32_t constexpr IOCTL_SET_LORA_MODE      = 0; /* Arg: interface::LoRaMode      * -> uint8_t *  */
-static uint32_t constexpr IOCTL_SET_OPERATING_MODE = 1; /* Arg: interface::OperatingMode * -> uint8_t *  */
+static uint32_t constexpr IOCTL_SET_OPERATING_MODE  = 0; /* Arg: interface::OperatingMode  * -> uint8_t *  */
+static uint32_t constexpr IOCTL_SET_LORA_MODE       = 1; /* Arg: interface::LoRaMode       * -> uint8_t *  */
+static uint32_t constexpr IOCTL_SET_MODULATION_TYPE = 2; /* Arg: interface::ModulationType * -> uint8_t *  */
 
 /**************************************************************************************
  * CLASS DECLARATION
