@@ -88,6 +88,15 @@ bool RFM9x::ioctl(uint32_t const cmd, void * arg)
     return true;
   }
   break;
+  /* IOCTL_SET_OPERATING_MODE *********************************************************/
+  case IOCTL_SET_OPERATING_MODE:
+  {
+    uint8_t                  const * arg_ptr        = static_cast<uint8_t *>               (arg     );
+    interface::OperatingMode const   operating_mode = static_cast<interface::OperatingMode>(*arg_ptr);
+    _ctrl.setOperatingMode(operating_mode);
+    return true;
+  }
+  break;
   }
 
 
