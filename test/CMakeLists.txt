@@ -37,7 +37,6 @@ set(SPECTRE_TEST_HOST_HAL_AVR_AT90CAN128_SRCS
 
 set(SPECTRE_TEST_HOST_HAL_AVR_ATMEGA328P_SRCS
   ${SPECTRE_TEST_HAL_AVR_PATH}/ATMEGA328P/test_InterruptController.cpp
-  ${SPECTRE_TEST_HAL_AVR_PATH}/ATMEGA328P/test_SpiMaster.cpp
   ${SPECTRE_TEST_HAL_AVR_PATH}/ATMEGA328P/test_TIMER0.cpp
   ${SPECTRE_TEST_HAL_AVR_PATH}/ATMEGA328P/test_TIMER1.cpp
   ${SPECTRE_TEST_HAL_AVR_PATH}/ATMEGA328P/test_TIMER2.cpp
@@ -51,6 +50,7 @@ set(SPECTRE_TEST_HOST_HAL_AVR_ATxxxx_SRCS
   ${SPECTRE_TEST_HAL_AVR_PATH}/ATxxxx/test_DigitalInPort.cpp
   ${SPECTRE_TEST_HAL_AVR_PATH}/ATxxxx/test_DigitalOutPin.cpp
   ${SPECTRE_TEST_HAL_AVR_PATH}/ATxxxx/test_DigitalOutPort.cpp
+  ${SPECTRE_TEST_HAL_AVR_PATH}/ATxxxx/test_SpiMaster.cpp
 )
 
 ##########################################################################

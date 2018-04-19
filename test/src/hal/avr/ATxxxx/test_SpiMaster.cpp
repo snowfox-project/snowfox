@@ -26,9 +26,8 @@
 #include <catch.hpp>
 
 #include <Register.h>
-#include <hal/avr/ATMEGA328P/RegisterResetValueList.h>
 
-#include <spectre/hal/avr/ATMEGA328P/SpiMaster.h>
+#include <spectre/hal/avr/common/ATxxxx/SpiMaster.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -40,23 +39,31 @@ namespace spectre
 namespace hal
 {
 
-namespace ATMEGA328P
+namespace ATxxxx
 {
 
 namespace test
 {
 
 /**************************************************************************************
+ * CONSTANTS
+ **************************************************************************************/
+
+static uint8_t  const SPCR_RESET_VALUE = 0;
+static uint8_t  const SPSR_RESET_VALUE = 0;
+static uint8_t  const SPDR_RESET_VALUE = 0;
+
+/**************************************************************************************
  * TEST CODE
  **************************************************************************************/
 
-SCENARIO("ATMEGA328P::SPIMaster - A SPIMaster object is constructed", "[ATMEGA328P::SPIMaster]")
+SCENARIO("ATxxxx::SPIMaster - A SPIMaster object is constructed", "[ATxxxx::SPIMaster]")
 {
   Register<uint8_t> SPCR(SPCR_RESET_VALUE),
                     SPSR(SPSR_RESET_VALUE),
                     SPDR(SPDR_RESET_VALUE);
 
-  ATMEGA328P::SpiMaster spi_master(SPCR(), SPSR(), SPDR());
+  ATxxxx::SpiMaster spi_master(SPCR(), SPSR(), SPDR());
 
 
   THEN("SPCR bit #4 should be set (SPI MASTER/SLAVE SELECT)")
@@ -72,13 +79,13 @@ SCENARIO("ATMEGA328P::SPIMaster - A SPIMaster object is constructed", "[ATMEGA32
 
 /**************************************************************************************/
 
-SCENARIO("ATMEGA328P::SPIMaster - A SPI mode is configured via 'setSpiMode'", "[ATMEGA328P::SPIMaster]")
+SCENARIO("ATxxxx::SPIMaster - A SPI mode is configured via 'setSpiMode'", "[ATxxxx::SPIMaster]")
 {
   Register<uint8_t> SPCR(SPCR_RESET_VALUE),
                     SPSR(SPSR_RESET_VALUE),
                     SPDR(SPDR_RESET_VALUE);
 
-  ATMEGA328P::SpiMaster spi_master(SPCR(), SPSR(), SPDR());
+  ATxxxx::SpiMaster spi_master(SPCR(), SPSR(), SPDR());
 
   WHEN("SPI Mode #0 is configured via 'setSpiMode'")
   {
@@ -117,13 +124,13 @@ SCENARIO("ATMEGA328P::SPIMaster - A SPI mode is configured via 'setSpiMode'", "[
 
 /**************************************************************************************/
 
-SCENARIO("ATMEGA328P::SPIMaster - A SPI bit order is configured via 'setSpiBitOrder'", "[ATMEGA328P::SPIMaster]")
+SCENARIO("ATxxxx::SPIMaster - A SPI bit order is configured via 'setSpiBitOrder'", "[ATxxxx::SPIMaster]")
 {
   Register<uint8_t> SPCR(SPCR_RESET_VALUE),
                     SPSR(SPSR_RESET_VALUE),
                     SPDR(SPDR_RESET_VALUE);
 
-  ATMEGA328P::SpiMaster spi_master(SPCR(), SPSR(), SPDR());
+  ATxxxx::SpiMaster spi_master(SPCR(), SPSR(), SPDR());
 
   WHEN("SPI bit order mode LSB_FIRST is selected")
   {
@@ -145,13 +152,13 @@ SCENARIO("ATMEGA328P::SPIMaster - A SPI bit order is configured via 'setSpiBitOr
 
 /**************************************************************************************/
 
-SCENARIO("ATMEGA328P::SPIMaster - A SPI prescaler is configured via 'setSpiPrescaler'", "[ATMEGA328P::SPIMaster]")
+SCENARIO("ATxxxx::SPIMaster - A SPI prescaler is configured via 'setSpiPrescaler'", "[ATxxxx::SPIMaster]")
 {
  Register<uint8_t> SPCR(SPCR_RESET_VALUE),
                    SPSR(SPSR_RESET_VALUE),
                    SPDR(SPDR_RESET_VALUE);
 
- ATMEGA328P::SpiMaster spi_master(SPCR(), SPSR(), SPDR());
+ ATxxxx::SpiMaster spi_master(SPCR(), SPSR(), SPDR());
 
  std::vector<uint32_t> const TEST_PRESCALER_VECT = {2, 4, 8, 16, 32, 64, 128, 1};
 
@@ -188,7 +195,7 @@ SCENARIO("ATMEGA328P::SPIMaster - A SPI prescaler is configured via 'setSpiPresc
 
 } /* test */
 
-} /* ATMEGA328P */
+} /* ATxxxx */
 
 } /* hal */
 
