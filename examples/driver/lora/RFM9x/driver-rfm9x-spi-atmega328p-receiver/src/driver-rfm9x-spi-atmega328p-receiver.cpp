@@ -65,7 +65,10 @@ static uint16_t                    const TX_BUFFER_SIZE         = 128;
 static hal::interface::SpiMode     const RFM9x_SPI_MODE         = hal::interface::SpiMode::MODE_0;
 static hal::interface::SpiBitOrder const RFM9x_SPI_BIT_ORDER    = hal::interface::SpiBitOrder::MSB_FIRST;
 static uint32_t                    const RFM9x_SPI_PRESCALER    = 16;       /* Arduino Uno Clk = 16 MHz -> SPI Clk = 1 MHz */
+
 static uint32_t                    const RFM9x_F_XOSC_Hz        = 32000000; /* 32 MHz                                      */
+static hal::interface::TriggerMode const RFM9x_INT_TRIGGER_MODE = hal::interface::TriggerMode::RisingEdge;
+
 
 /**************************************************************************************
  * MAIN
@@ -110,6 +113,12 @@ int main()
   ATMEGA328P::DigitalInPin                          rfm9x_dio0_int_pin        (&DDRD, &PORTD, &PIND, 2); /* D2 = PD2 = INT0 */
   ATMEGA328P::EINT0                                 rfm9x_dio0_eint0          (&EICRA, int_ctrl);
   ATMEGA328P::EINT0_ExternalInterruptEventCallback  rfm9x_dio0_eint0_callback (rfm9x_dio0_eint0);
+
+  rfm9x_dio0_int_pin.setPullUpMode (hal::interface::PullUpMode::PULL_UP);
+
+  rfm9x_dio0_eint0.setTriggerMode  (RFM9x_INT_TRIGGER_MODE);
+
+  int_ctrl.registerInterruptCallback(ATMEGA328P::toIsrNum(ATMEGA328P::InterruptServiceRoutine::EXTERNAL_INT0), &rfm9x_dio0_eint0_callback);
 
 
 
