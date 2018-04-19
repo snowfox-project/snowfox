@@ -15,7 +15,7 @@ include_directories(include)
 add_executable(
   ${TARGET}
   
-  src/main.cpp
+  src/driver-rfm9x-spi-atmega328p-receiver.cpp
   
   src/CommandParser.cpp
   src/SerialReader.cpp
