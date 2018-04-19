@@ -49,6 +49,7 @@ using namespace spectre::driver;
 static hal::interface::SpiMode     const RFM9x_SPI_MODE         = hal::interface::SpiMode::MODE_0;
 static hal::interface::SpiBitOrder const RFM9x_SPI_BIT_ORDER    = hal::interface::SpiBitOrder::MSB_FIRST;
 static uint32_t                    const RFM9x_SPI_PRESCALER    = 16; /* Arduino Uno Clk = 16 MHz -> SPI Clk = 1 MHz                     */
+static uint32_t                    const RFM9x_F_XOSC_Hz        = 32000000; /* 32 MHz                                      */
 
 /**************************************************************************************
  * MAIN
@@ -67,9 +68,9 @@ int main()
 
   /* DRIVER ***************************************************************************/
 
-  lora::RFM9x::RFM9x_IoSpi    rfm9x_spi     (spi_master, rfm9x_cs);
-  lora::RFM9x::RFM9x_Control  rfm9x_control (rfm9x_spi           );
-  lora::RFM9x::RFM9x          rfm9x;
+  lora::RFM9x::RFM9x_IoSpi    rfm9x_spi     (spi_master, rfm9x_cs      );
+  lora::RFM9x::RFM9x_Control  rfm9x_control (rfm9x_spi, RFM9x_F_XOSC_Hz);
+  lora::RFM9x::RFM9x          rfm9x         (rfm9x_control             );
 
   /* APPLICATION **********************************************************************/
 
