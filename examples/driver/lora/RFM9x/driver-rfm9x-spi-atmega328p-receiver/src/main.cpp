@@ -24,6 +24,7 @@
 
 #include <avr/io.h>
 
+#include <spectre/hal/avr/ATMEGA328P/EINT0.h>
 #include <spectre/hal/avr/ATMEGA328P/UART0.h>
 #include <spectre/hal/avr/ATMEGA328P/SpiMaster.h>
 #include <spectre/hal/avr/ATMEGA328P/DigitalInPin.h>
@@ -86,7 +87,6 @@ int main()
   int_ctrl.registerInterruptCallback(ATMEGA328P::toIsrNum(ATMEGA328P::InterruptServiceRoutine::USART_RECEIVE_COMPLETE        ), &uart0_receive_complete_callback        );
 
   /* SPI/CS for RFM95 *****************************************************************/
-
   /* As the datasheet state: 'If SS is configured as an input and is driven low
    * while MSTR is set, MSTR will be cleared.'. This means that in this special
    * case where the CS pin is equal with SS pin we need to set it before configuring
@@ -105,6 +105,11 @@ int main()
   spi_master.setSpiMode     (RFM9x_SPI_MODE     );
   spi_master.setSpiBitOrder (RFM9x_SPI_BIT_ORDER);
   spi_master.setSpiPrescaler(RFM9x_SPI_PRESCALER);
+
+  /* EXT INT #0 for notifications by RFM9x ********************************************/
+  ATMEGA328P::DigitalInPin                          rfm9x_dio0_int_pin        (&DDRD, &PORTD, &PIND, 2); /* D2 = PD2 = INT0 */
+  ATMEGA328P::EINT0                                 rfm9x_dio0_eint0          (&EICRA, int_ctrl);
+  ATMEGA328P::EINT0_ExternalInterruptEventCallback  rfm9x_dio0_eint0_callback (rfm9x_dio0_eint0);
 
 
 
