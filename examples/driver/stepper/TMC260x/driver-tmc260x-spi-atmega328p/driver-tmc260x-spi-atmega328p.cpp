@@ -27,7 +27,7 @@
 
 #include <avr/io.h>
 
-#include <spectre/hal/avr/ATMEGA328P/SPIMaster.h>
+#include <spectre/hal/avr/ATMEGA328P/SpiMaster.h>
 #include <spectre/hal/avr/ATMEGA328P/DigitalOutPin.h>
 
 #include <spectre/driver/stepper/TMC26x/TMC26x.h>
@@ -56,7 +56,7 @@ int main()
 {
   /* HAL ******************************************************************************/
 
-  ATMEGA328P::SPIMaster     spi_master             (&SPCR, &SPSR, &SPDR);
+  ATMEGA328P::SpiMaster     spi_master             (&SPCR, &SPSR, &SPDR);
   ATMEGA328P::DigitalOutPin tmc26x_cs              (&DDRB, &PORTB, 2);  /* D10 = PB2 */
   ATMEGA328P::DigitalOutPin tmc26x_step            (&DDRD, &PORTD, 7);  /* D7  = PD7 */
   ATMEGA328P::DigitalOutPin tmc26x_dir             (&DDRD, &PORTD, 6);  /* D6  = PD6 */

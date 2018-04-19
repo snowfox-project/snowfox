@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/ATMEGA328P/SPIMaster.h>
+#include <spectre/hal/avr/common/ATxxxx/SpiMaster.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -32,7 +32,7 @@ namespace spectre
 namespace hal
 {
 
-namespace ATMEGA328P
+namespace ATxxxx
 {
 
 /**************************************************************************************
@@ -70,7 +70,7 @@ enum class SpiPrescaler : uint8_t
  * CTOR/DTOR
  **************************************************************************************/
 
-SPIMaster::SPIMaster(volatile uint8_t * spcr,
+SpiMaster::SpiMaster(volatile uint8_t * spcr,
                      volatile uint8_t * spsr,
                      volatile uint8_t * spdr)
 : _SPCR(spcr),
@@ -80,7 +80,7 @@ SPIMaster::SPIMaster(volatile uint8_t * spcr,
   enableSpiMaster();
 }
 
-SPIMaster::~SPIMaster()
+SpiMaster::~SpiMaster()
 {
 
 }
@@ -89,7 +89,7 @@ SPIMaster::~SPIMaster()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-uint8_t SPIMaster::exchange(uint8_t const data)
+uint8_t SpiMaster::exchange(uint8_t const data)
 {
   *_SPDR = data;
 
@@ -98,7 +98,7 @@ uint8_t SPIMaster::exchange(uint8_t const data)
   return *_SPDR;
 }
 
-void SPIMaster::setSpiMode(interface::SpiMode const spi_mode)
+void SpiMaster::setSpiMode(interface::SpiMode const spi_mode)
 {
   *_SPCR &= ~(CPOL_bm | CPHA_bm);
 
@@ -111,7 +111,7 @@ void SPIMaster::setSpiMode(interface::SpiMode const spi_mode)
   }
 }
 
-void SPIMaster::setSpiBitOrder(interface::SpiBitOrder const spi_bit_order)
+void SpiMaster::setSpiBitOrder(interface::SpiBitOrder const spi_bit_order)
 {
   switch(spi_bit_order)
   {
@@ -120,7 +120,7 @@ void SPIMaster::setSpiBitOrder(interface::SpiBitOrder const spi_bit_order)
   }
 }
 
-void SPIMaster::setSpiPrescaler(uint32_t const spi_prescaler)
+void SpiMaster::setSpiPrescaler(uint32_t const spi_prescaler)
 {
   *_SPCR &= ~(SPR1_bm | SPR0_bm);
 
@@ -141,7 +141,7 @@ void SPIMaster::setSpiPrescaler(uint32_t const spi_prescaler)
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
-void SPIMaster::enableSpiMaster()
+void SpiMaster::enableSpiMaster()
 {
   *_SPCR |= (SPE_bm | MSTR_bm);
 }
@@ -150,7 +150,7 @@ void SPIMaster::enableSpiMaster()
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA328P */
+} /* ATxxxx */
 
 } /* hal */
 

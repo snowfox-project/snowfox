@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_ATMEGA328P_SPIMASTER_H_
-#define INCLUDE_SPECTRE_HAL_AVR_ATMEGA328P_SPIMASTER_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_SPIMASTER_H_
+#define INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_SPIMASTER_H_
 
 /**************************************************************************************
  * INCLUDES
@@ -36,23 +36,23 @@ namespace spectre
 namespace hal
 {
 
-namespace ATMEGA328P
+namespace ATxxxx
 {
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class SPIMaster : public interface::SPIMaster,
+class SpiMaster : public interface::SPIMaster,
                   public interface::SPIMasterConfiguration
 {
 
 public:
 
-           SPIMaster(volatile uint8_t * spcr,
+           SpiMaster(volatile uint8_t * spcr,
                      volatile uint8_t * spsr,
                      volatile uint8_t * spdr);
-  virtual ~SPIMaster();
+  virtual ~SpiMaster();
 
 
   /* SPI Master Interface */
@@ -80,10 +80,10 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA328P */
+} /* ATxxxx */
 
 } /* hal */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_ATMEGA328P_SPIMASTER_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_SPIMASTER_H_ */

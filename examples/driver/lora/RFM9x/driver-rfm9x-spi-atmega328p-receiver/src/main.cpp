@@ -25,7 +25,7 @@
 #include <avr/io.h>
 
 #include <spectre/hal/avr/ATMEGA328P/UART0.h>
-#include <spectre/hal/avr/ATMEGA328P/SPIMaster.h>
+#include <spectre/hal/avr/ATMEGA328P/SpiMaster.h>
 #include <spectre/hal/avr/ATMEGA328P/DigitalInPin.h>
 #include <spectre/hal/avr/ATMEGA328P/DigitalOutPin.h>
 #include <spectre/hal/avr/ATMEGA328P/CriticalSection.h>
@@ -100,7 +100,7 @@ int main()
   rfm9x_cs.set();
   rfm9x_miso.setPullUpMode(hal::interface::PullUpMode::PULL_UP);
 
-  ATMEGA328P::SPIMaster     spi_master(&SPCR, &SPSR, &SPDR);
+  ATMEGA328P::SpiMaster     spi_master(&SPCR, &SPSR, &SPDR);
 
   spi_master.setSpiMode     (RFM9x_SPI_MODE     );
   spi_master.setSpiBitOrder (RFM9x_SPI_BIT_ORDER);
