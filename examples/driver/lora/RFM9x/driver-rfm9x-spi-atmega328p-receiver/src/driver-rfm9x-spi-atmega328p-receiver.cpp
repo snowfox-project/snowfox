@@ -26,6 +26,7 @@
 
 #include <spectre/hal/avr/ATMEGA328P/EINT0.h>
 #include <spectre/hal/avr/ATMEGA328P/UART0.h>
+#include <spectre/hal/avr/ATMEGA328P/Flash.h>
 #include <spectre/hal/avr/ATMEGA328P/SpiMaster.h>
 #include <spectre/hal/avr/ATMEGA328P/DigitalInPin.h>
 #include <spectre/hal/avr/ATMEGA328P/DigitalOutPin.h>
@@ -78,6 +79,7 @@ int main()
 {
   /* HAL ******************************************************************************/
 
+  ATMEGA328P::Flash                               flash;
   ATMEGA328P::InterruptController                 int_ctrl                               (&EIMSK, &PCICR, &WDTCSR, &TIMSK2, &TIMSK1, &TIMSK0, &SPCR, &UCSR0B, &ADCSRA, &EECR, &ACSR, &TWCR, &SPMCSR);
   ATMEGA328P::CriticalSection                     crit_sec                               (&SREG);
 
@@ -173,7 +175,7 @@ int main()
     {
       if(CommandParser::isDebugCommand(cmd_str))
       {
-        rfm9x_control.debug_dumpAllRegs(serial_writer);
+        rfm9x_control.debug_dumpAllRegs(serial_writer, flash);
       }
     }
   }

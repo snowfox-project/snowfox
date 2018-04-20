@@ -16,17 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_HAL_AVR_ATMEGA328P_FLASH_H_
+#define INCLUDE_SPECTRE_HAL_AVR_ATMEGA328P_FLASH_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
 #include <spectre/hal/avr/common/ATxxxx/Flash.h>
-
-#if defined(MCU_ARCH_avr)
-#include <avr/pgmspace.h>
-#else
-#include <string.h>
-#endif
 
 /**************************************************************************************
  * NAMESPACE
@@ -38,42 +35,31 @@ namespace spectre
 namespace hal
 {
 
-namespace ATxxxx
+namespace ATMEGA328P
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * CLASS DECLARATION
  **************************************************************************************/
 
-Flash::Flash()
+class Flash : public ATxxxx::Flash
 {
 
-}
+public:
 
-Flash::~Flash()
-{
+           Flash() { }
+  virtual ~Flash() { }
 
-}
-
-/**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
- **************************************************************************************/
-
-void Flash::readStringFromFlash(char * dest_ram, const char * src_flash)
-{
-#if defined(MCU_ARCH_avr)
-  strcpy_P(dest_ram, src_flash);
-#else
-  strcpy(dest_ram, src_flash);
-#endif
-}
+};
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATxxxx */
+} /* ATMEGA328P */
 
 } /* hal */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_HAL_AVR_ATMEGA328P_FLASH_H_ */

@@ -114,12 +114,6 @@ FLASH_DECLARE(static char const AGC_THRESH2            [] = "AGC_THRESH2        
 FLASH_DECLARE(static char const AGC_THRESH3            [] = "AGC_THRESH3             = ");
 
 /**************************************************************************************
- * PROTOTYPES
- **************************************************************************************/
-
-char const * loadFromFlash(const char * flash_str);
-
-/**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
@@ -208,92 +202,79 @@ void RFM9x_Control::setFrequency(uint32_t const f_rf_Hz)
   _io.writeRegister(interface::Register::FRF_LSB, f_rf_lsb);
 }
 
-void RFM9x_Control::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
+void RFM9x_Control::debug_dumpAllRegs(debug::interface::Debug & debug_interface, hal::interface::Flash & flash)
 {
-  debug_dumpSingleReg(debug_interface, loadFromFlash(OP_MODE                ), interface::Register::OP_MODE                );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(FRF_MSB                ), interface::Register::FRF_MSB                );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(FRF_MID                ), interface::Register::FRF_MID                );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(FRF_LSB                ), interface::Register::FRF_LSB                );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(PA_CONFIG              ), interface::Register::PA_CONFIG              );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(PA_RAMP                ), interface::Register::PA_RAMP                );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(OCP                    ), interface::Register::OCP                    );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(LNA                    ), interface::Register::LNA                    );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(FIFO_ADDR_PTR          ), interface::Register::FIFO_ADDR_PTR          );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(FIFO_TX_BASE_ADDR      ), interface::Register::FIFO_TX_BASE_ADDR      );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(FIFO_RX_BASE_ADDR      ), interface::Register::FIFO_RX_BASE_ADDR      );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(FIFO_RX_CURRENT_ADDR   ), interface::Register::FIFO_RX_CURRENT_ADDR   );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(IRQ_FLAGS_MASK         ), interface::Register::IRQ_FLAGS_MASK         );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(IRQ_FLAGS              ), interface::Register::IRQ_FLAGS              );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(RX_NB_BYTES            ), interface::Register::RX_NB_BYTES            );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(RX_HEADER_CNT_VALUE_MSB), interface::Register::RX_HEADER_CNT_VALUE_MSB);
-  debug_dumpSingleReg(debug_interface, loadFromFlash(RX_HEADER_CNT_VALUE_LSB), interface::Register::RX_HEADER_CNT_VALUE_LSB);
-  debug_dumpSingleReg(debug_interface, loadFromFlash(RX_PACKET_CNT_VALUE_MSB), interface::Register::RX_PACKET_CNT_VALUE_MSB);
-  debug_dumpSingleReg(debug_interface, loadFromFlash(RX_PACKET_CNT_VALUE_LSB), interface::Register::RX_PACKET_CNT_VALUE_LSB);
-  debug_dumpSingleReg(debug_interface, loadFromFlash(MODEM_STAT             ), interface::Register::MODEM_STAT             );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(PKT_SNR_VALUE          ), interface::Register::PKT_SNR_VALUE          );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(PKT_RSSI_VALUE         ), interface::Register::PKT_RSSI_VALUE         );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(RSSI_VALUE             ), interface::Register::RSSI_VALUE             );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(HOP_CHANNEL            ), interface::Register::HOP_CHANNEL            );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(MODEM_CONFIG1          ), interface::Register::MODEM_CONFIG1          );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(MODEM_CONFIG2          ), interface::Register::MODEM_CONFIG2          );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(SYMB_TIMEOUT_LSB       ), interface::Register::SYMB_TIMEOUT_LSB       );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(PREAMBLE_MSB           ), interface::Register::PREAMBLE_MSB           );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(PREAMBLE_LSB           ), interface::Register::PREAMBLE_LSB           );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(PAYLOAD_LENGTH         ), interface::Register::PAYLOAD_LENGTH         );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(MAX_PAYLOAD_LENGTH     ), interface::Register::MAX_PAYLOAD_LENGTH     );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(HOP_PERIOD             ), interface::Register::HOP_PERIOD             );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(FIFO_RX_BYTE_ADDR      ), interface::Register::FIFO_RX_BYTE_ADDR      );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(MODEM_CONFIG3          ), interface::Register::MODEM_CONFIG3          );
+  debug_dumpSingleReg(debug_interface, flash, OP_MODE                , interface::Register::OP_MODE                );
+  debug_dumpSingleReg(debug_interface, flash, FRF_MSB                , interface::Register::FRF_MSB                );
+  debug_dumpSingleReg(debug_interface, flash, FRF_MID                , interface::Register::FRF_MID                );
+  debug_dumpSingleReg(debug_interface, flash, FRF_LSB                , interface::Register::FRF_LSB                );
+  debug_dumpSingleReg(debug_interface, flash, PA_CONFIG              , interface::Register::PA_CONFIG              );
+  debug_dumpSingleReg(debug_interface, flash, PA_RAMP                , interface::Register::PA_RAMP                );
+  debug_dumpSingleReg(debug_interface, flash, OCP                    , interface::Register::OCP                    );
+  debug_dumpSingleReg(debug_interface, flash, LNA                    , interface::Register::LNA                    );
+  debug_dumpSingleReg(debug_interface, flash, FIFO_ADDR_PTR          , interface::Register::FIFO_ADDR_PTR          );
+  debug_dumpSingleReg(debug_interface, flash, FIFO_TX_BASE_ADDR      , interface::Register::FIFO_TX_BASE_ADDR      );
+  debug_dumpSingleReg(debug_interface, flash, FIFO_RX_BASE_ADDR      , interface::Register::FIFO_RX_BASE_ADDR      );
+  debug_dumpSingleReg(debug_interface, flash, FIFO_RX_CURRENT_ADDR   , interface::Register::FIFO_RX_CURRENT_ADDR   );
+  debug_dumpSingleReg(debug_interface, flash, IRQ_FLAGS_MASK         , interface::Register::IRQ_FLAGS_MASK         );
+  debug_dumpSingleReg(debug_interface, flash, IRQ_FLAGS              , interface::Register::IRQ_FLAGS              );
+  debug_dumpSingleReg(debug_interface, flash, RX_NB_BYTES            , interface::Register::RX_NB_BYTES            );
+  debug_dumpSingleReg(debug_interface, flash, RX_HEADER_CNT_VALUE_MSB, interface::Register::RX_HEADER_CNT_VALUE_MSB);
+  debug_dumpSingleReg(debug_interface, flash, RX_HEADER_CNT_VALUE_LSB, interface::Register::RX_HEADER_CNT_VALUE_LSB);
+  debug_dumpSingleReg(debug_interface, flash, RX_PACKET_CNT_VALUE_MSB, interface::Register::RX_PACKET_CNT_VALUE_MSB);
+  debug_dumpSingleReg(debug_interface, flash, RX_PACKET_CNT_VALUE_LSB, interface::Register::RX_PACKET_CNT_VALUE_LSB);
+  debug_dumpSingleReg(debug_interface, flash, MODEM_STAT             , interface::Register::MODEM_STAT             );
+  debug_dumpSingleReg(debug_interface, flash, PKT_SNR_VALUE          , interface::Register::PKT_SNR_VALUE          );
+  debug_dumpSingleReg(debug_interface, flash, PKT_RSSI_VALUE         , interface::Register::PKT_RSSI_VALUE         );
+  debug_dumpSingleReg(debug_interface, flash, RSSI_VALUE             , interface::Register::RSSI_VALUE             );
+  debug_dumpSingleReg(debug_interface, flash, HOP_CHANNEL            , interface::Register::HOP_CHANNEL            );
+  debug_dumpSingleReg(debug_interface, flash, MODEM_CONFIG1          , interface::Register::MODEM_CONFIG1          );
+  debug_dumpSingleReg(debug_interface, flash, MODEM_CONFIG2          , interface::Register::MODEM_CONFIG2          );
+  debug_dumpSingleReg(debug_interface, flash, SYMB_TIMEOUT_LSB       , interface::Register::SYMB_TIMEOUT_LSB       );
+  debug_dumpSingleReg(debug_interface, flash, PREAMBLE_MSB           , interface::Register::PREAMBLE_MSB           );
+  debug_dumpSingleReg(debug_interface, flash, PREAMBLE_LSB           , interface::Register::PREAMBLE_LSB           );
+  debug_dumpSingleReg(debug_interface, flash, PAYLOAD_LENGTH         , interface::Register::PAYLOAD_LENGTH         );
+  debug_dumpSingleReg(debug_interface, flash, MAX_PAYLOAD_LENGTH     , interface::Register::MAX_PAYLOAD_LENGTH     );
+  debug_dumpSingleReg(debug_interface, flash, HOP_PERIOD             , interface::Register::HOP_PERIOD             );
+  debug_dumpSingleReg(debug_interface, flash, FIFO_RX_BYTE_ADDR      , interface::Register::FIFO_RX_BYTE_ADDR      );
+  debug_dumpSingleReg(debug_interface, flash, MODEM_CONFIG3          , interface::Register::MODEM_CONFIG3          );
 
-  debug_dumpSingleReg(debug_interface, loadFromFlash(PPM_CORRECTION         ), interface::Register::PPM_CORRECTION         );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(FEI_MSB                ), interface::Register::FEI_MSB                );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(FEI_MID                ), interface::Register::FEI_MID                );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(FEI_LSB                ), interface::Register::FEI_LSB                );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(RSSI_WIDEBAND          ), interface::Register::RSSI_WIDEBAND          );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(DETECT_OPTIMIZ         ), interface::Register::DETECT_OPTIMIZ         );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(INVERT_IQ              ), interface::Register::INVERT_IQ              );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(DETECTION_THRESHOLD    ), interface::Register::DETECTION_THRESHOLD    );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(SYNC_WORD              ), interface::Register::SYNC_WORD              );
+  debug_dumpSingleReg(debug_interface, flash, PPM_CORRECTION         , interface::Register::PPM_CORRECTION         );
+  debug_dumpSingleReg(debug_interface, flash, FEI_MSB                , interface::Register::FEI_MSB                );
+  debug_dumpSingleReg(debug_interface, flash, FEI_MID                , interface::Register::FEI_MID                );
+  debug_dumpSingleReg(debug_interface, flash, FEI_LSB                , interface::Register::FEI_LSB                );
+  debug_dumpSingleReg(debug_interface, flash, RSSI_WIDEBAND          , interface::Register::RSSI_WIDEBAND          );
+  debug_dumpSingleReg(debug_interface, flash, DETECT_OPTIMIZ         , interface::Register::DETECT_OPTIMIZ         );
+  debug_dumpSingleReg(debug_interface, flash, INVERT_IQ              , interface::Register::INVERT_IQ              );
+  debug_dumpSingleReg(debug_interface, flash, DETECTION_THRESHOLD    , interface::Register::DETECTION_THRESHOLD    );
+  debug_dumpSingleReg(debug_interface, flash, SYNC_WORD              , interface::Register::SYNC_WORD              );
 
-  debug_dumpSingleReg(debug_interface, loadFromFlash(DIO_MAPPING1           ), interface::Register::DIO_MAPPING1           );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(DIO_MAPPING2           ), interface::Register::DIO_MAPPING2           );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(VERSION                ), interface::Register::VERSION                );
+  debug_dumpSingleReg(debug_interface, flash, DIO_MAPPING1           , interface::Register::DIO_MAPPING1           );
+  debug_dumpSingleReg(debug_interface, flash, DIO_MAPPING2           , interface::Register::DIO_MAPPING2           );
+  debug_dumpSingleReg(debug_interface, flash, VERSION                , interface::Register::VERSION                );
 
-  debug_dumpSingleReg(debug_interface, loadFromFlash(TCXO                   ), interface::Register::TCXO                   );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(PA_DAC                 ), interface::Register::PA_DAC                 );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(FORMER_TEMP            ), interface::Register::FORMER_TEMP            );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(AGC_REF                ), interface::Register::AGC_REF                );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(AGC_THRESH1            ), interface::Register::AGC_THRESH1            );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(AGC_THRESH2            ), interface::Register::AGC_THRESH2            );
-  debug_dumpSingleReg(debug_interface, loadFromFlash(AGC_THRESH3            ), interface::Register::AGC_THRESH3            );
+  debug_dumpSingleReg(debug_interface, flash, TCXO                   , interface::Register::TCXO                   );
+  debug_dumpSingleReg(debug_interface, flash, PA_DAC                 , interface::Register::PA_DAC                 );
+  debug_dumpSingleReg(debug_interface, flash, FORMER_TEMP            , interface::Register::FORMER_TEMP            );
+  debug_dumpSingleReg(debug_interface, flash, AGC_REF                , interface::Register::AGC_REF                );
+  debug_dumpSingleReg(debug_interface, flash, AGC_THRESH1            , interface::Register::AGC_THRESH1            );
+  debug_dumpSingleReg(debug_interface, flash, AGC_THRESH2            , interface::Register::AGC_THRESH2            );
+  debug_dumpSingleReg(debug_interface, flash, AGC_THRESH3            , interface::Register::AGC_THRESH3            );
 }
 
 /**************************************************************************************
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
-void RFM9x_Control::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, interface::Register const reg)
+void RFM9x_Control::debug_dumpSingleReg(debug::interface::Debug & debug_interface, hal::interface::Flash & flash, char const * msg, interface::Register const reg)
 {
+  char    msg_ram[32];
   uint8_t reg_content = 0;
 
+  flash.readStringFromFlash(msg_ram, msg);
   _io.readRegister(reg, &reg_content);
 
-  debug_interface.print("%s%02X\n\r", msg, reg_content);
-}
-
-/**************************************************************************************
- * FUNCTIONS
- **************************************************************************************/
-
-char const * loadFromFlash(const char * flash_str)
-{
-#if defined(MCU_ARCH_avr)
-  static char buffer[32];
-  strcpy_P(buffer, flash_str);
-  return buffer;
-#elif defined(MCU_ARCH_host)
-  return flash_str;
-#endif
+  debug_interface.print("%s%02X\n\r", msg_ram, reg_content);
 }
 
 /**************************************************************************************
