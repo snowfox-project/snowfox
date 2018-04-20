@@ -16,55 +16,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_HAL_AVR_CXX_CXX_H_
+#define INCLUDE_SPECTRE_HAL_AVR_CXX_CXX_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/cxx/avr/cxx.h>
+#include <stdlib.h>
 
 /**************************************************************************************
- * PUBLIC FUNCTIONS
+ * PUBLIC PROTOTYPES
  **************************************************************************************/
 
-void * operator new(size_t size)
-{
-  return malloc(size);
-}
+__extension__ typedef int __guard __attribute__((mode (__DI__)));
 
-void operator delete(void * ptr)
-{
-  if(ptr)
-  {
-    free(ptr);
-  }
-}
+extern "C" int  __cxa_guard_acquire (__guard *);
+extern "C" void __cxa_guard_release (__guard *);
+extern "C" void __cxa_guard_abort   (__guard *);
+extern "C" void __cxa_pure_virtual  (void     );
 
-void* operator new[] (size_t size)
-{
-  return ::operator new(size);
-}
+           void *  operator new     (size_t   size);
+           void    operator delete  (void   * ptr );
+           void *  operator new[]   (size_t   size);
+           void    operator delete[](void   * ptr );
 
-void operator delete[] (void *ptr)
-{
-  return ::operator delete(ptr);
-}
-
-int   __cxa_guard_acquire (__guard *g )
-{
-  return !*(char *)(g);
-}
-
-void  __cxa_guard_release (__guard *g )
-{
-  *(char *)g = 1;
-}
-
-void  __cxa_guard_abort   (__guard *  )
-{
-
-}
-
-void  __cxa_pure_virtual  (void       )
-{
-
-}
+#endif /* INCLUDE_SPECTRE_HAL_AVR_CXX_CXX_H_ */

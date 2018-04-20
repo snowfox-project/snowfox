@@ -25,8 +25,8 @@ include(config.cmake)
 # SRCS ###################################################################
 ##########################################################################
 
-set(SPECTRE_LIBRARY_CXX_SRCS "")
-include(.cmake/cxx-srcs.cmake)
+set(SPECTRE_LIBRARY_CPU_SRCS "")
+include(.cmake/cpu-srcs.cmake)
 
 set(SPECTRE_LIBRARY_DEBUG_SRCS "")
 include(.cmake/debug-srcs.cmake)
@@ -37,14 +37,11 @@ include(.cmake/hal-srcs.cmake)
 set(SPECTRE_LIBRARY_DRIVER_SRCS "")
 include(.cmake/driver-srcs.cmake)
 
-set(SPECTRE_LIBRARY_MEMORY_SRCS "")
-include(.cmake/memory-srcs.cmake)
-
 set(SPECTRE_LIBRARY_OS_SRCS "")
 include(.cmake/os-srcs.cmake)
 
 set(SPECTRE_LIBRARY_SRCS
-  ${SPECTRE_LIBRARY_CXX_SRCS}
+  ${SPECTRE_LIBRARY_CPU_SRCS}
   ${SPECTRE_LIBRARY_DEBUG_SRCS}
   ${SPECTRE_LIBRARY_HAL_SRCS}
   ${SPECTRE_LIBRARY_DRIVER}
