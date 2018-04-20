@@ -46,70 +46,72 @@ namespace RFM9x
  * DEFINES
  **************************************************************************************/
 
-#if not defined(MCU_ARCH_avr)
-#define PROGMEM /* Define PROGMEM as empty string if we are not using avr-gcc since this macro is used to store the strings into flash instead of RAM */
+#if defined(MCU_ARCH_avr)
+  #define FLASH_DECLARE(x) PROGMEM x
+#else
+  #define FLASH_DECLARE(x) x
 #endif
 
 /**************************************************************************************
  * CONSTANTS
  **************************************************************************************/
 
-static char const OP_MODE                [] PROGMEM = "OP_MODE                 = ";
-static char const FRF_MSB                [] PROGMEM = "FRF_MSB                 = ";
-static char const FRF_MID                [] PROGMEM = "FRF_MID                 = ";
-static char const FRF_LSB                [] PROGMEM = "FRF_LSB                 = ";
-static char const PA_CONFIG              [] PROGMEM = "PA_CONFIG               = ";
-static char const PA_RAMP                [] PROGMEM = "PA_RAMP                 = ";
-static char const OCP                    [] PROGMEM = "OCP                     = ";
-static char const LNA                    [] PROGMEM = "LNA                     = ";
-static char const FIFO_ADDR_PTR          [] PROGMEM = "FIFO_ADDR_PTR           = ";
-static char const FIFO_TX_BASE_ADDR      [] PROGMEM = "FIFO_TX_BASE_ADDR       = ";
-static char const FIFO_RX_BASE_ADDR      [] PROGMEM = "FIFO_RX_BASE_ADDR       = ";
-static char const FIFO_RX_CURRENT_ADDR   [] PROGMEM = "FIFO_RX_CURRENT_ADDR    = ";
-static char const IRQ_FLAGS_MASK         [] PROGMEM = "IRQ_FLAGS_MASK          = ";
-static char const IRQ_FLAGS              [] PROGMEM = "IRQ_FLAGS               = ";
-static char const RX_NB_BYTES            [] PROGMEM = "RX_NB_BYTES             = ";
-static char const RX_HEADER_CNT_VALUE_MSB[] PROGMEM = "RX_HEADER_CNT_VALUE_MSB = ";
-static char const RX_HEADER_CNT_VALUE_LSB[] PROGMEM = "RX_HEADER_CNT_VALUE_LSB = ";
-static char const RX_PACKET_CNT_VALUE_MSB[] PROGMEM = "RX_PACKET_CNT_VALUE_MSB = ";
-static char const RX_PACKET_CNT_VALUE_LSB[] PROGMEM = "RX_PACKET_CNT_VALUE_LSB = ";
-static char const MODEM_STAT             [] PROGMEM = "MODEM_STAT              = ";
-static char const PKT_SNR_VALUE          [] PROGMEM = "PKT_SNR_VALUE           = ";
-static char const PKT_RSSI_VALUE         [] PROGMEM = "PKT_RSSI_VALUE          = ";
-static char const RSSI_VALUE             [] PROGMEM = "RSSI_VALUE              = ";
-static char const HOP_CHANNEL            [] PROGMEM = "HOP_CHANNEL             = ";
-static char const MODEM_CONFIG1          [] PROGMEM = "MODEM_CONFIG1           = ";
-static char const MODEM_CONFIG2          [] PROGMEM = "MODEM_CONFIG2           = ";
-static char const SYMB_TIMEOUT_LSB       [] PROGMEM = "SYMB_TIMEOUT_LSB        = ";
-static char const PREAMBLE_MSB           [] PROGMEM = "PREAMBLE_MSB            = ";
-static char const PREAMBLE_LSB           [] PROGMEM = "PREAMBLE_LSB            = ";
-static char const PAYLOAD_LENGTH         [] PROGMEM = "PAYLOAD_LENGTH          = ";
-static char const MAX_PAYLOAD_LENGTH     [] PROGMEM = "MAX_PAYLOAD_LENGTH      = ";
-static char const HOP_PERIOD             [] PROGMEM = "HOP_PERIOD              = ";
-static char const FIFO_RX_BYTE_ADDR      [] PROGMEM = "FIFO_RX_BYTE_ADDR       = ";
-static char const MODEM_CONFIG3          [] PROGMEM = "MODEM_CONFIG3           = ";
+FLASH_DECLARE(static char const OP_MODE                [] = "OP_MODE                 = ");
+FLASH_DECLARE(static char const FRF_MSB                [] = "FRF_MSB                 = ");
+FLASH_DECLARE(static char const FRF_MID                [] = "FRF_MID                 = ");
+FLASH_DECLARE(static char const FRF_LSB                [] = "FRF_LSB                 = ");
+FLASH_DECLARE(static char const PA_CONFIG              [] = "PA_CONFIG               = ");
+FLASH_DECLARE(static char const PA_RAMP                [] = "PA_RAMP                 = ");
+FLASH_DECLARE(static char const OCP                    [] = "OCP                     = ");
+FLASH_DECLARE(static char const LNA                    [] = "LNA                     = ");
+FLASH_DECLARE(static char const FIFO_ADDR_PTR          [] = "FIFO_ADDR_PTR           = ");
+FLASH_DECLARE(static char const FIFO_TX_BASE_ADDR      [] = "FIFO_TX_BASE_ADDR       = ");
+FLASH_DECLARE(static char const FIFO_RX_BASE_ADDR      [] = "FIFO_RX_BASE_ADDR       = ");
+FLASH_DECLARE(static char const FIFO_RX_CURRENT_ADDR   [] = "FIFO_RX_CURRENT_ADDR    = ");
+FLASH_DECLARE(static char const IRQ_FLAGS_MASK         [] = "IRQ_FLAGS_MASK          = ");
+FLASH_DECLARE(static char const IRQ_FLAGS              [] = "IRQ_FLAGS               = ");
+FLASH_DECLARE(static char const RX_NB_BYTES            [] = "RX_NB_BYTES             = ");
+FLASH_DECLARE(static char const RX_HEADER_CNT_VALUE_MSB[] = "RX_HEADER_CNT_VALUE_MSB = ");
+FLASH_DECLARE(static char const RX_HEADER_CNT_VALUE_LSB[] = "RX_HEADER_CNT_VALUE_LSB = ");
+FLASH_DECLARE(static char const RX_PACKET_CNT_VALUE_MSB[] = "RX_PACKET_CNT_VALUE_MSB = ");
+FLASH_DECLARE(static char const RX_PACKET_CNT_VALUE_LSB[] = "RX_PACKET_CNT_VALUE_LSB = ");
+FLASH_DECLARE(static char const MODEM_STAT             [] = "MODEM_STAT              = ");
+FLASH_DECLARE(static char const PKT_SNR_VALUE          [] = "PKT_SNR_VALUE           = ");
+FLASH_DECLARE(static char const PKT_RSSI_VALUE         [] = "PKT_RSSI_VALUE          = ");
+FLASH_DECLARE(static char const RSSI_VALUE             [] = "RSSI_VALUE              = ");
+FLASH_DECLARE(static char const HOP_CHANNEL            [] = "HOP_CHANNEL             = ");
+FLASH_DECLARE(static char const MODEM_CONFIG1          [] = "MODEM_CONFIG1           = ");
+FLASH_DECLARE(static char const MODEM_CONFIG2          [] = "MODEM_CONFIG2           = ");
+FLASH_DECLARE(static char const SYMB_TIMEOUT_LSB       [] = "SYMB_TIMEOUT_LSB        = ");
+FLASH_DECLARE(static char const PREAMBLE_MSB           [] = "PREAMBLE_MSB            = ");
+FLASH_DECLARE(static char const PREAMBLE_LSB           [] = "PREAMBLE_LSB            = ");
+FLASH_DECLARE(static char const PAYLOAD_LENGTH         [] = "PAYLOAD_LENGTH          = ");
+FLASH_DECLARE(static char const MAX_PAYLOAD_LENGTH     [] = "MAX_PAYLOAD_LENGTH      = ");
+FLASH_DECLARE(static char const HOP_PERIOD             [] = "HOP_PERIOD              = ");
+FLASH_DECLARE(static char const FIFO_RX_BYTE_ADDR      [] = "FIFO_RX_BYTE_ADDR       = ");
+FLASH_DECLARE(static char const MODEM_CONFIG3          [] = "MODEM_CONFIG3           = ");
 
-static char const PPM_CORRECTION         [] PROGMEM = "PPM_CORRECTION          = ";
-static char const FEI_MSB                [] PROGMEM = "FEI_MSB                 = ";
-static char const FEI_MID                [] PROGMEM = "FEI_MID                 = ";
-static char const FEI_LSB                [] PROGMEM = "FEI_LSB                 = ";
-static char const RSSI_WIDEBAND          [] PROGMEM = "RSSI_WIDEBAND           = ";
-static char const DETECT_OPTIMIZ         [] PROGMEM = "DETECT_OPTIMIZ          = ";
-static char const INVERT_IQ              [] PROGMEM = "INVERT_IQ               = ";
-static char const DETECTION_THRESHOLD    [] PROGMEM = "DETECTION_THRESHOLD     = ";
-static char const SYNC_WORD              [] PROGMEM = "SYNC_WORD               = ";
+FLASH_DECLARE(static char const PPM_CORRECTION         [] = "PPM_CORRECTION          = ");
+FLASH_DECLARE(static char const FEI_MSB                [] = "FEI_MSB                 = ");
+FLASH_DECLARE(static char const FEI_MID                [] = "FEI_MID                 = ");
+FLASH_DECLARE(static char const FEI_LSB                [] = "FEI_LSB                 = ");
+FLASH_DECLARE(static char const RSSI_WIDEBAND          [] = "RSSI_WIDEBAND           = ");
+FLASH_DECLARE(static char const DETECT_OPTIMIZ         [] = "DETECT_OPTIMIZ          = ");
+FLASH_DECLARE(static char const INVERT_IQ              [] = "INVERT_IQ               = ");
+FLASH_DECLARE(static char const DETECTION_THRESHOLD    [] = "DETECTION_THRESHOLD     = ");
+FLASH_DECLARE(static char const SYNC_WORD              [] = "SYNC_WORD               = ");
 
-static char const DIO_MAPPING1           [] PROGMEM = "DIO_MAPPING1            = ";
-static char const DIO_MAPPING2           [] PROGMEM = "DIO_MAPPING2            = ";
-static char const VERSION                [] PROGMEM = "VERSION                 = ";
+FLASH_DECLARE(static char const DIO_MAPPING1           [] = "DIO_MAPPING1            = ");
+FLASH_DECLARE(static char const DIO_MAPPING2           [] = "DIO_MAPPING2            = ");
+FLASH_DECLARE(static char const VERSION                [] = "VERSION                 = ");
 
-static char const TCXO                   [] PROGMEM = "TCXO                    = ";
-static char const PA_DAC                 [] PROGMEM = "PA_DAC                  = ";
-static char const FORMER_TEMP            [] PROGMEM = "FORMER_TEMP             = ";
-static char const AGC_REF                [] PROGMEM = "AGC_REF                 = ";
-static char const AGC_THRESH1            [] PROGMEM = "AGC_THRESH1             = ";
-static char const AGC_THRESH2            [] PROGMEM = "AGC_THRESH2             = ";
-static char const AGC_THRESH3            [] PROGMEM = "AGC_THRESH3             = ";
+FLASH_DECLARE(static char const TCXO                   [] = "TCXO                    = ");
+FLASH_DECLARE(static char const PA_DAC                 [] = "PA_DAC                  = ");
+FLASH_DECLARE(static char const FORMER_TEMP            [] = "FORMER_TEMP             = ");
+FLASH_DECLARE(static char const AGC_REF                [] = "AGC_REF                 = ");
+FLASH_DECLARE(static char const AGC_THRESH1            [] = "AGC_THRESH1             = ");
+FLASH_DECLARE(static char const AGC_THRESH2            [] = "AGC_THRESH2             = ");
+FLASH_DECLARE(static char const AGC_THRESH3            [] = "AGC_THRESH3             = ");
 
 /**************************************************************************************
  * PROTOTYPES
