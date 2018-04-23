@@ -39,6 +39,27 @@ namespace AS5600
 {
 
 /**************************************************************************************
+ * CONSTANTS
+ **************************************************************************************/
+
+FLASH_DECLARE(static char const ZMCO               [] =  "ZMCO                = ");
+FLASH_DECLARE(static char const ZPOS_HIGH_BYTE     [] =  "ZPOS_HIGH_BYTE      = ");
+FLASH_DECLARE(static char const ZPOS_LOW_BYTE      [] =  "ZPOS_LOW_BYTE       = ");
+FLASH_DECLARE(static char const MPOS_HIGH_BYTE     [] =  "MPOS_HIGH_BYTE      = ");
+FLASH_DECLARE(static char const MPOS_LOW_BYTE      [] =  "MPOS_LOW_BYTE       = ");
+FLASH_DECLARE(static char const MANG_HIGH_BYTE     [] =  "MANG_HIGH_BYTE      = ");
+FLASH_DECLARE(static char const MANG_LOW_BYTE      [] =  "MANG_LOW_BYTE       = ");
+FLASH_DECLARE(static char const CONF_HIGH_BYTE     [] =  "CONF_HIGH_BYTE      = ");
+FLASH_DECLARE(static char const CONF_LOW_BYTE      [] =  "CONF_LOW_BYTE       = ");
+FLASH_DECLARE(static char const RAW_ANGLE_HIGH_BYTE[] =  "RAW_ANGLE_HIGH_BYTE = ");
+FLASH_DECLARE(static char const RAW_ANGLE_LOW_BYTE [] =  "RAW_ANGLE_LOW_BYTE  = ");
+FLASH_DECLARE(static char const ANGLE_HIGH_BYTE    [] =  "ANGLE_HIGH_BYTE     = ");
+FLASH_DECLARE(static char const ANGLE_LOW_BYTE     [] =  "ANGLE_LOW_BYTE      = ");
+FLASH_DECLARE(static char const AGC                [] =  "AGC                 = ");
+FLASH_DECLARE(static char const MAGNITUDE_HIGH_BYTE[] =  "MAGNITUDE_HIGH_BYTE = ");
+FLASH_DECLARE(static char const MAGNITUDE_LOW_BYTE [] =  "MAGNITUDE_LOW_BYTE  = ");
+
+/**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
@@ -261,37 +282,39 @@ bool AS5600_Control::isMagnetDetected(uint8_t const status)
   return (status & AS5600_STATUS_REG_MD_bm) != 0;
 }
 
-void AS5600_Control::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
+void AS5600_Control::debug_dumpAllRegs(debug::interface::Debug & debug_interface, hal::interface::Flash & flash)
 {
-  debug_dumpSingleReg(debug_interface, "ZMCO                = ", interface::Register::ZMCO               );
-  debug_dumpSingleReg(debug_interface, "ZPOS_HIGH_BYTE      = ", interface::Register::ZPOS_HIGH_BYTE     );
-  debug_dumpSingleReg(debug_interface, "ZPOS_LOW_BYTE       = ", interface::Register::ZPOS_LOW_BYTE      );
-  debug_dumpSingleReg(debug_interface, "MPOS_HIGH_BYTE      = ", interface::Register::MPOS_HIGH_BYTE     );
-  debug_dumpSingleReg(debug_interface, "MPOS_LOW_BYTE       = ", interface::Register::MPOS_LOW_BYTE      );
-  debug_dumpSingleReg(debug_interface, "MANG_HIGH_BYTE      = ", interface::Register::MANG_HIGH_BYTE     );
-  debug_dumpSingleReg(debug_interface, "MANG_LOW_BYTE       = ", interface::Register::MANG_LOW_BYTE      );
-  debug_dumpSingleReg(debug_interface, "CONF_HIGH_BYTE      = ", interface::Register::CONF_HIGH_BYTE     );
-  debug_dumpSingleReg(debug_interface, "CONF_LOW_BYTE       = ", interface::Register::CONF_LOW_BYTE      );
-  debug_dumpSingleReg(debug_interface, "RAW_ANGLE_HIGH_BYTE = ", interface::Register::RAW_ANGLE_HIGH_BYTE);
-  debug_dumpSingleReg(debug_interface, "RAW_ANGLE_LOW_BYTE  = ", interface::Register::RAW_ANGLE_LOW_BYTE );
-  debug_dumpSingleReg(debug_interface, "ANGLE_HIGH_BYTE     = ", interface::Register::ANGLE_HIGH_BYTE    );
-  debug_dumpSingleReg(debug_interface, "ANGLE_LOW_BYTE      = ", interface::Register::ANGLE_LOW_BYTE     );
-  debug_dumpSingleReg(debug_interface, "AGC                 = ", interface::Register::AGC                );
-  debug_dumpSingleReg(debug_interface, "MAGNITUDE_HIGH_BYTE = ", interface::Register::MAGNITUDE_HIGH_BYTE);
-  debug_dumpSingleReg(debug_interface, "MAGNITUDE_LOW_BYTE  = ", interface::Register::MAGNITUDE_LOW_BYTE );
+  debug_dumpSingleReg(debug_interface, flash, ZMCO               , interface::Register::ZMCO               );
+  debug_dumpSingleReg(debug_interface, flash, ZPOS_HIGH_BYTE     , interface::Register::ZPOS_HIGH_BYTE     );
+  debug_dumpSingleReg(debug_interface, flash, ZPOS_LOW_BYTE      , interface::Register::ZPOS_LOW_BYTE      );
+  debug_dumpSingleReg(debug_interface, flash, MPOS_HIGH_BYTE     , interface::Register::MPOS_HIGH_BYTE     );
+  debug_dumpSingleReg(debug_interface, flash, MPOS_LOW_BYTE      , interface::Register::MPOS_LOW_BYTE      );
+  debug_dumpSingleReg(debug_interface, flash, MANG_HIGH_BYTE     , interface::Register::MANG_HIGH_BYTE     );
+  debug_dumpSingleReg(debug_interface, flash, MANG_LOW_BYTE      , interface::Register::MANG_LOW_BYTE      );
+  debug_dumpSingleReg(debug_interface, flash, CONF_HIGH_BYTE     , interface::Register::CONF_HIGH_BYTE     );
+  debug_dumpSingleReg(debug_interface, flash, CONF_LOW_BYTE      , interface::Register::CONF_LOW_BYTE      );
+  debug_dumpSingleReg(debug_interface, flash, RAW_ANGLE_HIGH_BYTE, interface::Register::RAW_ANGLE_HIGH_BYTE);
+  debug_dumpSingleReg(debug_interface, flash, RAW_ANGLE_LOW_BYTE , interface::Register::RAW_ANGLE_LOW_BYTE );
+  debug_dumpSingleReg(debug_interface, flash, ANGLE_HIGH_BYTE    , interface::Register::ANGLE_HIGH_BYTE    );
+  debug_dumpSingleReg(debug_interface, flash, ANGLE_LOW_BYTE     , interface::Register::ANGLE_LOW_BYTE     );
+  debug_dumpSingleReg(debug_interface, flash, AGC                , interface::Register::AGC                );
+  debug_dumpSingleReg(debug_interface, flash, MAGNITUDE_HIGH_BYTE, interface::Register::MAGNITUDE_HIGH_BYTE);
+  debug_dumpSingleReg(debug_interface, flash, MAGNITUDE_LOW_BYTE , interface::Register::MAGNITUDE_LOW_BYTE );
 }
 
 /**************************************************************************************
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
-void AS5600_Control::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, interface::Register const reg)
+void AS5600_Control::debug_dumpSingleReg(debug::interface::Debug & debug_interface, hal::interface::Flash & flash, char const * msg, interface::Register const reg)
 {
+  char    msg_ram[32];
   uint8_t reg_content = 0;
 
+  flash.readStringFromFlash(msg_ram, msg);
   _io.readRegister(reg, &reg_content);
 
-  debug_interface.print("%s%X\n", msg, reg_content);
+  debug_interface.print("%s%02X\n\r", msg_ram, reg_content);
 }
 
 /**************************************************************************************
