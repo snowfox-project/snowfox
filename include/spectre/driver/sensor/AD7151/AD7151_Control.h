@@ -26,6 +26,7 @@
 #include <spectre/driver/sensor/AD7151/interface/AD7151_Control.h>
 
 #include <spectre/debug/interface/Debug.h>
+#include <spectre/hal/interface/flash/Flash.h>
 
 #include <spectre/driver/sensor/AD7151/interface/AD7151_Io.h>
 
@@ -70,14 +71,14 @@ public:
   virtual bool setCapacitiveInputRange      (interface::CapacitiveInputRange const capacitive_input_range) override;
 
 
-          void debug_dumpAllRegs            (debug::interface::Debug & debug_interface);
+          void debug_dumpAllRegs            (debug::interface::Debug & debug_interface, hal::interface::Flash & flash);
 
 private:
 
   interface::AD7151_IO_Interface & _io;
 
 
-  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, char const * msg, interface::Register const reg);
+  void debug_dumpSingleReg(debug::interface::Debug & debug_interface, hal::interface::Flash & flash, char const * msg, interface::Register const reg);
 
 };
 
