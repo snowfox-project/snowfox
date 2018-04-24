@@ -26,6 +26,7 @@
 #include <spectre/driver/sensor/LIS3MDL/interface/LIS3MDL_Control.h>
 
 #include <spectre/debug/interface/Debug.h>
+#include <spectre/hal/interface/flash/Flash.h>
 
 #include <spectre/driver/sensor/LIS3MDL/interface/LIS3MDL_Io.h>
 
@@ -88,13 +89,13 @@ public:
   virtual bool enableBlockDataUpdate        (                                                   ) override;
 
 
-          void debug_dumpAllRegs            (debug::interface::Debug & debug_interface);
+          void debug_dumpAllRegs            (debug::interface::Debug & debug_interface, hal::interface::Flash & flash);
 
 private:
 
   interface::LIS3MDL_Io & _io;
 
-  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, char const * msg, interface::Register const reg);
+  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, hal::interface::Flash & flash, char const * msg, interface::Register const reg);
 
 };
 

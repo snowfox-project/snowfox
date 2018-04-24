@@ -39,6 +39,30 @@ namespace LIS3MDL
 {
 
 /**************************************************************************************
+ * CONSTANTS
+ **************************************************************************************/
+
+FLASH_DECLARE(static char const WHO_AM_I  [] = "WHO_AM_I   = ");
+FLASH_DECLARE(static char const CTRL_REG_1[] = "CTRL_REG_1 = ");
+FLASH_DECLARE(static char const CTRL_REG_2[] = "CTRL_REG_2 = ");
+FLASH_DECLARE(static char const CTRL_REG_3[] = "CTRL_REG_3 = ");
+FLASH_DECLARE(static char const CTRL_REG_4[] = "CTRL_REG_4 = ");
+FLASH_DECLARE(static char const CTRL_REG_5[] = "CTRL_REG_5 = ");
+FLASH_DECLARE(static char const STATUS_REG[] = "STATUS_REG = ");
+FLASH_DECLARE(static char const OUT_X_L   [] = "OUT_X_L    = ");
+FLASH_DECLARE(static char const OUT_X_H   [] = "OUT_X_H    = ");
+FLASH_DECLARE(static char const OUT_Y_L   [] = "OUT_Y_L    = ");
+FLASH_DECLARE(static char const OUT_Y_H   [] = "OUT_Y_H    = ");
+FLASH_DECLARE(static char const OUT_Z_L   [] = "OUT_Z_L    = ");
+FLASH_DECLARE(static char const OUT_Z_H   [] = "OUT_Z_H    = ");
+FLASH_DECLARE(static char const TEMP_OUT_L[] = "TEMP_OUT_L = ");
+FLASH_DECLARE(static char const TEMP_OUT_H[] = "TEMP_OUT_H = ");
+FLASH_DECLARE(static char const INT_CFG   [] = "INT_CFG    = ");
+FLASH_DECLARE(static char const INT_SRC   [] = "INT_SRC    = ");
+FLASH_DECLARE(static char const INT_THS_L [] = "INT_THS_L  = ");
+FLASH_DECLARE(static char const INT_THS_H [] = "INT_THS_H  = ");
+
+/**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
@@ -318,40 +342,42 @@ bool LIS3MDL_Control::enableBlockDataUpdate()
   return true;
 }
 
-void LIS3MDL_Control::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
+void LIS3MDL_Control::debug_dumpAllRegs(debug::interface::Debug & debug_interface, hal::interface::Flash & flash)
 {
-  debug_dumpSingleReg(debug_interface, "WHO_AM_I   = ", interface::Register::WHO_AM_I  );
-  debug_dumpSingleReg(debug_interface, "CTRL_REG_1 = ", interface::Register::CTRL_REG_1);
-  debug_dumpSingleReg(debug_interface, "CTRL_REG_2 = ", interface::Register::CTRL_REG_2);
-  debug_dumpSingleReg(debug_interface, "CTRL_REG_3 = ", interface::Register::CTRL_REG_3);
-  debug_dumpSingleReg(debug_interface, "CTRL_REG_4 = ", interface::Register::CTRL_REG_4);
-  debug_dumpSingleReg(debug_interface, "CTRL_REG_5 = ", interface::Register::CTRL_REG_5);
-  debug_dumpSingleReg(debug_interface, "STATUS_REG = ", interface::Register::STATUS_REG);
-  debug_dumpSingleReg(debug_interface, "OUT_X_L    = ", interface::Register::OUT_X_L   );
-  debug_dumpSingleReg(debug_interface, "OUT_X_H    = ", interface::Register::OUT_X_H   );
-  debug_dumpSingleReg(debug_interface, "OUT_Y_L    = ", interface::Register::OUT_Y_L   );
-  debug_dumpSingleReg(debug_interface, "OUT_Y_H    = ", interface::Register::OUT_Y_H   );
-  debug_dumpSingleReg(debug_interface, "OUT_Z_L    = ", interface::Register::OUT_Z_L   );
-  debug_dumpSingleReg(debug_interface, "OUT_Z_H    = ", interface::Register::OUT_Z_H   );
-  debug_dumpSingleReg(debug_interface, "TEMP_OUT_L = ", interface::Register::TEMP_OUT_L);
-  debug_dumpSingleReg(debug_interface, "TEMP_OUT_H = ", interface::Register::TEMP_OUT_H);
-  debug_dumpSingleReg(debug_interface, "INT_CFG    = ", interface::Register::INT_CFG   );
-  debug_dumpSingleReg(debug_interface, "INT_SRC    = ", interface::Register::INT_SRC   );
-  debug_dumpSingleReg(debug_interface, "INT_THS_L  = ", interface::Register::INT_THS_L );
-  debug_dumpSingleReg(debug_interface, "INT_THS_H  = ", interface::Register::INT_THS_H );
+  debug_dumpSingleReg(debug_interface, flash, WHO_AM_I  , interface::Register::WHO_AM_I  );
+  debug_dumpSingleReg(debug_interface, flash, CTRL_REG_1, interface::Register::CTRL_REG_1);
+  debug_dumpSingleReg(debug_interface, flash, CTRL_REG_2, interface::Register::CTRL_REG_2);
+  debug_dumpSingleReg(debug_interface, flash, CTRL_REG_3, interface::Register::CTRL_REG_3);
+  debug_dumpSingleReg(debug_interface, flash, CTRL_REG_4, interface::Register::CTRL_REG_4);
+  debug_dumpSingleReg(debug_interface, flash, CTRL_REG_5, interface::Register::CTRL_REG_5);
+  debug_dumpSingleReg(debug_interface, flash, STATUS_REG, interface::Register::STATUS_REG);
+  debug_dumpSingleReg(debug_interface, flash, OUT_X_L   , interface::Register::OUT_X_L   );
+  debug_dumpSingleReg(debug_interface, flash, OUT_X_H   , interface::Register::OUT_X_H   );
+  debug_dumpSingleReg(debug_interface, flash, OUT_Y_L   , interface::Register::OUT_Y_L   );
+  debug_dumpSingleReg(debug_interface, flash, OUT_Y_H   , interface::Register::OUT_Y_H   );
+  debug_dumpSingleReg(debug_interface, flash, OUT_Z_L   , interface::Register::OUT_Z_L   );
+  debug_dumpSingleReg(debug_interface, flash, OUT_Z_H   , interface::Register::OUT_Z_H   );
+  debug_dumpSingleReg(debug_interface, flash, TEMP_OUT_L, interface::Register::TEMP_OUT_L);
+  debug_dumpSingleReg(debug_interface, flash, TEMP_OUT_H, interface::Register::TEMP_OUT_H);
+  debug_dumpSingleReg(debug_interface, flash, INT_CFG   , interface::Register::INT_CFG   );
+  debug_dumpSingleReg(debug_interface, flash, INT_SRC   , interface::Register::INT_SRC   );
+  debug_dumpSingleReg(debug_interface, flash, INT_THS_L , interface::Register::INT_THS_L );
+  debug_dumpSingleReg(debug_interface, flash, INT_THS_H , interface::Register::INT_THS_H );
 }
 
 /**************************************************************************************
  * PRIVATE FUNCTIONS
  **************************************************************************************/
 
-void LIS3MDL_Control::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, interface::Register const reg)
+void LIS3MDL_Control::debug_dumpSingleReg(debug::interface::Debug & debug_interface, hal::interface::Flash & flash, char const * msg, interface::Register const reg)
 {
+  char    msg_ram[32];
   uint8_t reg_content = 0;
 
+  flash.readStringFromFlash(msg_ram, msg);
   _io.readRegister(reg, &reg_content);
 
-  debug_interface.print("%s%X\n", msg, reg_content);
+  debug_interface.print("%s%02X\n\r", msg_ram, reg_content);
 }
 
 /**************************************************************************************
