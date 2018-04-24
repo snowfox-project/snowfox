@@ -39,6 +39,37 @@ namespace L3GD20
 {
 
 /**************************************************************************************
+ * CONSTANTS
+ **************************************************************************************/
+
+FLASH_DECLARE(static char const WHO_AM_I     [] = "WHO_AM_I      = ");
+FLASH_DECLARE(static char const CTRL_REG1    [] = "CTRL_REG1     = ");
+FLASH_DECLARE(static char const CTRL_REG2    [] = "CTRL_REG2     = ");
+FLASH_DECLARE(static char const CTRL_REG3    [] = "CTRL_REG3     = ");
+FLASH_DECLARE(static char const CTRL_REG4    [] = "CTRL_REG4     = ");
+FLASH_DECLARE(static char const CTRL_REG5    [] = "CTRL_REG5     = ");
+FLASH_DECLARE(static char const REFERENCE    [] = "REFERENCE     = ");
+FLASH_DECLARE(static char const OUT_TEMP     [] = "OUT_TEMP      = ");
+FLASH_DECLARE(static char const STATUS_REG   [] = "STATUS_REG    = ");
+FLASH_DECLARE(static char const OUT_X_L      [] = "OUT_X_L       = ");
+FLASH_DECLARE(static char const OUT_X_H      [] = "OUT_X_H       = ");
+FLASH_DECLARE(static char const OUT_Y_L      [] = "OUT_Y_L       = ");
+FLASH_DECLARE(static char const OUT_Y_H      [] = "OUT_Y_H       = ");
+FLASH_DECLARE(static char const OUT_Z_L      [] = "OUT_Z_L       = ");
+FLASH_DECLARE(static char const OUT_Z_H      [] = "OUT_Z_H       = ");
+FLASH_DECLARE(static char const FIFO_CTRL_REG[] = "FIFO_CTRL_REG = ");
+FLASH_DECLARE(static char const FIFO_SRC_REG [] = "FIFO_SRC_REG  = ");
+FLASH_DECLARE(static char const INT1_CFG     [] = "INT1_CFG      = ");
+FLASH_DECLARE(static char const INT1_SRC     [] = "INT1_SRC      = ");
+FLASH_DECLARE(static char const TSH_XH       [] = "TSH_XH        = ");
+FLASH_DECLARE(static char const TSH_XL       [] = "TSH_XL        = ");
+FLASH_DECLARE(static char const TSH_YH       [] = "TSH_YH        = ");
+FLASH_DECLARE(static char const TSH_YL       [] = "TSH_YL        = ");
+FLASH_DECLARE(static char const TSH_ZH       [] = "TSH_ZH        = ");
+FLASH_DECLARE(static char const TSH_ZL       [] = "TSH_ZL        = ");
+FLASH_DECLARE(static char const INT1_DURATION[] = "INT1_DURATION = ");
+
+/**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
@@ -289,35 +320,34 @@ bool L3GD20_Control::readZAxis(int16_t * raw_z)
   return true;
 }
 
-void L3GD20_Control::debug_dumpAllRegs(debug::interface::Debug & debug_interface)
+void L3GD20_Control::debug_dumpAllRegs(debug::interface::Debug & debug_interface, hal::interface::Flash & flash)
 {
-  debug_dumpSingleReg(debug_interface, "WHO_AM_I      = ", interface::Register::WHO_AM_I     );
-  debug_dumpSingleReg(debug_interface, "CTRL_REG1     = ", interface::Register::CTRL_REG1    );
-  debug_dumpSingleReg(debug_interface, "CTRL_REG2     = ", interface::Register::CTRL_REG2    );
-  debug_dumpSingleReg(debug_interface, "CTRL_REG3     = ", interface::Register::CTRL_REG3    );
-  debug_dumpSingleReg(debug_interface, "CTRL_REG4     = ", interface::Register::CTRL_REG4    );
-  debug_dumpSingleReg(debug_interface, "CTRL_REG5     = ", interface::Register::CTRL_REG5    );
-  debug_dumpSingleReg(debug_interface, "REFERENCE     = ", interface::Register::REFERENCE    );
-  debug_dumpSingleReg(debug_interface, "OUT_TEMP      = ", interface::Register::OUT_TEMP     );
-  debug_dumpSingleReg(debug_interface, "STATUS_REG    = ", interface::Register::STATUS_REG   );
-  debug_dumpSingleReg(debug_interface, "OUT_X_L       = ", interface::Register::OUT_X_L      );
-  debug_dumpSingleReg(debug_interface, "OUT_X_H       = ", interface::Register::OUT_X_H      );
-  debug_dumpSingleReg(debug_interface, "OUT_Y_L       = ", interface::Register::OUT_Y_L      );
-  debug_dumpSingleReg(debug_interface, "OUT_Y_H       = ", interface::Register::OUT_Y_H      );
-  debug_dumpSingleReg(debug_interface, "OUT_Z_L       = ", interface::Register::OUT_Z_L      );
-  debug_dumpSingleReg(debug_interface, "OUT_Z_H       = ", interface::Register::OUT_Z_H      );
-  debug_dumpSingleReg(debug_interface, "FIFO_CTRL_REG = ", interface::Register::FIFO_CTRL_REG);
-  debug_dumpSingleReg(debug_interface, "FIFO_SRC_REG  = ", interface::Register::FIFO_SRC_REG );
-  debug_dumpSingleReg(debug_interface, "INT1_CFG      = ", interface::Register::INT1_CFG     );
-  debug_dumpSingleReg(debug_interface, "INT1_SRC      = ", interface::Register::INT1_SRC     );
-  debug_dumpSingleReg(debug_interface, "TSH_XH        = ", interface::Register::TSH_XH       );
-  debug_dumpSingleReg(debug_interface, "TSH_XH        = ", interface::Register::TSH_XH       );
-  debug_dumpSingleReg(debug_interface, "TSH_XL        = ", interface::Register::TSH_XL       );
-  debug_dumpSingleReg(debug_interface, "TSH_YH        = ", interface::Register::TSH_YH       );
-  debug_dumpSingleReg(debug_interface, "TSH_YL        = ", interface::Register::TSH_YL       );
-  debug_dumpSingleReg(debug_interface, "TSH_ZH        = ", interface::Register::TSH_ZH       );
-  debug_dumpSingleReg(debug_interface, "TSH_ZL        = ", interface::Register::TSH_ZL       );
-  debug_dumpSingleReg(debug_interface, "INT1_DURATION = ", interface::Register::INT1_DURATION);
+  debug_dumpSingleReg(debug_interface, flash, WHO_AM_I     , interface::Register::WHO_AM_I     );
+  debug_dumpSingleReg(debug_interface, flash, CTRL_REG1    , interface::Register::CTRL_REG1    );
+  debug_dumpSingleReg(debug_interface, flash, CTRL_REG2    , interface::Register::CTRL_REG2    );
+  debug_dumpSingleReg(debug_interface, flash, CTRL_REG3    , interface::Register::CTRL_REG3    );
+  debug_dumpSingleReg(debug_interface, flash, CTRL_REG4    , interface::Register::CTRL_REG4    );
+  debug_dumpSingleReg(debug_interface, flash, CTRL_REG5    , interface::Register::CTRL_REG5    );
+  debug_dumpSingleReg(debug_interface, flash, REFERENCE    , interface::Register::REFERENCE    );
+  debug_dumpSingleReg(debug_interface, flash, OUT_TEMP     , interface::Register::OUT_TEMP     );
+  debug_dumpSingleReg(debug_interface, flash, STATUS_REG   , interface::Register::STATUS_REG   );
+  debug_dumpSingleReg(debug_interface, flash, OUT_X_L      , interface::Register::OUT_X_L      );
+  debug_dumpSingleReg(debug_interface, flash, OUT_X_H      , interface::Register::OUT_X_H      );
+  debug_dumpSingleReg(debug_interface, flash, OUT_Y_L      , interface::Register::OUT_Y_L      );
+  debug_dumpSingleReg(debug_interface, flash, OUT_Y_H      , interface::Register::OUT_Y_H      );
+  debug_dumpSingleReg(debug_interface, flash, OUT_Z_L      , interface::Register::OUT_Z_L      );
+  debug_dumpSingleReg(debug_interface, flash, OUT_Z_H      , interface::Register::OUT_Z_H      );
+  debug_dumpSingleReg(debug_interface, flash, FIFO_CTRL_REG, interface::Register::FIFO_CTRL_REG);
+  debug_dumpSingleReg(debug_interface, flash, FIFO_SRC_REG , interface::Register::FIFO_SRC_REG );
+  debug_dumpSingleReg(debug_interface, flash, INT1_CFG     , interface::Register::INT1_CFG     );
+  debug_dumpSingleReg(debug_interface, flash, INT1_SRC     , interface::Register::INT1_SRC     );
+  debug_dumpSingleReg(debug_interface, flash, TSH_XH       , interface::Register::TSH_XH       );
+  debug_dumpSingleReg(debug_interface, flash, TSH_XL       , interface::Register::TSH_XL       );
+  debug_dumpSingleReg(debug_interface, flash, TSH_YH       , interface::Register::TSH_YH       );
+  debug_dumpSingleReg(debug_interface, flash, TSH_YL       , interface::Register::TSH_YL       );
+  debug_dumpSingleReg(debug_interface, flash, TSH_ZH       , interface::Register::TSH_ZH       );
+  debug_dumpSingleReg(debug_interface, flash, TSH_ZL       , interface::Register::TSH_ZL       );
+  debug_dumpSingleReg(debug_interface, flash, INT1_DURATION, interface::Register::INT1_DURATION);
 }
 
 /**************************************************************************************
@@ -363,13 +393,15 @@ bool L3GD20_Control::enableBlockDataUpdate()
   return true;
 }
 
-void L3GD20_Control::debug_dumpSingleReg(debug::interface::Debug & debug_interface, char const * msg, interface::Register const reg)
+void L3GD20_Control::debug_dumpSingleReg(debug::interface::Debug & debug_interface, hal::interface::Flash & flash, char const * msg, interface::Register const reg)
 {
+  char    msg_ram[32];
   uint8_t reg_content = 0;
 
+  flash.readStringFromFlash(msg_ram, msg);
   _io.readRegister(reg, &reg_content);
 
-  debug_interface.print("%s%X\n", msg, reg_content);
+  debug_interface.print("%s%02X\n\r", msg_ram, reg_content);
 }
 
 /**************************************************************************************
