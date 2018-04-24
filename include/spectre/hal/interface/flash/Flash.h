@@ -20,14 +20,6 @@
 #define INCLUDE_SPECTRE_HAL_INTERFACE_FLASH_FLASH_H_
 
 /**************************************************************************************
- * INCLUDES
- **************************************************************************************/
-
-#if defined(MCU_ARCH_avr)
-#include <avr/pgmspace.h>
-#endif
-
-/**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
@@ -45,7 +37,7 @@ namespace interface
  **************************************************************************************/
 
 #if defined(MCU_ARCH_avr)
-  #define FLASH_DECLARE(x) PROGMEM x
+  #define FLASH_DECLARE(x) __attribute__((__progmem__)) x
 #else
   #define FLASH_DECLARE(x) x
 #endif
