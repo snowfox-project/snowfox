@@ -26,6 +26,7 @@
 #include <spectre/driver/sensor/INA220/interface/INA220_Control.h>
 
 #include <spectre/debug/interface/Debug.h>
+#include <spectre/hal/interface/flash/Flash.h>
 
 #include <spectre/driver/sensor/INA220/interface/INA220_Io.h>
 
@@ -69,13 +70,13 @@ public:
   virtual bool setOperatingMode     (interface::OperatingMode      const operating_mode      ) override;
 
 
-          void debug_dumpAllRegs    (debug::interface::Debug & debug_interface);
+          void debug_dumpAllRegs    (debug::interface::Debug & debug_interface, hal::interface::Flash & flash);
 
 private:
 
   interface::INA220_Io & _io;
 
-  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, char const * msg, interface::Register const reg);
+  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, hal::interface::Flash & flash, char const * msg, interface::Register const reg);
 
 };
 
