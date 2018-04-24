@@ -26,6 +26,7 @@
 #include <spectre/driver/sensor/BMG160/interface/BMG160_Control.h>
 
 #include <spectre/debug/interface/Debug.h>
+#include <spectre/hal/interface/flash/Flash.h>
 
 #include <spectre/driver/sensor/BMG160/interface/BMG160_Io.h>
 
@@ -73,13 +74,13 @@ public:
   virtual bool setFullScaleRange            (interface::FullScaleRange            const full_scale_range              ) override;
 
 
-          void debug_dumpAllRegs            (debug::interface::Debug & debug_interface);
+          void debug_dumpAllRegs            (debug::interface::Debug & debug_interface, hal::interface::Flash & flash);
 
 private:
 
   interface::BMG160_Io & _io;
 
-  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, char const * msg, interface::Register const reg);
+  void debug_dumpSingleReg(debug::interface::Debug & debug_interface, hal::interface::Flash & flash, char const * msg, interface::Register const reg);
 
 };
 
