@@ -43,6 +43,8 @@
 #include <spectre/driver/lora/RFM9x/RFM9x_IoSpi.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_Control.h>
 #include <spectre/driver/lora/RFM9x/packet_mode/RFM9x_Dio0EventCallback.h>
+#include <spectre/driver/lora/RFM9x/packet_mode/RFM9x_onPacketSentCallback.h>
+#include <spectre/driver/lora/RFM9x/packet_mode/RFM9x_onPayloadReadyCallback.h>
 
 #include <lora-sniffer/SerialReader.h>
 #include <lora-sniffer/SerialWriter.h>
@@ -150,12 +152,18 @@ int main()
   serial.ioctl(serial::IOCTL_SET_STOPBIT,  static_cast<void *>(&stop_bit ));
 
   /* RFM95********* *******************************************************************/
-  lora::RFM9x::RFM9x_IoSpi                        rfm9x_spi                           (spi_master, rfm9x_cs      );
-  lora::RFM9x::RFM9x_Control                      rfm9x_control                       (rfm9x_spi, RFM9x_F_XOSC_Hz);
-  lora::RFM9x::RFM9x_PacketMode_Dio0EventCallback rfm9x_packet_mode_di0_event_callback(0,0);
-  lora::RFM9x::RFM9x                              rfm9x                               (rfm9x_control             );
+  lora::RFM9x::RFM9x_IoSpi                    rfm9x_spi                           (spi_master, rfm9x_cs      );
+  lora::RFM9x::RFM9x_Control                  rfm9x_control                       (rfm9x_spi, RFM9x_F_XOSC_Hz);
 
-  rfm9x_dio0_eint0.registerExternalInterruptCallback(&rfm9x_packet_mode_di0_event_callback);
+  lora::RFM9x::RFM9x_onPacketSentCallback     rfm9x_on_packet_sent_callback;
+  lora::RFM9x::RFM9x_onPayloadReadyCallback   rfm9x_on_payload_ready_callback;
+
+  lora::RFM9x::RFM9x_Dio0EventCallback        rfm9x_di0_event_callback(rfm9x_on_packet_sent_callback, rfm9x_on_payload_ready_callback);
+
+  lora::RFM9x::RFM9x                          rfm9x                               (rfm9x_control             );
+
+
+  rfm9x_dio0_eint0.registerExternalInterruptCallback(&rfm9x_di0_event_callback);
 
 
   rfm9x.open();
