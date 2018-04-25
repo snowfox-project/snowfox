@@ -47,8 +47,7 @@ namespace RFM9x
  * CONSTANTS
  **************************************************************************************/
 
-static uint32_t constexpr IOCTL_SET_OPERATING_MODE  = 0; /* Arg: interface::OperatingMode  * -> uint8_t *  */
-static uint32_t constexpr IOCTL_SET_FREQUENCY_HZ    = 1; /* Arg: uint32_t *                                */
+static uint32_t constexpr IOCTL_SET_FREQUENCY_HZ    = 0; /* Arg: uint32_t * */
 
 /**************************************************************************************
  * CLASS DECLARATION

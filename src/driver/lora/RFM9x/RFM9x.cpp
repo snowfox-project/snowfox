@@ -45,7 +45,7 @@ namespace RFM9x
 RFM9x::RFM9x(interface::RFM9x_Control & ctrl)
 : _ctrl(ctrl)
 {
-  _ctrl.setLoRaMode(interface::LoRaMode::LoRa);
+
 }
 
 RFM9x::~RFM9x()
@@ -59,7 +59,9 @@ RFM9x::~RFM9x()
 
 bool RFM9x::open()
 {
-  /* TODO*/
+  _ctrl.setOperatingMode(interface::OperatingMode::SLEEP);
+  _ctrl.setLoRaMode     (interface::LoRaMode::LoRa      );
+
   return false;
 }
 
@@ -79,15 +81,6 @@ bool RFM9x::ioctl(uint32_t const cmd, void * arg)
 {
   switch(cmd)
   {
-  /* IOCTL_SET_OPERATING_MODE *********************************************************/
-  case IOCTL_SET_OPERATING_MODE:
-  {
-    uint8_t                  const * arg_ptr        = static_cast<uint8_t *>               (arg     );
-    interface::OperatingMode const   operating_mode = static_cast<interface::OperatingMode>(*arg_ptr);
-    _ctrl.setOperatingMode(operating_mode);
-    return true;
-  }
-  break;
   /* IOCTL_SET_FREQUENCY_HZ ***********************************************************/
   case IOCTL_SET_FREQUENCY_HZ:
   {
