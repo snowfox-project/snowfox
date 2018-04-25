@@ -39,6 +39,19 @@ namespace RFM9x
 {
 
 /**************************************************************************************
+ * DEFINES
+ **************************************************************************************/
+
+#define RF9x_RX_TIMEOUT          (1<<7)
+#define RF9x_RX_DONE             (1<<6)
+#define RF9x_PAYLOAD_CRC_ERROR   (1<<5)
+#define RF9x_VALID_HEADER        (1<<4)
+#define RF9x_TX_DONE             (1<<3)
+#define RF9x_CAD_DONE            (1<<2)
+#define RF9x_FHSS_CHANGE_CHANNEL (1<<1)
+#define RF9x_CAD_DETECTED        (1<<0)
+
+/**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
@@ -63,11 +76,62 @@ RFM9x_Dio0EventCallback::~RFM9x_Dio0EventCallback()
 
 void RFM9x_Dio0EventCallback::onExternalEventCallback()
 {
-  uint8_t reg_irq_flags_value = 0;
+  uint8_t reg_irq_flags_content = 0;
 
-  _io.readRegister(interface::Register::IRQ_FLAGS, &reg_irq_flags_value);
+  _io.readRegister(interface::Register::IRQ_FLAGS, &reg_irq_flags_content);
 
-  /* TODO */
+  if(isRxTimeout        (reg_irq_flags_content)) { /* TODO */ }
+  if(isRxDone           (reg_irq_flags_content)) { /* TODO */ }
+  if(isPayloadCrcError  (reg_irq_flags_content)) { /* TODO */ }
+  if(isValidHeader      (reg_irq_flags_content)) { /* TODO */ }
+  if(isTxDone           (reg_irq_flags_content)) { /* TODO */ }
+  if(isCadDone          (reg_irq_flags_content)) { /* TODO */ }
+  if(isFhssChangeChannel(reg_irq_flags_content)) { /* TODO */ }
+  if(isCadDetected      (reg_irq_flags_content)) { /* TODO */ }
+}
+
+/**************************************************************************************
+ * PRIVATE MEMBER FUNCTIONS
+ **************************************************************************************/
+
+bool RFM9x_Dio0EventCallback::isRxTimeout(uint8_t const irq_flags)
+{
+  return (irq_flags & RF9x_RX_TIMEOUT) == RF9x_RX_TIMEOUT;
+}
+
+bool RFM9x_Dio0EventCallback::isRxDone(uint8_t const irq_flags)
+{
+  return (irq_flags & RF9x_RX_DONE) == RF9x_RX_DONE;
+}
+
+bool RFM9x_Dio0EventCallback::isPayloadCrcError(uint8_t const irq_flags)
+{
+  return (irq_flags & RF9x_PAYLOAD_CRC_ERROR) == RF9x_PAYLOAD_CRC_ERROR;
+}
+
+bool RFM9x_Dio0EventCallback::isValidHeader(uint8_t const irq_flags)
+{
+  return (irq_flags & RF9x_VALID_HEADER) == RF9x_VALID_HEADER;
+}
+
+bool RFM9x_Dio0EventCallback::isTxDone(uint8_t const irq_flags)
+{
+  return (irq_flags & RF9x_TX_DONE) == RF9x_TX_DONE;
+}
+
+bool RFM9x_Dio0EventCallback::isCadDone(uint8_t const irq_flags)
+{
+  return (irq_flags & RF9x_CAD_DONE) == RF9x_CAD_DONE;
+}
+
+bool RFM9x_Dio0EventCallback::isFhssChangeChannel(uint8_t const irq_flags)
+{
+  return (irq_flags & RF9x_FHSS_CHANGE_CHANNEL) == RF9x_FHSS_CHANGE_CHANNEL;
+}
+
+bool RFM9x_Dio0EventCallback::isCadDetected(uint8_t const irq_flags)
+{
+  return (irq_flags & RF9x_CAD_DETECTED) == RF9x_CAD_DETECTED;
 }
 
 /**************************************************************************************
