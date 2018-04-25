@@ -16,14 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CALLBACKHANDLER_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CALLBACKHANDLER_H_
-
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/interface/extint/ExternalInterruptCallback.h>
+#include <spectre/driver/lora/RFM9x/RFM9x_PacketMode_Dio0EventCallback.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,21 +39,27 @@ namespace RFM9x
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class RFM9x_Dio0EventCallback :  public hal::interface::ExternalInterruptCallback
+RFM9x_PacketMode_Dio0EventCallback::RFM9x_PacketMode_Dio0EventCallback()
 {
 
-public:
+}
 
-           RFM9x_Dio0EventCallback();
-  virtual ~RFM9x_Dio0EventCallback();
+RFM9x_PacketMode_Dio0EventCallback::~RFM9x_PacketMode_Dio0EventCallback()
+{
 
+}
 
-  virtual void onExternalEventCallback() override;
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
-};
+void RFM9x_PacketMode_Dio0EventCallback::onExternalEventCallback()
+{
+
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -69,5 +72,3 @@ public:
 } /* driver */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CALLBACKHANDLER_H_ */
