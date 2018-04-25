@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CALLBACK_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CALLBACK_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_PACKETMODE_ONPACKETSENTCALLBACK_H_
+#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_PACKETMODE_ONPACKETSENTCALLBACK_H_
 
 /**************************************************************************************
  * INCLUDES
@@ -48,13 +48,16 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_Callback
+class RFM9x_PacketMode_onPacketSentCallback
 {
 
 public:
 
-           RFM9x_Callback() { }
-  virtual ~RFM9x_Callback() { }
+           RFM9x_PacketMode_onPacketSentCallback() { }
+  virtual ~RFM9x_PacketMode_onPacketSentCallback() { }
+
+
+  virtual void onPacketSent() = 0;
 
 };
 
@@ -72,4 +75,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CALLBACK_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_PACKETMODE_ONPACKETSENTCALLBACK_H_ */
