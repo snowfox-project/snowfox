@@ -16,11 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CALLBACKHANDLER_H_
+#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CALLBACKHANDLER_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/RFM9x_CallbackHandler.h>
+#include <spectre/hal/interface/extint/ExternalInterruptCallback.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,18 +42,21 @@ namespace RFM9x
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * CLASS DECLARATION
  **************************************************************************************/
 
-RFM9x_CallbackHandler::RFM9x_CallbackHandler()
+class RFM9x_Dio0EventCallback :  public hal::interface::ExternalInterruptCallback
 {
 
-}
+public:
 
-RFM9x_CallbackHandler::~RFM9x_CallbackHandler()
-{
+           RFM9x_Dio0EventCallback();
+  virtual ~RFM9x_Dio0EventCallback();
 
-}
+
+  virtual void onExternalEventCallback() override;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
@@ -63,3 +69,5 @@ RFM9x_CallbackHandler::~RFM9x_CallbackHandler()
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CALLBACKHANDLER_H_ */

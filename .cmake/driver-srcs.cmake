@@ -69,8 +69,8 @@ set(DRIVER_LORA_SRC_PATH src/driver/lora)
 
 if(${DRIVER_LORA_RFM9x} STREQUAL "yes")
   set(DRIVER_LORA_RFM9x_SRCS
-    ${DRIVER_LORA_SRC_PATH}/RFM9x/RFM9x_CallbackHandler.cpp
     ${DRIVER_LORA_SRC_PATH}/RFM9x/RFM9x_Control.cpp
+    ${DRIVER_LORA_SRC_PATH}/RFM9x/RFM9x_Dio0EventCallback.cpp
     ${DRIVER_LORA_SRC_PATH}/RFM9x/RFM9x_IoSpi.cpp
     ${DRIVER_LORA_SRC_PATH}/RFM9x/RFM9x.cpp
   )
