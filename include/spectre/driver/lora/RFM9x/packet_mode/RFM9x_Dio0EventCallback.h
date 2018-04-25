@@ -16,11 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CALLBACKHANDLER_H_
+#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CALLBACKHANDLER_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/RFM9x_PacketMode_Dio0EventCallback.h>
+#include <spectre/hal/interface/extint/ExternalInterruptCallback.h>
+
+#include <spectre/driver/lora/RFM9x/interface/packet_mode/RFM9x_onPacketSentCallback.h>
+#include <spectre/driver/lora/RFM9x/interface/packet_mode/RFM9x_onPayloadReadyCallback.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,27 +45,28 @@ namespace RFM9x
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * CLASS DECLARATION
  **************************************************************************************/
 
-RFM9x_PacketMode_Dio0EventCallback::RFM9x_PacketMode_Dio0EventCallback()
+class RFM9x_Dio0EventCallback :  public hal::interface::ExternalInterruptCallback
 {
 
-}
+public:
 
-RFM9x_PacketMode_Dio0EventCallback::~RFM9x_PacketMode_Dio0EventCallback()
-{
+           RFM9x_Dio0EventCallback(interface::RFM9x_onPacketSentCallback   & on_packet_sent_callback,
+                                   interface::RFM9x_onPayloadReadyCallback & on_payload_ready_callback);
+  virtual ~RFM9x_Dio0EventCallback();
 
-}
 
-/**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
- **************************************************************************************/
+  virtual void onExternalEventCallback() override;
 
-void RFM9x_PacketMode_Dio0EventCallback::onExternalEventCallback()
-{
 
-}
+private:
+
+  interface::RFM9x_onPacketSentCallback   & _on_packet_sent_callback;
+  interface::RFM9x_onPayloadReadyCallback & _on_payload_ready_callback;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
@@ -72,3 +79,5 @@ void RFM9x_PacketMode_Dio0EventCallback::onExternalEventCallback()
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CALLBACKHANDLER_H_ */

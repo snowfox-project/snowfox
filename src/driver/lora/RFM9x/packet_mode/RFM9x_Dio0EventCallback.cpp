@@ -16,14 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_PACKETMODE_ONPACKETSENTCALLBACK_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_PACKETMODE_ONPACKETSENTCALLBACK_H_
-
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <stdint.h>
+#include <spectre/driver/lora/RFM9x/packet_mode/RFM9x_Dio0EventCallback.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -41,31 +38,35 @@ namespace lora
 namespace RFM9x
 {
 
-namespace interface
-{
-
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class RFM9x_PacketMode_onPacketSentCallback
+RFM9x_Dio0EventCallback::RFM9x_Dio0EventCallback(interface::RFM9x_onPacketSentCallback   & on_packet_sent_callback,
+                                                 interface::RFM9x_onPayloadReadyCallback & on_payload_ready_callback)
+: _on_packet_sent_callback  (_on_packet_sent_callback  ),
+  _on_payload_ready_callback(_on_payload_ready_callback)
 {
 
-public:
+}
 
-           RFM9x_PacketMode_onPacketSentCallback() { }
-  virtual ~RFM9x_PacketMode_onPacketSentCallback() { }
+RFM9x_Dio0EventCallback::~RFM9x_Dio0EventCallback()
+{
 
+}
 
-  virtual void onPacketSent() = 0;
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
-};
+void RFM9x_Dio0EventCallback::onExternalEventCallback()
+{
+
+}
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
-
-} /* interface */
 
 } /* RFM9x */
 
@@ -74,5 +75,3 @@ public:
 } /* driver */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_PACKETMODE_ONPACKETSENTCALLBACK_H_ */

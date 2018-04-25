@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CALLBACKHANDLER_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CALLBACKHANDLER_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_ONPAYLOADREADYCALLBACK_H_
+#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_ONPAYLOADREADYCALLBACK_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/interface/extint/ExternalInterruptCallback.h>
+#include <stdint.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -41,26 +41,31 @@ namespace lora
 namespace RFM9x
 {
 
+namespace interface
+{
+
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_PacketMode_Dio0EventCallback :  public hal::interface::ExternalInterruptCallback
+class RFM9x_onPayloadReadyCallback
 {
 
 public:
 
-           RFM9x_PacketMode_Dio0EventCallback();
-  virtual ~RFM9x_PacketMode_Dio0EventCallback();
+           RFM9x_onPayloadReadyCallback() { }
+  virtual ~RFM9x_onPayloadReadyCallback() { }
 
 
-  virtual void onExternalEventCallback() override;
+  virtual void onPayloadReady() = 0;
 
 };
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* RFM9x */
 
@@ -70,4 +75,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CALLBACKHANDLER_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_ONPAYLOADREADYCALLBACK_H_ */
