@@ -42,10 +42,12 @@ namespace RFM9x
  * CTOR/DTOR
  **************************************************************************************/
 
-RFM9x_Dio0EventCallback::RFM9x_Dio0EventCallback(interface::RFM9x_onPacketSentCallback   & on_packet_sent_callback,
+RFM9x_Dio0EventCallback::RFM9x_Dio0EventCallback(interface::RFM9x_Io                     & io,
+                                                 interface::RFM9x_onPacketSentCallback   & on_packet_sent_callback,
                                                  interface::RFM9x_onPayloadReadyCallback & on_payload_ready_callback)
-: _on_packet_sent_callback  (_on_packet_sent_callback  ),
-  _on_payload_ready_callback(_on_payload_ready_callback)
+: _io                       (io                       ),
+  _on_packet_sent_callback  (on_packet_sent_callback  ),
+  _on_payload_ready_callback(on_payload_ready_callback)
 {
 
 }
@@ -61,7 +63,11 @@ RFM9x_Dio0EventCallback::~RFM9x_Dio0EventCallback()
 
 void RFM9x_Dio0EventCallback::onExternalEventCallback()
 {
+  uint8_t reg_irq_flags_value = 0;
 
+  _io.readRegister(interface::Register::IRQ_FLAGS, &reg_irq_flags_value);
+
+  /* TODO */
 }
 
 /**************************************************************************************

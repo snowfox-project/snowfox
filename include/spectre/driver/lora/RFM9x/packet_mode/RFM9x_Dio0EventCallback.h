@@ -25,6 +25,8 @@
 
 #include <spectre/hal/interface/extint/ExternalInterruptCallback.h>
 
+#include <spectre/driver/lora/RFM9x/interface/RFM9x_Io.h>
+
 #include <spectre/driver/lora/RFM9x/interface/packet_mode/RFM9x_onPacketSentCallback.h>
 #include <spectre/driver/lora/RFM9x/interface/packet_mode/RFM9x_onPayloadReadyCallback.h>
 
@@ -53,7 +55,8 @@ class RFM9x_Dio0EventCallback :  public hal::interface::ExternalInterruptCallbac
 
 public:
 
-           RFM9x_Dio0EventCallback(interface::RFM9x_onPacketSentCallback   & on_packet_sent_callback,
+           RFM9x_Dio0EventCallback(interface::RFM9x_Io                     & io,
+                                   interface::RFM9x_onPacketSentCallback   & on_packet_sent_callback,
                                    interface::RFM9x_onPayloadReadyCallback & on_payload_ready_callback);
   virtual ~RFM9x_Dio0EventCallback();
 
@@ -63,6 +66,7 @@ public:
 
 private:
 
+  interface::RFM9x_Io                     & _io;
   interface::RFM9x_onPacketSentCallback   & _on_packet_sent_callback;
   interface::RFM9x_onPayloadReadyCallback & _on_payload_ready_callback;
 
