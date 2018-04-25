@@ -45,7 +45,7 @@ namespace RFM9x
 RFM9x::RFM9x(interface::RFM9x_Control & ctrl)
 : _ctrl(ctrl)
 {
-
+  _ctrl.setLoRaMode(interface::LoRaMode::LoRa);
 }
 
 RFM9x::~RFM9x()
@@ -85,24 +85,6 @@ bool RFM9x::ioctl(uint32_t const cmd, void * arg)
     uint8_t                  const * arg_ptr        = static_cast<uint8_t *>               (arg     );
     interface::OperatingMode const   operating_mode = static_cast<interface::OperatingMode>(*arg_ptr);
     _ctrl.setOperatingMode(operating_mode);
-    return true;
-  }
-  break;
-  /* IOCTL_SET_LORA_MODE **************************************************************/
-  case IOCTL_SET_LORA_MODE:
-  {
-    uint8_t             const * arg_ptr   = static_cast<uint8_t *>          (arg     );
-    interface::LoRaMode const   lora_mode = static_cast<interface::LoRaMode>(*arg_ptr);
-    _ctrl.setLoRaMode(lora_mode);
-    return true;
-  }
-  break;
-  /* IOCTL_SET_MODULATION_TYPE ********************************************************/
-  case IOCTL_SET_MODULATION_TYPE:
-  {
-    uint8_t                   const * arg_ptr         = static_cast<uint8_t *>                (arg     );
-    interface::ModulationType const   modulation_type = static_cast<interface::ModulationType>(*arg_ptr);
-    _ctrl.setModulationType(modulation_type);
     return true;
   }
   break;
