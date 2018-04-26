@@ -24,6 +24,7 @@
  **************************************************************************************/
 
 #include <spectre/driver/lora/RFM9x/interface/RFM9x_Control.h>
+#include <spectre/driver/lora/RFM9x/interface/RFM9x_InterruptRequestControl.h>
 
 #include <spectre/debug/interface/Debug.h>
 #include <spectre/hal/interface/flash/Flash.h>
@@ -50,7 +51,8 @@ namespace RFM9x
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_Control : public interface::RFM9x_Control
+class RFM9x_Control : public interface::RFM9x_Control,
+                      public interface::RFM9x_InterruptRequestControl
 {
 
 public:
@@ -72,6 +74,12 @@ public:
   virtual void setLoRaMode      (interface::LoRaMode       const lora_mode      ) override;
   virtual void setModulationType(interface::ModulationType const modulation_type) override;
   virtual void setFrequency     (uint32_t                  const freq_Hz        ) override;
+
+
+  /* RFM9x Interrupt Request Control */
+
+  virtual void getIntReqFlags (uint8_t                           * irq_req_flags) override;
+  virtual void clearIntReqFlag(interface::InterruptRequest const   int_req      ) override;
 
 
           void debug_dumpAllRegs(debug::interface::Debug & debug_interface, hal::interface::Flash & flash);

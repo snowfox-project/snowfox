@@ -158,7 +158,7 @@ int main()
   lora::RFM9x::RFM9x_onPacketSentCallback     rfm9x_on_packet_sent_callback;
   lora::RFM9x::RFM9x_onPayloadReadyCallback   rfm9x_on_payload_ready_callback;
 
-  lora::RFM9x::RFM9x_Dio0EventCallback        rfm9x_di0_event_callback            (rfm9x_spi, rfm9x_on_packet_sent_callback, rfm9x_on_payload_ready_callback);
+  lora::RFM9x::RFM9x_Dio0EventCallback        rfm9x_di0_event_callback            (rfm9x_control, rfm9x_on_packet_sent_callback, rfm9x_on_payload_ready_callback);
 
   lora::RFM9x::RFM9x                          rfm9x                               (rfm9x_control             );
 

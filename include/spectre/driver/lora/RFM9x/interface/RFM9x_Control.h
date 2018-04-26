@@ -84,7 +84,6 @@ enum class ModulationType : uint8_t
   OOK           = RFM9x_REG_OP_MODE_MODULATION_TYPE_0_bm
 };
 
-
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
@@ -100,6 +99,8 @@ public:
 
   /* RFM9x Fifo Control */
 
+  static uint16_t constexpr FIFO_SIZE = 256;
+
   virtual void setTxFifoBaseAddress (uint8_t const tx_base_addr                ) = 0;
   virtual void setRxFifoBaseAddress (uint8_t const rx_base_addr                ) = 0;
   virtual void writeToTxFifo        (uint8_t const * data, uint16_t const bytes) = 0;
@@ -111,10 +112,6 @@ public:
   virtual void setLoRaMode      (LoRaMode       const lora_mode      ) = 0;
   virtual void setModulationType(ModulationType const modulation_type) = 0;
   virtual void setFrequency     (uint32_t       const freq_Hz        ) = 0;
-
-  /* Interrupt Request Handling */
-
-
 
 };
 

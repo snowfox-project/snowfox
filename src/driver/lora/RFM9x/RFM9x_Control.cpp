@@ -188,6 +188,19 @@ void RFM9x_Control::setFrequency(uint32_t const f_rf_Hz)
   _io.writeRegister(interface::Register::FRF_LSB, f_rf_lsb);
 }
 
+void RFM9x_Control::getIntReqFlags(uint8_t * irq_req_flags)
+{
+  _io.readRegister(interface::Register::IRQ_FLAGS, irq_req_flags);
+}
+
+void RFM9x_Control::clearIntReqFlag(interface::InterruptRequest const int_req)
+{
+  /* The interrupt request flag can be cleared by writing
+   * a '1' to the corresponding bit in the IRQ register.
+   */
+  _io.writeRegister(interface::Register::IRQ_FLAGS, static_cast<uint8_t>(int_req));
+}
+
 void RFM9x_Control::debug_dumpAllRegs(debug::interface::Debug & debug_interface, hal::interface::Flash & flash)
 {
   debug_dumpSingleReg(debug_interface, flash, OP_MODE                , interface::Register::OP_MODE                );
