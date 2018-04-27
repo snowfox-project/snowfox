@@ -42,6 +42,7 @@
 #include <spectre/driver/lora/RFM9x/RFM9x.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_IoSpi.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_Control.h>
+#include <spectre/driver/lora/RFM9x/RFM9x_FifoControl.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_InterruptControl.h>
 #include <spectre/driver/lora/RFM9x/packet_mode/RFM9x_Dio0EventCallback.h>
 #include <spectre/driver/lora/RFM9x/packet_mode/RFM9x_onPacketSentCallback.h>
@@ -156,6 +157,7 @@ int main()
   lora::RFM9x::RFM9x_IoSpi                    rfm9x_spi                           (spi_master, rfm9x_cs      );
   lora::RFM9x::RFM9x_Control                  rfm9x_control                       (rfm9x_spi, RFM9x_F_XOSC_Hz);
   lora::RFM9x::RFM9x_InterruptControl         rfm9x_int_control                   (rfm9x_spi                 );
+  lora::RFM9x::RFM9x_FifoControl              rfm9x_fifo_control                  (rfm9x_spi                 );
 
   lora::RFM9x::RFM9x_onPacketSentCallback     rfm9x_on_packet_sent_callback;
   lora::RFM9x::RFM9x_onPayloadReadyCallback   rfm9x_on_payload_ready_callback;

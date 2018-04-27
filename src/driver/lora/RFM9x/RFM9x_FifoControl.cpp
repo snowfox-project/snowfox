@@ -16,19 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CONTROL_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CONTROL_H_
-
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_Control.h>
-
-#include <spectre/debug/interface/Debug.h>
-#include <spectre/hal/interface/flash/Flash.h>
-
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_Io.h>
+#include <spectre/driver/lora/RFM9x/RFM9x_FifoControl.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -47,35 +39,43 @@ namespace RFM9x
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class RFM9x_Control : public interface::RFM9x_Control
+RFM9x_FifoControl::RFM9x_FifoControl(interface::RFM9x_Io & io)
+: _io(io)
+{
+  setTxFifoBaseAddress(0);
+  setRxFifoBaseAddress(0);
+}
+
+RFM9x_FifoControl::~RFM9x_FifoControl()
 {
 
-public:
+}
 
-           RFM9x_Control(interface::RFM9x_Io & io, uint32_t const fxosc_Hz);
-  virtual ~RFM9x_Control();
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
+void RFM9x_FifoControl::setTxFifoBaseAddress(uint8_t const tx_base_addr)
+{
+  _io.writeRegister(interface::Register::FIFO_TX_BASE_ADDR, tx_base_addr);
+  _fifo_tx_base_addr = tx_base_addr;
+}
 
-  virtual void setOperatingMode (interface::OperatingMode  const op_mode        ) override;
-  virtual void setLoRaMode      (interface::LoRaMode       const lora_mode      ) override;
-  virtual void setModulationType(interface::ModulationType const modulation_type) override;
-  virtual void setFrequency     (uint32_t                  const freq_Hz        ) override;
+void RFM9x_FifoControl::setRxFifoBaseAddress(uint8_t const rx_base_addr)
+{
+  _io.writeRegister(interface::Register::FIFO_RX_BASE_ADDR, rx_base_addr);
+  _fifo_rx_base_addr = rx_base_addr;
+}
 
+void RFM9x_FifoControl::writeToTxFifo(uint8_t const * data, uint16_t const bytes)
+{
+  _io.writeRegister(interface::Register::FIFO_ADDR_PTR, _fifo_tx_base_addr);
+  _io.writeRegister(interface::Register::FIFO, data, bytes);
+}
 
-          void debug_dumpAllRegs(debug::interface::Debug & debug_interface, hal::interface::Flash & flash);
-
-private:
-
-  interface::RFM9x_Io       & _io;
-  uint32_t            const   _fxosc_Hz;
-
-
-  void debug_dumpSingleReg(debug::interface::Debug & debug_interface, hal::interface::Flash & flash, char const * msg, interface::Register const reg);
-
-};
 
 /**************************************************************************************
  * NAMESPACE
@@ -88,5 +88,3 @@ private:
 } /* driver */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CONTROL_H_ */

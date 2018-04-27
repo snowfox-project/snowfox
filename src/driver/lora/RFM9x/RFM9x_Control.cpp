@@ -107,8 +107,7 @@ RFM9x_Control::RFM9x_Control(interface::RFM9x_Io & io, uint32_t const fxosc_Hz)
 : _io      (io      ),
   _fxosc_Hz(fxosc_Hz)
 {
-  setTxFifoBaseAddress(0);
-  setRxFifoBaseAddress(0);
+
 }
 
 RFM9x_Control::~RFM9x_Control()
@@ -119,24 +118,6 @@ RFM9x_Control::~RFM9x_Control()
 /**************************************************************************************
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
-
-void RFM9x_Control::setTxFifoBaseAddress(uint8_t const tx_base_addr)
-{
-  _io.writeRegister(interface::Register::FIFO_TX_BASE_ADDR, tx_base_addr);
-  _fifo_tx_base_addr = tx_base_addr;
-}
-
-void RFM9x_Control::setRxFifoBaseAddress(uint8_t const rx_base_addr)
-{
-  _io.writeRegister(interface::Register::FIFO_RX_BASE_ADDR, rx_base_addr);
-  _fifo_rx_base_addr = rx_base_addr;
-}
-
-void RFM9x_Control::writeToTxFifo(uint8_t const * data, uint16_t const bytes)
-{
-  _io.writeRegister(interface::Register::FIFO_ADDR_PTR, _fifo_tx_base_addr);
-  _io.writeRegister(interface::Register::FIFO, data, bytes);
-}
 
 void RFM9x_Control::setOperatingMode(interface::OperatingMode const op_mode)
 {
