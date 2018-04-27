@@ -80,82 +80,38 @@ void RFM9x_Dio0EventCallback::onExternalEventCallback()
 
   _int_ctrl.getIntReqFlags(&irq_req_flags);
 
-  if(isRxTimeout(irq_req_flags))
+  if(_int_ctrl.isRxTimeout(irq_req_flags))
   {
     _int_ctrl.clearIntReqFlag(interface::InterruptRequest::RxTimeout);
   }
-  if(isRxDone(irq_req_flags))
+  if(_int_ctrl.isRxDone(irq_req_flags))
   {
     _int_ctrl.clearIntReqFlag(interface::InterruptRequest::RxDone);
   }
-  if(isPayloadCrcError(irq_req_flags))
+  if(_int_ctrl.isPayloadCrcError(irq_req_flags))
   {
     _int_ctrl.clearIntReqFlag(interface::InterruptRequest::PayloadCrcError);
   }
-  if(isValidHeader(irq_req_flags))
+  if(_int_ctrl.isValidHeader(irq_req_flags))
   {
     _int_ctrl.clearIntReqFlag(interface::InterruptRequest::ValidHeader);
   }
-  if(isTxDone(irq_req_flags))
+  if(_int_ctrl.isTxDone(irq_req_flags))
   {
     _int_ctrl.clearIntReqFlag(interface::InterruptRequest::TxDone);
   }
-  if(isCadDone(irq_req_flags))
+  if(_int_ctrl.isCadDone(irq_req_flags))
   {
     _int_ctrl.clearIntReqFlag(interface::InterruptRequest::CadDone);
   }
-  if(isFhssChangeChannel(irq_req_flags))
+  if(_int_ctrl.isFhssChangeChannel(irq_req_flags))
   {
     _int_ctrl.clearIntReqFlag(interface::InterruptRequest::FhssChangeChannel);
   }
-  if(isCadDetected(irq_req_flags))
+  if(_int_ctrl.isCadDetected(irq_req_flags))
   {
     _int_ctrl.clearIntReqFlag(interface::InterruptRequest::CadDetected);
   }
-}
-
-/**************************************************************************************
- * PRIVATE MEMBER FUNCTIONS
- **************************************************************************************/
-
-bool RFM9x_Dio0EventCallback::isRxTimeout(uint8_t const irq_flags)
-{
-  return (irq_flags & RF9x_RX_TIMEOUT) == RF9x_RX_TIMEOUT;
-}
-
-bool RFM9x_Dio0EventCallback::isRxDone(uint8_t const irq_flags)
-{
-  return (irq_flags & RF9x_RX_DONE) == RF9x_RX_DONE;
-}
-
-bool RFM9x_Dio0EventCallback::isPayloadCrcError(uint8_t const irq_flags)
-{
-  return (irq_flags & RF9x_PAYLOAD_CRC_ERROR) == RF9x_PAYLOAD_CRC_ERROR;
-}
-
-bool RFM9x_Dio0EventCallback::isValidHeader(uint8_t const irq_flags)
-{
-  return (irq_flags & RF9x_VALID_HEADER) == RF9x_VALID_HEADER;
-}
-
-bool RFM9x_Dio0EventCallback::isTxDone(uint8_t const irq_flags)
-{
-  return (irq_flags & RF9x_TX_DONE) == RF9x_TX_DONE;
-}
-
-bool RFM9x_Dio0EventCallback::isCadDone(uint8_t const irq_flags)
-{
-  return (irq_flags & RF9x_CAD_DONE) == RF9x_CAD_DONE;
-}
-
-bool RFM9x_Dio0EventCallback::isFhssChangeChannel(uint8_t const irq_flags)
-{
-  return (irq_flags & RF9x_FHSS_CHANGE_CHANNEL) == RF9x_FHSS_CHANGE_CHANNEL;
-}
-
-bool RFM9x_Dio0EventCallback::isCadDetected(uint8_t const irq_flags)
-{
-  return (irq_flags & RF9x_CAD_DETECTED) == RF9x_CAD_DETECTED;
 }
 
 /**************************************************************************************

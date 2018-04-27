@@ -70,16 +70,6 @@ private:
   interface::RFM9x_onPacketSentCallback   & _on_packet_sent_callback;
   interface::RFM9x_onPayloadReadyCallback & _on_payload_ready_callback;
 
-
-  static bool isRxTimeout         (uint8_t const irq_flags);
-  static bool isRxDone            (uint8_t const irq_flags);
-  static bool isPayloadCrcError   (uint8_t const irq_flags);
-  static bool isValidHeader       (uint8_t const irq_flags);
-  static bool isTxDone            (uint8_t const irq_flags);
-  static bool isCadDone           (uint8_t const irq_flags);
-  static bool isFhssChangeChannel (uint8_t const irq_flags);
-  static bool isCadDetected       (uint8_t const irq_flags);
-
 };
 
 /**************************************************************************************
