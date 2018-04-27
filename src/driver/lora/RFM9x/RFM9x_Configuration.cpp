@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/RFM9x_Control.h>
+#include <spectre/driver/lora/RFM9x/RFM9x_Configuration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,14 +42,14 @@ namespace RFM9x
  * CTOR/DTOR
  **************************************************************************************/
 
-RFM9x_Control::RFM9x_Control(interface::RFM9x_Io & io, uint32_t const fxosc_Hz)
+RFM9x_Configuration::RFM9x_Configuration(interface::RFM9x_Io & io, uint32_t const fxosc_Hz)
 : _io      (io      ),
   _fxosc_Hz(fxosc_Hz)
 {
 
 }
 
-RFM9x_Control::~RFM9x_Control()
+RFM9x_Configuration::~RFM9x_Configuration()
 {
 
 }
@@ -58,7 +58,7 @@ RFM9x_Control::~RFM9x_Control()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void RFM9x_Control::setOperatingMode(interface::OperatingMode const op_mode)
+void RFM9x_Configuration::setOperatingMode(interface::OperatingMode const op_mode)
 {
   uint8_t reg_op_mode_content = 0;
 
@@ -70,7 +70,7 @@ void RFM9x_Control::setOperatingMode(interface::OperatingMode const op_mode)
   _io.writeRegister(interface::Register::OP_MODE, reg_op_mode_content);
 }
 
-void RFM9x_Control::setLoRaMode(interface::LoRaMode const lora_mode)
+void RFM9x_Configuration::setLoRaMode(interface::LoRaMode const lora_mode)
 {
   uint8_t reg_op_mode_content = 0;
 
@@ -82,7 +82,7 @@ void RFM9x_Control::setLoRaMode(interface::LoRaMode const lora_mode)
   _io.writeRegister(interface::Register::OP_MODE, reg_op_mode_content);
 }
 
-void RFM9x_Control::setModulationType(interface::ModulationType const modulation_type)
+void RFM9x_Configuration::setModulationType(interface::ModulationType const modulation_type)
 {
   uint8_t reg_op_mode_content = 0;
 
@@ -94,7 +94,7 @@ void RFM9x_Control::setModulationType(interface::ModulationType const modulation
   _io.writeRegister(interface::Register::OP_MODE, reg_op_mode_content);
 }
 
-void RFM9x_Control::setFrequency(uint32_t const f_rf_Hz)
+void RFM9x_Configuration::setFrequency(uint32_t const f_rf_Hz)
 {
   float    const f_step_Hz = static_cast<float>(_fxosc_Hz) / 524288.0;
   uint32_t const f_rf      = static_cast<uint32_t>(f_step_Hz / static_cast<float>(f_rf_Hz));

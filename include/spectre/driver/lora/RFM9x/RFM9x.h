@@ -25,7 +25,7 @@
 
 #include <spectre/driver/interface/Driver.h>
 
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_Control.h>
+#include <spectre/driver/lora/RFM9x/interface/RFM9x_Configuration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -58,7 +58,7 @@ class RFM9x : public driver::interface::Driver
 
 public:
 
-           RFM9x(interface::RFM9x_Control & ctrl);
+           RFM9x(interface::RFM9x_Configuration & config);
   virtual ~RFM9x();
 
 
@@ -71,7 +71,7 @@ public:
 
 private:
 
-  interface::RFM9x_Control & _ctrl;
+  interface::RFM9x_Configuration & _config;
 
 };
 

@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CONTROL_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CONTROL_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CONFIGURATION_H_
+#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CONFIGURATION_H_
 
 /**************************************************************************************
  * INCLUDES
@@ -88,13 +88,13 @@ enum class ModulationType : uint8_t
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_Control
+class RFM9x_Configuration
 {
 
 public:
 
-           RFM9x_Control() { }
-  virtual ~RFM9x_Control() { }
+           RFM9x_Configuration() { }
+  virtual ~RFM9x_Configuration() { }
 
 
   virtual void setOperatingMode (OperatingMode  const op_mode        ) = 0;
@@ -118,4 +118,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CONTROL_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CONFIGURATION_H_ */

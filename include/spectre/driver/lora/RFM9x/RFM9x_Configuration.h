@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CONTROL_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CONTROL_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CONFIGURATION_H_
+#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CONFIGURATION_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_Control.h>
+#include <spectre/driver/lora/RFM9x/interface/RFM9x_Configuration.h>
 
 #include <spectre/driver/lora/RFM9x/interface/RFM9x_Io.h>
 
@@ -47,13 +47,13 @@ namespace RFM9x
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_Control : public interface::RFM9x_Control
+class RFM9x_Configuration : public interface::RFM9x_Configuration
 {
 
 public:
 
-           RFM9x_Control(interface::RFM9x_Io & io, uint32_t const fxosc_Hz);
-  virtual ~RFM9x_Control();
+           RFM9x_Configuration(interface::RFM9x_Io & io, uint32_t const fxosc_Hz);
+  virtual ~RFM9x_Configuration();
 
 
   virtual void setOperatingMode (interface::OperatingMode  const op_mode        ) override;
@@ -81,4 +81,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CONTROL_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CONFIGURATION_H_ */
