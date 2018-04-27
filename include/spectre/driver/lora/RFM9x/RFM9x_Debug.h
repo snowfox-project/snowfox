@@ -16,14 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CONTROL_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CONTROL_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_DEBUG_H_
+#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_DEBUG_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_Control.h>
+#include <spectre/debug/interface/Debug.h>
+
+#include <spectre/hal/interface/flash/Flash.h>
 
 #include <spectre/driver/lora/RFM9x/interface/RFM9x_Io.h>
 
@@ -47,25 +49,25 @@ namespace RFM9x
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_Control : public interface::RFM9x_Control
+class RFM9x_Debug
 {
 
 public:
 
-           RFM9x_Control(interface::RFM9x_Io & io, uint32_t const fxosc_Hz);
-  virtual ~RFM9x_Control();
-
-
-  virtual void setOperatingMode (interface::OperatingMode  const op_mode        ) override;
-  virtual void setLoRaMode      (interface::LoRaMode       const lora_mode      ) override;
-  virtual void setModulationType(interface::ModulationType const modulation_type) override;
-  virtual void setFrequency     (uint32_t                  const freq_Hz        ) override;
-
+  static void debug_dumpAllRegs(debug::interface::Debug & debug_interface,
+                                hal::interface::Flash   & flash,
+                                interface::RFM9x_Io     & io);
 
 private:
 
-  interface::RFM9x_Io       & _io;
-  uint32_t            const   _fxosc_Hz;
+  RFM9x_Debug() { }
+  RFM9x_Debug(RFM9x_Debug const & other) { }
+
+  static void debug_dumpSingleReg(debug::interface::Debug       & debug_interface,
+                                  hal::interface::Flash         & flash,
+                                  interface::RFM9x_Io           & io,
+                                  char                    const * msg,
+                                  interface::Register     const   reg);
 
 };
 
@@ -81,4 +83,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CONTROL_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_DEBUG_H_ */

@@ -40,6 +40,7 @@
 #include <spectre/driver/serial/UART/UART_SerialController.h>
 
 #include <spectre/driver/lora/RFM9x/RFM9x.h>
+#include <spectre/driver/lora/RFM9x/RFM9x_Debug.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_IoSpi.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_Control.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_FifoControl.h>
@@ -196,7 +197,7 @@ int main()
     {
       if(CommandParser::isDebugCommand(cmd_str))
       {
-        rfm9x_control.debug_dumpAllRegs(serial_writer, flash);
+        lora::RFM9x::RFM9x_Debug::debug_dumpAllRegs(serial_writer, flash, rfm9x_spi);
       }
     }
   }
