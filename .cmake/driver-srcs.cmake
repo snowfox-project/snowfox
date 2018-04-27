@@ -74,6 +74,7 @@ if(${DRIVER_LORA_RFM9x} STREQUAL "yes")
     ${DRIVER_LORA_SRC_PATH}/RFM9x/packet_mode/RFM9x_onPayloadReadyCallback.cpp
     
     ${DRIVER_LORA_SRC_PATH}/RFM9x/RFM9x_Control.cpp
+    ${DRIVER_LORA_SRC_PATH}/RFM9x/RFM9x_InterruptControl.cpp
     ${DRIVER_LORA_SRC_PATH}/RFM9x/RFM9x_IoSpi.cpp
     ${DRIVER_LORA_SRC_PATH}/RFM9x/RFM9x.cpp
   )

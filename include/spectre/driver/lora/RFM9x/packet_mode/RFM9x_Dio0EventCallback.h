@@ -25,10 +25,10 @@
 
 #include <spectre/hal/interface/extint/ExternalInterruptCallback.h>
 
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_InterruptRequestControl.h>
-
 #include <spectre/driver/lora/RFM9x/interface/packet_mode/RFM9x_onPacketSentCallback.h>
 #include <spectre/driver/lora/RFM9x/interface/packet_mode/RFM9x_onPayloadReadyCallback.h>
+
+#include <spectre/driver/lora/RFM9x/interface/RFM9x_InterruptControl.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -55,9 +55,9 @@ class RFM9x_Dio0EventCallback :  public hal::interface::ExternalInterruptCallbac
 
 public:
 
-           RFM9x_Dio0EventCallback(interface::RFM9x_InterruptRequestControl & int_req_ctrl,
-                                   interface::RFM9x_onPacketSentCallback    & on_packet_sent_callback,
-                                   interface::RFM9x_onPayloadReadyCallback  & on_payload_ready_callback);
+           RFM9x_Dio0EventCallback(interface::RFM9x_InterruptControl       & int_ctrl,
+                                   interface::RFM9x_onPacketSentCallback   & on_packet_sent_callback,
+                                   interface::RFM9x_onPayloadReadyCallback & on_payload_ready_callback);
   virtual ~RFM9x_Dio0EventCallback();
 
 
@@ -66,9 +66,9 @@ public:
 
 private:
 
-  interface::RFM9x_InterruptRequestControl & _int_req_ctrl;
-  interface::RFM9x_onPacketSentCallback    & _on_packet_sent_callback;
-  interface::RFM9x_onPayloadReadyCallback  & _on_payload_ready_callback;
+  interface::RFM9x_InterruptControl       & _int_ctrl;
+  interface::RFM9x_onPacketSentCallback   & _on_packet_sent_callback;
+  interface::RFM9x_onPayloadReadyCallback & _on_payload_ready_callback;
 
 
   static bool isRxTimeout         (uint8_t const irq_flags);

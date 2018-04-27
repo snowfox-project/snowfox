@@ -16,17 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CONTROL_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CONTROL_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_INTERRUPT_CONTROL_H_
+#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_INTERRUPT_CONTROL_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_Control.h>
-
-#include <spectre/debug/interface/Debug.h>
-#include <spectre/hal/interface/flash/Flash.h>
+#include <spectre/driver/lora/RFM9x/interface/RFM9x_InterruptControl.h>
 
 #include <spectre/driver/lora/RFM9x/interface/RFM9x_Io.h>
 
@@ -50,40 +47,22 @@ namespace RFM9x
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_Control : public interface::RFM9x_Control
+class RFM9x_InterruptControl : public interface::RFM9x_InterruptControl
 {
 
 public:
 
-           RFM9x_Control(interface::RFM9x_Io & io, uint32_t const fxosc_Hz);
-  virtual ~RFM9x_Control();
+           RFM9x_InterruptControl(interface::RFM9x_Io & io);
+  virtual ~RFM9x_InterruptControl();
 
 
-  /* RFM9x Fifo Control */
+  virtual void getIntReqFlags (uint8_t                           * irq_req_flags) override;
+  virtual void clearIntReqFlag(interface::InterruptRequest const   int_req      ) override;
 
-  virtual void setTxFifoBaseAddress (uint8_t const tx_base_addr                ) override;
-  virtual void setRxFifoBaseAddress (uint8_t const rx_base_addr                ) override;
-  virtual void writeToTxFifo        (uint8_t const * data, uint16_t const bytes) override;
-
-
-  /* RFM9x Configuration */
-
-  virtual void setOperatingMode (interface::OperatingMode  const op_mode        ) override;
-  virtual void setLoRaMode      (interface::LoRaMode       const lora_mode      ) override;
-  virtual void setModulationType(interface::ModulationType const modulation_type) override;
-  virtual void setFrequency     (uint32_t                  const freq_Hz        ) override;
-
-
-          void debug_dumpAllRegs(debug::interface::Debug & debug_interface, hal::interface::Flash & flash);
 
 private:
 
-  interface::RFM9x_Io       & _io;
-  uint32_t            const   _fxosc_Hz;
-  uint8_t                     _fifo_tx_base_addr,
-                              _fifo_rx_base_addr;
-
-  void debug_dumpSingleReg(debug::interface::Debug & debug_interface, hal::interface::Flash & flash, char const * msg, interface::Register const reg);
+  interface::RFM9x_Io & _io;
 
 };
 
@@ -99,4 +78,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CONTROL_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_INTERRUPT_CONTROL_H_ */

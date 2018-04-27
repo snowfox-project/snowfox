@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_INTERRUPTREQUESTCONTROL_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_INTERRUPTREQUESTCONTROL_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_INTERRUPTCONTROL_H_
+#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_INTERRUPTCONTROL_H_
 
 /**************************************************************************************
  * INCLUDES
@@ -78,13 +78,13 @@ enum class InterruptRequest : uint8_t
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_InterruptRequestControl
+class RFM9x_InterruptControl
 {
 
 public:
 
-           RFM9x_InterruptRequestControl() { }
-  virtual ~RFM9x_InterruptRequestControl() { }
+           RFM9x_InterruptControl() { }
+  virtual ~RFM9x_InterruptControl() { }
 
 
   virtual void getIntReqFlags (uint8_t                * irq_req_flags) = 0;
@@ -106,4 +106,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_INTERRUPTREQUESTCONTROL_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_INTERRUPTCONTROL_H_ */

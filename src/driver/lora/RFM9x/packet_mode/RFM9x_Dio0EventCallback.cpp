@@ -55,10 +55,10 @@ namespace RFM9x
  * CTOR/DTOR
  **************************************************************************************/
 
-RFM9x_Dio0EventCallback::RFM9x_Dio0EventCallback(interface::RFM9x_InterruptRequestControl & int_req_ctrl,
-                                                 interface::RFM9x_onPacketSentCallback    & on_packet_sent_callback,
-                                                 interface::RFM9x_onPayloadReadyCallback  & on_payload_ready_callback)
-: _int_req_ctrl             (int_req_ctrl             ),
+RFM9x_Dio0EventCallback::RFM9x_Dio0EventCallback(interface::RFM9x_InterruptControl       & int_ctrl,
+                                                 interface::RFM9x_onPacketSentCallback   & on_packet_sent_callback,
+                                                 interface::RFM9x_onPayloadReadyCallback & on_payload_ready_callback)
+: _int_ctrl                 (int_ctrl                 ),
   _on_packet_sent_callback  (on_packet_sent_callback  ),
   _on_payload_ready_callback(on_payload_ready_callback)
 {
@@ -78,39 +78,39 @@ void RFM9x_Dio0EventCallback::onExternalEventCallback()
 {
   uint8_t irq_req_flags = 0;
 
-  _int_req_ctrl.getIntReqFlags(&irq_req_flags);
+  _int_ctrl.getIntReqFlags(&irq_req_flags);
 
   if(isRxTimeout(irq_req_flags))
   {
-    _int_req_ctrl.clearIntReqFlag(interface::InterruptRequest::RxTimeout);
+    _int_ctrl.clearIntReqFlag(interface::InterruptRequest::RxTimeout);
   }
   if(isRxDone(irq_req_flags))
   {
-    _int_req_ctrl.clearIntReqFlag(interface::InterruptRequest::RxDone);
+    _int_ctrl.clearIntReqFlag(interface::InterruptRequest::RxDone);
   }
   if(isPayloadCrcError(irq_req_flags))
   {
-    _int_req_ctrl.clearIntReqFlag(interface::InterruptRequest::PayloadCrcError);
+    _int_ctrl.clearIntReqFlag(interface::InterruptRequest::PayloadCrcError);
   }
   if(isValidHeader(irq_req_flags))
   {
-    _int_req_ctrl.clearIntReqFlag(interface::InterruptRequest::ValidHeader);
+    _int_ctrl.clearIntReqFlag(interface::InterruptRequest::ValidHeader);
   }
   if(isTxDone(irq_req_flags))
   {
-    _int_req_ctrl.clearIntReqFlag(interface::InterruptRequest::TxDone);
+    _int_ctrl.clearIntReqFlag(interface::InterruptRequest::TxDone);
   }
   if(isCadDone(irq_req_flags))
   {
-    _int_req_ctrl.clearIntReqFlag(interface::InterruptRequest::CadDone);
+    _int_ctrl.clearIntReqFlag(interface::InterruptRequest::CadDone);
   }
   if(isFhssChangeChannel(irq_req_flags))
   {
-    _int_req_ctrl.clearIntReqFlag(interface::InterruptRequest::FhssChangeChannel);
+    _int_ctrl.clearIntReqFlag(interface::InterruptRequest::FhssChangeChannel);
   }
   if(isCadDetected(irq_req_flags))
   {
-    _int_req_ctrl.clearIntReqFlag(interface::InterruptRequest::CadDetected);
+    _int_ctrl.clearIntReqFlag(interface::InterruptRequest::CadDetected);
   }
 }
 
