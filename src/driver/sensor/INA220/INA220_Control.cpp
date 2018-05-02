@@ -39,17 +39,6 @@ namespace INA220
 {
 
 /**************************************************************************************
- * CONSTANTS
- **************************************************************************************/
-
-FLASH_DECLARE(static char const CONFIG     [] = "CONFIG      = ");
-FLASH_DECLARE(static char const V_SHUNT    [] = "V_SHUNT     = ");
-FLASH_DECLARE(static char const V_BUS      [] = "V_BUS       = ");
-FLASH_DECLARE(static char const POWER      [] = "POWER       = ");
-FLASH_DECLARE(static char const CURRENT    [] = "CURRENT     = ");
-FLASH_DECLARE(static char const CALIBRATION[] = "CALIBRATION = ");
-
-/**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
@@ -160,31 +149,6 @@ bool INA220_Control::readBusVoltage(int16_t * bus_voltage)
   *bus_voltage = static_cast<int16_t>(v_bus_reg_content) >> 3;
 
   return true;
-}
-
-void INA220_Control::debug_dumpAllRegs(debug::interface::Debug & debug_interface, hal::interface::Flash & flash)
-{
-  debug_dumpSingleReg(debug_interface, flash, CONFIG     , interface::Register::CONFIG     );
-  debug_dumpSingleReg(debug_interface, flash, V_SHUNT    , interface::Register::V_SHUNT    );
-  debug_dumpSingleReg(debug_interface, flash, V_BUS      , interface::Register::V_BUS      );
-  debug_dumpSingleReg(debug_interface, flash, POWER      , interface::Register::POWER      );
-  debug_dumpSingleReg(debug_interface, flash, CURRENT    , interface::Register::CURRENT    );
-  debug_dumpSingleReg(debug_interface, flash, CALIBRATION, interface::Register::CALIBRATION);
-}
-
-/**************************************************************************************
- * PRIVATE FUNCTIONS
- **************************************************************************************/
-
-void INA220_Control::debug_dumpSingleReg(debug::interface::Debug & debug_interface, hal::interface::Flash & flash, char const * msg, interface::Register const reg)
-{
-  char     msg_ram[32];
-  uint16_t reg_content = 0;
-
-  flash.readStringFromFlash(msg_ram, msg);
-  _io.readRegister(reg, &reg_content);
-
-  debug_interface.print("%s%04X\n\r", msg_ram, reg_content);
 }
 
 /**************************************************************************************

@@ -16,14 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_INA220_H_
-#define INCLUDE_SPECTRE_DRIVER_SENSOR_INA220_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_INA220_INA220_DEBUG_H_
+#define INCLUDE_SPECTRE_DRIVER_SENSOR_INA220_INA220_DEBUG_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/sensor/INA220/interface/INA220_Control.h>
+#include <spectre/debug/interface/Debug.h>
+
+#include <spectre/hal/interface/flash/Flash.h>
 
 #include <spectre/driver/sensor/INA220/interface/INA220_Io.h>
 
@@ -47,29 +49,26 @@ namespace INA220
  * CLASS DECLARATION
  **************************************************************************************/
 
-class INA220_Control : public interface::INA220_Control
+class INA220_Debug
 {
 
 public:
 
-           INA220_Control(interface::INA220_Io & io);
-  virtual ~INA220_Control();
-
-
-  virtual bool readShuntVoltage     (int16_t * shunt_voltage) override;
-  virtual bool readBusVoltage       (int16_t * bus_voltage  ) override;
-
-
-  virtual bool setBusVoltageRange   (interface::BusVoltageRange    const bus_voltage_range   ) override;
-  virtual bool setShuntPgaGain      (interface::ShuntPgaGain       const shunt_pga_gain      ) override;
-  virtual bool setBusAdcResolution  (interface::BusAdcResolution   const bus_adc_resolution  ) override;
-  virtual bool setShuntAdcResolution(interface::ShuntAdcResolution const shunt_adc_resolution) override;
-  virtual bool setOperatingMode     (interface::OperatingMode      const operating_mode      ) override;
-
+  static void debug_dumpAllRegs(debug::interface::Debug & debug_interface,
+                                hal::interface::Flash   & flash,
+                                interface::INA220_Io    & io);
 
 private:
 
-  interface::INA220_Io & _io;
+  INA220_Debug() { }
+  INA220_Debug(INA220_Debug const & other) { }
+
+
+  static void debug_dumpSingleReg(debug::interface::Debug   & debug_interface,
+                                  hal::interface::Flash     & flash,
+                                  interface::INA220_Io      & io,
+                                  char                const * msg,
+                                  interface::Register const   reg);
 
 };
 
@@ -85,4 +84,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_INA220_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_INA220_INA220_DEBUG_H_ */
