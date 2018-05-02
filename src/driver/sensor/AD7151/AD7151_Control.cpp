@@ -55,30 +55,10 @@ namespace AD7151
 #define AD7151_CONFIG_REG_MODE_0_bm               (1<<0)
 
 /**************************************************************************************
- * CONSTANTS
- **************************************************************************************/
-
-FLASH_DECLARE(static char const STATUS                    [] = "STATUS                     = ");
-FLASH_DECLARE(static char const DATA_HIGH                 [] = "DATA_HIGH                  = ");
-FLASH_DECLARE(static char const DATA_LOW                  [] = "DATA_LOW                   = ");
-FLASH_DECLARE(static char const AVERAGE_HIGH              [] = "AVERAGE_HIGH               = ");
-FLASH_DECLARE(static char const AVERAGE_LOW               [] = "AVERAGE_LOW                = ");
-FLASH_DECLARE(static char const SENSITIVITY_THRESHOLD_HIGH[] = "SENSITIVITY_THRESHOLD_HIGH = ");
-FLASH_DECLARE(static char const SENSITIVITY_THRESHOLD_LOW [] = "SENSITIVITY_THRESHOLD_LOW  = ");
-FLASH_DECLARE(static char const SETUP                     [] = "SETUP                      = ");
-FLASH_DECLARE(static char const CONFIGURATION             [] = "CONFIGURATION              = ");
-FLASH_DECLARE(static char const POWER_DOWN_TIMER          [] = "POWER_DOWN_TIMER           = ");
-FLASH_DECLARE(static char const SERIAL_NUMBER_3           [] = "SERIAL_NUMBER_3            = ");
-FLASH_DECLARE(static char const SERIAL_NUMBER_2           [] = "SERIAL_NUMBER_2            = ");
-FLASH_DECLARE(static char const SERIAL_NUMBER_1           [] = "SERIAL_NUMBER_1            = ");
-FLASH_DECLARE(static char const SERIAL_NUMBER_0           [] = "SERIAL_NUMBER_0            = ");
-FLASH_DECLARE(static char const CHIP_ID                   [] = "CHIP_ID                    = ");
-
-/**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
-AD7151_Control::AD7151_Control(interface::AD7151_IO_Interface & io)
+AD7151_Control::AD7151_Control(interface::AD7151_Io & io)
 : _io(io)
 {
 
@@ -141,40 +121,6 @@ bool AD7151_Control::readConversionResult(uint16_t * raw_data)
   *raw_data = (static_cast<uint16_t>(data_regs_content[0]) << 8) + static_cast<uint16_t>(data_regs_content[1]);
 
   return true;
-}
-
-void AD7151_Control::debug_dumpAllRegs(debug::interface::Debug & debug_interface, hal::interface::Flash & flash)
-{
-  debug_dumpSingleReg(debug_interface, flash, STATUS                    , interface::Register::STATUS                    );
-  debug_dumpSingleReg(debug_interface, flash, DATA_HIGH                 , interface::Register::DATA_HIGH                 );
-  debug_dumpSingleReg(debug_interface, flash, DATA_LOW                  , interface::Register::DATA_LOW                  );
-  debug_dumpSingleReg(debug_interface, flash, AVERAGE_HIGH              , interface::Register::AVERAGE_HIGH              );
-  debug_dumpSingleReg(debug_interface, flash, AVERAGE_LOW               , interface::Register::AVERAGE_LOW               );
-  debug_dumpSingleReg(debug_interface, flash, SENSITIVITY_THRESHOLD_HIGH, interface::Register::SENSITIVITY_THRESHOLD_HIGH);
-  debug_dumpSingleReg(debug_interface, flash, SENSITIVITY_THRESHOLD_LOW , interface::Register::SENSITIVITY_THRESHOLD_LOW );
-  debug_dumpSingleReg(debug_interface, flash, SETUP                     , interface::Register::SETUP                     );
-  debug_dumpSingleReg(debug_interface, flash, CONFIGURATION             , interface::Register::CONFIGURATION             );
-  debug_dumpSingleReg(debug_interface, flash, POWER_DOWN_TIMER          , interface::Register::POWER_DOWN_TIMER          );
-  debug_dumpSingleReg(debug_interface, flash, SERIAL_NUMBER_3           , interface::Register::SERIAL_NUMBER_3           );
-  debug_dumpSingleReg(debug_interface, flash, SERIAL_NUMBER_2           , interface::Register::SERIAL_NUMBER_2           );
-  debug_dumpSingleReg(debug_interface, flash, SERIAL_NUMBER_1           , interface::Register::SERIAL_NUMBER_1           );
-  debug_dumpSingleReg(debug_interface, flash, SERIAL_NUMBER_0           , interface::Register::SERIAL_NUMBER_0           );
-  debug_dumpSingleReg(debug_interface, flash, CHIP_ID                   , interface::Register::CHIP_ID                   );
-}
-
-/**************************************************************************************
- * PRIVATE FUNCTIONS
- **************************************************************************************/
-
-void AD7151_Control::debug_dumpSingleReg(debug::interface::Debug & debug_interface, hal::interface::Flash & flash, char const * msg, interface::Register const reg)
-{
-  char    msg_ram[32];
-  uint8_t reg_content = 0;
-
-  flash.readStringFromFlash(msg_ram, msg);
-  _io.readRegister(reg, &reg_content);
-
-  debug_interface.print("%s%02X\n\r", msg_ram, reg_content);
 }
 
 /**************************************************************************************

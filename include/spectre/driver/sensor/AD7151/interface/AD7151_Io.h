@@ -73,13 +73,13 @@ enum class Register : uint8_t
  * CLASS DECLARATION
  **************************************************************************************/
 
-class AD7151_IO_Interface
+class AD7151_Io
 {
 
 public:
 
-           AD7151_IO_Interface() { }
-  virtual ~AD7151_IO_Interface() { }
+           AD7151_Io() { }
+  virtual ~AD7151_Io() { }
 
 
   virtual bool readRegister (Register const reg, uint8_t        * data, uint16_t const num_bytes) = 0;

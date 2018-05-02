@@ -16,14 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_AD7151_H_
-#define INCLUDE_SPECTRE_DRIVER_SENSOR_AD7151_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_SENSOR_AD7151_AD7151_DEBUG_H_
+#define INCLUDE_SPECTRE_DRIVER_SENSOR_AD7151_AD7151_DEBUG_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/sensor/AD7151/interface/AD7151_Control.h>
+#include <spectre/debug/interface/Debug.h>
+
+#include <spectre/hal/interface/flash/Flash.h>
 
 #include <spectre/driver/sensor/AD7151/interface/AD7151_Io.h>
 
@@ -47,29 +49,26 @@ namespace AD7151
  * CLASS DECLARATION
  **************************************************************************************/
 
-class AD7151_Control : public interface::AD7151_Control
+class AD7151_Debug
 {
 
 public:
 
-           AD7151_Control(interface::AD7151_Io & io);
-  virtual ~AD7151_Control();
-
-
-  /* AD7151 Interface */
-
-  virtual bool startSingleConversion        (                                 ) override;
-  virtual bool checkIfConversionIsComplete  (bool     * is_conversion_complete) override;
-  virtual bool readConversionResult         (uint16_t * raw_data              ) override;
-
-
-  /* AD7151 Configuration Interface */
-
-  virtual bool setCapacitiveInputRange      (interface::CapacitiveInputRange const capacitive_input_range) override;
+  static void debug_dumpAllRegs(debug::interface::Debug & debug_interface,
+                                hal::interface::Flash   & flash,
+                                interface::AD7151_Io    & io);
 
 private:
 
-  interface::AD7151_Io & _io;
+  AD7151_Debug() { }
+  AD7151_Debug(AD7151_Debug const & other) { }
+
+
+  static void debug_dumpSingleReg(debug::interface::Debug       & debug_interface,
+                                  hal::interface::Flash         & flash,
+                                  interface::AD7151_Io          & io,
+                                  char                    const * msg,
+                                  interface::Register     const   reg);
 
 };
 
@@ -85,4 +84,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_AD7151_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_SENSOR_AD7151_AD7151_DEBUG_H_ */

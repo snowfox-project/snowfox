@@ -47,7 +47,7 @@ namespace AD7151
  * CLASS DECLARATION
  **************************************************************************************/
 
-class AD7151_IoI2c : public interface::AD7151_IO_Interface
+class AD7151_IoI2c : public interface::AD7151_Io
 {
 
 public:
