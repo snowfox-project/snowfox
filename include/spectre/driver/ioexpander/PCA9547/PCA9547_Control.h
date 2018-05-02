@@ -24,13 +24,8 @@
  **************************************************************************************/
 
 #include <spectre/driver/ioexpander/PCA9547/interface/PCA9547_Control.h>
+
 #include <spectre/driver/ioexpander/PCA9547/interface/PCA9547_Io.h>
-
-#include <stdint.h>
-
-#include <spectre/debug/interface/Debug.h>
-
-#include <spectre/hal/interface/i2c/I2CMaster.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -65,9 +60,6 @@ public:
 
   virtual bool setChannel(interface::I2cChannel const   sel) override;
   virtual bool getChannel(interface::I2cChannel       * sel) override;
-
-
-          void debug_dumpAllRegs(debug::interface::Debug & debug_interface);
 
 private:
 

@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/ioexpander/PCA9547/PCA9547_Control.h>
+#include <spectre/driver/ioexpander/PCA9547/PCA9547_Debug.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,40 +39,16 @@ namespace PCA9547
 {
 
 /**************************************************************************************
- * CTOR/DTOR
- **************************************************************************************/
-
-PCA9547_Control::PCA9547_Control(interface::PCA9547_Io & io)
-: _io(io)
-{
-
-}
-
-PCA9547_Control::~PCA9547_Control()
-{
-
-}
-
-/**************************************************************************************
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool PCA9547_Control::setChannel(interface::I2cChannel const sel)
+void PCA9547_Debug::debug_dumpAllRegs(debug::interface::Debug & debug_interface, interface::PCA9547_Io & io)
 {
-  uint8_t const data = static_cast<uint8_t>(sel);
+  uint8_t control_reg_content = 0;
 
-  return _io.writeControlRegister(data);
-}
+  io.readControlRegister(&control_reg_content);
 
-bool PCA9547_Control::getChannel(interface::I2cChannel * sel)
-{
-  uint8_t data = 0;
-
-  if(!_io.readControlRegister(&data)) return false;
-
-  *sel = static_cast<interface::I2cChannel>(data);
-
-  return true;
+  debug_interface.print("CONTROL = %02X\n\r", control_reg_content);
 }
 
 /**************************************************************************************

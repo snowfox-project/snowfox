@@ -42,8 +42,6 @@ namespace DRV2605
  * CONSTANTS
  **************************************************************************************/
 
-static uint32_t const DEVICE_RESET_DURATION_ms = 10;
-
 FLASH_DECLARE(static char const STATUS          [] = "STATUS            = ");
 FLASH_DECLARE(static char const MODE            [] = "MODE              = ");
 FLASH_DECLARE(static char const RTP             [] = "RTP               = ");

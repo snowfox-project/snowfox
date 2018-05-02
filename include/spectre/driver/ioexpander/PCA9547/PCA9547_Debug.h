@@ -16,11 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_IOEXPANDER_PCA9547_PCA9547_DEBUG_H_
+#define INCLUDE_SPECTRE_DRIVER_IOEXPANDER_PCA9547_PCA9547_DEBUG_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/ioexpander/PCA9547/PCA9547_Control.h>
+#include <spectre/debug/interface/Debug.h>
+
+#include <spectre/driver/ioexpander/PCA9547/interface/PCA9547_Io.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,41 +44,22 @@ namespace PCA9547
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * CLASS DECLARATION PCA9547
  **************************************************************************************/
 
-PCA9547_Control::PCA9547_Control(interface::PCA9547_Io & io)
-: _io(io)
+class PCA9547_Debug
 {
 
-}
+public:
 
-PCA9547_Control::~PCA9547_Control()
-{
+  static void debug_dumpAllRegs(debug::interface::Debug & debug_interface, interface::PCA9547_Io & io);
 
-}
+private:
 
-/**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
- **************************************************************************************/
+  PCA9547_Debug() { }
+  PCA9547_Debug(PCA9547_Debug const & other) { }
 
-bool PCA9547_Control::setChannel(interface::I2cChannel const sel)
-{
-  uint8_t const data = static_cast<uint8_t>(sel);
-
-  return _io.writeControlRegister(data);
-}
-
-bool PCA9547_Control::getChannel(interface::I2cChannel * sel)
-{
-  uint8_t data = 0;
-
-  if(!_io.readControlRegister(&data)) return false;
-
-  *sel = static_cast<interface::I2cChannel>(data);
-
-  return true;
-}
+};
 
 /**************************************************************************************
  * NAMESPACE
@@ -86,3 +72,5 @@ bool PCA9547_Control::getChannel(interface::I2cChannel * sel)
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_IOEXPANDER_PCA9547_PCA9547_DEBUG_H_ */
