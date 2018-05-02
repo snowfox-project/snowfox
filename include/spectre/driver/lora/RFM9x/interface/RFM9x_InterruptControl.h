@@ -90,16 +90,6 @@ public:
   virtual void getIntReqFlags (uint8_t                * irq_req_flags) = 0;
   virtual void clearIntReqFlag(InterruptRequest const   int_req      ) = 0;
 
-
-  inline bool isRxTimeout         (uint8_t const irq_req_flags) { return (irq_req_flags & RFM9x_REG_IRQ_FLAGS_RX_TIMEOUT          ) == RFM9x_REG_IRQ_FLAGS_RX_TIMEOUT;          }
-  inline bool isRxDone            (uint8_t const irq_req_flags) { return (irq_req_flags & RFM9x_REG_IRQ_FLAGS_RX_DONE             ) == RFM9x_REG_IRQ_FLAGS_RX_DONE;             }
-  inline bool isPayloadCrcError   (uint8_t const irq_req_flags) { return (irq_req_flags & RFM9x_REG_IRQ_FLAGS_PAYLOAD_CRC_ERROR   ) == RFM9x_REG_IRQ_FLAGS_PAYLOAD_CRC_ERROR;   }
-  inline bool isValidHeader       (uint8_t const irq_req_flags) { return (irq_req_flags & RFM9x_REG_IRQ_FLAGS_VALID_HEADER        ) == RFM9x_REG_IRQ_FLAGS_VALID_HEADER;        }
-  inline bool isTxDone            (uint8_t const irq_req_flags) { return (irq_req_flags & RFM9x_REG_IRQ_FLAGS_TX_DONE             ) == RFM9x_REG_IRQ_FLAGS_TX_DONE;             }
-  inline bool isCadDone           (uint8_t const irq_req_flags) { return (irq_req_flags & RFM9x_REG_IRQ_FLAGS_CAD_DONE            ) == RFM9x_REG_IRQ_FLAGS_CAD_DONE;            }
-  inline bool isFhssChangeChannel (uint8_t const irq_req_flags) { return (irq_req_flags & RFM9x_REG_IRQ_FLAGS_FHSS_CHANGE_CHANNEL ) == RFM9x_REG_IRQ_FLAGS_FHSS_CHANGE_CHANNEL; }
-  inline bool isCadDetected       (uint8_t const irq_req_flags) { return (irq_req_flags & RFM9x_REG_IRQ_FLAGS_CAD_DETECTED        ) == RFM9x_REG_IRQ_FLAGS_CAD_DETECTED;        }
-
 };
 
 /**************************************************************************************

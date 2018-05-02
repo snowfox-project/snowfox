@@ -22,6 +22,8 @@
 
 #include <spectre/driver/lora/RFM9x/packet_mode/RFM9x_Dio0EventCallback.h>
 
+#include <spectre/driver/lora/RFM9x/RFM9x_InterruptControl.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -80,35 +82,35 @@ void RFM9x_Dio0EventCallback::onExternalEventCallback()
 
   _int_ctrl.getIntReqFlags(&irq_req_flags);
 
-  if(_int_ctrl.isRxTimeout(irq_req_flags))
+  if(RFM9x_InterruptControl::isRxTimeout(irq_req_flags))
   {
     _int_ctrl.clearIntReqFlag(interface::InterruptRequest::RxTimeout);
   }
-  if(_int_ctrl.isRxDone(irq_req_flags))
+  if(RFM9x_InterruptControl::isRxDone(irq_req_flags))
   {
     _int_ctrl.clearIntReqFlag(interface::InterruptRequest::RxDone);
   }
-  if(_int_ctrl.isPayloadCrcError(irq_req_flags))
+  if(RFM9x_InterruptControl::isPayloadCrcError(irq_req_flags))
   {
     _int_ctrl.clearIntReqFlag(interface::InterruptRequest::PayloadCrcError);
   }
-  if(_int_ctrl.isValidHeader(irq_req_flags))
+  if(RFM9x_InterruptControl::isValidHeader(irq_req_flags))
   {
     _int_ctrl.clearIntReqFlag(interface::InterruptRequest::ValidHeader);
   }
-  if(_int_ctrl.isTxDone(irq_req_flags))
+  if(RFM9x_InterruptControl::isTxDone(irq_req_flags))
   {
     _int_ctrl.clearIntReqFlag(interface::InterruptRequest::TxDone);
   }
-  if(_int_ctrl.isCadDone(irq_req_flags))
+  if(RFM9x_InterruptControl::isCadDone(irq_req_flags))
   {
     _int_ctrl.clearIntReqFlag(interface::InterruptRequest::CadDone);
   }
-  if(_int_ctrl.isFhssChangeChannel(irq_req_flags))
+  if(RFM9x_InterruptControl::isFhssChangeChannel(irq_req_flags))
   {
     _int_ctrl.clearIntReqFlag(interface::InterruptRequest::FhssChangeChannel);
   }
-  if(_int_ctrl.isCadDetected(irq_req_flags))
+  if(RFM9x_InterruptControl::isCadDetected(irq_req_flags))
   {
     _int_ctrl.clearIntReqFlag(interface::InterruptRequest::CadDetected);
   }

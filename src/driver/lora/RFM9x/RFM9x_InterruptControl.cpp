@@ -70,6 +70,46 @@ void RFM9x_InterruptControl::clearIntReqFlag(interface::InterruptRequest const i
   _io.writeRegister(interface::Register::IRQ_FLAGS, static_cast<uint8_t>(int_req));
 }
 
+bool RFM9x_InterruptControl::isRxTimeout(uint8_t const irq_req_flags)
+{
+  return (irq_req_flags & RFM9x_REG_IRQ_FLAGS_RX_TIMEOUT) == RFM9x_REG_IRQ_FLAGS_RX_TIMEOUT;
+}
+
+bool RFM9x_InterruptControl::isRxDone(uint8_t const irq_req_flags)
+{
+  return (irq_req_flags & RFM9x_REG_IRQ_FLAGS_RX_DONE) == RFM9x_REG_IRQ_FLAGS_RX_DONE;
+}
+
+bool RFM9x_InterruptControl::isPayloadCrcError(uint8_t const irq_req_flags)
+{
+  return (irq_req_flags & RFM9x_REG_IRQ_FLAGS_PAYLOAD_CRC_ERROR) == RFM9x_REG_IRQ_FLAGS_PAYLOAD_CRC_ERROR;
+}
+
+bool RFM9x_InterruptControl::isValidHeader(uint8_t const irq_req_flags)
+{
+  return (irq_req_flags & RFM9x_REG_IRQ_FLAGS_VALID_HEADER) == RFM9x_REG_IRQ_FLAGS_VALID_HEADER;
+}
+
+bool RFM9x_InterruptControl::isTxDone(uint8_t const irq_req_flags)
+{
+  return (irq_req_flags & RFM9x_REG_IRQ_FLAGS_TX_DONE) == RFM9x_REG_IRQ_FLAGS_TX_DONE;
+}
+
+bool RFM9x_InterruptControl::isCadDone(uint8_t const irq_req_flags)
+{
+  return (irq_req_flags & RFM9x_REG_IRQ_FLAGS_CAD_DONE) == RFM9x_REG_IRQ_FLAGS_CAD_DONE;
+}
+
+bool RFM9x_InterruptControl::isFhssChangeChannel(uint8_t const irq_req_flags)
+{
+  return (irq_req_flags & RFM9x_REG_IRQ_FLAGS_FHSS_CHANGE_CHANNEL) == RFM9x_REG_IRQ_FLAGS_FHSS_CHANGE_CHANNEL;
+}
+
+bool RFM9x_InterruptControl::isCadDetected(uint8_t const irq_req_flags)
+{
+  return (irq_req_flags & RFM9x_REG_IRQ_FLAGS_CAD_DETECTED) == RFM9x_REG_IRQ_FLAGS_CAD_DETECTED;
+}
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
