@@ -39,36 +39,6 @@ namespace LIS3DSH
 {
 
 /**************************************************************************************
- * CONSTANTS
- **************************************************************************************/
-
-FLASH_DECLARE(static char const INFO_1    [] = "INFO_1     = ");
-FLASH_DECLARE(static char const INFO_2    [] = "INFO_2     = ");
-FLASH_DECLARE(static char const WHO_AM_I  [] = "WHO_AM_I   = ");
-FLASH_DECLARE(static char const CTRL_REG_1[] = "CTRL_REG_1 = ");
-FLASH_DECLARE(static char const CTRL_REG_2[] = "CTRL_REG_2 = ");
-FLASH_DECLARE(static char const CTRL_REG_3[] = "CTRL_REG_3 = ");
-FLASH_DECLARE(static char const CTRL_REG_4[] = "CTRL_REG_4 = ");
-FLASH_DECLARE(static char const CTRL_REG_5[] = "CTRL_REG_5 = ");
-FLASH_DECLARE(static char const CTRL_REG_6[] = "CTRL_REG_6 = ");
-FLASH_DECLARE(static char const STATUS    [] = "STATUS     = ");
-FLASH_DECLARE(static char const OUT_T     [] = "OUT_T      = ");
-FLASH_DECLARE(static char const OFF_X     [] = "OFF_X      = ");
-FLASH_DECLARE(static char const OFF_Y     [] = "OFF_Y      = ");
-FLASH_DECLARE(static char const OFF_Z     [] = "OFF_Z      = ");
-FLASH_DECLARE(static char const CS_X      [] = "CS_X       = ");
-FLASH_DECLARE(static char const CS_Y      [] = "CS_Y       = ");
-FLASH_DECLARE(static char const CS_Z      [] = "CS_Z       = ");
-FLASH_DECLARE(static char const OUT_X_L   [] = "OUT_X_L    = ");
-FLASH_DECLARE(static char const OUT_X_H   [] = "OUT_X_H    = ");
-FLASH_DECLARE(static char const OUT_Y_L   [] = "OUT_Y_L    = ");
-FLASH_DECLARE(static char const OUT_Y_H   [] = "OUT_Y_H    = ");
-FLASH_DECLARE(static char const OUT_Z_L   [] = "OUT_Z_L    = ");
-FLASH_DECLARE(static char const OUT_Z_H   [] = "OUT_Z_H    = ");
-FLASH_DECLARE(static char const FIFO_CTRL [] = "FIFO_CTRL  = ");
-FLASH_DECLARE(static char const FIFO_SRC  [] = "FIFO_SRC   = ");
-
-/**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
@@ -379,56 +349,6 @@ bool LIS3DSH_Control::readTemperature(int8_t * raw_temp)
   *raw_temp = static_cast<int8_t>(temp_reg_content);
 
   return true;
-}
-
-void LIS3DSH_Control::debug_dumpAllRegs(debug::interface::Debug & debug_interface, hal::interface::Flash & flash)
-{
-  debug_dumpSingleReg(debug_interface, flash, INFO_1    , interface::Register::INFO_1    );
-  debug_dumpSingleReg(debug_interface, flash, INFO_2    , interface::Register::INFO_2    );
-  debug_dumpSingleReg(debug_interface, flash, WHO_AM_I  , interface::Register::WHO_AM_I  );
-
-  debug_dumpSingleReg(debug_interface, flash, CTRL_REG_1, interface::Register::CTRL_REG_1);
-  debug_dumpSingleReg(debug_interface, flash, CTRL_REG_2, interface::Register::CTRL_REG_2);
-  debug_dumpSingleReg(debug_interface, flash, CTRL_REG_3, interface::Register::CTRL_REG_3);
-  debug_dumpSingleReg(debug_interface, flash, CTRL_REG_4, interface::Register::CTRL_REG_4);
-  debug_dumpSingleReg(debug_interface, flash, CTRL_REG_5, interface::Register::CTRL_REG_5);
-  debug_dumpSingleReg(debug_interface, flash, CTRL_REG_6, interface::Register::CTRL_REG_6);
-
-  debug_dumpSingleReg(debug_interface, flash, STATUS    , interface::Register::STATUS    );
-
-  debug_dumpSingleReg(debug_interface, flash, OUT_T     , interface::Register::OUT_T     );
-
-  debug_dumpSingleReg(debug_interface, flash, OFF_X     , interface::Register::OFF_X     );
-  debug_dumpSingleReg(debug_interface, flash, OFF_Y     , interface::Register::OFF_Y     );
-  debug_dumpSingleReg(debug_interface, flash, OFF_Z     , interface::Register::OFF_Z     );
-  debug_dumpSingleReg(debug_interface, flash, CS_X      , interface::Register::CS_X      );
-  debug_dumpSingleReg(debug_interface, flash, CS_Y      , interface::Register::CS_Y      );
-  debug_dumpSingleReg(debug_interface, flash, CS_Z      , interface::Register::CS_Z      );
-
-  debug_dumpSingleReg(debug_interface, flash, OUT_X_L   , interface::Register::OUT_X_L   );
-  debug_dumpSingleReg(debug_interface, flash, OUT_X_H   , interface::Register::OUT_X_H   );
-  debug_dumpSingleReg(debug_interface, flash, OUT_Y_L   , interface::Register::OUT_Y_L   );
-  debug_dumpSingleReg(debug_interface, flash, OUT_Y_H   , interface::Register::OUT_Y_H   );
-  debug_dumpSingleReg(debug_interface, flash, OUT_Z_L   , interface::Register::OUT_Z_L   );
-  debug_dumpSingleReg(debug_interface, flash, OUT_Z_H   , interface::Register::OUT_Z_H   );
-
-  debug_dumpSingleReg(debug_interface, flash, FIFO_CTRL , interface::Register::FIFO_CTRL );
-  debug_dumpSingleReg(debug_interface, flash, FIFO_SRC  , interface::Register::FIFO_SRC  );
-}
-
-/**************************************************************************************
- * PRIVATE FUNCTIONS
- **************************************************************************************/
-
-void LIS3DSH_Control::debug_dumpSingleReg(debug::interface::Debug & debug_interface, hal::interface::Flash & flash, char const * msg, interface::Register const reg)
-{
-  char    msg_ram[32];
-  uint8_t reg_content = 0;
-
-  flash.readStringFromFlash(msg_ram, msg);
-  _io.readRegister(reg, &reg_content);
-
-  debug_interface.print("%s%02X\n\r", msg_ram, reg_content);
 }
 
 /**************************************************************************************
