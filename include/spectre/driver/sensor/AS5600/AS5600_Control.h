@@ -25,9 +25,6 @@
 
 #include <spectre/driver/sensor/AS5600/interface/AS5600_Control.h>
 
-#include <spectre/debug/interface/Debug.h>
-#include <spectre/hal/interface/flash/Flash.h>
-
 #include <spectre/driver/sensor/AS5600/interface/AS5600_Io.h>
 
 /**************************************************************************************
@@ -90,13 +87,9 @@ public:
   static bool  isMagnetDetected       (uint8_t                        const   status             );
 
 
-         void  debug_dumpAllRegs      (debug::interface::Debug & debug_interface, hal::interface::Flash & flash);
-
 private:
 
   interface::AS5600_Io & _io;
-
-  void debug_dumpSingleReg  (debug::interface::Debug & debug_interface, hal::interface::Flash & flash, char const * msg, interface::Register const reg);
 
 };
 
