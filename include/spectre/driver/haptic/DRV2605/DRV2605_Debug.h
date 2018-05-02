@@ -16,16 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_H_
-#define INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_DRV2605_DEBUG_H_
+#define INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_DRV2605_DEBUG_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/haptic/DRV2605/interface/DRV2605_Control.h>
+#include <spectre/debug/interface/Debug.h>
 
 #include <spectre/hal/interface/delay/Delay.h>
+#include <spectre/hal/interface/flash/Flash.h>
 
 #include <spectre/driver/haptic/DRV2605/interface/DRV2605_Io.h>
 
@@ -49,30 +50,26 @@ namespace DRV2605
  * CLASS DECLARATION DRV2605
  **************************************************************************************/
 
-class DRV2605_Control : public interface::DRV2605_Control
+class DRV2605_Debug
 {
 
 public:
 
-           DRV2605_Control(interface::DRV2605_Io & io, hal::interface::Delay & delay);
-  virtual ~DRV2605_Control();
-
-
-  virtual bool reset              (                                                                       ) override;
-  virtual bool setStandby         (                                                                       ) override;
-  virtual bool clrStandby         (                                                                       ) override;
-  virtual bool setMode            (interface::Mode               const   mode                             ) override;
-  virtual bool setWaveformLibrary (interface::WaveformLibrary    const   library                          ) override;
-  virtual bool setWaveform        (interface::WaveformSequencer  const   sequencer, uint8_t const waveform) override;
-  virtual bool setActuator        (interface::Actuator           const   actuator                         ) override;
-  virtual bool setGo              (                                                                       ) override;
-  virtual bool clrGo              (                                                                       ) override;
-
+  static void debug_dumpAllRegs(debug::interface::Debug & debug_interface,
+                                hal::interface::Flash   & flash,
+                                interface::DRV2605_Io   & io);
 
 private:
 
-  interface::DRV2605_Io & _io;
-  hal::interface::Delay & _delay;
+  DRV2605_Debug() { }
+  DRV2605_Debug(DRV2605_Debug const & other) { }
+
+
+  static void debug_dumpSingleReg(debug::interface::Debug   & debug_interface,
+                                  hal::interface::Flash     & flash,
+                                  interface::DRV2605_Io     & io,
+                                  char                const * msg,
+                                  interface::Register const   reg);
 
 };
 
@@ -88,4 +85,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_DRV2605_DEBUG_H_ */
