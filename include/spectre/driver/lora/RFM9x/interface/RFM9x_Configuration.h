@@ -56,6 +56,12 @@ namespace interface
 #define RFM9x_REG_OP_MODE_MODE_1_bm             (1<<1)
 #define RFM9x_REG_OP_MODE_MODE_0_bm             (1<<0)
 
+/* REG_MODEM_CONFIG_1 *****************************************************************/
+#define RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_3_bm (1<<7)
+#define RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_2_bm (1<<6)
+#define RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_1_bm (1<<5)
+#define RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_0_bm (1<<4)
+
 /**************************************************************************************
  * TYPEDEFS
  **************************************************************************************/
@@ -84,6 +90,20 @@ enum class ModulationType : uint8_t
   OOK           = RFM9x_REG_OP_MODE_MODULATION_TYPE_0_bm
 };
 
+enum class SignalBandwidth : uint8_t
+{
+  BW_7_8_kHz    = 0,
+  BW_10_4_kHz   =                                                                                                                               RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_0_bm,
+  BW_15_6_kHz   =                                                                                     RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_1_bm,
+  BW_20_8_kHz   =                                                                                     RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_1_bm | RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_0_bm,
+  BW_31_25_kHz  =                                           RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_2_bm,
+  BW_41_7_kHz   =                                           RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_2_bm |                                           RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_0_bm,
+  BW_62_5_kHz   =                                           RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_2_bm | RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_1_bm,
+  BW_125_kHz    =                                           RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_2_bm | RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_1_bm | RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_0_bm,
+  BW_250_kHz    = RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_3_bm,
+  BW_500_kHz    = RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_3_bm |                                                                                     RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_0_bm
+};
+
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
@@ -97,10 +117,11 @@ public:
   virtual ~RFM9x_Configuration() { }
 
 
-  virtual void setOperatingMode (OperatingMode  const op_mode        ) = 0;
-  virtual void setLoRaMode      (LoRaMode       const lora_mode      ) = 0;
-  virtual void setModulationType(ModulationType const modulation_type) = 0;
-  virtual void setFrequency     (uint32_t       const freq_Hz        ) = 0;
+  virtual void setOperatingMode   (OperatingMode    const op_mode         ) = 0;
+  virtual void setLoRaMode        (LoRaMode         const lora_mode       ) = 0;
+  virtual void setModulationType  (ModulationType   const modulation_type ) = 0;
+  virtual void setFrequency       (uint32_t         const freq_Hz         ) = 0;
+  virtual void setSignalBandwidth (SignalBandwidth  const signal_bandwidth) = 0;
 
 };
 

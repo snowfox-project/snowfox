@@ -89,6 +89,14 @@ bool RFM9x::ioctl(uint32_t const cmd, void * arg)
     return true;
   }
   break;
+  /* IOCTL_SET_SIGNAL_BANDWIDTH *******************************************************/
+  case IOCTL_SET_SIGNAL_BANDWIDTH:
+  {
+    uint8_t                    const * arg_ptr          = static_cast<uint8_t *>                 (arg     );
+    interface::SignalBandwidth const   signal_bandwidth = static_cast<interface::SignalBandwidth>(*arg_ptr);
+    _config.setSignalBandwidth(signal_bandwidth);
+  }
+  break;
   }
 
 

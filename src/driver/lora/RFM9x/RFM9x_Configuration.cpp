@@ -108,6 +108,18 @@ void RFM9x_Configuration::setFrequency(uint32_t const f_rf_Hz)
   _io.writeRegister(interface::Register::FRF_LSB, f_rf_lsb);
 }
 
+void RFM9x_Configuration::setSignalBandwidth(interface::SignalBandwidth const signal_bandwidth)
+{
+  uint8_t reg_op_modem_config_1_content = 0;
+
+  _io.readRegister(interface::Register::MODEM_CONFIG1, &reg_op_modem_config_1_content);
+
+  reg_op_modem_config_1_content &= ~(RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_3_bm | RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_2_bm | RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_1_bm | RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_0_bm);
+  reg_op_modem_config_1_content |= static_cast<uint8_t>(signal_bandwidth);
+
+  _io.writeRegister(interface::Register::MODEM_CONFIG1, reg_op_modem_config_1_content);
+}
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
