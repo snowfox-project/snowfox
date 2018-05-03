@@ -49,6 +49,7 @@ namespace RFM9x
 
 static uint32_t constexpr IOCTL_SET_FREQUENCY_HZ      = 0; /* Arg: uint32_t *                                 */
 static uint32_t constexpr IOCTL_SET_SIGNAL_BANDWIDTH  = 1; /* Arg: interface::SignalBandwidth * -> uint8_t *  */
+static uint32_t constexpr IOCTL_SET_CODING_RATE       = 2; /* Arg: interface::CodingRate *      -> uint8_t *  */
 
 /**************************************************************************************
  * CLASS DECLARATION

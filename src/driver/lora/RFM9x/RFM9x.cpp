@@ -97,6 +97,14 @@ bool RFM9x::ioctl(uint32_t const cmd, void * arg)
     _config.setSignalBandwidth(signal_bandwidth);
   }
   break;
+  /* IOCTL_SET_CODING_RATE ************************************************************/
+  case IOCTL_SET_CODING_RATE:
+  {
+    uint8_t               const * arg_ptr     = static_cast<uint8_t *>            (arg     );
+    interface::CodingRate const   coding_rate = static_cast<interface::CodingRate>(*arg_ptr);
+    _config.setCodingRate(coding_rate);
+  }
+  break;
   }
 
 

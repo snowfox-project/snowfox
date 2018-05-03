@@ -120,6 +120,19 @@ void RFM9x_Configuration::setSignalBandwidth(interface::SignalBandwidth const si
   _io.writeRegister(interface::Register::MODEM_CONFIG1, reg_op_modem_config_1_content);
 }
 
+void RFM9x_Configuration::setCodingRate(interface::CodingRate const coding_rate)
+{
+  uint8_t reg_op_modem_config_1_content = 0;
+
+  _io.readRegister(interface::Register::MODEM_CONFIG1, &reg_op_modem_config_1_content);
+
+  reg_op_modem_config_1_content &= ~(RFM9x_REG_MODEM_CONFIG_1_CODING_RATE_2_bm | RFM9x_REG_MODEM_CONFIG_1_CODING_RATE_1_bm | RFM9x_REG_MODEM_CONFIG_1_CODING_RATE_0_bm);
+  reg_op_modem_config_1_content |= static_cast<uint8_t>(coding_rate);
+
+  _io.writeRegister(interface::Register::MODEM_CONFIG1, reg_op_modem_config_1_content);
+
+}
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/

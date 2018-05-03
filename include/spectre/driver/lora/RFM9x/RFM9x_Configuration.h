@@ -61,6 +61,7 @@ public:
   virtual void setModulationType  (interface::ModulationType  const modulation_type ) override;
   virtual void setFrequency       (uint32_t                   const freq_Hz         ) override;
   virtual void setSignalBandwidth (interface::SignalBandwidth const signal_bandwidth) override;
+  virtual void setCodingRate      (interface::CodingRate      const coding_rate     ) override;
 
 
 private:

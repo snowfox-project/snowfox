@@ -49,18 +49,21 @@ namespace interface
  **************************************************************************************/
 
 /* REG_OP_MODE ************************************************************************/
-#define RFM9x_REG_OP_MODE_LONG_RANGE_MODE_bm    (1<<7)
-#define RFM9x_REG_OP_MODE_MODULATION_TYPE_1_bm  (1<<6)
-#define RFM9x_REG_OP_MODE_MODULATION_TYPE_0_bm  (1<<5)
-#define RFM9x_REG_OP_MODE_MODE_2_bm             (1<<2)
-#define RFM9x_REG_OP_MODE_MODE_1_bm             (1<<1)
-#define RFM9x_REG_OP_MODE_MODE_0_bm             (1<<0)
+#define RFM9x_REG_OP_MODE_LONG_RANGE_MODE_bm      (1<<7)
+#define RFM9x_REG_OP_MODE_MODULATION_TYPE_1_bm    (1<<6)
+#define RFM9x_REG_OP_MODE_MODULATION_TYPE_0_bm    (1<<5)
+#define RFM9x_REG_OP_MODE_MODE_2_bm               (1<<2)
+#define RFM9x_REG_OP_MODE_MODE_1_bm               (1<<1)
+#define RFM9x_REG_OP_MODE_MODE_0_bm               (1<<0)
 
 /* REG_MODEM_CONFIG_1 *****************************************************************/
-#define RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_3_bm (1<<7)
-#define RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_2_bm (1<<6)
-#define RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_1_bm (1<<5)
-#define RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_0_bm (1<<4)
+#define RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_3_bm   (1<<7)
+#define RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_2_bm   (1<<6)
+#define RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_1_bm   (1<<5)
+#define RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_0_bm   (1<<4)
+#define RFM9x_REG_MODEM_CONFIG_1_CODING_RATE_2_bm (1<<3)
+#define RFM9x_REG_MODEM_CONFIG_1_CODING_RATE_1_bm (1<<2)
+#define RFM9x_REG_MODEM_CONFIG_1_CODING_RATE_0_bm (1<<1)
 
 /**************************************************************************************
  * TYPEDEFS
@@ -104,6 +107,14 @@ enum class SignalBandwidth : uint8_t
   BW_500_kHz    = RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_3_bm |                                                                                     RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_0_bm
 };
 
+enum class CodingRate : uint8_t
+{
+  CR_4_5 =                                                                                        RFM9x_REG_MODEM_CONFIG_1_CODING_RATE_0_bm,
+  CR_4_6 =                                            RFM9x_REG_MODEM_CONFIG_1_CODING_RATE_1_bm,
+  CR_4_7 =                                            RFM9x_REG_MODEM_CONFIG_1_CODING_RATE_1_bm | RFM9x_REG_MODEM_CONFIG_1_CODING_RATE_0_bm,
+  CR_4_8 = RFM9x_REG_MODEM_CONFIG_1_CODING_RATE_2_bm
+};
+
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
@@ -122,6 +133,7 @@ public:
   virtual void setModulationType  (ModulationType   const modulation_type ) = 0;
   virtual void setFrequency       (uint32_t         const freq_Hz         ) = 0;
   virtual void setSignalBandwidth (SignalBandwidth  const signal_bandwidth) = 0;
+  virtual void setCodingRate      (CodingRate       const coding_rate     ) = 0;
 
 };
 
