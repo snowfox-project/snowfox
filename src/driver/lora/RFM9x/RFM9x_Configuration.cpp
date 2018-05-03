@@ -130,7 +130,18 @@ void RFM9x_Configuration::setCodingRate(interface::CodingRate const coding_rate)
   reg_op_modem_config_1_content |= static_cast<uint8_t>(coding_rate);
 
   _io.writeRegister(interface::Register::MODEM_CONFIG1, reg_op_modem_config_1_content);
+}
 
+void RFM9x_Configuration::setSpreadingFactor (interface::SpreadingFactor const spreading_factor)
+{
+  uint8_t reg_op_modem_config_2_content = 0;
+
+  _io.readRegister(interface::Register::MODEM_CONFIG2, &reg_op_modem_config_2_content);
+
+  reg_op_modem_config_2_content &= ~(RFM9x_REG_MODEM_CONFIG_2_SPREDING_FACTOR_3_bm | RFM9x_REG_MODEM_CONFIG_2_SPREDING_FACTOR_2_bm | RFM9x_REG_MODEM_CONFIG_2_SPREDING_FACTOR_1_bm | RFM9x_REG_MODEM_CONFIG_2_SPREDING_FACTOR_0_bm);
+  reg_op_modem_config_2_content |= static_cast<uint8_t>(spreading_factor);
+
+  _io.writeRegister(interface::Register::MODEM_CONFIG2, reg_op_modem_config_2_content);
 }
 
 /**************************************************************************************

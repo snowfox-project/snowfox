@@ -62,6 +62,7 @@ public:
   virtual void setFrequency       (uint32_t                   const freq_Hz         ) override;
   virtual void setSignalBandwidth (interface::SignalBandwidth const signal_bandwidth) override;
   virtual void setCodingRate      (interface::CodingRate      const coding_rate     ) override;
+  virtual void setSpreadingFactor (interface::SpreadingFactor const spreading_factor) override;
 
 
 private:

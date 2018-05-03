@@ -105,6 +105,14 @@ bool RFM9x::ioctl(uint32_t const cmd, void * arg)
     _config.setCodingRate(coding_rate);
   }
   break;
+  /* IOCTL_SET_SPREADING_FACTOR *******************************************************/
+  case IOCTL_SET_SPREADING_FACTOR:
+  {
+    uint8_t                    const * arg_ptr          = static_cast<uint8_t *>                 (arg     );
+    interface::SpreadingFactor const   spreading_factor = static_cast<interface::SpreadingFactor>(*arg_ptr);
+    _config.setSpreadingFactor(spreading_factor);
+  }
+  break;
   }
 
 
