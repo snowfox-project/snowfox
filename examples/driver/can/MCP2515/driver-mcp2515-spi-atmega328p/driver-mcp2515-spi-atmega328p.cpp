@@ -71,22 +71,35 @@ int main()
 {
   /* HAL ******************************************************************************/
 
-  ATMEGA328P::InterruptController                   int_ctrl               (&EIMSK, &PCICR, &WDTCSR, &TIMSK2, &TIMSK1, &TIMSK0, &SPCR, &UCSR0B, &ADCSRA, &EECR, &ACSR, &TWCR, &SPMCSR);
-  ATMEGA328P::SpiMaster                             spi_master             (&SPCR, &SPSR, &SPDR);
-  ATMEGA328P::DigitalOutPin                         mcp2515_cs             (&DDRB, &PORTB, 1);        /* D9 = PB1        */
-  ATMEGA328P::DigitalInPin                          mcp2515_int_pin        (&DDRD, &PORTD, &PIND, 2); /* D2 = PD2 = INT0 */
-  ATMEGA328P::EINT0                                 mcp2515_eint0          (&EICRA, int_ctrl);
-  ATMEGA328P::EINT0_ExternalInterruptEventCallback  mcp2515_eint0_callback (mcp2515_eint0);
+  ATMEGA328P::InterruptController int_ctrl(&EIMSK, &PCICR, &WDTCSR, &TIMSK2, &TIMSK1, &TIMSK0, &SPCR, &UCSR0B, &ADCSRA, &EECR, &ACSR, &TWCR, &SPMCSR);
 
-  spi_master.setSpiMode         (MCP2515_SPI_MODE     );
-  spi_master.setSpiBitOrder     (MCP2515_SPI_BIT_ORDER);
-  spi_master.setSpiPrescaler    (MCP2515_SPI_PRESCALER);
+  /* SPI/CS for MCP2515 ***************************************************************/
+  ATMEGA328P::DigitalOutPin mcp2515_cs  (&DDRB, &PORTB,        1); /* CS   = D9  = PB1 */
+  ATMEGA328P::DigitalOutPin mcp2515_sck (&DDRB, &PORTB,        5); /* SCK  = D13 = PB5 */
+  ATMEGA328P::DigitalInPin  mcp2515_miso(&DDRB, &PORTB, &PINB, 4); /* MOSI = D12 = PB4 */
+  ATMEGA328P::DigitalOutPin mcp2515_mosi(&DDRB, &PORTB,        3); /* MOSI = D11 = PB3 */
+
+  mcp2515_cs.set();
+  mcp2515_miso.setPullUpMode(hal::interface::PullUpMode::PULL_UP);
+
+  ATMEGA328P::SpiMaster     spi_master(&SPCR, &SPSR, &SPDR);
+
+  spi_master.setSpiMode     (MCP2515_SPI_MODE     );
+  spi_master.setSpiBitOrder (MCP2515_SPI_BIT_ORDER);
+  spi_master.setSpiPrescaler(MCP2515_SPI_PRESCALER);
+
+  /* EXT INT #0 for notifications by MCP2515 ******************************************/
+  ATMEGA328P::DigitalInPin                         mcp2515_int_pin        (&DDRD, &PORTD, &PIND, 2); /* D2 = PD2 = INT0 */
+  ATMEGA328P::EINT0                                mcp2515_eint0          (&EICRA, int_ctrl       );
+  ATMEGA328P::EINT0_ExternalInterruptEventCallback mcp2515_eint0_callback (mcp2515_eint0          );
 
   mcp2515_int_pin.setPullUpMode (hal::interface::PullUpMode::PULL_UP);
 
   mcp2515_eint0.setTriggerMode  (MCP2515_INT_TRIGGER_MODE);
 
   int_ctrl.registerInterruptCallback(ATMEGA328P::toIsrNum(ATMEGA328P::InterruptServiceRoutine::EXTERNAL_INT0), &mcp2515_eint0_callback);
+
+
 
   /* DRIVER ***************************************************************************/
 
