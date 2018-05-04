@@ -154,7 +154,7 @@ int main()
   serial.ioctl(serial::IOCTL_SET_PARITY,   static_cast<void *>(&parity   ));
   serial.ioctl(serial::IOCTL_SET_STOPBIT,  static_cast<void *>(&stop_bit ));
 
-  /* RFM95********* *******************************************************************/
+  /* RFM95 ****************************************************************************/
   lora::RFM9x::RFM9x_IoSpi                    rfm9x_spi                           (spi_master, rfm9x_cs      );
   lora::RFM9x::RFM9x_Configuration            rfm9x_config                        (rfm9x_spi, RFM9x_F_XOSC_Hz);
   lora::RFM9x::RFM9x_InterruptControl         rfm9x_int_control                   (rfm9x_spi                 );
