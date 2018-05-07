@@ -98,14 +98,27 @@ bool RFM9x_FifoControl::setRxFifoSize(uint16_t const rx_fifo_size)
   }
 }
 
-/*
-
-void RFM9x_FifoControl::writeToTxFifo(uint8_t const * data, uint16_t const bytes)
+uint16_t RFM9x_FifoControl::writeToTxFifo(uint8_t const * data, uint16_t const num_bytes)
 {
-  _io.writeRegister(interface::Register::FIFO_ADDR_PTR, _fifo_tx_base_addr);
-  _io.writeRegister(interface::Register::FIFO, data, bytes);
+  _io.writeRegister(interface::Register::FIFO_ADDR_PTR, calcTxFifoBaseAddress());
+
+  uint16_t bytes_to_write = (num_bytes <= _tx_fifo_size) ? num_bytes : _tx_fifo_size;
+
+  _io.writeRegister(interface::Register::FIFO, data, bytes_to_write);
+
+  return bytes_to_write;
 }
-*/
+
+uint16_t RFM9x_FifoControl::readFromRxFifo(uint8_t * data, uint16_t const num_bytes)
+{
+  _io.writeRegister(interface::Register::FIFO_ADDR_PTR, calcRxFifoBaseAddress());
+
+  uint16_t bytes_to_read = (num_bytes <= _rx_fifo_size) ? num_bytes : _rx_fifo_size;
+
+  _io.readRegister(interface::Register::FIFO, data, bytes_to_read);
+
+  return bytes_to_read;
+}
 
 /**************************************************************************************
  * PRIVATE MEMBER FUNCTIONS

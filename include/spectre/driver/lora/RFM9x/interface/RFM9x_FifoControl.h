@@ -60,8 +60,10 @@ public:
   static uint16_t constexpr TOTAL_FIFO_SIZE = 256;
 
 
-  virtual bool setTxFifoSize(uint16_t const tx_fifo_size) = 0;
-  virtual bool setRxFifoSize(uint16_t const rx_fifo_size) = 0;
+  virtual bool     setTxFifoSize (uint16_t const   tx_fifo_size                  ) = 0;
+  virtual bool     setRxFifoSize (uint16_t const   rx_fifo_size                  ) = 0;
+  virtual uint16_t writeToTxFifo (uint8_t  const * data, uint16_t const num_bytes) = 0;
+  virtual uint16_t readFromRxFifo(uint8_t        * data, uint16_t const num_bytes) = 0;
 
 };
 

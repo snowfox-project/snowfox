@@ -69,14 +69,12 @@ bool RFM9x::open()
 
 ssize_t RFM9x::read(uint8_t * buffer, ssize_t const num_bytes)
 {
-  /* TODO*/
-  return -1;
+  return _fifo_ctrl.readFromRxFifo(buffer, num_bytes);
 }
 
 ssize_t RFM9x::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
-  /* TODO*/
-  return -1;
+  return _fifo_ctrl.writeToTxFifo(buffer, num_bytes);
 }
 
 bool RFM9x::ioctl(uint32_t const cmd, void * arg)
