@@ -43,7 +43,9 @@ namespace RFM9x
  **************************************************************************************/
 
 RFM9x_FifoControl::RFM9x_FifoControl(interface::RFM9x_Io & io)
-: _io(io)
+: _io          (io),
+  _tx_fifo_size( 0),
+  _rx_fifo_size( 0)
 {
   setTxFifoSize(0);
   setRxFifoSize(0);
@@ -58,32 +60,45 @@ RFM9x_FifoControl::~RFM9x_FifoControl()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void RFM9x_FifoControl::setTxFifoSize(uint16_t const tx_fifo_size)
+bool RFM9x_FifoControl::setTxFifoSize(uint16_t const tx_fifo_size)
 {
-  /* TODO */
+  uint16_t const new_total_fifo_size = tx_fifo_size + _rx_fifo_size;
 
-  _tx_fifo_size = tx_fifo_size;
+  if(new_total_fifo_size <= TOTAL_FIFO_SIZE)
+  {
+    _tx_fifo_size = tx_fifo_size;
+
+    setTxFifoBaseAddress(calcTxFifoBaseAddress());
+    setRxFifoBaseAddress(calcRxFifoBaseAddress());
+
+    return true;
+  }
+  else
+  {
+    return false;
+  }
 }
 
-void RFM9x_FifoControl::setRxFifoSize(uint16_t const rx_fifo_size)
+bool RFM9x_FifoControl::setRxFifoSize(uint16_t const rx_fifo_size)
 {
-  /* TODO */
+  uint16_t const new_total_fifo_size = _tx_fifo_size + rx_fifo_size;
 
-  _rx_fifo_size = rx_fifo_size;
+  if(new_total_fifo_size <= TOTAL_FIFO_SIZE)
+  {
+    _rx_fifo_size = rx_fifo_size;
+
+    setTxFifoBaseAddress(calcTxFifoBaseAddress());
+    setRxFifoBaseAddress(calcRxFifoBaseAddress());
+
+    return true;
+  }
+  else
+  {
+    return false;
+  }
 }
 
 /*
-void RFM9x_FifoControl::setTxFifoBaseAddress(uint8_t const tx_base_addr)
-{
-  _io.writeRegister(interface::Register::FIFO_TX_BASE_ADDR, tx_base_addr);
-  _fifo_tx_base_addr = tx_base_addr;
-}
-
-void RFM9x_FifoControl::setRxFifoBaseAddress(uint8_t const rx_base_addr)
-{
-  _io.writeRegister(interface::Register::FIFO_RX_BASE_ADDR, rx_base_addr);
-  _fifo_rx_base_addr = rx_base_addr;
-}
 
 void RFM9x_FifoControl::writeToTxFifo(uint8_t const * data, uint16_t const bytes)
 {
@@ -91,6 +106,30 @@ void RFM9x_FifoControl::writeToTxFifo(uint8_t const * data, uint16_t const bytes
   _io.writeRegister(interface::Register::FIFO, data, bytes);
 }
 */
+
+/**************************************************************************************
+ * PRIVATE MEMBER FUNCTIONS
+ **************************************************************************************/
+
+uint8_t RFM9x_FifoControl::calcTxFifoBaseAddress()
+{
+  return 0;
+}
+
+uint8_t RFM9x_FifoControl::calcRxFifoBaseAddress()
+{
+  return static_cast<uint8_t>(_rx_fifo_size);
+}
+
+void RFM9x_FifoControl::setTxFifoBaseAddress(uint8_t const tx_fifo_base_address)
+{
+  _io.writeRegister(interface::Register::FIFO_TX_BASE_ADDR, tx_fifo_base_address);
+}
+
+void RFM9x_FifoControl::setRxFifoBaseAddress(uint8_t const rx_fifo_base_address)
+{
+  _io.writeRegister(interface::Register::FIFO_RX_BASE_ADDR, rx_fifo_base_address);
+}
 
 /**************************************************************************************
  * NAMESPACE

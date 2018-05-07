@@ -122,14 +122,14 @@ bool RFM9x::ioctl(uint32_t const cmd, void * arg)
   case IOCTL_SET_TX_FIFO_SIZE:
   {
     uint16_t const * tx_fifo_size = static_cast<uint16_t *>(arg);
-    _fifo_ctrl.setTxFifoSize(*tx_fifo_size);
+    return _fifo_ctrl.setTxFifoSize(*tx_fifo_size);
   }
   break;
   /* IOCTL_SET_RX_FIFO_SIZE ***********************************************************/
   case IOCTL_SET_RX_FIFO_SIZE:
   {
     uint16_t const * rx_fifo_size = static_cast<uint16_t *>(arg);
-    _fifo_ctrl.setRxFifoSize(*rx_fifo_size);
+    return _fifo_ctrl.setRxFifoSize(*rx_fifo_size);
   }
   break;
   }
