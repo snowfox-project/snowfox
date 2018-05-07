@@ -45,8 +45,8 @@ namespace RFM9x
 RFM9x_FifoControl::RFM9x_FifoControl(interface::RFM9x_Io & io)
 : _io(io)
 {
-  setTxFifoBaseAddress(0);
-  setRxFifoBaseAddress(0);
+  setTxFifoSize(0);
+  setRxFifoSize(0);
 }
 
 RFM9x_FifoControl::~RFM9x_FifoControl()
@@ -58,6 +58,21 @@ RFM9x_FifoControl::~RFM9x_FifoControl()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
+void RFM9x_FifoControl::setTxFifoSize(uint16_t const tx_fifo_size)
+{
+  /* TODO */
+
+  _tx_fifo_size = tx_fifo_size;
+}
+
+void RFM9x_FifoControl::setRxFifoSize(uint16_t const rx_fifo_size)
+{
+  /* TODO */
+
+  _rx_fifo_size = rx_fifo_size;
+}
+
+/*
 void RFM9x_FifoControl::setTxFifoBaseAddress(uint8_t const tx_base_addr)
 {
   _io.writeRegister(interface::Register::FIFO_TX_BASE_ADDR, tx_base_addr);
@@ -75,7 +90,7 @@ void RFM9x_FifoControl::writeToTxFifo(uint8_t const * data, uint16_t const bytes
   _io.writeRegister(interface::Register::FIFO_ADDR_PTR, _fifo_tx_base_addr);
   _io.writeRegister(interface::Register::FIFO, data, bytes);
 }
-
+*/
 
 /**************************************************************************************
  * NAMESPACE

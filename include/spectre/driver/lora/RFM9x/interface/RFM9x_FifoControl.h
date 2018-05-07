@@ -57,12 +57,11 @@ public:
   virtual ~RFM9x_FifoControl() { }
 
 
-  static uint16_t constexpr FIFO_SIZE = 256;
+  static uint16_t constexpr TOTAL_FIFO_SIZE = 256;
 
 
-  virtual void setTxFifoBaseAddress (uint8_t const tx_base_addr                ) = 0;
-  virtual void setRxFifoBaseAddress (uint8_t const rx_base_addr                ) = 0;
-  virtual void writeToTxFifo        (uint8_t const * data, uint16_t const bytes) = 0;
+  virtual void setTxFifoSize(uint16_t const tx_fifo_size) = 0;
+  virtual void setRxFifoSize(uint16_t const rx_fifo_size) = 0;
 
 };
 

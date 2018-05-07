@@ -42,8 +42,10 @@ namespace RFM9x
  * CTOR/DTOR
  **************************************************************************************/
 
-RFM9x::RFM9x(interface::RFM9x_Configuration & config)
-: _config(config)
+RFM9x::RFM9x(interface::RFM9x_Configuration & config,
+             interface::RFM9x_FifoControl   & fifo_ctrl)
+: _config  (config   ),
+ _fifo_ctrl(fifo_ctrl)
 {
 
 }
@@ -111,6 +113,20 @@ bool RFM9x::ioctl(uint32_t const cmd, void * arg)
     uint8_t                    const * arg_ptr          = static_cast<uint8_t *>                 (arg     );
     interface::SpreadingFactor const   spreading_factor = static_cast<interface::SpreadingFactor>(*arg_ptr);
     _config.setSpreadingFactor(spreading_factor);
+  }
+  break;
+  /* IOCTL_SET_TX_FIFO_SIZE ***********************************************************/
+  case IOCTL_SET_TX_FIFO_SIZE:
+  {
+    uint16_t const * tx_fifo_size = static_cast<uint16_t *>(arg);
+    _fifo_ctrl.setTxFifoSize(*tx_fifo_size);
+  }
+  break;
+  /* IOCTL_SET_RX_FIFO_SIZE ***********************************************************/
+  case IOCTL_SET_RX_FIFO_SIZE:
+  {
+    uint16_t const * rx_fifo_size = static_cast<uint16_t *>(arg);
+    _fifo_ctrl.setRxFifoSize(*rx_fifo_size);
   }
   break;
   }

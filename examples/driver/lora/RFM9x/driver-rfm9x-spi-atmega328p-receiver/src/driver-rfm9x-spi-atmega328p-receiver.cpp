@@ -162,20 +162,24 @@ int main()
   lora::RFM9x::RFM9x_onPacketSentCallback     rfm9x_on_packet_sent_callback;
   lora::RFM9x::RFM9x_onPayloadReadyCallback   rfm9x_on_payload_ready_callback;
   lora::RFM9x::RFM9x_Dio0EventCallback        rfm9x_di0_event_callback            (rfm9x_int_control, rfm9x_on_packet_sent_callback, rfm9x_on_payload_ready_callback);
-  lora::RFM9x::RFM9x                          rfm9x                               (rfm9x_config              );
+  lora::RFM9x::RFM9x                          rfm9x                               (rfm9x_config, rfm9x_fifo_control);
 
 
   rfm9x_dio0_eint0.registerExternalInterruptCallback(&rfm9x_di0_event_callback);
 
 
-  uint8_t signal_bandwidth = static_cast<uint8_t>(lora::RFM9x::interface::SignalBandwidth::BW_250_kHz);
-  uint8_t coding_rate      = static_cast<uint8_t>(lora::RFM9x::interface::CodingRate::CR_4_5         );
-  uint8_t spreading_factor = static_cast<uint8_t>(lora::RFM9x::interface::SpreadingFactor::SF_128    );
+  uint8_t  signal_bandwidth = static_cast<uint8_t>(lora::RFM9x::interface::SignalBandwidth::BW_250_kHz);
+  uint8_t  coding_rate      = static_cast<uint8_t>(lora::RFM9x::interface::CodingRate::CR_4_5         );
+  uint8_t  spreading_factor = static_cast<uint8_t>(lora::RFM9x::interface::SpreadingFactor::SF_128    );
+  uint16_t tx_fifo_size     = 128;
+  uint16_t rx_fifo_size     = 128;
 
   rfm9x.open();
   rfm9x.ioctl(lora::RFM9x::IOCTL_SET_SIGNAL_BANDWIDTH,  static_cast<void *>(&signal_bandwidth));
   rfm9x.ioctl(lora::RFM9x::IOCTL_SET_CODING_RATE,       static_cast<void *>(&coding_rate     ));
   rfm9x.ioctl(lora::RFM9x::IOCTL_SET_SPREADING_FACTOR,  static_cast<void *>(&spreading_factor));
+  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_TX_FIFO_SIZE,      static_cast<void *>(&tx_fifo_size    ));
+  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_RX_FIFO_SIZE,      static_cast<void *>(&rx_fifo_size    ));
 
   /* ALL ******************************************************************************/
   int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
