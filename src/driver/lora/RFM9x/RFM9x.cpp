@@ -97,6 +97,7 @@ bool RFM9x::ioctl(uint32_t const cmd, void * arg)
     uint8_t                    const * arg_ptr          = static_cast<uint8_t *>                 (arg     );
     interface::SignalBandwidth const   signal_bandwidth = static_cast<interface::SignalBandwidth>(*arg_ptr);
     _config.setSignalBandwidth(signal_bandwidth);
+    return true;
   }
   break;
   /* IOCTL_SET_CODING_RATE ************************************************************/
@@ -105,6 +106,7 @@ bool RFM9x::ioctl(uint32_t const cmd, void * arg)
     uint8_t               const * arg_ptr     = static_cast<uint8_t *>            (arg     );
     interface::CodingRate const   coding_rate = static_cast<interface::CodingRate>(*arg_ptr);
     _config.setCodingRate(coding_rate);
+    return true;
   }
   break;
   /* IOCTL_SET_SPREADING_FACTOR *******************************************************/
@@ -113,6 +115,7 @@ bool RFM9x::ioctl(uint32_t const cmd, void * arg)
     uint8_t                    const * arg_ptr          = static_cast<uint8_t *>                 (arg     );
     interface::SpreadingFactor const   spreading_factor = static_cast<interface::SpreadingFactor>(*arg_ptr);
     _config.setSpreadingFactor(spreading_factor);
+    return true;
   }
   break;
   /* IOCTL_SET_TX_FIFO_SIZE ***********************************************************/
