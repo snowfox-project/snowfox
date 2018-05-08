@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 2.8)
 
 ##########################################################################
 
-set(TARGET driver-rfm9x-spi-atmega328p-receiver)
+set(TARGET driver-rfm9x-spi-atmega328p-transmitter)
 
 ##########################################################################
 
