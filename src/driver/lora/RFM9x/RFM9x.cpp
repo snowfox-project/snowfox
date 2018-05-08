@@ -147,7 +147,7 @@ bool RFM9x::ioctl(uint32_t const cmd, void * arg)
 
 void RFM9x::close()
 {
-  /* TODO*/
+  _config.setOperatingMode(interface::OperatingMode::SLEEP);
 }
 
 /**************************************************************************************
