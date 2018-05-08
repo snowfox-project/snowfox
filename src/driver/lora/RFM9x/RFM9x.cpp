@@ -63,8 +63,9 @@ bool RFM9x::open()
 {
   _config.setOperatingMode(interface::OperatingMode::SLEEP);
   _config.setLoRaMode     (interface::LoRaMode::LoRa      );
+  _config.setHeaderMode   (interface::HeaderMode::Explicit);
 
-  return false;
+  return true;
 }
 
 ssize_t RFM9x::read(uint8_t * buffer, ssize_t const num_bytes)

@@ -49,27 +49,28 @@ namespace interface
  **************************************************************************************/
 
 /* REG_OP_MODE ************************************************************************/
-#define RFM9x_REG_OP_MODE_LONG_RANGE_MODE_bm          (1<<7)
-#define RFM9x_REG_OP_MODE_MODULATION_TYPE_1_bm        (1<<6)
-#define RFM9x_REG_OP_MODE_MODULATION_TYPE_0_bm        (1<<5)
-#define RFM9x_REG_OP_MODE_MODE_2_bm                   (1<<2)
-#define RFM9x_REG_OP_MODE_MODE_1_bm                   (1<<1)
-#define RFM9x_REG_OP_MODE_MODE_0_bm                   (1<<0)
+#define RFM9x_REG_OP_MODE_LONG_RANGE_MODE_bm                (1<<7)
+#define RFM9x_REG_OP_MODE_MODULATION_TYPE_1_bm              (1<<6)
+#define RFM9x_REG_OP_MODE_MODULATION_TYPE_0_bm              (1<<5)
+#define RFM9x_REG_OP_MODE_MODE_2_bm                         (1<<2)
+#define RFM9x_REG_OP_MODE_MODE_1_bm                         (1<<1)
+#define RFM9x_REG_OP_MODE_MODE_0_bm                         (1<<0)
 
 /* REG_MODEM_CONFIG_1 *****************************************************************/
-#define RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_3_bm       (1<<7)
-#define RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_2_bm       (1<<6)
-#define RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_1_bm       (1<<5)
-#define RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_0_bm       (1<<4)
-#define RFM9x_REG_MODEM_CONFIG_1_CODING_RATE_2_bm     (1<<3)
-#define RFM9x_REG_MODEM_CONFIG_1_CODING_RATE_1_bm     (1<<2)
-#define RFM9x_REG_MODEM_CONFIG_1_CODING_RATE_0_bm     (1<<1)
+#define RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_3_bm             (1<<7)
+#define RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_2_bm             (1<<6)
+#define RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_1_bm             (1<<5)
+#define RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_0_bm             (1<<4)
+#define RFM9x_REG_MODEM_CONFIG_1_CODING_RATE_2_bm           (1<<3)
+#define RFM9x_REG_MODEM_CONFIG_1_CODING_RATE_1_bm           (1<<2)
+#define RFM9x_REG_MODEM_CONFIG_1_CODING_RATE_0_bm           (1<<1)
+#define RFM9x_REG_MODEM_CONFIG_1_IMPLICIT_HEADER_MODE_ON_bm (1<<0)
 
 /* REG_MODEM_CONFIG_2 *****************************************************************/
-#define RFM9x_REG_MODEM_CONFIG_2_SPREDING_FACTOR_3_bm (1<<7)
-#define RFM9x_REG_MODEM_CONFIG_2_SPREDING_FACTOR_2_bm (1<<6)
-#define RFM9x_REG_MODEM_CONFIG_2_SPREDING_FACTOR_1_bm (1<<5)
-#define RFM9x_REG_MODEM_CONFIG_2_SPREDING_FACTOR_0_bm (1<<4)
+#define RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_3_bm      (1<<7)
+#define RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_2_bm      (1<<6)
+#define RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_1_bm      (1<<5)
+#define RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_0_bm      (1<<4)
 
 /**************************************************************************************
  * TYPEDEFS
@@ -121,15 +122,21 @@ enum class CodingRate : uint8_t
   CR_4_8 = RFM9x_REG_MODEM_CONFIG_1_CODING_RATE_2_bm
 };
 
+enum class HeaderMode : uint8_t
+{
+  Explicit = 0,
+  Implicit = RFM9x_REG_MODEM_CONFIG_1_IMPLICIT_HEADER_MODE_ON_bm
+};
+
 enum class SpreadingFactor : uint8_t
 {
-  SF_64   = /*  6 */                                                 RFM9x_REG_MODEM_CONFIG_2_SPREDING_FACTOR_2_bm | RFM9x_REG_MODEM_CONFIG_2_SPREDING_FACTOR_1_bm,
-  SF_128  = /*  7 */                                                 RFM9x_REG_MODEM_CONFIG_2_SPREDING_FACTOR_2_bm | RFM9x_REG_MODEM_CONFIG_2_SPREDING_FACTOR_1_bm | RFM9x_REG_MODEM_CONFIG_2_SPREDING_FACTOR_0_bm,
-  SF_256  = /*  8 */ RFM9x_REG_MODEM_CONFIG_2_SPREDING_FACTOR_3_bm,
-  SF_512  = /*  9 */ RFM9x_REG_MODEM_CONFIG_2_SPREDING_FACTOR_3_bm |                                                                                                 RFM9x_REG_MODEM_CONFIG_2_SPREDING_FACTOR_0_bm,
-  SF_1024 = /* 10 */ RFM9x_REG_MODEM_CONFIG_2_SPREDING_FACTOR_3_bm |                                                 RFM9x_REG_MODEM_CONFIG_2_SPREDING_FACTOR_1_bm,
-  SF_2048 = /* 11 */ RFM9x_REG_MODEM_CONFIG_2_SPREDING_FACTOR_3_bm |                                                 RFM9x_REG_MODEM_CONFIG_2_SPREDING_FACTOR_1_bm | RFM9x_REG_MODEM_CONFIG_2_SPREDING_FACTOR_0_bm,
-  SF_4096 = /* 12 */ RFM9x_REG_MODEM_CONFIG_2_SPREDING_FACTOR_3_bm | RFM9x_REG_MODEM_CONFIG_2_SPREDING_FACTOR_2_bm
+  SF_64   = /*  6 */                                                  RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_2_bm | RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_1_bm,
+  SF_128  = /*  7 */                                                  RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_2_bm | RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_1_bm | RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_0_bm,
+  SF_256  = /*  8 */ RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_3_bm,
+  SF_512  = /*  9 */ RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_3_bm |                                                                                                   RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_0_bm,
+  SF_1024 = /* 10 */ RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_3_bm |                                                  RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_1_bm,
+  SF_2048 = /* 11 */ RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_3_bm |                                                  RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_1_bm | RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_0_bm,
+  SF_4096 = /* 12 */ RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_3_bm |  RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_2_bm
 };
 
 /**************************************************************************************
@@ -151,6 +158,7 @@ public:
   virtual void setFrequency       (uint32_t        const freq_Hz         ) = 0;
   virtual void setSignalBandwidth (SignalBandwidth const signal_bandwidth) = 0;
   virtual void setCodingRate      (CodingRate      const coding_rate     ) = 0;
+  virtual void setHeaderMode      (HeaderMode      const header_mode     ) = 0;
   virtual void setSpreadingFactor (SpreadingFactor const spreading_factor) = 0;
   virtual void setPreambleLength  (uint16_t        const preamble_length ) = 0;
 
