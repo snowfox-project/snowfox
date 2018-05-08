@@ -144,6 +144,12 @@ void RFM9x_Configuration::setSpreadingFactor (interface::SpreadingFactor const s
   _io.writeRegister(interface::Register::MODEM_CONFIG2, reg_op_modem_config_2_content);
 }
 
+void RFM9x_Configuration::setPreambleLength(uint16_t const preamble_length)
+{
+  _io.writeRegister(interface::Register::PREAMBLE_MSB, static_cast<uint8_t>((preamble_length & 0xFF00) >> 8));
+  _io.writeRegister(interface::Register::PREAMBLE_LSB, static_cast<uint8_t>((preamble_length & 0x00FF) >> 0));
+}
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/

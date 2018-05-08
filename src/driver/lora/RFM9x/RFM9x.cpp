@@ -116,6 +116,14 @@ bool RFM9x::ioctl(uint32_t const cmd, void * arg)
     return true;
   }
   break;
+  /* IOCTL_SET_PREAMBLE_LENGTH ********************************************************/
+  case IOCTL_SET_PREAMBLE_LENGTH:
+  {
+    uint16_t const * preamble_length = static_cast<uint16_t *>(arg);
+    _config.setPreambleLength(*preamble_length);
+    return true;
+  }
+  break;
   /* IOCTL_SET_TX_FIFO_SIZE ***********************************************************/
   case IOCTL_SET_TX_FIFO_SIZE:
   {
