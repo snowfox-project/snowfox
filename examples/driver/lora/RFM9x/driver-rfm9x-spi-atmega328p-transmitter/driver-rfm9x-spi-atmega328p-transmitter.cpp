@@ -1,6 +1,6 @@
 /**
- * lora-sniffer is a LoRa packet sniffer based on the HopeRF RF95.
- * Copyright (C) 2018 Alexander Entinger / LXRobotics GmbH
+ * Spectre is a modular RTOS with extensive IO support.
+ * Copyright (C) 2017 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
