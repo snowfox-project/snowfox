@@ -49,9 +49,7 @@
 #include <spectre/driver/lora/RFM9x/packet_mode/RFM9x_onPacketSentCallback.h>
 #include <spectre/driver/lora/RFM9x/packet_mode/RFM9x_onPayloadReadyCallback.h>
 
-#include <lora-sniffer/SerialReader.h>
-#include <lora-sniffer/SerialWriter.h>
-#include <lora-sniffer/CommandParser.h>
+#include <spectre/debug/serial/DebugSerial.h>
 
 /**************************************************************************************
  * NAMESPACES
@@ -60,7 +58,6 @@
 using namespace spectre;
 using namespace spectre::hal;
 using namespace spectre::driver;
-using namespace application;
 
 /**************************************************************************************
  * CONSTANTS
@@ -154,6 +151,8 @@ int main()
   serial.ioctl(serial::IOCTL_SET_PARITY,   static_cast<void *>(&parity   ));
   serial.ioctl(serial::IOCTL_SET_STOPBIT,  static_cast<void *>(&stop_bit ));
 
+  debug::DebugSerial debug_serial(serial);
+
   /* RFM95 ****************************************************************************/
   lora::RFM9x::RFM9x_IoSpi                    rfm9x_spi                           (spi_master, rfm9x_cs      );
   lora::RFM9x::RFM9x_Configuration            rfm9x_config                        (rfm9x_spi, RFM9x_F_XOSC_Hz);
@@ -192,26 +191,11 @@ int main()
 
   /* APPLICATION **********************************************************************/
 
-  /* COMMANDS
-   * 'DB\r'                 Print all registers of the RFM95 chip
-   * 'MD [LORA|FSK_OOK]\r'  Set LoRa mode
-   * 'FR 433000000\r'       Set frequency of module
-   */
-
-  SerialReader serial_reader(serial);
-  SerialWriter serial_writer(serial);
+  lora::RFM9x::RFM9x_Debug::debug_dumpAllRegs(debug_serial, flash, rfm9x_spi);
 
   for(;;)
   {
-    char cmd_str[16];
 
-    if(serial_reader.readUntil('\r', cmd_str, 16))
-    {
-      if(CommandParser::isDebugCommand(cmd_str))
-      {
-        lora::RFM9x::RFM9x_Debug::debug_dumpAllRegs(serial_writer, flash, rfm9x_spi);
-      }
-    }
   }
 
 

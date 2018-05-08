@@ -16,9 +16,6 @@ add_executable(
   ${TARGET}
   
   src/driver-rfm9x-spi-atmega328p-receiver.cpp
-  
-  src/CommandParser.cpp
-  src/SerialReader.cpp
 )
 
 target_link_libraries(
