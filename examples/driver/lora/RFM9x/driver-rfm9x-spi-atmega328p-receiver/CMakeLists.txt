@@ -15,7 +15,7 @@ include_directories(include)
 add_executable(
   ${TARGET}
   
-  src/driver-rfm9x-spi-atmega328p-receiver.cpp
+  driver-rfm9x-spi-atmega328p-receiver.cpp
 )
 
 target_link_libraries(
