@@ -97,7 +97,7 @@ void RFM9x_Configuration::setModulationType(interface::ModulationType const modu
 void RFM9x_Configuration::setFrequency(uint32_t const f_rf_Hz)
 {
   float    const f_step_Hz = static_cast<float>(_fxosc_Hz) / 524288.0;
-  uint32_t const f_rf      = static_cast<uint32_t>(f_step_Hz / static_cast<float>(f_rf_Hz));
+  uint32_t const f_rf      = static_cast<uint32_t>(static_cast<float>(f_rf_Hz) / f_step_Hz);
 
   uint8_t const f_rf_msb = static_cast<uint8_t>((f_rf & 0x00FF0000) >> 16);
   uint8_t const f_rf_mid = static_cast<uint8_t>((f_rf & 0x0000FF00) >>  8);
