@@ -59,6 +59,7 @@ public:
   virtual void setOperatingMode   (interface::OperatingMode   const op_mode         ) override;
   virtual void setLoRaMode        (interface::LoRaMode        const lora_mode       ) override;
   virtual void setModulationType  (interface::ModulationType  const modulation_type ) override;
+
   virtual void setFrequency       (uint32_t                   const freq_Hz         ) override;
   virtual void setSignalBandwidth (interface::SignalBandwidth const signal_bandwidth) override;
   virtual void setCodingRate      (interface::CodingRate      const coding_rate     ) override;
@@ -66,11 +67,18 @@ public:
   virtual void setSpreadingFactor (interface::SpreadingFactor const spreading_factor) override;
   virtual void setPreambleLength  (uint16_t                   const preamble_length ) override;
 
+  virtual bool setTxFifoSize      (uint16_t                   const tx_fifo_size    ) override;
+  virtual bool setRxFifoSize      (uint16_t                   const rx_fifo_size    ) override;
 
 private:
 
   interface::RFM9x_Io       & _io;
   uint32_t            const   _fxosc_Hz;
+  uint16_t                    _tx_fifo_size,
+                              _rx_fifo_size;
+
+  void    setTxFifoBaseAddress (uint8_t const tx_base_addr);
+  void    setRxFifoBaseAddress (uint8_t const rx_base_addr);
 
 };
 

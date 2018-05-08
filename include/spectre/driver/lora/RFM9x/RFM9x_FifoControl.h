@@ -56,22 +56,12 @@ public:
   virtual ~RFM9x_FifoControl();
 
 
-  virtual bool     setTxFifoSize (uint16_t const   tx_fifo_size                  ) override;
-  virtual bool     setRxFifoSize (uint16_t const   rx_fifo_size                  ) override;
   virtual uint16_t writeToTxFifo (uint8_t  const * data, uint16_t const num_bytes) override;
   virtual uint16_t readFromRxFifo(uint8_t        * data, uint16_t const num_bytes) override;
 
 private:
 
   interface::RFM9x_Io & _io;
-  uint16_t              _tx_fifo_size,
-                        _rx_fifo_size;
-
-
-  uint8_t calcTxFifoBaseAddress();
-  uint8_t calcRxFifoBaseAddress();
-  void    setTxFifoBaseAddress (uint8_t const tx_base_addr);
-  void    setRxFifoBaseAddress (uint8_t const rx_base_addr);
 
 };
 

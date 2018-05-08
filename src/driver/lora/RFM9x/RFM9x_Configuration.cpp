@@ -39,14 +39,23 @@ namespace RFM9x
 {
 
 /**************************************************************************************
+ * CONSTANTS
+ **************************************************************************************/
+
+static uint16_t constexpr MAX_FIFO_SIZE = 256;
+
+/**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
 RFM9x_Configuration::RFM9x_Configuration(interface::RFM9x_Io & io, uint32_t const fxosc_Hz)
-: _io      (io      ),
-  _fxosc_Hz(fxosc_Hz)
+: _io          (io      ),
+  _fxosc_Hz    (fxosc_Hz),
+  _tx_fifo_size(       0),
+  _rx_fifo_size(       0)
 {
-
+  setTxFifoSize(0);
+  setRxFifoSize(0);
 }
 
 RFM9x_Configuration::~RFM9x_Configuration()
@@ -160,6 +169,58 @@ void RFM9x_Configuration::setPreambleLength(uint16_t const preamble_length)
 {
   _io.writeRegister(interface::Register::PREAMBLE_MSB, static_cast<uint8_t>((preamble_length & 0xFF00) >> 8));
   _io.writeRegister(interface::Register::PREAMBLE_LSB, static_cast<uint8_t>((preamble_length & 0x00FF) >> 0));
+}
+
+bool RFM9x_Configuration::setTxFifoSize(uint16_t const tx_fifo_size)
+{
+  uint16_t const new_total_fifo_size = tx_fifo_size + _rx_fifo_size;
+
+  if(new_total_fifo_size <= MAX_FIFO_SIZE)
+  {
+    _tx_fifo_size = tx_fifo_size;
+
+    setTxFifoBaseAddress(            0);
+    setRxFifoBaseAddress(_rx_fifo_size);
+
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+
+bool RFM9x_Configuration::setRxFifoSize(uint16_t const rx_fifo_size)
+{
+  uint16_t const new_total_fifo_size = _tx_fifo_size + rx_fifo_size;
+
+  if(new_total_fifo_size <= MAX_FIFO_SIZE)
+  {
+    _rx_fifo_size = rx_fifo_size;
+
+    setTxFifoBaseAddress(            0);
+    setRxFifoBaseAddress(_rx_fifo_size);
+
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+
+/**************************************************************************************
+ * PRIVATE MEMBER FUNCTIONS
+ **************************************************************************************/
+
+void RFM9x_Configuration::setTxFifoBaseAddress(uint8_t const tx_fifo_base_address)
+{
+  _io.writeRegister(interface::Register::FIFO_TX_BASE_ADDR, tx_fifo_base_address);
+}
+
+void RFM9x_Configuration::setRxFifoBaseAddress(uint8_t const rx_fifo_base_address)
+{
+  _io.writeRegister(interface::Register::FIFO_RX_BASE_ADDR, rx_fifo_base_address);
 }
 
 /**************************************************************************************

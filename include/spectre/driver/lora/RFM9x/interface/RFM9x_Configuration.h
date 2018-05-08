@@ -155,12 +155,16 @@ public:
   virtual void setOperatingMode   (OperatingMode   const op_mode         ) = 0;
   virtual void setLoRaMode        (LoRaMode        const lora_mode       ) = 0;
   virtual void setModulationType  (ModulationType  const modulation_type ) = 0;
+
   virtual void setFrequency       (uint32_t        const freq_Hz         ) = 0;
   virtual void setSignalBandwidth (SignalBandwidth const signal_bandwidth) = 0;
   virtual void setCodingRate      (CodingRate      const coding_rate     ) = 0;
   virtual void setHeaderMode      (HeaderMode      const header_mode     ) = 0;
   virtual void setSpreadingFactor (SpreadingFactor const spreading_factor) = 0;
   virtual void setPreambleLength  (uint16_t        const preamble_length ) = 0;
+
+  virtual bool setTxFifoSize      (uint16_t        const tx_fifo_size    ) = 0;
+  virtual bool setRxFifoSize      (uint16_t        const rx_fifo_size    ) = 0;
 
 };
 
