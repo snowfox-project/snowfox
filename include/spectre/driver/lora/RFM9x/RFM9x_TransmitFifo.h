@@ -16,11 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_TRANSMITFIFO_H_
+#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_TRANSMITFIFO_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/RFM9x_FifoControl.h>
+#include <spectre/driver/lora/RFM9x/interface/RFM9x_TransmitFifo.h>
+
+#include <spectre/driver/lora/RFM9x/interface/RFM9x_Io.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,48 +44,25 @@ namespace RFM9x
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * CLASS DECLARATION
  **************************************************************************************/
 
-RFM9x_FifoControl::RFM9x_FifoControl(interface::RFM9x_Io & io)
-: _io          (io)
+class RFM9x_TransmitFifo : public interface::RFM9x_TransmitFifo
 {
 
-}
+public:
 
-RFM9x_FifoControl::~RFM9x_FifoControl()
-{
+           RFM9x_TransmitFifo(interface::RFM9x_Io & io);
+  virtual ~RFM9x_TransmitFifo();
 
-}
 
-/**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
- **************************************************************************************/
+  virtual void writeToFifo(uint8_t const * data, uint16_t const num_bytes) override;
 
-uint16_t RFM9x_FifoControl::writeToTxFifo(uint8_t const * data, uint16_t const num_bytes)
-{
-//  _io.writeRegister(interface::Register::FIFO_ADDR_PTR, calcTxFifoBaseAddress());
-//
-//  uint16_t bytes_to_write = (num_bytes <= _tx_fifo_size) ? num_bytes : _tx_fifo_size;
-//
-//  _io.writeRegister(interface::Register::FIFO, data, bytes_to_write);
-//
-//  return bytes_to_write;
-  return 0;
-}
+private:
 
-uint16_t RFM9x_FifoControl::readFromRxFifo(uint8_t * data, uint16_t const num_bytes)
-{
-//  _io.writeRegister(interface::Register::FIFO_ADDR_PTR, calcRxFifoBaseAddress());
-//
-//  uint16_t bytes_to_read = (num_bytes <= _rx_fifo_size) ? num_bytes : _rx_fifo_size;
-//
-//  _io.readRegister(interface::Register::FIFO, data, bytes_to_read);
-//
-//  return bytes_to_read;
+  interface::RFM9x_Io & _io;
 
-  return 0;
-}
+};
 
 /**************************************************************************************
  * NAMESPACE
@@ -93,3 +75,5 @@ uint16_t RFM9x_FifoControl::readFromRxFifo(uint8_t * data, uint16_t const num_by
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_TRANSMITFIFO_H_ */

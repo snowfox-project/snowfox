@@ -16,16 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_FIFOCONTROL_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_FIFOCONTROL_H_
-
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_FifoControl.h>
-
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_Io.h>
+#include <spectre/driver/lora/RFM9x/RFM9x_TransmitFifo.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -44,26 +39,32 @@ namespace RFM9x
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class RFM9x_FifoControl : public interface::RFM9x_FifoControl
+RFM9x_TransmitFifo::RFM9x_TransmitFifo(interface::RFM9x_Io & io)
+: _io(io)
 {
 
-public:
+}
 
-           RFM9x_FifoControl(interface::RFM9x_Io & io);
-  virtual ~RFM9x_FifoControl();
+RFM9x_TransmitFifo::~RFM9x_TransmitFifo()
+{
 
+}
 
-  virtual uint16_t writeToTxFifo (uint8_t  const * data, uint16_t const num_bytes) override;
-  virtual uint16_t readFromRxFifo(uint8_t        * data, uint16_t const num_bytes) override;
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
-private:
+void RFM9x_TransmitFifo::writeToFifo(uint8_t const * data, uint16_t const num_bytes)
+{
+  uint8_t fifo_tx_base_address = 0;
 
-  interface::RFM9x_Io & _io;
-
-};
+  _io.readRegister (interface::Register::FIFO_TX_BASE_ADDR, &fifo_tx_base_address);
+  _io.writeRegister(interface::Register::FIFO_ADDR_PTR,      fifo_tx_base_address);
+  _io.writeRegister(interface::Register::FIFO, data, num_bytes                   );
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -76,5 +77,3 @@ private:
 } /* driver */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_FIFOCONTROL_H_ */

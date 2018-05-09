@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_FIFOCONTROL_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_FIFOCONTROL_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_TRANSMITFIFO_H_
+#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_TRANSMITFIFO_H_
 
 /**************************************************************************************
  * INCLUDES
@@ -48,17 +48,16 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_FifoControl
+class RFM9x_TransmitFifo
 {
 
 public:
 
-           RFM9x_FifoControl() { }
-  virtual ~RFM9x_FifoControl() { }
+           RFM9x_TransmitFifo() { }
+  virtual ~RFM9x_TransmitFifo() { }
 
 
-  virtual uint16_t writeToTxFifo (uint8_t  const * data, uint16_t const num_bytes) = 0;
-  virtual uint16_t readFromRxFifo(uint8_t        * data, uint16_t const num_bytes) = 0;
+  virtual void writeToFifo(uint8_t const * data, uint16_t const num_bytes) = 0;
 
 };
 
@@ -76,4 +75,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_FIFOCONTROL_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_TRANSMITFIFO_H_ */

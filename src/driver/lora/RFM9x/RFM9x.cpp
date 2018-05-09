@@ -43,9 +43,9 @@ namespace RFM9x
  **************************************************************************************/
 
 RFM9x::RFM9x(interface::RFM9x_Configuration & config,
-             interface::RFM9x_FifoControl   & fifo_ctrl)
-: _config  (config   ),
- _fifo_ctrl(fifo_ctrl)
+             interface::RFM9x_TransmitFifo  & tx_fifo)
+: _config (config   ),
+  _tx_fifo(tx_fifo  )
 {
 
 }
@@ -70,12 +70,14 @@ bool RFM9x::open()
 
 ssize_t RFM9x::read(uint8_t * buffer, ssize_t const num_bytes)
 {
-  return _fifo_ctrl.readFromRxFifo(buffer, num_bytes);
+  return -1;
 }
 
 ssize_t RFM9x::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
-  return _fifo_ctrl.writeToTxFifo(buffer, num_bytes);
+  _tx_fifo.writeToFifo(buffer, num_bytes);
+
+  return 0;
 }
 
 bool RFM9x::ioctl(uint32_t const cmd, void * arg)

@@ -25,7 +25,7 @@
 
 #include <spectre/driver/interface/Driver.h>
 
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_FifoControl.h>
+#include <spectre/driver/lora/RFM9x/interface/RFM9x_TransmitFifo.h>
 #include <spectre/driver/lora/RFM9x/interface/RFM9x_Configuration.h>
 
 /**************************************************************************************
@@ -66,7 +66,7 @@ class RFM9x : public driver::interface::Driver
 public:
 
            RFM9x(interface::RFM9x_Configuration & config,
-                 interface::RFM9x_FifoControl   & fifo_ctrl);
+                 interface::RFM9x_TransmitFifo  & tx_fifo);
   virtual ~RFM9x();
 
 
@@ -80,7 +80,7 @@ public:
 private:
 
   interface::RFM9x_Configuration & _config;
-  interface::RFM9x_FifoControl   & _fifo_ctrl;
+  interface::RFM9x_TransmitFifo  & _tx_fifo;
 
 };
 
