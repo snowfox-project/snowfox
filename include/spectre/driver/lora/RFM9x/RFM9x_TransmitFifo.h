@@ -26,6 +26,7 @@
 #include <spectre/driver/lora/RFM9x/interface/RFM9x_TransmitFifo.h>
 
 #include <spectre/driver/lora/RFM9x/interface/RFM9x_Io.h>
+#include <spectre/driver/lora/RFM9x/interface/RFM9x_FifoConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -52,15 +53,17 @@ class RFM9x_TransmitFifo : public interface::RFM9x_TransmitFifo
 
 public:
 
-           RFM9x_TransmitFifo(interface::RFM9x_Io & io);
+           RFM9x_TransmitFifo(interface::RFM9x_Io                & io,
+                              interface::RFM9x_FifoConfiguration & fifo_config);
   virtual ~RFM9x_TransmitFifo();
 
 
-  virtual void writeToFifo(uint8_t const * data, uint16_t const num_bytes) override;
+  virtual uint16_t writeToFifo(uint8_t const * data, uint16_t const num_bytes) override;
 
 private:
 
-  interface::RFM9x_Io & _io;
+  interface::RFM9x_Io                & _io;
+  interface::RFM9x_FifoConfiguration & _fifo_config;
 
 };
 

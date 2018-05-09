@@ -75,9 +75,7 @@ ssize_t RFM9x::read(uint8_t * buffer, ssize_t const num_bytes)
 
 ssize_t RFM9x::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
-  _tx_fifo.writeToFifo(buffer, num_bytes);
-
-  return 0;
+  return static_cast<ssize_t>(_tx_fifo.writeToFifo(buffer, num_bytes));
 }
 
 bool RFM9x::ioctl(uint32_t const cmd, void * arg)

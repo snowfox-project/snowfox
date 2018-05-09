@@ -57,7 +57,7 @@ public:
   virtual ~RFM9x_TransmitFifo() { }
 
 
-  virtual void writeToFifo(uint8_t const * data, uint16_t const num_bytes) = 0;
+  virtual uint16_t writeToFifo(uint8_t const * data, uint16_t const num_bytes) = 0;
 
 };
 

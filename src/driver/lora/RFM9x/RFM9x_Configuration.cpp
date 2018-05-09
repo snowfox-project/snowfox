@@ -209,6 +209,16 @@ bool RFM9x_Configuration::setRxFifoSize(uint16_t const rx_fifo_size)
   }
 }
 
+uint16_t RFM9x_Configuration::getTxFifoSize() const
+{
+  return _tx_fifo_size;
+}
+
+uint16_t RFM9x_Configuration::getRxFifoSize() const
+{
+  return _rx_fifo_size;
+}
+
 /**************************************************************************************
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/

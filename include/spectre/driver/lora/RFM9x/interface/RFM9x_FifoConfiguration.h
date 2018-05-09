@@ -16,11 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_FIFOCONFIGURATION_H_
+#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_FIFOCONFIGURATION_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/RFM9x_TransmitFifo.h>
+#include <stdint.h>
+#include <stdbool.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -38,42 +42,34 @@ namespace lora
 namespace RFM9x
 {
 
-/**************************************************************************************
- * CTOR/DTOR
- **************************************************************************************/
-
-RFM9x_TransmitFifo::RFM9x_TransmitFifo(interface::RFM9x_Io & io, interface::RFM9x_FifoConfiguration & fifo_config)
-: _io         (io         ),
-  _fifo_config(fifo_config)
+namespace interface
 {
-
-}
-
-RFM9x_TransmitFifo::~RFM9x_TransmitFifo()
-{
-
-}
 
 /**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
+ * CLASS DECLARATION
  **************************************************************************************/
 
-uint16_t RFM9x_TransmitFifo::writeToFifo(uint8_t const * data, uint16_t const num_bytes)
+class RFM9x_FifoConfiguration
 {
-  if(num_bytes > _fifo_config.getTxFifoSize()) return 0;
 
-  uint8_t fifo_tx_base_address = 0;
+public:
 
-  _io.readRegister (interface::Register::FIFO_TX_BASE_ADDR, &fifo_tx_base_address);
-  _io.writeRegister(interface::Register::FIFO_ADDR_PTR,      fifo_tx_base_address);
-  _io.writeRegister(interface::Register::FIFO, data, num_bytes                   );
+           RFM9x_FifoConfiguration() { }
+  virtual ~RFM9x_FifoConfiguration() { }
 
-  return num_bytes;
-}
+
+  virtual bool     setTxFifoSize(uint16_t const tx_fifo_size)       = 0;
+  virtual bool     setRxFifoSize(uint16_t const rx_fifo_size)       = 0;
+  virtual uint16_t getTxFifoSize(                           ) const = 0;
+  virtual uint16_t getRxFifoSize(                           ) const = 0;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* RFM9x */
 
@@ -82,3 +78,5 @@ uint16_t RFM9x_TransmitFifo::writeToFifo(uint8_t const * data, uint16_t const nu
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_FIFOCONFIGURATION_H_ */

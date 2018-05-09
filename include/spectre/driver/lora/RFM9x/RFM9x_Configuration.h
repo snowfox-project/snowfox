@@ -56,19 +56,21 @@ public:
   virtual ~RFM9x_Configuration();
 
 
-  virtual void setOperatingMode   (interface::OperatingMode   const op_mode         ) override;
-  virtual void setLoRaMode        (interface::LoRaMode        const lora_mode       ) override;
-  virtual void setModulationType  (interface::ModulationType  const modulation_type ) override;
+  virtual void     setOperatingMode   (interface::OperatingMode   const op_mode         )       override;
+  virtual void     setLoRaMode        (interface::LoRaMode        const lora_mode       )       override;
+  virtual void     setModulationType  (interface::ModulationType  const modulation_type )       override;
 
-  virtual void setFrequency       (uint32_t                   const freq_Hz         ) override;
-  virtual void setSignalBandwidth (interface::SignalBandwidth const signal_bandwidth) override;
-  virtual void setCodingRate      (interface::CodingRate      const coding_rate     ) override;
-  virtual void setHeaderMode      (interface::HeaderMode      const header_mode     ) override;
-  virtual void setSpreadingFactor (interface::SpreadingFactor const spreading_factor) override;
-  virtual void setPreambleLength  (uint16_t                   const preamble_length ) override;
+  virtual void     setFrequency       (uint32_t                   const freq_Hz         )       override;
+  virtual void     setSignalBandwidth (interface::SignalBandwidth const signal_bandwidth)       override;
+  virtual void     setCodingRate      (interface::CodingRate      const coding_rate     )       override;
+  virtual void     setHeaderMode      (interface::HeaderMode      const header_mode     )       override;
+  virtual void     setSpreadingFactor (interface::SpreadingFactor const spreading_factor)       override;
+  virtual void     setPreambleLength  (uint16_t                   const preamble_length )       override;
 
-  virtual bool setTxFifoSize      (uint16_t                   const tx_fifo_size    ) override;
-  virtual bool setRxFifoSize      (uint16_t                   const rx_fifo_size    ) override;
+  virtual bool     setTxFifoSize      (uint16_t                   const tx_fifo_size    )       override;
+  virtual bool     setRxFifoSize      (uint16_t                   const rx_fifo_size    )       override;
+  virtual uint16_t getTxFifoSize      (                                                 ) const override;
+  virtual uint16_t getRxFifoSize      (                                                 ) const override;
 
 private:
 
