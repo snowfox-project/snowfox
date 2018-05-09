@@ -26,6 +26,8 @@
 #include <spectre/driver/lora/RFM9x/interface/RFM9x_FifoConfiguration.h>
 #include <spectre/driver/lora/RFM9x/interface/RFM9x_TransceiverConfiguration.h>
 
+#include <spectre/driver/lora/RFM9x/interface/RFM9x_RegisterBits.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -44,18 +46,6 @@ namespace RFM9x
 
 namespace interface
 {
-
-/**************************************************************************************
- * DEFINES
- **************************************************************************************/
-
-/* REG_OP_MODE ************************************************************************/
-#define RFM9x_REG_OP_MODE_LONG_RANGE_MODE_bm                (1<<7)
-#define RFM9x_REG_OP_MODE_MODULATION_TYPE_1_bm              (1<<6)
-#define RFM9x_REG_OP_MODE_MODULATION_TYPE_0_bm              (1<<5)
-#define RFM9x_REG_OP_MODE_MODE_2_bm                         (1<<2)
-#define RFM9x_REG_OP_MODE_MODE_1_bm                         (1<<1)
-#define RFM9x_REG_OP_MODE_MODE_0_bm                         (1<<0)
 
 /**************************************************************************************
  * TYPEDEFS

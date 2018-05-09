@@ -25,6 +25,8 @@
 
 #include <stdint.h>
 
+#include <spectre/driver/lora/RFM9x/interface/RFM9x_RegisterBits.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -43,26 +45,6 @@ namespace RFM9x
 
 namespace interface
 {
-
-/**************************************************************************************
- * DEFINES
- **************************************************************************************/
-
-/* REG_MODEM_CONFIG_1 *****************************************************************/
-#define RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_3_bm             (1<<7)
-#define RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_2_bm             (1<<6)
-#define RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_1_bm             (1<<5)
-#define RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_0_bm             (1<<4)
-#define RFM9x_REG_MODEM_CONFIG_1_CODING_RATE_2_bm           (1<<3)
-#define RFM9x_REG_MODEM_CONFIG_1_CODING_RATE_1_bm           (1<<2)
-#define RFM9x_REG_MODEM_CONFIG_1_CODING_RATE_0_bm           (1<<1)
-#define RFM9x_REG_MODEM_CONFIG_1_IMPLICIT_HEADER_MODE_ON_bm (1<<0)
-
-/* REG_MODEM_CONFIG_2 *****************************************************************/
-#define RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_3_bm      (1<<7)
-#define RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_2_bm      (1<<6)
-#define RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_1_bm      (1<<5)
-#define RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_0_bm      (1<<4)
 
 /**************************************************************************************
  * TYPEDEFS

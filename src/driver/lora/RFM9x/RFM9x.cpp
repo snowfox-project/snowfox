@@ -64,6 +64,7 @@ bool RFM9x::open()
   _config.setOperatingMode(interface::OperatingMode::SLEEP);
   _config.setLoRaMode     (interface::LoRaMode::LoRa      );
   _config.setHeaderMode   (interface::HeaderMode::Explicit);
+  _config.setOperatingMode(interface::OperatingMode::STDBY);
 
   return true;
 }
@@ -75,6 +76,17 @@ ssize_t RFM9x::read(uint8_t * buffer, ssize_t const num_bytes)
 
 ssize_t RFM9x::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
+  /* How to transmit ...
+   * 1) Check if we are in the correct state (STDBY)
+   *    - There can only be one transmission at once requested
+   *    - If we are not in transmission (TX) wait until transmission is complete
+   *    - If we are in a channel activity detection (CAD) wait until channel activity is complete
+   * 2) Perform a channel activity detection
+   *    - If there is activity do not send
+   *    - If there is no activity then do send
+   * 3) Fill the FIFO with the data (LEN + Payload)
+   */
+
   return static_cast<ssize_t>(_tx_fifo.writeToFifo(buffer, num_bytes));
 }
 
