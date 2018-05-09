@@ -82,6 +82,7 @@ FLASH_DECLARE(static char const FEI_MSB                [] = "FEI_MSB            
 FLASH_DECLARE(static char const FEI_MID                [] = "FEI_MID                 = ");
 FLASH_DECLARE(static char const FEI_LSB                [] = "FEI_LSB                 = ");
 FLASH_DECLARE(static char const RSSI_WIDEBAND          [] = "RSSI_WIDEBAND           = ");
+FLASH_DECLARE(static char const PACKET_CONFIG_1        [] = "PACKET_CONFIG_1         = ");
 FLASH_DECLARE(static char const DETECT_OPTIMIZ         [] = "DETECT_OPTIMIZ          = ");
 FLASH_DECLARE(static char const INVERT_IQ              [] = "INVERT_IQ               = ");
 FLASH_DECLARE(static char const DETECTION_THRESHOLD    [] = "DETECTION_THRESHOLD     = ");
@@ -145,6 +146,7 @@ void RFM9x_Debug::debug_dumpAllRegs(debug::interface::Debug & debug_interface, h
   debug_dumpSingleReg(debug_interface, flash, io, FEI_MID                , interface::Register::FEI_MID                );
   debug_dumpSingleReg(debug_interface, flash, io, FEI_LSB                , interface::Register::FEI_LSB                );
   debug_dumpSingleReg(debug_interface, flash, io, RSSI_WIDEBAND          , interface::Register::RSSI_WIDEBAND          );
+  debug_dumpSingleReg(debug_interface, flash, io, PACKET_CONFIG_1        , interface::Register::PACKET_CONFIG_1        );
   debug_dumpSingleReg(debug_interface, flash, io, DETECT_OPTIMIZ         , interface::Register::DETECT_OPTIMIZ         );
   debug_dumpSingleReg(debug_interface, flash, io, INVERT_IQ              , interface::Register::INVERT_IQ              );
   debug_dumpSingleReg(debug_interface, flash, io, DETECTION_THRESHOLD    , interface::Register::DETECTION_THRESHOLD    );

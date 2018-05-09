@@ -91,6 +91,7 @@ enum class Register : uint8_t
   FEI_MID                 = 0x29,
   FEI_LSB                 = 0x2A,
   RSSI_WIDEBAND           = 0x2C,
+  PACKET_CONFIG_1         = 0x30,
   DETECT_OPTIMIZ          = 0x31,
   INVERT_IQ               = 0x33,
   DETECTION_THRESHOLD     = 0x37,
