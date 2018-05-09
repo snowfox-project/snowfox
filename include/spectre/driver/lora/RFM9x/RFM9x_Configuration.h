@@ -59,11 +59,12 @@ public:
   virtual void     setOperatingMode   (interface::OperatingMode   const op_mode         )       override;
   virtual void     setLoRaMode        (interface::LoRaMode        const lora_mode       )       override;
   virtual void     setModulationType  (interface::ModulationType  const modulation_type )       override;
+  virtual void     setHeaderMode      (interface::HeaderMode      const header_mode     )       override;
+  virtual void     setPacketFormat    (interface::PacketFormat    const packet_format   )       override;
 
   virtual void     setFrequency       (uint32_t                   const freq_Hz         )       override;
   virtual void     setSignalBandwidth (interface::SignalBandwidth const signal_bandwidth)       override;
   virtual void     setCodingRate      (interface::CodingRate      const coding_rate     )       override;
-  virtual void     setHeaderMode      (interface::HeaderMode      const header_mode     )       override;
   virtual void     setSpreadingFactor (interface::SpreadingFactor const spreading_factor)       override;
   virtual void     setPreambleLength  (uint16_t                   const preamble_length )       override;
 

@@ -72,12 +72,6 @@ enum class CodingRate : uint8_t
   CR_4_8 = RFM9x_REG_MODEM_CONFIG_1_CODING_RATE_2_bm
 };
 
-enum class HeaderMode : uint8_t
-{
-  Explicit = 0,
-  Implicit = RFM9x_REG_MODEM_CONFIG_1_IMPLICIT_HEADER_MODE_ON_bm
-};
-
 enum class SpreadingFactor : uint8_t
 {
   SF_64   = /*  6 */                                                  RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_2_bm | RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_1_bm,
@@ -105,7 +99,6 @@ public:
   virtual void setFrequency       (uint32_t        const freq_Hz         ) = 0;
   virtual void setSignalBandwidth (SignalBandwidth const signal_bandwidth) = 0;
   virtual void setCodingRate      (CodingRate      const coding_rate     ) = 0;
-  virtual void setHeaderMode      (HeaderMode      const header_mode     ) = 0;
   virtual void setSpreadingFactor (SpreadingFactor const spreading_factor) = 0;
   virtual void setPreambleLength  (uint16_t        const preamble_length ) = 0;
 

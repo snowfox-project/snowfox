@@ -75,6 +75,18 @@ enum class ModulationType : uint8_t
   OOK           = RFM9x_REG_OP_MODE_MODULATION_TYPE_0_bm
 };
 
+enum class HeaderMode : uint8_t
+{
+  Explicit = 0,
+  Implicit = RFM9x_REG_MODEM_CONFIG_1_IMPLICIT_HEADER_MODE_ON_bm
+};
+
+enum class PacketFormat : uint8_t
+{
+  FixedLength    = 0,
+  VariableLength = RFM9x_REG_PACKET_CONFIG_1_PACKET_FORMAT_bm
+};
+
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
@@ -92,11 +104,12 @@ public:
   virtual void setOperatingMode   (OperatingMode   const op_mode         ) = 0;
   virtual void setLoRaMode        (LoRaMode        const lora_mode       ) = 0;
   virtual void setModulationType  (ModulationType  const modulation_type ) = 0;
+  virtual void setHeaderMode      (HeaderMode      const header_mode     ) = 0;
+  virtual void setPacketFormat    (PacketFormat    const packet_format   ) = 0;
 
   virtual void setFrequency       (uint32_t        const freq_Hz         ) = 0;
   virtual void setSignalBandwidth (SignalBandwidth const signal_bandwidth) = 0;
   virtual void setCodingRate      (CodingRate      const coding_rate     ) = 0;
-  virtual void setHeaderMode      (HeaderMode      const header_mode     ) = 0;
   virtual void setSpreadingFactor (SpreadingFactor const spreading_factor) = 0;
   virtual void setPreambleLength  (uint16_t        const preamble_length ) = 0;
 

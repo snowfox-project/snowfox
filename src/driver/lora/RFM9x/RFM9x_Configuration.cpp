@@ -103,6 +103,30 @@ void RFM9x_Configuration::setModulationType(interface::ModulationType const modu
   _io.writeRegister(interface::Register::OP_MODE, reg_op_mode_content);
 }
 
+void RFM9x_Configuration::setHeaderMode(interface::HeaderMode const header_mode)
+{
+  uint8_t reg_op_modem_config_1_content = 0;
+
+  _io.readRegister(interface::Register::MODEM_CONFIG1, &reg_op_modem_config_1_content);
+
+  reg_op_modem_config_1_content &= ~RFM9x_REG_MODEM_CONFIG_1_IMPLICIT_HEADER_MODE_ON_bm;
+  reg_op_modem_config_1_content |= static_cast<uint8_t>(header_mode);
+
+  _io.writeRegister(interface::Register::MODEM_CONFIG1, reg_op_modem_config_1_content);
+}
+
+void RFM9x_Configuration::setPacketFormat(interface::PacketFormat const packet_format)
+{
+  uint8_t reg_packet_config_1_content = 0;
+
+  _io.readRegister(interface::Register::PACKET_CONFIG_1, &reg_packet_config_1_content);
+
+  reg_packet_config_1_content &= ~RFM9x_REG_PACKET_CONFIG_1_PACKET_FORMAT_bm;
+  reg_packet_config_1_content |= static_cast<uint8_t>(packet_format);
+
+  _io.writeRegister(interface::Register::PACKET_CONFIG_1, reg_packet_config_1_content);
+}
+
 void RFM9x_Configuration::setFrequency(uint32_t const f_rf_Hz)
 {
   float    const f_step_Hz = static_cast<float>(_fxosc_Hz) / 524288.0;
@@ -137,18 +161,6 @@ void RFM9x_Configuration::setCodingRate(interface::CodingRate const coding_rate)
 
   reg_op_modem_config_1_content &= ~(RFM9x_REG_MODEM_CONFIG_1_CODING_RATE_2_bm | RFM9x_REG_MODEM_CONFIG_1_CODING_RATE_1_bm | RFM9x_REG_MODEM_CONFIG_1_CODING_RATE_0_bm);
   reg_op_modem_config_1_content |= static_cast<uint8_t>(coding_rate);
-
-  _io.writeRegister(interface::Register::MODEM_CONFIG1, reg_op_modem_config_1_content);
-}
-
-void RFM9x_Configuration::setHeaderMode(interface::HeaderMode const header_mode)
-{
-  uint8_t reg_op_modem_config_1_content = 0;
-
-  _io.readRegister(interface::Register::MODEM_CONFIG1, &reg_op_modem_config_1_content);
-
-  reg_op_modem_config_1_content &= ~RFM9x_REG_MODEM_CONFIG_1_IMPLICIT_HEADER_MODE_ON_bm;
-  reg_op_modem_config_1_content |= static_cast<uint8_t>(header_mode);
 
   _io.writeRegister(interface::Register::MODEM_CONFIG1, reg_op_modem_config_1_content);
 }

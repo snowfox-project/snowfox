@@ -66,7 +66,8 @@ namespace interface
 #define RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_1_bm      (1<<5)
 #define RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_0_bm      (1<<4)
 
-/* REG_MODEM_CONFIG_2 *****************************************************************/
+/* REG_PACKET_CONFIG_1 ****************************************************************/
+#define RFM9x_REG_PACKET_CONFIG_1_PACKET_FORMAT_bm          (1<<7)
 
 /**************************************************************************************
  * NAMESPACE
