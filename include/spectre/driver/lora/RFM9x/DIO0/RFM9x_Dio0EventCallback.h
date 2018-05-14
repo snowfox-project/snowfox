@@ -62,8 +62,8 @@ class RFM9x_Dio0EventCallback :  public hal::interface::ExternalInterruptCallbac
 public:
 
            RFM9x_Dio0EventCallback(interface::RFM9x_InterruptControl  & int_ctrl,
-                                   interface::RFM9x_onTxDoneCallback  & on_packet_sent_callback,
-                                   interface::RFM9x_onRxDoneCallback  & on_payload_ready_callback,
+                                   interface::RFM9x_onTxDoneCallback  & on_tx_done_callback,
+                                   interface::RFM9x_onRxDoneCallback  & on_rx_done_callback,
                                    interface::RFM9x_onCadDoneCallback & on_cad_done_callback);
   virtual ~RFM9x_Dio0EventCallback();
 
