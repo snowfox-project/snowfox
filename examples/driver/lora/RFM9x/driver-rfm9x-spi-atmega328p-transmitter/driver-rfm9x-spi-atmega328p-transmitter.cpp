@@ -46,6 +46,7 @@
 #include <spectre/driver/lora/RFM9x/RFM9x_Configuration.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_InterruptControl.h>
 #include <spectre/driver/lora/RFM9x/DIO0/RFM9x_Dio0EventCallback.h>
+#include <spectre/driver/lora/RFM9x/DIO0/RFM9x_onCadDoneCallback.h>
 #include <spectre/driver/lora/RFM9x/DIO0/RFM9x_onPacketSentCallback.h>
 #include <spectre/driver/lora/RFM9x/DIO0/RFM9x_onPayloadReadyCallback.h>
 
@@ -160,7 +161,8 @@ int main()
   lora::RFM9x::RFM9x_TransmitFifo             rfm9x_tx_fifo                       (rfm9x_spi, rfm9x_config   );
   lora::RFM9x::RFM9x_onPacketSentCallback     rfm9x_on_packet_sent_callback;
   lora::RFM9x::RFM9x_onPayloadReadyCallback   rfm9x_on_payload_ready_callback;
-  lora::RFM9x::RFM9x_Dio0EventCallback        rfm9x_di0_event_callback            (rfm9x_int_control, rfm9x_on_packet_sent_callback, rfm9x_on_payload_ready_callback);
+  lora::RFM9x::RFM9x_onCadDoneCallback        rfm9x_on_cad_done_callback;
+  lora::RFM9x::RFM9x_Dio0EventCallback        rfm9x_di0_event_callback            (rfm9x_int_control, rfm9x_on_packet_sent_callback, rfm9x_on_payload_ready_callback, rfm9x_on_cad_done_callback);
   lora::RFM9x::RFM9x                          rfm9x                               (rfm9x_config, rfm9x_tx_fifo);
 
 
