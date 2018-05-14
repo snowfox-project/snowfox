@@ -22,8 +22,6 @@
 
 #include <spectre/driver/lora/RFM9x/DIO1/RFM9x_Dio1EventCallback.h>
 
-#include <spectre/driver/lora/RFM9x/RFM9x_InterruptControl.h>
-
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -72,19 +70,19 @@ void RFM9x_Dio1EventCallback::onExternalEventCallback()
   _int_ctrl.getIntReqFlags(&irq_req_flags);
 
   /* RX TIMEOUT ***********************************************************************/
-  if(RFM9x_InterruptControl::isRxTimeout(irq_req_flags))
+  if(interface::RFM9x_InterruptControl::isRxTimeout(irq_req_flags))
   {
     _on_rx_timeout_callback.onRxTimeout();
     _int_ctrl.clearIntReqFlag(interface::InterruptRequest::RxTimeout);
   }
   /* FHSS CHANGE CHANNEL **************************************************************/
-  if(RFM9x_InterruptControl::isFhssChangeChannel(irq_req_flags))
+  if(interface::RFM9x_InterruptControl::isFhssChangeChannel(irq_req_flags))
   {
     _on_fhss_change_channel_callback.onFhssChangeChannel();
     _int_ctrl.clearIntReqFlag(interface::InterruptRequest::FhssChangeChannel);
   }
   /* CAD DETECTED *********************************************************************/
-  if(RFM9x_InterruptControl::isCadDetected(irq_req_flags))
+  if(interface::RFM9x_InterruptControl::isCadDetected(irq_req_flags))
   {
     _on_cad_detected_callback.onCadDetected();
     _int_ctrl.clearIntReqFlag(interface::InterruptRequest::CadDetected);
