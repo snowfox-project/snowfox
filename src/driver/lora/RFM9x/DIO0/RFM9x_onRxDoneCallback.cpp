@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/DIO0/RFM9x_onPayloadReadyCallback.h>
+#include <spectre/driver/lora/RFM9x/DIO0/RFM9x_onRxDoneCallback.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,12 +42,12 @@ namespace RFM9x
  * CTOR/DTOR
  **************************************************************************************/
 
-RFM9x_onPayloadReadyCallback::RFM9x_onPayloadReadyCallback()
+RFM9x_onRxDoneCallback::RFM9x_onRxDoneCallback()
 {
 
 }
 
-RFM9x_onPayloadReadyCallback::~RFM9x_onPayloadReadyCallback()
+RFM9x_onRxDoneCallback::~RFM9x_onRxDoneCallback()
 {
 
 }
@@ -56,7 +56,7 @@ RFM9x_onPayloadReadyCallback::~RFM9x_onPayloadReadyCallback()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void RFM9x_onPayloadReadyCallback::onPayloadReady()
+void RFM9x_onRxDoneCallback::onRxDone()
 {
   /* TODO */
 }

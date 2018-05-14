@@ -44,14 +44,14 @@ namespace RFM9x
  * CTOR/DTOR
  **************************************************************************************/
 
-RFM9x_Dio0EventCallback::RFM9x_Dio0EventCallback(interface::RFM9x_InterruptControl       & int_ctrl,
-                                                 interface::RFM9x_onTxDoneCallback       & on_tx_done_callback,
-                                                 interface::RFM9x_onPayloadReadyCallback & on_payload_ready_callback,
-                                                 interface::RFM9x_onCadDoneCallback      & on_cad_done_callback)
-: _int_ctrl                 (int_ctrl                 ),
-  _on_tx_done_callback      (on_tx_done_callback      ),
-  _on_payload_ready_callback(on_payload_ready_callback),
-  _on_cad_done_callback     (on_cad_done_callback     )
+RFM9x_Dio0EventCallback::RFM9x_Dio0EventCallback(interface::RFM9x_InterruptControl  & int_ctrl,
+                                                 interface::RFM9x_onTxDoneCallback  & on_tx_done_callback,
+                                                 interface::RFM9x_onRxDoneCallback  & on_rx_done_callback,
+                                                 interface::RFM9x_onCadDoneCallback & on_cad_done_callback)
+: _int_ctrl             (int_ctrl            ),
+  _on_tx_done_callback  (on_tx_done_callback ),
+  _on_rx_done_callback  (on_rx_done_callback ),
+  _on_cad_done_callback (on_cad_done_callback)
 {
 
 }
@@ -73,7 +73,7 @@ void RFM9x_Dio0EventCallback::onExternalEventCallback()
 
   if(RFM9x_InterruptControl::isRxDone(irq_req_flags))
   {
-    _on_payload_ready_callback.onPayloadReady();
+    _on_rx_done_callback.onRxDone();
     _int_ctrl.clearIntReqFlag(interface::InterruptRequest::RxDone);
   }
   if(RFM9x_InterruptControl::isTxDone(irq_req_flags))
