@@ -50,6 +50,16 @@ namespace interface
 #define RFM9x_REG_OP_MODE_MODE_1_bm                         (1<<1)
 #define RFM9x_REG_OP_MODE_MODE_0_bm                         (1<<0)
 
+/* REG_IRQ_FLAGS **********************************************************************/
+#define RFM9x_REG_IRQ_FLAGS_RX_TIMEOUT                      (1<<7)
+#define RFM9x_REG_IRQ_FLAGS_RX_DONE                         (1<<6)
+#define RFM9x_REG_IRQ_FLAGS_PAYLOAD_CRC_ERROR               (1<<5)
+#define RFM9x_REG_IRQ_FLAGS_VALID_HEADER                    (1<<4)
+#define RFM9x_REG_IRQ_FLAGS_TX_DONE                         (1<<3)
+#define RFM9x_REG_IRQ_FLAGS_CAD_DONE                        (1<<2)
+#define RFM9x_REG_IRQ_FLAGS_FHSS_CHANGE_CHANNEL             (1<<1)
+#define RFM9x_REG_IRQ_FLAGS_CAD_DETECTED                    (1<<0)
+
 /* REG_MODEM_CONFIG_1 *****************************************************************/
 #define RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_3_bm             (1<<7)
 #define RFM9x_REG_MODEM_CONFIG_1_BANDWIDTH_2_bm             (1<<6)

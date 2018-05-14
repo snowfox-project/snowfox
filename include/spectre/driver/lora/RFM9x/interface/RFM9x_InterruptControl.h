@@ -23,7 +23,9 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_Io.h>
+#include <stdint.h>
+
+#include <spectre/driver/lora/RFM9x/interface/RFM9x_RegisterBits.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -43,20 +45,6 @@ namespace RFM9x
 
 namespace interface
 {
-
-/**************************************************************************************
- * DEFINES
- **************************************************************************************/
-
-/* REG_IRQ_FLAGS **********************************************************************/
-#define RFM9x_REG_IRQ_FLAGS_RX_TIMEOUT          (1<<7)
-#define RFM9x_REG_IRQ_FLAGS_RX_DONE             (1<<6)
-#define RFM9x_REG_IRQ_FLAGS_PAYLOAD_CRC_ERROR   (1<<5)
-#define RFM9x_REG_IRQ_FLAGS_VALID_HEADER        (1<<4)
-#define RFM9x_REG_IRQ_FLAGS_TX_DONE             (1<<3)
-#define RFM9x_REG_IRQ_FLAGS_CAD_DONE            (1<<2)
-#define RFM9x_REG_IRQ_FLAGS_FHSS_CHANGE_CHANNEL (1<<1)
-#define RFM9x_REG_IRQ_FLAGS_CAD_DETECTED        (1<<0)
 
 /**************************************************************************************
  * TYPEDEFS
