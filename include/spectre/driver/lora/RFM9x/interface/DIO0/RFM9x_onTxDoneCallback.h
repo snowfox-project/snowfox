@@ -16,14 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_PACKET_MODE_RFM9X_ONPACKETSENTCALLBACK_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_PACKET_MODE_RFM9X_ONPACKETSENTCALLBACK_H_
-
-/**************************************************************************************
- * INCLUDES
- **************************************************************************************/
-
-#include <spectre/driver/lora/RFM9x/interface/DIO0/RFM9x_onPacketSentCallback.h>
+#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_ONPACKETSENTCALLBACK_H_
+#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_ONPACKETSENTCALLBACK_H_
 
 /**************************************************************************************
  * NAMESPACE
@@ -41,26 +35,31 @@ namespace lora
 namespace RFM9x
 {
 
+namespace interface
+{
+
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_onPacketSentCallback :  public interface::RFM9x_onPacketSentCallback
+class RFM9x_onTxDoneCallback
 {
 
 public:
 
-           RFM9x_onPacketSentCallback();
-  virtual ~RFM9x_onPacketSentCallback();
+           RFM9x_onTxDoneCallback() { }
+  virtual ~RFM9x_onTxDoneCallback() { }
 
 
-  virtual void onPacketSent() override;
+  virtual void onTxDone() = 0;
 
 };
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* RFM9x */
 
@@ -70,4 +69,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_PACKET_MODE_RFM9X_ONPACKETSENTCALLBACK_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_ONPACKETSENTCALLBACK_H_ */

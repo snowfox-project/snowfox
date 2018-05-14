@@ -45,11 +45,11 @@ namespace RFM9x
  **************************************************************************************/
 
 RFM9x_Dio0EventCallback::RFM9x_Dio0EventCallback(interface::RFM9x_InterruptControl       & int_ctrl,
-                                                 interface::RFM9x_onPacketSentCallback   & on_packet_sent_callback,
+                                                 interface::RFM9x_onTxDoneCallback       & on_tx_done_callback,
                                                  interface::RFM9x_onPayloadReadyCallback & on_payload_ready_callback,
                                                  interface::RFM9x_onCadDoneCallback      & on_cad_done_callback)
 : _int_ctrl                 (int_ctrl                 ),
-  _on_packet_sent_callback  (on_packet_sent_callback  ),
+  _on_tx_done_callback      (on_tx_done_callback      ),
   _on_payload_ready_callback(on_payload_ready_callback),
   _on_cad_done_callback     (on_cad_done_callback     )
 {
@@ -78,7 +78,7 @@ void RFM9x_Dio0EventCallback::onExternalEventCallback()
   }
   if(RFM9x_InterruptControl::isTxDone(irq_req_flags))
   {
-    _on_packet_sent_callback.onPacketSent();
+    _on_tx_done_callback.onTxDone();
     _int_ctrl.clearIntReqFlag(interface::InterruptRequest::TxDone);
   }
   if(RFM9x_InterruptControl::isCadDone(irq_req_flags))
