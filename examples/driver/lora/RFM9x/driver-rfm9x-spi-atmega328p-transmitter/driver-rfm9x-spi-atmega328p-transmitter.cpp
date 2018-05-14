@@ -45,9 +45,9 @@
 #include <spectre/driver/lora/RFM9x/RFM9x_TransmitFifo.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_Configuration.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_InterruptControl.h>
-#include <spectre/driver/lora/RFM9x/packet_mode/RFM9x_Dio0EventCallback.h>
-#include <spectre/driver/lora/RFM9x/packet_mode/RFM9x_onPacketSentCallback.h>
-#include <spectre/driver/lora/RFM9x/packet_mode/RFM9x_onPayloadReadyCallback.h>
+#include <spectre/driver/lora/RFM9x/DIO0/RFM9x_Dio0EventCallback.h>
+#include <spectre/driver/lora/RFM9x/DIO0/RFM9x_onPacketSentCallback.h>
+#include <spectre/driver/lora/RFM9x/DIO0/RFM9x_onPayloadReadyCallback.h>
 
 #include <spectre/debug/serial/DebugSerial.h>
 

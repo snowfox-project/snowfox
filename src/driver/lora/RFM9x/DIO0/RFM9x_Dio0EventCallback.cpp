@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/packet_mode/RFM9x_Dio0EventCallback.h>
+#include <spectre/driver/lora/RFM9x/DIO0/RFM9x_Dio0EventCallback.h>
 
 #include <spectre/driver/lora/RFM9x/RFM9x_InterruptControl.h>
 

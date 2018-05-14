@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/packet_mode/RFM9x_onPacketSentCallback.h>
+#include <spectre/driver/lora/RFM9x/DIO0/RFM9x_onCadDoneCallback.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,12 +42,12 @@ namespace RFM9x
  * CTOR/DTOR
  **************************************************************************************/
 
-RFM9x_onPacketSentCallback::RFM9x_onPacketSentCallback()
+RFM9x_onCadDoneCallback::RFM9x_onCadDoneCallback()
 {
 
 }
 
-RFM9x_onPacketSentCallback::~RFM9x_onPacketSentCallback()
+RFM9x_onCadDoneCallback::~RFM9x_onCadDoneCallback()
 {
 
 }
@@ -56,7 +56,7 @@ RFM9x_onPacketSentCallback::~RFM9x_onPacketSentCallback()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void RFM9x_onPacketSentCallback::onPacketSent()
+void RFM9x_onCadDoneCallback::onCadDone()
 {
   /* TODO */
 }
