@@ -25,9 +25,9 @@
 
 #include <spectre/hal/interface/extint/ExternalInterruptCallback.h>
 
-#include <spectre/driver/lora/RFM9x/interface/packet_mode/RFM9x_onCadDoneCallback.h>
-#include <spectre/driver/lora/RFM9x/interface/packet_mode/RFM9x_onPacketSentCallback.h>
-#include <spectre/driver/lora/RFM9x/interface/packet_mode/RFM9x_onPayloadReadyCallback.h>
+#include <spectre/driver/lora/RFM9x/interface/DIO0/RFM9x_onCadDoneCallback.h>
+#include <spectre/driver/lora/RFM9x/interface/DIO0/RFM9x_onPacketSentCallback.h>
+#include <spectre/driver/lora/RFM9x/interface/DIO0/RFM9x_onPayloadReadyCallback.h>
 
 #include <spectre/driver/lora/RFM9x/interface/RFM9x_InterruptControl.h>
 
