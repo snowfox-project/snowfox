@@ -78,6 +78,7 @@ if(${DRIVER_LORA_RFM9x} STREQUAL "yes")
     ${DRIVER_LORA_SRC_PATH}/RFM9x/DIO0/RFM9x_onRxDoneCallback.cpp
     ${DRIVER_LORA_SRC_PATH}/RFM9x/DIO0/RFM9x_onTxDoneCallback.cpp
     
+    ${DRIVER_LORA_SRC_PATH}/RFM9x/DIO1/RFM9x_Dio1Configuration.cpp
     ${DRIVER_LORA_SRC_PATH}/RFM9x/DIO1/RFM9x_onCadDetectedCallback.cpp
     ${DRIVER_LORA_SRC_PATH}/RFM9x/DIO1/RFM9x_onFhssChangeChannelCallback.cpp
     ${DRIVER_LORA_SRC_PATH}/RFM9x/DIO1/RFM9x_onRxTimeoutCallback.cpp

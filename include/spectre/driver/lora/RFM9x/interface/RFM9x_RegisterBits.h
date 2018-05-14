@@ -82,6 +82,8 @@ namespace interface
 /* REG_DIO_MAPPING_1 ******************************************************************/
 #define RFM9x_REG_DIO_MAPPING_1_DIO0_MAPPING_1_bm           (1<<7)
 #define RFM9x_REG_DIO_MAPPING_1_DIO0_MAPPING_0_bm           (1<<6)
+#define RFM9x_REG_DIO_MAPPING_1_DIO1_MAPPING_1_bm           (1<<5)
+#define RFM9x_REG_DIO_MAPPING_1_DIO1_MAPPING_0_bm           (1<<4)
 
 /**************************************************************************************
  * NAMESPACE
