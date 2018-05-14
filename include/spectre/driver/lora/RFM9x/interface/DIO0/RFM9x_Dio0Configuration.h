@@ -16,11 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_DIO0_RFM9X_DIO0_CONFIGURATION_H_
+#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_DIO0_RFM9X_DIO0_CONFIGURATION_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/DIO0/RFM9x_Dio0_Configuration.h>
+#include <stdint.h>
+
+#include <spectre/driver/lora/RFM9x/interface/RFM9x_RegisterBits.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -38,40 +43,42 @@ namespace lora
 namespace RFM9x
 {
 
-/**************************************************************************************
- * CTOR/DTOR
- **************************************************************************************/
-
-RFM9x_Dio0_Configuration::RFM9x_Dio0_Configuration(interface::RFM9x_Io & io)
-: _io(io)
+namespace interface
 {
-
-}
-
-RFM9x_Dio0_Configuration::~RFM9x_Dio0_Configuration()
-{
-
-}
 
 /**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
+ * TYPEDEFS
  **************************************************************************************/
 
-void RFM9x_Dio0_Configuration::setDio0EventSource(interface::Dio0EventSource const dio_0_event_source)
+enum class Dio0EventSource : uint8_t
 {
-  uint8_t reg_dio_mapping_1_content = 0;
+  RxDone  = 0,
+  TxDone  =                                             RFM9x_REG_DIO_MAPPING_1_DIO0_MAPPING_0_bm,
+  CadDone = RFM9x_REG_DIO_MAPPING_1_DIO0_MAPPING_1_bm
+};
 
-  _io.readRegister(interface::Register::DIO_MAPPING1, &reg_dio_mapping_1_content);
+/**************************************************************************************
+ * CLASS DECLARATION
+ **************************************************************************************/
 
-  reg_dio_mapping_1_content &= ~(RFM9x_REG_DIO_MAPPING_1_DIO0_MAPPING_1_bm | RFM9x_REG_DIO_MAPPING_1_DIO0_MAPPING_0_bm);
-  reg_dio_mapping_1_content |= static_cast<uint8_t>(dio_0_event_source);
+class RFM9x_Dio0Configuration
+{
 
-  _io.writeRegister(interface::Register::DIO_MAPPING1, reg_dio_mapping_1_content);
-}
+public:
+
+           RFM9x_Dio0Configuration() { }
+  virtual ~RFM9x_Dio0Configuration() { }
+
+
+  virtual void setEventSource(Dio0EventSource const event_source) = 0;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* RFM9x */
 
@@ -80,3 +87,5 @@ void RFM9x_Dio0_Configuration::setDio0EventSource(interface::Dio0EventSource con
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_DIO0_RFM9X_DIO0_CONFIGURATION_H_ */

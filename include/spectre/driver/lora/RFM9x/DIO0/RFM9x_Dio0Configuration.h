@@ -23,7 +23,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/interface/DIO0/RFM9x_Dio0_Configuration.h>
+#include <spectre/driver/lora/RFM9x/interface/DIO0/RFM9x_Dio0Configuration.h>
 
 #include <spectre/driver/lora/RFM9x/interface/RFM9x_Io.h>
 
@@ -47,16 +47,16 @@ namespace RFM9x
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_Dio0_Configuration : public interface::RFM9x_Dio0_Configuration
+class RFM9x_Dio0Configuration : public interface::RFM9x_Dio0Configuration
 {
 
 public:
 
-           RFM9x_Dio0_Configuration(interface::RFM9x_Io & io);
-  virtual ~RFM9x_Dio0_Configuration();
+           RFM9x_Dio0Configuration(interface::RFM9x_Io & io);
+  virtual ~RFM9x_Dio0Configuration();
 
 
-  virtual void setDio0EventSource(interface::Dio0EventSource const dio_0_event_source) override;
+  virtual void setEventSource(interface::Dio0EventSource const event_source) override;
 
 
 private:
