@@ -71,37 +71,20 @@ void RFM9x_Dio0EventCallback::onExternalEventCallback()
 
   _int_ctrl.getIntReqFlags(&irq_req_flags);
 
-  if(RFM9x_InterruptControl::isRxTimeout(irq_req_flags))
-  {
-    _int_ctrl.clearIntReqFlag(interface::InterruptRequest::RxTimeout);
-  }
   if(RFM9x_InterruptControl::isRxDone(irq_req_flags))
   {
+    _on_payload_ready_callback.onPayloadReady();
     _int_ctrl.clearIntReqFlag(interface::InterruptRequest::RxDone);
-  }
-  if(RFM9x_InterruptControl::isPayloadCrcError(irq_req_flags))
-  {
-    _int_ctrl.clearIntReqFlag(interface::InterruptRequest::PayloadCrcError);
-  }
-  if(RFM9x_InterruptControl::isValidHeader(irq_req_flags))
-  {
-    _int_ctrl.clearIntReqFlag(interface::InterruptRequest::ValidHeader);
   }
   if(RFM9x_InterruptControl::isTxDone(irq_req_flags))
   {
+    _on_packet_sent_callback.onPacketSent();
     _int_ctrl.clearIntReqFlag(interface::InterruptRequest::TxDone);
   }
   if(RFM9x_InterruptControl::isCadDone(irq_req_flags))
   {
+    _on_cad_done_callback.onCadDone();
     _int_ctrl.clearIntReqFlag(interface::InterruptRequest::CadDone);
-  }
-  if(RFM9x_InterruptControl::isFhssChangeChannel(irq_req_flags))
-  {
-    _int_ctrl.clearIntReqFlag(interface::InterruptRequest::FhssChangeChannel);
-  }
-  if(RFM9x_InterruptControl::isCadDetected(irq_req_flags))
-  {
-    _int_ctrl.clearIntReqFlag(interface::InterruptRequest::CadDetected);
   }
 }
 
