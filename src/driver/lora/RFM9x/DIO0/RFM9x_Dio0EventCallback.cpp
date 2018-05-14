@@ -71,16 +71,19 @@ void RFM9x_Dio0EventCallback::onExternalEventCallback()
 
   _int_ctrl.getIntReqFlags(&irq_req_flags);
 
+  /* RX DONE **************************************************************************/
   if(RFM9x_InterruptControl::isRxDone(irq_req_flags))
   {
     _on_rx_done_callback.onRxDone();
     _int_ctrl.clearIntReqFlag(interface::InterruptRequest::RxDone);
   }
+  /* TX DONE **************************************************************************/
   if(RFM9x_InterruptControl::isTxDone(irq_req_flags))
   {
     _on_tx_done_callback.onTxDone();
     _int_ctrl.clearIntReqFlag(interface::InterruptRequest::TxDone);
   }
+  /* CAD DONE *************************************************************************/
   if(RFM9x_InterruptControl::isCadDone(irq_req_flags))
   {
     _on_cad_done_callback.onCadDone();
