@@ -16,19 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CALLBACKHANDLER_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CALLBACKHANDLER_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_PACKET_MODE_RFM9X_ONCADDONECALLBACK_H_
+#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_PACKET_MODE_RFM9X_ONCADDONECALLBACK_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/interface/extint/ExternalInterruptCallback.h>
-
-#include <spectre/driver/lora/RFM9x/interface/packet_mode/RFM9x_onPacketSentCallback.h>
-#include <spectre/driver/lora/RFM9x/interface/packet_mode/RFM9x_onPayloadReadyCallback.h>
-
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_InterruptControl.h>
+#include <stdint.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -46,40 +41,31 @@ namespace lora
 namespace RFM9x
 {
 
+namespace interface
+{
+
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-/* For information in DIO mapping in LoRa mode check out
- * Table 63. There are three events which can be mapped
- * on DIO0: RxDone, TxDone, CadDone
- */
-
-class RFM9x_Dio0EventCallback :  public hal::interface::ExternalInterruptCallback
+class RFM9x_onCadDoneCallback
 {
 
 public:
 
-           RFM9x_Dio0EventCallback(interface::RFM9x_InterruptControl       & int_ctrl,
-                                   interface::RFM9x_onPacketSentCallback   & on_packet_sent_callback,
-                                   interface::RFM9x_onPayloadReadyCallback & on_payload_ready_callback);
-  virtual ~RFM9x_Dio0EventCallback();
+           RFM9x_onCadDoneCallback() { }
+  virtual ~RFM9x_onCadDoneCallback() { }
 
 
-  virtual void onExternalEventCallback() override;
-
-
-private:
-
-  interface::RFM9x_InterruptControl       & _int_ctrl;
-  interface::RFM9x_onPacketSentCallback   & _on_packet_sent_callback;
-  interface::RFM9x_onPayloadReadyCallback & _on_payload_ready_callback;
+  virtual void onCadDone() = 0;
 
 };
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* RFM9x */
 
@@ -89,4 +75,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CALLBACKHANDLER_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_PACKET_MODE_RFM9X_ONCADDONECALLBACK_H_ */
