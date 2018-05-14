@@ -56,7 +56,7 @@ public:
   virtual ~RFM9x_Dio0_Configuration();
 
 
-  virtual void setDio0Mapping(interface::Dio0Mapping const dio_0_mapping) override;
+  virtual void setDio0EventSource(interface::Dio0EventSource const dio_0_event_source) override;
 
 
 private:

@@ -50,7 +50,7 @@ namespace interface
  * TYPEDEFS
  **************************************************************************************/
 
-enum class Dio0Mapping : uint8_t
+enum class Dio0EventSource : uint8_t
 {
   RxDone  = 0,
   TxDone  =                                             RFM9x_REG_DIO_MAPPING_1_DIO0_MAPPING_0_bm,
@@ -70,7 +70,7 @@ public:
   virtual ~RFM9x_Dio0_Configuration() { }
 
 
-  virtual void setDio0Mapping(Dio0Mapping const dio_0_mapping) = 0;
+  virtual void setDio0EventSource(Dio0EventSource const dio_0_event_source) = 0;
 
 };
 
