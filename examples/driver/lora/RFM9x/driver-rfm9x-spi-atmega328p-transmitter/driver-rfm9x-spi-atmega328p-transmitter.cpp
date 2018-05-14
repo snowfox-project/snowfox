@@ -25,6 +25,7 @@
 #include <avr/io.h>
 
 #include <spectre/hal/avr/ATMEGA328P/EINT0.h>
+#include <spectre/hal/avr/ATMEGA328P/EINT1.h>
 #include <spectre/hal/avr/ATMEGA328P/UART0.h>
 #include <spectre/hal/avr/ATMEGA328P/Flash.h>
 #include <spectre/hal/avr/ATMEGA328P/SpiMaster.h>
@@ -45,10 +46,18 @@
 #include <spectre/driver/lora/RFM9x/RFM9x_TransmitFifo.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_Configuration.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_InterruptControl.h>
+
 #include <spectre/driver/lora/RFM9x/DIO0/RFM9x_onTxDoneCallback.h>
 #include <spectre/driver/lora/RFM9x/DIO0/RFM9x_onRxDoneCallback.h>
 #include <spectre/driver/lora/RFM9x/DIO0/RFM9x_onCadDoneCallback.h>
+#include <spectre/driver/lora/RFM9x/DIO0/RFM9x_Dio0Configuration.h>
 #include <spectre/driver/lora/RFM9x/DIO0/RFM9x_Dio0EventCallback.h>
+
+#include <spectre/driver/lora/RFM9x/DIO1/RFM9x_Dio1Configuration.h>
+#include <spectre/driver/lora/RFM9x/DIO1/RFM9x_Dio1EventCallback.h>
+#include <spectre/driver/lora/RFM9x/DIO1/RFM9x_onRxTimeoutCallback.h>
+#include <spectre/driver/lora/RFM9x/DIO1/RFM9x_onCadDetectedCallback.h>
+#include <spectre/driver/lora/RFM9x/DIO1/RFM9x_onFhssChangeChannelCallback.h>
 
 #include <spectre/debug/serial/DebugSerial.h>
 
@@ -64,16 +73,16 @@ using namespace spectre::driver;
  * CONSTANTS
  **************************************************************************************/
 
-static uint16_t                    const RX_BUFFER_SIZE         = 16;
-static uint16_t                    const TX_BUFFER_SIZE         = 128;
+static uint16_t                    const RX_BUFFER_SIZE              = 0;
+static uint16_t                    const TX_BUFFER_SIZE              = 64;
 
-static hal::interface::SpiMode     const RFM9x_SPI_MODE         = hal::interface::SpiMode::MODE_0;
-static hal::interface::SpiBitOrder const RFM9x_SPI_BIT_ORDER    = hal::interface::SpiBitOrder::MSB_FIRST;
-static uint32_t                    const RFM9x_SPI_PRESCALER    = 16;       /* Arduino Uno Clk = 16 MHz -> SPI Clk = 1 MHz */
+static hal::interface::SpiMode     const RFM9x_SPI_MODE              = hal::interface::SpiMode::MODE_0;
+static hal::interface::SpiBitOrder const RFM9x_SPI_BIT_ORDER         = hal::interface::SpiBitOrder::MSB_FIRST;
+static uint32_t                    const RFM9x_SPI_PRESCALER         = 16;       /* Arduino Uno Clk = 16 MHz -> SPI Clk = 1 MHz */
 
-static uint32_t                    const RFM9x_F_XOSC_Hz        = 32000000; /* 32 MHz                                      */
-static hal::interface::TriggerMode const RFM9x_INT_TRIGGER_MODE = hal::interface::TriggerMode::RisingEdge;
-
+static uint32_t                    const RFM9x_F_XOSC_Hz             = 32000000; /* 32 MHz                                      */
+static hal::interface::TriggerMode const RFM9x_DIO0_INT_TRIGGER_MODE = hal::interface::TriggerMode::RisingEdge;
+static hal::interface::TriggerMode const RFM9x_DIO1_INT_TRIGGER_MODE = hal::interface::TriggerMode::RisingEdge;
 
 /**************************************************************************************
  * MAIN
@@ -117,24 +126,35 @@ int main()
   spi_master.setSpiBitOrder (RFM9x_SPI_BIT_ORDER);
   spi_master.setSpiPrescaler(RFM9x_SPI_PRESCALER);
 
-  /* EXT INT #0 for notifications by RFM9x ********************************************/
+  /* EXT INT #0 for DIO0 notifications by RFM9x ***************************************/
   ATMEGA328P::DigitalInPin                          rfm9x_dio0_int_pin        (&DDRD, &PORTD, &PIND, 2); /* D2 = PD2 = INT0 */
   ATMEGA328P::EINT0                                 rfm9x_dio0_eint0          (&EICRA, int_ctrl);
   ATMEGA328P::EINT0_ExternalInterruptEventCallback  rfm9x_dio0_eint0_callback (rfm9x_dio0_eint0);
 
   rfm9x_dio0_int_pin.setPullUpMode (hal::interface::PullUpMode::PULL_UP);
 
-  rfm9x_dio0_eint0.setTriggerMode  (RFM9x_INT_TRIGGER_MODE);
+  rfm9x_dio0_eint0.setTriggerMode  (RFM9x_DIO0_INT_TRIGGER_MODE);
 
   int_ctrl.registerInterruptCallback(ATMEGA328P::toIsrNum(ATMEGA328P::InterruptServiceRoutine::EXTERNAL_INT0), &rfm9x_dio0_eint0_callback);
 
+  /* EXT INT #1 for DIO1 notifications by RFM9x ***************************************/
+  ATMEGA328P::DigitalInPin                          rfm9x_dio1_int_pin        (&DDRD, &PORTD, &PIND, 3); /* D3 = PD3 = INT1 */
+  ATMEGA328P::EINT1                                 rfm9x_dio1_eint1          (&EICRA, int_ctrl);
+  ATMEGA328P::EINT1_ExternalInterruptEventCallback  rfm9x_dio1_eint1_callback (rfm9x_dio1_eint1);
+
+  rfm9x_dio1_int_pin.setPullUpMode (hal::interface::PullUpMode::PULL_UP);
+
+  rfm9x_dio1_eint1.setTriggerMode  (RFM9x_DIO1_INT_TRIGGER_MODE);
+
+  int_ctrl.registerInterruptCallback(ATMEGA328P::toIsrNum(ATMEGA328P::InterruptServiceRoutine::EXTERNAL_INT1), &rfm9x_dio1_eint1_callback);
 
 
-  /***********************************************************************************
+
+  /************************************************************************************
    * DRIVER
-   ***********************************************************************************/
+   ************************************************************************************/
 
-  /* SERIAL **************************************************************************/
+  /* SERIAL ***************************************************************************/
   serial::UART::UART_TransmitBuffer   serial_tx_buffer  (TX_BUFFER_SIZE, crit_sec, uart0);
   serial::UART::UART_ReceiveBuffer    serial_rx_buffer  (RX_BUFFER_SIZE, crit_sec, uart0);
   serial::UART::UART_CallbackHandler  serial_callback   (serial_tx_buffer, serial_rx_buffer);
@@ -155,18 +175,28 @@ int main()
   debug::DebugSerial debug_serial(serial);
 
   /* RFM95 ****************************************************************************/
-  lora::RFM9x::RFM9x_IoSpi                    rfm9x_spi                           (spi_master, rfm9x_cs      );
-  lora::RFM9x::RFM9x_Configuration            rfm9x_config                        (rfm9x_spi, RFM9x_F_XOSC_Hz);
-  lora::RFM9x::RFM9x_InterruptControl         rfm9x_int_control                   (rfm9x_spi                 );
-  lora::RFM9x::RFM9x_TransmitFifo             rfm9x_tx_fifo                       (rfm9x_spi, rfm9x_config   );
-  lora::RFM9x::RFM9x_onTxDoneCallback         rfm9x_on_tx_done_callback;
-  lora::RFM9x::RFM9x_onRxDoneCallback         rfm9x_on_rx_done_callback;
-  lora::RFM9x::RFM9x_onCadDoneCallback        rfm9x_on_cad_done_callback;
-  lora::RFM9x::RFM9x_Dio0EventCallback        rfm9x_di0_event_callback            (rfm9x_int_control, rfm9x_on_tx_done_callback, rfm9x_on_rx_done_callback, rfm9x_on_cad_done_callback);
-  lora::RFM9x::RFM9x                          rfm9x                               (rfm9x_config, rfm9x_tx_fifo);
+  lora::RFM9x::RFM9x_IoSpi                        rfm9x_spi                             (spi_master, rfm9x_cs      );
+  lora::RFM9x::RFM9x_Configuration                rfm9x_config                          (rfm9x_spi, RFM9x_F_XOSC_Hz);
+  lora::RFM9x::RFM9x_InterruptControl             rfm9x_int_control                     (rfm9x_spi                 );
+  lora::RFM9x::RFM9x_TransmitFifo                 rfm9x_tx_fifo                         (rfm9x_spi, rfm9x_config   );
+
+  lora::RFM9x::RFM9x_Dio0Configuration            rfm9x_dio0_config                     (rfm9x_spi                 );
+  lora::RFM9x::RFM9x_onTxDoneCallback             rfm9x_on_tx_done_callback;
+  lora::RFM9x::RFM9x_onRxDoneCallback             rfm9x_on_rx_done_callback;
+  lora::RFM9x::RFM9x_onCadDoneCallback            rfm9x_on_cad_done_callback;
+  lora::RFM9x::RFM9x_Dio0EventCallback            rfm9x_dio0_event_callback             (rfm9x_int_control, rfm9x_on_tx_done_callback, rfm9x_on_rx_done_callback, rfm9x_on_cad_done_callback);
+
+  lora::RFM9x::RFM9x_Dio1Configuration            rfm9x_dio1_config                     (rfm9x_spi                 );
+  lora::RFM9x::RFM9x_onRxTimeoutCallback          rfm9x_on_rx_timeout_callback;
+  lora::RFM9x::RFM9x_onFhssChangeChannelCallback  rfm9x_on_fhss_change_channel_callback;
+  lora::RFM9x::RFM9x_onCadDetectedCallback        rfm9x_on_cad_detected_callback;
+  lora::RFM9x::RFM9x_Dio1EventCallback            rfm9x_dio1_event_callback             (rfm9x_int_control, rfm9x_on_rx_timeout_callback, rfm9x_on_fhss_change_channel_callback, rfm9x_on_cad_detected_callback);
+
+  lora::RFM9x::RFM9x                              rfm9x                                 (rfm9x_config, rfm9x_tx_fifo);
 
 
-  rfm9x_dio0_eint0.registerExternalInterruptCallback(&rfm9x_di0_event_callback);
+  rfm9x_dio0_eint0.registerExternalInterruptCallback(&rfm9x_dio0_event_callback);
+  rfm9x_dio1_eint1.registerExternalInterruptCallback(&rfm9x_dio1_event_callback);
 
 
   uint32_t frequenzy_Hz     = 433775000; /* 433.775 Mhz - Dedicated for digital communication channels in the 70 cm band */
