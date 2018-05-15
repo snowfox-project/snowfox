@@ -16,11 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_INTERFACE_MCP2515_CALLBACK_H_
+#define INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_INTERFACE_MCP2515_CALLBACK_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/can/MCP2515/MCP2515_Callback.h>
+#include <spectre/hal/interface/extint/ExternalInterruptCallback.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,27 +42,21 @@ namespace MCP2515
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * CLASS DECLARATION
  **************************************************************************************/
 
-MCP2515_Callback::MCP2515_Callback()
+class MCP2515_EventCallback : public hal::interface::ExternalInterruptCallback
 {
 
-}
+public:
 
-MCP2515_Callback::~MCP2515_Callback()
-{
+           MCP2515_EventCallback();
+  virtual ~MCP2515_EventCallback();
 
-}
 
-/**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
- **************************************************************************************/
+  virtual void onExternalEventCallback() override;
 
-void MCP2515_Callback::onExternalEventCallback()
-{
-  /* TODO - not yet sure how to marry everything together */
-}
+};
 
 /**************************************************************************************
  * NAMESPACE
@@ -72,3 +69,5 @@ void MCP2515_Callback::onExternalEventCallback()
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_INTERFACE_MCP2515_CALLBACK_H_ */

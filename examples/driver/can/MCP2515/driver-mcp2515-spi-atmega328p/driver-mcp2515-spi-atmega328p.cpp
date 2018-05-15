@@ -37,8 +37,8 @@
 
 #include <spectre/driver/can/MCP2515/MCP2515_IoSpi.h>
 #include <spectre/driver/can/MCP2515/MCP2515_Control.h>
-#include <spectre/driver/can/MCP2515/MCP2515_Callback.h>
 #include <spectre/driver/can/MCP2515/MCP2515_CanController.h>
+#include <spectre/driver/can/MCP2515/MCP2515_EventCallback.h>
 #include <spectre/driver/can/MCP2515/MCP2515_CanReceiveBuffer.h>
 #include <spectre/driver/can/MCP2515/MCP2515_CanTransmitBuffer.h>
 
@@ -108,11 +108,11 @@ int main()
   can::MCP2515::MCP2515_CanController     mcp2515_can_ctrl  (mcp2515_control, F_MCP2515_MHz);
   can::MCP2515::MCP2515_CanReceiveBuffer  mcp2515_can_rx_buf(CAN_RX_BUFFER_SIZE);
   can::MCP2515::MCP2515_CanTransmitBuffer mcp2515_can_tx_buf(CAN_TX_BUFFER_SIZE);
-  can::MCP2515::MCP2515_Callback          mcp2515_callback;
+  can::MCP2515::MCP2515_EventCallback     mcp2515_event_callback;
 
   can::Can                                can               (mcp2515_can_ctrl, mcp2515_can_tx_buf, mcp2515_can_rx_buf);
 
-  mcp2515_eint0.registerExternalInterruptCallback(&mcp2515_callback);
+  mcp2515_eint0.registerExternalInterruptCallback(&mcp2515_event_callback);
 
   /* APPLICATION **********************************************************************/
 
