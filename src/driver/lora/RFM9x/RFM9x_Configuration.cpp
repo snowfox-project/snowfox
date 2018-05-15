@@ -231,6 +231,30 @@ uint16_t RFM9x_Configuration::getRxFifoSize() const
   return _rx_fifo_size;
 }
 
+void RFM9x_Configuration::setEventSource(interface::Dio0EventSource const event_source)
+{
+  uint8_t reg_dio_mapping_1_content = 0;
+
+  _io.readRegister(interface::Register::DIO_MAPPING1, &reg_dio_mapping_1_content);
+
+  reg_dio_mapping_1_content &= ~(RFM9x_REG_DIO_MAPPING_1_DIO0_MAPPING_1_bm | RFM9x_REG_DIO_MAPPING_1_DIO0_MAPPING_0_bm);
+  reg_dio_mapping_1_content |= static_cast<uint8_t>(event_source);
+
+  _io.writeRegister(interface::Register::DIO_MAPPING1, reg_dio_mapping_1_content);
+}
+
+void RFM9x_Configuration::setEventSource(interface::Dio1EventSource const event_source)
+{
+  uint8_t reg_dio_mapping_1_content = 0;
+
+  _io.readRegister(interface::Register::DIO_MAPPING1, &reg_dio_mapping_1_content);
+
+  reg_dio_mapping_1_content &= ~(RFM9x_REG_DIO_MAPPING_1_DIO1_MAPPING_1_bm | RFM9x_REG_DIO_MAPPING_1_DIO1_MAPPING_0_bm);
+  reg_dio_mapping_1_content |= static_cast<uint8_t>(event_source);
+
+  _io.writeRegister(interface::Register::DIO_MAPPING1, reg_dio_mapping_1_content);
+}
+
 /**************************************************************************************
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/

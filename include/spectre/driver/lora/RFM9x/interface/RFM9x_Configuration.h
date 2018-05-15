@@ -26,6 +26,8 @@
 #include <spectre/driver/lora/RFM9x/interface/RFM9x_RfConfiguration.h>
 #include <spectre/driver/lora/RFM9x/interface/RFM9x_FifoConfiguration.h>
 #include <spectre/driver/lora/RFM9x/interface/RFM9x_OperationModeConfiguration.h>
+#include <spectre/driver/lora/RFM9x/interface/DIO0/RFM9x_Dio0Configuration.h>
+#include <spectre/driver/lora/RFM9x/interface/DIO1/RFM9x_Dio1Configuration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -52,7 +54,9 @@ namespace interface
 
 class RFM9x_Configuration : public RFM9x_OperationModeConfiguration,
                             public RFM9x_RfConfiguration,
-                            public RFM9x_FifoConfiguration
+                            public RFM9x_FifoConfiguration,
+                            public RFM9x_Dio0Configuration,
+                            public RFM9x_Dio1Configuration
 {
 
 public:

@@ -50,10 +50,8 @@
 #include <spectre/driver/lora/RFM9x/DIO0/RFM9x_onTxDoneCallback.h>
 #include <spectre/driver/lora/RFM9x/DIO0/RFM9x_onRxDoneCallback.h>
 #include <spectre/driver/lora/RFM9x/DIO0/RFM9x_onCadDoneCallback.h>
-#include <spectre/driver/lora/RFM9x/DIO0/RFM9x_Dio0Configuration.h>
 #include <spectre/driver/lora/RFM9x/DIO0/RFM9x_Dio0EventCallback.h>
 
-#include <spectre/driver/lora/RFM9x/DIO1/RFM9x_Dio1Configuration.h>
 #include <spectre/driver/lora/RFM9x/DIO1/RFM9x_Dio1EventCallback.h>
 #include <spectre/driver/lora/RFM9x/DIO1/RFM9x_onRxTimeoutCallback.h>
 #include <spectre/driver/lora/RFM9x/DIO1/RFM9x_onCadDetectedCallback.h>
@@ -180,13 +178,11 @@ int main()
   lora::RFM9x::RFM9x_InterruptControl             rfm9x_int_control                     (rfm9x_spi                 );
   lora::RFM9x::RFM9x_TransmitFifo                 rfm9x_tx_fifo                         (rfm9x_spi, rfm9x_config   );
 
-  lora::RFM9x::RFM9x_Dio0Configuration            rfm9x_dio0_config                     (rfm9x_spi                 );
   lora::RFM9x::RFM9x_onTxDoneCallback             rfm9x_on_tx_done_callback;
   lora::RFM9x::RFM9x_onRxDoneCallback             rfm9x_on_rx_done_callback;
   lora::RFM9x::RFM9x_onCadDoneCallback            rfm9x_on_cad_done_callback;
   lora::RFM9x::RFM9x_Dio0EventCallback            rfm9x_dio0_event_callback             (rfm9x_int_control, rfm9x_on_tx_done_callback, rfm9x_on_rx_done_callback, rfm9x_on_cad_done_callback);
 
-  lora::RFM9x::RFM9x_Dio1Configuration            rfm9x_dio1_config                     (rfm9x_spi                 );
   lora::RFM9x::RFM9x_onRxTimeoutCallback          rfm9x_on_rx_timeout_callback;
   lora::RFM9x::RFM9x_onFhssChangeChannelCallback  rfm9x_on_fhss_change_channel_callback;
   lora::RFM9x::RFM9x_onCadDetectedCallback        rfm9x_on_cad_detected_callback;
