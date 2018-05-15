@@ -25,6 +25,11 @@
 
 #include <spectre/hal/interface/extint/ExternalInterruptCallback.h>
 
+#include <spectre/driver/can/MCP2515/interface/MCP2515_onWakeup.h>
+#include <spectre/driver/can/MCP2515/interface/MCP2515_onMessageError.h>
+#include <spectre/driver/can/MCP2515/interface/MCP2515_onReceiveBufferFull.h>
+#include <spectre/driver/can/MCP2515/interface/MCP2515_onTransmitBufferEmpty.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -50,11 +55,28 @@ class MCP2515_EventCallback : public hal::interface::ExternalInterruptCallback
 
 public:
 
-           MCP2515_EventCallback();
+           MCP2515_EventCallback(interface::MCP2515_onMessageError        & on_message_error,
+                                 interface::MCP2515_onWakeup              & on_wakeup,
+                                 interface::MCP2515_onTransmitBufferEmpty & on_transmit_buffer_2_empty,
+                                 interface::MCP2515_onTransmitBufferEmpty & on_transmit_buffer_1_empty,
+                                 interface::MCP2515_onTransmitBufferEmpty & on_transmit_buffer_0_empty,
+                                 interface::MCP2515_onReceiveBufferFull   & on_receive_buffer_1_full,
+                                 interface::MCP2515_onReceiveBufferFull   & on_receive_buffer_0_full);
   virtual ~MCP2515_EventCallback();
 
 
   virtual void onExternalEventCallback() override;
+
+
+private:
+
+  interface::MCP2515_onMessageError        & _on_message_error;
+  interface::MCP2515_onWakeup              & _on_wakeup;
+  interface::MCP2515_onTransmitBufferEmpty & _on_transmit_buffer_2_empty;
+  interface::MCP2515_onTransmitBufferEmpty & _on_transmit_buffer_1_empty;
+  interface::MCP2515_onTransmitBufferEmpty & _on_transmit_buffer_0_empty;
+  interface::MCP2515_onReceiveBufferFull   & _on_receive_buffer_1_full;
+  interface::MCP2515_onReceiveBufferFull   & _on_receive_buffer_0_full;
 
 };
 

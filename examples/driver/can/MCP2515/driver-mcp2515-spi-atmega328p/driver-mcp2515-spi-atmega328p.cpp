@@ -37,10 +37,14 @@
 
 #include <spectre/driver/can/MCP2515/MCP2515_IoSpi.h>
 #include <spectre/driver/can/MCP2515/MCP2515_Control.h>
+#include <spectre/driver/can/MCP2515/MCP2515_onWakeup.h>
 #include <spectre/driver/can/MCP2515/MCP2515_CanController.h>
 #include <spectre/driver/can/MCP2515/MCP2515_EventCallback.h>
+#include <spectre/driver/can/MCP2515/MCP2515_onMessageError.h>
 #include <spectre/driver/can/MCP2515/MCP2515_CanReceiveBuffer.h>
 #include <spectre/driver/can/MCP2515/MCP2515_CanTransmitBuffer.h>
+#include <spectre/driver/can/MCP2515/MCP2515_onReceiveBufferFull.h>
+#include <spectre/driver/can/MCP2515/MCP2515_onTransmitBufferEmpty.h>
 
 /**************************************************************************************
  * NAMESPACES
@@ -103,14 +107,22 @@ int main()
 
   /* DRIVER ***************************************************************************/
 
-  can::MCP2515::MCP2515_IoSpi             mcp2515_io_spi    (spi_master, mcp2515_cs);
-  can::MCP2515::MCP2515_Control           mcp2515_control   (mcp2515_io_spi);
-  can::MCP2515::MCP2515_CanController     mcp2515_can_ctrl  (mcp2515_control, F_MCP2515_MHz);
-  can::MCP2515::MCP2515_CanReceiveBuffer  mcp2515_can_rx_buf(CAN_RX_BUFFER_SIZE);
-  can::MCP2515::MCP2515_CanTransmitBuffer mcp2515_can_tx_buf(CAN_TX_BUFFER_SIZE);
-  can::MCP2515::MCP2515_EventCallback     mcp2515_event_callback;
+  can::MCP2515::MCP2515_IoSpi                 mcp2515_io_spi    (spi_master, mcp2515_cs);
+  can::MCP2515::MCP2515_Control               mcp2515_control   (mcp2515_io_spi);
+  can::MCP2515::MCP2515_CanController         mcp2515_can_ctrl  (mcp2515_control, F_MCP2515_MHz);
+  can::MCP2515::MCP2515_CanReceiveBuffer      mcp2515_can_rx_buf(CAN_RX_BUFFER_SIZE);
+  can::MCP2515::MCP2515_CanTransmitBuffer     mcp2515_can_tx_buf(CAN_TX_BUFFER_SIZE);
 
-  can::Can                                can               (mcp2515_can_ctrl, mcp2515_can_tx_buf, mcp2515_can_rx_buf);
+  can::MCP2515::MCP2515_onMessageError        mcp2515_on_message_error;
+  can::MCP2515::MCP2515_onWakeup              mcp2515_on_wakeup;
+  can::MCP2515::MCP2515_onTransmitBufferEmpty mcp2515_on_transmit_buffer_2_empty;
+  can::MCP2515::MCP2515_onTransmitBufferEmpty mcp2515_on_transmit_buffer_1_empty;
+  can::MCP2515::MCP2515_onTransmitBufferEmpty mcp2515_on_transmit_buffer_0_empty;
+  can::MCP2515::MCP2515_onReceiveBufferFull   mcp2515_on_receive_buffer_1_full;
+  can::MCP2515::MCP2515_onReceiveBufferFull   mcp2515_on_receive_buffer_0_full;
+  can::MCP2515::MCP2515_EventCallback         mcp2515_event_callback            (mcp2515_on_message_error, mcp2515_on_wakeup, mcp2515_on_transmit_buffer_2_empty, mcp2515_on_transmit_buffer_1_empty, mcp2515_on_transmit_buffer_0_empty, mcp2515_on_receive_buffer_1_full, mcp2515_on_receive_buffer_0_full);
+
+  can::Can                                    can               (mcp2515_can_ctrl, mcp2515_can_tx_buf, mcp2515_can_rx_buf);
 
   mcp2515_eint0.registerExternalInterruptCallback(&mcp2515_event_callback);
 

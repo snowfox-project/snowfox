@@ -42,7 +42,20 @@ namespace MCP2515
  * CTOR/DTOR
  **************************************************************************************/
 
-MCP2515_EventCallback::MCP2515_EventCallback()
+MCP2515_EventCallback::MCP2515_EventCallback(interface::MCP2515_onMessageError        & on_message_error,
+                                             interface::MCP2515_onWakeup              & on_wakeup,
+                                             interface::MCP2515_onTransmitBufferEmpty & on_transmit_buffer_2_empty,
+                                             interface::MCP2515_onTransmitBufferEmpty & on_transmit_buffer_1_empty,
+                                             interface::MCP2515_onTransmitBufferEmpty & on_transmit_buffer_0_empty,
+                                             interface::MCP2515_onReceiveBufferFull   & on_receive_buffer_1_full,
+                                             interface::MCP2515_onReceiveBufferFull   & on_receive_buffer_0_full)
+: _on_message_error           (on_message_error          ),
+  _on_wakeup                  (on_wakeup                 ),
+  _on_transmit_buffer_2_empty (on_transmit_buffer_2_empty),
+  _on_transmit_buffer_1_empty (on_transmit_buffer_1_empty),
+  _on_transmit_buffer_0_empty (on_transmit_buffer_0_empty),
+  _on_receive_buffer_1_full   (on_receive_buffer_1_full  ),
+  _on_receive_buffer_0_full   (on_receive_buffer_0_full  )
 {
 
 }
