@@ -16,17 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CONFIGURATION_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CONFIGURATION_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CONTROL_H_
+#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CONTROL_H_
+
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_RfConfiguration.h>
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_Dio0Configuration.h>
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_Dio1Configuration.h>
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_FifoConfiguration.h>
+#include <spectre/driver/lora/RFM9x/interface/RFM9x_OperationModeControl.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -51,16 +49,13 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_Configuration : public RFM9x_RfConfiguration,
-                            public RFM9x_FifoConfiguration,
-                            public RFM9x_Dio0Configuration,
-                            public RFM9x_Dio1Configuration
+class RFM9x_Control : public RFM9x_OperationModeControl
 {
 
 public:
 
-           RFM9x_Configuration() { }
-  virtual ~RFM9x_Configuration() { }
+           RFM9x_Control() { }
+  virtual ~RFM9x_Control() { }
 
 };
 
@@ -78,4 +73,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CONFIGURATION_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CONTROL_H_ */

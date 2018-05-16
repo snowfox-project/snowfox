@@ -16,17 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CONFIGURATION_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CONFIGURATION_H_
-
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_RfConfiguration.h>
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_Dio0Configuration.h>
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_Dio1Configuration.h>
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_FifoConfiguration.h>
+#include <spectre/driver/lora/RFM9x/RFM9x_Control.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -44,31 +38,40 @@ namespace lora
 namespace RFM9x
 {
 
-namespace interface
-{
-
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class RFM9x_Configuration : public RFM9x_RfConfiguration,
-                            public RFM9x_FifoConfiguration,
-                            public RFM9x_Dio0Configuration,
-                            public RFM9x_Dio1Configuration
+RFM9x_Control::RFM9x_Control(interface::RFM9x_Io & io)
+: _io(io)
 {
 
-public:
+}
 
-           RFM9x_Configuration() { }
-  virtual ~RFM9x_Configuration() { }
+RFM9x_Control::~RFM9x_Control()
+{
 
-};
+}
+
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
+
+void RFM9x_Control::setOperatingMode(interface::OperatingMode const op_mode)
+{
+  uint8_t reg_op_mode_content = 0;
+
+  _io.readRegister(interface::Register::OP_MODE, &reg_op_mode_content);
+
+  reg_op_mode_content &= ~(RFM9x_REG_OP_MODE_MODE_2_bm | RFM9x_REG_OP_MODE_MODE_1_bm | RFM9x_REG_OP_MODE_MODE_0_bm);
+  reg_op_mode_content |= static_cast<uint8_t>(op_mode);
+
+  _io.writeRegister(interface::Register::OP_MODE, reg_op_mode_content);
+}
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
-
-} /* interface */
 
 } /* RFM9x */
 
@@ -77,5 +80,3 @@ public:
 } /* driver */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CONFIGURATION_H_ */

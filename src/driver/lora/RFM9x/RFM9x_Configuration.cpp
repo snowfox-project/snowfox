@@ -67,18 +67,6 @@ RFM9x_Configuration::~RFM9x_Configuration()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void RFM9x_Configuration::setOperatingMode(interface::OperatingMode const op_mode)
-{
-  uint8_t reg_op_mode_content = 0;
-
-  _io.readRegister(interface::Register::OP_MODE, &reg_op_mode_content);
-
-  reg_op_mode_content &= ~(RFM9x_REG_OP_MODE_MODE_2_bm | RFM9x_REG_OP_MODE_MODE_1_bm | RFM9x_REG_OP_MODE_MODE_0_bm);
-  reg_op_mode_content |= static_cast<uint8_t>(op_mode);
-
-  _io.writeRegister(interface::Register::OP_MODE, reg_op_mode_content);
-}
-
 void RFM9x_Configuration::setLoRaMode(interface::LoRaMode const lora_mode)
 {
   uint8_t reg_op_mode_content = 0;

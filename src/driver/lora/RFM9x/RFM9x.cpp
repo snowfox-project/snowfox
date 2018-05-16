@@ -43,8 +43,10 @@ namespace RFM9x
  **************************************************************************************/
 
 RFM9x::RFM9x(interface::RFM9x_Configuration & config,
+             interface::RFM9x_Control       & control,
              interface::RFM9x_TransmitFifo  & tx_fifo)
 : _config (config   ),
+  _control(control  ),
   _tx_fifo(tx_fifo  )
 {
 
@@ -61,11 +63,11 @@ RFM9x::~RFM9x()
 
 bool RFM9x::open()
 {
-  _config.setOperatingMode(interface::OperatingMode::SLEEP        );
-  _config.setLoRaMode     (interface::LoRaMode::LoRa              );
-  _config.setHeaderMode   (interface::HeaderMode::Explicit        );
-  _config.setPacketFormat (interface::PacketFormat::VariableLength);
-  _config.setOperatingMode(interface::OperatingMode::STDBY        );
+  _control.setOperatingMode(interface::OperatingMode::SLEEP        );
+  _config.setLoRaMode      (interface::LoRaMode::LoRa              );
+  _config.setHeaderMode    (interface::HeaderMode::Explicit        );
+  _config.setPacketFormat  (interface::PacketFormat::VariableLength);
+  _control.setOperatingMode(interface::OperatingMode::STDBY        );
 
   return true;
 }
@@ -160,7 +162,7 @@ bool RFM9x::ioctl(uint32_t const cmd, void * arg)
 
 void RFM9x::close()
 {
-  _config.setOperatingMode(interface::OperatingMode::SLEEP);
+  _control.setOperatingMode(interface::OperatingMode::SLEEP);
 }
 
 /**************************************************************************************

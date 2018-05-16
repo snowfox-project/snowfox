@@ -16,14 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_OPERATIONMODECONFIGURATION_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_OPERATIONMODECONFIGURATION_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CONTROL_H_
+#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CONTROL_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_RegisterBits.h>
+#include <spectre/driver/lora/RFM9x/interface/RFM9x_Control.h>
+
+#include <spectre/driver/lora/RFM9x/interface/RFM9x_Io.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -41,47 +43,31 @@ namespace lora
 namespace RFM9x
 {
 
-namespace interface
-{
-
-/**************************************************************************************
- * TYPEDEFS
- **************************************************************************************/
-
-enum class OperatingMode : uint8_t
-{
-  SLEEP        = 0,
-  STDBY        =                                                             RFM9x_REG_OP_MODE_MODE_0_bm,
-  FSTX         =                               RFM9x_REG_OP_MODE_MODE_1_bm,
-  TX           =                               RFM9x_REG_OP_MODE_MODE_1_bm | RFM9x_REG_OP_MODE_MODE_0_bm,
-  FSRX         = RFM9x_REG_OP_MODE_MODE_2_bm,
-  RXCONTINUOUS = RFM9x_REG_OP_MODE_MODE_2_bm |                               RFM9x_REG_OP_MODE_MODE_0_bm,
-  RXSINGLE     = RFM9x_REG_OP_MODE_MODE_2_bm | RFM9x_REG_OP_MODE_MODE_1_bm,
-  CAD          = RFM9x_REG_OP_MODE_MODE_2_bm | RFM9x_REG_OP_MODE_MODE_1_bm | RFM9x_REG_OP_MODE_MODE_0_bm
-};
-
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_OperationModeConfiguration
+class RFM9x_Control : public interface::RFM9x_Control
 {
 
 public:
 
-           RFM9x_OperationModeConfiguration() { }
-  virtual ~RFM9x_OperationModeConfiguration() { }
+           RFM9x_Control(interface::RFM9x_Io & io);
+  virtual ~RFM9x_Control();
 
 
-  virtual void setOperatingMode(OperatingMode const op_mode) = 0;
+  virtual void setOperatingMode(interface::OperatingMode const op_mode) override;
+
+
+private:
+
+  interface::RFM9x_Io & _io;
 
 };
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
-
-} /* interface */
 
 } /* RFM9x */
 
@@ -91,4 +77,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_OPERATIONMODECONFIGURATION_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CONTROL_H_ */
