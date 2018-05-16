@@ -16,18 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CONFIGURATION_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CONFIGURATION_H_
-
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_RfConfiguration.h>
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_Dio0Configuration.h>
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_Dio1Configuration.h>
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_FifoConfiguration.h>
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_OperationModeConfiguration.h>
+#include <spectre/driver/lora/RFM9x/events/DIO1/RFM9x_onFhssChangeChannelCallback.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -45,32 +38,32 @@ namespace lora
 namespace RFM9x
 {
 
-namespace interface
-{
-
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class RFM9x_Configuration : public RFM9x_OperationModeConfiguration,
-                            public RFM9x_RfConfiguration,
-                            public RFM9x_FifoConfiguration,
-                            public RFM9x_Dio0Configuration,
-                            public RFM9x_Dio1Configuration
+RFM9x_onFhssChangeChannelCallback::RFM9x_onFhssChangeChannelCallback()
 {
 
-public:
+}
 
-           RFM9x_Configuration() { }
-  virtual ~RFM9x_Configuration() { }
+RFM9x_onFhssChangeChannelCallback::~RFM9x_onFhssChangeChannelCallback()
+{
 
-};
+}
+
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
+
+void RFM9x_onFhssChangeChannelCallback::onFhssChangeChannel()
+{
+  /* TODO */
+}
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
-
-} /* interface */
 
 } /* RFM9x */
 
@@ -79,5 +72,3 @@ public:
 } /* driver */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CONFIGURATION_H_ */

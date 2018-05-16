@@ -16,11 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_PACKET_MODE_RFM9X_ONPACKETSENTCALLBACK_H_
+#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_PACKET_MODE_RFM9X_ONPACKETSENTCALLBACK_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/DIO1/RFM9x_onFhssChangeChannelCallback.h>
+#include <spectre/driver/lora/RFM9x/interface/events/DIO0/RFM9x_onTxDoneCallback.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,27 +42,21 @@ namespace RFM9x
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * CLASS DECLARATION
  **************************************************************************************/
 
-RFM9x_onFhssChangeChannelCallback::RFM9x_onFhssChangeChannelCallback()
+class RFM9x_onTxDoneCallback :  public interface::RFM9x_onTxDoneCallback
 {
 
-}
+public:
 
-RFM9x_onFhssChangeChannelCallback::~RFM9x_onFhssChangeChannelCallback()
-{
+           RFM9x_onTxDoneCallback();
+  virtual ~RFM9x_onTxDoneCallback();
 
-}
 
-/**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
- **************************************************************************************/
+  virtual void onTxDone() override;
 
-void RFM9x_onFhssChangeChannelCallback::onFhssChangeChannel()
-{
-  /* TODO */
-}
+};
 
 /**************************************************************************************
  * NAMESPACE
@@ -72,3 +69,5 @@ void RFM9x_onFhssChangeChannelCallback::onFhssChangeChannel()
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_PACKET_MODE_RFM9X_ONPACKETSENTCALLBACK_H_ */

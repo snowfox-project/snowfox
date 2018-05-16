@@ -47,15 +47,15 @@
 #include <spectre/driver/lora/RFM9x/RFM9x_Configuration.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_InterruptControl.h>
 
-#include <spectre/driver/lora/RFM9x/DIO0/RFM9x_onTxDoneCallback.h>
-#include <spectre/driver/lora/RFM9x/DIO0/RFM9x_onRxDoneCallback.h>
-#include <spectre/driver/lora/RFM9x/DIO0/RFM9x_onCadDoneCallback.h>
-#include <spectre/driver/lora/RFM9x/DIO0/RFM9x_Dio0EventCallback.h>
+#include <spectre/driver/lora/RFM9x/events/DIO0/RFM9x_Dio0EventCallback.h>
+#include <spectre/driver/lora/RFM9x/events/DIO0/RFM9x_onTxDoneCallback.h>
+#include <spectre/driver/lora/RFM9x/events/DIO0/RFM9x_onRxDoneCallback.h>
+#include <spectre/driver/lora/RFM9x/events/DIO0/RFM9x_onCadDoneCallback.h>
 
-#include <spectre/driver/lora/RFM9x/DIO1/RFM9x_Dio1EventCallback.h>
-#include <spectre/driver/lora/RFM9x/DIO1/RFM9x_onRxTimeoutCallback.h>
-#include <spectre/driver/lora/RFM9x/DIO1/RFM9x_onCadDetectedCallback.h>
-#include <spectre/driver/lora/RFM9x/DIO1/RFM9x_onFhssChangeChannelCallback.h>
+#include <spectre/driver/lora/RFM9x/events/DIO1/RFM9x_Dio1EventCallback.h>
+#include <spectre/driver/lora/RFM9x/events/DIO1/RFM9x_onRxTimeoutCallback.h>
+#include <spectre/driver/lora/RFM9x/events/DIO1/RFM9x_onCadDetectedCallback.h>
+#include <spectre/driver/lora/RFM9x/events/DIO1/RFM9x_onFhssChangeChannelCallback.h>
 
 #include <spectre/debug/serial/DebugSerial.h>
 

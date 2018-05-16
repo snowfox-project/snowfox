@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/DIO0/RFM9x_Dio0EventCallback.h>
+#include <spectre/driver/lora/RFM9x/events/DIO0/RFM9x_onTxDoneCallback.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,19 +42,12 @@ namespace RFM9x
  * CTOR/DTOR
  **************************************************************************************/
 
-RFM9x_Dio0EventCallback::RFM9x_Dio0EventCallback(interface::RFM9x_InterruptControl  & int_ctrl,
-                                                 interface::RFM9x_onTxDoneCallback  & on_tx_done_callback,
-                                                 interface::RFM9x_onRxDoneCallback  & on_rx_done_callback,
-                                                 interface::RFM9x_onCadDoneCallback & on_cad_done_callback)
-: _int_ctrl             (int_ctrl            ),
-  _on_tx_done_callback  (on_tx_done_callback ),
-  _on_rx_done_callback  (on_rx_done_callback ),
-  _on_cad_done_callback (on_cad_done_callback)
+RFM9x_onTxDoneCallback::RFM9x_onTxDoneCallback()
 {
 
 }
 
-RFM9x_Dio0EventCallback::~RFM9x_Dio0EventCallback()
+RFM9x_onTxDoneCallback::~RFM9x_onTxDoneCallback()
 {
 
 }
@@ -63,30 +56,9 @@ RFM9x_Dio0EventCallback::~RFM9x_Dio0EventCallback()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void RFM9x_Dio0EventCallback::onExternalEventCallback()
+void RFM9x_onTxDoneCallback::onTxDone()
 {
-  uint8_t irq_req_flags = 0;
-
-  _int_ctrl.getIntReqFlags(&irq_req_flags);
-
-  /* RX DONE **************************************************************************/
-  if(interface::RFM9x_InterruptControl::isRxDone(irq_req_flags))
-  {
-    _on_rx_done_callback.onRxDone();
-    _int_ctrl.clearIntReqFlag(interface::InterruptRequest::RxDone);
-  }
-  /* TX DONE **************************************************************************/
-  if(interface::RFM9x_InterruptControl::isTxDone(irq_req_flags))
-  {
-    _on_tx_done_callback.onTxDone();
-    _int_ctrl.clearIntReqFlag(interface::InterruptRequest::TxDone);
-  }
-  /* CAD DONE *************************************************************************/
-  if(interface::RFM9x_InterruptControl::isCadDone(irq_req_flags))
-  {
-    _on_cad_done_callback.onCadDone();
-    _int_ctrl.clearIntReqFlag(interface::InterruptRequest::CadDone);
-  }
+  /* TODO */
 }
 
 /**************************************************************************************

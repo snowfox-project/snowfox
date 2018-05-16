@@ -80,15 +80,15 @@ set(DRIVER_LORA_SRC_PATH src/driver/lora)
 
 if(${DRIVER_LORA_RFM9x} STREQUAL "yes")
   set(DRIVER_LORA_RFM9x_SRCS
-    ${DRIVER_LORA_SRC_PATH}/RFM9x/DIO0/RFM9x_Dio0EventCallback.cpp
-    ${DRIVER_LORA_SRC_PATH}/RFM9x/DIO0/RFM9x_onCadDoneCallback.cpp
-    ${DRIVER_LORA_SRC_PATH}/RFM9x/DIO0/RFM9x_onRxDoneCallback.cpp
-    ${DRIVER_LORA_SRC_PATH}/RFM9x/DIO0/RFM9x_onTxDoneCallback.cpp
+    ${DRIVER_LORA_SRC_PATH}/RFM9x/events/DIO0/RFM9x_Dio0EventCallback.cpp
+    ${DRIVER_LORA_SRC_PATH}/RFM9x/events/DIO0/RFM9x_onCadDoneCallback.cpp
+    ${DRIVER_LORA_SRC_PATH}/RFM9x/events/DIO0/RFM9x_onRxDoneCallback.cpp
+    ${DRIVER_LORA_SRC_PATH}/RFM9x/events/DIO0/RFM9x_onTxDoneCallback.cpp
     
-    ${DRIVER_LORA_SRC_PATH}/RFM9x/DIO1/RFM9x_Dio1EventCallback.cpp
-    ${DRIVER_LORA_SRC_PATH}/RFM9x/DIO1/RFM9x_onCadDetectedCallback.cpp
-    ${DRIVER_LORA_SRC_PATH}/RFM9x/DIO1/RFM9x_onFhssChangeChannelCallback.cpp
-    ${DRIVER_LORA_SRC_PATH}/RFM9x/DIO1/RFM9x_onRxTimeoutCallback.cpp
+    ${DRIVER_LORA_SRC_PATH}/RFM9x/events/DIO1/RFM9x_Dio1EventCallback.cpp
+    ${DRIVER_LORA_SRC_PATH}/RFM9x/events/DIO1/RFM9x_onCadDetectedCallback.cpp
+    ${DRIVER_LORA_SRC_PATH}/RFM9x/events/DIO1/RFM9x_onFhssChangeChannelCallback.cpp
+    ${DRIVER_LORA_SRC_PATH}/RFM9x/events/DIO1/RFM9x_onRxTimeoutCallback.cpp
     
     ${DRIVER_LORA_SRC_PATH}/RFM9x/interface/RFM9x_InterruptControl.cpp
     

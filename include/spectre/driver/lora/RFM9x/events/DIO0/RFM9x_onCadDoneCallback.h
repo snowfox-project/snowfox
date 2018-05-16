@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_DIO1_RFM9X_ONRXTIMEOUTCALLBACK_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_DIO1_RFM9X_ONRXTIMEOUTCALLBACK_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_PACKET_MODE_RFM9X_ONCADDONECALLBACK_H_
+#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_PACKET_MODE_RFM9X_ONCADDONECALLBACK_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/interface/DIO1/RFM9x_onRxTimeoutCallback.h>
+#include <spectre/driver/lora/RFM9x/interface/events/DIO0/RFM9x_onCadDoneCallback.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -45,16 +45,16 @@ namespace RFM9x
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_onRxTimeoutCallback : public interface::RFM9x_onRxTimeoutCallback
+class RFM9x_onCadDoneCallback : public interface::RFM9x_onCadDoneCallback
 {
 
 public:
 
-           RFM9x_onRxTimeoutCallback();
-  virtual ~RFM9x_onRxTimeoutCallback();
+           RFM9x_onCadDoneCallback();
+  virtual ~RFM9x_onCadDoneCallback();
 
 
-  virtual void onRxTimeout() override;
+  virtual void onCadDone() override;
 
 };
 
@@ -70,4 +70,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_DIO1_RFM9X_ONRXTIMEOUTCALLBACK_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_PACKET_MODE_RFM9X_ONCADDONECALLBACK_H_ */

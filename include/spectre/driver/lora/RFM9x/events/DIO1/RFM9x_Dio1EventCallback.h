@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CALLBACKHANDLER_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CALLBACKHANDLER_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_DIO1_RFM9X_DIO1EVENTCALLBACK_H_
+#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_DIO1_RFM9X_DIO1EVENTCALLBACK_H_
 
 /**************************************************************************************
  * INCLUDES
@@ -25,9 +25,9 @@
 
 #include <spectre/hal/interface/extint/ExternalInterruptCallback.h>
 
-#include <spectre/driver/lora/RFM9x/interface/DIO0/RFM9x_onTxDoneCallback.h>
-#include <spectre/driver/lora/RFM9x/interface/DIO0/RFM9x_onRxDoneCallback.h>
-#include <spectre/driver/lora/RFM9x/interface/DIO0/RFM9x_onCadDoneCallback.h>
+#include <spectre/driver/lora/RFM9x/interface/events/DIO1/RFM9x_onRxTimeoutCallback.h>
+#include <spectre/driver/lora/RFM9x/interface/events/DIO1/RFM9x_onCadDetectedCallback.h>
+#include <spectre/driver/lora/RFM9x/interface/events/DIO1/RFM9x_onFhssChangeChannelCallback.h>
 
 #include <spectre/driver/lora/RFM9x/interface/RFM9x_InterruptControl.h>
 
@@ -53,19 +53,19 @@ namespace RFM9x
 
 /* For information in DIO mapping in LoRa mode check out
  * Table 63. There are three events which can be mapped
- * on DIO0: RxDone, TxDone, CadDone
+ * on DIO1: RxTimeout, FhssChangeChannel, CadDetected
  */
 
-class RFM9x_Dio0EventCallback :  public hal::interface::ExternalInterruptCallback
+class RFM9x_Dio1EventCallback :  public hal::interface::ExternalInterruptCallback
 {
 
 public:
 
-           RFM9x_Dio0EventCallback(interface::RFM9x_InterruptControl  & int_ctrl,
-                                   interface::RFM9x_onTxDoneCallback  & on_tx_done_callback,
-                                   interface::RFM9x_onRxDoneCallback  & on_rx_done_callback,
-                                   interface::RFM9x_onCadDoneCallback & on_cad_done_callback);
-  virtual ~RFM9x_Dio0EventCallback();
+           RFM9x_Dio1EventCallback(interface::RFM9x_InterruptControl            & int_ctrl,
+                                   interface::RFM9x_onRxTimeoutCallback         & on_rx_timeout_callback,
+                                   interface::RFM9x_onFhssChangeChannelCallback & on_fhss_change_channel_callback,
+                                   interface::RFM9x_onCadDetectedCallback       & on_cad_detected_callback);
+  virtual ~RFM9x_Dio1EventCallback();
 
 
   virtual void onExternalEventCallback() override;
@@ -73,10 +73,10 @@ public:
 
 private:
 
-  interface::RFM9x_InterruptControl  & _int_ctrl;
-  interface::RFM9x_onTxDoneCallback  & _on_tx_done_callback;
-  interface::RFM9x_onRxDoneCallback  & _on_rx_done_callback;
-  interface::RFM9x_onCadDoneCallback & _on_cad_done_callback;
+  interface::RFM9x_InterruptControl            & _int_ctrl;
+  interface::RFM9x_onRxTimeoutCallback         & _on_rx_timeout_callback;
+  interface::RFM9x_onFhssChangeChannelCallback & _on_fhss_change_channel_callback;
+  interface::RFM9x_onCadDetectedCallback       & _on_cad_detected_callback;
 
 };
 
@@ -92,4 +92,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CALLBACKHANDLER_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_DIO1_RFM9X_DIO1EVENTCALLBACK_H_ */

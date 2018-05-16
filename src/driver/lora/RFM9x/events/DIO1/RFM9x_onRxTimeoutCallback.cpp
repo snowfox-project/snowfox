@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/DIO1/RFM9x_onCadDetectedCallback.h>
+#include <spectre/driver/lora/RFM9x/events/DIO1/RFM9x_onRxTimeoutCallback.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,12 +42,12 @@ namespace RFM9x
  * CTOR/DTOR
  **************************************************************************************/
 
-RFM9x_onCadDetectedCallback::RFM9x_onCadDetectedCallback()
+RFM9x_onRxTimeoutCallback::RFM9x_onRxTimeoutCallback()
 {
 
 }
 
-RFM9x_onCadDetectedCallback::~RFM9x_onCadDetectedCallback()
+RFM9x_onRxTimeoutCallback::~RFM9x_onRxTimeoutCallback()
 {
 
 }
@@ -56,7 +56,7 @@ RFM9x_onCadDetectedCallback::~RFM9x_onCadDetectedCallback()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void RFM9x_onCadDetectedCallback::onCadDetected()
+void RFM9x_onRxTimeoutCallback::onRxTimeout()
 {
   /* TODO */
 }

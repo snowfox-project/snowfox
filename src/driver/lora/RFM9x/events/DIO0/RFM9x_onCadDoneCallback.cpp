@@ -16,14 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_DIO1_RFM9X_ONFHSSCHANGECHANNELCALLBACK_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_DIO1_RFM9X_ONFHSSCHANGECHANNELCALLBACK_H_
-
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/interface/DIO1/RFM9x_onFhssChangeChannelCallback.h>
+#include <spectre/driver/lora/RFM9x/events/DIO0/RFM9x_onCadDoneCallback.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,21 +39,27 @@ namespace RFM9x
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class RFM9x_onFhssChangeChannelCallback : public interface::RFM9x_onFhssChangeChannelCallback
+RFM9x_onCadDoneCallback::RFM9x_onCadDoneCallback()
 {
 
-public:
+}
 
-           RFM9x_onFhssChangeChannelCallback();
-  virtual ~RFM9x_onFhssChangeChannelCallback();
+RFM9x_onCadDoneCallback::~RFM9x_onCadDoneCallback()
+{
 
+}
 
-  virtual void onFhssChangeChannel() override;
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
-};
+void RFM9x_onCadDoneCallback::onCadDone()
+{
+  /* TODO */
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -69,5 +72,3 @@ public:
 } /* driver */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_DIO1_RFM9X_ONFHSSCHANGECHANNELCALLBACK_H_ */

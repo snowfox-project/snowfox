@@ -16,11 +16,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CALLBACKHANDLER_H_
+#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CALLBACKHANDLER_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/DIO1/RFM9x_onRxTimeoutCallback.h>
+#include <spectre/hal/interface/extint/ExternalInterruptCallback.h>
+
+#include <spectre/driver/lora/RFM9x/interface/events/DIO0/RFM9x_onTxDoneCallback.h>
+#include <spectre/driver/lora/RFM9x/interface/events/DIO0/RFM9x_onRxDoneCallback.h>
+#include <spectre/driver/lora/RFM9x/interface/events/DIO0/RFM9x_onCadDoneCallback.h>
+
+#include <spectre/driver/lora/RFM9x/interface/RFM9x_InterruptControl.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,27 +48,37 @@ namespace RFM9x
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * CLASS DECLARATION
  **************************************************************************************/
 
-RFM9x_onRxTimeoutCallback::RFM9x_onRxTimeoutCallback()
+/* For information in DIO mapping in LoRa mode check out
+ * Table 63. There are three events which can be mapped
+ * on DIO0: RxDone, TxDone, CadDone
+ */
+
+class RFM9x_Dio0EventCallback :  public hal::interface::ExternalInterruptCallback
 {
 
-}
+public:
 
-RFM9x_onRxTimeoutCallback::~RFM9x_onRxTimeoutCallback()
-{
+           RFM9x_Dio0EventCallback(interface::RFM9x_InterruptControl  & int_ctrl,
+                                   interface::RFM9x_onTxDoneCallback  & on_tx_done_callback,
+                                   interface::RFM9x_onRxDoneCallback  & on_rx_done_callback,
+                                   interface::RFM9x_onCadDoneCallback & on_cad_done_callback);
+  virtual ~RFM9x_Dio0EventCallback();
 
-}
 
-/**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
- **************************************************************************************/
+  virtual void onExternalEventCallback() override;
 
-void RFM9x_onRxTimeoutCallback::onRxTimeout()
-{
-  /* TODO */
-}
+
+private:
+
+  interface::RFM9x_InterruptControl  & _int_ctrl;
+  interface::RFM9x_onTxDoneCallback  & _on_tx_done_callback;
+  interface::RFM9x_onRxDoneCallback  & _on_rx_done_callback;
+  interface::RFM9x_onCadDoneCallback & _on_cad_done_callback;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
@@ -72,3 +91,5 @@ void RFM9x_onRxTimeoutCallback::onRxTimeout()
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CALLBACKHANDLER_H_ */

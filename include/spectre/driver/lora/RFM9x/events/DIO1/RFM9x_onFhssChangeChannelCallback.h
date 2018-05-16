@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_DIO1_RFM9X_ONCADDETECTEDCALLBACK_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_DIO1_RFM9X_ONCADDETECTEDCALLBACK_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_DIO1_RFM9X_ONFHSSCHANGECHANNELCALLBACK_H_
+#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_DIO1_RFM9X_ONFHSSCHANGECHANNELCALLBACK_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/interface/DIO1/RFM9x_onCadDetectedCallback.h>
+#include <spectre/driver/lora/RFM9x/interface/events/DIO1/RFM9x_onFhssChangeChannelCallback.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -45,16 +45,16 @@ namespace RFM9x
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_onCadDetectedCallback : public interface::RFM9x_onCadDetectedCallback
+class RFM9x_onFhssChangeChannelCallback : public interface::RFM9x_onFhssChangeChannelCallback
 {
 
 public:
 
-           RFM9x_onCadDetectedCallback();
-  virtual ~RFM9x_onCadDetectedCallback();
+           RFM9x_onFhssChangeChannelCallback();
+  virtual ~RFM9x_onFhssChangeChannelCallback();
 
 
-  virtual void onCadDetected() override;
+  virtual void onFhssChangeChannel() override;
 
 };
 
@@ -70,4 +70,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_DIO1_RFM9X_ONCADDETECTEDCALLBACK_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_DIO1_RFM9X_ONFHSSCHANGECHANNELCALLBACK_H_ */

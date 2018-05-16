@@ -16,14 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_PACKET_MODE_RFM9X_ONPAYLOADREADYCALLBACK_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_PACKET_MODE_RFM9X_ONPAYLOADREADYCALLBACK_H_
-
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/interface/DIO0/RFM9x_onRxDoneCallback.h>
+#include <spectre/driver/lora/RFM9x/events/DIO1/RFM9x_onCadDetectedCallback.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,21 +39,27 @@ namespace RFM9x
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class RFM9x_onRxDoneCallback : public interface::RFM9x_onRxDoneCallback
+RFM9x_onCadDetectedCallback::RFM9x_onCadDetectedCallback()
 {
 
-public:
+}
 
-           RFM9x_onRxDoneCallback();
-  virtual ~RFM9x_onRxDoneCallback();
+RFM9x_onCadDetectedCallback::~RFM9x_onCadDetectedCallback()
+{
 
+}
 
-  virtual void onRxDone() override;
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
-};
+void RFM9x_onCadDetectedCallback::onCadDetected()
+{
+  /* TODO */
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -69,5 +72,3 @@ public:
 } /* driver */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_PACKET_MODE_RFM9X_ONPAYLOADREADYCALLBACK_H_ */
