@@ -56,23 +56,24 @@ public:
   virtual ~RFM9x_Configuration();
 
 
-  virtual void     setLoRaMode        (interface::LoRaMode        const lora_mode       )       override;
-  virtual void     setModulationType  (interface::ModulationType  const modulation_type )       override;
-  virtual void     setHeaderMode      (interface::HeaderMode      const header_mode     )       override;
-  virtual void     setPacketFormat    (interface::PacketFormat    const packet_format   )       override;
-  virtual void     setFrequency       (uint32_t                   const freq_Hz         )       override;
-  virtual void     setSignalBandwidth (interface::SignalBandwidth const signal_bandwidth)       override;
-  virtual void     setCodingRate      (interface::CodingRate      const coding_rate     )       override;
-  virtual void     setSpreadingFactor (interface::SpreadingFactor const spreading_factor)       override;
-  virtual void     setPreambleLength  (uint16_t                   const preamble_length )       override;
+  virtual void     setLoRaMode            (interface::LoRaMode            const lora_mode           )       override;
+  virtual void     setModulationType      (interface::ModulationType      const modulation_type     )       override;
+  virtual void     setHeaderMode          (interface::HeaderMode          const header_mode         )       override;
+  virtual void     setPacketFormat        (interface::PacketFormat        const packet_format       )       override;
+  virtual void     setFrequency           (uint32_t                       const freq_Hz             )       override;
+  virtual void     setSignalBandwidth     (interface::SignalBandwidth     const signal_bandwidth    )       override;
+  virtual void     setCodingRate          (interface::CodingRate          const coding_rate         )       override;
+  virtual void     setSpreadingFactor     (interface::SpreadingFactor     const spreading_factor    )       override;
+  virtual void     setPreambleLength      (uint16_t                       const preamble_length     )       override;
+  virtual void     setTransceiverLocation (interface::TransceiverLocation const transceiver_location)       override;
 
-  virtual bool     setTxFifoSize      (uint16_t                   const tx_fifo_size    )       override;
-  virtual bool     setRxFifoSize      (uint16_t                   const rx_fifo_size    )       override;
-  virtual uint16_t getTxFifoSize      (                                                 ) const override;
-  virtual uint16_t getRxFifoSize      (                                                 ) const override;
+  virtual bool     setTxFifoSize          (uint16_t                       const tx_fifo_size        )       override;
+  virtual bool     setRxFifoSize          (uint16_t                       const rx_fifo_size        )       override;
+  virtual uint16_t getTxFifoSize          (                                                         ) const override;
+  virtual uint16_t getRxFifoSize          (                                                         ) const override;
 
-  virtual void     setEventSource     (interface::Dio0EventSource const event_source    )       override;
-  virtual void     setEventSource     (interface::Dio1EventSource const event_source    )       override;
+  virtual void     setEventSource         (interface::Dio0EventSource     const event_source        )       override;
+  virtual void     setEventSource         (interface::Dio1EventSource     const event_source        )       override;
 
 private:
 

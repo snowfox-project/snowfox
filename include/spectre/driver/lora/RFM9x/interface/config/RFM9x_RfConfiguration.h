@@ -107,6 +107,12 @@ enum class SpreadingFactor : uint8_t
   SF_4096 = /* 12 */ RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_3_bm |  RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_2_bm
 };
 
+enum class TransceiverLocation : uint8_t
+{
+  Static = 0,
+  Mobile = RFM9x_REG_MODEM_CONFIG_3_MOBILE_NODE_bm
+};
+
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
@@ -120,15 +126,16 @@ public:
   virtual ~RFM9x_RfConfiguration() { }
 
 
-  virtual void setLoRaMode        (LoRaMode        const lora_mode       ) = 0;
-  virtual void setModulationType  (ModulationType  const modulation_type ) = 0;
-  virtual void setHeaderMode      (HeaderMode      const header_mode     ) = 0;
-  virtual void setPacketFormat    (PacketFormat    const packet_format   ) = 0;
-  virtual void setFrequency       (uint32_t        const freq_Hz         ) = 0;
-  virtual void setSignalBandwidth (SignalBandwidth const signal_bandwidth) = 0;
-  virtual void setCodingRate      (CodingRate      const coding_rate     ) = 0;
-  virtual void setSpreadingFactor (SpreadingFactor const spreading_factor) = 0;
-  virtual void setPreambleLength  (uint16_t        const preamble_length ) = 0;
+  virtual void setLoRaMode            (LoRaMode            const lora_mode           ) = 0;
+  virtual void setModulationType      (ModulationType      const modulation_type     ) = 0;
+  virtual void setHeaderMode          (HeaderMode          const header_mode         ) = 0;
+  virtual void setPacketFormat        (PacketFormat        const packet_format       ) = 0;
+  virtual void setFrequency           (uint32_t            const freq_Hz             ) = 0;
+  virtual void setSignalBandwidth     (SignalBandwidth     const signal_bandwidth    ) = 0;
+  virtual void setCodingRate          (CodingRate          const coding_rate         ) = 0;
+  virtual void setSpreadingFactor     (SpreadingFactor     const spreading_factor    ) = 0;
+  virtual void setPreambleLength      (uint16_t            const preamble_length     ) = 0;
+  virtual void setTransceiverLocation (TransceiverLocation const transceiver_location) = 0;
 
 };
 

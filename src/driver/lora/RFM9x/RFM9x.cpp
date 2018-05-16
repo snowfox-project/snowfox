@@ -63,11 +63,12 @@ RFM9x::~RFM9x()
 
 bool RFM9x::open()
 {
-  _control.setOperatingMode(interface::OperatingMode::SLEEP        );
-  _config.setLoRaMode      (interface::LoRaMode::LoRa              );
-  _config.setHeaderMode    (interface::HeaderMode::Explicit        );
-  _config.setPacketFormat  (interface::PacketFormat::VariableLength);
-  _control.setOperatingMode(interface::OperatingMode::STDBY        );
+  _control.setOperatingMode     (interface::OperatingMode::SLEEP        );
+  _config.setLoRaMode           (interface::LoRaMode::LoRa              );
+  _config.setHeaderMode         (interface::HeaderMode::Explicit        );
+  _config.setPacketFormat       (interface::PacketFormat::VariableLength);
+  _config.setTransceiverLocation(interface::TransceiverLocation::Static );
+  _control.setOperatingMode     (interface::OperatingMode::STDBY        );
 
   return true;
 }

@@ -165,6 +165,18 @@ void RFM9x_Configuration::setSpreadingFactor (interface::SpreadingFactor const s
   _io.writeRegister(interface::Register::MODEM_CONFIG2, reg_op_modem_config_2_content);
 }
 
+void RFM9x_Configuration::setTransceiverLocation(interface::TransceiverLocation const transceiver_location)
+{
+  uint8_t reg_op_modem_config_3_content = 0;
+
+  _io.readRegister(interface::Register::MODEM_CONFIG3, &reg_op_modem_config_3_content);
+
+  reg_op_modem_config_3_content &= ~RFM9x_REG_MODEM_CONFIG_3_MOBILE_NODE_bm;
+  reg_op_modem_config_3_content |= static_cast<uint8_t>(transceiver_location);
+
+  _io.writeRegister(interface::Register::MODEM_CONFIG3, reg_op_modem_config_3_content);
+}
+
 void RFM9x_Configuration::setPreambleLength(uint16_t const preamble_length)
 {
   _io.writeRegister(interface::Register::PREAMBLE_MSB, static_cast<uint8_t>((preamble_length & 0xFF00) >> 8));
