@@ -37,15 +37,16 @@
 
 #include <spectre/driver/can/MCP2515/MCP2515_IoSpi.h>
 #include <spectre/driver/can/MCP2515/MCP2515_Control.h>
-#include <spectre/driver/can/MCP2515/MCP2515_onWakeup.h>
 #include <spectre/driver/can/MCP2515/MCP2515_CanController.h>
-#include <spectre/driver/can/MCP2515/MCP2515_EventCallback.h>
-#include <spectre/driver/can/MCP2515/MCP2515_onMessageError.h>
 #include <spectre/driver/can/MCP2515/MCP2515_CanReceiveBuffer.h>
 #include <spectre/driver/can/MCP2515/MCP2515_InterruptControl.h>
 #include <spectre/driver/can/MCP2515/MCP2515_CanTransmitBuffer.h>
-#include <spectre/driver/can/MCP2515/MCP2515_onReceiveBufferFull.h>
-#include <spectre/driver/can/MCP2515/MCP2515_onTransmitBufferEmpty.h>
+
+#include <spectre/driver/can/MCP2515/events/MCP2515_EventCallback.h>
+#include <spectre/driver/can/MCP2515/events/MCP2515_onWakeup.h>
+#include <spectre/driver/can/MCP2515/events/MCP2515_onMessageError.h>
+#include <spectre/driver/can/MCP2515/events/MCP2515_onReceiveBufferFull.h>
+#include <spectre/driver/can/MCP2515/events/MCP2515_onTransmitBufferEmpty.h>
 
 /**************************************************************************************
  * NAMESPACES

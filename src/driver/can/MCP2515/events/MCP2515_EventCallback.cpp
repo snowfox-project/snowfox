@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/can/MCP2515/MCP2515_EventCallback.h>
+#include <spectre/driver/can/MCP2515/events/MCP2515_EventCallback.h>
 
 /**************************************************************************************
  * NAMESPACE

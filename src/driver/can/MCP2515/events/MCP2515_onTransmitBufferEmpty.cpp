@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/can/MCP2515/MCP2515_onWakeup.h>
+#include <spectre/driver/can/MCP2515/events/MCP2515_onTransmitBufferEmpty.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,12 +42,12 @@ namespace MCP2515
  * CTOR/DTOR
  **************************************************************************************/
 
-MCP2515_onWakeup::MCP2515_onWakeup()
+MCP2515_onTransmitBufferEmpty::MCP2515_onTransmitBufferEmpty()
 {
 
 }
 
-MCP2515_onWakeup::~MCP2515_onWakeup()
+MCP2515_onTransmitBufferEmpty::~MCP2515_onTransmitBufferEmpty()
 {
 
 }
@@ -56,7 +56,7 @@ MCP2515_onWakeup::~MCP2515_onWakeup()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void MCP2515_onWakeup::onWakeup()
+void MCP2515_onTransmitBufferEmpty::onTransmitBufferEmpty()
 {
   /* TODO */
 }

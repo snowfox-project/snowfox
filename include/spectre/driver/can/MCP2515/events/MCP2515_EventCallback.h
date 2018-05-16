@@ -25,10 +25,10 @@
 
 #include <spectre/hal/interface/extint/ExternalInterruptCallback.h>
 
-#include <spectre/driver/can/MCP2515/interface/MCP2515_onWakeup.h>
-#include <spectre/driver/can/MCP2515/interface/MCP2515_onMessageError.h>
-#include <spectre/driver/can/MCP2515/interface/MCP2515_onReceiveBufferFull.h>
-#include <spectre/driver/can/MCP2515/interface/MCP2515_onTransmitBufferEmpty.h>
+#include <spectre/driver/can/MCP2515/interface/events/MCP2515_onWakeup.h>
+#include <spectre/driver/can/MCP2515/interface/events/MCP2515_onMessageError.h>
+#include <spectre/driver/can/MCP2515/interface/events/MCP2515_onReceiveBufferFull.h>
+#include <spectre/driver/can/MCP2515/interface/events/MCP2515_onTransmitBufferEmpty.h>
 
 #include <spectre/driver/can/MCP2515/interface/MCP2515_InterruptControl.h>
 

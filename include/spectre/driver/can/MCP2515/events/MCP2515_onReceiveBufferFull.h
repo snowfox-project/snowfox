@@ -16,11 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_ONRECEIVEBUFFERFULL_H_
+#define INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_ONRECEIVEBUFFERFULL_H_
+
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/can/MCP2515/MCP2515_onMessageError.h>
+#include <spectre/driver/can/MCP2515/interface/events/MCP2515_onReceiveBufferFull.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,27 +42,21 @@ namespace MCP2515
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * CLASS DECLARATION
  **************************************************************************************/
 
-MCP2515_onMessageError::MCP2515_onMessageError()
+class MCP2515_onReceiveBufferFull : public interface::MCP2515_onReceiveBufferFull
 {
 
-}
+public:
 
-MCP2515_onMessageError::~MCP2515_onMessageError()
-{
+           MCP2515_onReceiveBufferFull();
+  virtual ~MCP2515_onReceiveBufferFull();
 
-}
 
-/**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
- **************************************************************************************/
+  virtual void onReceiveBufferFull() override;
 
-void MCP2515_onMessageError::onMessageError()
-{
-  /* TODO */
-}
+};
 
 /**************************************************************************************
  * NAMESPACE
@@ -72,3 +69,5 @@ void MCP2515_onMessageError::onMessageError()
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_ONRECEIVEBUFFERFULL_H_ */

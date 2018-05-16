@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_ONTRANSMITBUFFEREMPTY_H_
-#define INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_ONTRANSMITBUFFEREMPTY_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_ONMESSAGEERROR_H_
+#define INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_ONMESSAGEERROR_H_
 
 /**************************************************************************************
- * INCLUDE
+ * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/can/MCP2515/interface/MCP2515_onTransmitBufferEmpty.h>
+#include <spectre/driver/can/MCP2515/interface/events/MCP2515_onMessageError.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -45,16 +45,16 @@ namespace MCP2515
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MCP2515_onTransmitBufferEmpty : public interface::MCP2515_onTransmitBufferEmpty
+class MCP2515_onMessageError : public interface::MCP2515_onMessageError
 {
 
 public:
 
-           MCP2515_onTransmitBufferEmpty();
-  virtual ~MCP2515_onTransmitBufferEmpty();
+           MCP2515_onMessageError();
+  virtual ~MCP2515_onMessageError();
 
 
-  virtual void onTransmitBufferEmpty() override;
+  virtual void onMessageError() override;
 
 };
 
@@ -70,4 +70,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_ONTRANSMITBUFFEREMPTY_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_ONMESSAGEERROR_H_ */
