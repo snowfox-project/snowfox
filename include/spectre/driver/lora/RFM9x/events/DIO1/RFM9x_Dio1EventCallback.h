@@ -29,7 +29,7 @@
 #include <spectre/driver/lora/RFM9x/interface/events/DIO1/RFM9x_onCadDetectedCallback.h>
 #include <spectre/driver/lora/RFM9x/interface/events/DIO1/RFM9x_onFhssChangeChannelCallback.h>
 
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_InterruptControl.h>
+#include <spectre/driver/lora/RFM9x/interface/control/RFM9x_InterruptControl.h>
 
 /**************************************************************************************
  * NAMESPACE
