@@ -23,10 +23,10 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_RfConfiguration.h>
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_Dio0Configuration.h>
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_Dio1Configuration.h>
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_FifoConfiguration.h>
+#include <spectre/driver/lora/RFM9x/interface/config/RFM9x_RfConfiguration.h>
+#include <spectre/driver/lora/RFM9x/interface/config/RFM9x_Dio0Configuration.h>
+#include <spectre/driver/lora/RFM9x/interface/config/RFM9x_Dio1Configuration.h>
+#include <spectre/driver/lora/RFM9x/interface/config/RFM9x_FifoConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE

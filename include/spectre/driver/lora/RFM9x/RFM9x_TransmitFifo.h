@@ -26,7 +26,8 @@
 #include <spectre/driver/lora/RFM9x/interface/RFM9x_TransmitFifo.h>
 
 #include <spectre/driver/lora/RFM9x/interface/RFM9x_Io.h>
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_FifoConfiguration.h>
+
+#include <spectre/driver/lora/RFM9x/interface/config/RFM9x_FifoConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
