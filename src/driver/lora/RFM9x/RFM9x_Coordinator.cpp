@@ -16,16 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CONTROL_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CONTROL_H_
-
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/interface/control/RFM9x_Control.h>
-
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_Io.h>
+#include <spectre/driver/lora/RFM9x/RFM9x_Coordinator.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -44,30 +39,40 @@ namespace RFM9x
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class RFM9x_Control : public interface::RFM9x_Control
+RFM9x_Coordinator::RFM9x_Coordinator(interface::RFM9x_OperationModeControl & op_mode_control)
+: _op_mode_control(op_mode_control)
 {
 
-public:
+}
 
-           RFM9x_Control(interface::RFM9x_Io & io);
-  virtual ~RFM9x_Control();
+RFM9x_Coordinator::~RFM9x_Coordinator()
+{
 
+}
 
-  virtual void                     setOperatingMode(interface::OperatingMode    const op_mode) override;
-  virtual interface::OperatingMode getOperatingMode(                                         ) override;
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
-  virtual uint8_t getIntReqFlags  (                                         ) override;
-  virtual void    clearIntReqFlag (interface::InterruptRequest const int_req) override;
+interface::TransmitStatus RFM9x_Coordinator::transmit(uint8_t const * buffer, uint8_t const num_bytes)
+{
+  if(_op_mode_control.getOperatingMode() != interface::OperatingMode::SLEEP) return interface::TransmitStatus::ModemBusy_NotSleep;
 
+  _op_mode_control.setOperatingMode(interface::OperatingMode::STDBY);
 
-private:
+  if(_op_mode_control.getOperatingMode() != interface::OperatingMode::STDBY) return interface::TransmitStatus::ModemBusy_NotStandby;
 
-  interface::RFM9x_Io & _io;
+  /* WRITE TO FIFO */
 
-};
+  _op_mode_control.setOperatingMode(interface::OperatingMode::TX);
+
+  /* WAIT FOR IRQ TX DONE */
+
+  return interface::TransmitStatus::TxComplete;
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -80,5 +85,3 @@ private:
 } /* driver */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CONTROL_H_ */

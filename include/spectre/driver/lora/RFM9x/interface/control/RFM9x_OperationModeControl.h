@@ -75,7 +75,8 @@ public:
   virtual ~RFM9x_OperationModeControl() { }
 
 
-  virtual void setOperatingMode(OperatingMode const op_mode) = 0;
+  virtual void          setOperatingMode(OperatingMode const op_mode) = 0;
+  virtual OperatingMode getOperatingMode(                           ) = 0;
 
 };
 

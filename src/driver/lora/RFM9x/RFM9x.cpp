@@ -68,7 +68,6 @@ bool RFM9x::open()
   _config.setHeaderMode         (interface::HeaderMode::Explicit        );
   _config.setPacketFormat       (interface::PacketFormat::VariableLength);
   _config.setTransceiverLocation(interface::TransceiverLocation::Static );
-  _control.setOperatingMode     (interface::OperatingMode::STDBY        );
 
   return true;
 }

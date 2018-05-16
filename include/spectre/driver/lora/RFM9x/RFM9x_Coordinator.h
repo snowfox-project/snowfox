@@ -16,16 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CONTROL_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CONTROL_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_COORDINATOR_H_
+#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_COORDINATOR_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/interface/control/RFM9x_Control.h>
+#include <spectre/driver/lora/RFM9x/interface/RFM9x_Coordinator.h>
 
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_Io.h>
+#include <spectre/driver/lora/RFM9x/interface/control/RFM9x_OperationModeControl.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -47,25 +47,21 @@ namespace RFM9x
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_Control : public interface::RFM9x_Control
+class RFM9x_Coordinator : public interface::RFM9x_Coordinator
 {
 
 public:
 
-           RFM9x_Control(interface::RFM9x_Io & io);
-  virtual ~RFM9x_Control();
+           RFM9x_Coordinator(interface::RFM9x_OperationModeControl & op_mode_control);
+  virtual ~RFM9x_Coordinator();
 
 
-  virtual void                     setOperatingMode(interface::OperatingMode    const op_mode) override;
-  virtual interface::OperatingMode getOperatingMode(                                         ) override;
-
-  virtual uint8_t getIntReqFlags  (                                         ) override;
-  virtual void    clearIntReqFlag (interface::InterruptRequest const int_req) override;
+  virtual interface::TransmitStatus transmit(uint8_t const * buffer, uint8_t const num_bytes) override;
 
 
 private:
 
-  interface::RFM9x_Io & _io;
+  interface::RFM9x_OperationModeControl & _op_mode_control;
 
 };
 
@@ -81,4 +77,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_CONTROL_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_COORDINATOR_H_ */

@@ -69,6 +69,17 @@ void RFM9x_Control::setOperatingMode(interface::OperatingMode const op_mode)
   _io.writeRegister(interface::Register::OP_MODE, reg_op_mode_content);
 }
 
+interface::OperatingMode RFM9x_Control::getOperatingMode()
+{
+  uint8_t reg_op_mode_content = 0;
+
+  _io.readRegister(interface::Register::OP_MODE, &reg_op_mode_content);
+
+  reg_op_mode_content &= (RFM9x_REG_OP_MODE_MODE_2_bm | RFM9x_REG_OP_MODE_MODE_1_bm | RFM9x_REG_OP_MODE_MODE_0_bm);
+
+  return static_cast<interface::OperatingMode>(reg_op_mode_content);
+}
+
 uint8_t RFM9x_Control::getIntReqFlags()
 {
   uint8_t irq_req_flags;
