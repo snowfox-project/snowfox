@@ -16,15 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CONTROL_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CONTROL_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_STATUS_RFM9X_STATUS_H_
+#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_STATUS_RFM9X_STATUS_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/interface/control/RFM9x_InterruptControl.h>
-#include <spectre/driver/lora/RFM9x/interface/control/RFM9x_OperationModeControl.h>
+#include <spectre/driver/lora/RFM9x/interface/status/RFM9x_RssiStatus.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -49,14 +48,13 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_Control : public RFM9x_OperationModeControl,
-                      public RFM9x_InterruptControl
+class RFM9x_Status : public RFM9x_RssiStatus
 {
 
 public:
 
-           RFM9x_Control() { }
-  virtual ~RFM9x_Control() { }
+           RFM9x_Status() { }
+  virtual ~RFM9x_Status() { }
 
 };
 
@@ -74,4 +72,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CONTROL_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_STATUS_RFM9X_STATUS_H_ */

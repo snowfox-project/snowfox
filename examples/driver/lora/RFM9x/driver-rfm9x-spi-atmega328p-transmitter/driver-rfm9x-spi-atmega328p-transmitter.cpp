@@ -43,6 +43,7 @@
 #include <spectre/driver/lora/RFM9x/RFM9x.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_Debug.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_IoSpi.h>
+#include <spectre/driver/lora/RFM9x/RFM9x_Status.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_Control.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_TransmitFifo.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_Configuration.h>
@@ -176,6 +177,7 @@ int main()
   lora::RFM9x::RFM9x_IoSpi                        rfm9x_spi                             (spi_master, rfm9x_cs      );
   lora::RFM9x::RFM9x_Configuration                rfm9x_config                          (rfm9x_spi, RFM9x_F_XOSC_Hz);
   lora::RFM9x::RFM9x_Control                      rfm9x_control                         (rfm9x_spi                 );
+  lora::RFM9x::RFM9x_Status                       rfm9x_status                          (rfm9x_spi                 );
   lora::RFM9x::RFM9x_TransmitFifo                 rfm9x_tx_fifo                         (rfm9x_spi, rfm9x_config   );
 
   lora::RFM9x::RFM9x_onTxDoneCallback             rfm9x_on_tx_done_callback;

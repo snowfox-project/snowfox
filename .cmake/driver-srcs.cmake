@@ -96,6 +96,7 @@ if(${DRIVER_LORA_RFM9x} STREQUAL "yes")
     ${DRIVER_LORA_SRC_PATH}/RFM9x/RFM9x_Control.cpp
     ${DRIVER_LORA_SRC_PATH}/RFM9x/RFM9x_Debug.cpp
     ${DRIVER_LORA_SRC_PATH}/RFM9x/RFM9x_IoSpi.cpp
+    ${DRIVER_LORA_SRC_PATH}/RFM9x/RFM9x_Status.cpp
     ${DRIVER_LORA_SRC_PATH}/RFM9x/RFM9x_TransmitFifo.cpp
     ${DRIVER_LORA_SRC_PATH}/RFM9x/RFM9x.cpp
   )

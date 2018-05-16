@@ -16,15 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CONTROL_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CONTROL_H_
-
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/interface/control/RFM9x_InterruptControl.h>
-#include <spectre/driver/lora/RFM9x/interface/control/RFM9x_OperationModeControl.h>
+#include <spectre/driver/lora/RFM9x/RFM9x_Status.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,29 +38,46 @@ namespace lora
 namespace RFM9x
 {
 
-namespace interface
-{
-
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class RFM9x_Control : public RFM9x_OperationModeControl,
-                      public RFM9x_InterruptControl
+RFM9x_Status::RFM9x_Status(interface::RFM9x_Io & io)
+: _io(io)
 {
 
-public:
+}
 
-           RFM9x_Control() { }
-  virtual ~RFM9x_Control() { }
+RFM9x_Status::~RFM9x_Status()
+{
 
-};
+}
+
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
+
+int16_t RFM9x_Status::getCurrentRssi()
+{
+  /* TODO */
+  return -1;
+}
+
+int16_t RFM9x_Status::getLastPacketRssi()
+{
+  /* TODO */
+  return -1;
+}
+
+int16_t RFM9x_Status::getLastPacketSnr()
+{
+  /* TODO */
+  return -1;
+}
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
-
-} /* interface */
 
 } /* RFM9x */
 
@@ -73,5 +86,3 @@ public:
 } /* driver */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CONTROL_H_ */
