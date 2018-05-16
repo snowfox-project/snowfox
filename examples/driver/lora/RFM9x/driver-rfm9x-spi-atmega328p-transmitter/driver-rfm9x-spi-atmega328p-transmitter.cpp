@@ -46,7 +46,6 @@
 #include <spectre/driver/lora/RFM9x/RFM9x_Control.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_TransmitFifo.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_Configuration.h>
-#include <spectre/driver/lora/RFM9x/RFM9x_InterruptControl.h>
 
 #include <spectre/driver/lora/RFM9x/events/DIO0/RFM9x_Dio0EventCallback.h>
 #include <spectre/driver/lora/RFM9x/events/DIO0/RFM9x_onTxDoneCallback.h>
@@ -177,18 +176,17 @@ int main()
   lora::RFM9x::RFM9x_IoSpi                        rfm9x_spi                             (spi_master, rfm9x_cs      );
   lora::RFM9x::RFM9x_Configuration                rfm9x_config                          (rfm9x_spi, RFM9x_F_XOSC_Hz);
   lora::RFM9x::RFM9x_Control                      rfm9x_control                         (rfm9x_spi                 );
-  lora::RFM9x::RFM9x_InterruptControl             rfm9x_int_control                     (rfm9x_spi                 );
   lora::RFM9x::RFM9x_TransmitFifo                 rfm9x_tx_fifo                         (rfm9x_spi, rfm9x_config   );
 
   lora::RFM9x::RFM9x_onTxDoneCallback             rfm9x_on_tx_done_callback;
   lora::RFM9x::RFM9x_onRxDoneCallback             rfm9x_on_rx_done_callback;
   lora::RFM9x::RFM9x_onCadDoneCallback            rfm9x_on_cad_done_callback;
-  lora::RFM9x::RFM9x_Dio0EventCallback            rfm9x_dio0_event_callback             (rfm9x_int_control, rfm9x_on_tx_done_callback, rfm9x_on_rx_done_callback, rfm9x_on_cad_done_callback);
+  lora::RFM9x::RFM9x_Dio0EventCallback            rfm9x_dio0_event_callback             (rfm9x_control, rfm9x_on_tx_done_callback, rfm9x_on_rx_done_callback, rfm9x_on_cad_done_callback);
 
   lora::RFM9x::RFM9x_onRxTimeoutCallback          rfm9x_on_rx_timeout_callback;
   lora::RFM9x::RFM9x_onFhssChangeChannelCallback  rfm9x_on_fhss_change_channel_callback;
   lora::RFM9x::RFM9x_onCadDetectedCallback        rfm9x_on_cad_detected_callback;
-  lora::RFM9x::RFM9x_Dio1EventCallback            rfm9x_dio1_event_callback             (rfm9x_int_control, rfm9x_on_rx_timeout_callback, rfm9x_on_fhss_change_channel_callback, rfm9x_on_cad_detected_callback);
+  lora::RFM9x::RFM9x_Dio1EventCallback            rfm9x_dio1_event_callback             (rfm9x_control, rfm9x_on_rx_timeout_callback, rfm9x_on_fhss_change_channel_callback, rfm9x_on_cad_detected_callback);
 
   lora::RFM9x::RFM9x                              rfm9x                                 (rfm9x_config, rfm9x_control, rfm9x_tx_fifo);
 

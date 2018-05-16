@@ -69,6 +69,19 @@ void RFM9x_Control::setOperatingMode(interface::OperatingMode const op_mode)
   _io.writeRegister(interface::Register::OP_MODE, reg_op_mode_content);
 }
 
+void RFM9x_Control::getIntReqFlags(uint8_t * irq_req_flags)
+{
+  _io.readRegister(interface::Register::IRQ_FLAGS, irq_req_flags);
+}
+
+void RFM9x_Control::clearIntReqFlag(interface::InterruptRequest const int_req)
+{
+  /* The interrupt request flag can be cleared by writing
+   * a '1' to the corresponding bit in the IRQ register.
+   */
+  _io.writeRegister(interface::Register::IRQ_FLAGS, static_cast<uint8_t>(int_req));
+}
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/

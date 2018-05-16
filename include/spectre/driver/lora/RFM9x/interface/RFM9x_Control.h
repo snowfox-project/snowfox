@@ -24,6 +24,7 @@
  * INCLUDES
  **************************************************************************************/
 
+#include <spectre/driver/lora/RFM9x/interface/RFM9x_InterruptControl.h>
 #include <spectre/driver/lora/RFM9x/interface/RFM9x_OperationModeControl.h>
 
 /**************************************************************************************
@@ -49,7 +50,8 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_Control : public RFM9x_OperationModeControl
+class RFM9x_Control : public RFM9x_OperationModeControl,
+                      public RFM9x_InterruptControl
 {
 
 public:
