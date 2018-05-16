@@ -65,9 +65,7 @@ RFM9x_Dio0EventCallback::~RFM9x_Dio0EventCallback()
 
 void RFM9x_Dio0EventCallback::onExternalEventCallback()
 {
-  uint8_t irq_req_flags = 0;
-
-  _int_ctrl.getIntReqFlags(&irq_req_flags);
+  uint8_t const irq_req_flags = _int_ctrl.getIntReqFlags();
 
   /* RX DONE **************************************************************************/
   if(interface::RFM9x_InterruptControl::isRxDone(irq_req_flags))

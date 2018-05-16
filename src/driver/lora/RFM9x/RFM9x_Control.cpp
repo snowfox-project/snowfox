@@ -69,9 +69,13 @@ void RFM9x_Control::setOperatingMode(interface::OperatingMode const op_mode)
   _io.writeRegister(interface::Register::OP_MODE, reg_op_mode_content);
 }
 
-void RFM9x_Control::getIntReqFlags(uint8_t * irq_req_flags)
+uint8_t RFM9x_Control::getIntReqFlags()
 {
-  _io.readRegister(interface::Register::IRQ_FLAGS, irq_req_flags);
+  uint8_t irq_req_flags;
+
+  _io.readRegister(interface::Register::IRQ_FLAGS, &irq_req_flags);
+
+  return irq_req_flags;
 }
 
 void RFM9x_Control::clearIntReqFlag(interface::InterruptRequest const int_req)

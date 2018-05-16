@@ -56,10 +56,10 @@ public:
   virtual ~RFM9x_Control();
 
 
-  virtual void setOperatingMode (interface::OperatingMode    const   op_mode      ) override;
+  virtual void    setOperatingMode(interface::OperatingMode    const op_mode) override;
 
-  virtual void getIntReqFlags   (uint8_t                           * irq_req_flags) override;
-  virtual void clearIntReqFlag  (interface::InterruptRequest const   int_req      ) override;
+  virtual uint8_t getIntReqFlags  (                                         ) override;
+  virtual void    clearIntReqFlag (interface::InterruptRequest const int_req) override;
 
 
 private:

@@ -75,8 +75,8 @@ public:
   virtual ~RFM9x_InterruptControl() { }
 
 
-  virtual void getIntReqFlags (uint8_t                * irq_req_flags) = 0;
-  virtual void clearIntReqFlag(InterruptRequest const   int_req      ) = 0;
+  virtual uint8_t getIntReqFlags (                              ) = 0;
+  virtual void    clearIntReqFlag(InterruptRequest const int_req) = 0;
 
 
   static  bool isRxTimeout         (uint8_t const irq_req_flags);
