@@ -27,6 +27,7 @@
 
 #include <spectre/driver/lora/RFM9x/interface/RFM9x_TransmitFifo.h>
 
+#include <spectre/driver/lora/RFM9x/interface/status/RFM9x_Status.h>
 #include <spectre/driver/lora/RFM9x/interface/control/RFM9x_Control.h>
 #include <spectre/driver/lora/RFM9x/interface/config/RFM9x_Configuration.h>
 
@@ -57,6 +58,9 @@ static uint32_t constexpr IOCTL_SET_SPREADING_FACTOR  = 3; /* Arg: interface::Sp
 static uint32_t constexpr IOCTL_SET_PREAMBLE_LENGTH   = 4; /* Arg: uint16_t *                                 */
 static uint32_t constexpr IOCTL_SET_TX_FIFO_SIZE      = 5; /* Arg: uint16_t *                                 */
 static uint32_t constexpr IOCTL_SET_RX_FIFO_SIZE      = 6; /* Arg: uint16_t *                                 */
+static uint32_t constexpr IOCTL_GET_CURRENT_RSSI      = 7; /* Arg: int16_t *                                  */
+static uint32_t constexpr IOCTL_GET_LAST_PACKET_RSSI  = 8; /* Arg: int16_t *                                  */
+static uint32_t constexpr IOCTL_GET_LAST_PACKET_SNR   = 9; /* Arg: int16_t *                                  */
 
 /**************************************************************************************
  * CLASS DECLARATION
@@ -69,6 +73,7 @@ public:
 
            RFM9x(interface::RFM9x_Configuration & config,
                  interface::RFM9x_Control       & control,
+                 interface::RFM9x_Status        & status,
                  interface::RFM9x_TransmitFifo  & tx_fifo);
   virtual ~RFM9x();
 
@@ -84,6 +89,7 @@ private:
 
   interface::RFM9x_Configuration & _config;
   interface::RFM9x_Control       & _control;
+  interface::RFM9x_Status        & _status;
   interface::RFM9x_TransmitFifo  & _tx_fifo;
 
 };

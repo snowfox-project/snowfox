@@ -44,9 +44,11 @@ namespace RFM9x
 
 RFM9x::RFM9x(interface::RFM9x_Configuration & config,
              interface::RFM9x_Control       & control,
+             interface::RFM9x_Status        & status,
              interface::RFM9x_TransmitFifo  & tx_fifo)
 : _config (config   ),
   _control(control  ),
+  _status (status   ),
   _tx_fifo(tx_fifo  )
 {
 
@@ -154,8 +156,31 @@ bool RFM9x::ioctl(uint32_t const cmd, void * arg)
     return _config.setRxFifoSize(*rx_fifo_size);
   }
   break;
+  /* IOCTL_GET_CURRENT_RSSI ***********************************************************/
+  case IOCTL_GET_CURRENT_RSSI:
+  {
+    int16_t * current_rssi_dbm = static_cast<int16_t *>(arg);
+    *current_rssi_dbm = _status.getCurrentRssi();
+    return true;
   }
-
+  break;
+  /* IOCTL_GET_LAST_PACKET_RSSI *******************************************************/
+  case IOCTL_GET_LAST_PACKET_RSSI:
+  {
+    int16_t * last_packet_rssi_dbm = static_cast<int16_t *>(arg);
+    *last_packet_rssi_dbm = _status.getLastPacketRssi();
+    return true;
+  }
+  break;
+  /* IOCTL_GET_LAST_PACKET_SNR ********************************************************/
+  case IOCTL_GET_LAST_PACKET_SNR:
+  {
+    int16_t * last_packet_rssi_snr = static_cast<int16_t *>(arg);
+    *last_packet_rssi_snr = _status.getLastPacketSnr();
+    return true;
+  }
+  break;
+  }
 
   return false;
 }
