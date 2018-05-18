@@ -58,7 +58,7 @@ public:
 
   virtual int16_t getCurrentRssi   () override;
   virtual int16_t getLastPacketRssi() override;
-  virtual int16_t getLastPacketSnr () override;
+  virtual int8_t  getLastPacketSnr () override;
 
 
 private:

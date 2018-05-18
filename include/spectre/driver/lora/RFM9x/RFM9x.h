@@ -60,7 +60,7 @@ static uint32_t constexpr IOCTL_SET_TX_FIFO_SIZE      = 5; /* Arg: uint16_t *   
 static uint32_t constexpr IOCTL_SET_RX_FIFO_SIZE      = 6; /* Arg: uint16_t *                                 */
 static uint32_t constexpr IOCTL_GET_CURRENT_RSSI      = 7; /* Arg: int16_t *                                  */
 static uint32_t constexpr IOCTL_GET_LAST_PACKET_RSSI  = 8; /* Arg: int16_t *                                  */
-static uint32_t constexpr IOCTL_GET_LAST_PACKET_SNR   = 9; /* Arg: int16_t *                                  */
+static uint32_t constexpr IOCTL_GET_LAST_PACKET_SNR   = 9; /* Arg: int8_t *                                   */
 
 /**************************************************************************************
  * CLASS DECLARATION

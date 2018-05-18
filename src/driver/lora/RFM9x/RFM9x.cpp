@@ -175,7 +175,7 @@ bool RFM9x::ioctl(uint32_t const cmd, void * arg)
   /* IOCTL_GET_LAST_PACKET_SNR ********************************************************/
   case IOCTL_GET_LAST_PACKET_SNR:
   {
-    int16_t * last_packet_rssi_snr = static_cast<int16_t *>(arg);
+    int8_t * last_packet_rssi_snr = static_cast<int8_t *>(arg);
     *last_packet_rssi_snr = _status.getLastPacketSnr();
     return true;
   }

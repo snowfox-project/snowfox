@@ -79,13 +79,13 @@ int16_t RFM9x_Status::getLastPacketRssi()
   return last_packet_rssi_dbm;
 }
 
-int16_t RFM9x_Status::getLastPacketSnr()
+int8_t RFM9x_Status::getLastPacketSnr()
 {
   int8_t reg_packet_snr_content = 0;
 
   _io.readRegister(interface::Register::PKT_SNR_VALUE, reinterpret_cast<uint8_t *>(&reg_packet_snr_content));
 
-  int16_t last_packet_snr = reg_packet_snr_content / 4;
+  int8_t last_packet_snr = reg_packet_snr_content / 4;
 
   return last_packet_snr;
 }

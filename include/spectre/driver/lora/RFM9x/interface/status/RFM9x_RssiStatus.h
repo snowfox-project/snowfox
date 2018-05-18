@@ -59,7 +59,7 @@ public:
 
   virtual int16_t getCurrentRssi   () = 0;
   virtual int16_t getLastPacketRssi() = 0;
-  virtual int16_t getLastPacketSnr () = 0;
+  virtual int8_t  getLastPacketSnr () = 0;
 
 };
 
