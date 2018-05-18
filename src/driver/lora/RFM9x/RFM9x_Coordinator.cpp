@@ -42,8 +42,10 @@ namespace RFM9x
  * CTOR/DTOR
  **************************************************************************************/
 
-RFM9x_Coordinator::RFM9x_Coordinator(interface::RFM9x_OperationModeControl & op_mode_control)
-: _op_mode_control(op_mode_control)
+RFM9x_Coordinator::RFM9x_Coordinator(interface::RFM9x_OperationModeControl & op_mode_control,
+                                     os::Event                             & tx_done_event)
+: _op_mode_control(op_mode_control),
+  _tx_done_event  (tx_done_event  )
 {
 
 }
@@ -69,9 +71,7 @@ interface::TransmitStatus RFM9x_Coordinator::transmit(uint8_t const * buffer, ui
 
   _op_mode_control.setOperatingMode(interface::OperatingMode::TX);
 
-  /* WAIT FOR IRQ TX DONE */
-
-  /* _event_tx_done.wait(); */
+  _tx_done_event.wait();
 
   return interface::TransmitStatus::TxComplete;
 }

@@ -58,6 +58,8 @@
 #include <spectre/driver/lora/RFM9x/events/DIO1/RFM9x_onCadDetectedCallback.h>
 #include <spectre/driver/lora/RFM9x/events/DIO1/RFM9x_onFhssChangeChannelCallback.h>
 
+#include <spectre/os/Event.h>
+
 #include <spectre/debug/serial/DebugSerial.h>
 
 /**************************************************************************************
@@ -180,7 +182,9 @@ int main()
   lora::RFM9x::RFM9x_Status                       rfm9x_status                          (rfm9x_spi                 );
   lora::RFM9x::RFM9x_TransmitFifo                 rfm9x_tx_fifo                         (rfm9x_spi, rfm9x_config   );
 
-  lora::RFM9x::RFM9x_onTxDoneCallback             rfm9x_on_tx_done_callback;
+  os::Event                                       rfm9x_tx_done_event                   (crit_sec);
+
+  lora::RFM9x::RFM9x_onTxDoneCallback             rfm9x_on_tx_done_callback             (rfm9x_tx_done_event);
   lora::RFM9x::RFM9x_onRxDoneCallback             rfm9x_on_rx_done_callback;
   lora::RFM9x::RFM9x_onCadDoneCallback            rfm9x_on_cad_done_callback;
   lora::RFM9x::RFM9x_Dio0EventCallback            rfm9x_dio0_event_callback             (rfm9x_control, rfm9x_on_tx_done_callback, rfm9x_on_rx_done_callback, rfm9x_on_cad_done_callback);

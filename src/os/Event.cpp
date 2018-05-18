@@ -60,11 +60,16 @@ void Event::wait()
 {
   bool is_event_signaled = false;
 
-  do
+  while(!is_event_signaled)
   {
     hal::interface::LockGuard lock(_crit_sec);
     _is_event_signaled = is_event_signaled;
-  } while(!is_event_signaled);
+  }
+
+  /* TODO - Not a very elegant solution - refactoring necessary */
+
+  hal::interface::LockGuard lock(_crit_sec);
+  _is_event_signaled = false;
 }
 
 /**************************************************************************************

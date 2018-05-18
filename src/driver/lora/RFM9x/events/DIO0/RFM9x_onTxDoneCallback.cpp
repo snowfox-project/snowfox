@@ -42,7 +42,8 @@ namespace RFM9x
  * CTOR/DTOR
  **************************************************************************************/
 
-RFM9x_onTxDoneCallback::RFM9x_onTxDoneCallback()
+RFM9x_onTxDoneCallback::RFM9x_onTxDoneCallback(os::Event & tx_done_event)
+: _tx_done_event(tx_done_event)
 {
 
 }
@@ -58,8 +59,7 @@ RFM9x_onTxDoneCallback::~RFM9x_onTxDoneCallback()
 
 void RFM9x_onTxDoneCallback::onTxDone()
 {
-  /* TODO */
-  /* _event_tx_done.signal(); */
+  _tx_done_event.signal();
 }
 
 /**************************************************************************************

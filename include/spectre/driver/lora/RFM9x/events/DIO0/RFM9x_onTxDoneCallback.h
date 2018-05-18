@@ -25,6 +25,8 @@
 
 #include <spectre/driver/lora/RFM9x/interface/events/DIO0/RFM9x_onTxDoneCallback.h>
 
+#include <spectre/os/Event.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -50,11 +52,16 @@ class RFM9x_onTxDoneCallback :  public interface::RFM9x_onTxDoneCallback
 
 public:
 
-           RFM9x_onTxDoneCallback();
+           RFM9x_onTxDoneCallback(os::Event & tx_done_event);
   virtual ~RFM9x_onTxDoneCallback();
 
 
   virtual void onTxDone() override;
+
+
+private:
+
+  os::Event & _tx_done_event;
 
 };
 

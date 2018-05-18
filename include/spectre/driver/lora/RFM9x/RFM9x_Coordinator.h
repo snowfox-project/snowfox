@@ -27,6 +27,8 @@
 
 #include <spectre/driver/lora/RFM9x/interface/control/RFM9x_OperationModeControl.h>
 
+#include <spectre/os/Event.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -52,7 +54,8 @@ class RFM9x_Coordinator : public interface::RFM9x_Coordinator
 
 public:
 
-           RFM9x_Coordinator(interface::RFM9x_OperationModeControl & op_mode_control);
+           RFM9x_Coordinator(interface::RFM9x_OperationModeControl & op_mode_control,
+                             os::Event                             & tx_done_event);
   virtual ~RFM9x_Coordinator();
 
 
@@ -62,6 +65,7 @@ public:
 private:
 
   interface::RFM9x_OperationModeControl & _op_mode_control;
+  os::Event                             & _tx_done_event;
 
 };
 
