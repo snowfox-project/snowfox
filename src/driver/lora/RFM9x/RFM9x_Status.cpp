@@ -59,20 +59,35 @@ RFM9x_Status::~RFM9x_Status()
 
 int16_t RFM9x_Status::getCurrentRssi()
 {
-  /* TODO */
-  return -1;
+  uint8_t reg_rssi_value_content = 0;
+
+  _io.readRegister(interface::Register::RSSI_VALUE, &reg_rssi_value_content);
+
+  int16_t const current_rssi_dbm = -137 + reg_rssi_value_content;
+
+  return current_rssi_dbm;
 }
 
 int16_t RFM9x_Status::getLastPacketRssi()
 {
-  /* TODO */
-  return -1;
+  uint8_t reg_packet_rssi_content = 0;
+
+  _io.readRegister(interface::Register::PKT_RSSI_VALUE, &reg_packet_rssi_content);
+
+  int16_t const last_packet_rssi_dbm = -137 + reg_packet_rssi_content;
+
+  return last_packet_rssi_dbm;
 }
 
 int16_t RFM9x_Status::getLastPacketSnr()
 {
-  /* TODO */
-  return -1;
+  int8_t reg_packet_snr_content = 0;
+
+  _io.readRegister(interface::Register::PKT_SNR_VALUE, reinterpret_cast<uint8_t *>(&reg_packet_snr_content));
+
+  int16_t last_packet_snr = reg_packet_snr_content / 4;
+
+  return last_packet_snr;
 }
 
 /**************************************************************************************
