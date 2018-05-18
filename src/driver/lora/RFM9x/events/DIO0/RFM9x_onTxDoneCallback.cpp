@@ -59,6 +59,7 @@ RFM9x_onTxDoneCallback::~RFM9x_onTxDoneCallback()
 void RFM9x_onTxDoneCallback::onTxDone()
 {
   /* TODO */
+  /* _event_tx_done.signal(); */
 }
 
 /**************************************************************************************

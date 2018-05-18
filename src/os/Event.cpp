@@ -20,7 +20,9 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/RFM9x_Coordinator.h>
+#include <spectre/os/Event.h>
+
+#include <spectre/hal/interface/locking/LockGuard.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -29,61 +31,46 @@
 namespace spectre
 {
 
-namespace driver
-{
-
-namespace lora
-{
-
-namespace RFM9x
+namespace os
 {
 
 /**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
-RFM9x_Coordinator::RFM9x_Coordinator(interface::RFM9x_OperationModeControl & op_mode_control)
-: _op_mode_control(op_mode_control)
-{
-
-}
-
-RFM9x_Coordinator::~RFM9x_Coordinator()
+Event::Event(hal::interface::CriticalSection & crit_sec)
+: _is_event_signaled(false   ),
+  _crit_sec         (crit_sec)
 {
 
 }
 
 /**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
+ * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-interface::TransmitStatus RFM9x_Coordinator::transmit(uint8_t const * buffer, uint8_t const num_bytes)
+void Event::signal()
 {
-  if(_op_mode_control.getOperatingMode() != interface::OperatingMode::SLEEP) return interface::TransmitStatus::ModemBusy_NotSleep;
+  hal::interface::LockGuard lock(_crit_sec);
 
-  _op_mode_control.setOperatingMode(interface::OperatingMode::STDBY);
+  _is_event_signaled = true;
+}
 
-  if(_op_mode_control.getOperatingMode() != interface::OperatingMode::STDBY) return interface::TransmitStatus::ModemBusy_NotStandby;
+void Event::wait()
+{
+  bool is_event_signaled = false;
 
-  /* WRITE TO FIFO */
-
-  _op_mode_control.setOperatingMode(interface::OperatingMode::TX);
-
-  /* WAIT FOR IRQ TX DONE */
-
-  /* _event_tx_done.wait(); */
-
-  return interface::TransmitStatus::TxComplete;
+  do
+  {
+    hal::interface::LockGuard lock(_crit_sec);
+    _is_event_signaled = is_event_signaled;
+  } while(!is_event_signaled);
 }
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* RFM9x */
-
-} /* lora */
-
-} /* driver */
-
 } /* spectre */
+
+} /* os */

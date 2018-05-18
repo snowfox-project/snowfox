@@ -16,11 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_OS_EVENT_H_
+#define INCLUDE_SPECTRE_OS_EVENT_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/RFM9x_Coordinator.h>
+#include <stdbool.h>
+
+#include <spectre/hal/interface/locking/CriticalSection.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -29,61 +34,38 @@
 namespace spectre
 {
 
-namespace driver
-{
-
-namespace lora
-{
-
-namespace RFM9x
+namespace os
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * CLASS DECLARATION
  **************************************************************************************/
 
-RFM9x_Coordinator::RFM9x_Coordinator(interface::RFM9x_OperationModeControl & op_mode_control)
-: _op_mode_control(op_mode_control)
+class Event
 {
 
-}
+public:
 
-RFM9x_Coordinator::~RFM9x_Coordinator()
-{
+  Event(hal::interface::CriticalSection & crit_sec);
 
-}
 
-/**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
- **************************************************************************************/
+  void signal();
+  void wait  ();
 
-interface::TransmitStatus RFM9x_Coordinator::transmit(uint8_t const * buffer, uint8_t const num_bytes)
-{
-  if(_op_mode_control.getOperatingMode() != interface::OperatingMode::SLEEP) return interface::TransmitStatus::ModemBusy_NotSleep;
 
-  _op_mode_control.setOperatingMode(interface::OperatingMode::STDBY);
+private:
 
-  if(_op_mode_control.getOperatingMode() != interface::OperatingMode::STDBY) return interface::TransmitStatus::ModemBusy_NotStandby;
+  bool                              _is_event_signaled;
+  hal::interface::CriticalSection & _crit_sec;
 
-  /* WRITE TO FIFO */
-
-  _op_mode_control.setOperatingMode(interface::OperatingMode::TX);
-
-  /* WAIT FOR IRQ TX DONE */
-
-  /* _event_tx_done.wait(); */
-
-  return interface::TransmitStatus::TxComplete;
-}
+};
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* RFM9x */
-
-} /* lora */
-
-} /* driver */
-
 } /* spectre */
+
+} /* os */
+
+#endif /* INCLUDE_SPECTRE_OS_EVENT_H_ */
