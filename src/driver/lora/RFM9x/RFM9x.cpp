@@ -81,6 +81,17 @@ ssize_t RFM9x::read(uint8_t * buffer, ssize_t const num_bytes)
 
 ssize_t RFM9x::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
+  if(num_bytes < 1)
+  {
+    return static_cast<ssize_t>(RetCodeWrite::ParameterError);
+  }
+
+  uint16_t const tx_fifo_size = _config.getTxFifoSize();
+  if(static_cast<uint16_t>(num_bytes) > tx_fifo_size)
+  {
+    return static_cast<ssize_t>(RetCodeWrite::TxFifoSizeExceeded);
+  }
+
   if(_control.getOperatingMode() != interface::OperatingMode::SLEEP)
   {
     return static_cast<ssize_t>(RetCodeWrite::ModemBusy_NotSleep);
@@ -93,7 +104,7 @@ ssize_t RFM9x::write(uint8_t const * buffer, ssize_t const num_bytes)
     return static_cast<ssize_t>(RetCodeWrite::ModemBusy_NotStandby);
   }
 
-  /* WRITE TO FIFO */
+  _control.writeToTransmitFifo(buffer, static_cast<uint16_t>(num_bytes));
 
   _control.setOperatingMode(interface::OperatingMode::TX);
 

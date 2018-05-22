@@ -97,6 +97,15 @@ void RFM9x_Control::clearIntReqFlag(interface::InterruptRequest const int_req)
   _io.writeRegister(interface::Register::IRQ_FLAGS, static_cast<uint8_t>(int_req));
 }
 
+void RFM9x_Control::writeToTransmitFifo(uint8_t const * data, uint16_t const num_bytes)
+{
+  uint8_t fifo_tx_base_address = 0;
+
+  _io.readRegister (interface::Register::FIFO_TX_BASE_ADDR, &fifo_tx_base_address);
+  _io.writeRegister(interface::Register::FIFO_ADDR_PTR,      fifo_tx_base_address);
+  _io.writeRegister(interface::Register::FIFO, data, num_bytes                   );
+}
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/

@@ -25,8 +25,6 @@
 
 #include <spectre/driver/interface/Driver.h>
 
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_TransmitFifo.h>
-
 #include <spectre/driver/lora/RFM9x/interface/status/RFM9x_Status.h>
 #include <spectre/driver/lora/RFM9x/interface/control/RFM9x_Control.h>
 #include <spectre/driver/lora/RFM9x/interface/config/RFM9x_Configuration.h>
@@ -55,8 +53,10 @@ namespace RFM9x
 
 enum class RetCodeWrite : ssize_t
 {
-  ModemBusy_NotSleep   = -1,
-  ModemBusy_NotStandby = -2
+  ParameterError       = -1,
+  TxFifoSizeExceeded   = -2,
+  ModemBusy_NotSleep   = -3,
+  ModemBusy_NotStandby = -4
 };
 
 /**************************************************************************************

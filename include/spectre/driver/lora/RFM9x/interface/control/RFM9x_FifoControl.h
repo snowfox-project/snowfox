@@ -16,11 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_CONTROL_RFM9X_FIFOCONTROL_H_
+#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_CONTROL_RFM9X_FIFOCONTROL_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/RFM9x_TransmitFifo.h>
+#include <stdint.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -38,42 +41,31 @@ namespace lora
 namespace RFM9x
 {
 
-/**************************************************************************************
- * CTOR/DTOR
- **************************************************************************************/
-
-RFM9x_TransmitFifo::RFM9x_TransmitFifo(interface::RFM9x_Io & io, interface::RFM9x_FifoConfiguration & fifo_config)
-: _io         (io         ),
-  _fifo_config(fifo_config)
+namespace interface
 {
-
-}
-
-RFM9x_TransmitFifo::~RFM9x_TransmitFifo()
-{
-
-}
 
 /**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
+ * CLASS DECLARATION
  **************************************************************************************/
 
-uint16_t RFM9x_TransmitFifo::writeToFifo(uint8_t const * data, uint16_t const num_bytes)
+class RFM9x_FifoControl
 {
-  if(num_bytes > _fifo_config.getTxFifoSize()) return 0;
 
-  uint8_t fifo_tx_base_address = 0;
+public:
 
-  _io.readRegister (interface::Register::FIFO_TX_BASE_ADDR, &fifo_tx_base_address);
-  _io.writeRegister(interface::Register::FIFO_ADDR_PTR,      fifo_tx_base_address);
-  _io.writeRegister(interface::Register::FIFO, data, num_bytes                   );
+           RFM9x_FifoControl() { }
+  virtual ~RFM9x_FifoControl() { }
 
-  return num_bytes;
-}
+
+  virtual void writeToTransmitFifo(uint8_t const * data, uint16_t const num_bytes) = 0;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* RFM9x */
 
@@ -82,3 +74,5 @@ uint16_t RFM9x_TransmitFifo::writeToFifo(uint8_t const * data, uint16_t const nu
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_CONTROL_RFM9X_FIFOCONTROL_H_ */

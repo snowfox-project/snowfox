@@ -56,11 +56,13 @@ public:
   virtual ~RFM9x_Control();
 
 
-  virtual void                     setOperatingMode(interface::OperatingMode    const op_mode) override;
-  virtual interface::OperatingMode getOperatingMode(                                         ) override;
+  virtual void                     setOperatingMode   (interface::OperatingMode    const op_mode     ) override;
+  virtual interface::OperatingMode getOperatingMode   (                                              ) override;
 
-  virtual uint8_t getIntReqFlags  (                                         ) override;
-  virtual void    clearIntReqFlag (interface::InterruptRequest const int_req) override;
+  virtual uint8_t                  getIntReqFlags     (                                              ) override;
+  virtual void                     clearIntReqFlag    (interface::InterruptRequest const int_req     ) override;
+
+  virtual void                     writeToTransmitFifo(uint8_t const * data, uint16_t const num_bytes) override;
 
 
 private:
