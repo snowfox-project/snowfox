@@ -20,6 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
+#include <stdio.h>
 #include <string.h>
 
 #include <avr/io.h>
@@ -225,9 +226,19 @@ int main()
 
   lora::RFM9x::RFM9x_Debug::debug_dumpAllRegs(debug_serial, flash, rfm9x_spi);
 
-  for(;;)
+  for(uint16_t msg_cnt = 0;; msg_cnt++)
   {
+    uint8_t msg[32] = {0};
 
+    uint16_t const msg_len = sprintf(reinterpret_cast<char *>(msg), "spectre::lora::RFM9x Message %d\r\n", msg_cnt);
+
+    ssize_t const ret_code = rfm9x.write(msg, msg_len);
+
+    if     (ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::ParameterError      )) debug_serial.print("RFM9x::write - ParameterError");
+    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::TxFifoSizeExceeded  )) debug_serial.print("RFM9x::write - TxFifoSizeExceeded");
+    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::ModemBusy_NotSleep  )) debug_serial.print("RFM9x::write - ModemBusy_NotSleep");
+    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::ModemBusy_NotStandby)) debug_serial.print("RFM9x::write - ModemBusy_NotStandby");
+    else                                                                                       debug_serial.print("RFM9x::write - Message transmitted");
   }
 
 
