@@ -43,7 +43,7 @@ namespace RFM9x
  **************************************************************************************/
 
 RFM9x_Coordinator::RFM9x_Coordinator(interface::RFM9x_OperationModeControl & op_mode_control,
-                                     os::Event                             & tx_done_event)
+                                     os::interface::EventConsumer          & tx_done_event)
 : _op_mode_control(op_mode_control),
   _tx_done_event  (tx_done_event  )
 {

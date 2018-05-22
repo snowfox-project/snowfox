@@ -16,18 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_COORDINATOR_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_COORDINATOR_H_
-
-/**************************************************************************************
- * INCLUDES
- **************************************************************************************/
-
-#include <spectre/driver/lora/RFM9x/interface/RFM9x_Coordinator.h>
-
-#include <spectre/driver/lora/RFM9x/interface/control/RFM9x_OperationModeControl.h>
-
-#include <spectre/os/interface/EventConsumer.h>
+#ifndef INCLUDE_SPECTRE_OS_INTERFACE_EVENTCONSUMER_H_
+#define INCLUDE_SPECTRE_OS_INTERFACE_EVENTCONSUMER_H_
 
 /**************************************************************************************
  * NAMESPACE
@@ -36,36 +26,26 @@
 namespace spectre
 {
 
-namespace driver
+namespace os
 {
 
-namespace lora
-{
-
-namespace RFM9x
+namespace interface
 {
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_Coordinator : public interface::RFM9x_Coordinator
+class EventConsumer
 {
 
 public:
 
-           RFM9x_Coordinator(interface::RFM9x_OperationModeControl & op_mode_control,
-                             os::interface::EventConsumer          & tx_done_event);
-  virtual ~RFM9x_Coordinator();
+           EventConsumer() { }
+  virtual ~EventConsumer() { }
 
 
-  virtual interface::TransmitStatus transmit(uint8_t const * buffer, uint8_t const num_bytes) override;
-
-
-private:
-
-  interface::RFM9x_OperationModeControl & _op_mode_control;
-  os::interface::EventConsumer          & _tx_done_event;
+  virtual void wait() = 0;
 
 };
 
@@ -73,12 +53,10 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* RFM9x */
-
-} /* lora */
-
-} /* driver */
+} /* interface */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_RFM9X_COORDINATOR_H_ */
+} /* os */
+
+#endif /* INCLUDE_SPECTRE_OS_INTERFACE_EVENTCONSUMER_H_ */

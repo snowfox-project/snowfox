@@ -23,6 +23,9 @@
  * INCLUDES
  **************************************************************************************/
 
+#include <spectre/os/interface/EventProducer.h>
+#include <spectre/os/interface/EventConsumer.h>
+
 #include <stdbool.h>
 
 #include <spectre/hal/interface/locking/CriticalSection.h>
@@ -41,16 +44,18 @@ namespace os
  * CLASS DECLARATION
  **************************************************************************************/
 
-class Event
+class Event : public interface::EventProducer,
+              public interface::EventConsumer
 {
 
 public:
 
-  Event(hal::interface::CriticalSection & crit_sec);
+           Event(hal::interface::CriticalSection & crit_sec);
+  virtual ~Event();
 
 
-  void signal();
-  void wait  ();
+  virtual void signal() override;
+  virtual void wait  () override;
 
 
 private:
