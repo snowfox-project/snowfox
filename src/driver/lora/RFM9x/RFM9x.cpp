@@ -45,11 +45,11 @@ namespace RFM9x
 RFM9x::RFM9x(interface::RFM9x_Configuration & config,
              interface::RFM9x_Control       & control,
              interface::RFM9x_Status        & status,
-             interface::RFM9x_TransmitFifo  & tx_fifo)
-: _config (config   ),
-  _control(control  ),
-  _status (status   ),
-  _tx_fifo(tx_fifo  )
+             os::interface::EventConsumer   & tx_done_event)
+: _config       (config       ),
+  _control      (control      ),
+  _status       (status       ),
+  _tx_done_event(tx_done_event)
 {
 
 }
@@ -81,18 +81,25 @@ ssize_t RFM9x::read(uint8_t * buffer, ssize_t const num_bytes)
 
 ssize_t RFM9x::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
-  /* How to transmit ...
-   * 1) Check if we are in the correct state (STDBY)
-   *    - There can only be one transmission at once requested
-   *    - If we are not in transmission (TX) wait until transmission is complete
-   *    - If we are in a channel activity detection (CAD) wait until channel activity is complete
-   * 2) Perform a channel activity detection
-   *    - If there is activity do not send
-   *    - If there is no activity then do send
-   * 3) Fill the FIFO with the data (LEN + Payload)
-   */
+  if(_control.getOperatingMode() != interface::OperatingMode::SLEEP)
+  {
+    return static_cast<ssize_t>(RetCodeWrite::ModemBusy_NotSleep);
+  }
 
-  return static_cast<ssize_t>(_tx_fifo.writeToFifo(buffer, num_bytes));
+  _control.setOperatingMode(interface::OperatingMode::STDBY);
+
+  if(_control.getOperatingMode() != interface::OperatingMode::STDBY)
+  {
+    return static_cast<ssize_t>(RetCodeWrite::ModemBusy_NotStandby);
+  }
+
+  /* WRITE TO FIFO */
+
+  _control.setOperatingMode(interface::OperatingMode::TX);
+
+  _tx_done_event.wait();
+
+  return num_bytes;
 }
 
 bool RFM9x::ioctl(uint32_t const cmd, void * arg)

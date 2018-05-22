@@ -31,6 +31,8 @@
 #include <spectre/driver/lora/RFM9x/interface/control/RFM9x_Control.h>
 #include <spectre/driver/lora/RFM9x/interface/config/RFM9x_Configuration.h>
 
+#include <spectre/os/interface/EventConsumer.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -46,6 +48,16 @@ namespace lora
 
 namespace RFM9x
 {
+
+/**************************************************************************************
+ * TYPEDEFS
+ **************************************************************************************/
+
+enum class RetCodeWrite : ssize_t
+{
+  ModemBusy_NotSleep   = -1,
+  ModemBusy_NotStandby = -2
+};
 
 /**************************************************************************************
  * CONSTANTS
@@ -74,7 +86,7 @@ public:
            RFM9x(interface::RFM9x_Configuration & config,
                  interface::RFM9x_Control       & control,
                  interface::RFM9x_Status        & status,
-                 interface::RFM9x_TransmitFifo  & tx_fifo);
+                 os::interface::EventConsumer   & tx_done_event);
   virtual ~RFM9x();
 
 
@@ -90,7 +102,7 @@ private:
   interface::RFM9x_Configuration & _config;
   interface::RFM9x_Control       & _control;
   interface::RFM9x_Status        & _status;
-  interface::RFM9x_TransmitFifo  & _tx_fifo;
+  os::interface::EventConsumer   & _tx_done_event;
 
 };
 
