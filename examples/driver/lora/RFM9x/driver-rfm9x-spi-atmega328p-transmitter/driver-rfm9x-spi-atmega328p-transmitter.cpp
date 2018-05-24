@@ -183,18 +183,19 @@ int main()
 
   os::Event                                       rfm9x_tx_done_event                   (crit_sec);
   os::Event                                       rfm9x_rx_done_event                   (crit_sec);
+  os::Event                                       rfm9x_rx_timeout_event                (crit_sec);
 
   lora::RFM9x::RFM9x_onTxDoneCallback             rfm9x_on_tx_done_callback             (rfm9x_tx_done_event);
   lora::RFM9x::RFM9x_onRxDoneCallback             rfm9x_on_rx_done_callback             (rfm9x_rx_done_event);
   lora::RFM9x::RFM9x_onCadDoneCallback            rfm9x_on_cad_done_callback;
   lora::RFM9x::RFM9x_Dio0EventCallback            rfm9x_dio0_event_callback             (rfm9x_control, rfm9x_on_tx_done_callback, rfm9x_on_rx_done_callback, rfm9x_on_cad_done_callback);
 
-  lora::RFM9x::RFM9x_onRxTimeoutCallback          rfm9x_on_rx_timeout_callback;
+  lora::RFM9x::RFM9x_onRxTimeoutCallback          rfm9x_on_rx_timeout_callback          (rfm9x_rx_timeout_event);
   lora::RFM9x::RFM9x_onFhssChangeChannelCallback  rfm9x_on_fhss_change_channel_callback;
   lora::RFM9x::RFM9x_onCadDetectedCallback        rfm9x_on_cad_detected_callback;
   lora::RFM9x::RFM9x_Dio1EventCallback            rfm9x_dio1_event_callback             (rfm9x_control, rfm9x_on_rx_timeout_callback, rfm9x_on_fhss_change_channel_callback, rfm9x_on_cad_detected_callback);
 
-  lora::RFM9x::RFM9x                              rfm9x                                 (rfm9x_config, rfm9x_control, rfm9x_status, rfm9x_rx_done_event, rfm9x_tx_done_event);
+  lora::RFM9x::RFM9x                              rfm9x                                 (rfm9x_config, rfm9x_control, rfm9x_status, rfm9x_rx_done_event, rfm9x_rx_timeout_event, rfm9x_tx_done_event);
 
 
   rfm9x_dio0_eint0.registerExternalInterruptCallback(&rfm9x_dio0_event_callback);

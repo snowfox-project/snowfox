@@ -95,6 +95,7 @@ public:
                  interface::RFM9x_Control       & control,
                  interface::RFM9x_Status        & status,
                  os::interface::EventConsumer   & rx_done_event,
+                 os::interface::EventConsumer   & rx_timeout_event,
                  os::interface::EventConsumer   & tx_done_event);
   virtual ~RFM9x();
 
@@ -111,8 +112,9 @@ private:
   interface::RFM9x_Configuration & _config;
   interface::RFM9x_Control       & _control;
   interface::RFM9x_Status        & _status;
-  os::interface::EventConsumer   & _rx_done_event;
-  os::interface::EventConsumer   & _tx_done_event;
+  os::interface::EventConsumer   & _rx_done_event,
+                                 & _rx_timeout_event,
+                                 & _tx_done_event;
 
 };
 

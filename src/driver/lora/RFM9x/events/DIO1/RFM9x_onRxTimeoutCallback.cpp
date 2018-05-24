@@ -42,7 +42,8 @@ namespace RFM9x
  * CTOR/DTOR
  **************************************************************************************/
 
-RFM9x_onRxTimeoutCallback::RFM9x_onRxTimeoutCallback()
+RFM9x_onRxTimeoutCallback::RFM9x_onRxTimeoutCallback(os::interface::EventProducer & rx_timeout_event)
+: _rx_timeout_event(rx_timeout_event)
 {
 
 }
@@ -58,7 +59,7 @@ RFM9x_onRxTimeoutCallback::~RFM9x_onRxTimeoutCallback()
 
 void RFM9x_onRxTimeoutCallback::onRxTimeout()
 {
-  /* TODO */
+  _rx_timeout_event.signal();
 }
 
 /**************************************************************************************

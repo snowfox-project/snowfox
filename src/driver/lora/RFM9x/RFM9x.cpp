@@ -46,12 +46,14 @@ RFM9x::RFM9x(interface::RFM9x_Configuration & config,
              interface::RFM9x_Control       & control,
              interface::RFM9x_Status        & status,
              os::interface::EventConsumer   & rx_done_event,
+             os::interface::EventConsumer   & rx_timeout_event,
              os::interface::EventConsumer   & tx_done_event)
-: _config       (config       ),
-  _control      (control      ),
-  _status       (status       ),
-  _rx_done_event(rx_done_event),
-  _tx_done_event(tx_done_event)
+: _config          (config          ),
+  _control         (control         ),
+  _status          (status          ),
+  _rx_done_event   (rx_done_event   ),
+  _rx_timeout_event(rx_timeout_event),
+  _tx_done_event   (tx_done_event   )
 {
 
 }
@@ -93,6 +95,11 @@ ssize_t RFM9x::read(uint8_t * buffer, ssize_t const num_bytes)
   _control.setOperatingMode(interface::OperatingMode::RXSINGLE);
 
   _rx_done_event.wait();
+  /* TODO: Actually we also need to wait here for an RxTimeoutEvent - if
+   * either of the two events occur we need to determine which event occured
+   * and then perform the necessary actions. A new interface is necessary for
+   * waiting for both events, something like a EventGroup class.
+   */
 
   uint8_t const bytes_read = _control.readFromReceiveFifo(buffer, static_cast<uint8_t>(num_bytes));
 

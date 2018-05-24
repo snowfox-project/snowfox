@@ -25,6 +25,8 @@
 
 #include <spectre/driver/lora/RFM9x/interface/events/DIO1/RFM9x_onRxTimeoutCallback.h>
 
+#include <spectre/os/interface/EventProducer.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -50,11 +52,16 @@ class RFM9x_onRxTimeoutCallback : public interface::RFM9x_onRxTimeoutCallback
 
 public:
 
-           RFM9x_onRxTimeoutCallback();
+           RFM9x_onRxTimeoutCallback(os::interface::EventProducer & rx_timeout_event);
   virtual ~RFM9x_onRxTimeoutCallback();
 
 
   virtual void onRxTimeout() override;
+
+
+private:
+
+  os::interface::EventProducer & _rx_timeout_event;
 
 };
 
