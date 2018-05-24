@@ -97,13 +97,29 @@ void RFM9x_Control::clearIntReqFlag(interface::InterruptRequest const int_req)
   _io.writeRegister(interface::Register::IRQ_FLAGS, static_cast<uint8_t>(int_req));
 }
 
-void RFM9x_Control::writeToTransmitFifo(uint8_t const * data, uint16_t const num_bytes)
+void RFM9x_Control::writeToTransmitFifo(uint8_t const * data, uint8_t const num_bytes_to_write)
 {
   uint8_t fifo_tx_base_address = 0;
 
   _io.readRegister (interface::Register::FIFO_TX_BASE_ADDR, &fifo_tx_base_address);
   _io.writeRegister(interface::Register::FIFO_ADDR_PTR,      fifo_tx_base_address);
-  _io.writeRegister(interface::Register::FIFO, data, num_bytes                   );
+  _io.writeRegister(interface::Register::FIFO, data, num_bytes_to_write          );
+}
+
+uint8_t RFM9x_Control::readFromReceiveFifo(uint8_t * data, uint8_t const num_bytes_to_read)
+{
+  uint8_t num_bytes_last_packet          = 0,
+          rx_fifo_start_addr_last_packet = 0;
+
+  _io.readRegister (interface::Register::RX_NB_BYTES,          &num_bytes_last_packet         );
+  _io.readRegister (interface::Register::FIFO_RX_CURRENT_ADDR, &rx_fifo_start_addr_last_packet);
+  _io.writeRegister(interface::Register::FIFO_ADDR_PTR,         rx_fifo_start_addr_last_packet);
+
+  uint8_t const bytes_read = (num_bytes_to_read > num_bytes_last_packet) ? num_bytes_last_packet : num_bytes_to_read;
+
+  _io.writeRegister(interface::Register::FIFO, data, bytes_read                               );
+
+  return bytes_read;
 }
 
 /**************************************************************************************

@@ -57,7 +57,8 @@ public:
   virtual ~RFM9x_FifoControl() { }
 
 
-  virtual void writeToTransmitFifo(uint8_t const * data, uint16_t const num_bytes) = 0;
+  virtual void    writeToTransmitFifo(uint8_t const * data, uint8_t const num_bytes_to_write) = 0;
+  virtual uint8_t readFromReceiveFifo(uint8_t       * data, uint8_t const num_bytes_to_read ) = 0;
 
 };
 

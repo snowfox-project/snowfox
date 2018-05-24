@@ -51,6 +51,14 @@ namespace RFM9x
  * TYPEDEFS
  **************************************************************************************/
 
+enum class RetCodeRead : ssize_t
+{
+  ParameterError       = -1,
+  RxFifoSizeExceeded   = -2,
+  ModemBusy_NotSleep   = -3,
+  ModemBusy_NotStandby = -4
+};
+
 enum class RetCodeWrite : ssize_t
 {
   ParameterError       = -1,
@@ -86,6 +94,7 @@ public:
            RFM9x(interface::RFM9x_Configuration & config,
                  interface::RFM9x_Control       & control,
                  interface::RFM9x_Status        & status,
+                 os::interface::EventConsumer   & rx_done_event,
                  os::interface::EventConsumer   & tx_done_event);
   virtual ~RFM9x();
 
@@ -102,6 +111,7 @@ private:
   interface::RFM9x_Configuration & _config;
   interface::RFM9x_Control       & _control;
   interface::RFM9x_Status        & _status;
+  os::interface::EventConsumer   & _rx_done_event;
   os::interface::EventConsumer   & _tx_done_event;
 
 };

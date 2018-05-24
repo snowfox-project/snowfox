@@ -45,10 +45,12 @@ namespace RFM9x
 RFM9x::RFM9x(interface::RFM9x_Configuration & config,
              interface::RFM9x_Control       & control,
              interface::RFM9x_Status        & status,
+             os::interface::EventConsumer   & rx_done_event,
              os::interface::EventConsumer   & tx_done_event)
 : _config       (config       ),
   _control      (control      ),
   _status       (status       ),
+  _rx_done_event(rx_done_event),
   _tx_done_event(tx_done_event)
 {
 
@@ -76,35 +78,41 @@ bool RFM9x::open()
 
 ssize_t RFM9x::read(uint8_t * buffer, ssize_t const num_bytes)
 {
-  return -1;
+  if(num_bytes < 1                                                    ) return static_cast<ssize_t>(RetCodeRead::ParameterError      );
+
+  uint16_t const rx_fifo_size = _config.getRxFifoSize();
+  if(static_cast<uint16_t>(num_bytes) > rx_fifo_size                  ) return static_cast<ssize_t>(RetCodeRead::RxFifoSizeExceeded  );
+
+
+  if(_control.getOperatingMode() != interface::OperatingMode::SLEEP   ) return static_cast<ssize_t>(RetCodeRead::ModemBusy_NotSleep  );
+
+  _control.setOperatingMode(interface::OperatingMode::STDBY);
+
+  if(_control.getOperatingMode() != interface::OperatingMode::STDBY   ) return static_cast<ssize_t>(RetCodeRead::ModemBusy_NotStandby);
+
+  _control.setOperatingMode(interface::OperatingMode::RXSINGLE);
+
+  _rx_done_event.wait();
+
+  uint8_t const bytes_read = _control.readFromReceiveFifo(buffer, static_cast<uint8_t>(num_bytes));
+
+  return static_cast<ssize_t>(bytes_read);
 }
 
 ssize_t RFM9x::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
-  if(num_bytes < 1)
-  {
-    return static_cast<ssize_t>(RetCodeWrite::ParameterError);
-  }
+  if(num_bytes < 1                                                 ) return static_cast<ssize_t>(RetCodeWrite::ParameterError      );
 
   uint16_t const tx_fifo_size = _config.getTxFifoSize();
-  if(static_cast<uint16_t>(num_bytes) > tx_fifo_size)
-  {
-    return static_cast<ssize_t>(RetCodeWrite::TxFifoSizeExceeded);
-  }
+  if(static_cast<uint16_t>(num_bytes) > tx_fifo_size               ) return static_cast<ssize_t>(RetCodeWrite::TxFifoSizeExceeded  );
 
-  if(_control.getOperatingMode() != interface::OperatingMode::SLEEP)
-  {
-    return static_cast<ssize_t>(RetCodeWrite::ModemBusy_NotSleep);
-  }
+  if(_control.getOperatingMode() != interface::OperatingMode::SLEEP) return static_cast<ssize_t>(RetCodeWrite::ModemBusy_NotSleep  );
 
   _control.setOperatingMode(interface::OperatingMode::STDBY);
 
-  if(_control.getOperatingMode() != interface::OperatingMode::STDBY)
-  {
-    return static_cast<ssize_t>(RetCodeWrite::ModemBusy_NotStandby);
-  }
+  if(_control.getOperatingMode() != interface::OperatingMode::STDBY) return static_cast<ssize_t>(RetCodeWrite::ModemBusy_NotStandby);
 
-  _control.writeToTransmitFifo(buffer, static_cast<uint16_t>(num_bytes));
+  _control.writeToTransmitFifo(buffer, static_cast<uint8_t>(num_bytes));
 
   _control.setOperatingMode(interface::OperatingMode::TX);
 
