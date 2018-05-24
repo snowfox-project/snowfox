@@ -80,6 +80,8 @@ bool RFM9x::open()
 
 ssize_t RFM9x::read(uint8_t * buffer, ssize_t const num_bytes)
 {
+  _rx_done_event.clear();
+
   if(num_bytes < 1                                                    ) return static_cast<ssize_t>(RetCodeRead::ParameterError      );
 
   uint16_t const rx_fifo_size = _config.getRxFifoSize();
@@ -94,7 +96,7 @@ ssize_t RFM9x::read(uint8_t * buffer, ssize_t const num_bytes)
 
   _control.setOperatingMode(interface::OperatingMode::RXSINGLE);
 
-  _rx_done_event.wait();
+  os::interface::wait(_rx_done_event);
   /* TODO: Actually we also need to wait here for an RxTimeoutEvent - if
    * either of the two events occur we need to determine which event occured
    * and then perform the necessary actions. A new interface is necessary for
@@ -108,6 +110,8 @@ ssize_t RFM9x::read(uint8_t * buffer, ssize_t const num_bytes)
 
 ssize_t RFM9x::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
+  _tx_done_event.clear();
+
   if(num_bytes < 1                                                 ) return static_cast<ssize_t>(RetCodeWrite::ParameterError      );
 
   uint16_t const tx_fifo_size = _config.getTxFifoSize();
@@ -123,7 +127,7 @@ ssize_t RFM9x::write(uint8_t const * buffer, ssize_t const num_bytes)
 
   _control.setOperatingMode(interface::OperatingMode::TX);
 
-  _tx_done_event.wait();
+  os::interface::wait(_tx_done_event);
 
   return num_bytes;
 }

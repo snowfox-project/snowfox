@@ -54,13 +54,13 @@ public:
   virtual ~Event();
 
 
-  virtual void signal() override;
-  virtual void wait  () override;
-
+  virtual void set  () override;
+  virtual void clear() override;
+  virtual bool isSet() override;
 
 private:
 
-  bool                              _is_event_signaled;
+  bool                              _is_set;
   hal::interface::CriticalSection & _crit_sec;
 
 };

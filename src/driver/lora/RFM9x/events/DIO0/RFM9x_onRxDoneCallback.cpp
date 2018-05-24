@@ -59,7 +59,7 @@ RFM9x_onRxDoneCallback::~RFM9x_onRxDoneCallback()
 
 void RFM9x_onRxDoneCallback::onRxDone()
 {
-  _rx_done_event.signal();
+  _rx_done_event.set();
 }
 
 /**************************************************************************************

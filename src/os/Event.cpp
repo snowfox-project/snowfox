@@ -39,8 +39,8 @@ namespace os
  **************************************************************************************/
 
 Event::Event(hal::interface::CriticalSection & crit_sec)
-: _is_event_signaled(false   ),
-  _crit_sec         (crit_sec)
+: _is_set  (false   ),
+  _crit_sec(crit_sec)
 {
 
 }
@@ -54,23 +54,22 @@ Event::~Event()
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-void Event::signal()
+void Event::set()
 {
   hal::interface::LockGuard lock(_crit_sec);
-
-  _is_event_signaled = true;
+  _is_set = true;
 }
 
-void Event::wait()
+void Event::clear()
 {
-  bool is_event_signaled = false;
+  hal::interface::LockGuard lock(_crit_sec);
+  _is_set = false;
+}
 
-  while(!is_event_signaled)
-  {
-    hal::interface::LockGuard lock(_crit_sec);
-    is_event_signaled = _is_event_signaled;
-    if(_is_event_signaled) _is_event_signaled = false;
-  }
+bool Event::isSet()
+{
+  hal::interface::LockGuard lock(_crit_sec);
+  return _is_set;
 }
 
 /**************************************************************************************

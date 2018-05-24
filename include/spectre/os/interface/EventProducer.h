@@ -45,7 +45,7 @@ public:
   virtual ~EventProducer() { }
 
 
-  virtual void signal() = 0;
+  virtual void set() = 0;
 
 };
 

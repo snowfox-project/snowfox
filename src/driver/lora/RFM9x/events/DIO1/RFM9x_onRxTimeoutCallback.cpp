@@ -59,7 +59,7 @@ RFM9x_onRxTimeoutCallback::~RFM9x_onRxTimeoutCallback()
 
 void RFM9x_onRxTimeoutCallback::onRxTimeout()
 {
-  _rx_timeout_event.signal();
+  _rx_timeout_event.set();
 }
 
 /**************************************************************************************
