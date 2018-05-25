@@ -42,7 +42,8 @@ namespace MCP2515
  * CTOR/DTOR
  **************************************************************************************/
 
-MCP2515_onReceiveBufferFull::MCP2515_onReceiveBufferFull()
+MCP2515_onReceiveBufferFull::MCP2515_onReceiveBufferFull(can::interface::CanFrameBuffer & can_rx_buf)
+: _can_rx_buf(can_rx_buf)
 {
 
 }
@@ -58,7 +59,12 @@ MCP2515_onReceiveBufferFull::~MCP2515_onReceiveBufferFull()
 
 void MCP2515_onReceiveBufferFull::onReceiveBufferFull()
 {
-  /* TODO */
+  if(!_can_rx_buf.isFull())
+  {
+    hal::interface::CanFrame frame;
+    /* TODO: Load received CAN frame from MCP2515 to CPU via SPI */
+    _can_rx_buf.push(frame);
+  }
 }
 
 /**************************************************************************************

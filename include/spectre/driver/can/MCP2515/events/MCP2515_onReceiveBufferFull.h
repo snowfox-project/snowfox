@@ -25,6 +25,8 @@
 
 #include <spectre/driver/can/MCP2515/interface/events/MCP2515_onReceiveBufferFull.h>
 
+#include <spectre/driver/can/interface/CanFrameBuffer.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -50,11 +52,16 @@ class MCP2515_onReceiveBufferFull : public interface::MCP2515_onReceiveBufferFul
 
 public:
 
-           MCP2515_onReceiveBufferFull();
+           MCP2515_onReceiveBufferFull(can::interface::CanFrameBuffer & can_rx_buf);
   virtual ~MCP2515_onReceiveBufferFull();
 
 
   virtual void onReceiveBufferFull() override;
+
+
+private:
+
+  can::interface::CanFrameBuffer & _can_rx_buf;
 
 };
 

@@ -42,7 +42,8 @@ namespace MCP2515
  * CTOR/DTOR
  **************************************************************************************/
 
-MCP2515_onTransmitBufferEmpty::MCP2515_onTransmitBufferEmpty()
+MCP2515_onTransmitBufferEmpty::MCP2515_onTransmitBufferEmpty(can::interface::CanFrameBuffer & can_tx_buf)
+: _can_tx_buf(can_tx_buf)
 {
 
 }
@@ -58,7 +59,12 @@ MCP2515_onTransmitBufferEmpty::~MCP2515_onTransmitBufferEmpty()
 
 void MCP2515_onTransmitBufferEmpty::onTransmitBufferEmpty()
 {
-  /* TODO */
+  if(!_can_tx_buf.isEmpty())
+  {
+    hal::interface::CanFrame frame;
+    _can_tx_buf.pop(&frame);
+    /* TODO: Load via SPI to MCP2515 and enable transmission */
+  }
 }
 
 /**************************************************************************************
