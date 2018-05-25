@@ -14,7 +14,7 @@ As Martin Fowler states so eloquently in his book *Refactoring: Improving the De
 
 ## RTOS
 
-The current state of development is a "Run-To-Completion" superloop ;)
+Work in progress ...
 
 ## Hardware Abstraction Layers
 | MCU                          | MCU_ARCH              | MCU_TYPE          |
@@ -81,7 +81,9 @@ The current state of development is a "Run-To-Completion" superloop ;)
 
 ## COMSTACKS
 
-CANOpen will be included as the first communication stack.
+Work in progress ...
+
+* **CANOpen**
 
 ## Getting started
 ### Install toolchain
