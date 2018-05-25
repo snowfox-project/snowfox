@@ -30,7 +30,7 @@
 #include <spectre/driver/can/MCP2515/interface/events/MCP2515_onReceiveBufferFull.h>
 #include <spectre/driver/can/MCP2515/interface/events/MCP2515_onTransmitBufferEmpty.h>
 
-#include <spectre/driver/can/MCP2515/interface/control/MCP2515_InterruptControl.h>
+#include <spectre/driver/can/MCP2515/interface/control/MCP2515_EventControl.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -57,7 +57,7 @@ class MCP2515_EventCallback : public hal::interface::ExternalInterruptCallback
 
 public:
 
-           MCP2515_EventCallback(interface::MCP2515_InterruptControl      & int_ctrl,
+           MCP2515_EventCallback(interface::MCP2515_EventControl          & event_ctrl,
                                  interface::MCP2515_onMessageError        & on_message_error,
                                  interface::MCP2515_onWakeup              & on_wakeup,
                                  interface::MCP2515_onTransmitBufferEmpty & on_transmit_buffer_2_empty,
@@ -73,7 +73,7 @@ public:
 
 private:
 
-  interface::MCP2515_InterruptControl      & _int_ctrl;
+  interface::MCP2515_EventControl          & _event_ctrl;
   interface::MCP2515_onMessageError        & _on_message_error;
   interface::MCP2515_onWakeup              & _on_wakeup;
   interface::MCP2515_onTransmitBufferEmpty & _on_transmit_buffer_2_empty;

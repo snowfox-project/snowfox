@@ -57,12 +57,12 @@ MCP2515_Control::~MCP2515_Control()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void MCP2515_Control::getIntFlags(uint8_t * irq_flags)
+void MCP2515_Control::getEventFlags(uint8_t * event_flags)
 {
-  _io.readRegister(interface::Register::CANINTF, irq_flags);
+  _io.readRegister(interface::Register::CANINTF, event_flags);
 }
 
-void MCP2515_Control::clearIntFlag(interface::InterruptFlag const int_flag)
+void MCP2515_Control::clearEventFlag(interface::EventFlag const event_flag)
 {
   /* The interrupt request flag can be cleared by writing
    * a '0' to the corresponding bit in the IRQ register.
@@ -72,7 +72,7 @@ void MCP2515_Control::clearIntFlag(interface::InterruptFlag const int_flag)
 
   _io.readRegister(interface::Register::CANINTF, &reg_cantintf_content);
 
-  reg_cantintf_content &= ~(static_cast<uint8_t>(int_flag));
+  reg_cantintf_content &= ~(static_cast<uint8_t>(event_flag));
 
   _io.writeRegister(interface::Register::CANINTF, reg_cantintf_content);
 }

@@ -12,7 +12,7 @@ if(${DRIVER_CAN_MCP2515} STREQUAL "yes")
   	${DRIVER_CAN_SRC_PATH}/MCP2515/events/MCP2515_onTransmitBufferEmpty.cpp
   	${DRIVER_CAN_SRC_PATH}/MCP2515/events/MCP2515_onWakeup.cpp
   
-    ${DRIVER_CAN_SRC_PATH}/MCP2515/interface/control/MCP2515_InterruptControl.cpp
+    ${DRIVER_CAN_SRC_PATH}/MCP2515/interface/control/MCP2515_EventControl.cpp
   
     ${DRIVER_CAN_SRC_PATH}/MCP2515/MCP2515_CanConfiguration.cpp
     ${DRIVER_CAN_SRC_PATH}/MCP2515/MCP2515_Control.cpp

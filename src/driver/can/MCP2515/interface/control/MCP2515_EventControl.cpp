@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/can/MCP2515/interface/control/MCP2515_InterruptControl.h>
+#include <spectre/driver/can/MCP2515/interface/control/MCP2515_EventControl.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -45,44 +45,44 @@ namespace interface
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool MCP2515_InterruptControl::isMessageError(uint8_t const irq_flags)
+bool MCP2515_EventControl::isMessageErrorEvent(uint8_t const event_flags)
 {
-  return ((irq_flags & MCP2515_REG_CANINTF_MERRF_bm) == MCP2515_REG_CANINTF_MERRF_bm);
+  return ((event_flags & MCP2515_REG_CANINTF_MERRF_bm) == MCP2515_REG_CANINTF_MERRF_bm);
 }
 
-bool MCP2515_InterruptControl::isWakeup(uint8_t const irq_flags)
+bool MCP2515_EventControl::isWakeupEvent(uint8_t const event_flags)
 {
-  return ((irq_flags & MCP2515_REG_CANINTF_WAKIF_bm) == MCP2515_REG_CANINTF_WAKIF_bm);
+  return ((event_flags & MCP2515_REG_CANINTF_WAKIF_bm) == MCP2515_REG_CANINTF_WAKIF_bm);
 }
 
-bool MCP2515_InterruptControl::isGeneralError(uint8_t const irq_flags)
+bool MCP2515_EventControl::isGeneralErrorEvent(uint8_t const event_flags)
 {
-  return ((irq_flags & MCP2515_REG_CANINTF_ERRIF_bm) == MCP2515_REG_CANINTF_ERRIF_bm);
+  return ((event_flags & MCP2515_REG_CANINTF_ERRIF_bm) == MCP2515_REG_CANINTF_ERRIF_bm);
 }
 
-bool MCP2515_InterruptControl::isTxBuf2Empty(uint8_t const irq_flags)
+bool MCP2515_EventControl::isTxBuf2EmptyEvent(uint8_t const event_flags)
 {
-  return ((irq_flags & MCP2515_REG_CANINTF_TX2IF_bm) == MCP2515_REG_CANINTF_TX2IF_bm);
+  return ((event_flags & MCP2515_REG_CANINTF_TX2IF_bm) == MCP2515_REG_CANINTF_TX2IF_bm);
 }
 
-bool MCP2515_InterruptControl::isTxBuf1Empty(uint8_t const irq_flags)
+bool MCP2515_EventControl::isTxBuf1EmptyEvent(uint8_t const event_flags)
 {
-  return ((irq_flags & MCP2515_REG_CANINTF_TX1IF_bm) == MCP2515_REG_CANINTF_TX1IF_bm);
+  return ((event_flags & MCP2515_REG_CANINTF_TX1IF_bm) == MCP2515_REG_CANINTF_TX1IF_bm);
 }
 
-bool MCP2515_InterruptControl::isTxBuf0Empty(uint8_t const irq_flags)
+bool MCP2515_EventControl::isTxBuf0EmptyEvent(uint8_t const event_flags)
 {
-  return ((irq_flags & MCP2515_REG_CANINTF_TX0IF_bm) == MCP2515_REG_CANINTF_TX0IF_bm);
+  return ((event_flags & MCP2515_REG_CANINTF_TX0IF_bm) == MCP2515_REG_CANINTF_TX0IF_bm);
 }
 
-bool MCP2515_InterruptControl::isRxBuf1Full(uint8_t const irq_flags)
+bool MCP2515_EventControl::isRxBuf1FullEvent(uint8_t const event_flags)
 {
-  return ((irq_flags & MCP2515_REG_CANINTF_RX1IF_bm) == MCP2515_REG_CANINTF_RX1IF_bm);
+  return ((event_flags & MCP2515_REG_CANINTF_RX1IF_bm) == MCP2515_REG_CANINTF_RX1IF_bm);
 }
 
-bool MCP2515_InterruptControl::isRxBuf0Full(uint8_t const irq_flags)
+bool MCP2515_EventControl::isRxBuf0FullEvent(uint8_t const event_flags)
 {
-  return ((irq_flags & MCP2515_REG_CANINTF_RX0IF_bm) == MCP2515_REG_CANINTF_RX0IF_bm);
+  return ((event_flags & MCP2515_REG_CANINTF_RX0IF_bm) == MCP2515_REG_CANINTF_RX0IF_bm);
 }
 
 /**************************************************************************************

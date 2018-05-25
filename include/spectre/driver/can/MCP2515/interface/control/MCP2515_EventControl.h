@@ -51,7 +51,7 @@ namespace interface
  * TYPEDEFS
  **************************************************************************************/
 
-enum class InterruptFlag : uint8_t
+enum class EventFlag : uint8_t
 {
   MessageError = MCP2515_REG_CANINTF_MERRF_bm,
   Wakeup       = MCP2515_REG_CANINTF_WAKIF_bm,
@@ -67,27 +67,27 @@ enum class InterruptFlag : uint8_t
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MCP2515_InterruptControl
+class MCP2515_EventControl
 {
 
 public:
 
-           MCP2515_InterruptControl() { }
-  virtual ~MCP2515_InterruptControl() { }
+           MCP2515_EventControl() { }
+  virtual ~MCP2515_EventControl() { }
 
 
-  virtual void getIntFlags (uint8_t             * irq_flags) = 0;
-  virtual void clearIntFlag(InterruptFlag const   int_flag ) = 0;
+  virtual void getEventFlags (uint8_t         * event_flags) = 0;
+  virtual void clearEventFlag(EventFlag const   event_flag ) = 0;
 
 
-  static  bool isMessageError(uint8_t const irq_flags);
-  static  bool isWakeup      (uint8_t const irq_flags);
-  static  bool isGeneralError(uint8_t const irq_flags);
-  static  bool isTxBuf2Empty (uint8_t const irq_flags);
-  static  bool isTxBuf1Empty (uint8_t const irq_flags);
-  static  bool isTxBuf0Empty (uint8_t const irq_flags);
-  static  bool isRxBuf1Full  (uint8_t const irq_flags);
-  static  bool isRxBuf0Full  (uint8_t const irq_flags);
+  static  bool isMessageErrorEvent(uint8_t const event_flags);
+  static  bool isWakeupEvent      (uint8_t const event_flags);
+  static  bool isGeneralErrorEvent(uint8_t const event_flags);
+  static  bool isTxBuf2EmptyEvent (uint8_t const event_flags);
+  static  bool isTxBuf1EmptyEvent (uint8_t const event_flags);
+  static  bool isTxBuf0EmptyEvent (uint8_t const event_flags);
+  static  bool isRxBuf1FullEvent  (uint8_t const event_flags);
+  static  bool isRxBuf0FullEvent  (uint8_t const event_flags);
 
 };
 

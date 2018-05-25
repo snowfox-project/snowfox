@@ -23,7 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/can/MCP2515/interface/control/MCP2515_InterruptControl.h>
+#include <spectre/driver/can/MCP2515/interface/control/MCP2515_EventControl.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -48,7 +48,7 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MCP2515_Control : public MCP2515_InterruptControl
+class MCP2515_Control : public MCP2515_EventControl
 {
 
 public:
