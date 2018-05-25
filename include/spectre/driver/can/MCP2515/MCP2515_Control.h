@@ -56,8 +56,8 @@ public:
   virtual ~MCP2515_Control();
 
 
-  virtual void getEventFlags (uint8_t                    * event_flags) override;
-  virtual void clearEventFlag(interface::EventFlag const   event_flag ) override;
+  virtual uint8_t getEventFlags (                                     ) override;
+  virtual void    clearEventFlag(interface::EventFlag const event_flag) override;
 
 
 private:

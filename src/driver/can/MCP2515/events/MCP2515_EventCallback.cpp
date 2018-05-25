@@ -73,54 +73,52 @@ MCP2515_EventCallback::~MCP2515_EventCallback()
 
 void MCP2515_EventCallback::onExternalEventCallback()
 {
-  uint8_t int_flags = 0;
-
-  _event_ctrl.getEventFlags(&int_flags);
+  uint8_t const event_flags = _event_ctrl.getEventFlags();
 
   /* MESSAGE ERROR ********************************************************************/
-  if(interface::MCP2515_EventControl::isMessageErrorEvent(int_flags))
+  if(interface::MCP2515_EventControl::isMessageErrorEvent(event_flags))
   {
     _on_message_error.onMessageError();
     _event_ctrl.clearEventFlag(interface::EventFlag::MessageError);
   }
   /* WAKEUP ***************************************************************************/
-  if(interface::MCP2515_EventControl::isWakeupEvent(int_flags))
+  if(interface::MCP2515_EventControl::isWakeupEvent(event_flags))
   {
     _on_wakeup.onWakeup();
     _event_ctrl.clearEventFlag(interface::EventFlag::Wakeup);
   }
   /* GENERAL ERROR ********************************************************************/
-  if(interface::MCP2515_EventControl::isGeneralErrorEvent(int_flags))
+  if(interface::MCP2515_EventControl::isGeneralErrorEvent(event_flags))
   {
     /* No callback yet */
     _event_ctrl.clearEventFlag(interface::EventFlag::GeneralError);
   }
   /* TRANSMIT BUFFER 2 EMPTY **********************************************************/
-  if(interface::MCP2515_EventControl::isTxBuf2EmptyEvent(int_flags))
+  if(interface::MCP2515_EventControl::isTxBuf2EmptyEvent(event_flags))
   {
     _on_transmit_buffer_2_empty.onTransmitBufferEmpty();
     _event_ctrl.clearEventFlag(interface::EventFlag::TxBuf2Empty);
   }
   /* TRANSMIT BUFFER 1 EMPTY **********************************************************/
-  if(interface::MCP2515_EventControl::isTxBuf1EmptyEvent(int_flags))
+  if(interface::MCP2515_EventControl::isTxBuf1EmptyEvent(event_flags))
   {
     _on_transmit_buffer_1_empty.onTransmitBufferEmpty();
     _event_ctrl.clearEventFlag(interface::EventFlag::TxBuf1Empty);
   }
   /* TRANSMIT BUFFER 0 EMPTY **********************************************************/
-  if(interface::MCP2515_EventControl::isTxBuf0EmptyEvent(int_flags))
+  if(interface::MCP2515_EventControl::isTxBuf0EmptyEvent(event_flags))
   {
     _on_transmit_buffer_0_empty.onTransmitBufferEmpty();
     _event_ctrl.clearEventFlag(interface::EventFlag::TxBuf0Empty);
   }
   /* RECEIVE BUFFER 1 FULL ************************************************************/
-  if(interface::MCP2515_EventControl::isRxBuf1FullEvent(int_flags))
+  if(interface::MCP2515_EventControl::isRxBuf1FullEvent(event_flags))
   {
     _on_receive_buffer_1_full.onReceiveBufferFull();
     _event_ctrl.clearEventFlag(interface::EventFlag::RxBuf1Full);
   }
   /* RECEIVE BUFFER 0 FULL ************************************************************/
-  if(interface::MCP2515_EventControl::isRxBuf0FullEvent(int_flags))
+  if(interface::MCP2515_EventControl::isRxBuf0FullEvent(event_flags))
   {
     _on_receive_buffer_0_full.onReceiveBufferFull();
     _event_ctrl.clearEventFlag(interface::EventFlag::RxBuf0Full);

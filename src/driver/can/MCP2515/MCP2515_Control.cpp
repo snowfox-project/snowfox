@@ -57,9 +57,13 @@ MCP2515_Control::~MCP2515_Control()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void MCP2515_Control::getEventFlags(uint8_t * event_flags)
+uint8_t MCP2515_Control::getEventFlags()
 {
-  _io.readRegister(interface::Register::CANINTF, event_flags);
+  uint8_t reg_cantintf_content = 0;
+
+  _io.readRegister(interface::Register::CANINTF, &reg_cantintf_content);
+
+  return reg_cantintf_content;
 }
 
 void MCP2515_Control::clearEventFlag(interface::EventFlag const event_flag)

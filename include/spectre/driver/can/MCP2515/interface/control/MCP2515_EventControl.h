@@ -76,8 +76,8 @@ public:
   virtual ~MCP2515_EventControl() { }
 
 
-  virtual void getEventFlags (uint8_t         * event_flags) = 0;
-  virtual void clearEventFlag(EventFlag const   event_flag ) = 0;
+  virtual uint8_t getEventFlags (                          ) = 0;
+  virtual void    clearEventFlag(EventFlag const event_flag) = 0;
 
 
   static  bool isMessageErrorEvent(uint8_t const event_flags);
