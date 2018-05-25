@@ -16,11 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_INTERFACE_CONTROL_MCP2515_CONTROL_H_
+#define INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_INTERFACE_CONTROL_MCP2515_CONTROL_H_
+
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/can/MCP2515/MCP2515_InterruptControl.h>
+#include <spectre/driver/can/MCP2515/interface/control/MCP2515_InterruptControl.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -38,48 +41,28 @@ namespace can
 namespace MCP2515
 {
 
-/**************************************************************************************
- * CTOR/DTOR
- **************************************************************************************/
-
-MCP2515_InterruptControl::MCP2515_InterruptControl(interface::MCP2515_Io & io)
-: _io(io)
+namespace interface
 {
-
-}
-
-MCP2515_InterruptControl::~MCP2515_InterruptControl()
-{
-
-}
 
 /**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
+ * CLASS DECLARATION
  **************************************************************************************/
 
-void MCP2515_InterruptControl::getIntFlags(uint8_t * irq_flags)
+class MCP2515_Control : public MCP2515_InterruptControl
 {
-  _io.readRegister(interface::Register::CANINTF, irq_flags);
-}
 
-void MCP2515_InterruptControl::clearIntFlag(interface::InterruptFlag const int_flag)
-{
-  /* The interrupt request flag can be cleared by writing
-   * a '0' to the corresponding bit in the IRQ register.
-   */
+public:
 
-  uint8_t reg_cantintf_content = 0;
+           MCP2515_Control() { }
+  virtual ~MCP2515_Control() { }
 
-  _io.readRegister(interface::Register::CANINTF, &reg_cantintf_content);
-
-  reg_cantintf_content &= ~(static_cast<uint8_t>(int_flag));
-
-  _io.writeRegister(interface::Register::CANINTF, reg_cantintf_content);
-}
+};
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* MCP2515 */
 
@@ -88,3 +71,5 @@ void MCP2515_InterruptControl::clearIntFlag(interface::InterruptFlag const int_f
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_INTERFACE_CONTROL_MCP2515_CONTROL_H_ */

@@ -16,11 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_CONTROL_H_
+#define INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_CONTROL_H_
+
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/can/MCP2515/interface/MCP2515_InterruptControl.h>
+#include <spectre/driver/can/MCP2515/interface/control/MCP2515_Control.h>
+
+#include <spectre/driver/can/MCP2515/interface/MCP2515_Io.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -38,58 +43,32 @@ namespace can
 namespace MCP2515
 {
 
-namespace interface
-{
-
 /**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
+ * CLASS DECLARATION
  **************************************************************************************/
 
-bool MCP2515_InterruptControl::isMessageError(uint8_t const irq_flags)
+class MCP2515_Control : public interface::MCP2515_Control
 {
-  return ((irq_flags & MCP2515_REG_CANINTF_MERRF_bm) == MCP2515_REG_CANINTF_MERRF_bm);
-}
 
-bool MCP2515_InterruptControl::isWakeup(uint8_t const irq_flags)
-{
-  return ((irq_flags & MCP2515_REG_CANINTF_WAKIF_bm) == MCP2515_REG_CANINTF_WAKIF_bm);
-}
+public:
 
-bool MCP2515_InterruptControl::isGeneralError(uint8_t const irq_flags)
-{
-  return ((irq_flags & MCP2515_REG_CANINTF_ERRIF_bm) == MCP2515_REG_CANINTF_ERRIF_bm);
-}
+           MCP2515_Control(interface::MCP2515_Io & io);
+  virtual ~MCP2515_Control();
 
-bool MCP2515_InterruptControl::isTxBuf2Empty(uint8_t const irq_flags)
-{
-  return ((irq_flags & MCP2515_REG_CANINTF_TX2IF_bm) == MCP2515_REG_CANINTF_TX2IF_bm);
-}
 
-bool MCP2515_InterruptControl::isTxBuf1Empty(uint8_t const irq_flags)
-{
-  return ((irq_flags & MCP2515_REG_CANINTF_TX1IF_bm) == MCP2515_REG_CANINTF_TX1IF_bm);
-}
+  virtual void getIntFlags (uint8_t                        * irq_flags) override;
+  virtual void clearIntFlag(interface::InterruptFlag const   int_flag ) override;
 
-bool MCP2515_InterruptControl::isTxBuf0Empty(uint8_t const irq_flags)
-{
-  return ((irq_flags & MCP2515_REG_CANINTF_TX0IF_bm) == MCP2515_REG_CANINTF_TX0IF_bm);
-}
 
-bool MCP2515_InterruptControl::isRxBuf1Full(uint8_t const irq_flags)
-{
-  return ((irq_flags & MCP2515_REG_CANINTF_RX1IF_bm) == MCP2515_REG_CANINTF_RX1IF_bm);
-}
+private:
 
-bool MCP2515_InterruptControl::isRxBuf0Full(uint8_t const irq_flags)
-{
-  return ((irq_flags & MCP2515_REG_CANINTF_RX0IF_bm) == MCP2515_REG_CANINTF_RX0IF_bm);
-}
+  interface::MCP2515_Io & _io;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
-
-} /* interface */
 
 } /* MCP2515 */
 
@@ -98,3 +77,5 @@ bool MCP2515_InterruptControl::isRxBuf0Full(uint8_t const irq_flags)
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_CONTROL_H_ */

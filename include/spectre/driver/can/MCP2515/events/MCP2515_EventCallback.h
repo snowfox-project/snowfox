@@ -30,7 +30,7 @@
 #include <spectre/driver/can/MCP2515/interface/events/MCP2515_onReceiveBufferFull.h>
 #include <spectre/driver/can/MCP2515/interface/events/MCP2515_onTransmitBufferEmpty.h>
 
-#include <spectre/driver/can/MCP2515/interface/MCP2515_InterruptControl.h>
+#include <spectre/driver/can/MCP2515/interface/control/MCP2515_InterruptControl.h>
 
 /**************************************************************************************
  * NAMESPACE
