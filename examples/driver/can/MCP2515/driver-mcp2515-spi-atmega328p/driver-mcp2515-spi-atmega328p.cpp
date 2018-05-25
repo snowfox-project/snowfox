@@ -35,12 +35,12 @@
 
 #include <spectre/driver/can/Can.h>
 
+#include <spectre/driver/can/interface/CanFrameBuffer.h>
+
 #include <spectre/driver/can/MCP2515/MCP2515_IoSpi.h>
 #include <spectre/driver/can/MCP2515/MCP2515_Control.h>
 #include <spectre/driver/can/MCP2515/MCP2515_CanController.h>
-#include <spectre/driver/can/MCP2515/MCP2515_CanReceiveBuffer.h>
 #include <spectre/driver/can/MCP2515/MCP2515_InterruptControl.h>
-#include <spectre/driver/can/MCP2515/MCP2515_CanTransmitBuffer.h>
 
 #include <spectre/driver/can/MCP2515/events/MCP2515_EventCallback.h>
 #include <spectre/driver/can/MCP2515/events/MCP2515_onWakeup.h>
@@ -109,12 +109,13 @@ int main()
 
   /* DRIVER ***************************************************************************/
 
-  can::MCP2515::MCP2515_IoSpi                 mcp2515_io_spi    (spi_master, mcp2515_cs);
-  can::MCP2515::MCP2515_Control               mcp2515_control   (mcp2515_io_spi);
-  can::MCP2515::MCP2515_InterruptControl      mcp2515_int_ctrl  (mcp2515_io_spi);
-  can::MCP2515::MCP2515_CanController         mcp2515_can_ctrl  (mcp2515_control, F_MCP2515_MHz);
-  can::MCP2515::MCP2515_CanReceiveBuffer      mcp2515_can_rx_buf(CAN_RX_BUFFER_SIZE);
-  can::MCP2515::MCP2515_CanTransmitBuffer     mcp2515_can_tx_buf(CAN_TX_BUFFER_SIZE);
+  can::MCP2515::MCP2515_IoSpi                 mcp2515_io_spi        (spi_master, mcp2515_cs);
+  can::MCP2515::MCP2515_Control               mcp2515_control       (mcp2515_io_spi);
+  can::MCP2515::MCP2515_InterruptControl      mcp2515_int_ctrl      (mcp2515_io_spi);
+  can::MCP2515::MCP2515_CanController         mcp2515_can_ctrl      (mcp2515_control, F_MCP2515_MHz);
+
+  can::interface::CanFrameBuffer              mcp2515_can_rx_buf    (CAN_RX_BUFFER_SIZE);
+  can::interface::CanFrameBuffer              mcp2515_can_tx_buf    (CAN_TX_BUFFER_SIZE);
 
   can::MCP2515::MCP2515_onMessageError        mcp2515_on_message_error;
   can::MCP2515::MCP2515_onWakeup              mcp2515_on_wakeup;

@@ -41,7 +41,7 @@ namespace can
  * CTOR/DTOR
  **************************************************************************************/
 
-Can::Can(interface::CanController & can_ctrl, interface::CanTransmitBuffer & can_tx_buf, interface::CanReceiveBuffer & can_rx_buf)
+Can::Can(interface::CanController & can_ctrl, interface::CanFrameBuffer & can_tx_buf, interface::CanFrameBuffer & can_rx_buf)
 : _can_ctrl  (can_ctrl  ),
   _can_tx_buf(can_tx_buf),
   _can_rx_buf(can_rx_buf)
@@ -77,7 +77,7 @@ ssize_t Can::read(uint8_t * buffer, ssize_t const num_bytes)
       f++, bytes_read += sizeof(hal::interface::CanFrame))
   {
     hal::interface::CanFrame can_frame;
-    _can_rx_buf.getData(&can_frame);
+    _can_rx_buf.pop(&can_frame);
     memcpy(buffer + bytes_read, &can_frame, sizeof(hal::interface::CanFrame));
   }
 
@@ -98,7 +98,7 @@ ssize_t Can::write(uint8_t const * buffer, ssize_t const num_bytes)
   {
     hal::interface::CanFrame can_frame;
     memcpy(&can_frame, buffer + bytes_written, sizeof(hal::interface::CanFrame));
-    _can_tx_buf.putData(can_frame);
+    _can_tx_buf.push(can_frame);
   }
 
   return bytes_written;

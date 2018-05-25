@@ -16,16 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_CANTRANSMITBUFFER_H_
-#define INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_CANTRANSMITBUFFER_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_CAN_INTERFACE_CANFRAMEBUFFER_H_
+#define INCLUDE_SPECTRE_DRIVER_CAN_INTERFACE_CANFRAMEBUFFER_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/can/interface/CanTransmitBuffer.h>
-
-#include <stdint.h>
+#include <spectre/hal/interface/can/CanFrame.h>
 
 #include <spectre/memory/container/Queue.h>
 
@@ -42,37 +40,20 @@ namespace driver
 namespace can
 {
 
-namespace MCP2515
+namespace interface
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * TYPEDEFS
  **************************************************************************************/
 
-class MCP2515_CanTransmitBuffer : public can::interface::CanTransmitBuffer
-{
-
-public:
-
-           MCP2515_CanTransmitBuffer(uint16_t const size);
-  virtual ~MCP2515_CanTransmitBuffer();
-
-
-  virtual bool isFull            (                                        ) override;
-  virtual void putData           (hal::interface::CanFrame const can_frame) override;
-  virtual void onTransmitComplete(                                        ) override;
-
-private:
-
-  memory::container::Queue<hal::interface::CanFrame> _tx_queue;
-
-};
+typedef memory::container::Queue<hal::interface::CanFrame> CanFrameBuffer;
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* MCP2515 */
+} /* interface */
 
 } /* can */
 
@@ -80,4 +61,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_CANTRANSMITBUFFER_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_CAN_INTERFACE_CANFRAMEBUFFER_H_ */
