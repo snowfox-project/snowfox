@@ -16,14 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_INTERFACE_MCP2515_CONTROL_H_
-#define INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_INTERFACE_MCP2515_CONTROL_H_
-
-/**************************************************************************************
- * INCLUDES
- **************************************************************************************/
-
-#include <stdint.h>
+#ifndef INCLUDE_SPECTRE_DRIVER_CAN_INTERFACE_CANCONFIGURATION_H_
+#define INCLUDE_SPECTRE_DRIVER_CAN_INTERFACE_CANCONFIGURATION_H_
 
 /**************************************************************************************
  * NAMESPACE
@@ -36,9 +30,6 @@ namespace driver
 {
 
 namespace can
-{
-
-namespace MCP2515
 {
 
 namespace interface
@@ -60,16 +51,16 @@ enum class CanBitRate
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MCP2515_Control
+class CanConfiguration
 {
 
 public:
 
-           MCP2515_Control() { }
-  virtual ~MCP2515_Control() { }
+           CanConfiguration() { }
+  virtual ~CanConfiguration() { }
 
 
-  virtual void setCanBitRate(CanBitRate const can_bit_rate, uint8_t const clk_MHz) = 0;
+  virtual void setCanBitRate(CanBitRate const can_bit_rate) = 0;
 
 };
 
@@ -79,12 +70,10 @@ public:
 
 } /* interface */
 
-} /* MCP2515 */
-
 } /* can */
 
 } /* driver */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_INTERFACE_MCP2515_CONTROL_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_CAN_INTERFACE_CANCONFIGURATION_H_ */

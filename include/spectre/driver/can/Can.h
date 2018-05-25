@@ -25,8 +25,8 @@
 
 #include <spectre/driver/interface/Driver.h>
 
-#include <spectre/driver/can/interface/CanController.h>
 #include <spectre/driver/can/interface/CanFrameBuffer.h>
+#include <spectre/driver/can/interface/CanConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -56,7 +56,7 @@ class Can : public driver::interface::Driver
 
 public:
 
-           Can(interface::CanController & can_ctrl, interface::CanFrameBuffer & can_tx_buf, interface::CanFrameBuffer & can_rx_buf);
+           Can(interface::CanConfiguration & config, interface::CanFrameBuffer & can_tx_buf, interface::CanFrameBuffer & can_rx_buf);
   virtual ~Can();
 
 
@@ -69,9 +69,9 @@ public:
 
 private:
 
-  interface::CanController  & _can_ctrl;
-  interface::CanFrameBuffer & _can_tx_buf;
-  interface::CanFrameBuffer & _can_rx_buf;
+  interface::CanConfiguration & _config;
+  interface::CanFrameBuffer   & _can_tx_buf;
+  interface::CanFrameBuffer   & _can_rx_buf;
 
 };
 

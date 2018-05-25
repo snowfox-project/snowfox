@@ -41,8 +41,8 @@ namespace can
  * CTOR/DTOR
  **************************************************************************************/
 
-Can::Can(interface::CanController & can_ctrl, interface::CanFrameBuffer & can_tx_buf, interface::CanFrameBuffer & can_rx_buf)
-: _can_ctrl  (can_ctrl  ),
+Can::Can(interface::CanConfiguration & config, interface::CanFrameBuffer & can_tx_buf, interface::CanFrameBuffer & can_rx_buf)
+: _config   (config     ),
   _can_tx_buf(can_tx_buf),
   _can_rx_buf(can_rx_buf)
 {
@@ -113,7 +113,7 @@ bool Can::ioctl(uint32_t const cmd, void * arg)
   {
     uint8_t               const * arg_ptr     = static_cast<uint8_t *>            (arg     );
     interface::CanBitRate const   can_bitrate = static_cast<interface::CanBitRate>(*arg_ptr);
-    _can_ctrl.setCanBitRate(can_bitrate);
+    _config.setCanBitRate(can_bitrate);
     return true;
   }
   break;

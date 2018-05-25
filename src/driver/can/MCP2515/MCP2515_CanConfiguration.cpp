@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/can/MCP2515/MCP2515_Control.h>
+#include <spectre/driver/can/MCP2515/MCP2515_CanConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -70,13 +70,14 @@ static CanBitRateConfiguration BitRate_125kBPS_20MHz = {0x44, 0xE5, 0x83};
  * CTOR/DTOR
  **************************************************************************************/
 
-MCP2515_Control::MCP2515_Control(interface::MCP2515_Io & io)
-: _io(io)
+MCP2515_CanConfiguration::MCP2515_CanConfiguration(interface::MCP2515_Io & io, uint8_t const f_mcp2515_MHz)
+: _io           (io           ),
+  _f_mcp2515_MHz(f_mcp2515_MHz)
 {
 
 }
 
-MCP2515_Control::~MCP2515_Control()
+MCP2515_CanConfiguration::~MCP2515_CanConfiguration()
 {
 
 }
@@ -85,9 +86,9 @@ MCP2515_Control::~MCP2515_Control()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void MCP2515_Control::setCanBitRate(interface::CanBitRate const can_bit_rate, uint8_t const clk_MHz)
+void MCP2515_CanConfiguration::setCanBitRate(can::interface::CanBitRate const can_bit_rate)
 {
-  switch(clk_MHz)
+  switch(_f_mcp2515_MHz)
   {
   case  8: setCanBitRate_Clock_8MHz (can_bit_rate); break;
   case 16: setCanBitRate_Clock_16MHz(can_bit_rate); break;
@@ -100,32 +101,32 @@ void MCP2515_Control::setCanBitRate(interface::CanBitRate const can_bit_rate, ui
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
-void MCP2515_Control::setCanBitRate_Clock_8MHz(interface::CanBitRate const can_bit_rate)
+void MCP2515_CanConfiguration::setCanBitRate_Clock_8MHz(can::interface::CanBitRate const can_bit_rate)
 {
   switch(can_bit_rate)
   {
-  case interface::CanBitRate::BR_1MBPS:
+  case can::interface::CanBitRate::BR_1MBPS:
   {
     _io.writeRegister(interface::Register::CNF1, BitRate_1MBPS_8MHz.CNF1);
     _io.writeRegister(interface::Register::CNF2, BitRate_1MBPS_8MHz.CNF2);
     _io.writeRegister(interface::Register::CNF3, BitRate_1MBPS_8MHz.CNF3);
   }
   break;
-  case interface::CanBitRate::BR_500kBPS:
+  case can::interface::CanBitRate::BR_500kBPS:
   {
     _io.writeRegister(interface::Register::CNF1, BitRate_500kBPS_8MHz.CNF1);
     _io.writeRegister(interface::Register::CNF2, BitRate_500kBPS_8MHz.CNF2);
     _io.writeRegister(interface::Register::CNF3, BitRate_500kBPS_8MHz.CNF3);
   }
   break;
-  case interface::CanBitRate::BR_250kBPS:
+  case can::interface::CanBitRate::BR_250kBPS:
   {
     _io.writeRegister(interface::Register::CNF1, BitRate_250kBPS_8MHz.CNF1);
     _io.writeRegister(interface::Register::CNF2, BitRate_250kBPS_8MHz.CNF2);
     _io.writeRegister(interface::Register::CNF3, BitRate_250kBPS_8MHz.CNF3);
   }
   break;
-  case interface::CanBitRate::BR_125kBPS:
+  case can::interface::CanBitRate::BR_125kBPS:
   {
     _io.writeRegister(interface::Register::CNF1, BitRate_125kBPS_8MHz.CNF1);
     _io.writeRegister(interface::Register::CNF2, BitRate_125kBPS_8MHz.CNF2);
@@ -135,32 +136,32 @@ void MCP2515_Control::setCanBitRate_Clock_8MHz(interface::CanBitRate const can_b
   }
 }
 
-void MCP2515_Control::setCanBitRate_Clock_16MHz(interface::CanBitRate const can_bit_rate)
+void MCP2515_CanConfiguration::setCanBitRate_Clock_16MHz(can::interface::CanBitRate const can_bit_rate)
 {
   switch(can_bit_rate)
   {
-  case interface::CanBitRate::BR_1MBPS:
+  case can::interface::CanBitRate::BR_1MBPS:
   {
     _io.writeRegister(interface::Register::CNF1, BitRate_1MBPS_16MHz.CNF1);
     _io.writeRegister(interface::Register::CNF2, BitRate_1MBPS_16MHz.CNF2);
     _io.writeRegister(interface::Register::CNF3, BitRate_1MBPS_16MHz.CNF3);
   }
   break;
-  case interface::CanBitRate::BR_500kBPS:
+  case can::interface::CanBitRate::BR_500kBPS:
   {
     _io.writeRegister(interface::Register::CNF1, BitRate_500kBPS_16MHz.CNF1);
     _io.writeRegister(interface::Register::CNF2, BitRate_500kBPS_16MHz.CNF2);
     _io.writeRegister(interface::Register::CNF3, BitRate_500kBPS_16MHz.CNF3);
   }
   break;
-  case interface::CanBitRate::BR_250kBPS:
+  case can::interface::CanBitRate::BR_250kBPS:
   {
     _io.writeRegister(interface::Register::CNF1, BitRate_250kBPS_16MHz.CNF1);
     _io.writeRegister(interface::Register::CNF2, BitRate_250kBPS_16MHz.CNF2);
     _io.writeRegister(interface::Register::CNF3, BitRate_250kBPS_16MHz.CNF3);
   }
   break;
-  case interface::CanBitRate::BR_125kBPS:
+  case can::interface::CanBitRate::BR_125kBPS:
   {
     _io.writeRegister(interface::Register::CNF1, BitRate_125kBPS_16MHz.CNF1);
     _io.writeRegister(interface::Register::CNF2, BitRate_125kBPS_16MHz.CNF2);
@@ -170,32 +171,32 @@ void MCP2515_Control::setCanBitRate_Clock_16MHz(interface::CanBitRate const can_
   }
 }
 
-void MCP2515_Control::setCanBitRate_Clock_20MHz(interface::CanBitRate const can_bit_rate)
+void MCP2515_CanConfiguration::setCanBitRate_Clock_20MHz(can::interface::CanBitRate const can_bit_rate)
 {
   switch(can_bit_rate)
   {
-  case interface::CanBitRate::BR_1MBPS:
+  case can::interface::CanBitRate::BR_1MBPS:
   {
     _io.writeRegister(interface::Register::CNF1, BitRate_1MBPS_20MHz.CNF1);
     _io.writeRegister(interface::Register::CNF2, BitRate_1MBPS_20MHz.CNF2);
     _io.writeRegister(interface::Register::CNF3, BitRate_1MBPS_20MHz.CNF3);
   }
   break;
-  case interface::CanBitRate::BR_500kBPS:
+  case can::interface::CanBitRate::BR_500kBPS:
   {
     _io.writeRegister(interface::Register::CNF1, BitRate_500kBPS_20MHz.CNF1);
     _io.writeRegister(interface::Register::CNF2, BitRate_500kBPS_20MHz.CNF2);
     _io.writeRegister(interface::Register::CNF3, BitRate_500kBPS_20MHz.CNF3);
   }
   break;
-  case interface::CanBitRate::BR_250kBPS:
+  case can::interface::CanBitRate::BR_250kBPS:
   {
     _io.writeRegister(interface::Register::CNF1, BitRate_250kBPS_20MHz.CNF1);
     _io.writeRegister(interface::Register::CNF2, BitRate_250kBPS_20MHz.CNF2);
     _io.writeRegister(interface::Register::CNF3, BitRate_250kBPS_20MHz.CNF3);
   }
   break;
-  case interface::CanBitRate::BR_125kBPS:
+  case can::interface::CanBitRate::BR_125kBPS:
   {
     _io.writeRegister(interface::Register::CNF1, BitRate_125kBPS_20MHz.CNF1);
     _io.writeRegister(interface::Register::CNF2, BitRate_125kBPS_20MHz.CNF2);

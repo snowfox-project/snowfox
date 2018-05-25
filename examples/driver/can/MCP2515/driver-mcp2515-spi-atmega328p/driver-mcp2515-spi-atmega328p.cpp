@@ -38,8 +38,7 @@
 #include <spectre/driver/can/interface/CanFrameBuffer.h>
 
 #include <spectre/driver/can/MCP2515/MCP2515_IoSpi.h>
-#include <spectre/driver/can/MCP2515/MCP2515_Control.h>
-#include <spectre/driver/can/MCP2515/MCP2515_CanController.h>
+#include <spectre/driver/can/MCP2515/MCP2515_CanConfiguration.h>
 #include <spectre/driver/can/MCP2515/MCP2515_InterruptControl.h>
 
 #include <spectre/driver/can/MCP2515/events/MCP2515_EventCallback.h>
@@ -109,10 +108,9 @@ int main()
 
   /* DRIVER ***************************************************************************/
 
-  can::MCP2515::MCP2515_IoSpi                 mcp2515_io_spi        (spi_master, mcp2515_cs);
-  can::MCP2515::MCP2515_Control               mcp2515_control       (mcp2515_io_spi);
-  can::MCP2515::MCP2515_InterruptControl      mcp2515_int_ctrl      (mcp2515_io_spi);
-  can::MCP2515::MCP2515_CanController         mcp2515_can_ctrl      (mcp2515_control, F_MCP2515_MHz);
+  can::MCP2515::MCP2515_IoSpi                 mcp2515_io_spi        (spi_master, mcp2515_cs       );
+  can::MCP2515::MCP2515_InterruptControl      mcp2515_int_ctrl      (mcp2515_io_spi               );
+  can::MCP2515::MCP2515_CanConfiguration      mcp2515_can_config    (mcp2515_io_spi, F_MCP2515_MHz);
 
   can::interface::CanFrameBuffer              mcp2515_can_rx_buf    (CAN_RX_BUFFER_SIZE);
   can::interface::CanFrameBuffer              mcp2515_can_tx_buf    (CAN_TX_BUFFER_SIZE);
@@ -126,13 +124,13 @@ int main()
   can::MCP2515::MCP2515_onReceiveBufferFull   mcp2515_on_receive_buffer_0_full  (mcp2515_can_rx_buf);
   can::MCP2515::MCP2515_EventCallback         mcp2515_event_callback            (mcp2515_int_ctrl, mcp2515_on_message_error, mcp2515_on_wakeup, mcp2515_on_transmit_buffer_2_empty, mcp2515_on_transmit_buffer_1_empty, mcp2515_on_transmit_buffer_0_empty, mcp2515_on_receive_buffer_1_full, mcp2515_on_receive_buffer_0_full);
 
-  can::Can                                    can               (mcp2515_can_ctrl, mcp2515_can_tx_buf, mcp2515_can_rx_buf);
+  can::Can                                    can               (mcp2515_can_config, mcp2515_can_tx_buf, mcp2515_can_rx_buf);
 
   mcp2515_eint0.registerExternalInterruptCallback(&mcp2515_event_callback);
 
   /* APPLICATION **********************************************************************/
 
-  uint8_t bitrate = static_cast<uint8_t>(can::MCP2515::interface::CanBitRate::BR_250kBPS);
+  uint8_t bitrate = static_cast<uint8_t>(can::interface::CanBitRate::BR_250kBPS);
 
   can.open();
   can.ioctl(can::IOCTL_SET_BITRATE, static_cast<void *>(&bitrate));
