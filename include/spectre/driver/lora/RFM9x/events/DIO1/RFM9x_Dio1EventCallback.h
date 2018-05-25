@@ -29,7 +29,7 @@
 #include <spectre/driver/lora/RFM9x/interface/events/DIO1/RFM9x_onCadDetectedCallback.h>
 #include <spectre/driver/lora/RFM9x/interface/events/DIO1/RFM9x_onFhssChangeChannelCallback.h>
 
-#include <spectre/driver/lora/RFM9x/interface/control/RFM9x_InterruptControl.h>
+#include <spectre/driver/lora/RFM9x/interface/control/RFM9x_EventControl.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -61,7 +61,7 @@ class RFM9x_Dio1EventCallback :  public hal::interface::ExternalInterruptCallbac
 
 public:
 
-           RFM9x_Dio1EventCallback(interface::RFM9x_InterruptControl            & int_ctrl,
+           RFM9x_Dio1EventCallback(interface::RFM9x_EventControl                & event_ctrl,
                                    interface::RFM9x_onRxTimeoutCallback         & on_rx_timeout_callback,
                                    interface::RFM9x_onFhssChangeChannelCallback & on_fhss_change_channel_callback,
                                    interface::RFM9x_onCadDetectedCallback       & on_cad_detected_callback);
@@ -73,7 +73,7 @@ public:
 
 private:
 
-  interface::RFM9x_InterruptControl            & _int_ctrl;
+  interface::RFM9x_EventControl                & _event_ctrl;
   interface::RFM9x_onRxTimeoutCallback         & _on_rx_timeout_callback;
   interface::RFM9x_onFhssChangeChannelCallback & _on_fhss_change_channel_callback;
   interface::RFM9x_onCadDetectedCallback       & _on_cad_detected_callback;

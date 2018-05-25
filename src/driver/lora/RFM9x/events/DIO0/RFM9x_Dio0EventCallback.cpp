@@ -42,11 +42,11 @@ namespace RFM9x
  * CTOR/DTOR
  **************************************************************************************/
 
-RFM9x_Dio0EventCallback::RFM9x_Dio0EventCallback(interface::RFM9x_InterruptControl  & int_ctrl,
+RFM9x_Dio0EventCallback::RFM9x_Dio0EventCallback(interface::RFM9x_EventControl      & event_ctrl,
                                                  interface::RFM9x_onTxDoneCallback  & on_tx_done_callback,
                                                  interface::RFM9x_onRxDoneCallback  & on_rx_done_callback,
                                                  interface::RFM9x_onCadDoneCallback & on_cad_done_callback)
-: _int_ctrl             (int_ctrl            ),
+: _event_ctrl           (event_ctrl          ),
   _on_tx_done_callback  (on_tx_done_callback ),
   _on_rx_done_callback  (on_rx_done_callback ),
   _on_cad_done_callback (on_cad_done_callback)
@@ -65,25 +65,25 @@ RFM9x_Dio0EventCallback::~RFM9x_Dio0EventCallback()
 
 void RFM9x_Dio0EventCallback::onExternalEventCallback()
 {
-  uint8_t const irq_req_flags = _int_ctrl.getIntReqFlags();
+  uint8_t const event_flags = _event_ctrl.getEventFlags();
 
   /* RX DONE **************************************************************************/
-  if(interface::RFM9x_InterruptControl::isRxDone(irq_req_flags))
+  if(interface::RFM9x_EventControl::isRxDoneEvent(event_flags))
   {
     _on_rx_done_callback.onRxDone();
-    _int_ctrl.clearIntReqFlag(interface::InterruptRequest::RxDone);
+    _event_ctrl.clearEventFlag(interface::EventFlag::RxDone);
   }
   /* TX DONE **************************************************************************/
-  if(interface::RFM9x_InterruptControl::isTxDone(irq_req_flags))
+  if(interface::RFM9x_EventControl::isTxDoneEvent(event_flags))
   {
     _on_tx_done_callback.onTxDone();
-    _int_ctrl.clearIntReqFlag(interface::InterruptRequest::TxDone);
+    _event_ctrl.clearEventFlag(interface::EventFlag::TxDone);
   }
   /* CAD DONE *************************************************************************/
-  if(interface::RFM9x_InterruptControl::isCadDone(irq_req_flags))
+  if(interface::RFM9x_EventControl::isCadDoneEvent(event_flags))
   {
     _on_cad_done_callback.onCadDone();
-    _int_ctrl.clearIntReqFlag(interface::InterruptRequest::CadDone);
+    _event_ctrl.clearEventFlag(interface::EventFlag::CadDone);
   }
 }
 

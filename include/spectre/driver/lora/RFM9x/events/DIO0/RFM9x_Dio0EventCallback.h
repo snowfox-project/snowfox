@@ -29,7 +29,7 @@
 #include <spectre/driver/lora/RFM9x/interface/events/DIO0/RFM9x_onRxDoneCallback.h>
 #include <spectre/driver/lora/RFM9x/interface/events/DIO0/RFM9x_onCadDoneCallback.h>
 
-#include <spectre/driver/lora/RFM9x/interface/control/RFM9x_InterruptControl.h>
+#include <spectre/driver/lora/RFM9x/interface/control/RFM9x_EventControl.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -61,7 +61,7 @@ class RFM9x_Dio0EventCallback :  public hal::interface::ExternalInterruptCallbac
 
 public:
 
-           RFM9x_Dio0EventCallback(interface::RFM9x_InterruptControl  & int_ctrl,
+           RFM9x_Dio0EventCallback(interface::RFM9x_EventControl      & event_ctrl,
                                    interface::RFM9x_onTxDoneCallback  & on_tx_done_callback,
                                    interface::RFM9x_onRxDoneCallback  & on_rx_done_callback,
                                    interface::RFM9x_onCadDoneCallback & on_cad_done_callback);
@@ -73,7 +73,7 @@ public:
 
 private:
 
-  interface::RFM9x_InterruptControl  & _int_ctrl;
+  interface::RFM9x_EventControl      & _event_ctrl;
   interface::RFM9x_onTxDoneCallback  & _on_tx_done_callback;
   interface::RFM9x_onRxDoneCallback  & _on_rx_done_callback;
   interface::RFM9x_onCadDoneCallback & _on_cad_done_callback;

@@ -80,7 +80,7 @@ interface::OperatingMode RFM9x_Control::getOperatingMode()
   return static_cast<interface::OperatingMode>(reg_op_mode_content);
 }
 
-uint8_t RFM9x_Control::getIntReqFlags()
+uint8_t RFM9x_Control::getEventFlags()
 {
   uint8_t irq_req_flags;
 
@@ -89,12 +89,12 @@ uint8_t RFM9x_Control::getIntReqFlags()
   return irq_req_flags;
 }
 
-void RFM9x_Control::clearIntReqFlag(interface::InterruptRequest const int_req)
+void RFM9x_Control::clearEventFlag(interface::EventFlag const event_flag)
 {
   /* The interrupt request flag can be cleared by writing
    * a '1' to the corresponding bit in the IRQ register.
    */
-  _io.writeRegister(interface::Register::IRQ_FLAGS, static_cast<uint8_t>(int_req));
+  _io.writeRegister(interface::Register::IRQ_FLAGS, static_cast<uint8_t>(event_flag));
 }
 
 void RFM9x_Control::writeToTransmitFifo(uint8_t const * data, uint8_t const num_bytes_to_write)

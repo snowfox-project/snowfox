@@ -42,11 +42,11 @@ namespace RFM9x
  * CTOR/DTOR
  **************************************************************************************/
 
-RFM9x_Dio1EventCallback::RFM9x_Dio1EventCallback(interface::RFM9x_InterruptControl            & int_ctrl,
+RFM9x_Dio1EventCallback::RFM9x_Dio1EventCallback(interface::RFM9x_EventControl                & event_ctrl,
                                                  interface::RFM9x_onRxTimeoutCallback         & on_rx_timeout_callback,
                                                  interface::RFM9x_onFhssChangeChannelCallback & on_fhss_change_channel_callback,
                                                  interface::RFM9x_onCadDetectedCallback       & on_cad_detected_callback)
-: _int_ctrl                       (int_ctrl                       ),
+: _event_ctrl                     (event_ctrl                     ),
   _on_rx_timeout_callback         (on_rx_timeout_callback         ),
   _on_fhss_change_channel_callback(on_fhss_change_channel_callback),
   _on_cad_detected_callback       (on_cad_detected_callback       )
@@ -65,25 +65,25 @@ RFM9x_Dio1EventCallback::~RFM9x_Dio1EventCallback()
 
 void RFM9x_Dio1EventCallback::onExternalEventCallback()
 {
-  uint8_t const irq_req_flags = _int_ctrl.getIntReqFlags();
+  uint8_t const event_flags = _event_ctrl.getEventFlags();
 
   /* RX TIMEOUT ***********************************************************************/
-  if(interface::RFM9x_InterruptControl::isRxTimeout(irq_req_flags))
+  if(interface::RFM9x_EventControl::isRxTimeoutEvent(event_flags))
   {
     _on_rx_timeout_callback.onRxTimeout();
-    _int_ctrl.clearIntReqFlag(interface::InterruptRequest::RxTimeout);
+    _event_ctrl.clearEventFlag(interface::EventFlag::RxTimeout);
   }
   /* FHSS CHANGE CHANNEL **************************************************************/
-  if(interface::RFM9x_InterruptControl::isFhssChangeChannel(irq_req_flags))
+  if(interface::RFM9x_EventControl::isFhssChangeChannelEvent(event_flags))
   {
     _on_fhss_change_channel_callback.onFhssChangeChannel();
-    _int_ctrl.clearIntReqFlag(interface::InterruptRequest::FhssChangeChannel);
+    _event_ctrl.clearEventFlag(interface::EventFlag::FhssChangeChannel);
   }
   /* CAD DETECTED *********************************************************************/
-  if(interface::RFM9x_InterruptControl::isCadDetected(irq_req_flags))
+  if(interface::RFM9x_EventControl::isCadDetectedEvent(event_flags))
   {
     _on_cad_detected_callback.onCadDetected();
-    _int_ctrl.clearIntReqFlag(interface::InterruptRequest::CadDetected);
+    _event_ctrl.clearEventFlag(interface::EventFlag::CadDetected);
   }
 }
 

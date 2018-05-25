@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/interface/control/RFM9x_InterruptControl.h>
+#include <spectre/driver/lora/RFM9x/interface/control/RFM9x_EventControl.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -45,44 +45,44 @@ namespace interface
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool RFM9x_InterruptControl::isRxTimeout(uint8_t const irq_req_flags)
+bool RFM9x_EventControl::isRxTimeoutEvent(uint8_t const event_flags)
 {
-  return (irq_req_flags & RFM9x_REG_IRQ_FLAGS_RX_TIMEOUT) == RFM9x_REG_IRQ_FLAGS_RX_TIMEOUT;
+  return (event_flags & RFM9x_REG_IRQ_FLAGS_RX_TIMEOUT) == RFM9x_REG_IRQ_FLAGS_RX_TIMEOUT;
 }
 
-bool RFM9x_InterruptControl::isRxDone(uint8_t const irq_req_flags)
+bool RFM9x_EventControl::isRxDoneEvent(uint8_t const event_flags)
 {
-  return (irq_req_flags & RFM9x_REG_IRQ_FLAGS_RX_DONE) == RFM9x_REG_IRQ_FLAGS_RX_DONE;
+  return (event_flags & RFM9x_REG_IRQ_FLAGS_RX_DONE) == RFM9x_REG_IRQ_FLAGS_RX_DONE;
 }
 
-bool RFM9x_InterruptControl::isPayloadCrcError(uint8_t const irq_req_flags)
+bool RFM9x_EventControl::isPayloadCrcErrorEvent(uint8_t const event_flags)
 {
-  return (irq_req_flags & RFM9x_REG_IRQ_FLAGS_PAYLOAD_CRC_ERROR) == RFM9x_REG_IRQ_FLAGS_PAYLOAD_CRC_ERROR;
+  return (event_flags & RFM9x_REG_IRQ_FLAGS_PAYLOAD_CRC_ERROR) == RFM9x_REG_IRQ_FLAGS_PAYLOAD_CRC_ERROR;
 }
 
-bool RFM9x_InterruptControl::isValidHeader(uint8_t const irq_req_flags)
+bool RFM9x_EventControl::isValidHeaderEvent(uint8_t const event_flags)
 {
-  return (irq_req_flags & RFM9x_REG_IRQ_FLAGS_VALID_HEADER) == RFM9x_REG_IRQ_FLAGS_VALID_HEADER;
+  return (event_flags & RFM9x_REG_IRQ_FLAGS_VALID_HEADER) == RFM9x_REG_IRQ_FLAGS_VALID_HEADER;
 }
 
-bool RFM9x_InterruptControl::isTxDone(uint8_t const irq_req_flags)
+bool RFM9x_EventControl::isTxDoneEvent(uint8_t const event_flags)
 {
-  return (irq_req_flags & RFM9x_REG_IRQ_FLAGS_TX_DONE) == RFM9x_REG_IRQ_FLAGS_TX_DONE;
+  return (event_flags & RFM9x_REG_IRQ_FLAGS_TX_DONE) == RFM9x_REG_IRQ_FLAGS_TX_DONE;
 }
 
-bool RFM9x_InterruptControl::isCadDone(uint8_t const irq_req_flags)
+bool RFM9x_EventControl::isCadDoneEvent(uint8_t const event_flags)
 {
-  return (irq_req_flags & RFM9x_REG_IRQ_FLAGS_CAD_DONE) == RFM9x_REG_IRQ_FLAGS_CAD_DONE;
+  return (event_flags & RFM9x_REG_IRQ_FLAGS_CAD_DONE) == RFM9x_REG_IRQ_FLAGS_CAD_DONE;
 }
 
-bool RFM9x_InterruptControl::isFhssChangeChannel(uint8_t const irq_req_flags)
+bool RFM9x_EventControl::isFhssChangeChannelEvent(uint8_t const event_flags)
 {
-  return (irq_req_flags & RFM9x_REG_IRQ_FLAGS_FHSS_CHANGE_CHANNEL) == RFM9x_REG_IRQ_FLAGS_FHSS_CHANGE_CHANNEL;
+  return (event_flags & RFM9x_REG_IRQ_FLAGS_FHSS_CHANGE_CHANNEL) == RFM9x_REG_IRQ_FLAGS_FHSS_CHANGE_CHANNEL;
 }
 
-bool RFM9x_InterruptControl::isCadDetected(uint8_t const irq_req_flags)
+bool RFM9x_EventControl::isCadDetectedEvent(uint8_t const event_flags)
 {
-  return (irq_req_flags & RFM9x_REG_IRQ_FLAGS_CAD_DETECTED) == RFM9x_REG_IRQ_FLAGS_CAD_DETECTED;
+  return (event_flags & RFM9x_REG_IRQ_FLAGS_CAD_DETECTED) == RFM9x_REG_IRQ_FLAGS_CAD_DETECTED;
 }
 
 /**************************************************************************************

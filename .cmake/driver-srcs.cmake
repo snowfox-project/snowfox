@@ -87,7 +87,7 @@ if(${DRIVER_LORA_RFM9x} STREQUAL "yes")
     ${DRIVER_LORA_SRC_PATH}/RFM9x/events/DIO1/RFM9x_onFhssChangeChannelCallback.cpp
     ${DRIVER_LORA_SRC_PATH}/RFM9x/events/DIO1/RFM9x_onRxTimeoutCallback.cpp
     
-    ${DRIVER_LORA_SRC_PATH}/RFM9x/interface/RFM9x_InterruptControl.cpp
+    ${DRIVER_LORA_SRC_PATH}/RFM9x/interface/RFM9x_EventControl.cpp
     
     ${DRIVER_LORA_SRC_PATH}/RFM9x/RFM9x_Configuration.cpp
     ${DRIVER_LORA_SRC_PATH}/RFM9x/RFM9x_Control.cpp

@@ -50,7 +50,7 @@ namespace interface
  * TYPEDEFS
  **************************************************************************************/
 
-enum class InterruptRequest : uint8_t
+enum class EventFlag : uint8_t
 {
   RxTimeout         = RFM9x_REG_IRQ_FLAGS_RX_TIMEOUT,
   RxDone            = RFM9x_REG_IRQ_FLAGS_RX_DONE,
@@ -66,27 +66,27 @@ enum class InterruptRequest : uint8_t
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_InterruptControl
+class RFM9x_EventControl
 {
 
 public:
 
-           RFM9x_InterruptControl() { }
-  virtual ~RFM9x_InterruptControl() { }
+           RFM9x_EventControl() { }
+  virtual ~RFM9x_EventControl() { }
 
 
-  virtual uint8_t getIntReqFlags (                              ) = 0;
-  virtual void    clearIntReqFlag(InterruptRequest const int_req) = 0;
+  virtual uint8_t getEventFlags (                          ) = 0;
+  virtual void    clearEventFlag(EventFlag const event_flag) = 0;
 
 
-  static  bool isRxTimeout         (uint8_t const irq_req_flags);
-  static  bool isRxDone            (uint8_t const irq_req_flags);
-  static  bool isPayloadCrcError   (uint8_t const irq_req_flags);
-  static  bool isValidHeader       (uint8_t const irq_req_flags);
-  static  bool isTxDone            (uint8_t const irq_req_flags);
-  static  bool isCadDone           (uint8_t const irq_req_flags);
-  static  bool isFhssChangeChannel (uint8_t const irq_req_flags);
-  static  bool isCadDetected       (uint8_t const irq_req_flags);
+  static  bool isRxTimeoutEvent         (uint8_t const event_flags);
+  static  bool isRxDoneEvent            (uint8_t const event_flags);
+  static  bool isPayloadCrcErrorEvent   (uint8_t const event_flags);
+  static  bool isValidHeaderEvent       (uint8_t const event_flags);
+  static  bool isTxDoneEvent            (uint8_t const event_flags);
+  static  bool isCadDoneEvent           (uint8_t const event_flags);
+  static  bool isFhssChangeChannelEvent (uint8_t const event_flags);
+  static  bool isCadDetectedEvent       (uint8_t const event_flags);
 
 };
 

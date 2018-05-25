@@ -59,8 +59,8 @@ public:
   virtual void                     setOperatingMode   (interface::OperatingMode    const op_mode            ) override;
   virtual interface::OperatingMode getOperatingMode   (                                                     ) override;
 
-  virtual uint8_t                  getIntReqFlags     (                                                     ) override;
-  virtual void                     clearIntReqFlag    (interface::InterruptRequest const int_req            ) override;
+  virtual uint8_t                  getEventFlags      (                                                     ) override;
+  virtual void                     clearEventFlag     (interface::EventFlag        const   event_flag       ) override;
 
   virtual void                    writeToTransmitFifo(uint8_t const * data, uint8_t const num_bytes_to_write) override;
   virtual uint8_t                 readFromReceiveFifo(uint8_t       * data, uint8_t const num_bytes_to_read ) override;
