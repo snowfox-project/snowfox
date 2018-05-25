@@ -12,6 +12,10 @@ Spectre consists of an Real Time Operating System + an Hardware Abstraction Laye
 
 As Martin Fowler states so eloquently in his book *Refactoring: Improving the Design of Existing Code*: **“Any fool can write code that a computer can understand. Good programmers write code that humans can understand.”** While many will nod their head in agreement billions lines of code (both open and closed source) prove the exact opposite. Especially embedded code is prone to use mystic C and assembly constructs and after the passage of a couple of months their purpose eludes even their creator. This project attempts to do things differently by putting readability / maintainability / extensibility first while leveraging the powerful concept of Continous Integration with automated unit / regression / integration tests.
 
+## RTOS
+
+The current state of development is a "Run-To-Completion" superloop ;)
+
 ## Hardware Abstraction Layers
 | MCU                          | MCU_ARCH              | MCU_TYPE          |
 |:----------------------------:|:---------------------:|:-----------------:|
@@ -43,6 +47,7 @@ As Martin Fowler states so eloquently in his book *Refactoring: Improving the De
 
 #### [/driver/lora](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/lora)
 * **RFM9x** (HopeRF RFM95/96/97/98 Low Power Long Range Transceiver Module)
+[![Examples](https://github.com/lxrobotics/spectre/blob/master/.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](https://github.com/lxrobotics/spectre/tree/master/examples/driver/lora)
 
 #### [/driver/memory](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/memory)
 * **AT45DBx** (SPI Data Flash)
@@ -73,6 +78,10 @@ As Martin Fowler states so eloquently in his book *Refactoring: Improving the De
 
 #### [/driver/stepper](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/stepper)
 * **TCM26x** (Trinamic TCM26x configurable stepper driver)
+
+## COMSTACKS
+
+CANOpen will be included as the first communication stack.
 
 ## Getting started
 ### Install toolchain
