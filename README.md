@@ -10,7 +10,7 @@ Spectre consists of an Real Time Operating System + an Hardware Abstraction Laye
 
 ### Why ?
 
-In his book *Refactoring: Improving the Design of Existing Code* Martin Fowler quite frankly states that *“Any fool can write code that a computer can understand. Good programmers write code that humans can understand.”* **This project aims to do just that.** You are kindly invited to browse the code and form your own opinion about how well the code matches the requirements for readability / maintainability / extensibility.
+In his book "Refactoring: Improving the Design of Existing Code" Martin Fowler quite frankly states that *“Any fool can write code that a computer can understand. Good programmers write code that humans can understand.”* **This project aims to do just that.** You are kindly invited to browse the code and form your own opinion about how well the code matches the requirements for readability / maintainability / extensibility.
 
 ## RTOS
 
