@@ -35,6 +35,8 @@ namespace container
 
 template <class T>
 List<T>::List()
+: _head(0),
+  _tail(0)
 {
 
 }
@@ -48,6 +50,30 @@ List<T>::~List()
 /**************************************************************************************
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
+
+template <class T>
+void List<T>::push_front(T const & node)
+{
+
+}
+
+template <class T>
+void List<T>::push_back (T const & node)
+{
+
+}
+
+template <class T>
+T * List<T>::begin()
+{
+
+}
+
+template <class T>
+T *  List<T>::end()
+{
+
+}
 
 /**************************************************************************************
  * PRIVATE MEMBER FUNCTIONS

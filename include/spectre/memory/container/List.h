@@ -52,7 +52,24 @@ public:
    List();
   ~List();
 
+
+  void push_front(T const & node);
+  void push_back (T const & node);
+  T *  begin     (              );
+  T *  end       (              );
+
+
 private:
+
+  struct ListNode
+  {
+    T          data;
+    ListNode * next,
+             * prev;
+  };
+
+  ListNode * _head,
+           * _tail;
 
 };
 
