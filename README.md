@@ -79,7 +79,7 @@ Work in progress ...
 #### [/driver/stepper](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/stepper)
 * **TCM26x** (Trinamic TCM26x configurable stepper driver)
 
-## COMSTACKS
+## Communication Stacks
 
 * **CANOpen** ( Work in progress ... )
 
