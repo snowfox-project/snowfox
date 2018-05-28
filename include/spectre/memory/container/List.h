@@ -53,19 +53,20 @@ public:
   ~List();
 
 
-  void push_front(T const & node);
-  void push_back (T const & node);
-  T *  begin     (              );
-  T *  end       (              );
-
+  void push_front(T const & data);
+  void push_back (T const & data);
 
 private:
 
-  struct ListNode
+  class ListNode
   {
-    T          data;
-    ListNode * next,
-             * prev;
+  public:
+
+    ListNode(T const & data, ListNode * next, ListNode * prev) : _data(data), _next(next), _prev(prev) { }
+
+    T          _data;
+    ListNode * _next,
+             * _prev;
   };
 
   ListNode * _head,
