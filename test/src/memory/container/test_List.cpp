@@ -45,6 +45,23 @@ namespace test
 SCENARIO(" ... description of the scenario ...", "[memory::container::List]")
 {
   List<uint8_t> list;
+
+  THEN("list.begin() should return 0")
+  {
+    REQUIRE(list.begin() == 0);
+  }
+  THEN("list.end() should return 0")
+  {
+    REQUIRE(list.end() == 0);
+  }
+  THEN("next(list.begin()) should return 0")
+  {
+    REQUIRE(next(list.begin()) == 0);
+  }
+  THEN("prev(list.begin()) should return 0")
+  {
+    REQUIRE(prev(list.begin()) == 0);
+  }
 }
 
 /**************************************************************************************

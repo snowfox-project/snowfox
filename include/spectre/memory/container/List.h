@@ -52,8 +52,11 @@ public:
   ~List();
 
 
-  void push_front(T const & data);
-  void push_back (T const & data);
+  void          push_front(T const & data);
+  void          push_back (T const & data);
+
+  ListNode<T> * begin     (              );
+  ListNode<T> * end       (              );
 
 private:
 
@@ -61,6 +64,16 @@ private:
               * _tail;
 
 };
+
+/**************************************************************************************
+ * PROTOTYPES
+ **************************************************************************************/
+
+template <typename T>
+ListNode<T> * next(ListNode<T> * node);
+
+template <typename T>
+ListNode<T> * prev(ListNode<T> * node);
 
 /**************************************************************************************
  * NAMESPACE

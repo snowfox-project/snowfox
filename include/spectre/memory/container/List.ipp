@@ -73,9 +73,35 @@ void List<T>::push_back (T const & data)
 
 }
 
+template <class T>
+ListNode<T> * List<T>::begin()
+{
+  return _head;
+}
+
+template <class T>
+ListNode<T> * List<T>::end()
+{
+  return _tail;
+}
+
 /**************************************************************************************
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
+
+template <typename T>
+ListNode<T> * next(ListNode<T> * node)
+{
+  if  (node) return node->_next;
+  else	     return 0;
+}
+
+template <typename T>
+ListNode<T> * prev(ListNode<T> * node)
+{
+  if  (node) return node->_prev;
+  else	     return 0;
+}
 
 /**************************************************************************************
  * NAMESPACE
