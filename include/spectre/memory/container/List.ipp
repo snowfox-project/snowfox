@@ -16,17 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_OS_EVENTGROUP_H_
-#define INCLUDE_SPECTRE_OS_EVENTGROUP_H_
-
-/**************************************************************************************
- * INCLUDES
- **************************************************************************************/
-
-#include <spectre/os/interface/EventConsumer.h>
-
-#include <spectre/memory/container/List.h>
-
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -34,34 +23,42 @@
 namespace spectre
 {
 
-namespace os
+namespace memory
+{
+
+namespace container
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class EventGroup
+template <class T>
+List<T>::List()
 {
 
-public:
+}
 
-   EventGroup();
-  ~EventGroup();
+template <class T>
+List<T>::~List()
+{
 
+}
 
-private:
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
-  memory::container::List<interface::EventConsumer> _event_list;
-
-};
+/**************************************************************************************
+ * PRIVATE MEMBER FUNCTIONS
+ **************************************************************************************/
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
+} /* container*/
+
+} /* memory */
+
 } /* spectre */
-
-} /* os */
-
-#endif /* INCLUDE_SPECTRE_OS_EVENTGROUP_H_ */

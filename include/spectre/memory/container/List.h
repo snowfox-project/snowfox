@@ -16,16 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_OS_EVENTGROUP_H_
-#define INCLUDE_SPECTRE_OS_EVENTGROUP_H_
+#ifndef INCLUDE_SPECTRE_MEMORY_CONTAINER_LIST_H_
+#define INCLUDE_SPECTRE_MEMORY_CONTAINER_LIST_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/os/interface/EventConsumer.h>
-
-#include <spectre/memory/container/List.h>
+#include <stdint.h>
+#include <stdbool.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -34,25 +33,26 @@
 namespace spectre
 {
 
-namespace os
+namespace memory
+{
+
+namespace container
 {
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class EventGroup
+template <class T>
+class List
 {
 
 public:
 
-   EventGroup();
-  ~EventGroup();
-
+   List();
+  ~List();
 
 private:
-
-  memory::container::List<interface::EventConsumer> _event_list;
 
 };
 
@@ -60,8 +60,16 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
+} /* container*/
+
+} /* memory */
+
 } /* spectre */
 
-} /* os */
+/**************************************************************************************
+ * TEMPLATE CODE IMPLEMENTATION
+ **************************************************************************************/
 
-#endif /* INCLUDE_SPECTRE_OS_EVENTGROUP_H_ */
+#include "List.ipp"
+
+#endif /* INCLUDE_SPECTRE_MEMORY_CONTAINER_LIST_H_ */
