@@ -56,13 +56,13 @@ void List<T>::push_front(T const & data)
 {
   if(_head == 0)
   {
-    ListNode * node = new ListNode(data, 0, 0);
+    ListNode<T> * node = new ListNode<T>(data, 0, 0);
     _head = node;
     _tail = node;
   }
   else
   {
-    ListNode * node = new ListNode(data, _head, 0);
+    ListNode<T> * node = new ListNode<T>(data, _head, 0);
     _head = node;
   }
 }

@@ -16,15 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_MEMORY_CONTAINER_LIST_H_
-#define INCLUDE_SPECTRE_MEMORY_CONTAINER_LIST_H_
-
-/**************************************************************************************
- * INCLUDES
- **************************************************************************************/
-
-#include <spectre/memory/container/ListNode.h>
-
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -39,28 +30,17 @@ namespace container
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
 template <class T>
-class List
+ListNode<T>::ListNode(T const & data, ListNode * next, ListNode * prev)
+: _data(data),
+  _next(next),
+  _prev(prev)
 {
 
-public:
-
-   List();
-  ~List();
-
-
-  void push_front(T const & data);
-  void push_back (T const & data);
-
-private:
-
-  ListNode<T> * _head,
-              * _tail;
-
-};
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -71,11 +51,3 @@ private:
 } /* memory */
 
 } /* spectre */
-
-/**************************************************************************************
- * TEMPLATE CODE IMPLEMENTATION
- **************************************************************************************/
-
-#include "List.ipp"
-
-#endif /* INCLUDE_SPECTRE_MEMORY_CONTAINER_LIST_H_ */

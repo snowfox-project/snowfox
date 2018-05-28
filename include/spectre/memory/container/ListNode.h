@@ -16,14 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_MEMORY_CONTAINER_LIST_H_
-#define INCLUDE_SPECTRE_MEMORY_CONTAINER_LIST_H_
-
-/**************************************************************************************
- * INCLUDES
- **************************************************************************************/
-
-#include <spectre/memory/container/ListNode.h>
+#ifndef INCLUDE_SPECTRE_MEMORY_CONTAINER_LISTNODE_H_
+#define INCLUDE_SPECTRE_MEMORY_CONTAINER_LISTNODE_H_
 
 /**************************************************************************************
  * NAMESPACE
@@ -43,23 +37,17 @@ namespace container
  **************************************************************************************/
 
 template <class T>
-class List
+class ListNode
 {
 
 public:
 
-   List();
-  ~List();
+  ListNode(T const & data, ListNode * next, ListNode * prev);
 
 
-  void push_front(T const & data);
-  void push_back (T const & data);
-
-private:
-
-  ListNode<T> * _head,
-              * _tail;
-
+  T          _data;
+  ListNode * _next,
+           * _prev;
 };
 
 /**************************************************************************************
@@ -76,6 +64,6 @@ private:
  * TEMPLATE CODE IMPLEMENTATION
  **************************************************************************************/
 
-#include "List.ipp"
+#include "ListNode.ipp"
 
-#endif /* INCLUDE_SPECTRE_MEMORY_CONTAINER_LIST_H_ */
+#endif /* INCLUDE_SPECTRE_MEMORY_CONTAINER_LISTNODE_H_ */
