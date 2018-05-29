@@ -42,25 +42,89 @@ namespace test
 
 /**************************************************************************************/
 
-SCENARIO(" ... description of the scenario ...", "[memory::container::List]")
+SCENARIO("A List container is constructed", "[memory::container::List]")
 {
   List<uint8_t> list;
 
-  THEN("list.begin() should return 0")
+  THEN("list.begin() should return 0") { REQUIRE(list.begin() == 0); }
+  THEN("list.end() should return 0"  ) { REQUIRE(list.end  () == 0); }
+}
+
+/**************************************************************************************/
+
+SCENARIO("A ListNode is inserted via 'push_front'", "[memory::container::List]")
+{
+  List<uint8_t> list;
+
+  WHEN("the list is empty")
   {
-    REQUIRE(list.begin() == 0);
+    list.push_front(1);
+
+    ListNode<uint8_t> * ptr_inserted_node = list.begin();
+
+    REQUIRE(ptr_inserted_node->data() == 1);
+
+    THEN("list.begin() should point to the inserted node"      ) { REQUIRE(list.begin()              == ptr_inserted_node); }
+    THEN("list.end() should point to the inserted node"        ) { REQUIRE(list.end()                == ptr_inserted_node); }
+    THEN("The inserted node's 'prev' pointer should point to 0") { REQUIRE(ptr_inserted_node->prev() == 0                ); }
+    THEN("The inserted node's 'next' pointer should point to 0") { REQUIRE(ptr_inserted_node->next() == 0                ); }
   }
-  THEN("list.end() should return 0")
+
+  WHEN("there is one element in the list already")
   {
-    REQUIRE(list.end() == 0);
+    list.push_front(1);
+    ListNode<uint8_t> * ptr_first_inserted_node = list.begin();
+    list.push_front(2);
+    ListNode<uint8_t> * ptr_last_inserted_node  = list.begin();
+
+    REQUIRE(ptr_first_inserted_node->data() == 1);
+    REQUIRE(ptr_last_inserted_node->data () == 2);
+
+    THEN("list.begin() should point to the last inserted element"                         ) { REQUIRE(list.begin()                    == ptr_last_inserted_node ); }
+    THEN("list.end() should point to the first inserted element"                          ) { REQUIRE(list.end()                      == ptr_first_inserted_node); }
+    THEN("The first inserted node's 'prev' pointer should point to the last inserted node") { REQUIRE(ptr_first_inserted_node->prev() == ptr_last_inserted_node ); }
+    THEN("The first inserted node's 'next' pointer should point to 0"                     ) { REQUIRE(ptr_first_inserted_node->next() == 0                      ); }
+    THEN("The last inserted node's 'prev' pointer should point to 0"                      ) { REQUIRE(ptr_last_inserted_node->prev()  == 0                      ); }
+    THEN("The last inserted node's 'next' pointer should point to the first inserted node") { REQUIRE(ptr_last_inserted_node->next()  == ptr_first_inserted_node); }
   }
-  THEN("next(list.begin()) should return 0")
+}
+
+/**************************************************************************************/
+
+SCENARIO("A ListNode is inserted via 'push_back'", "[memory::container::List]")
+{
+  List<uint8_t> list;
+
+  WHEN("the list is empty")
   {
-    REQUIRE(next(list.begin()) == 0);
+    list.push_back(1);
+
+    ListNode<uint8_t> * ptr_inserted_node = list.begin();
+
+    REQUIRE(ptr_inserted_node->data() == 1);
+
+    THEN("list.begin() should point to the inserted node"      ) { REQUIRE(list.begin()              == ptr_inserted_node); }
+    THEN("list.end() should point to the inserted node"        ) { REQUIRE(list.end()                == ptr_inserted_node); }
+    THEN("The inserted node's 'prev' pointer should point to 0") { REQUIRE(ptr_inserted_node->prev() == 0                ); }
+    THEN("The inserted node's 'next' pointer should point to 0") { REQUIRE(ptr_inserted_node->next() == 0                ); }
   }
-  THEN("prev(list.begin()) should return 0")
+
+  WHEN("there is one element in the list already")
   {
-    REQUIRE(prev(list.begin()) == 0);
+    list.push_back(1);
+    ListNode<uint8_t> * ptr_first_inserted_node = list.end();
+    list.push_back(2);
+    ListNode<uint8_t> * ptr_last_inserted_node  = list.end();
+
+    REQUIRE(ptr_first_inserted_node->data() == 1);
+    REQUIRE(ptr_last_inserted_node->data () == 2);
+
+    THEN("list.begin() should point to the first inserted element"                        ) { REQUIRE(list.begin()                    == ptr_first_inserted_node ); }
+    THEN("list.end() should point to the last inserted element"                           ) { REQUIRE(list.end()                      == ptr_last_inserted_node  ); }
+    THEN("The first inserted node's 'prev' pointer should point to 0"                     ) { REQUIRE(ptr_first_inserted_node->prev() == 0                       ); }
+    THEN("The first inserted node's 'next' pointer should point to the last inserted node") { REQUIRE(ptr_first_inserted_node->next() == ptr_last_inserted_node  ); }
+    THEN("The last inserted node's 'prev' pointer should point to the first inserted node") { REQUIRE(ptr_last_inserted_node->prev()  == ptr_first_inserted_node ); }
+    THEN("The last inserted node's 'next' pointer should point to 0"                      ) { REQUIRE(ptr_last_inserted_node->next()  == 0                       ); }
   }
 }
 

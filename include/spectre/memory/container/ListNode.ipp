@@ -34,10 +34,10 @@ namespace container
  **************************************************************************************/
 
 template <class T>
-ListNode<T>::ListNode(T const & data, ListNode * next, ListNode * prev)
+ListNode<T>::ListNode(T const & data, ListNode<T> * prev, ListNode<T> * next)
 : _data(data),
-  _next(next),
-  _prev(prev)
+  _prev(prev),
+  _next(next)
 {
 
 }

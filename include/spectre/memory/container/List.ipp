@@ -62,15 +62,27 @@ void List<T>::push_front(T const & data)
   }
   else
   {
-    ListNode<T> * node = new ListNode<T>(data, _head, 0);
+    ListNode<T> * node = new ListNode<T>(data, 0, _head);
+    _head->setPrev(node);
     _head = node;
   }
 }
 
 template <class T>
-void List<T>::push_back (T const & data)
+void List<T>::push_back(T const & data)
 {
-
+  if(_tail == 0)
+  {
+    ListNode<T> * node = new ListNode<T>(data, 0, 0);
+    _head = node;
+    _tail = node;
+  }
+  else
+  {
+    ListNode<T> * node = new ListNode<T>(data, _tail, 0);
+    _tail->setNext(node);
+    _tail = node;
+  }
 }
 
 template <class T>
@@ -83,24 +95,6 @@ template <class T>
 ListNode<T> * List<T>::end()
 {
   return _tail;
-}
-
-/**************************************************************************************
- * PRIVATE MEMBER FUNCTIONS
- **************************************************************************************/
-
-template <typename T>
-ListNode<T> * next(ListNode<T> * node)
-{
-  if  (node) return node->_next;
-  else	     return 0;
-}
-
-template <typename T>
-ListNode<T> * prev(ListNode<T> * node)
-{
-  if  (node) return node->_prev;
-  else	     return 0;
 }
 
 /**************************************************************************************

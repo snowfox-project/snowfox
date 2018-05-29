@@ -52,7 +52,7 @@ public:
 
 private:
 
-  memory::container::List<interface::EventConsumer> _event_list;
+  memory::container::List<interface::EventConsumer &> _event_list;
 
 };
 

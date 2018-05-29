@@ -42,12 +42,19 @@ class ListNode
 
 public:
 
-  ListNode(T const & data, ListNode * next, ListNode * prev);
+  ListNode(T const & data, ListNode<T> * next, ListNode<T> * prev);
 
+  inline T           & data   (                  ) { return _data; }
+  inline ListNode<T> * next   (                  ) { return _next; }
+  inline ListNode<T> * prev   (                  ) { return _prev; }
+  inline void          setNext(ListNode<T> * next) { _next = next; }
+  inline void          setPrev(ListNode<T> * prev) { _prev = prev; }
 
-  T          _data;
-  ListNode * _next,
-           * _prev;
+private:
+
+  T             _data;
+  ListNode<T> * _prev,
+              * _next;
 };
 
 /**************************************************************************************
