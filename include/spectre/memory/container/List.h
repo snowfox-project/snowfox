@@ -52,11 +52,12 @@ public:
   ~List();
 
 
-  void          push_front(T const & data);
-  void          push_back (T const & data);
+  void          push_front(T           const & data);
+  void          push_back (T           const & data);
+  void          erase     (ListNode<T>       * node);
 
-  ListNode<T> * begin     (              );
-  ListNode<T> * end       (              );
+  inline ListNode<T> * begin() { return _head; }
+  inline ListNode<T> * end  () { return _tail; }
 
 private:
 

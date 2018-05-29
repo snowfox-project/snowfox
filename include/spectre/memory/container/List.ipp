@@ -86,15 +86,19 @@ void List<T>::push_back(T const & data)
 }
 
 template <class T>
-ListNode<T> * List<T>::begin()
+void List<T>::erase(ListNode<T> * node)
 {
-  return _head;
-}
-
-template <class T>
-ListNode<T> * List<T>::end()
-{
-  return _tail;
+  if     (node == _head && node == _tail)
+  {
+    delete node;
+    _head = 0;
+    _tail = 0;
+  }
+  else if(node == _head)
+  {
+    _head = node->next();
+    /* TODO there are some complicated cases here ... */
+  }
 }
 
 /**************************************************************************************
