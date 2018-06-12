@@ -52,6 +52,16 @@ enum class TxBufferBytePos : uint8_t
   DATA = 5
 };
 
+enum class RxBufferBytePos : uint8_t
+{
+  SIDH = 0,
+  SIDL = 1,
+  EID8 = 2,
+  EID0 = 3,
+  DLC  = 4,
+  DATA = 5
+};
+
 /**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
@@ -208,15 +218,15 @@ void MCP2515_IoSpi::loadRxX(uint8_t const instruction, uint8_t * rx_buf)
 {
   _cs.clr();
                                                         _spi_master.exchange(instruction);
-  rx_buf[static_cast<uint8_t>(TxBufferBytePos::SIDH)] = _spi_master.exchange(0);
-  rx_buf[static_cast<uint8_t>(TxBufferBytePos::SIDL)] = _spi_master.exchange(0);
-  rx_buf[static_cast<uint8_t>(TxBufferBytePos::EID8)] = _spi_master.exchange(0);
-  rx_buf[static_cast<uint8_t>(TxBufferBytePos::EID0)] = _spi_master.exchange(0);
-  rx_buf[static_cast<uint8_t>(TxBufferBytePos::DLC )] = _spi_master.exchange(0);
-  uint8_t const num_data_bytes = rx_buf[static_cast<uint8_t>(TxBufferBytePos::DLC)] & 0x0F;
+  rx_buf[static_cast<uint8_t>(RxBufferBytePos::SIDH)] = _spi_master.exchange(0);
+  rx_buf[static_cast<uint8_t>(RxBufferBytePos::SIDL)] = _spi_master.exchange(0);
+  rx_buf[static_cast<uint8_t>(RxBufferBytePos::EID8)] = _spi_master.exchange(0);
+  rx_buf[static_cast<uint8_t>(RxBufferBytePos::EID0)] = _spi_master.exchange(0);
+  rx_buf[static_cast<uint8_t>(RxBufferBytePos::DLC )] = _spi_master.exchange(0);
+  uint8_t const num_data_bytes = rx_buf[static_cast<uint8_t>(RxBufferBytePos::DLC)] & 0x0F;
   for(uint8_t b = 0; b < num_data_bytes; b++)
   {
-    rx_buf[static_cast<uint8_t>(TxBufferBytePos::DATA) + b] = _spi_master.exchange(0);
+    rx_buf[static_cast<uint8_t>(RxBufferBytePos::DATA) + b] = _spi_master.exchange(0);
   }
   _cs.set();
 }
