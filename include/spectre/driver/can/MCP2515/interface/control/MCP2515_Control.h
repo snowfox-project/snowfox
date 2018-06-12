@@ -24,6 +24,7 @@
  **************************************************************************************/
 
 #include <spectre/driver/can/MCP2515/interface/control/MCP2515_EventControl.h>
+#include <spectre/driver/can/MCP2515/interface/control/MCP2515_ReceiveControl.h>
 #include <spectre/driver/can/MCP2515/interface/control/MCP2515_TransmitControl.h>
 
 /**************************************************************************************
@@ -50,7 +51,8 @@ namespace interface
  **************************************************************************************/
 
 class MCP2515_Control : public MCP2515_EventControl,
-                        public MCP2515_TransmitControl
+                        public MCP2515_TransmitControl,
+                        public MCP2515_ReceiveControl
 {
 
 public:

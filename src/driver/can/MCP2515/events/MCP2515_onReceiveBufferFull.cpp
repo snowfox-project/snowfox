@@ -42,8 +42,9 @@ namespace MCP2515
  * CTOR/DTOR
  **************************************************************************************/
 
-MCP2515_onReceiveBufferFull::MCP2515_onReceiveBufferFull(can::interface::CanFrameBuffer & can_rx_buf)
-: _can_rx_buf(can_rx_buf)
+MCP2515_onReceiveBufferFull::MCP2515_onReceiveBufferFull(interface::MCP2515_Control & ctrl, can::interface::CanFrameBuffer & can_rx_buf)
+: _ctrl      (ctrl      ),
+  _can_rx_buf(can_rx_buf)
 {
 
 }
@@ -57,7 +58,7 @@ MCP2515_onReceiveBufferFull::~MCP2515_onReceiveBufferFull()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void MCP2515_onReceiveBufferFull::onReceiveBufferFull()
+void MCP2515_onReceiveBufferFull::onReceiveBufferFull(interface::ReceiveBufferSelect const rx_buf_sel)
 {
   if(!_can_rx_buf.isFull())
   {

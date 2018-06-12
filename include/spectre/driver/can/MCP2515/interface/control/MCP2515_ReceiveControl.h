@@ -16,18 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_ONRECEIVEBUFFERFULL_H_
-#define INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_ONRECEIVEBUFFERFULL_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_INTERFACE_CONTROL_MCP2515_RECEIVECONTROL_H_
+#define INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_INTERFACE_CONTROL_MCP2515_RECEIVECONTROL_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/can/MCP2515/interface/events/MCP2515_onReceiveBufferFull.h>
-
-#include <spectre/driver/can/interface/CanFrameBuffer.h>
-
-#include <spectre/driver/can/MCP2515/interface/control/MCP2515_Control.h>
+#include <stdint.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -45,33 +41,40 @@ namespace can
 namespace MCP2515
 {
 
+namespace interface
+{
+
+/**************************************************************************************
+ * TYPEDEFS
+ **************************************************************************************/
+
+enum class ReceiveBufferSelect : uint8_t
+{
+  RB_0 = 0,
+  RB_1 = 1
+};
+
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MCP2515_onReceiveBufferFull : public interface::MCP2515_onReceiveBufferFull
+class MCP2515_ReceiveControl
 {
 
 public:
 
-           MCP2515_onReceiveBufferFull(interface::MCP2515_Control     & ctrl,
-                                       can::interface::CanFrameBuffer & can_rx_buf);
-  virtual ~MCP2515_onReceiveBufferFull();
+           MCP2515_ReceiveControl() { }
+  virtual ~MCP2515_ReceiveControl() { }
 
-
-  virtual void onReceiveBufferFull(interface::ReceiveBufferSelect const rx_buf_sel) override;
-
-
-private:
-
-  interface::MCP2515_Control     & _ctrl;
-  can::interface::CanFrameBuffer & _can_rx_buf;
+  /* TODO */
 
 };
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* MCP2515 */
 
@@ -81,4 +84,6 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_ONRECEIVEBUFFERFULL_H_ */
+
+
+#endif /* INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_INTERFACE_CONTROL_MCP2515_RECEIVECONTROL_H_ */

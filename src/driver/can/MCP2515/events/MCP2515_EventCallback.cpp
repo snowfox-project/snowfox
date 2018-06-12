@@ -114,13 +114,13 @@ void MCP2515_EventCallback::onExternalEventCallback()
   /* RECEIVE BUFFER 1 FULL ************************************************************/
   if(interface::MCP2515_EventControl::isRxBuf1FullEvent(event_flags))
   {
-    _on_receive_buffer_1_full.onReceiveBufferFull();
+    _on_receive_buffer_1_full.onReceiveBufferFull(interface::ReceiveBufferSelect::RB_1);
     _event_ctrl.clearEventFlag(interface::EventFlag::RxBuf1Full);
   }
   /* RECEIVE BUFFER 0 FULL ************************************************************/
   if(interface::MCP2515_EventControl::isRxBuf0FullEvent(event_flags))
   {
-    _on_receive_buffer_0_full.onReceiveBufferFull();
+    _on_receive_buffer_0_full.onReceiveBufferFull(interface::ReceiveBufferSelect::RB_0);
     _event_ctrl.clearEventFlag(interface::EventFlag::RxBuf0Full);
   }
 }

@@ -20,6 +20,12 @@
 #define INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_INTERFACE_MCP2515_ONRECEIVEBUFFERFULL_H_
 
 /**************************************************************************************
+ * INCLUDE
+ **************************************************************************************/
+
+#include <spectre/driver/can/MCP2515/interface/control/MCP2515_ReceiveControl.h>
+
+/**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
@@ -51,7 +57,7 @@ public:
   virtual ~MCP2515_onReceiveBufferFull() { }
 
 
-  virtual void onReceiveBufferFull() = 0;
+  virtual void onReceiveBufferFull(ReceiveBufferSelect const rx_buf_sel) = 0;
 
 };
 
