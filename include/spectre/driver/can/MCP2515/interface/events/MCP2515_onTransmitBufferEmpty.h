@@ -20,6 +20,12 @@
 #define INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_INTERFACE_MCP2515_ONTRANSMITBUFFEREMPTY_H_
 
 /**************************************************************************************
+ * INCLUDE
+ **************************************************************************************/
+
+#include <spectre/driver/can/MCP2515/interface/control/MCP2515_TransmitControl.h>
+
+/**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
@@ -51,7 +57,7 @@ public:
   virtual ~MCP2515_onTransmitBufferEmpty() { }
 
 
-  virtual void onTransmitBufferEmpty() = 0;
+  virtual void onTransmitBufferEmpty(TransmitBufferSelect const tx_buf_sel) = 0;
 
 };
 

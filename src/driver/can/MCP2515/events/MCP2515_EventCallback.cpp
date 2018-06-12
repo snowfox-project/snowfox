@@ -96,19 +96,19 @@ void MCP2515_EventCallback::onExternalEventCallback()
   /* TRANSMIT BUFFER 2 EMPTY **********************************************************/
   if(interface::MCP2515_EventControl::isTxBuf2EmptyEvent(event_flags))
   {
-    _on_transmit_buffer_2_empty.onTransmitBufferEmpty();
+    _on_transmit_buffer_2_empty.onTransmitBufferEmpty(interface::TransmitBufferSelect::TB_2);
     _event_ctrl.clearEventFlag(interface::EventFlag::TxBuf2Empty);
   }
   /* TRANSMIT BUFFER 1 EMPTY **********************************************************/
   if(interface::MCP2515_EventControl::isTxBuf1EmptyEvent(event_flags))
   {
-    _on_transmit_buffer_1_empty.onTransmitBufferEmpty();
+    _on_transmit_buffer_1_empty.onTransmitBufferEmpty(interface::TransmitBufferSelect::TB_1);
     _event_ctrl.clearEventFlag(interface::EventFlag::TxBuf1Empty);
   }
   /* TRANSMIT BUFFER 0 EMPTY **********************************************************/
   if(interface::MCP2515_EventControl::isTxBuf0EmptyEvent(event_flags))
   {
-    _on_transmit_buffer_0_empty.onTransmitBufferEmpty();
+    _on_transmit_buffer_0_empty.onTransmitBufferEmpty(interface::TransmitBufferSelect::TB_0);
     _event_ctrl.clearEventFlag(interface::EventFlag::TxBuf0Empty);
   }
   /* RECEIVE BUFFER 1 FULL ************************************************************/

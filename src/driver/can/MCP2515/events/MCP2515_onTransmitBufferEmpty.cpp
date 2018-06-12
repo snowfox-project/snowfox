@@ -60,14 +60,15 @@ MCP2515_onTransmitBufferEmpty::~MCP2515_onTransmitBufferEmpty()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void MCP2515_onTransmitBufferEmpty::onTransmitBufferEmpty()
+void MCP2515_onTransmitBufferEmpty::onTransmitBufferEmpty(interface::TransmitBufferSelect const tx_buf_sel)
 {
   if(!_can_tx_buf.isEmpty())
   {
     hal::interface::CanFrame frame;
     _can_tx_buf.pop(&frame);
 
-    /* TODO */
+    _ctrl.loadTxBuffer(tx_buf_sel, frame);
+    /* TODO Initiate transmission */
   }
 }
 
