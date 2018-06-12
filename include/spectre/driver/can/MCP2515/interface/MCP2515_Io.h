@@ -179,9 +179,9 @@ public:
   virtual void    readRx0 (uint8_t       * rx_buf) = 0; /* rx_buf = {SIDH, SIDL, EID8, EID0, DLC, DATA[0-8 Byte] } */
   virtual void    readRx1 (uint8_t       * rx_buf) = 0;
 
-  virtual void    requestToTrasmitTx0() = 0;
-  virtual void    requestToTrasmitTx1() = 0;
-  virtual void    requestToTrasmitTx2() = 0;
+  virtual void    requestToTransmitTx0() = 0;
+  virtual void    requestToTransmitTx1() = 0;
+  virtual void    requestToTransmitTx2() = 0;
 
   virtual void    readRegister  (Register const reg, uint8_t       * data                    ) = 0;
   virtual void    writeRegister (Register const reg, uint8_t const   data                    ) = 0;

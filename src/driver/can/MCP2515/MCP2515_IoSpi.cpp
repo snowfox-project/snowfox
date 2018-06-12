@@ -128,7 +128,7 @@ void MCP2515_IoSpi::readRx1(uint8_t * rx_buf)
   loadRxX(static_cast<uint8_t>(interface::Instruction::READ_RX1), rx_buf);
 }
 
-void MCP2515_IoSpi::requestToTrasmitTx0()
+void MCP2515_IoSpi::requestToTransmitTx0()
 {
   uint8_t const instruction = static_cast<uint8_t>(interface::Instruction::RTS_TX0);
 
@@ -137,7 +137,7 @@ void MCP2515_IoSpi::requestToTrasmitTx0()
   _cs.set();
 }
 
-void MCP2515_IoSpi::requestToTrasmitTx1()
+void MCP2515_IoSpi::requestToTransmitTx1()
 {
   uint8_t const instruction = static_cast<uint8_t>(interface::Instruction::RTS_TX1);
 
@@ -146,7 +146,7 @@ void MCP2515_IoSpi::requestToTrasmitTx1()
   _cs.set();
 }
 
-void MCP2515_IoSpi::requestToTrasmitTx2()
+void MCP2515_IoSpi::requestToTransmitTx2()
 {
   uint8_t const instruction = static_cast<uint8_t>(interface::Instruction::RTS_TX2);
 
