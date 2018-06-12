@@ -83,15 +83,15 @@ void MCP2515_Control::clearEventFlag(interface::EventFlag const event_flag)
   _io.writeRegister(interface::Register::CANINTF, reg_cantintf_content);
 }
 
-bool MCP2515_Control::isTxPending(interface::TransmitBuffer const tx_buf)
+bool MCP2515_Control::isTxPending(interface::TransmitBufferSelect const tx_buf_sel)
 {
   uint8_t reg_txbnctrl_content = 0;
 
-  switch(tx_buf)
+  switch(tx_buf_sel)
   {
-  case interface::TransmitBuffer::TB_0: _io.readRegister(interface::Register::TXB0CTRL, &reg_txbnctrl_content); break;
-  case interface::TransmitBuffer::TB_1: _io.readRegister(interface::Register::TXB1CTRL, &reg_txbnctrl_content); break;
-  case interface::TransmitBuffer::TB_2: _io.readRegister(interface::Register::TXB2CTRL, &reg_txbnctrl_content); break;
+  case interface::TransmitBufferSelect::TB_0: _io.readRegister(interface::Register::TXB0CTRL, &reg_txbnctrl_content); break;
+  case interface::TransmitBufferSelect::TB_1: _io.readRegister(interface::Register::TXB1CTRL, &reg_txbnctrl_content); break;
+  case interface::TransmitBufferSelect::TB_2: _io.readRegister(interface::Register::TXB2CTRL, &reg_txbnctrl_content); break;
   }
 
   bool const is_tx_pending = (reg_txbnctrl_content & MCP2515_REG_TXBnCTRL_TXREQ_bm) == MCP2515_REG_TXBnCTRL_TXREQ_bm;
@@ -99,7 +99,7 @@ bool MCP2515_Control::isTxPending(interface::TransmitBuffer const tx_buf)
   return is_tx_pending;
 }
 
-void MCP2515_Control::loadTxBuffer(interface::TransmitBuffer const tx_buf, hal::interface::CanFrame const & frame)
+void MCP2515_Control::loadTxBuffer(interface::TransmitBufferSelect const tx_buf_sel, hal::interface::CanFrame const & frame)
 {
   uint8_t sidh = static_cast<uint8_t>(frame.id & 0x000007F8);      /* SID10 - SID3 */
   uint8_t sidl = static_cast<uint8_t>(frame.id & 0x00000007) << 5; /* SID2  - SID0 */
@@ -137,11 +137,11 @@ void MCP2515_Control::loadTxBuffer(interface::TransmitBuffer const tx_buf, hal::
     frame.data[7]
   };
 
-  switch(tx_buf)
+  switch(tx_buf_sel)
   {
-  case interface::TransmitBuffer::TB_0: _io.loadTx0(tx_buf_content); break;
-  case interface::TransmitBuffer::TB_1: _io.loadTx1(tx_buf_content); break;
-  case interface::TransmitBuffer::TB_2: _io.loadTx2(tx_buf_content); break;
+  case interface::TransmitBufferSelect::TB_0: _io.loadTx0(tx_buf_content); break;
+  case interface::TransmitBufferSelect::TB_1: _io.loadTx1(tx_buf_content); break;
+  case interface::TransmitBufferSelect::TB_2: _io.loadTx2(tx_buf_content); break;
   }
 }
 

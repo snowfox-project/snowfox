@@ -118,9 +118,9 @@ int main()
 
   can::MCP2515::MCP2515_onMessageError        mcp2515_on_message_error;
   can::MCP2515::MCP2515_onWakeup              mcp2515_on_wakeup;
-  can::MCP2515::MCP2515_onTransmitBufferEmpty mcp2515_on_transmit_buffer_2_empty(mcp2515_io_spi, mcp2515_can_tx_buf);
-  can::MCP2515::MCP2515_onTransmitBufferEmpty mcp2515_on_transmit_buffer_1_empty(mcp2515_io_spi, mcp2515_can_tx_buf);
-  can::MCP2515::MCP2515_onTransmitBufferEmpty mcp2515_on_transmit_buffer_0_empty(mcp2515_io_spi, mcp2515_can_tx_buf);
+  can::MCP2515::MCP2515_onTransmitBufferEmpty mcp2515_on_transmit_buffer_2_empty(mcp2515_ctrl, mcp2515_can_tx_buf);
+  can::MCP2515::MCP2515_onTransmitBufferEmpty mcp2515_on_transmit_buffer_1_empty(mcp2515_ctrl, mcp2515_can_tx_buf);
+  can::MCP2515::MCP2515_onTransmitBufferEmpty mcp2515_on_transmit_buffer_0_empty(mcp2515_ctrl, mcp2515_can_tx_buf);
   can::MCP2515::MCP2515_onReceiveBufferFull   mcp2515_on_receive_buffer_1_full  (mcp2515_can_rx_buf);
   can::MCP2515::MCP2515_onReceiveBufferFull   mcp2515_on_receive_buffer_0_full  (mcp2515_can_rx_buf);
   can::MCP2515::MCP2515_EventCallback         mcp2515_event_callback            (mcp2515_ctrl, mcp2515_on_message_error, mcp2515_on_wakeup, mcp2515_on_transmit_buffer_2_empty, mcp2515_on_transmit_buffer_1_empty, mcp2515_on_transmit_buffer_0_empty, mcp2515_on_receive_buffer_1_full, mcp2515_on_receive_buffer_0_full);

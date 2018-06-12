@@ -50,7 +50,7 @@ namespace interface
  * TYPEDEFS
  **************************************************************************************/
 
-enum class TransmitBuffer : uint8_t
+enum class TransmitBufferSelect : uint8_t
 {
   TB_0 = 0,
   TB_1 = 1,
@@ -70,8 +70,8 @@ public:
   virtual ~MCP2515_TransmitControl() { }
 
 
-  virtual bool isTxPending  (TransmitBuffer const tx_buf                                        ) = 0;
-  virtual void loadTxBuffer (TransmitBuffer const tx_buf, hal::interface::CanFrame const & frame) = 0;
+  virtual bool isTxPending  (TransmitBufferSelect const tx_buf_sel                                        ) = 0;
+  virtual void loadTxBuffer (TransmitBufferSelect const tx_buf_sel, hal::interface::CanFrame const & frame) = 0;
 
 };
 

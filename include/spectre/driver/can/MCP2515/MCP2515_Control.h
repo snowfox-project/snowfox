@@ -56,12 +56,12 @@ public:
   virtual ~MCP2515_Control();
 
 
-  virtual uint8_t getEventFlags (                                          ) override;
-  virtual void    clearEventFlag(interface::EventFlag      const event_flag) override;
+  virtual uint8_t getEventFlags (                                                ) override;
+  virtual void    clearEventFlag(interface::EventFlag            const event_flag) override;
 
 
-  virtual bool    isTxPending   (interface::TransmitBuffer const tx_buf                                        ) override;
-  virtual void    loadTxBuffer  (interface::TransmitBuffer const tx_buf, hal::interface::CanFrame const & frame) override;
+  virtual bool    isTxPending   (interface::TransmitBufferSelect const tx_buf_sel                                        ) override;
+  virtual void    loadTxBuffer  (interface::TransmitBufferSelect const tx_buf_sel, hal::interface::CanFrame const & frame) override;
 
 
 private:
