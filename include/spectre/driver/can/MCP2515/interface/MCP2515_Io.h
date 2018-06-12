@@ -166,10 +166,17 @@ public:
   virtual void    reset   () = 0;
   virtual uint8_t status  () = 0;
 
-  virtual void    loadTx0 (uint8_t const * tx_buf) = 0; /* tx_buf = {SIDH, SIDL, EID8, EDI0, DLC, DATA[0-8 Byte] } */
+
+  static uint8_t constexpr TX_BUF_MIN_SIZE = 5;
+  static uint8_t constexpr TX_BUF_MAX_SIZE = 5 + 8;
+  static uint8_t constexpr RX_BUF_MIN_SIZE = 5;
+  static uint8_t constexpr RX_BUF_MAX_SIZE = 5 + 8;
+
+
+  virtual void    loadTx0 (uint8_t const * tx_buf) = 0; /* tx_buf = {SIDH, SIDL, EID8, EID0, DLC, DATA[0-8 Byte] } */
   virtual void    loadTx1 (uint8_t const * tx_buf) = 0;
   virtual void    loadTx2 (uint8_t const * tx_buf) = 0;
-  virtual void    readRx0 (uint8_t       * rx_buf) = 0; /* rx_buf = {SIDH, SIDL, EID8, EDI0, DLC, DATA[0-8 Byte] } */
+  virtual void    readRx0 (uint8_t       * rx_buf) = 0; /* rx_buf = {SIDH, SIDL, EID8, EID0, DLC, DATA[0-8 Byte] } */
   virtual void    readRx1 (uint8_t       * rx_buf) = 0;
 
   virtual void    requestToTrasmitTx0() = 0;
