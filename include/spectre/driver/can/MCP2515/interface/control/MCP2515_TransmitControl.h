@@ -16,8 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_INTERFACE_MCP2515_REGISTERBITS_H_
-#define INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_INTERFACE_MCP2515_REGISTERBITS_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_INTERFACE_CONTROL_MCP2515_TRANSMITCONTROL_H_
+#define INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_INTERFACE_CONTROL_MCP2515_TRANSMITCONTROL_H_
+
+/**************************************************************************************
+ * INCLUDE
+ **************************************************************************************/
+
+#include <stdbool.h>
+
+#include <spectre/hal/interface/can/CanFrame.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,27 +47,33 @@ namespace interface
 {
 
 /**************************************************************************************
- * DEFINES
+ * TYPEDEFS
  **************************************************************************************/
 
-/* REG_CANINTF ************************************************************************/
-#define MCP2515_REG_CANINTF_MERRF_bm                        (1<<7)
-#define MCP2515_REG_CANINTF_WAKIF_bm                        (1<<6)
-#define MCP2515_REG_CANINTF_ERRIF_bm                        (1<<5)
-#define MCP2515_REG_CANINTF_TX2IF_bm                        (1<<4)
-#define MCP2515_REG_CANINTF_TX1IF_bm                        (1<<3)
-#define MCP2515_REG_CANINTF_TX0IF_bm                        (1<<2)
-#define MCP2515_REG_CANINTF_RX1IF_bm                        (1<<1)
-#define MCP2515_REG_CANINTF_RX0IF_bm                        (1<<0)
+enum class TransmitBuffer : uint8_t
+{
+  TB_0 = 0,
+  TB_1 = 1,
+  TB_2 = 2
+};
 
-/* REG_TXBnCTRL **********************************************************************/
-#define MCP2515_REG_TXBnCTRL_TXREQ_bm                       (1<<3)
+/**************************************************************************************
+ * CLASS DECLARATION
+ **************************************************************************************/
 
-/* REG_TXBnSIDL **********************************************************************/
-#define MCP2515_REG_TXBnSIDL_EXIDE_bm                       (1<<3)
+class MCP2515_TransmitControl
+{
 
-/* REG_TXBnDLC ***********************************************************************/
-#define MCP2515_REG_TXBnDLC_RTR_bm                          (1<<6)
+public:
+
+           MCP2515_TransmitControl() { }
+  virtual ~MCP2515_TransmitControl() { }
+
+
+  virtual bool isTxPending  (TransmitBuffer const tx_buf                                        ) = 0;
+  virtual void loadTxBuffer (TransmitBuffer const tx_buf, hal::interface::CanFrame const & frame) = 0;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
@@ -75,4 +89,4 @@ namespace interface
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_INTERFACE_MCP2515_REGISTERBITS_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_INTERFACE_CONTROL_MCP2515_TRANSMITCONTROL_H_ */

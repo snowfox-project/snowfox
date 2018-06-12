@@ -27,7 +27,7 @@
 
 #include <spectre/driver/can/interface/CanFrameBuffer.h>
 
-#include <spectre/driver/can/MCP2515/interface/MCP2515_Io.h>
+#include <spectre/driver/can/MCP2515/interface/control/MCP2515_Control.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -54,7 +54,7 @@ class MCP2515_onTransmitBufferEmpty : public interface::MCP2515_onTransmitBuffer
 
 public:
 
-           MCP2515_onTransmitBufferEmpty(interface::MCP2515_Io          & io,
+           MCP2515_onTransmitBufferEmpty(interface::MCP2515_Control     & ctrl,
                                          can::interface::CanFrameBuffer & can_tx_buf);
   virtual ~MCP2515_onTransmitBufferEmpty();
 
@@ -64,7 +64,7 @@ public:
 
 private:
 
-  interface::MCP2515_Io          & _io;
+  interface::MCP2515_Control     & _ctrl;
   can::interface::CanFrameBuffer & _can_tx_buf;
 
 };

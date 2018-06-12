@@ -24,6 +24,7 @@
  **************************************************************************************/
 
 #include <spectre/driver/can/MCP2515/interface/control/MCP2515_EventControl.h>
+#include <spectre/driver/can/MCP2515/interface/control/MCP2515_TransmitControl.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -48,7 +49,8 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MCP2515_Control : public MCP2515_EventControl
+class MCP2515_Control : public MCP2515_EventControl,
+                        public MCP2515_TransmitControl
 {
 
 public:
