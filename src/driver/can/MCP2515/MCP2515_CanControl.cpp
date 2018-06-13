@@ -20,9 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/driver/can/Can.h>
-
-#include <string.h>
+#include <spectre/driver/can/MCP2515/MCP2515_CanControl.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -37,19 +35,21 @@ namespace driver
 namespace can
 {
 
+namespace MCP2515
+{
+
 /**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
-Can::Can(interface::CanConfiguration & config, interface::CanControl & control, interface::CanFrameBuffer & can_rx_buf)
-: _config    (config    ),
-  _control   (control   ),
-  _can_rx_buf(can_rx_buf)
+MCP2515_CanControl::MCP2515_CanControl(can::interface::CanFrameBuffer & can_tx_buf, interface::MCP2515_TransmitControl & ctrl)
+: _can_tx_buf(can_tx_buf),
+  _ctrl      (ctrl      )
 {
 
 }
 
-Can::~Can()
+MCP2515_CanControl::~MCP2515_CanControl()
 {
 
 }
@@ -58,79 +58,50 @@ Can::~Can()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool Can::open()
+bool MCP2515_CanControl::transmit(hal::interface::CanFrame const & frame)
 {
-  /* TODO */
-  return false;
-}
-
-ssize_t Can::read(uint8_t * buffer, ssize_t const num_bytes)
-{
-  ssize_t const num_frames = num_bytes / sizeof(hal::interface::CanFrame);
-
-  if(num_frames < 0) return -1;
-
-  ssize_t bytes_read = 0;
-
-  for(ssize_t f = 0;
-      (f < num_frames) && !_can_rx_buf.isEmpty();
-      f++, bytes_read += sizeof(hal::interface::CanFrame))
+  /* Check if there is a free transmit buffer to fill and if that
+   * is the case fill the buffer and initiate transmission.
+   */
+  if(!_ctrl.isTransmitRequestPending(interface::TransmitBufferSelect::TB_0))
   {
-    hal::interface::CanFrame can_frame;
-    _can_rx_buf.pop(&can_frame);
-    memcpy(buffer + bytes_read, &can_frame, sizeof(hal::interface::CanFrame));
-  }
-
-  return bytes_read;
-}
-
-ssize_t Can::write(uint8_t const * buffer, ssize_t const num_bytes)
-{
-  ssize_t const num_frames = num_bytes / sizeof(hal::interface::CanFrame);
-
-  if(num_frames < 0) return -1;
-
-  ssize_t bytes_written = 0;
-
-  for(ssize_t f = 0;
-      (f < num_frames);
-      f++, bytes_written += sizeof(hal::interface::CanFrame))
-  {
-    hal::interface::CanFrame can_frame;
-    memcpy(&can_frame, buffer + bytes_written, sizeof(hal::interface::CanFrame));
-
-    if(!_control.transmit(can_frame)) break;
-  }
-
-  return bytes_written;
-}
-
-bool Can::ioctl(uint32_t const cmd, void * arg)
-{
-  switch(cmd)
-  {
-  /* SET_BITRATE **********************************************************************/
-  case IOCTL_SET_BITRATE:
-  {
-    uint8_t               const * arg_ptr     = static_cast<uint8_t *>            (arg     );
-    interface::CanBitRate const   can_bitrate = static_cast<interface::CanBitRate>(*arg_ptr);
-    _config.setCanBitRate(can_bitrate);
+    _ctrl.loadTransmitBuffer(interface::TransmitBufferSelect::TB_0, frame);
+    _ctrl.requestTransmit   (interface::TransmitBufferSelect::TB_0       );
     return true;
   }
-  break;
+
+  if(!_ctrl.isTransmitRequestPending(interface::TransmitBufferSelect::TB_1))
+  {
+    _ctrl.loadTransmitBuffer(interface::TransmitBufferSelect::TB_1, frame);
+    _ctrl.requestTransmit   (interface::TransmitBufferSelect::TB_1       );
+    return true;
+  }
+
+  if(!_ctrl.isTransmitRequestPending(interface::TransmitBufferSelect::TB_2))
+  {
+    _ctrl.loadTransmitBuffer(interface::TransmitBufferSelect::TB_2, frame);
+    _ctrl.requestTransmit   (interface::TransmitBufferSelect::TB_2       );
+    return true;
+  }
+
+  /* Otherwise slot the frame into the transmit buffer in
+   * order to be transmitted at a later point in time.
+   */
+
+  if(!_can_tx_buf.isFull())
+  {
+    _can_tx_buf.push(frame);
+    return true;
   }
 
   return false;
-}
-
-void Can::close()
-{
-  /* TODO */
 }
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* MCP2515 */
 
 } /* can */
 

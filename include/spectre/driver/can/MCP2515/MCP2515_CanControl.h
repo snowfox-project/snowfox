@@ -16,18 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_CAN_CAN_H_
-#define INCLUDE_SPECTRE_DRIVER_CAN_CAN_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_CANCONTROL_H_
+#define INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_CANCONTROL_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/interface/Driver.h>
-
 #include <spectre/driver/can/interface/CanControl.h>
+
 #include <spectre/driver/can/interface/CanFrameBuffer.h>
-#include <spectre/driver/can/interface/CanConfiguration.h>
+
+#include <spectre/driver/can/MCP2515/interface/control/MCP2515_TransmitControl.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,43 +42,37 @@ namespace driver
 namespace can
 {
 
-/**************************************************************************************
- * CONSTANTS
- **************************************************************************************/
-
-static uint32_t constexpr IOCTL_SET_BITRATE = 0; /* Arg: CanBitRate -> uint8_t * */
+namespace MCP2515
+{
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class Can : public driver::interface::Driver
+class MCP2515_CanControl : public can::interface::CanControl
 {
 
 public:
 
-           Can(interface::CanConfiguration & config, interface::CanControl & control, interface::CanFrameBuffer & can_rx_buf);
-  virtual ~Can();
+           MCP2515_CanControl(can::interface::CanFrameBuffer     & can_tx_buf,
+                              interface::MCP2515_TransmitControl & ctrl);
+  virtual ~MCP2515_CanControl();
 
 
-  bool    open (                                                  ) override;
-  ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) override;
-  ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override;
-  bool    ioctl(uint32_t const   cmd,    void          * arg      ) override;
-  void    close(                                                  ) override;
+  virtual bool transmit(hal::interface::CanFrame const & frame) override;
 
 
 private:
 
-  interface::CanConfiguration & _config;
-  interface::CanControl       & _control;
-  interface::CanFrameBuffer   & _can_rx_buf;
-
+  can::interface::CanFrameBuffer     & _can_tx_buf;
+  interface::MCP2515_TransmitControl & _ctrl;
 };
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* MCP2515 */
 
 } /* can */
 
@@ -86,4 +80,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_CAN_CAN_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_CANCONTROL_H_ */

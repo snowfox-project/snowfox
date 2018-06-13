@@ -16,18 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_CAN_CAN_H_
-#define INCLUDE_SPECTRE_DRIVER_CAN_CAN_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_CAN_INTERFACE_CANCONTROL_H_
+#define INCLUDE_SPECTRE_DRIVER_CAN_INTERFACE_CANCONTROL_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/interface/Driver.h>
-
-#include <spectre/driver/can/interface/CanControl.h>
-#include <spectre/driver/can/interface/CanFrameBuffer.h>
-#include <spectre/driver/can/interface/CanConfiguration.h>
+#include <spectre/hal/interface/can/CanFrame.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,37 +38,23 @@ namespace driver
 namespace can
 {
 
-/**************************************************************************************
- * CONSTANTS
- **************************************************************************************/
-
-static uint32_t constexpr IOCTL_SET_BITRATE = 0; /* Arg: CanBitRate -> uint8_t * */
+namespace interface
+{
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class Can : public driver::interface::Driver
+class CanControl
 {
 
 public:
 
-           Can(interface::CanConfiguration & config, interface::CanControl & control, interface::CanFrameBuffer & can_rx_buf);
-  virtual ~Can();
+           CanControl() { }
+  virtual ~CanControl() { }
 
 
-  bool    open (                                                  ) override;
-  ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) override;
-  ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override;
-  bool    ioctl(uint32_t const   cmd,    void          * arg      ) override;
-  void    close(                                                  ) override;
-
-
-private:
-
-  interface::CanConfiguration & _config;
-  interface::CanControl       & _control;
-  interface::CanFrameBuffer   & _can_rx_buf;
+  virtual bool transmit(hal::interface::CanFrame const & frame) = 0;
 
 };
 
@@ -80,10 +62,12 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
+} /* interface */
+
 } /* can */
 
 } /* driver */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_CAN_CAN_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_CAN_INTERFACE_CANCONTROL_H_ */
