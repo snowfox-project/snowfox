@@ -83,7 +83,7 @@ void MCP2515_Control::clearEventFlag(interface::EventFlag const event_flag)
   _io.writeRegister(interface::Register::CANINTF, reg_cantintf_content);
 }
 
-bool MCP2515_Control::isTxPending(interface::TransmitBufferSelect const tx_buf_sel)
+bool MCP2515_Control::isTransmitRequestPending(interface::TransmitBufferSelect const tx_buf_sel)
 {
   uint8_t reg_txbnctrl_content = 0;
 
@@ -99,7 +99,7 @@ bool MCP2515_Control::isTxPending(interface::TransmitBufferSelect const tx_buf_s
   return is_tx_pending;
 }
 
-void MCP2515_Control::loadTxBuffer(interface::TransmitBufferSelect const tx_buf_sel, hal::interface::CanFrame const & frame)
+void MCP2515_Control::loadTransmitBuffer(interface::TransmitBufferSelect const tx_buf_sel, hal::interface::CanFrame const & frame)
 {
   uint8_t sidh = static_cast<uint8_t>(frame.id & 0x000007F8);      /* SID10 - SID3 */
   uint8_t sidl = static_cast<uint8_t>(frame.id & 0x00000007) << 5; /* SID2  - SID0 */
@@ -142,6 +142,16 @@ void MCP2515_Control::loadTxBuffer(interface::TransmitBufferSelect const tx_buf_
   case interface::TransmitBufferSelect::TB_0: _io.loadTx0(tx_buf_content); break;
   case interface::TransmitBufferSelect::TB_1: _io.loadTx1(tx_buf_content); break;
   case interface::TransmitBufferSelect::TB_2: _io.loadTx2(tx_buf_content); break;
+  }
+}
+
+void MCP2515_Control::requestTransmit(interface::TransmitBufferSelect const tx_buf_sel)
+{
+  switch(tx_buf_sel)
+  {
+  case interface::TransmitBufferSelect::TB_0: _io.requestToTransmitTx0(); break;
+  case interface::TransmitBufferSelect::TB_1: _io.requestToTransmitTx1(); break;
+  case interface::TransmitBufferSelect::TB_2: _io.requestToTransmitTx2(); break;
   }
 }
 

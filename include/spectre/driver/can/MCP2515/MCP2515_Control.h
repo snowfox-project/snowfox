@@ -60,8 +60,9 @@ public:
   virtual void    clearEventFlag(interface::EventFlag            const event_flag) override;
 
 
-  virtual bool    isTxPending   (interface::TransmitBufferSelect const tx_buf_sel                                        ) override;
-  virtual void    loadTxBuffer  (interface::TransmitBufferSelect const tx_buf_sel, hal::interface::CanFrame const & frame) override;
+  virtual bool    isTransmitRequestPending(interface::TransmitBufferSelect const tx_buf_sel                                        ) override;
+  virtual void    loadTransmitBuffer      (interface::TransmitBufferSelect const tx_buf_sel, hal::interface::CanFrame const & frame) override;
+  virtual void    requestTransmit         (interface::TransmitBufferSelect const tx_buf_sel                                        ) override;
 
 
 private:

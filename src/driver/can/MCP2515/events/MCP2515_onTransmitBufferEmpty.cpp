@@ -67,8 +67,8 @@ void MCP2515_onTransmitBufferEmpty::onTransmitBufferEmpty(interface::TransmitBuf
     hal::interface::CanFrame frame;
     _can_tx_buf.pop(&frame);
 
-    _ctrl.loadTxBuffer(tx_buf_sel, frame);
-    /* TODO Initiate transmission */
+    _ctrl.loadTransmitBuffer(tx_buf_sel, frame);
+    _ctrl.requestTransmit   (tx_buf_sel);
   }
 }
 
