@@ -167,9 +167,7 @@ public:
   virtual uint8_t status  () = 0;
 
 
-  static uint8_t constexpr TX_BUF_MIN_SIZE = 5;
   static uint8_t constexpr TX_BUF_MAX_SIZE = 5 + 8;
-  static uint8_t constexpr RX_BUF_MIN_SIZE = 5;
   static uint8_t constexpr RX_BUF_MAX_SIZE = 5 + 8;
 
 

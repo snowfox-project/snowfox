@@ -22,6 +22,8 @@
 
 #include <spectre/driver/can/MCP2515/MCP2515_Control.h>
 
+#include <string.h>
+
 #include <spectre/driver/can/MCP2515/interface/MCP2515_RegisterBits.h>
 
 /**************************************************************************************
@@ -155,9 +157,44 @@ void MCP2515_Control::requestTransmit(interface::TransmitBufferSelect const tx_b
   }
 }
 
-void MCP2515_Control::readFromReceiveBuffer(interface::ReceiveBufferSelect  const rx_buf_sel, hal::interface::CanFrame * frame)
+void MCP2515_Control::readFromReceiveBuffer(interface::ReceiveBufferSelect const rx_buf_sel, hal::interface::CanFrame * frame)
 {
-  /* TODO */
+  uint8_t rx_buf_content[interface::MCP2515_Io::RX_BUF_MAX_SIZE] = { 0 };
+
+  switch(rx_buf_sel)
+  {
+  case interface::ReceiveBufferSelect::RB_0: _io.readRx0(rx_buf_content); break;
+  case interface::ReceiveBufferSelect::RB_1: _io.readRx1(rx_buf_content); break;
+  }
+
+  uint8_t const sidh = rx_buf_content[0];
+  uint8_t const sidl = rx_buf_content[1];
+  uint8_t const dlc  = rx_buf_content[2];
+  uint8_t const eid8 = rx_buf_content[3];
+  uint8_t const eid0 = rx_buf_content[4];
+
+
+  bool const is_extended_id     = (sidl & MCP2515_REG_RXBnSIDL_IDE_bm) == MCP2515_REG_RXBnSIDL_IDE_bm;
+  bool const is_rtr_standard_id = (sidl & MCP2515_REG_RXBnSIDL_SRR_bm) == MCP2515_REG_RXBnSIDL_SRR_bm;
+  bool const is_rtr_extended_id = (dlc  & MCP2515_REG_RXBnDLC_RTR_bm ) == MCP2515_REG_RXBnDLC_RTR_bm ;
+
+  frame->id  = static_cast<uint32_t>(sidh       ) <<  3; /* SID10 - SID3  */
+  frame->id |= static_cast<uint32_t>(sidl & 0xE0) >>  5; /* SID2  - SID0  */
+
+  if(is_extended_id)
+  {
+    frame->id |= static_cast<uint32_t>(sidl & 0x03) << 27; /* EID17 - EID16 */
+    frame->id |= static_cast<uint32_t>(eid8       ) << 19; /* EID15 - EID8  */
+    frame->id |= static_cast<uint32_t>(eid0       ) << 11; /* EID7  - EID0  */
+  }
+
+  if(is_rtr_standard_id && !is_extended_id) frame->id |= hal::interface::CAN_RTR_BITMASK;
+  if(is_rtr_extended_id &&  is_extended_id) frame->id |= hal::interface::CAN_RTR_BITMASK;
+
+
+  frame->dlc = (dlc & 0x0F);
+
+  memcpy(frame->data, rx_buf_content + 5, frame->dlc);
 }
 
 /**************************************************************************************
