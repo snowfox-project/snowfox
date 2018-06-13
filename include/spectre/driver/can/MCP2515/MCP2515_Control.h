@@ -61,7 +61,7 @@ public:
 
 
   virtual bool    isTransmitRequestPending(interface::TransmitBufferSelect const tx_buf_sel                                        ) override;
-  virtual void    loadTransmitBuffer      (interface::TransmitBufferSelect const tx_buf_sel, hal::interface::CanFrame const & frame) override;
+  virtual void    writeToTransmitBuffer   (interface::TransmitBufferSelect const tx_buf_sel, hal::interface::CanFrame const & frame) override;
   virtual void    requestTransmit         (interface::TransmitBufferSelect const tx_buf_sel                                        ) override;
 
 

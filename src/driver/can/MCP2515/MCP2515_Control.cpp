@@ -99,7 +99,7 @@ bool MCP2515_Control::isTransmitRequestPending(interface::TransmitBufferSelect c
   return is_tx_pending;
 }
 
-void MCP2515_Control::loadTransmitBuffer(interface::TransmitBufferSelect const tx_buf_sel, hal::interface::CanFrame const & frame)
+void MCP2515_Control::writeToTransmitBuffer(interface::TransmitBufferSelect const tx_buf_sel, hal::interface::CanFrame const & frame)
 {
   uint8_t sidh = static_cast<uint8_t>(frame.id & 0x000007F8);      /* SID10 - SID3 */
   uint8_t sidl = static_cast<uint8_t>(frame.id & 0x00000007) << 5; /* SID2  - SID0 */

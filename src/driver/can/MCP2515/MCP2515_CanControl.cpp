@@ -68,22 +68,22 @@ bool MCP2515_CanControl::transmit(hal::interface::CanFrame const & frame)
    */
   if(!_ctrl.isTransmitRequestPending(interface::TransmitBufferSelect::TB_0))
   {
-    _ctrl.loadTransmitBuffer(interface::TransmitBufferSelect::TB_0, frame);
-    _ctrl.requestTransmit   (interface::TransmitBufferSelect::TB_0       );
+    _ctrl.writeToTransmitBuffer(interface::TransmitBufferSelect::TB_0, frame);
+    _ctrl.requestTransmit      (interface::TransmitBufferSelect::TB_0       );
     return true;
   }
 
   if(!_ctrl.isTransmitRequestPending(interface::TransmitBufferSelect::TB_1))
   {
-    _ctrl.loadTransmitBuffer(interface::TransmitBufferSelect::TB_1, frame);
-    _ctrl.requestTransmit   (interface::TransmitBufferSelect::TB_1       );
+    _ctrl.writeToTransmitBuffer(interface::TransmitBufferSelect::TB_1, frame);
+    _ctrl.requestTransmit      (interface::TransmitBufferSelect::TB_1       );
     return true;
   }
 
   if(!_ctrl.isTransmitRequestPending(interface::TransmitBufferSelect::TB_2))
   {
-    _ctrl.loadTransmitBuffer(interface::TransmitBufferSelect::TB_2, frame);
-    _ctrl.requestTransmit   (interface::TransmitBufferSelect::TB_2       );
+    _ctrl.writeToTransmitBuffer(interface::TransmitBufferSelect::TB_2, frame);
+    _ctrl.requestTransmit      (interface::TransmitBufferSelect::TB_2       );
     return true;
   }
 

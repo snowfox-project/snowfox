@@ -70,9 +70,9 @@ public:
   virtual ~MCP2515_TransmitControl() { }
 
 
-  virtual bool isTransmitRequestPending (TransmitBufferSelect const tx_buf_sel                                        ) = 0;
-  virtual void loadTransmitBuffer       (TransmitBufferSelect const tx_buf_sel, hal::interface::CanFrame const & frame) = 0;
-  virtual void requestTransmit          (TransmitBufferSelect const tx_buf_sel                                        ) = 0;
+  virtual bool isTransmitRequestPending(TransmitBufferSelect const tx_buf_sel                                        ) = 0;
+  virtual void writeToTransmitBuffer   (TransmitBufferSelect const tx_buf_sel, hal::interface::CanFrame const & frame) = 0;
+  virtual void requestTransmit         (TransmitBufferSelect const tx_buf_sel                                        ) = 0;
 
 };
 
