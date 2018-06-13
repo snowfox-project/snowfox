@@ -64,6 +64,8 @@ public:
   virtual void    writeToTransmitBuffer   (interface::TransmitBufferSelect const tx_buf_sel, hal::interface::CanFrame const & frame) override;
   virtual void    requestTransmit         (interface::TransmitBufferSelect const tx_buf_sel                                        ) override;
 
+  virtual void    readFromReceiveBuffer   (interface::ReceiveBufferSelect  const rx_buf_sel, hal::interface::CanFrame       * frame) override;
+
 
 private:
 

@@ -155,6 +155,11 @@ void MCP2515_Control::requestTransmit(interface::TransmitBufferSelect const tx_b
   }
 }
 
+void MCP2515_Control::readFromReceiveBuffer(interface::ReceiveBufferSelect  const rx_buf_sel, hal::interface::CanFrame * frame)
+{
+  /* TODO */
+}
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/

@@ -23,7 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
+#include <spectre/hal/interface/can/CanFrame.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -66,7 +66,8 @@ public:
            MCP2515_ReceiveControl() { }
   virtual ~MCP2515_ReceiveControl() { }
 
-  /* TODO */
+
+  virtual void readFromReceiveBuffer(ReceiveBufferSelect const rx_buf_sel, hal::interface::CanFrame * frame) = 0;
 
 };
 
@@ -83,7 +84,5 @@ public:
 } /* driver */
 
 } /* spectre */
-
-
 
 #endif /* INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_INTERFACE_CONTROL_MCP2515_RECEIVECONTROL_H_ */

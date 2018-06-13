@@ -63,7 +63,9 @@ void MCP2515_onReceiveBufferFull::onReceiveBufferFull(interface::ReceiveBufferSe
   if(!_can_rx_buf.isFull())
   {
     hal::interface::CanFrame frame;
-    /* TODO: Load received CAN frame from MCP2515 to CPU via SPI */
+
+    _ctrl.readFromReceiveBuffer(rx_buf_sel, &frame);
+
     _can_rx_buf.push(frame);
   }
 }
