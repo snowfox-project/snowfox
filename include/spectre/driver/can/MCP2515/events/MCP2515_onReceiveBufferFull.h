@@ -52,8 +52,8 @@ class MCP2515_onReceiveBufferFull : public interface::MCP2515_onReceiveBufferFul
 
 public:
 
-           MCP2515_onReceiveBufferFull(interface::MCP2515_ReceiveControl & ctrl,
-                                       can::interface::CanFrameBuffer    & can_rx_buf);
+           MCP2515_onReceiveBufferFull(can::interface::CanFrameBuffer    & can_rx_buf,
+                                       interface::MCP2515_ReceiveControl & ctrl);
   virtual ~MCP2515_onReceiveBufferFull();
 
 
@@ -62,8 +62,8 @@ public:
 
 private:
 
-  interface::MCP2515_ReceiveControl & _ctrl;
   can::interface::CanFrameBuffer    & _can_rx_buf;
+  interface::MCP2515_ReceiveControl & _ctrl;
 
 };
 

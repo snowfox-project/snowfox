@@ -44,9 +44,9 @@ namespace MCP2515
  * CTOR/DTOR
  **************************************************************************************/
 
-MCP2515_onTransmitBufferEmpty::MCP2515_onTransmitBufferEmpty(interface::MCP2515_TransmitControl & ctrl, can::interface::CanFrameBuffer & can_tx_buf)
-: _ctrl      (ctrl      ),
-  _can_tx_buf(can_tx_buf)
+MCP2515_onTransmitBufferEmpty::MCP2515_onTransmitBufferEmpty(can::interface::CanFrameBuffer & can_tx_buf, interface::MCP2515_TransmitControl & ctrl)
+: _can_tx_buf(can_tx_buf),
+  _ctrl      (ctrl      )
 {
 
 }

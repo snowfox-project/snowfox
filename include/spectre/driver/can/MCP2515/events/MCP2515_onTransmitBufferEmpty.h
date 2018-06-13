@@ -52,8 +52,8 @@ class MCP2515_onTransmitBufferEmpty : public interface::MCP2515_onTransmitBuffer
 
 public:
 
-           MCP2515_onTransmitBufferEmpty(interface::MCP2515_TransmitControl & ctrl,
-                                         can::interface::CanFrameBuffer     & can_tx_buf);
+           MCP2515_onTransmitBufferEmpty(can::interface::CanFrameBuffer     & can_tx_buf,
+                                         interface::MCP2515_TransmitControl & ctrl);
   virtual ~MCP2515_onTransmitBufferEmpty();
 
 
@@ -62,8 +62,8 @@ public:
 
 private:
 
-  interface::MCP2515_TransmitControl & _ctrl;
   can::interface::CanFrameBuffer     & _can_tx_buf;
+  interface::MCP2515_TransmitControl & _ctrl;
 
 };
 
