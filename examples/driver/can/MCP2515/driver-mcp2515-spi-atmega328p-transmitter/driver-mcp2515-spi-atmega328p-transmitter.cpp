@@ -28,6 +28,7 @@
 #include <avr/io.h>
 
 #include <spectre/hal/avr/ATMEGA328P/EINT0.h>
+#include <spectre/hal/avr/ATMEGA328P/Delay.h>
 #include <spectre/hal/avr/ATMEGA328P/SpiMaster.h>
 #include <spectre/hal/avr/ATMEGA328P/DigitalInPin.h>
 #include <spectre/hal/avr/ATMEGA328P/DigitalOutPin.h>
@@ -79,6 +80,7 @@ int main()
   /* HAL ******************************************************************************/
 
   ATMEGA328P::InterruptController int_ctrl(&EIMSK, &PCICR, &WDTCSR, &TIMSK2, &TIMSK1, &TIMSK0, &SPCR, &UCSR0B, &ADCSRA, &EECR, &ACSR, &TWCR, &SPMCSR);
+  ATMEGA328P::Delay               delay;
 
   /* SPI/CS for MCP2515 ***************************************************************/
   ATMEGA328P::DigitalOutPin mcp2515_cs  (&DDRB, &PORTB,        1); /* CS   = D9  = PB1 */
@@ -138,7 +140,21 @@ int main()
   can.open();
   can.ioctl(can::IOCTL_SET_BITRATE, static_cast<void *>(&bitrate));
 
-  for(;;) { }
+  for(;;)
+  {
+    hal::interface::CanFrame frame;
+
+    /* This is how a Heartbeat frame looks like in CANOpen for
+     * node id = 1, node state = preoperational
+     */
+    frame.id      = 0x701;
+    frame.dlc     = 1;
+    frame.data[0] = 0x7F;
+
+    can.write(reinterpret_cast<uint8_t* >(&frame), sizeof(frame));
+
+    delay.delay_ms(1000);
+  }
 
   can.close();
 
