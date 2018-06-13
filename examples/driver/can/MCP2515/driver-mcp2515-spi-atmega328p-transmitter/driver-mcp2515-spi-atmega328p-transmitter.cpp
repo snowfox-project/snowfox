@@ -68,8 +68,8 @@ static uint32_t                    const MCP2515_SPI_PRESCALER    = 16; /* Ardui
 static hal::interface::TriggerMode const MCP2515_INT_TRIGGER_MODE = hal::interface::TriggerMode::FallingEdge;
 
 static uint8_t                     const F_MCP2515_MHz            = 16; /* Seedstudio CAN Bus Shield V2.0 is clocked with a 16 MHz crystal */
-static uint16_t                    const CAN_RX_BUFFER_SIZE       = 8;
 static uint16_t                    const CAN_TX_BUFFER_SIZE       = 8;
+static uint16_t                    const CAN_RX_BUFFER_SIZE       = 8;
 
 /**************************************************************************************
  * MAIN
@@ -112,13 +112,13 @@ int main()
 
   /* DRIVER ***************************************************************************/
 
-  can::interface::CanFrameBuffer              mcp2515_can_rx_buf                (CAN_RX_BUFFER_SIZE);
   can::interface::CanFrameBuffer              mcp2515_can_tx_buf                (CAN_TX_BUFFER_SIZE);
+  can::interface::CanFrameBuffer              mcp2515_can_rx_buf                (CAN_RX_BUFFER_SIZE);
 
   can::MCP2515::MCP2515_IoSpi                 mcp2515_io_spi                    (spi_master, mcp2515_cs          );
   can::MCP2515::MCP2515_Control               mcp2515_ctrl                      (mcp2515_io_spi                  );
   can::MCP2515::MCP2515_CanConfiguration      mcp2515_can_config                (mcp2515_io_spi, F_MCP2515_MHz   );
-  can::MCP2515::MCP2515_CanControl            mcp2515_can_control               (mcp2515_can_tx_buf, mcp2515_ctrl);
+  can::MCP2515::MCP2515_CanControl            mcp2515_can_control               (mcp2515_can_tx_buf, mcp2515_can_rx_buf, mcp2515_ctrl);
 
   can::MCP2515::MCP2515_onMessageError        mcp2515_on_message_error;
   can::MCP2515::MCP2515_onWakeup              mcp2515_on_wakeup;
@@ -129,7 +129,7 @@ int main()
   can::MCP2515::MCP2515_onReceiveBufferFull   mcp2515_on_receive_buffer_0_full  (mcp2515_can_rx_buf, mcp2515_ctrl);
   can::MCP2515::MCP2515_EventCallback         mcp2515_event_callback            (mcp2515_ctrl, mcp2515_on_message_error, mcp2515_on_wakeup, mcp2515_on_transmit_buffer_2_empty, mcp2515_on_transmit_buffer_1_empty, mcp2515_on_transmit_buffer_0_empty, mcp2515_on_receive_buffer_1_full, mcp2515_on_receive_buffer_0_full);
 
-  can::Can                                    can                               (mcp2515_can_config, mcp2515_can_control, mcp2515_can_rx_buf);
+  can::Can                                    can                               (mcp2515_can_config, mcp2515_can_control);
 
   mcp2515_eint0.registerExternalInterruptCallback(&mcp2515_event_callback);
 

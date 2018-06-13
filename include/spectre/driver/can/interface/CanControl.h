@@ -55,6 +55,7 @@ public:
 
 
   virtual bool transmit(hal::interface::CanFrame const & frame) = 0;
+  virtual bool receive (hal::interface::CanFrame       * frame) = 0;
 
 };
 

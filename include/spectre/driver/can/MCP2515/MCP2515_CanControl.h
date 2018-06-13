@@ -55,16 +55,19 @@ class MCP2515_CanControl : public can::interface::CanControl
 public:
 
            MCP2515_CanControl(can::interface::CanFrameBuffer     & can_tx_buf,
+                              can::interface::CanFrameBuffer     & can_rx_buf,
                               interface::MCP2515_TransmitControl & ctrl);
   virtual ~MCP2515_CanControl();
 
 
   virtual bool transmit(hal::interface::CanFrame const & frame) override;
+  virtual bool receive (hal::interface::CanFrame       * frame) override;
 
 
 private:
 
-  can::interface::CanFrameBuffer     & _can_tx_buf;
+  can::interface::CanFrameBuffer     & _can_tx_buf,
+                                     & _can_rx_buf;
   interface::MCP2515_TransmitControl & _ctrl;
 };
 

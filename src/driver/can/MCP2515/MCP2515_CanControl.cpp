@@ -42,8 +42,11 @@ namespace MCP2515
  * CTOR/DTOR
  **************************************************************************************/
 
-MCP2515_CanControl::MCP2515_CanControl(can::interface::CanFrameBuffer & can_tx_buf, interface::MCP2515_TransmitControl & ctrl)
+MCP2515_CanControl::MCP2515_CanControl(can::interface::CanFrameBuffer     & can_tx_buf,
+                                       can::interface::CanFrameBuffer     & can_rx_buf,
+                                       interface::MCP2515_TransmitControl & ctrl)
 : _can_tx_buf(can_tx_buf),
+  _can_rx_buf(can_rx_buf),
   _ctrl      (ctrl      )
 {
 
@@ -95,6 +98,14 @@ bool MCP2515_CanControl::transmit(hal::interface::CanFrame const & frame)
   }
 
   return false;
+}
+
+bool MCP2515_CanControl::receive(hal::interface::CanFrame * frame)
+{
+  if(_can_rx_buf.isEmpty()) return false;
+
+  _can_rx_buf.pop(frame);
+  return true;
 }
 
 /**************************************************************************************
