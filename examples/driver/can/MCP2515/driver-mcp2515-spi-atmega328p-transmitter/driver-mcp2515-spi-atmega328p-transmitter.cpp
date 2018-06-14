@@ -19,6 +19,16 @@
 /**************************************************************************************
  * This example programm is tailored for usage with Arduino Uno
  * and Seedstudio CAN Bus Shield V2.0
+ *
+ * Electrical interface:
+ *   CS   = D9  = PB1
+ *   SCK  = D13 = PB5
+ *   MISO = D12 = PB4
+ *   MOSI = D11 = PB3
+ *   INT  = D2  = PD2 = INT0
+ *
+ * Upload via avrdude
+ *   avrdude -p atmega328p -c avrisp2 -e -U flash:w:bin/driver-mcp2515-spi-atmega328p-transmitter
  **************************************************************************************/
 
 /**************************************************************************************
@@ -85,7 +95,7 @@ int main()
   /* SPI/CS for MCP2515 ***************************************************************/
   ATMEGA328P::DigitalOutPin mcp2515_cs  (&DDRB, &PORTB,        1); /* CS   = D9  = PB1 */
   ATMEGA328P::DigitalOutPin mcp2515_sck (&DDRB, &PORTB,        5); /* SCK  = D13 = PB5 */
-  ATMEGA328P::DigitalInPin  mcp2515_miso(&DDRB, &PORTB, &PINB, 4); /* MOSI = D12 = PB4 */
+  ATMEGA328P::DigitalInPin  mcp2515_miso(&DDRB, &PORTB, &PINB, 4); /* MISO = D12 = PB4 */
   ATMEGA328P::DigitalOutPin mcp2515_mosi(&DDRB, &PORTB,        3); /* MOSI = D11 = PB3 */
 
   mcp2515_cs.set();
