@@ -69,8 +69,7 @@ RFM9x::~RFM9x()
 
 bool RFM9x::open()
 {
-  _control.setOperatingMode     (interface::OperatingMode::SLEEP        );
-
+        _control.setOperatingMode     (interface::OperatingMode::SLEEP);
   while(_control.getOperatingMode() != interface::OperatingMode::SLEEP) { /* wait */ }
 
   _config.setLoRaMode           (interface::LoRaMode::LoRa              );
@@ -92,7 +91,8 @@ ssize_t RFM9x::read(uint8_t * buffer, ssize_t const num_bytes)
 
   if(_control.getOperatingMode() != interface::OperatingMode::SLEEP   ) return static_cast<ssize_t>(RetCodeRead::ModemBusy_NotSleep  );
 
-  _control.setOperatingMode(interface::OperatingMode::STDBY);
+        _control.setOperatingMode     (interface::OperatingMode::STDBY);
+  while(_control.getOperatingMode() != interface::OperatingMode::STDBY) { /* wait */ }
 
   if(_control.getOperatingMode() != interface::OperatingMode::STDBY   ) return static_cast<ssize_t>(RetCodeRead::ModemBusy_NotStandby);
 
@@ -112,31 +112,45 @@ ssize_t RFM9x::read(uint8_t * buffer, ssize_t const num_bytes)
 
 ssize_t RFM9x::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
+  /* Check for parameter errors */
+
   if(num_bytes < 1                                                 ) return static_cast<ssize_t>(RetCodeWrite::ParameterError      );
 
   uint16_t const tx_fifo_size = _config.getTxFifoSize();
   if(static_cast<uint16_t>(num_bytes) > tx_fifo_size               ) return static_cast<ssize_t>(RetCodeWrite::TxFifoSizeExceeded  );
 
+  /* Check if we are in operating mode SLEEP */
+
   if(_control.getOperatingMode() != interface::OperatingMode::SLEEP) return static_cast<ssize_t>(RetCodeWrite::ModemBusy_NotSleep  );
 
-  _control.setOperatingMode(interface::OperatingMode::STDBY);
+  /* Change to operating mode STDBY */
 
+        _control.setOperatingMode     (interface::OperatingMode::STDBY);
   while(_control.getOperatingMode() != interface::OperatingMode::STDBY) { /* wait */ }
 
   if(_control.getOperatingMode() != interface::OperatingMode::STDBY) return static_cast<ssize_t>(RetCodeWrite::ModemBusy_NotStandby);
 
+  /* Load message for transmission into FIFO */
+
   _control.writeToTransmitFifo(buffer, static_cast<uint8_t>(num_bytes));
+
+  /* Clear the tx done event and setup TX DONE as event source for DIO0 */
 
   _tx_done_event.clear();
 
   _config.setDio0EventSource(interface::Dio0EventSource::TxDone);
 
+  /* Initiate transmission */
+
   _control.setOperatingMode(interface::OperatingMode::TX);
+
+  /* Wait for completion of the transmission */
 
   os::interface::wait(_tx_done_event);
 
-  _control.setOperatingMode(interface::OperatingMode::SLEEP);
+  /* Change back to operating mode SLEEP */
 
+        _control.setOperatingMode     (interface::OperatingMode::SLEEP);
   while(_control.getOperatingMode() != interface::OperatingMode::SLEEP) { /* wait */ }
 
   return num_bytes;
@@ -234,8 +248,7 @@ bool RFM9x::ioctl(uint32_t const cmd, void * arg)
 
 void RFM9x::close()
 {
-  _control.setOperatingMode(interface::OperatingMode::SLEEP);
-
+        _control.setOperatingMode     (interface::OperatingMode::SLEEP);
   while(_control.getOperatingMode() != interface::OperatingMode::SLEEP) { /* wait */ }
 }
 
