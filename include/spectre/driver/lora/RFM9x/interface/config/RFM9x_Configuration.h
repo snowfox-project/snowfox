@@ -24,8 +24,6 @@
  **************************************************************************************/
 
 #include <spectre/driver/lora/RFM9x/interface/config/RFM9x_RfConfiguration.h>
-#include <spectre/driver/lora/RFM9x/interface/config/RFM9x_Dio0Configuration.h>
-#include <spectre/driver/lora/RFM9x/interface/config/RFM9x_Dio1Configuration.h>
 #include <spectre/driver/lora/RFM9x/interface/config/RFM9x_FifoConfiguration.h>
 
 /**************************************************************************************
@@ -52,9 +50,7 @@ namespace interface
  **************************************************************************************/
 
 class RFM9x_Configuration : public RFM9x_RfConfiguration,
-                            public RFM9x_FifoConfiguration,
-                            public RFM9x_Dio0Configuration,
-                            public RFM9x_Dio1Configuration
+                            public RFM9x_FifoConfiguration
 {
 
 public:

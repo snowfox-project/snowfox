@@ -24,8 +24,11 @@
  **************************************************************************************/
 
 #include <spectre/driver/lora/RFM9x/interface/control/RFM9x_FifoControl.h>
+#include <spectre/driver/lora/RFM9x/interface/control/RFM9x_Dio0Control.h>
+#include <spectre/driver/lora/RFM9x/interface/control/RFM9x_Dio1Control.h>
 #include <spectre/driver/lora/RFM9x/interface/control/RFM9x_EventControl.h>
 #include <spectre/driver/lora/RFM9x/interface/control/RFM9x_OperationModeControl.h>
+
 
 /**************************************************************************************
  * NAMESPACE
@@ -52,7 +55,9 @@ namespace interface
 
 class RFM9x_Control : public RFM9x_OperationModeControl,
                       public RFM9x_EventControl,
-                      public RFM9x_FifoControl
+                      public RFM9x_FifoControl,
+                      public RFM9x_Dio0Control,
+                      public RFM9x_Dio1Control
 {
 
 public:

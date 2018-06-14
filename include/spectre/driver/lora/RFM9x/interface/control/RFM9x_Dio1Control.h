@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_DIO0_RFM9X_DIO0_CONFIGURATION_H_
-#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_DIO0_RFM9X_DIO0_CONFIGURATION_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_DIO1_RFM9X_DIO1CONFIGURATION_H_
+#define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_DIO1_RFM9X_DIO1CONFIGURATION_H_
 
 /**************************************************************************************
  * INCLUDES
@@ -50,27 +50,27 @@ namespace interface
  * TYPEDEFS
  **************************************************************************************/
 
-enum class Dio0EventSource : uint8_t
+enum class Dio1EventSource : uint8_t
 {
-  RxDone  = 0,
-  TxDone  =                                             RFM9x_REG_DIO_MAPPING_1_DIO0_MAPPING_0_bm,
-  CadDone = RFM9x_REG_DIO_MAPPING_1_DIO0_MAPPING_1_bm
+  RxTimeout         = 0,
+  FhssChangeChannel =                                             RFM9x_REG_DIO_MAPPING_1_DIO1_MAPPING_0_bm,
+  CadDetected       = RFM9x_REG_DIO_MAPPING_1_DIO1_MAPPING_1_bm
 };
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_Dio0Configuration
+class RFM9x_Dio1Control
 {
 
 public:
 
-           RFM9x_Dio0Configuration() { }
-  virtual ~RFM9x_Dio0Configuration() { }
+           RFM9x_Dio1Control() { }
+  virtual ~RFM9x_Dio1Control() { }
 
 
-  virtual void setDio0EventSource(Dio0EventSource const event_source) = 0;
+  virtual void setDio1EventSource(Dio1EventSource const event_source) = 0;
 
 };
 
@@ -88,4 +88,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_DIO0_RFM9X_DIO0_CONFIGURATION_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_DIO1_RFM9X_DIO1CONFIGURATION_H_ */

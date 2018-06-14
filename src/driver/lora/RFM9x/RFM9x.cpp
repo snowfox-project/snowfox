@@ -138,7 +138,7 @@ ssize_t RFM9x::write(uint8_t const * buffer, ssize_t const num_bytes)
 
   _tx_done_event.clear();
 
-  _config.setDio0EventSource(interface::Dio0EventSource::TxDone);
+  _control.setDio0EventSource(interface::Dio0EventSource::TxDone);
 
   /* Initiate transmission */
 
