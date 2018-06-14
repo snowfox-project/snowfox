@@ -82,12 +82,12 @@ void EINT1::setTriggerMode(interface::TriggerMode const trigger_mode)
 
 void EINT1::enable()
 {
-  _int_ctrl.enableInterrupt(toIntNum(Interrupt::EXTERNAL_INT0));
+  _int_ctrl.enableInterrupt(toIntNum(Interrupt::EXTERNAL_INT1));
 }
 
 void EINT1::disable()
 {
-  _int_ctrl.disableInterrupt(toIntNum(Interrupt::EXTERNAL_INT0));
+  _int_ctrl.disableInterrupt(toIntNum(Interrupt::EXTERNAL_INT1));
 }
 
 void EINT1::registerExternalInterruptCallback(interface::ExternalInterruptCallback * external_interrupt_callback)
