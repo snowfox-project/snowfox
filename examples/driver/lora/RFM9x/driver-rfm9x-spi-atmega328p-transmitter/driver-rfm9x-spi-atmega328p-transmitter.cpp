@@ -236,15 +236,15 @@ int main()
   {
     uint8_t msg[64] = {0};
 
-    uint16_t const msg_len = snprintf(reinterpret_cast<char *>(msg), 64, "spectre::lora::RFM9x Message %d\r\n", msg_cnt);
+    uint16_t const msg_len = snprintf(reinterpret_cast<char *>(msg), 64, "[Spectre RTOS (c) LXRobotics] [lora::RFM9x] Message %d\r\n", msg_cnt);
 
     ssize_t const ret_code = rfm9x.write(msg, msg_len);
 
-    if     (ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::ParameterError      )) debug_serial.print("RFM9x::write - ParameterError\r\n");
-    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::TxFifoSizeExceeded  )) debug_serial.print("RFM9x::write - TxFifoSizeExceeded\r\n");
-    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::ModemBusy_NotSleep  )) debug_serial.print("RFM9x::write - ModemBusy_NotSleep\r\n");
-    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::ModemBusy_NotStandby)) debug_serial.print("RFM9x::write - ModemBusy_NotStandby\r\n");
-    else                                                                                       debug_serial.print("RFM9x::write - Message transmitted\r\n");
+    if     (ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::ParameterError      )) debug_serial.print("ERROR   - ParameterError\r\n");
+    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::TxFifoSizeExceeded  )) debug_serial.print("ERROR   - TxFifoSizeExceeded\r\n");
+    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::ModemBusy_NotSleep  )) debug_serial.print("ERROR   - ModemBusy_NotSleep\r\n");
+    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::ModemBusy_NotStandby)) debug_serial.print("ERROR   - ModemBusy_NotStandby\r\n");
+    else                                                                                       debug_serial.print("SUCCESS - %s", msg);
 
     delay.delay_ms(1000);
   }
