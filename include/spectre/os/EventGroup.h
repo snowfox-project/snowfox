@@ -50,11 +50,22 @@ public:
   ~EventGroup();
 
 
+  void addEvent       (interface::EventConsumer & event);
+  void clearAllEvents ();
+  bool isEveryEventSet();
+  bool isAnyEventSet  ();
+
 private:
 
   memory::container::List<interface::EventConsumer &> _event_list;
 
 };
+
+/**************************************************************************************
+ * FUNCTION DECLARATIONS
+ **************************************************************************************/
+
+void waitAny(EventGroup & event_group);
 
 /**************************************************************************************
  * NAMESPACE

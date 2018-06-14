@@ -55,7 +55,8 @@ RFM9x::RFM9x(interface::RFM9x_Configuration & config,
   _rx_timeout_event(rx_timeout_event),
   _tx_done_event   (tx_done_event   )
 {
-
+  _event_group_rx_done_rx_timeout.addEvent(rx_done_event   );
+  _event_group_rx_done_rx_timeout.addEvent(rx_timeout_event);
 }
 
 RFM9x::~RFM9x()
@@ -82,8 +83,6 @@ bool RFM9x::open()
 
 ssize_t RFM9x::read(uint8_t * buffer, ssize_t const num_bytes)
 {
-  _rx_done_event.clear();
-
   if(num_bytes < 1                                                    ) return static_cast<ssize_t>(RetCodeRead::ParameterError      );
 
   uint16_t const rx_fifo_size = _config.getRxFifoSize();
@@ -96,14 +95,11 @@ ssize_t RFM9x::read(uint8_t * buffer, ssize_t const num_bytes)
 
   if(_control.getOperatingMode() != interface::OperatingMode::STDBY   ) return static_cast<ssize_t>(RetCodeRead::ModemBusy_NotStandby);
 
+  _event_group_rx_done_rx_timeout.clearAllEvents();
+
   _control.setOperatingMode(interface::OperatingMode::RXSINGLE);
 
-  os::interface::wait(_rx_done_event);
-  /* TODO: Actually we also need to wait here for an RxTimeoutEvent - if
-   * either of the two events occur we need to determine which event occured
-   * and then perform the necessary actions. A new interface is necessary for
-   * waiting for both events, something like a EventGroup class.
-   */
+  os::waitAny(_event_group_rx_done_rx_timeout);
 
   uint8_t const bytes_read = _control.readFromReceiveFifo(buffer, static_cast<uint8_t>(num_bytes));
 

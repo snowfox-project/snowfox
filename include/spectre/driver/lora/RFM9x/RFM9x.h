@@ -29,6 +29,7 @@
 #include <spectre/driver/lora/RFM9x/interface/control/RFM9x_Control.h>
 #include <spectre/driver/lora/RFM9x/interface/config/RFM9x_Configuration.h>
 
+#include <spectre/os/EventGroup.h>
 #include <spectre/os/interface/EventConsumer.h>
 
 /**************************************************************************************
@@ -115,6 +116,7 @@ private:
   os::interface::EventConsumer   & _rx_done_event,
                                  & _rx_timeout_event,
                                  & _tx_done_event;
+  os::EventGroup                   _event_group_rx_done_rx_timeout;
 
 };
 

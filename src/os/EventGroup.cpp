@@ -50,6 +50,58 @@ EventGroup::~EventGroup()
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
+void EventGroup::addEvent(interface::EventConsumer & event)
+{
+  _event_list.push_back(event);
+}
+
+void EventGroup::clearAllEvents()
+{
+  for(memory::container::ListNode<interface::EventConsumer &> * iter = _event_list.begin();
+      iter != _event_list.end();
+      iter = iter->next())
+  {
+    iter->data().clear();
+  }
+}
+
+bool EventGroup::isEveryEventSet()
+{
+  for(memory::container::ListNode<interface::EventConsumer &> * iter = _event_list.begin();
+      iter != _event_list.end();
+      iter = iter->next())
+  {
+    if(!iter->data().isSet()) return false;
+  }
+
+  return true;
+}
+
+bool EventGroup::isAnyEventSet()
+{
+  for(memory::container::ListNode<interface::EventConsumer &> * iter = _event_list.begin();
+      iter != _event_list.end();
+      iter = iter->next())
+  {
+    if(iter->data().isSet()) return true;
+  }
+
+  return false;
+}
+
+/**************************************************************************************
+ * PUBLIC FUNCTIONS
+ **************************************************************************************/
+
+void waitAny(EventGroup & event_group)
+{
+  while(!event_group.isAnyEventSet())
+  {
+    /* TODO: task_yield / thread_yield */
+  }
+}
+
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
