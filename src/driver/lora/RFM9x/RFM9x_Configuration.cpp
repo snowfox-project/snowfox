@@ -153,7 +153,7 @@ void RFM9x_Configuration::setCodingRate(interface::CodingRate const coding_rate)
   _io.writeRegister(interface::Register::MODEM_CONFIG1, reg_op_modem_config_1_content);
 }
 
-void RFM9x_Configuration::setSpreadingFactor (interface::SpreadingFactor const spreading_factor)
+void RFM9x_Configuration::setSpreadingFactor(interface::SpreadingFactor const spreading_factor)
 {
   uint8_t reg_op_modem_config_2_content = 0;
 
@@ -231,7 +231,7 @@ uint16_t RFM9x_Configuration::getRxFifoSize() const
   return _rx_fifo_size;
 }
 
-void RFM9x_Configuration::setEventSource(interface::Dio0EventSource const event_source)
+void RFM9x_Configuration::setDio0EventSource(interface::Dio0EventSource const event_source)
 {
   uint8_t reg_dio_mapping_1_content = 0;
 
@@ -243,7 +243,7 @@ void RFM9x_Configuration::setEventSource(interface::Dio0EventSource const event_
   _io.writeRegister(interface::Register::DIO_MAPPING1, reg_dio_mapping_1_content);
 }
 
-void RFM9x_Configuration::setEventSource(interface::Dio1EventSource const event_source)
+void RFM9x_Configuration::setDio1EventSource(interface::Dio1EventSource const event_source)
 {
   uint8_t reg_dio_mapping_1_content = 0;
 

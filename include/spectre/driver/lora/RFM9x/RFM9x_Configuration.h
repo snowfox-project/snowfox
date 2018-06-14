@@ -72,8 +72,8 @@ public:
   virtual uint16_t getTxFifoSize          (                                                         ) const override;
   virtual uint16_t getRxFifoSize          (                                                         ) const override;
 
-  virtual void     setEventSource         (interface::Dio0EventSource     const event_source        )       override;
-  virtual void     setEventSource         (interface::Dio1EventSource     const event_source        )       override;
+  virtual void     setDio0EventSource     (interface::Dio0EventSource     const event_source        )       override;
+  virtual void     setDio1EventSource     (interface::Dio1EventSource     const event_source        )       override;
 
 private:
 

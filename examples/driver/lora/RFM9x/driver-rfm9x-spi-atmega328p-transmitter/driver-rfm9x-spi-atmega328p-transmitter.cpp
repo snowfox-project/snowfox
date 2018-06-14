@@ -29,6 +29,7 @@
 #include <spectre/hal/avr/ATMEGA328P/EINT1.h>
 #include <spectre/hal/avr/ATMEGA328P/UART0.h>
 #include <spectre/hal/avr/ATMEGA328P/Flash.h>
+#include <spectre/hal/avr/ATMEGA328P/Delay.h>
 #include <spectre/hal/avr/ATMEGA328P/SpiMaster.h>
 #include <spectre/hal/avr/ATMEGA328P/DigitalInPin.h>
 #include <spectre/hal/avr/ATMEGA328P/DigitalOutPin.h>
@@ -96,6 +97,7 @@ int main()
    ************************************************************************************/
 
   ATMEGA328P::Flash                               flash;
+  ATMEGA328P::Delay                               delay;
   ATMEGA328P::InterruptController                 int_ctrl                               (&EIMSK, &PCICR, &WDTCSR, &TIMSK2, &TIMSK1, &TIMSK0, &SPCR, &UCSR0B, &ADCSRA, &EECR, &ACSR, &TWCR, &SPMCSR);
   ATMEGA328P::CriticalSection                     crit_sec                               (&SREG);
 
@@ -132,23 +134,25 @@ int main()
   ATMEGA328P::EINT0                                 rfm9x_dio0_eint0          (&EICRA, int_ctrl);
   ATMEGA328P::EINT0_ExternalInterruptEventCallback  rfm9x_dio0_eint0_callback (rfm9x_dio0_eint0);
 
-  rfm9x_dio0_int_pin.setPullUpMode (hal::interface::PullUpMode::PULL_UP);
-
-  rfm9x_dio0_eint0.setTriggerMode  (RFM9x_DIO0_INT_TRIGGER_MODE);
+  rfm9x_dio0_int_pin.setPullUpMode  (hal::interface::PullUpMode::PULL_UP);
 
   int_ctrl.registerInterruptCallback(ATMEGA328P::toIsrNum(ATMEGA328P::InterruptServiceRoutine::EXTERNAL_INT0), &rfm9x_dio0_eint0_callback);
+
+  rfm9x_dio0_eint0.setTriggerMode   (RFM9x_DIO0_INT_TRIGGER_MODE);
+  rfm9x_dio0_eint0.enable           ();
+
 
   /* EXT INT #1 for DIO1 notifications by RFM9x ***************************************/
   ATMEGA328P::DigitalInPin                          rfm9x_dio1_int_pin        (&DDRD, &PORTD, &PIND, 3); /* D3 = PD3 = INT1 */
   ATMEGA328P::EINT1                                 rfm9x_dio1_eint1          (&EICRA, int_ctrl);
   ATMEGA328P::EINT1_ExternalInterruptEventCallback  rfm9x_dio1_eint1_callback (rfm9x_dio1_eint1);
 
-  rfm9x_dio1_int_pin.setPullUpMode (hal::interface::PullUpMode::PULL_UP);
-
-  rfm9x_dio1_eint1.setTriggerMode  (RFM9x_DIO1_INT_TRIGGER_MODE);
+  rfm9x_dio1_int_pin.setPullUpMode  (hal::interface::PullUpMode::PULL_UP);
 
   int_ctrl.registerInterruptCallback(ATMEGA328P::toIsrNum(ATMEGA328P::InterruptServiceRoutine::EXTERNAL_INT1), &rfm9x_dio1_eint1_callback);
 
+  rfm9x_dio1_eint1.setTriggerMode   (RFM9x_DIO1_INT_TRIGGER_MODE);
+  rfm9x_dio1_eint1.enable           ();
 
 
   /************************************************************************************
@@ -230,17 +234,19 @@ int main()
 
   for(uint16_t msg_cnt = 0;; msg_cnt++)
   {
-    uint8_t msg[32] = {0};
+    uint8_t msg[64] = {0};
 
-    uint16_t const msg_len = sprintf(reinterpret_cast<char *>(msg), "spectre::lora::RFM9x Message %d\r\n", msg_cnt);
+    uint16_t const msg_len = snprintf(reinterpret_cast<char *>(msg), 64, "spectre::lora::RFM9x Message %d\r\n", msg_cnt);
 
     ssize_t const ret_code = rfm9x.write(msg, msg_len);
 
-    if     (ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::ParameterError      )) debug_serial.print("RFM9x::write - ParameterError");
-    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::TxFifoSizeExceeded  )) debug_serial.print("RFM9x::write - TxFifoSizeExceeded");
-    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::ModemBusy_NotSleep  )) debug_serial.print("RFM9x::write - ModemBusy_NotSleep");
-    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::ModemBusy_NotStandby)) debug_serial.print("RFM9x::write - ModemBusy_NotStandby");
-    else                                                                                       debug_serial.print("RFM9x::write - Message transmitted");
+    if     (ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::ParameterError      )) debug_serial.print("RFM9x::write - ParameterError\r\n");
+    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::TxFifoSizeExceeded  )) debug_serial.print("RFM9x::write - TxFifoSizeExceeded\r\n");
+    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::ModemBusy_NotSleep  )) debug_serial.print("RFM9x::write - ModemBusy_NotSleep\r\n");
+    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::ModemBusy_NotStandby)) debug_serial.print("RFM9x::write - ModemBusy_NotStandby\r\n");
+    else                                                                                       debug_serial.print("RFM9x::write - Message transmitted\r\n");
+
+    delay.delay_ms(1000);
   }
 
 

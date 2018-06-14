@@ -70,7 +70,7 @@ public:
   virtual ~RFM9x_Dio1Configuration() { }
 
 
-  virtual void setEventSource(Dio1EventSource const event_source) = 0;
+  virtual void setDio1EventSource(Dio1EventSource const event_source) = 0;
 
 };
 

@@ -70,6 +70,9 @@ RFM9x::~RFM9x()
 bool RFM9x::open()
 {
   _control.setOperatingMode     (interface::OperatingMode::SLEEP        );
+
+  while(_control.getOperatingMode() != interface::OperatingMode::SLEEP) { /* wait */ }
+
   _config.setLoRaMode           (interface::LoRaMode::LoRa              );
   _config.setHeaderMode         (interface::HeaderMode::Explicit        );
   _config.setPacketFormat       (interface::PacketFormat::VariableLength);
@@ -86,7 +89,6 @@ ssize_t RFM9x::read(uint8_t * buffer, ssize_t const num_bytes)
 
   uint16_t const rx_fifo_size = _config.getRxFifoSize();
   if(static_cast<uint16_t>(num_bytes) > rx_fifo_size                  ) return static_cast<ssize_t>(RetCodeRead::RxFifoSizeExceeded  );
-
 
   if(_control.getOperatingMode() != interface::OperatingMode::SLEEP   ) return static_cast<ssize_t>(RetCodeRead::ModemBusy_NotSleep  );
 
@@ -110,8 +112,6 @@ ssize_t RFM9x::read(uint8_t * buffer, ssize_t const num_bytes)
 
 ssize_t RFM9x::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
-  _tx_done_event.clear();
-
   if(num_bytes < 1                                                 ) return static_cast<ssize_t>(RetCodeWrite::ParameterError      );
 
   uint16_t const tx_fifo_size = _config.getTxFifoSize();
@@ -121,13 +121,23 @@ ssize_t RFM9x::write(uint8_t const * buffer, ssize_t const num_bytes)
 
   _control.setOperatingMode(interface::OperatingMode::STDBY);
 
+  while(_control.getOperatingMode() != interface::OperatingMode::STDBY) { /* wait */ }
+
   if(_control.getOperatingMode() != interface::OperatingMode::STDBY) return static_cast<ssize_t>(RetCodeWrite::ModemBusy_NotStandby);
 
   _control.writeToTransmitFifo(buffer, static_cast<uint8_t>(num_bytes));
 
+  _tx_done_event.clear();
+
+  _config.setDio0EventSource(interface::Dio0EventSource::TxDone);
+
   _control.setOperatingMode(interface::OperatingMode::TX);
 
   os::interface::wait(_tx_done_event);
+
+  _control.setOperatingMode(interface::OperatingMode::SLEEP);
+
+  while(_control.getOperatingMode() != interface::OperatingMode::SLEEP) { /* wait */ }
 
   return num_bytes;
 }
@@ -225,6 +235,8 @@ bool RFM9x::ioctl(uint32_t const cmd, void * arg)
 void RFM9x::close()
 {
   _control.setOperatingMode(interface::OperatingMode::SLEEP);
+
+  while(_control.getOperatingMode() != interface::OperatingMode::SLEEP) { /* wait */ }
 }
 
 /**************************************************************************************
