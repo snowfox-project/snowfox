@@ -17,6 +17,7 @@ script:
   - .ci/script/run-build.sh atmega1280-default.cmake
   - .ci/script/run-build.sh atmega2560-default.cmake
   - .ci/script/run-build.sh atmega328p-default.cmake
+  - .ci/script/run-build.sh atmega16u4-default.cmake
   - .ci/script/run-build.sh atmega32u4-default.cmake
   - .ci/script/run-build.sh host-default.cmake
   - .ci/script/run-test.sh
