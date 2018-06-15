@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_AT90CAN128_INTERRUPTCONTROLLER_H_
-#define INCLUDE_SPECTRE_HAL_AVR_AT90CAN128_INTERRUPTCONTROLLER_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_ATMEGA2560_INTERRUPTCONTROLLER_H_
+#define INCLUDE_SPECTRE_HAL_AVR_ATMEGA2560_INTERRUPTCONTROLLER_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/AT90CAN32_64_128/InterruptController.h>
+#include <spectre/hal/avr/common/ATMEGA640_1280_2560/InterruptController.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -35,32 +35,19 @@ namespace spectre
 namespace hal
 {
 
-namespace AT90CAN128
+namespace ATMEGA2560
 {
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class InterruptController : public AT90CAN32_64_128::InterruptController
+class InterruptController : public ATMEGA640_1280_2560::InterruptController
 {
 
 public:
 
-           InterruptController(volatile uint8_t * eimsk,
-                               volatile uint8_t * timsk2,
-                               volatile uint8_t * timsk1,
-                               volatile uint8_t * timsk0,
-                               volatile uint8_t * cangie,
-                               volatile uint8_t * spcr,
-                               volatile uint8_t * ucsr0b,
-                               volatile uint8_t * acsr,
-                               volatile uint8_t * adcsra,
-                               volatile uint8_t * eecr,
-                               volatile uint8_t * timsk3,
-                               volatile uint8_t * ucsr1b,
-                               volatile uint8_t * twcr,
-                               volatile uint8_t * spmcsr) : AT90CAN32_64_128::InterruptController(eimsk, timsk2, timsk1, timsk0, cangie, spcr, ucsr0b, acsr, adcsra, eecr, timsk3, ucsr1b, twcr, spmcsr) { }
+           InterruptController(volatile uint8_t * eimsk) : ATMEGA640_1280_2560::InterruptController(eimsk) { }
   virtual ~InterruptController() { }
 
 };
@@ -69,10 +56,10 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CAN128 */
+} /* ATMEGA2560 */
 
 } /* hal */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_AT90CAN128_INTERRUPTCONTROLLER_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_ATMEGA2560_INTERRUPTCONTROLLER_H_ */

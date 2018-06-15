@@ -82,8 +82,11 @@ static interface::InterruptCallback * isr_external_int0                   = 0,
                                     * isr_timer1_overflow                 = 0,
                                     * isr_timer0_compare_a                = 0,
                                     * isr_timer0_compare_b                = 0,
-                                    * isr_timer0_overflow                 = 0;
-
+                                    * isr_timer0_overflow                 = 0,
+                                    * isr_spi_serial_transfer_complete    = 0,
+                                    * isr_usart0_receive_complete         = 0,
+                                    * isr_usart0_uart_data_register_empty = 0,
+                                    * isr_usart0_transmit_complete        = 0;
 
 /**************************************************************************************
  * CTOR/DTOR
@@ -263,10 +266,10 @@ void InterruptController::registerInterruptCallback(uint8_t const isr_num, inter
   case toIsrNum(InterruptServiceRoutine::TIMER0_COMPARE_A               ): isr_timer0_compare_a                = interrupt_callback; break;
   case toIsrNum(InterruptServiceRoutine::TIMER0_COMPARE_B               ): isr_timer0_compare_b                = interrupt_callback; break;
   case toIsrNum(InterruptServiceRoutine::TIMER0_OVERFLOW                ): isr_timer0_overflow                 = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::SPI_SERIAL_TRANSFER_COMPLETE   ): break;
-  case toIsrNum(InterruptServiceRoutine::USART0_RECEIVE_COMPLETE        ): break;
-  case toIsrNum(InterruptServiceRoutine::USART0_UART_DATA_REGISTER_EMPTY): break;
-  case toIsrNum(InterruptServiceRoutine::USART0_TRANSMIT_COMPLETE       ): break;
+  case toIsrNum(InterruptServiceRoutine::SPI_SERIAL_TRANSFER_COMPLETE   ): isr_spi_serial_transfer_complete    = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::USART0_RECEIVE_COMPLETE        ): isr_usart0_receive_complete         = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::USART0_UART_DATA_REGISTER_EMPTY): isr_usart0_uart_data_register_empty = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::USART0_TRANSMIT_COMPLETE       ): isr_usart0_transmit_complete        = interrupt_callback; break;
   case toIsrNum(InterruptServiceRoutine::ANALOG_COMPARATOR              ): break;
   case toIsrNum(InterruptServiceRoutine::ANALOG_DIGITAL_CONVERTER       ): break;
   case toIsrNum(InterruptServiceRoutine::EEPROM_READY                   ): break;
@@ -449,22 +452,22 @@ ISR(TIMER0_OVF_vect)
 
 ISR(SPI_STC_vect)
 {
-
+  if(isr_spi_serial_transfer_complete) isr_spi_serial_transfer_complete->interruptServiceRoutine();
 }
 
 ISR(USART0_RX_vect)
 {
-
+  if(isr_usart0_receive_complete) isr_usart0_receive_complete->interruptServiceRoutine();
 }
 
 ISR(USART0_UDRE_vect)
 {
-
+  if(isr_usart0_uart_data_register_empty) isr_usart0_uart_data_register_empty->interruptServiceRoutine();
 }
 
 ISR(USART0_TX_vect)
 {
-
+  if(isr_usart0_transmit_complete) isr_usart0_transmit_complete->interruptServiceRoutine();
 }
 
 ISR(ANALOG_COMP_vect)
