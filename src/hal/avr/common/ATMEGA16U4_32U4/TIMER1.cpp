@@ -20,7 +20,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/ATMEGA32U4/TIMER1.h>
+#include <spectre/hal/avr/common/ATMEGA16U4_32U4/TIMER1.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -32,7 +32,7 @@ namespace spectre
 namespace hal
 {
 
-namespace ATMEGA32U4
+namespace ATMEGA16U4_32U4
 {
 
 /**************************************************************************************
@@ -144,7 +144,7 @@ void TIMER1::setPrescaler_TCCR1B(uint32_t const prescaler)
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA32U4 */
+} /* ATMEGA16U4_32U4 */
 
 } /* hal */
 

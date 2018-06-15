@@ -16,14 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_ATMEGA32U4_TIMER1_H_
-#define INCLUDE_SPECTRE_HAL_AVR_ATMEGA32U4_TIMER1_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_COMMON_ATMEGA16U4_32U4_TIMER0_H_
+#define INCLUDE_SPECTRE_HAL_AVR_COMMON_ATMEGA16U4_32U4_TIMER0_H_
 
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/ATMEGA16U4_32U4/TIMER1.h>
+#include <stdint.h>
+
+#include <spectre/hal/interface/timer/Timer.h>
+#include <spectre/hal/interface/timer/TimerConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -35,24 +38,55 @@ namespace spectre
 namespace hal
 {
 
-namespace ATMEGA32U4
+namespace ATMEGA16U4_32U4
 {
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class TIMER1 : public ATMEGA16U4_32U4::TIMER1
+class TIMER0 : public interface::Timer<uint8_t>,
+               public interface::TimerConfiguration
 {
 
 public:
 
-           TIMER1(volatile uint16_t * tcnt1,
-                  volatile uint8_t  * tccr1b,
-                  volatile uint16_t * ocr1a,
-                  volatile uint16_t * ocr1b,
-                  volatile uint16_t * ocr1c) : ATMEGA16U4_32U4::TIMER1(tcnt1, tccr1b, ocr1a, ocr1b, ocr1c) { }
-  virtual ~TIMER1() { }
+           TIMER0(volatile uint8_t * tcnt0,
+                  volatile uint8_t * tccr0b,
+                  volatile uint8_t * ocr0a,
+                  volatile uint8_t * ocr0b);
+  virtual ~TIMER0();
+
+
+  static uint8_t const COMPARE_A = 0;
+  static uint8_t const COMPARE_B = 1;
+
+
+  /* Timer Interface */
+
+  virtual void    start             (                 ) override;
+  virtual void    stop              (                 ) override;
+  virtual void    set               (uint8_t const val) override;
+  virtual uint8_t get               (                 ) override;
+
+  virtual void    setCompareRegister(uint8_t const reg_sel, uint8_t const reg_val) override;
+
+
+  /* Timer Configuration Interface */
+
+  virtual void setPrescaler(uint32_t const prescaler) override;
+
+private:
+
+           uint32_t   _prescaler;
+
+  volatile uint8_t  * _TCNT0,
+                    * _TCCR0B,
+                    * _OCR0A,
+                    * _OCR0B;
+
+
+  void setPrescaler_TCCR0B(uint32_t const prescaler);
 
 };
 
@@ -60,10 +94,10 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA32U4 */
+} /* ATMEGA16U4_32U4 */
 
 } /* hal */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_ATMEGA32U4_TIMER1_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_COMMON_ATMEGA16U4_32U4_TIMER0_H_ */
