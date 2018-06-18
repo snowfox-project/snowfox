@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_AT90CAN128_UART0_H_
-#define INCLUDE_SPECTRE_HAL_AVR_AT90CAN128_UART0_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_AT90CAN64_UART1_H_
+#define INCLUDE_SPECTRE_HAL_AVR_AT90CAN64_UART1_H_
 
 /**************************************************************************************
  * INCLUDE
@@ -35,7 +35,7 @@ namespace spectre
 namespace hal
 {
 
-namespace AT90CAN128
+namespace AT90CAN64
 {
 
 /**************************************************************************************
@@ -50,10 +50,10 @@ typedef AT90CAN32_64_128::UART0_ReceiveCompleteCallback       UART0_ReceiveCompl
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CAN128 */
+} /* AT90CAN64 */
 
 } /* hal */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_AT90CAN128_UART0_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_AT90CAN64_UART1_H_ */
