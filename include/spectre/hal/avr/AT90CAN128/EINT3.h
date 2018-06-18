@@ -39,30 +39,11 @@ namespace AT90CAN128
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * TYPEDEF
  **************************************************************************************/
 
-class EINT3 : public AT90CAN32_64_128::EINT3
-{
-
-public:
-
-          EINT3(volatile uint8_t * eicra, interface::InterruptController & int_ctrl) : AT90CAN32_64_128::EINT3(eicra, int_ctrl) { }
-  virtual EINT3() { }
-
-};
-
-/**************************************************************************************/
-
-class EINT3_ExternalInterruptEventCallback : public AT90CAN32_64_128::EINT3_ExternalInterruptEventCallback
-{
-
-public:
-
-           EINT3_ExternalInterruptEventCallback(EINT3 & eint3) : AT90CAN32_64_128::EINT3_ExternalInterruptEventCallback(eint3) { }
-  virtual ~EINT3_ExternalInterruptEventCallback() { }
-
-};
+typedef AT90CAN32_64_128::EINT3                                EINT3;
+typedef AT90CAN32_64_128::EINT3_ExternalInterruptEventCallback EINT3_ExternalInterruptEventCallback;
 
 /**************************************************************************************
  * NAMESPACE

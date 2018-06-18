@@ -39,18 +39,10 @@ namespace AT90CAN128
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * TYPEDEF
  **************************************************************************************/
 
-class CriticalSection : public ATxxxx::CriticalSection
-{
-
-public:
-
-           CriticalSection(volatile uint8_t * sreg) : ATxxxx::CriticalSection(sreg) { }
-  virtual ~CriticalSection() { }
-
-};
+typedef ATxxxx::CriticalSection CriticalSection;
 
 /**************************************************************************************
  * NAMESPACE

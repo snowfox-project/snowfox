@@ -39,20 +39,10 @@ namespace AT90CAN32
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * TYPEDEF
  **************************************************************************************/
 
-class SpiMaster : public ATxxxx::SpiMaster
-{
-
-public:
-
-           SpiMaster(volatile uint8_t * spcr,
-                     volatile uint8_t * spsr,
-                     volatile uint8_t * spdr) : ATxxxx::SpiMaster(spcr, spsr, spdr) { }
-  virtual ~SpiMaster() { }
-
-};
+typedef ATxxxx::SpiMaster SpiMaster;
 
 /**************************************************************************************
  * NAMESPACE

@@ -39,18 +39,10 @@ namespace AT90CAN128
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * TYPEDEF
  **************************************************************************************/
 
-class DigitalInOutPort : public ATxxxx::DigitalInOutPort
-{
-
-public:
-
-           DigitalInOutPort(volatile uint8_t * ddr, volatile uint8_t * port, volatile uint8_t * pin) : ATxxxx::DigitalInOutPort(ddr, port, pin) { }
-  virtual ~DigitalInOutPort() { }
-
-};
+typedef ATxxxx::DigitalOutPort DigitalOutPort;
 
 /**************************************************************************************
  * NAMESPACE

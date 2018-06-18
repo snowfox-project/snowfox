@@ -39,18 +39,10 @@ namespace AT90CAN32
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * TYPEDEF
  **************************************************************************************/
 
-class DigitalInPort : public ATxxxx::DigitalInPort
-{
-
-public:
-
-           DigitalInPort(volatile uint8_t * ddr, volatile uint8_t * port, volatile uint8_t * pin) : ATxxxx::DigitalInPort(ddr, port, pin) { }
-  virtual ~DigitalInPort() { }
-
-};
+typedef ATxxxx::DigitalInPort DigitalInPort;
 
 /**************************************************************************************
  * NAMESPACE

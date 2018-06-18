@@ -44,33 +44,7 @@ namespace AT90CAN32
 
 typedef AT90CAN32_64_128::Interrupt               Interrupt;
 typedef AT90CAN32_64_128::InterruptServiceRoutine InterruptServiceRoutine;
-
-/**************************************************************************************
- * CLASS DECLARATION
- **************************************************************************************/
-
-class InterruptController : public AT90CAN32_64_128::InterruptController
-{
-
-public:
-
-           InterruptController(volatile uint8_t * eimsk,
-                               volatile uint8_t * timsk2,
-                               volatile uint8_t * timsk1,
-                               volatile uint8_t * timsk0,
-                               volatile uint8_t * cangie,
-                               volatile uint8_t * spcr,
-                               volatile uint8_t * ucsr0b,
-                               volatile uint8_t * acsr,
-                               volatile uint8_t * adcsra,
-                               volatile uint8_t * eecr,
-                               volatile uint8_t * timsk3,
-                               volatile uint8_t * ucsr1b,
-                               volatile uint8_t * twcr,
-                               volatile uint8_t * spmcsr) : AT90CAN32_64_128::InterruptController(eimsk, timsk2, timsk1, timsk0, cangie, spcr, ucsr0b, acsr, adcsra, eecr, timsk3, ucsr1b, twcr, spmcsr) { }
-  virtual ~InterruptController() { }
-
-};
+typedef AT90CAN32_64_128::InterruptController     InterruptController;
 
 /**************************************************************************************
  * NAMESPACE

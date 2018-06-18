@@ -39,22 +39,10 @@ namespace AT90CAN128
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * TYPEDEF
  **************************************************************************************/
 
-class TIMER1 : public AT90CAN32_64_128::TIMER1
-{
-
-public:
-
-           TIMER1(volatile uint16_t * tcnt1,
-                  volatile uint8_t  * tccr1b,
-                  volatile uint16_t * ocr1a,
-                  volatile uint16_t * ocr1b,
-                  volatile uint16_t * ocr1c) : AT90CAN32_64_128::TIMER1(tcnt1, tccr1b, ocr1a, ocr1b, ocr1c) { }
-  virtual ~TIMER1() { }
-
-};
+typedef AT90CAN32_64_128::TIMER1 TIMER1;
 
 /**************************************************************************************
  * NAMESPACE
