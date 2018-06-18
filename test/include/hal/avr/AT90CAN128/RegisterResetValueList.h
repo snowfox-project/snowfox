@@ -1,6 +1,6 @@
 /**
  * Spectre is a modular RTOS with extensive IO support.
- * Copyright (C) 2017 Alexander Entinger / LXRobotics GmbH
+ * Copyright (C) 2017 - 2018 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
