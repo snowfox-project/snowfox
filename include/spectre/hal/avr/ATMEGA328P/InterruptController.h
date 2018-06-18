@@ -70,7 +70,8 @@ enum class Interrupt : uint8_t
   ANALOG_COMPARATOR               = 23,
   TWO_WIRE_INT                    = 24,
   SPM_READY                       = 25,
-  GLOBAL                          = 26
+  GLOBAL                          = 26,
+  INVALID                         = 255
 };
 
 enum class InterruptServiceRoutine : uint8_t

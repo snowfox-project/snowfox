@@ -23,12 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/interface/extint/ExternalInterruptAssembly.h>
-#include <spectre/hal/interface/extint/ExternalInterruptCallback.h>
-#include <spectre/hal/interface/extint/ExternalInterruptConfiguration.h>
-
-#include <spectre/hal/interface/interrupt/InterruptCallback.h>
-#include <spectre/hal/interface/interrupt/InterruptController.h>
+#include <spectre/hal/avr/common/ATxxxx/EINT1.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -44,66 +39,11 @@ namespace ATMEGA328P
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * TYPEDEF
  **************************************************************************************/
 
-class EINT1 : public interface::ExternalInterruptConfiguration,
-              public interface::ExternalInterruptAssembly
-{
-
-public:
-
-           EINT1(volatile uint8_t * eicra, interface::InterruptController & int_ctrl);
-  virtual ~EINT1();
-
-
-  /* External Interrupt Configuration */
-
-  virtual void setTriggerMode(interface::TriggerMode const trigger_mode) override;
-  virtual void enable        (                                         ) override;
-  virtual void disable       (                                         ) override;
-
-
-  /* External Interrupt Assembly */
-
-  virtual void registerExternalInterruptCallback(interface::ExternalInterruptCallback * external_interrupt_callback) override;
-
-
-  /* Functions to be called upon execution of a interrupt service routine */
-
-  void ISR_onExternalInterruptEvent();
-
-
-private:
-
-  volatile uint8_t               * _EICRA;
-  interface::InterruptController & _int_ctrl;
-
-  interface::ExternalInterruptCallback * _external_interrupt_callback;
-
-};
-
-/**************************************************************************************/
-
-class EINT1_ExternalInterruptEventCallback : public interface::InterruptCallback
-{
-
-public:
-
-           EINT1_ExternalInterruptEventCallback(EINT1 & eint1) : _eint1(eint1) { }
-  virtual ~EINT1_ExternalInterruptEventCallback() { }
-
-
-  virtual void interruptServiceRoutine() override
-  {
-    _eint1.ISR_onExternalInterruptEvent();
-  }
-
-private:
-
-  EINT1 & _eint1;
-
-};
+typedef ATxxxx::EINT1                                EINT1;
+typedef ATxxxx::EINT1_ExternalInterruptEventCallback EINT1_ExternalInterruptEventCallback;
 
 /**************************************************************************************
  * NAMESPACE
@@ -114,5 +54,6 @@ private:
 } /* hal */
 
 } /* spectre */
+
 
 #endif /* INCLUDE_SPECTRE_HAL_AVR_ATMEGA328P_EINT1_H_ */

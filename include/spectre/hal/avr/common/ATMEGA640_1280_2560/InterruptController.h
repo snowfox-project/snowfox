@@ -101,7 +101,8 @@ enum class Interrupt : uint8_t
   USART3_RECEIVE_COMPLETE         = 53,
   USART3_UART_DATA_REGISTER_EMPTY = 54,
   USART3_TRANSMIT_COMPLETE        = 55,
-  GLOBAL                          = 56
+  GLOBAL                          = 56,
+  INVALID                         = 255
 };
 
 enum class InterruptServiceRoutine : uint8_t

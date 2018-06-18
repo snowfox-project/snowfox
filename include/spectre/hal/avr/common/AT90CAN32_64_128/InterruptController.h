@@ -86,7 +86,8 @@ enum class Interrupt : uint8_t
   USART1_TRANSMIT_COMPLETE        = 38,
   TWO_WIRE_INT                    = 39,
   SPM_READY                       = 40,
-  GLOBAL                          = 41
+  GLOBAL                          = 41,
+  INVALID                         = 255
 };
 
 enum class InterruptServiceRoutine : uint8_t

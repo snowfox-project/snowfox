@@ -22,6 +22,9 @@
 
 #include <spectre/hal/avr/common/ATxxxx/EINT3.h>
 
+#if defined(MCU_ARCH_avr) && defined(MCU_TYPE_atmega328p)
+#include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
+#endif
 #if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_at90can32 ) || defined(MCU_TYPE_at90can64 ) || defined(MCU_TYPE_at90can128) )
 #include <spectre/hal/avr/common/AT90CAN32_64_128/InterruptController.h>
 #endif
@@ -49,6 +52,18 @@ namespace ATxxxx
 /* EICRA */
 #define ISC31_bm (1<<7)
 #define ISC30_bm (1<<6)
+
+#if defined(MCU_ARCH_avr) && defined(MCU_TYPE_atmega328p)
+  #define MCU_TYPE_NAMESPACE ATMEGA328P
+#endif
+#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_at90can32 ) || defined(MCU_TYPE_at90can64 ) || defined(MCU_TYPE_at90can128) )
+  #define MCU_TYPE_HAS_EINT3
+  #define MCU_TYPE_NAMESPACE AT90CAN32_64_128
+#endif
+#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega2560) || defined(MCU_TYPE_atmega1280) || defined(MCU_TYPE_atmega640 ) )
+  #define MCU_TYPE_HAS_EINT3
+  #define MCU_TYPE_NAMESPACE ATMEGA640_1280_2560
+#endif
 
 /**************************************************************************************
  * CTOR/DTOR
@@ -87,23 +102,22 @@ void EINT3::setTriggerMode(interface::TriggerMode const trigger_mode)
 
 void EINT3::enable()
 {
-#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_at90can32 ) || defined(MCU_TYPE_at90can64 ) || defined(MCU_TYPE_at90can128) )
-  uint8_t const int_num = AT90CAN32_64_128::toIntNum(AT90CAN32_64_128::Interrupt::EXTERNAL_INT3);
-#endif
-#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega2560) || defined(MCU_TYPE_atmega1280) || defined(MCU_TYPE_atmega640 ) )
-  uint8_t const int_num = ATMEGA640_1280_2560::toIntNum(ATMEGA640_1280_2560::Interrupt::EXTERNAL_INT3);
+#ifdef MCU_TYPE_HAS_EINT3
+  uint8_t const int_num = MCU_TYPE_NAMESPACE::toIntNum(MCU_TYPE_NAMESPACE::Interrupt::EXTERNAL_INT3);
+#else
+  uint8_t const int_num = MCU_TYPE_NAMESPACE::toIntNum(MCU_TYPE_NAMESPACE::Interrupt::INVALID);
 #endif
   _int_ctrl.enableInterrupt(int_num);
 }
 
 void EINT3::disable()
 {
-#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_at90can32 ) || defined(MCU_TYPE_at90can64 ) || defined(MCU_TYPE_at90can128) )
-  uint8_t const int_num = AT90CAN32_64_128::toIntNum(AT90CAN32_64_128::Interrupt::EXTERNAL_INT3);
+#ifdef MCU_TYPE_HAS_EINT3
+  uint8_t const int_num = MCU_TYPE_NAMESPACE::toIntNum(MCU_TYPE_NAMESPACE::Interrupt::EXTERNAL_INT3);
+#else
+  uint8_t const int_num = MCU_TYPE_NAMESPACE::toIntNum(MCU_TYPE_NAMESPACE::Interrupt::INVALID);
 #endif
-#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega2560) || defined(MCU_TYPE_atmega1280) || defined(MCU_TYPE_atmega640 ) )
-  uint8_t const int_num = ATMEGA640_1280_2560::toIntNum(ATMEGA640_1280_2560::Interrupt::EXTERNAL_INT3);
-#endif
+
   _int_ctrl.disableInterrupt(int_num);
 }
 

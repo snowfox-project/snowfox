@@ -202,6 +202,7 @@ void InterruptController::enableInterrupt(uint8_t const int_num)
 #if defined(MCU_ARCH_avr) && defined(MCU_TYPE_atmega328p)
   case toIntNum(Interrupt::GLOBAL                        ): asm volatile("sei");    break;
 #endif
+  case toIntNum(Interrupt::INVALID                       ): /* DO NOTHING */        break;
   }
 }
 
