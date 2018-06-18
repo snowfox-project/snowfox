@@ -22,15 +22,19 @@
 
 #include <spectre/hal/avr/common/ATxxxx/EINT3.h>
 
+/* ATMEGA328P *************************************************************************/
 #if defined(MCU_ARCH_avr) && defined(MCU_TYPE_atmega328p)
 #include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
 #endif
+/* AT90CAN32/64/128 *******************************************************************/
 #if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_at90can32 ) || defined(MCU_TYPE_at90can64 ) || defined(MCU_TYPE_at90can128) )
 #include <spectre/hal/avr/common/AT90CAN32_64_128/InterruptController.h>
 #endif
+/* ATMEGA16U4/32U4 ********************************************************************/
 #if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega16u4) || defined(MCU_TYPE_atmega32u4) )
 #include <spectre/hal/avr/common/ATMEGA16U4_32U4/InterruptController.h>
 #endif
+/* ATMEGA640/1280/2560 ****************************************************************/
 #if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega2560) || defined(MCU_TYPE_atmega1280) || defined(MCU_TYPE_atmega640 ) )
 #include <spectre/hal/avr/common/ATMEGA640_1280_2560/InterruptController.h>
 #endif
@@ -56,16 +60,20 @@ namespace ATxxxx
 #define ISC31_bm (1<<7)
 #define ISC30_bm (1<<6)
 
+/* ATMEGA328P *************************************************************************/
 #if defined(MCU_ARCH_avr) && defined(MCU_TYPE_atmega328p)
   #define MCU_TYPE_NAMESPACE ATMEGA328P
 #endif
+/* AT90CAN32/64/128 *******************************************************************/
 #if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_at90can32 ) || defined(MCU_TYPE_at90can64 ) || defined(MCU_TYPE_at90can128) )
   #define MCU_TYPE_HAS_EINT3
   #define MCU_TYPE_NAMESPACE AT90CAN32_64_128
 #endif
+/* ATMEGA16U4/32U4 ********************************************************************/
 #if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega16u4) || defined(MCU_TYPE_atmega32u4) )
   #define MCU_TYPE_NAMESPACE ATMEGA16U4_32U4
 #endif
+/* ATMEGA640/1280/2560 ****************************************************************/
 #if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega2560) || defined(MCU_TYPE_atmega1280) || defined(MCU_TYPE_atmega640 ) )
   #define MCU_TYPE_HAS_EINT3
   #define MCU_TYPE_NAMESPACE ATMEGA640_1280_2560
