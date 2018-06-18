@@ -42,7 +42,7 @@ namespace AT90CAN64
  * TYPEDEF
  **************************************************************************************/
 
-typedef ATxxxx::DigitalOutPort DigitalOutPort;
+typedef ATxxxx::DigitalInOutPort DigitalInOutPort;
 
 /**************************************************************************************
  * NAMESPACE
