@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_COMMON_AT90CAN32_64_128_EINT5_H_
-#define INCLUDE_SPECTRE_HAL_AVR_COMMON_AT90CAN32_64_128_EINT5_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_COMMON_AT90CAN32_64_128_EINT6_H_
+#define INCLUDE_SPECTRE_HAL_AVR_COMMON_AT90CAN32_64_128_EINT6_H_
 
 /**************************************************************************************
  * INCLUDE
@@ -40,21 +40,21 @@ namespace spectre
 namespace hal
 {
 
-namespace AT90CAN32_64_128
+namespace ATxxxx
 {
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class EINT5 : public interface::ExternalInterruptConfiguration,
+class EINT6 : public interface::ExternalInterruptConfiguration,
               public interface::ExternalInterruptAssembly
 {
 
 public:
 
-           EINT5(volatile uint8_t * eicrb, interface::InterruptController & int_ctrl);
-  virtual ~EINT5();
+           EINT6(volatile uint8_t * eicrb, interface::InterruptController & int_ctrl);
+  virtual ~EINT6();
 
 
   /* External Interrupt Configuration */
@@ -85,23 +85,23 @@ private:
 
 /**************************************************************************************/
 
-class EINT5_ExternalInterruptEventCallback : public interface::InterruptCallback
+class EINT6_ExternalInterruptEventCallback : public interface::InterruptCallback
 {
 
 public:
 
-           EINT5_ExternalInterruptEventCallback(EINT5 & eint5) : _eint5(eint5) { }
-  virtual ~EINT5_ExternalInterruptEventCallback() { }
+           EINT6_ExternalInterruptEventCallback(EINT6 & eint6) : _eint6(eint6) { }
+  virtual ~EINT6_ExternalInterruptEventCallback() { }
 
 
   virtual void interruptServiceRoutine() override
   {
-    _eint5.ISR_onExternalInterruptEvent();
+    _eint6.ISR_onExternalInterruptEvent();
   }
 
 private:
 
-  EINT5 & _eint5;
+  EINT6 & _eint6;
 
 };
 
@@ -109,10 +109,10 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CAN32_64_128 */
+} /* ATxxxx */
 
 } /* hal */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_COMMON_AT90CAN32_64_128_EINT5_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_COMMON_AT90CAN32_64_128_EINT6_H_ */

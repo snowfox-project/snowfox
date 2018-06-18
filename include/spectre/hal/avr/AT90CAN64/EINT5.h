@@ -23,7 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/AT90CAN32_64_128/EINT5.h>
+#include <spectre/hal/avr/common/ATxxxx/EINT5.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,8 +42,8 @@ namespace AT90CAN64
  * TYPEDEF
  **************************************************************************************/
 
-typedef AT90CAN32_64_128::EINT5                                EINT5;
-typedef AT90CAN32_64_128::EINT5_ExternalInterruptEventCallback EINT5_ExternalInterruptEventCallback;
+typedef ATxxxx::EINT5                                EINT5;
+typedef ATxxxx::EINT5_ExternalInterruptEventCallback EINT5_ExternalInterruptEventCallback;
 
 /**************************************************************************************
  * NAMESPACE

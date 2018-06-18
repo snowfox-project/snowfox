@@ -20,9 +20,14 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/AT90CAN32_64_128/EINT2.h>
+#include <spectre/hal/avr/common/ATxxxx/EINT2.h>
 
+#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_at90can32 ) || defined(MCU_TYPE_at90can64 ) || defined(MCU_TYPE_at90can128) )
 #include <spectre/hal/avr/common/AT90CAN32_64_128/InterruptController.h>
+#endif
+#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega2560) || defined(MCU_TYPE_atmega1280) || defined(MCU_TYPE_atmega640 ) )
+#include <spectre/hal/avr/common/ATMEGA640_1280_2560/InterruptController.h>
+#endif
 
 /**************************************************************************************
  * NAMESPACE
@@ -34,7 +39,7 @@ namespace spectre
 namespace hal
 {
 
-namespace AT90CAN32_64_128
+namespace ATxxxx
 {
 
 /**************************************************************************************
@@ -82,12 +87,24 @@ void EINT2::setTriggerMode(interface::TriggerMode const trigger_mode)
 
 void EINT2::enable()
 {
-  _int_ctrl.enableInterrupt(toIntNum(Interrupt::EXTERNAL_INT2));
+#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_at90can32 ) || defined(MCU_TYPE_at90can64 ) || defined(MCU_TYPE_at90can128) )
+  uint8_t const int_num = AT90CAN32_64_128::toIntNum(AT90CAN32_64_128::Interrupt::EXTERNAL_INT2);
+#endif
+#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega2560) || defined(MCU_TYPE_atmega1280) || defined(MCU_TYPE_atmega640 ) )
+  uint8_t const int_num = ATMEGA640_1280_2560::toIntNum(ATMEGA640_1280_2560::Interrupt::EXTERNAL_INT2);
+#endif
+  _int_ctrl.enableInterrupt(int_num);
 }
 
 void EINT2::disable()
 {
-  _int_ctrl.disableInterrupt(toIntNum(Interrupt::EXTERNAL_INT2));
+#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_at90can32 ) || defined(MCU_TYPE_at90can64 ) || defined(MCU_TYPE_at90can128) )
+  uint8_t const int_num = AT90CAN32_64_128::toIntNum(AT90CAN32_64_128::Interrupt::EXTERNAL_INT2);
+#endif
+#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega2560) || defined(MCU_TYPE_atmega1280) || defined(MCU_TYPE_atmega640 ) )
+  uint8_t const int_num = ATMEGA640_1280_2560::toIntNum(ATMEGA640_1280_2560::Interrupt::EXTERNAL_INT2);
+#endif
+  _int_ctrl.disableInterrupt(int_num);
 }
 
 void EINT2::registerExternalInterruptCallback(interface::ExternalInterruptCallback * external_interrupt_callback)
@@ -107,7 +124,7 @@ void EINT2::ISR_onExternalInterruptEvent()
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CAN32_64_128 */
+} /* ATxxxx */
 
 } /* hal */
 

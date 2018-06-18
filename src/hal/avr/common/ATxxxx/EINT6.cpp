@@ -20,9 +20,14 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/AT90CAN32_64_128/EINT0.h>
+#include <spectre/hal/avr/common/ATxxxx/EINT6.h>
 
+#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_at90can32 ) || defined(MCU_TYPE_at90can64 ) || defined(MCU_TYPE_at90can128) )
 #include <spectre/hal/avr/common/AT90CAN32_64_128/InterruptController.h>
+#endif
+#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega2560) || defined(MCU_TYPE_atmega1280) || defined(MCU_TYPE_atmega640 ) )
+#include <spectre/hal/avr/common/ATMEGA640_1280_2560/InterruptController.h>
+#endif
 
 /**************************************************************************************
  * NAMESPACE
@@ -34,7 +39,7 @@ namespace spectre
 namespace hal
 {
 
-namespace AT90CAN32_64_128
+namespace ATxxxx
 {
 
 /**************************************************************************************
@@ -42,22 +47,22 @@ namespace AT90CAN32_64_128
  **************************************************************************************/
 
 /* EICRA */
-#define ISC01_bm (1<<1)
-#define ISC00_bm (1<<0)
+#define ISC61_bm (1<<5)
+#define ISC60_bm (1<<4)
 
 /**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
-EINT0::EINT0(volatile uint8_t * eicra, interface::InterruptController & int_ctrl)
-: _EICRA                      (eicra   ),
+EINT6::EINT6(volatile uint8_t * eicrb, interface::InterruptController & int_ctrl)
+: _EICRB                      (eicrb   ),
   _int_ctrl                   (int_ctrl),
   _external_interrupt_callback(0       )
 {
 
 }
 
-EINT0::~EINT0()
+EINT6::~EINT6()
 {
 
 }
@@ -66,36 +71,48 @@ EINT0::~EINT0()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void EINT0::setTriggerMode(interface::TriggerMode const trigger_mode)
+void EINT6::setTriggerMode(interface::TriggerMode const trigger_mode)
 {
-  *_EICRA &= ~(ISC01_bm | ISC00_bm);
+  *_EICRB &= ~(ISC61_bm | ISC60_bm);
 
   switch(trigger_mode)
   {
-  case interface::TriggerMode::Any        : *_EICRA |=            ISC00_bm; break;
-  case interface::TriggerMode::Low        : *_EICRA |= 0;                   break;
+  case interface::TriggerMode::Any        : *_EICRB |=            ISC60_bm; break;
+  case interface::TriggerMode::Low        : *_EICRB |= 0;                   break;
   case interface::TriggerMode::High       : /* Not supported */             break;
-  case interface::TriggerMode::RisingEdge : *_EICRA |= ISC01_bm | ISC00_bm; break;
-  case interface::TriggerMode::FallingEdge: *_EICRA |= ISC01_bm;            break;
+  case interface::TriggerMode::RisingEdge : *_EICRB |= ISC61_bm | ISC60_bm; break;
+  case interface::TriggerMode::FallingEdge: *_EICRB |= ISC61_bm;            break;
   }
 }
 
-void EINT0::enable()
+void EINT6::enable()
 {
-  _int_ctrl.enableInterrupt(toIntNum(Interrupt::EXTERNAL_INT0));
+#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_at90can32 ) || defined(MCU_TYPE_at90can64 ) || defined(MCU_TYPE_at90can128) )
+  uint8_t const int_num = AT90CAN32_64_128::toIntNum(AT90CAN32_64_128::Interrupt::EXTERNAL_INT6);
+#endif
+#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega2560) || defined(MCU_TYPE_atmega1280) || defined(MCU_TYPE_atmega640 ) )
+  uint8_t const int_num = ATMEGA640_1280_2560::toIntNum(ATMEGA640_1280_2560::Interrupt::EXTERNAL_INT6);
+#endif
+  _int_ctrl.enableInterrupt(int_num);
 }
 
-void EINT0::disable()
+void EINT6::disable()
 {
-  _int_ctrl.disableInterrupt(toIntNum(Interrupt::EXTERNAL_INT0));
+#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_at90can32 ) || defined(MCU_TYPE_at90can64 ) || defined(MCU_TYPE_at90can128) )
+  uint8_t const int_num = AT90CAN32_64_128::toIntNum(AT90CAN32_64_128::Interrupt::EXTERNAL_INT6);
+#endif
+#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega2560) || defined(MCU_TYPE_atmega1280) || defined(MCU_TYPE_atmega640 ) )
+  uint8_t const int_num = ATMEGA640_1280_2560::toIntNum(ATMEGA640_1280_2560::Interrupt::EXTERNAL_INT6);
+#endif
+  _int_ctrl.disableInterrupt(int_num);
 }
 
-void EINT0::registerExternalInterruptCallback(interface::ExternalInterruptCallback * external_interrupt_callback)
+void EINT6::registerExternalInterruptCallback(interface::ExternalInterruptCallback * external_interrupt_callback)
 {
   _external_interrupt_callback = external_interrupt_callback;
 }
 
-void EINT0::ISR_onExternalInterruptEvent()
+void EINT6::ISR_onExternalInterruptEvent()
 {
   if(_external_interrupt_callback)
   {
@@ -107,7 +124,7 @@ void EINT0::ISR_onExternalInterruptEvent()
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CAN32_64_128 */
+} /* ATxxxx */
 
 } /* hal */
 

@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_COMMON_AT90CAN32_64_128_EINT7_H_
-#define INCLUDE_SPECTRE_HAL_AVR_COMMON_AT90CAN32_64_128_EINT7_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_COMMON_AT90CAN32_64_128_EINT1_H_
+#define INCLUDE_SPECTRE_HAL_AVR_COMMON_AT90CAN32_64_128_EINT1_H_
 
 /**************************************************************************************
  * INCLUDE
@@ -40,21 +40,21 @@ namespace spectre
 namespace hal
 {
 
-namespace AT90CAN32_64_128
+namespace ATxxxx
 {
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class EINT7 : public interface::ExternalInterruptConfiguration,
+class EINT1 : public interface::ExternalInterruptConfiguration,
               public interface::ExternalInterruptAssembly
 {
 
 public:
 
-           EINT7(volatile uint8_t * eicrb, interface::InterruptController & int_ctrl);
-  virtual ~EINT7();
+           EINT1(volatile uint8_t * eicra, interface::InterruptController & int_ctrl);
+  virtual ~EINT1();
 
 
   /* External Interrupt Configuration */
@@ -76,7 +76,7 @@ public:
 
 private:
 
-  volatile uint8_t               * _EICRB;
+  volatile uint8_t               * _EICRA;
   interface::InterruptController & _int_ctrl;
 
   interface::ExternalInterruptCallback * _external_interrupt_callback;
@@ -85,23 +85,23 @@ private:
 
 /**************************************************************************************/
 
-class EINT7_ExternalInterruptEventCallback : public interface::InterruptCallback
+class EINT1_ExternalInterruptEventCallback : public interface::InterruptCallback
 {
 
 public:
 
-           EINT7_ExternalInterruptEventCallback(EINT7 & eint7) : _eint7(eint7) { }
-  virtual ~EINT7_ExternalInterruptEventCallback() { }
+           EINT1_ExternalInterruptEventCallback(EINT1 & eint1) : _eint1(eint1) { }
+  virtual ~EINT1_ExternalInterruptEventCallback() { }
 
 
   virtual void interruptServiceRoutine() override
   {
-    _eint7.ISR_onExternalInterruptEvent();
+    _eint1.ISR_onExternalInterruptEvent();
   }
 
 private:
 
-  EINT7 & _eint7;
+  EINT1 & _eint1;
 
 };
 
@@ -109,10 +109,10 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CAN32_64_128 */
+} /* ATxxxx */
 
 } /* hal */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_COMMON_AT90CAN32_64_128_EINT7_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_COMMON_AT90CAN32_64_128_EINT1_H_ */
