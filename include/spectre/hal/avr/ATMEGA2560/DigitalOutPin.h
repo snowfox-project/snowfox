@@ -42,7 +42,7 @@ namespace ATMEGA2560
  * TYPEDEF
  **************************************************************************************/
 
-typedef ATxxxx::DigitalInOutPort DigitalInOutPort;
+typedef ATxxxx::DigitalOutPin DigitalOutPin;
 
 /**************************************************************************************
  * NAMESPACE

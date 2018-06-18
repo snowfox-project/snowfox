@@ -23,7 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/ATxxxx/DigitalInOutPort.h>
+#include <spectre/hal/avr/common/ATxxxx/DigitalOutPin.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,7 +42,7 @@ namespace ATMEGA1280
  * TYPEDEF
  **************************************************************************************/
 
-typedef ATxxxx::DigitalInOutPort DigitalInOutPort;
+typedef ATxxxx::DigitalOutPin DigitalOutPin;
 
 /**************************************************************************************
  * NAMESPACE
