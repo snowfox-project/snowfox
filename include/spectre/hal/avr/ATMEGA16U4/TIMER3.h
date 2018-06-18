@@ -39,22 +39,10 @@ namespace ATMEGA16U4
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * TYPEDEFS
  **************************************************************************************/
 
-class TIMER3 : public ATMEGA16U4_32U4::TIMER3
-{
-
-public:
-
-           TIMER3(volatile uint16_t * tcnt3,
-                  volatile uint8_t  * tccr3b,
-                  volatile uint16_t * ocr3a,
-                  volatile uint16_t * ocr3b,
-                  volatile uint16_t * ocr3c) : ATMEGA16U4_32U4::TIMER3(tcnt3, tccr3b, ocr3a, ocr3b, ocr3c) { }
-  virtual ~TIMER3() { }
-
-};
+typedef ATMEGA16U4_32U4::TIMER3 TIMER3;
 
 /**************************************************************************************
  * NAMESPACE
