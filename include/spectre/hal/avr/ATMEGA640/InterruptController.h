@@ -44,20 +44,7 @@ namespace ATMEGA640
 
 typedef ATMEGA640_1280_2560::Interrupt               Interrupt;
 typedef ATMEGA640_1280_2560::InterruptServiceRoutine InterruptServiceRoutine;
-
-/**************************************************************************************
- * CLASS DECLARATION
- **************************************************************************************/
-
-class InterruptController : public ATMEGA640_1280_2560::InterruptController
-{
-
-public:
-
-           InterruptController(volatile uint8_t * eimsk) : ATMEGA640_1280_2560::InterruptController(eimsk) { }
-  virtual ~InterruptController() { }
-
-};
+typedef ATMEGA640_1280_2560::InterruptController     InterruptController;
 
 /**************************************************************************************
  * NAMESPACE

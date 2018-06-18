@@ -38,23 +38,12 @@ namespace hal
 namespace ATMEGA2560
 {
 
+
 /**************************************************************************************
- * CLASS DECLARATION
+ * TYPEDEFS
  **************************************************************************************/
 
-class TIMER5 : public ATMEGA640_1280_2560::TIMER5
-{
-
-public:
-
-           TIMER5(volatile uint16_t * tcnt5,
-                  volatile uint8_t  * tccr5b,
-                  volatile uint16_t * ocr5a,
-                  volatile uint16_t * ocr5b,
-                  volatile uint16_t * ocr5c) : ATMEGA640_1280_2560::TIMER5(tcnt5, tccr5b, ocr5a, ocr5b, ocr5c) { }
-  virtual ~TIMER5() { }
-
-};
+typedef ATMEGA640_1280_2560::TIMER5 TIMER5;
 
 /**************************************************************************************
  * NAMESPACE

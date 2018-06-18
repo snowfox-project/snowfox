@@ -39,22 +39,10 @@ namespace ATMEGA1280
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * TYPEDEFS
  **************************************************************************************/
 
-class TIMER4 : public ATMEGA640_1280_2560::TIMER4
-{
-
-public:
-
-           TIMER4(volatile uint16_t * tcnt4,
-                  volatile uint8_t  * tccr4b,
-                  volatile uint16_t * ocr4a,
-                  volatile uint16_t * ocr4b,
-                  volatile uint16_t * ocr4c) : ATMEGA640_1280_2560::TIMER4(tcnt4, tccr4b, ocr4a, ocr4b, ocr4c) { }
-  virtual ~TIMER4() { }
-
-};
+typedef ATMEGA640_1280_2560::TIMER4 TIMER4;
 
 /**************************************************************************************
  * NAMESPACE

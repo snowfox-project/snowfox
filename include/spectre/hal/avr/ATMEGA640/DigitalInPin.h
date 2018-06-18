@@ -39,18 +39,10 @@ namespace ATMEGA640
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * TYPEDEF
  **************************************************************************************/
 
-class DigitalInPin : public ATxxxx::DigitalInPin
-{
-
-public:
-
-           DigitalInPin(volatile uint8_t * ddr, volatile uint8_t * port, volatile uint8_t * pin, uint8_t const in_pin_number) : ATxxxx::DigitalInPin(ddr, port, pin, in_pin_number) { }
-  virtual ~DigitalInPin() { }
-
-};
+typedef ATxxxx::DigitalInPin DigitalInPin;
 
 /**************************************************************************************
  * NAMESPACE
