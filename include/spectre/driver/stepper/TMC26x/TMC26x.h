@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_DRIVER_STEPPER_TMC26X_TMC26X_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/driver/interface/Driver.h>

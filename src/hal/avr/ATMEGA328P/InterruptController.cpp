@@ -17,7 +17,7 @@
  */
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
@@ -289,7 +289,7 @@ void InterruptController::registerInterruptCallback(uint8_t const isr_num, inter
 #if defined(MCU_ARCH_avr) && defined(MCU_TYPE_atmega328p)
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <avr/io.h>

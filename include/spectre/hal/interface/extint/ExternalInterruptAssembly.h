@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_HAL_INTERFACE_EXTINT_EXTERNALINTERRUPTASSEMBLY_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/hal/interface/extint/ExternalInterruptCallback.h>

@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINOUTPORTCONFIGURATION_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/hal/interface/gpio/PullUpMode.h>

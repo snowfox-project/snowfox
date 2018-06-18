@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_FLASH_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/hal/interface/flash/Flash.h>

@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_ONMESSAGEERROR_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/driver/can/MCP2515/interface/events/MCP2515_onMessageError.h>

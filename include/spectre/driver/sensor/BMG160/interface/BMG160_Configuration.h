@@ -60,7 +60,7 @@ namespace interface
 #define BMG160_RANGE_REG_FSR_0_bm      (1 << 0)  /* Full scale selection bit 0 */
 
 /**************************************************************************************
- * TYPEDEFS
+ * TYPEDEF
  **************************************************************************************/
 
 enum class OutputDataRateAndBandwith : uint8_t

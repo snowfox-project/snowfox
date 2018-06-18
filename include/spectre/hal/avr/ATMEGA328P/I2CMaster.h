@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_MCU_AVR_ATMEGA328P_I2CMASTER_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/hal/avr/common/ATxxxx/i2c/interface/I2CMasterMCU.h>

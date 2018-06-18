@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_DRIVER_SERIAL_UART_UART_TRANSMITBUFFER_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/driver/serial/interface/SerialTransmitBuffer.h>

@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_HAL_AVR_ATMEGA328P_INTERRUPTCONTROLLER_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/hal/interface/interrupt/InterruptController.h>
@@ -40,7 +40,7 @@ namespace ATMEGA328P
 {
 
 /**************************************************************************************
- * TYPEDEFS
+ * TYPEDEF
  **************************************************************************************/
 
 enum class Interrupt : uint8_t

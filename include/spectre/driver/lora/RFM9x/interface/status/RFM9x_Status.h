@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_STATUS_RFM9X_STATUS_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/driver/lora/RFM9x/interface/status/RFM9x_RssiStatus.h>

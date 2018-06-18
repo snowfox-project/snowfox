@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_HAL_INTERFACE_ADC_ANALOGDIGITALCONVERTERCONFIGURATION_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <stdint.h>

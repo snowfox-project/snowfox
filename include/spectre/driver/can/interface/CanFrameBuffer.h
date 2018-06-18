@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_DRIVER_CAN_INTERFACE_CANFRAMEBUFFER_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/hal/interface/can/CanFrame.h>
@@ -44,7 +44,7 @@ namespace interface
 {
 
 /**************************************************************************************
- * TYPEDEFS
+ * TYPEDEF
  **************************************************************************************/
 
 typedef memory::container::Queue<hal::interface::CanFrame> CanFrameBuffer;

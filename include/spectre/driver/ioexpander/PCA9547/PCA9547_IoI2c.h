@@ -9,7 +9,7 @@
 #define INCLUDE_SPECTRE_DRIVER_IOEXPANDER_PCA9547_INTERFACE_PCA9547_IO_I2C_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/driver/ioexpander/PCA9547/interface/PCA9547_Io.h>

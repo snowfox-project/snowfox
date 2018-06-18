@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_RFM9X_CONFIGURATION_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/driver/lora/RFM9x/interface/config/RFM9x_RfConfiguration.h>

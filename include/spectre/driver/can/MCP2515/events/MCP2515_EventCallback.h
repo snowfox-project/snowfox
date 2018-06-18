@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_INTERFACE_MCP2515_CALLBACK_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/hal/interface/extint/ExternalInterruptCallback.h>

@@ -77,7 +77,7 @@ namespace interface
 #define L3GD20_STATUS_REG_XDA_bm   (1<<0)
 
 /**************************************************************************************
- * TYPEDEFS
+ * TYPEDEF
  **************************************************************************************/
 
 enum class OutputDataRateAndBandwith : uint8_t

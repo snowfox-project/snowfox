@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_DRIVER_IOEXPANDER_PCA9547_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/driver/ioexpander/PCA9547/interface/PCA9547_Control.h>

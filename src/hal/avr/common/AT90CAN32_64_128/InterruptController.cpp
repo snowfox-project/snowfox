@@ -17,7 +17,7 @@
  */
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/hal/avr/common/AT90CAN32_64_128/InterruptController.h>
@@ -384,7 +384,7 @@ void InterruptController::registerInterruptCallback(uint8_t const isr_num, inter
 #if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_at90can32) || defined(MCU_TYPE_at90can64) || defined(MCU_TYPE_at90can128) )
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <avr/io.h>

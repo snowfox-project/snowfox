@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_MEMORY_CONTAINER_LIST_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/memory/container/ListNode.h>

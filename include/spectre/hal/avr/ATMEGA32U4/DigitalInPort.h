@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_HAL_AVR_ATMEGA32U4_DIGITALINPORT_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/hal/avr/common/ATxxxx/DigitalInPort.h>
@@ -39,7 +39,7 @@ namespace ATMEGA32U4
 {
 
 /**************************************************************************************
- * TYPEDEFS
+ * TYPEDEF
  **************************************************************************************/
 
 typedef ATxxxx::DigitalInPort DigitalInPort;

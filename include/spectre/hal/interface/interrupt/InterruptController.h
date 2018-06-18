@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_HAL_INTERFACE_INTERRUPT_INTERRUPTCONTROLLER_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <stdint.h>

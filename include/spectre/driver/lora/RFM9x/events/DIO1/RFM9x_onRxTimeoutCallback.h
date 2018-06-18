@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_DIO1_RFM9X_ONRXTIMEOUTCALLBACK_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/driver/lora/RFM9x/interface/events/DIO1/RFM9x_onRxTimeoutCallback.h>

@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_DRV2605_IO_I2C_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/driver/haptic/DRV2605/interface/DRV2605_Io.h>

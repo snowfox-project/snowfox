@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_DRIVER_LORA_RFM9X_INTERFACE_CONTROL_RFM9X_FIFOCONTROL_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <stdint.h>

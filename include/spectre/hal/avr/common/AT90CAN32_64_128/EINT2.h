@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_HAL_AVR_COMMON_AT90CAN32_64_128_EINT2_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/hal/interface/extint/ExternalInterruptAssembly.h>

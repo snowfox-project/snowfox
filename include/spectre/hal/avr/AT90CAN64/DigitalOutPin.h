@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_HAL_AVR_AT90CAN64_DIGITALOUTPIN_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/hal/avr/common/ATxxxx/DigitalOutPin.h>

@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_DRIVER_CAN_MCP2515_MCP2515_CANCONFIGURATION_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/driver/can/interface/CanConfiguration.h>

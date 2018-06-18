@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_HAL_AVR_ATMEGA640_CRITICALSECTION_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/hal/avr/common/ATxxxx/CriticalSection.h>

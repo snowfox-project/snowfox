@@ -59,7 +59,7 @@ namespace interface
 #define AD7151_SETUP_REG_THRESHOLD_SETTING_0_bm   (1<<0)
 
 /**************************************************************************************
- * TYPEDEFS
+ * TYPEDEF
  **************************************************************************************/
 
 enum class CapacitiveInputRange : uint8_t

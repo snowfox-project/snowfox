@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_DRIVER_CONSOLE_CONSOLE_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/driver/interface/Driver.h>

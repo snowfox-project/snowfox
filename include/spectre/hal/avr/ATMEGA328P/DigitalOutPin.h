@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_HAL_AVR_ATMEGA328P_DIGITALOUTPIN_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/hal/avr/common/ATxxxx/DigitalOutPin.h>
@@ -39,7 +39,7 @@ namespace ATMEGA328P
 {
 
 /**************************************************************************************
- * TYPEDEFS
+ * TYPEDEF
  **************************************************************************************/
 
 typedef ATxxxx::DigitalOutPin DigitalOutPin;

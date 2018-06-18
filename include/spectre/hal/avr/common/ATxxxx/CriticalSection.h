@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_HAL_AVR_ATXXXX_CRITICALSECTION_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/hal/interface/locking/CriticalSection.h>

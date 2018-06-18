@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_HAL_AVR_ATMEGA32U4_DIGITALOUTPIN_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/hal/avr/common/ATxxxx/DigitalOutPin.h>
@@ -39,7 +39,7 @@ namespace ATMEGA32U4
 {
 
 /**************************************************************************************
- * TYPEDEFS
+ * TYPEDEF
  **************************************************************************************/
 
 typedef ATxxxx::DigitalOutPin DigitalOutPin;

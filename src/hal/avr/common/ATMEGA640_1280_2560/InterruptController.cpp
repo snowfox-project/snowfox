@@ -17,7 +17,7 @@
  */
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/hal/avr/common/ATMEGA640_1280_2560/InterruptController.h>
@@ -319,7 +319,7 @@ void InterruptController::registerInterruptCallback(uint8_t const isr_num, inter
 #if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega2560) || defined(MCU_TYPE_atmega1280) || defined(MCU_TYPE_atmega640) )
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <avr/io.h>

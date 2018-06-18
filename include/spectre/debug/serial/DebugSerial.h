@@ -20,7 +20,7 @@
 #define INCLUDE_SPECTRE_DEBUG_SERIAL_DEBUGSERIAL_H_
 
 /**************************************************************************************
- * INCLUDES
+ * INCLUDE
  **************************************************************************************/
 
 #include <spectre/debug/interface/Debug.h>
