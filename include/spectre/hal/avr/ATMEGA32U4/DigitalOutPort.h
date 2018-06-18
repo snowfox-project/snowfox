@@ -39,18 +39,10 @@ namespace ATMEGA32U4
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * TYPEDEFS
  **************************************************************************************/
 
-class DigitalOutPort : public ATxxxx::DigitalOutPort
-{
-
-public:
-
-           DigitalOutPort(volatile uint8_t * ddr, volatile uint8_t * port) : ATxxxx::DigitalOutPort(ddr, port) { }
-  virtual ~DigitalOutPort() { }
-
-};
+typedef ATxxxx::DigitalOutPort DigitalOutPort;
 
 /**************************************************************************************
  * NAMESPACE

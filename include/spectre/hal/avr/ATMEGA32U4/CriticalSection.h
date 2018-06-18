@@ -39,18 +39,10 @@ namespace ATMEGA32U4
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * TYPEDEFS
  **************************************************************************************/
 
-class CriticalSection : public ATxxxx::CriticalSection
-{
-
-public:
-
-           CriticalSection(volatile uint8_t * sreg) : ATxxxx::CriticalSection(sreg) { }
-  virtual ~CriticalSection() { }
-
-};
+typedef ATxxxx::CriticalSection CriticalSection;
 
 /**************************************************************************************
  * NAMESPACE

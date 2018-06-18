@@ -39,20 +39,10 @@ namespace ATMEGA32U4
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * TYPEDEFS
  **************************************************************************************/
 
-class SpiMaster : public ATxxxx::SpiMaster
-{
-
-public:
-
-           SpiMaster(volatile uint8_t * spcr,
-                     volatile uint8_t * spsr,
-                     volatile uint8_t * spdr) : ATxxxx::SpiMaster(spcr, spsr, spdr) { }
-  virtual ~SpiMaster() { }
-
-};
+typedef ATxxxx::SpiMaster SpiMaster;
 
 /**************************************************************************************
  * NAMESPACE
