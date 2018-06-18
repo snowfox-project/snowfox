@@ -86,7 +86,36 @@ static interface::InterruptCallback * isr_external_int0                   = 0,
                                     * isr_spi_serial_transfer_complete    = 0,
                                     * isr_usart0_receive_complete         = 0,
                                     * isr_usart0_uart_data_register_empty = 0,
-                                    * isr_usart0_transmit_complete        = 0;
+                                    * isr_usart0_transmit_complete        = 0,
+                                    * isr_analog_comparator               = 0,
+                                    * isr_analog_digital_converter        = 0,
+                                    * isr_eeprom_ready                    = 0,
+                                    * isr_timer3_capture                  = 0,
+                                    * isr_timer3_compare_a                = 0,
+                                    * isr_timer3_compare_b                = 0,
+                                    * isr_timer3_compare_c                = 0,
+                                    * isr_timer3_overflow                 = 0,
+                                    * isr_usart1_receive_complete         = 0,
+                                    * isr_usart1_uart_data_register_empty = 0,
+                                    * isr_usart1_transmit_complete        = 0,
+                                    * isr_two_wire_int                    = 0,
+                                    * isr_spm_ready                       = 0,
+                                    * isr_timer4_capture                  = 0,
+                                    * isr_timer4_compare_a                = 0,
+                                    * isr_timer4_compare_b                = 0,
+                                    * isr_timer4_compare_c                = 0,
+                                    * isr_timer4_overflow                 = 0,
+                                    * isr_timer5_capture                  = 0,
+                                    * isr_timer5_compare_a                = 0,
+                                    * isr_timer5_compare_b                = 0,
+                                    * isr_timer5_compare_c                = 0,
+                                    * isr_timer5_overflow                 = 0,
+                                    * isr_usart2_receive_complete         = 0,
+                                    * isr_usart2_uart_data_register_empty = 0,
+                                    * isr_usart2_transmit_complete        = 0,
+                                    * isr_usart3_receive_complete         = 0,
+                                    * isr_usart3_uart_data_register_empty = 0,
+                                    * isr_usart3_transmit_complete        = 0;
 
 /**************************************************************************************
  * CTOR/DTOR
@@ -270,35 +299,35 @@ void InterruptController::registerInterruptCallback(uint8_t const isr_num, inter
   case toIsrNum(InterruptServiceRoutine::USART0_RECEIVE_COMPLETE        ): isr_usart0_receive_complete         = interrupt_callback; break;
   case toIsrNum(InterruptServiceRoutine::USART0_UART_DATA_REGISTER_EMPTY): isr_usart0_uart_data_register_empty = interrupt_callback; break;
   case toIsrNum(InterruptServiceRoutine::USART0_TRANSMIT_COMPLETE       ): isr_usart0_transmit_complete        = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::ANALOG_COMPARATOR              ): break;
-  case toIsrNum(InterruptServiceRoutine::ANALOG_DIGITAL_CONVERTER       ): break;
-  case toIsrNum(InterruptServiceRoutine::EEPROM_READY                   ): break;
-  case toIsrNum(InterruptServiceRoutine::TIMER3_CAPTURE                 ): break;
-  case toIsrNum(InterruptServiceRoutine::TIMER3_COMPARE_A               ): break;
-  case toIsrNum(InterruptServiceRoutine::TIMER3_COMPARE_B               ): break;
-  case toIsrNum(InterruptServiceRoutine::TIMER3_COMPARE_C               ): break;
-  case toIsrNum(InterruptServiceRoutine::TIMER3_OVERFLOW                ): break;
-  case toIsrNum(InterruptServiceRoutine::USART1_RECEIVE_COMPLETE        ): break;
-  case toIsrNum(InterruptServiceRoutine::USART1_UART_DATA_REGISTER_EMPTY): break;
-  case toIsrNum(InterruptServiceRoutine::USART1_TRANSMIT_COMPLETE       ): break;
-  case toIsrNum(InterruptServiceRoutine::TWO_WIRE_INT                   ): break;
-  case toIsrNum(InterruptServiceRoutine::SPM_READY                      ): break;
-  case toIsrNum(InterruptServiceRoutine::TIMER4_CAPTURE                 ): break;
-  case toIsrNum(InterruptServiceRoutine::TIMER4_COMPARE_A               ): break;
-  case toIsrNum(InterruptServiceRoutine::TIMER4_COMPARE_B               ): break;
-  case toIsrNum(InterruptServiceRoutine::TIMER4_COMPARE_C               ): break;
-  case toIsrNum(InterruptServiceRoutine::TIMER4_OVERFLOW                ): break;
-  case toIsrNum(InterruptServiceRoutine::TIMER5_CAPTURE                 ): break;
-  case toIsrNum(InterruptServiceRoutine::TIMER5_COMPARE_A               ): break;
-  case toIsrNum(InterruptServiceRoutine::TIMER5_COMPARE_B               ): break;
-  case toIsrNum(InterruptServiceRoutine::TIMER5_COMPARE_C               ): break;
-  case toIsrNum(InterruptServiceRoutine::TIMER5_OVERFLOW                ): break;
-  case toIsrNum(InterruptServiceRoutine::USART2_RECEIVE_COMPLETE        ): break;
-  case toIsrNum(InterruptServiceRoutine::USART2_UART_DATA_REGISTER_EMPTY): break;
-  case toIsrNum(InterruptServiceRoutine::USART2_TRANSMIT_COMPLETE       ): break;
-  case toIsrNum(InterruptServiceRoutine::USART3_RECEIVE_COMPLETE        ): break;
-  case toIsrNum(InterruptServiceRoutine::USART3_UART_DATA_REGISTER_EMPTY): break;
-  case toIsrNum(InterruptServiceRoutine::USART3_TRANSMIT_COMPLETE       ): break;
+  case toIsrNum(InterruptServiceRoutine::ANALOG_COMPARATOR              ): isr_analog_comparator               = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::ANALOG_DIGITAL_CONVERTER       ): isr_analog_digital_converter        = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::EEPROM_READY                   ): isr_eeprom_ready                    = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::TIMER3_CAPTURE                 ): isr_timer3_capture                  = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::TIMER3_COMPARE_A               ): isr_timer3_compare_a                = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::TIMER3_COMPARE_B               ): isr_timer3_compare_b                = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::TIMER3_COMPARE_C               ): isr_timer3_compare_c                = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::TIMER3_OVERFLOW                ): isr_timer3_overflow                 = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::USART1_RECEIVE_COMPLETE        ): isr_usart1_receive_complete         = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::USART1_UART_DATA_REGISTER_EMPTY): isr_usart1_uart_data_register_empty = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::USART1_TRANSMIT_COMPLETE       ): isr_usart1_transmit_complete        = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::TWO_WIRE_INT                   ): isr_two_wire_int                    = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::SPM_READY                      ): isr_spm_ready                       = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::TIMER4_CAPTURE                 ): isr_timer4_capture                  = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::TIMER4_COMPARE_A               ): isr_timer4_compare_a                = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::TIMER4_COMPARE_B               ): isr_timer4_compare_b                = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::TIMER4_COMPARE_C               ): isr_timer4_compare_c                = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::TIMER4_OVERFLOW                ): isr_timer4_overflow                 = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::TIMER5_CAPTURE                 ): isr_timer5_capture                  = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::TIMER5_COMPARE_A               ): isr_timer5_compare_a                = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::TIMER5_COMPARE_B               ): isr_timer5_compare_b                = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::TIMER5_COMPARE_C               ): isr_timer5_compare_c                = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::TIMER5_OVERFLOW                ): isr_timer5_overflow                 = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::USART2_RECEIVE_COMPLETE        ): isr_usart2_receive_complete         = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::USART2_UART_DATA_REGISTER_EMPTY): isr_usart2_uart_data_register_empty = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::USART2_TRANSMIT_COMPLETE       ): isr_usart2_transmit_complete        = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::USART3_RECEIVE_COMPLETE        ): isr_usart3_receive_complete         = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::USART3_UART_DATA_REGISTER_EMPTY): isr_usart3_uart_data_register_empty = interrupt_callback; break;
+  case toIsrNum(InterruptServiceRoutine::USART3_TRANSMIT_COMPLETE       ): isr_usart3_transmit_complete        = interrupt_callback; break;
   }
 }
 
@@ -472,147 +501,147 @@ ISR(USART0_TX_vect)
 
 ISR(ANALOG_COMP_vect)
 {
-
+  if(isr_analog_comparator) isr_analog_comparator->interruptServiceRoutine();
 }
 
 ISR(ADC_vect)
 {
-
+  if(isr_analog_digital_converter) isr_analog_digital_converter->interruptServiceRoutine();
 }
 
 ISR(EE_READY_vect)
 {
-
+  if(isr_eeprom_ready) isr_eeprom_ready->interruptServiceRoutine();
 }
 
 ISR(TIMER3_CAPT_vect)
 {
-
+  if(isr_timer3_capture) isr_timer3_capture->interruptServiceRoutine();
 }
 
 ISR(TIMER3_COMPA_vect)
 {
-
+  if(isr_timer3_compare_a) isr_timer3_compare_a->interruptServiceRoutine();
 }
 
 ISR(TIMER3_COMPB_vect)
 {
-
+  if(isr_timer3_compare_b) isr_timer3_compare_b->interruptServiceRoutine();
 }
 
 ISR(TIMER3_COMPC_vect)
 {
-
+  if(isr_timer3_compare_c) isr_timer3_compare_c->interruptServiceRoutine();
 }
 
 ISR(TIMER3_OVF_vect)
 {
-
+  if(isr_timer3_overflow) isr_timer3_overflow->interruptServiceRoutine();
 }
 
 ISR(USART1_RX_vect)
 {
-
+  if(isr_usart1_receive_complete) isr_usart1_receive_complete->interruptServiceRoutine();
 }
 
 ISR(USART1_UDRE_vect)
 {
-
+  if(isr_usart1_uart_data_register_empty) isr_usart1_uart_data_register_empty->interruptServiceRoutine();
 }
 
 ISR(USART1_TX_vect)
 {
-
+  if(isr_usart1_transmit_complete) isr_usart1_transmit_complete->interruptServiceRoutine();
 }
 
 ISR(TWI_vect)
 {
-
+  if(isr_two_wire_int) isr_two_wire_int->interruptServiceRoutine();
 }
 
 ISR(SPM_READY_vect)
 {
-
+  if(isr_spm_ready) isr_spm_ready->interruptServiceRoutine();
 }
 
 ISR(TIMER4_CAPT_vect)
 {
-
+  if(isr_timer4_capture) isr_timer4_capture->interruptServiceRoutine();
 }
 
 ISR(TIMER4_COMPA_vect)
 {
-
+  if(isr_timer4_compare_a) isr_timer4_compare_a->interruptServiceRoutine();
 }
 
 ISR(TIMER4_COMPB_vect)
 {
-
+  if(isr_timer4_compare_b) isr_timer4_compare_b->interruptServiceRoutine();
 }
 
 ISR(TIMER4_COMPC_vect)
 {
-
+  if(isr_timer4_compare_c) isr_timer4_compare_c->interruptServiceRoutine();
 }
 
 ISR(TIMER4_OVF_vect)
 {
-
+  if(isr_timer4_overflow) isr_timer4_overflow->interruptServiceRoutine();
 }
 
 ISR(TIMER5_CAPT_vect)
 {
-
+  if(isr_timer5_capture) isr_timer5_capture->interruptServiceRoutine();
 }
 
 ISR(TIMER5_COMPA_vect)
 {
-
+  if(isr_timer5_compare_a) isr_timer5_compare_a->interruptServiceRoutine();
 }
 
 ISR(TIMER5_COMPB_vect)
 {
-
+  if(isr_timer5_compare_b) isr_timer5_compare_b->interruptServiceRoutine();
 }
 
 ISR(TIMER5_COMPC_vect)
 {
-
+  if(isr_timer5_compare_c) isr_timer5_compare_c->interruptServiceRoutine();
 }
 
 ISR(TIMER5_OVF_vect)
 {
-
+  if(isr_timer5_overflow) isr_timer5_overflow->interruptServiceRoutine();
 }
 
 ISR(USART2_RX_vect)
 {
-
+  if(isr_usart2_receive_complete) isr_usart2_receive_complete->interruptServiceRoutine();
 }
 
 ISR(USART2_UDRE_vect)
 {
-
+  if(isr_usart2_uart_data_register_empty) isr_usart2_uart_data_register_empty->interruptServiceRoutine();
 }
 
 ISR(USART2_TX_vect)
 {
-
+  if(isr_usart2_transmit_complete) isr_usart2_transmit_complete->interruptServiceRoutine();
 }
 
 ISR(USART3_RX_vect)
 {
-
+  if(isr_usart3_receive_complete) isr_usart3_receive_complete->interruptServiceRoutine();
 }
 
 ISR(USART3_UDRE_vect)
 {
-
+  if(isr_usart3_uart_data_register_empty) isr_usart3_uart_data_register_empty->interruptServiceRoutine();
 }
 
 ISR(USART3_TX_vect)
 {
-
+  if(isr_usart3_transmit_complete) isr_usart3_transmit_complete->interruptServiceRoutine();
 }
 
 #endif /* defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega2560) || defined(MCU_TYPE_atmega1280) || defined(MCU_TYPE_atmega640) ) */
