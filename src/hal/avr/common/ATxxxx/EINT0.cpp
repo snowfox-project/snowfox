@@ -28,6 +28,9 @@
 #if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_at90can32 ) || defined(MCU_TYPE_at90can64 ) || defined(MCU_TYPE_at90can128) )
 #include <spectre/hal/avr/common/AT90CAN32_64_128/InterruptController.h>
 #endif
+#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega16u4) || defined(MCU_TYPE_atmega32u4) )
+#include <spectre/hal/avr/common/ATMEGA16U4_32U4/InterruptController.h>
+#endif
 #if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega2560) || defined(MCU_TYPE_atmega1280) || defined(MCU_TYPE_atmega640 ) )
 #include <spectre/hal/avr/common/ATMEGA640_1280_2560/InterruptController.h>
 #endif
@@ -60,6 +63,9 @@ namespace ATxxxx
 #if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_at90can32 ) || defined(MCU_TYPE_at90can64 ) || defined(MCU_TYPE_at90can128) )
   #define MCU_TYPE_HAS_EINT0
   #define MCU_TYPE_NAMESPACE AT90CAN32_64_128
+#endif
+#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega16u4) || defined(MCU_TYPE_atmega32u4) )
+  #define MCU_TYPE_NAMESPACE ATMEGA16U4_32U4
 #endif
 #if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega2560) || defined(MCU_TYPE_atmega1280) || defined(MCU_TYPE_atmega640 ) )
   #define MCU_TYPE_HAS_EINT0
