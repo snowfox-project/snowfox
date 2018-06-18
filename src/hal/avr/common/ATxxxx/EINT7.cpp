@@ -38,6 +38,10 @@
 #if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega2560) || defined(MCU_TYPE_atmega1280) || defined(MCU_TYPE_atmega640 ) )
 #include <spectre/hal/avr/common/ATMEGA640_1280_2560/InterruptController.h>
 #endif
+/* HOST *******************************************************************************/
+#if defined(MCU_ARCH_host)
+#include <spectre/hal/host/InterruptController.h>
+#endif
 
 /**************************************************************************************
  * NAMESPACE
@@ -77,6 +81,10 @@ namespace ATxxxx
 #if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega2560) || defined(MCU_TYPE_atmega1280) || defined(MCU_TYPE_atmega640 ) )
   #define MCU_TYPE_HAS_EINT7
   #define MCU_TYPE_NAMESPACE ATMEGA640_1280_2560
+#endif
+/* HOST *******************************************************************************/
+#if defined(MCU_ARCH_host)
+  #define MCU_TYPE_NAMESPACE host
 #endif
 
 /**************************************************************************************
