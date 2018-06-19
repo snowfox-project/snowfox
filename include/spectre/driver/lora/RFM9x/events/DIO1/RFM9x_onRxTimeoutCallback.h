@@ -25,7 +25,7 @@
 
 #include <spectre/driver/lora/RFM9x/interface/events/DIO1/RFM9x_onRxTimeoutCallback.h>
 
-#include <spectre/os/interface/EventProducer.h>
+#include <spectre/os/event/interface/EventProducer.h>
 
 /**************************************************************************************
  * NAMESPACE

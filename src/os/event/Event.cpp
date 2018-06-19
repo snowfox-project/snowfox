@@ -20,7 +20,9 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/os/EventGroup.h>
+#include <spectre/os/event/Event.h>
+
+#include <spectre/hal/interface/locking/LockGuard.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -36,12 +38,14 @@ namespace os
  * CTOR/DTOR
  **************************************************************************************/
 
-EventGroup::EventGroup()
+Event::Event(hal::interface::CriticalSection & crit_sec)
+: _is_set  (false   ),
+  _crit_sec(crit_sec)
 {
 
 }
 
-EventGroup::~EventGroup()
+Event::~Event()
 {
 
 }
@@ -50,57 +54,23 @@ EventGroup::~EventGroup()
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-void EventGroup::addEvent(interface::EventConsumer & event)
+void Event::set()
 {
-  _event_list.push_back(event);
+  hal::interface::LockGuard lock(_crit_sec);
+  _is_set = true;
 }
 
-void EventGroup::clearAllEvents()
+void Event::clear()
 {
-  for(memory::container::ListNode<interface::EventConsumer &> * iter = _event_list.begin();
-      iter != _event_list.end();
-      iter = iter->next())
-  {
-    iter->data().clear();
-  }
+  hal::interface::LockGuard lock(_crit_sec);
+  _is_set = false;
 }
 
-bool EventGroup::isEveryEventSet()
+bool Event::isSet()
 {
-  for(memory::container::ListNode<interface::EventConsumer &> * iter = _event_list.begin();
-      iter != _event_list.end();
-      iter = iter->next())
-  {
-    if(!iter->data().isSet()) return false;
-  }
-
-  return true;
+  hal::interface::LockGuard lock(_crit_sec);
+  return _is_set;
 }
-
-bool EventGroup::isAnyEventSet()
-{
-  for(memory::container::ListNode<interface::EventConsumer &> * iter = _event_list.begin();
-      iter != _event_list.end();
-      iter = iter->next())
-  {
-    if(iter->data().isSet()) return true;
-  }
-
-  return false;
-}
-
-/**************************************************************************************
- * PUBLIC FUNCTIONS
- **************************************************************************************/
-
-void waitAny(EventGroup & event_group)
-{
-  while(!event_group.isAnyEventSet())
-  {
-    /* TODO: task_yield / thread_yield */
-  }
-}
-
 
 /**************************************************************************************
  * NAMESPACE

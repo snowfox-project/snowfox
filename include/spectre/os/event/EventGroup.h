@@ -16,19 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_OS_EVENT_H_
-#define INCLUDE_SPECTRE_OS_EVENT_H_
+#ifndef INCLUDE_SPECTRE_OS_EVENTGROUP_H_
+#define INCLUDE_SPECTRE_OS_EVENTGROUP_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/os/interface/EventProducer.h>
-#include <spectre/os/interface/EventConsumer.h>
+#include <spectre/os/event/interface/EventConsumer.h>
 
-#include <stdbool.h>
-
-#include <spectre/hal/interface/locking/CriticalSection.h>
+#include <spectre/memory/container/List.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -44,26 +41,31 @@ namespace os
  * CLASS DECLARATION
  **************************************************************************************/
 
-class Event : public interface::EventProducer,
-              public interface::EventConsumer
+class EventGroup
 {
 
 public:
 
-           Event(hal::interface::CriticalSection & crit_sec);
-  virtual ~Event();
+   EventGroup();
+  ~EventGroup();
 
 
-  virtual void set  () override;
-  virtual void clear() override;
-  virtual bool isSet() override;
+  void addEvent       (interface::EventConsumer & event);
+  void clearAllEvents ();
+  bool isEveryEventSet();
+  bool isAnyEventSet  ();
 
 private:
 
-  bool                              _is_set;
-  hal::interface::CriticalSection & _crit_sec;
+  memory::container::List<interface::EventConsumer &> _event_list;
 
 };
+
+/**************************************************************************************
+ * FUNCTION DECLARATIONS
+ **************************************************************************************/
+
+void waitAny(EventGroup & event_group);
 
 /**************************************************************************************
  * NAMESPACE
@@ -73,4 +75,4 @@ private:
 
 } /* os */
 
-#endif /* INCLUDE_SPECTRE_OS_EVENT_H_ */
+#endif /* INCLUDE_SPECTRE_OS_EVENTGROUP_H_ */

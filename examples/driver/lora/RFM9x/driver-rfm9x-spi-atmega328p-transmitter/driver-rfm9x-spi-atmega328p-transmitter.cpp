@@ -59,7 +59,7 @@
 #include <spectre/driver/lora/RFM9x/events/DIO1/RFM9x_onCadDetectedCallback.h>
 #include <spectre/driver/lora/RFM9x/events/DIO1/RFM9x_onFhssChangeChannelCallback.h>
 
-#include <spectre/os/Event.h>
+#include <spectre/os/event/Event.h>
 
 #include <spectre/debug/serial/DebugSerial.h>
 

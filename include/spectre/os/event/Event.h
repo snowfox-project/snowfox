@@ -16,16 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_OS_EVENTGROUP_H_
-#define INCLUDE_SPECTRE_OS_EVENTGROUP_H_
+#ifndef INCLUDE_SPECTRE_OS_EVENT_H_
+#define INCLUDE_SPECTRE_OS_EVENT_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/os/interface/EventConsumer.h>
+#include <spectre/os/event/interface/EventProducer.h>
+#include <spectre/os/event/interface/EventConsumer.h>
 
-#include <spectre/memory/container/List.h>
+#include <stdbool.h>
+
+#include <spectre/hal/interface/locking/CriticalSection.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -41,31 +44,26 @@ namespace os
  * CLASS DECLARATION
  **************************************************************************************/
 
-class EventGroup
+class Event : public interface::EventProducer,
+              public interface::EventConsumer
 {
 
 public:
 
-   EventGroup();
-  ~EventGroup();
+           Event(hal::interface::CriticalSection & crit_sec);
+  virtual ~Event();
 
 
-  void addEvent       (interface::EventConsumer & event);
-  void clearAllEvents ();
-  bool isEveryEventSet();
-  bool isAnyEventSet  ();
+  virtual void set  () override;
+  virtual void clear() override;
+  virtual bool isSet() override;
 
 private:
 
-  memory::container::List<interface::EventConsumer &> _event_list;
+  bool                              _is_set;
+  hal::interface::CriticalSection & _crit_sec;
 
 };
-
-/**************************************************************************************
- * FUNCTION DECLARATIONS
- **************************************************************************************/
-
-void waitAny(EventGroup & event_group);
 
 /**************************************************************************************
  * NAMESPACE
@@ -75,4 +73,4 @@ void waitAny(EventGroup & event_group);
 
 } /* os */
 
-#endif /* INCLUDE_SPECTRE_OS_EVENTGROUP_H_ */
+#endif /* INCLUDE_SPECTRE_OS_EVENT_H_ */

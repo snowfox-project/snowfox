@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/os/interface/EventConsumer.h>
+#include <spectre/os/event/interface/EventConsumer.h>
 
 /**************************************************************************************
  * NAMESPACE

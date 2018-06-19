@@ -25,7 +25,7 @@
 
 #include <spectre/driver/lora/RFM9x/interface/events/DIO0/RFM9x_onTxDoneCallback.h>
 
-#include <spectre/os/interface/EventProducer.h>
+#include <spectre/os/event/interface/EventProducer.h>
 
 /**************************************************************************************
  * NAMESPACE

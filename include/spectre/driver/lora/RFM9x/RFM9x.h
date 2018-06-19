@@ -29,8 +29,8 @@
 #include <spectre/driver/lora/RFM9x/interface/control/RFM9x_Control.h>
 #include <spectre/driver/lora/RFM9x/interface/config/RFM9x_Configuration.h>
 
-#include <spectre/os/EventGroup.h>
-#include <spectre/os/interface/EventConsumer.h>
+#include <spectre/os/event/EventGroup.h>
+#include <spectre/os/event/interface/EventConsumer.h>
 
 /**************************************************************************************
  * NAMESPACE
