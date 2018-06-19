@@ -21,7 +21,7 @@
  * and Seedstudio CAN Bus Shield V2.0
  *
  * Electrical interface:
- *   CS   = D9  = PB1
+ *   CS   = D10 = PB2
  *   SCK  = D13 = PB5
  *   MISO = D12 = PB4
  *   MOSI = D11 = PB3
@@ -38,17 +38,27 @@
 #include <avr/io.h>
 
 #include <spectre/hal/avr/ATMEGA328P/EINT0.h>
+#include <spectre/hal/avr/ATMEGA328P/UART0.h>
+#include <spectre/hal/avr/ATMEGA328P/Flash.h>
 #include <spectre/hal/avr/ATMEGA328P/Delay.h>
 #include <spectre/hal/avr/ATMEGA328P/SpiMaster.h>
 #include <spectre/hal/avr/ATMEGA328P/DigitalInPin.h>
 #include <spectre/hal/avr/ATMEGA328P/DigitalOutPin.h>
+#include <spectre/hal/avr/ATMEGA328P/CriticalSection.h>
 #include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
+
+#include <spectre/driver/serial/Serial.h>
+#include <spectre/driver/serial/UART/UART_ReceiveBuffer.h>
+#include <spectre/driver/serial/UART/UART_TransmitBuffer.h>
+#include <spectre/driver/serial/UART/UART_CallbackHandler.h>
+#include <spectre/driver/serial/UART/UART_SerialController.h>
 
 #include <spectre/driver/can/Can.h>
 
 #include <spectre/driver/can/interface/CanFrameBuffer.h>
 
 #include <spectre/driver/can/MCP2515/MCP2515_IoSpi.h>
+#include <spectre/driver/can/MCP2515/MCP2515_Debug.h>
 #include <spectre/driver/can/MCP2515/MCP2515_Control.h>
 #include <spectre/driver/can/MCP2515/MCP2515_CanControl.h>
 #include <spectre/driver/can/MCP2515/MCP2515_CanConfiguration.h>
@@ -59,6 +69,7 @@
 #include <spectre/driver/can/MCP2515/events/MCP2515_onReceiveBufferFull.h>
 #include <spectre/driver/can/MCP2515/events/MCP2515_onTransmitBufferEmpty.h>
 
+#include <spectre/debug/serial/DebugSerial.h>
 
 /**************************************************************************************
  * NAMESPACES
@@ -71,6 +82,9 @@ using namespace spectre::driver;
 /**************************************************************************************
  * GLOBAL CONSTANTS
  **************************************************************************************/
+
+static uint16_t                    const UART_RX_BUFFER_SIZE      = 0;
+static uint16_t                    const UART_TX_BUFFER_SIZE      = 64;
 
 static hal::interface::SpiMode     const MCP2515_SPI_MODE         = hal::interface::SpiMode::MODE_0;
 static hal::interface::SpiBitOrder const MCP2515_SPI_BIT_ORDER    = hal::interface::SpiBitOrder::MSB_FIRST;
@@ -89,11 +103,21 @@ int main()
 {
   /* HAL ******************************************************************************/
 
-  ATMEGA328P::InterruptController int_ctrl(&EIMSK, &PCICR, &WDTCSR, &TIMSK2, &TIMSK1, &TIMSK0, &SPCR, &UCSR0B, &ADCSRA, &EECR, &ACSR, &TWCR, &SPMCSR);
+  ATMEGA328P::Flash               flash;
   ATMEGA328P::Delay               delay;
+  ATMEGA328P::InterruptController int_ctrl(&EIMSK, &PCICR, &WDTCSR, &TIMSK2, &TIMSK1, &TIMSK0, &SPCR, &UCSR0B, &ADCSRA, &EECR, &ACSR, &TWCR, &SPMCSR);
+  ATMEGA328P::CriticalSection     crit_sec(&SREG);
+
+  /* UART0 ****************************************************************************/
+  ATMEGA328P::UART0                               uart0                                  (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl, F_CPU);
+  ATMEGA328P::UART0_TransmitRegisterEmptyCallback uart0_uart_data_register_empty_callback(uart0);
+  ATMEGA328P::UART0_ReceiveCompleteCallback       uart0_receive_complete_callback        (uart0);
+
+  int_ctrl.registerInterruptCallback(ATMEGA328P::toIsrNum(ATMEGA328P::InterruptServiceRoutine::USART_UART_DATA_REGISTER_EMPTY), &uart0_uart_data_register_empty_callback);
+  int_ctrl.registerInterruptCallback(ATMEGA328P::toIsrNum(ATMEGA328P::InterruptServiceRoutine::USART_RECEIVE_COMPLETE        ), &uart0_receive_complete_callback        );
 
   /* SPI/CS for MCP2515 ***************************************************************/
-  ATMEGA328P::DigitalOutPin mcp2515_cs  (&DDRB, &PORTB,        1); /* CS   = D9  = PB1 */
+  ATMEGA328P::DigitalOutPin mcp2515_cs  (&DDRB, &PORTB,        2); /* CS   = D10 = PB2 */
   ATMEGA328P::DigitalOutPin mcp2515_sck (&DDRB, &PORTB,        5); /* SCK  = D13 = PB5 */
   ATMEGA328P::DigitalInPin  mcp2515_miso(&DDRB, &PORTB, &PINB, 4); /* MISO = D12 = PB4 */
   ATMEGA328P::DigitalOutPin mcp2515_mosi(&DDRB, &PORTB,        3); /* MOSI = D11 = PB3 */
@@ -122,6 +146,27 @@ int main()
 
   /* DRIVER ***************************************************************************/
 
+  /* SERIAL ***************************************************************************/
+  serial::UART::UART_TransmitBuffer   serial_tx_buffer  (UART_TX_BUFFER_SIZE, crit_sec, uart0);
+  serial::UART::UART_ReceiveBuffer    serial_rx_buffer  (UART_RX_BUFFER_SIZE, crit_sec, uart0);
+  serial::UART::UART_CallbackHandler  serial_callback   (serial_tx_buffer, serial_rx_buffer);
+  serial::UART::UART_SerialController serial_ctrl       (uart0);
+  serial::Serial                      serial            (serial_ctrl, serial_tx_buffer, serial_rx_buffer);
+
+  uart0.registerUARTCallback(&serial_callback);
+
+  uint8_t baud_rate = static_cast<uint8_t>(serial::interface::SerialBaudRate::B115200);
+  uint8_t parity    = static_cast<uint8_t>(serial::interface::SerialParity::None     );
+  uint8_t stop_bit  = static_cast<uint8_t>(serial::interface::SerialStopBit::_1      );
+
+  serial.open();
+  serial.ioctl(serial::IOCTL_SET_BAUDRATE, static_cast<void *>(&baud_rate));
+  serial.ioctl(serial::IOCTL_SET_PARITY,   static_cast<void *>(&parity   ));
+  serial.ioctl(serial::IOCTL_SET_STOPBIT,  static_cast<void *>(&stop_bit ));
+
+  debug::DebugSerial debug_serial(serial);
+
+  /* MCP2515 **************************************************************************/
   can::interface::CanFrameBuffer              mcp2515_can_tx_buf                (CAN_TX_BUFFER_SIZE);
   can::interface::CanFrameBuffer              mcp2515_can_rx_buf                (CAN_RX_BUFFER_SIZE);
 
@@ -141,14 +186,23 @@ int main()
 
   can::Can                                    can                               (mcp2515_can_config, mcp2515_can_control);
 
+
   mcp2515_eint0.registerExternalInterruptCallback(&mcp2515_event_callback);
 
-  /* APPLICATION **********************************************************************/
 
   uint8_t bitrate = static_cast<uint8_t>(can::interface::CanBitRate::BR_250kBPS);
 
   can.open();
+
   can.ioctl(can::IOCTL_SET_BITRATE, static_cast<void *>(&bitrate));
+
+  /* ALL ******************************************************************************/
+  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
+
+
+  /* APPLICATION **********************************************************************/
+
+  can::MCP2515::MCP2515_Debug::debug_dumpAllRegs(debug_serial, flash, mcp2515_io_spi);
 
   for(;;)
   {
