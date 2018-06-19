@@ -78,7 +78,7 @@ namespace ATxxxx
 #elif defined(MCU_TYPE_atmega1280)
   static uint8_t const INT_NUM = ATMEGA640_1280_2560::toIntNum(ATMEGA1280::Interrupt::EXTERNAL_INT0);
 #elif defined(MCU_TYPE_atmega2560)
-  static uint8_t const INT_NUM = ATMEGA640_1280_2560::toIntNum(ATMEG2560::Interrupt::EXTERNAL_INT0 );
+  static uint8_t const INT_NUM = ATMEGA640_1280_2560::toIntNum(ATMEGA2560::Interrupt::EXTERNAL_INT0);
 #else
   static uint8_t const INT_NUM = interface::InterruptController::INVALID_INT_NUM;
 #endif

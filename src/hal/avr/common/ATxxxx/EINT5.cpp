@@ -66,7 +66,7 @@ namespace ATxxxx
  **************************************************************************************/
 
 #if   defined(MCU_TYPE_atmega328p)
-  static uint8_t const INT_NUM = ATMEGA328P::toIntNum         (ATMEGA328P::Interrupt::EXTERNAL_INT5);
+  static uint8_t const INT_NUM = ATMEGA328P::toIntNum         (ATMEGA328P::Interrupt::INVALID      );
 #elif defined(MCU_TYPE_at90can32)
   static uint8_t const INT_NUM = AT90CAN32_64_128::toIntNum   (AT90CAN32::Interrupt::EXTERNAL_INT5 );
 #elif defined(MCU_TYPE_at90can64)
@@ -78,7 +78,7 @@ namespace ATxxxx
 #elif defined(MCU_TYPE_atmega1280)
   static uint8_t const INT_NUM = ATMEGA640_1280_2560::toIntNum(ATMEGA1280::Interrupt::EXTERNAL_INT5);
 #elif defined(MCU_TYPE_atmega2560)
-  static uint8_t const INT_NUM = ATMEGA640_1280_2560::toIntNum(ATMEG2560::Interrupt::EXTERNAL_INT5 );
+  static uint8_t const INT_NUM = ATMEGA640_1280_2560::toIntNum(ATMEGA2560::Interrupt::EXTERNAL_INT5);
 #else
   static uint8_t const INT_NUM = interface::InterruptController::INVALID_INT_NUM;
 #endif
