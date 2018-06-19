@@ -31,11 +31,11 @@
 #elif defined(MCU_TYPE_at90can128)
   #include <spectre/hal/avr/AT90CAN128/InterruptController.h>
 #elif defined(MCU_TYPE_atmega640)
-  #include <spectre/hal/avr/AT90CAN640/InterruptController.h>
+  #include <spectre/hal/avr/ATMEGA640/InterruptController.h>
 #elif defined(MCU_TYPE_atmega1280)
-  #include <spectre/hal/avr/AT90CAN1280/InterruptController.h>
+  #include <spectre/hal/avr/ATMEGA1280/InterruptController.h>
 #elif defined(MCU_TYPE_atmega2560)
-  #include <spectre/hal/avr/AT90CAN2560/InterruptController.h>
+  #include <spectre/hal/avr/ATMEGA2560/InterruptController.h>
 #else
   #include <spectre/hal/interface/interrupt/InterruptController.h>
 #endif
