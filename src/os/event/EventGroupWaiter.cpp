@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/os/event/interface/EventConsumer.h>
+#include <spectre/os/event/EventGroupWaiter.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -32,16 +32,13 @@ namespace spectre
 namespace os
 {
 
-namespace interface
-{
-
 /**************************************************************************************
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-void wait(EventConsumer & event_consumer)
+void waitAny(EventGroup & event_group)
 {
-  while(!event_consumer.isSet())
+  while(!event_group.isAnyEventSet())
   {
     /* TODO: task_yield / thread_yield */
   }
@@ -50,8 +47,6 @@ void wait(EventConsumer & event_consumer)
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
-
-} /* interface */
 
 } /* spectre */
 

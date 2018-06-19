@@ -16,16 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_OS_EVENTGROUP_H_
-#define INCLUDE_SPECTRE_OS_EVENTGROUP_H_
+#ifndef INCLUDE_SPECTRE_OS_EVENT_EVENTGROUPWAITER_H_
+#define INCLUDE_SPECTRE_OS_EVENT_EVENTGROUPWAITER_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/os/event/interface/EventConsumer.h>
-
-#include <spectre/memory/container/List.h>
+#include <spectre/os/event/EventGroup.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -41,23 +39,19 @@ namespace os
  * CLASS DECLARATION
  **************************************************************************************/
 
-class EventGroup
+class EventGroupWaiter
 {
 
 public:
 
-   EventGroup();
-  ~EventGroup();
 
+  static void waitAny(EventGroup & event_group);
 
-  void addEvent       (interface::EventConsumer & event);
-  void clearAllEvents ();
-  bool isEveryEventSet();
-  bool isAnyEventSet  ();
 
 private:
 
-  memory::container::List<interface::EventConsumer &> _event_list;
+  EventGroupWaiter() { }
+  EventGroupWaiter(EventGroupWaiter const & other) { }
 
 };
 
@@ -69,4 +63,4 @@ private:
 
 } /* os */
 
-#endif /* INCLUDE_SPECTRE_OS_EVENTGROUP_H_ */
+#endif /* INCLUDE_SPECTRE_OS_EVENT_EVENTGROUPWAITER_H_ */

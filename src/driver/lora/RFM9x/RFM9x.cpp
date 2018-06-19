@@ -22,6 +22,9 @@
 
 #include <spectre/driver/lora/RFM9x/RFM9x.h>
 
+#include <spectre/os/event/EventWaiter.h>
+#include <spectre/os/event/EventGroupWaiter.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -99,7 +102,7 @@ ssize_t RFM9x::read(uint8_t * buffer, ssize_t const num_bytes)
 
   _control.setOperatingMode(interface::OperatingMode::RXSINGLE);
 
-  os::waitAny(_event_group_rx_done_rx_timeout);
+  os::EventGroupWaiter::waitAny(_event_group_rx_done_rx_timeout);
 
   uint8_t const bytes_read = _control.readFromReceiveFifo(buffer, static_cast<uint8_t>(num_bytes));
 
@@ -142,7 +145,7 @@ ssize_t RFM9x::write(uint8_t const * buffer, ssize_t const num_bytes)
 
   /* Wait for completion of the transmission */
 
-  os::interface::wait(_tx_done_event);
+  os::EventWaiter::wait(_tx_done_event);
 
   /* Change back to operating mode SLEEP */
 
