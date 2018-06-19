@@ -24,6 +24,7 @@
  **************************************************************************************/
 
 #include <stdint.h>
+#include <limits.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -49,6 +50,9 @@ public:
 
            InterruptController() { }
   virtual ~InterruptController() { }
+
+
+  static uint8_t constexpr INVALID_INT_NUM = UCHAR_MAX;
 
 
   virtual void enableInterrupt (uint8_t const int_num) = 0;

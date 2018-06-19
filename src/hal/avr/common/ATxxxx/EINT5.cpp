@@ -22,25 +22,22 @@
 
 #include <spectre/hal/avr/common/ATxxxx/EINT5.h>
 
-/* ATMEGA328P *************************************************************************/
-#if defined(MCU_ARCH_avr) && defined(MCU_TYPE_atmega328p)
-#include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
-#endif
-/* AT90CAN32/64/128 *******************************************************************/
-#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_at90can32 ) || defined(MCU_TYPE_at90can64 ) || defined(MCU_TYPE_at90can128) )
-#include <spectre/hal/avr/common/AT90CAN32_64_128/InterruptController.h>
-#endif
-/* ATMEGA16U4/32U4 ********************************************************************/
-#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega16u4) || defined(MCU_TYPE_atmega32u4) )
-#include <spectre/hal/avr/common/ATMEGA16U4_32U4/InterruptController.h>
-#endif
-/* ATMEGA640/1280/2560 ****************************************************************/
-#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega2560) || defined(MCU_TYPE_atmega1280) || defined(MCU_TYPE_atmega640 ) )
-#include <spectre/hal/avr/common/ATMEGA640_1280_2560/InterruptController.h>
-#endif
-/* HOST *******************************************************************************/
-#if defined(MCU_ARCH_host)
-#include <spectre/hal/host/InterruptController.h>
+#if   defined(MCU_TYPE_atmega328p)
+  #include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
+#elif defined(MCU_TYPE_at90can32)
+  #include <spectre/hal/avr/AT90CAN32/InterruptController.h>
+#elif defined(MCU_TYPE_at90can64)
+  #include <spectre/hal/avr/AT90CAN64/InterruptController.h>
+#elif defined(MCU_TYPE_at90can128)
+  #include <spectre/hal/avr/AT90CAN128/InterruptController.h>
+#elif defined(MCU_TYPE_atmega640)
+  #include <spectre/hal/avr/AT90CAN640/InterruptController.h>
+#elif defined(MCU_TYPE_atmega1280)
+  #include <spectre/hal/avr/AT90CAN1280/InterruptController.h>
+#elif defined(MCU_TYPE_atmega2560)
+  #include <spectre/hal/avr/AT90CAN2560/InterruptController.h>
+#else
+  #include <spectre/hal/interface/interrupt/InterruptController.h>
 #endif
 
 /**************************************************************************************
@@ -64,27 +61,26 @@ namespace ATxxxx
 #define ISC51_bm (1<<3)
 #define ISC50_bm (1<<2)
 
-/* ATMEGA328P *************************************************************************/
-#if defined(MCU_ARCH_avr) && defined(MCU_TYPE_atmega328p)
-  #define MCU_TYPE_NAMESPACE ATMEGA328P
-#endif
-/* AT90CAN32/64/128 *******************************************************************/
-#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_at90can32 ) || defined(MCU_TYPE_at90can64 ) || defined(MCU_TYPE_at90can128) )
-  #define MCU_TYPE_HAS_EINT5
-  #define MCU_TYPE_NAMESPACE AT90CAN32_64_128
-#endif
-/* ATMEGA16U4/32U4 ********************************************************************/
-#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega16u4) || defined(MCU_TYPE_atmega32u4) )
-  #define MCU_TYPE_NAMESPACE ATMEGA16U4_32U4
-#endif
-/* ATMEGA640/1280/2560 ****************************************************************/
-#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega2560) || defined(MCU_TYPE_atmega1280) || defined(MCU_TYPE_atmega640 ) )
-  #define MCU_TYPE_HAS_EINT5
-  #define MCU_TYPE_NAMESPACE ATMEGA640_1280_2560
-#endif
-/* HOST *******************************************************************************/
-#if defined(MCU_ARCH_host)
-  #define MCU_TYPE_NAMESPACE host
+/**************************************************************************************
+ * CONSTANTS
+ **************************************************************************************/
+
+#if   defined(MCU_TYPE_atmega328p)
+  static uint8_t const INT_NUM = ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::EXTERNAL_INT7);
+#elif defined(MCU_TYPE_at90can32)
+  static uint8_t const INT_NUM = AT90CAN32::toIntNum(AT90CAN32::Interrupt::EXTERNAL_INT7);
+#elif defined(MCU_TYPE_at90can64)
+  static uint8_t const INT_NUM = AT90CAN64::toIntNum(AT90CAN64::Interrupt::EXTERNAL_INT7);
+#elif defined(MCU_TYPE_at90can128)
+  static uint8_t const INT_NUM = AT90CAN128::toIntNum(AT90CAN128::Interrupt::EXTERNAL_INT7);
+#elif defined(MCU_TYPE_atmega640)
+  static uint8_t const INT_NUM = ATMEGA640::toIntNum(ATMEGA640::Interrupt::EXTERNAL_INT7);
+#elif defined(MCU_TYPE_atmega1280)
+  static uint8_t const INT_NUM = ATMEGA1280::toIntNum(ATMEGA1280::Interrupt::EXTERNAL_INT7);
+#elif defined(MCU_TYPE_atmega2560)
+  static uint8_t const INT_NUM = ATMEGA2560::toIntNum(ATMEG2560::Interrupt::EXTERNAL_INT7);
+#else
+  static uint8_t const INT_NUM = interface::InterruptController::INVALID_INT_NUM;
 #endif
 
 /**************************************************************************************
@@ -124,22 +120,12 @@ void EINT5::setTriggerMode(interface::TriggerMode const trigger_mode)
 
 void EINT5::enable()
 {
-#ifdef MCU_TYPE_HAS_EINT5
-  uint8_t const int_num = MCU_TYPE_NAMESPACE::toIntNum(MCU_TYPE_NAMESPACE::Interrupt::EXTERNAL_INT5);
-#else
-  uint8_t const int_num = MCU_TYPE_NAMESPACE::toIntNum(MCU_TYPE_NAMESPACE::Interrupt::INVALID);
-#endif
-  _int_ctrl.enableInterrupt(int_num);
+  _int_ctrl.enableInterrupt(INT_NUM);
 }
 
 void EINT5::disable()
 {
-#ifdef MCU_TYPE_HAS_EINT5
-  uint8_t const int_num = MCU_TYPE_NAMESPACE::toIntNum(MCU_TYPE_NAMESPACE::Interrupt::EXTERNAL_INT5);
-#else
-  uint8_t const int_num = MCU_TYPE_NAMESPACE::toIntNum(MCU_TYPE_NAMESPACE::Interrupt::INVALID);
-#endif
-  _int_ctrl.disableInterrupt(int_num);
+  _int_ctrl.disableInterrupt(INT_NUM);
 }
 
 void EINT5::registerExternalInterruptCallback(interface::ExternalInterruptCallback * external_interrupt_callback)

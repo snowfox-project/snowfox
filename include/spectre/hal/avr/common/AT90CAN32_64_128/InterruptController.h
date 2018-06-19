@@ -87,7 +87,7 @@ enum class Interrupt : uint8_t
   TWO_WIRE_INT                    = 39,
   SPM_READY                       = 40,
   GLOBAL                          = 41,
-  INVALID                         = 255
+  INVALID                         = interface::InterruptController::INVALID_INT_NUM
 };
 
 enum class InterruptServiceRoutine : uint8_t
