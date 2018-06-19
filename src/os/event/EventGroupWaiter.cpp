@@ -36,7 +36,7 @@ namespace os
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-void waitAny(EventGroup & event_group)
+void EventGroupWaiter::waitAny(EventGroup & event_group)
 {
   while(!event_group.isAnyEventSet())
   {
