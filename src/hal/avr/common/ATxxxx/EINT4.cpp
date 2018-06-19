@@ -66,19 +66,19 @@ namespace ATxxxx
  **************************************************************************************/
 
 #if   defined(MCU_TYPE_atmega328p)
-  static uint8_t const INT_NUM = ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::EXTERNAL_INT7);
+  static uint8_t const INT_NUM = ATMEGA328P::toIntNum         (ATMEGA328P::Interrupt::EXTERNAL_INT4);
 #elif defined(MCU_TYPE_at90can32)
-  static uint8_t const INT_NUM = AT90CAN32::toIntNum(AT90CAN32::Interrupt::EXTERNAL_INT7);
+  static uint8_t const INT_NUM = AT90CAN32_64_128::toIntNum   (AT90CAN32::Interrupt::EXTERNAL_INT4 );
 #elif defined(MCU_TYPE_at90can64)
-  static uint8_t const INT_NUM = AT90CAN64::toIntNum(AT90CAN64::Interrupt::EXTERNAL_INT7);
+  static uint8_t const INT_NUM = AT90CAN32_64_128::toIntNum   (AT90CAN64::Interrupt::EXTERNAL_INT4 );
 #elif defined(MCU_TYPE_at90can128)
-  static uint8_t const INT_NUM = AT90CAN128::toIntNum(AT90CAN128::Interrupt::EXTERNAL_INT7);
+  static uint8_t const INT_NUM = AT90CAN32_64_128::toIntNum   (AT90CAN128::Interrupt::EXTERNAL_INT4);
 #elif defined(MCU_TYPE_atmega640)
-  static uint8_t const INT_NUM = ATMEGA640::toIntNum(ATMEGA640::Interrupt::EXTERNAL_INT7);
+  static uint8_t const INT_NUM = ATMEGA640_1280_2560::toIntNum(ATMEGA640::Interrupt::EXTERNAL_INT4 );
 #elif defined(MCU_TYPE_atmega1280)
-  static uint8_t const INT_NUM = ATMEGA1280::toIntNum(ATMEGA1280::Interrupt::EXTERNAL_INT7);
+  static uint8_t const INT_NUM = ATMEGA640_1280_2560::toIntNum(ATMEGA1280::Interrupt::EXTERNAL_INT4);
 #elif defined(MCU_TYPE_atmega2560)
-  static uint8_t const INT_NUM = ATMEGA2560::toIntNum(ATMEG2560::Interrupt::EXTERNAL_INT7);
+  static uint8_t const INT_NUM = ATMEGA640_1280_2560::toIntNum(ATMEG2560::Interrupt::EXTERNAL_INT4 );
 #else
   static uint8_t const INT_NUM = interface::InterruptController::INVALID_INT_NUM;
 #endif
