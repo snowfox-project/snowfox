@@ -17,6 +17,22 @@
  */
 
 /**************************************************************************************
+ * This example programm is tailored for usage with Arduino Uno
+ * and Dragino LoRa Shield V1.4
+ *
+ * Electrical interface:
+ *   CS   = D10 = PB2
+ *   SCK  = D13 = PB5
+ *   MISO = D12 = PB4
+ *   MOSI = D11 = PB3
+ *   DIO0 = D2  = PD2 = INT0
+ *   DIO1 = D3  = PD3 = INT1
+ *
+ * Upload via avrdude
+ *   avrdude -p atmega328p -c avrisp2 -e -U flash:w:bin/driver-rfm9x-spi-atmega328p-transmitter
+ **************************************************************************************/
+
+/**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
