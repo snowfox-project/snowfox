@@ -57,7 +57,9 @@ enum class RetCodeRead : ssize_t
   ParameterError       = -1,
   RxFifoSizeExceeded   = -2,
   ModemBusy_NotSleep   = -3,
-  ModemBusy_NotStandby = -4
+  ModemBusy_NotStandby = -4,
+  RxTimeout            = -5,
+  UnkownError          = -6
 };
 
 enum class RetCodeWrite : ssize_t

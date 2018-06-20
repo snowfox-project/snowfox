@@ -104,6 +104,10 @@ ssize_t RFM9x::read(uint8_t * buffer, ssize_t const num_bytes)
 
   os::EventGroupWaiter::waitAny(_event_group_rx_done_rx_timeout);
 
+  if(_rx_timeout_event.isSet())                                         return static_cast<ssize_t>(RetCodeRead::RxTimeout           );
+
+  if(!_rx_done_event.isSet())                                           return static_cast<ssize_t>(RetCodeRead::UnkownError         );
+
   uint8_t const bytes_read = _control.readFromReceiveFifo(buffer, static_cast<uint8_t>(num_bytes));
 
   return static_cast<ssize_t>(bytes_read);
