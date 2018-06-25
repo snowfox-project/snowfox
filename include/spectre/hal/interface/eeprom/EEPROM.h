@@ -43,7 +43,7 @@ namespace interface
  **************************************************************************************/
 
 #if defined(MCU_ARCH_avr)
-  #define EEPROM_DECLARE(x) __attribute__((section(".eeprom")))  x
+  #define EEPROM_DECLARE(x) __attribute__((section(".eeprom"))) x
 #else
   #define EEPROM_DECLARE(x) x
 #endif
