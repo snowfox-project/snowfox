@@ -51,9 +51,22 @@ public:
   virtual ~EEPROM();
 
 
-  virtual void read  (uint8_t * to_ram,    uint8_t const * from_eeprom) override;
-  virtual void update(uint8_t * to_eeprom, uint8_t const   from_ram   ) override;
-  virtual void write (uint8_t * to_eeprom, uint8_t const   from_ram   ) override;
+  virtual void read  (uint8_t  * to_ram,    uint8_t  const * from_eeprom) override;
+  virtual void read  (uint16_t * to_ram,    uint16_t const * from_eeprom) override;
+  virtual void read  (uint32_t * to_ram,    uint32_t const * from_eeprom) override;
+  virtual void read  (float    * to_ram,    float    const * from_eeprom) override;
+
+  virtual void update(uint8_t  * to_eeprom, uint8_t  const   from_ram   ) override;
+  virtual void update(uint16_t * to_eeprom, uint16_t const   from_ram   ) override;
+  virtual void update(uint32_t * to_eeprom, uint32_t const   from_ram   ) override;
+  virtual void update(float    * to_eeprom, float    const   from_ram   ) override;
+
+
+  virtual void write (uint8_t  * to_eeprom, uint8_t  const   from_ram   ) override;
+  virtual void write (uint16_t * to_eeprom, uint16_t const   from_ram   ) override;
+  virtual void write (uint32_t * to_eeprom, uint32_t const   from_ram   ) override;
+  virtual void write (float    * to_eeprom, float    const   from_ram   ) override;
+
 
 };
 

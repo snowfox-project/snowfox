@@ -66,6 +66,33 @@ void EEPROM::read(uint8_t * to_ram, uint8_t const * from_eeprom)
 #endif 
 }
 
+void EEPROM::read(uint16_t * to_ram, uint16_t const * from_eeprom)
+{
+#if defined(MCU_ARCH_avr)
+  *to_ram = eeprom_read_word(from_eeprom);
+#else
+  *to_ram = *from_eeprom;
+#endif
+}
+
+void EEPROM::read(uint32_t * to_ram, uint32_t const * from_eeprom)
+{
+#if defined(MCU_ARCH_avr)
+  *to_ram = eeprom_read_dword(from_eeprom);
+#else
+  *to_ram = *from_eeprom;
+#endif
+}
+
+void EEPROM::read(float * to_ram, float const * from_eeprom)
+{
+#if defined(MCU_ARCH_avr)
+  *to_ram = eeprom_read_float(from_eeprom);
+#else
+  *to_ram = *from_eeprom;
+#endif
+}
+
 void EEPROM::update(uint8_t * to_eeprom, uint8_t const from_ram)
 {
 #if defined(MCU_ARCH_avr)
@@ -75,10 +102,64 @@ void EEPROM::update(uint8_t * to_eeprom, uint8_t const from_ram)
 #endif
 }
 
+void EEPROM::update(uint16_t * to_eeprom, uint16_t const from_ram)
+{
+#if defined(MCU_ARCH_avr)
+  eeprom_update_word(to_eeprom, from_ram);
+#else
+  *to_eeprom = from_ram;
+#endif
+}
+
+void EEPROM::update(uint32_t * to_eeprom, uint32_t const from_ram)
+{
+#if defined(MCU_ARCH_avr)
+  eeprom_update_dword(to_eeprom, from_ram);
+#else
+  *to_eeprom = from_ram;
+#endif
+}
+
+void EEPROM::update(float * to_eeprom, float const from_ram)
+{
+#if defined(MCU_ARCH_avr)
+  eeprom_update_float(to_eeprom, from_ram);
+#else
+  *to_eeprom = from_ram;
+#endif
+}
+
 void EEPROM::write(uint8_t * to_eeprom, uint8_t const from_ram)
 {
 #if defined(MCU_ARCH_avr)
   eeprom_write_byte(to_eeprom, from_ram);
+#else
+  *to_eeprom = from_ram;
+#endif
+}
+
+void EEPROM::write(uint16_t * to_eeprom, uint16_t const from_ram)
+{
+#if defined(MCU_ARCH_avr)
+  eeprom_write_word(to_eeprom, from_ram);
+#else
+  *to_eeprom = from_ram;
+#endif
+}
+
+void EEPROM::write(uint32_t * to_eeprom, uint32_t const from_ram)
+{
+#if defined(MCU_ARCH_avr)
+  eeprom_write_dword(to_eeprom, from_ram);
+#else
+  *to_eeprom = from_ram;
+#endif
+}
+
+void EEPROM::write(float * to_eeprom, float const from_ram)
+{
+#if defined(MCU_ARCH_avr)
+  eeprom_write_float(to_eeprom, from_ram);
 #else
   *to_eeprom = from_ram;
 #endif
