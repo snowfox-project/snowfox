@@ -61,17 +61,23 @@ EEPROM::~EEPROM()
 
 void EEPROM::read(uint8_t const * eeprom, uint8_t * val)
 {
+#if defined(MCU_ARCH_avr)
   *val = eeprom_read_byte(eeprom);
+#endif 
 }
 
 void EEPROM::update(uint8_t * eeprom, uint8_t const val)
 {
+#if defined(MCU_ARCH_avr)
   eeprom_update_byte(eeprom, val);
+#endif
 }
 
 void EEPROM::write(uint8_t * eeprom, uint8_t const val)
 {
+#if defined(MCU_ARCH_avr)
   eeprom_write_byte(eeprom, val);
+#endif
 }
 
 /**************************************************************************************
