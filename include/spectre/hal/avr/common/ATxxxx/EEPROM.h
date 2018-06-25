@@ -51,9 +51,9 @@ public:
   virtual ~EEPROM();
 
 
-  virtual void read  (uint8_t const * eeprom, uint8_t       * val) override;
-  virtual void update(uint8_t       * eeprom, uint8_t const   val) override;
-  virtual void write (uint8_t       * eeprom, uint8_t const   val) override;
+  virtual void read  (uint8_t * to_ram,    uint8_t const * from_eeprom) override;
+  virtual void update(uint8_t * to_eeprom, uint8_t const   from_ram   ) override;
+  virtual void write (uint8_t * to_eeprom, uint8_t const   from_ram   ) override;
 
 };
 

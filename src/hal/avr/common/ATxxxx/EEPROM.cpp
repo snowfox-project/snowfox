@@ -24,8 +24,6 @@
 
 #if defined(MCU_ARCH_avr)
 #include <avr/eeprom.h>
-#else
-#include <string.h>
 #endif
 
 /**************************************************************************************
@@ -59,24 +57,30 @@ EEPROM::~EEPROM()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void EEPROM::read(uint8_t const * eeprom, uint8_t * val)
+void EEPROM::read(uint8_t * to_ram, uint8_t const * from_eeprom)
 {
 #if defined(MCU_ARCH_avr)
-  *val = eeprom_read_byte(eeprom);
+  *to_ram = eeprom_read_byte(from_eeprom);
+#else
+  *to_ram = *from_eeprom;
 #endif 
 }
 
-void EEPROM::update(uint8_t * eeprom, uint8_t const val)
+void EEPROM::update(uint8_t * to_eeprom, uint8_t const from_ram)
 {
 #if defined(MCU_ARCH_avr)
-  eeprom_update_byte(eeprom, val);
+  eeprom_update_byte(to_eeprom, from_ram);
+#else
+  *to_eeprom = from_ram;
 #endif
 }
 
-void EEPROM::write(uint8_t * eeprom, uint8_t const val)
+void EEPROM::write(uint8_t * to_eeprom, uint8_t const from_ram)
 {
 #if defined(MCU_ARCH_avr)
-  eeprom_write_byte(eeprom, val);
+  eeprom_write_byte(to_eeprom, from_ram);
+#else
+  *to_eeprom = from_ram;
 #endif
 }
 

@@ -61,9 +61,10 @@ public:
   virtual ~EEPROM() { }
 
 
-  virtual void read  (uint8_t const * eeprom, uint8_t       * val) = 0;
-  virtual void update(uint8_t       * eeprom, uint8_t const   val) = 0;
-  virtual void write (uint8_t       * eeprom, uint8_t const   val) = 0;
+  virtual void read  (uint8_t * to_ram,    uint8_t const * from_eeprom) = 0;
+  virtual void update(uint8_t * to_eeprom, uint8_t const   from_ram   ) = 0;
+  virtual void write (uint8_t * to_eeprom, uint8_t const   from_ram   ) = 0;
+
 };
 
 /**************************************************************************************
