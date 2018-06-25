@@ -69,6 +69,7 @@ set(SPECTRE_LIBRARY_HAL_AVR_ATxxxx_SRCS
   ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/DigitalInPort.cpp   
   ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/DigitalOutPin.cpp   
   ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/DigitalOutPort.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/EEPROM.cpp
   ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/EINT0.cpp
   ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/EINT1.cpp
   ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/EINT2.cpp
