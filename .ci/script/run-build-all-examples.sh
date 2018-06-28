@@ -77,4 +77,18 @@ cd $(dirname $(readlink -f $0))
 
 ./run-build-single-example.sh examples/driver/stepper/TMC260x/driver-tmc260x-spi-atmega328p
 
+
+##########################################################################
+# HAL ####################################################################
+##########################################################################
+
+##########################################################################
+# AT90CAN128
+##########################################################################
+
+./run-build-single-example.sh examples/hal/AT90CAN128/hal-at90can128-digital-in-pin
+./run-build-single-example.sh examples/hal/AT90CAN128/hal-at90can128-digital-in-port
+./run-build-single-example.sh examples/hal/AT90CAN128/hal-at90can128-digital-out-pin
+./run-build-single-example.sh examples/hal/AT90CAN128/hal-at90can128-digital-out-port
+
 ##########################################################################
