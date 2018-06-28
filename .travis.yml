@@ -20,9 +20,9 @@ script:
   - .ci/script/run-build-libspectre.sh config/atmega16u4-default.cmake
   - .ci/script/run-build-libspectre.sh config/atmega32u4-default.cmake
   - .ci/script/run-build-libspectre.sh config/host-default.cmake
+  - .ci/script/run-test.sh
   - .ci/script/run-build-all-examples.sh
 
 after_script:
-  - .ci/script/run-test.sh
   - .ci/script/run-post-build-create-coverage-report.sh
   - .ci/script/run-cleanup.sh
