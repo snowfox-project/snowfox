@@ -10,16 +10,16 @@ before_script:
 #  - .ci/script/run-pre-build-prepare-coverage-report.sh
 
 script:
-  - .ci/script/run-build-libspectre.sh at90can32-default.cmake
-  - .ci/script/run-build-libspectre.sh at90can64-default.cmake
-  - .ci/script/run-build-libspectre.sh at90can128-default.cmake
-  - .ci/script/run-build-libspectre.sh atmega640-default.cmake
-  - .ci/script/run-build-libspectre.sh atmega1280-default.cmake
-  - .ci/script/run-build-libspectre.sh atmega2560-default.cmake
-  - .ci/script/run-build-libspectre.sh atmega328p-default.cmake
-  - .ci/script/run-build-libspectre.sh atmega16u4-default.cmake
-  - .ci/script/run-build-libspectre.sh atmega32u4-default.cmake
-  - .ci/script/run-build-libspectre.sh host-default.cmake
+  - .ci/script/run-build-libspectre.sh config/at90can32-default.cmake
+  - .ci/script/run-build-libspectre.sh config/at90can64-default.cmake
+  - .ci/script/run-build-libspectre.sh config/at90can128-default.cmake
+  - .ci/script/run-build-libspectre.sh config/atmega640-default.cmake
+  - .ci/script/run-build-libspectre.sh config/atmega1280-default.cmake
+  - .ci/script/run-build-libspectre.sh config/atmega2560-default.cmake
+  - .ci/script/run-build-libspectre.sh config/atmega328p-default.cmake
+  - .ci/script/run-build-libspectre.sh config/atmega16u4-default.cmake
+  - .ci/script/run-build-libspectre.sh config/atmega32u4-default.cmake
+  - .ci/script/run-build-libspectre.sh config/host-default.cmake
 #  - .ci/script/run-test.sh
 
 after_script:
