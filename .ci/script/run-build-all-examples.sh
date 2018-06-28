@@ -14,7 +14,7 @@ echo "[ATMEGA328P::haptic::DRV2605]"
 echo "[ATMEGA328P::ioexpander::PCA9547]"
 ./run-build-single-example.sh examples/driver/ioexpander/PCA9547/driver-pca9547-i2c-atmega328p
 
-echo "[ATMEGA328P::lora::RFM9x"
+echo "[ATMEGA328P::lora::RFM9x]"
 ./run-build-single-example.sh examples/driver/lora/RFM9x/driver-rfm9x-spi-atmega328p-receiver
 ./run-build-single-example.sh examples/driver/lora/RFM9x/driver-rfm9x-spi-atmega328p-transmitter
 
@@ -23,3 +23,6 @@ echo "[AT90CAN128::serial]"
 ./run-build-single-example.sh examples/driver/serial/uart1-at90can128
 echo "[ATMEGA328P::serial]"
 ./run-build-single-example.sh examples/driver/serial/uart0-atmega328p
+
+echo "[ATMEGA328P::stepper::TMC260x]"
+./run-build-single-example.sh examples/driver/stepper/TMC260x/driver-tmc260x-spi-atmega328p
