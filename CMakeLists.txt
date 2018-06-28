@@ -92,14 +92,8 @@ add_library(
 # TEST ###################################################################
 ##########################################################################
 
-#if(${BUILD_TEST_HOST} STREQUAL "yes")
-# 
-#  if(${MCU_ARCH} STREQUAL "host")
-#    add_subdirectory(test)
-#  else()
-#    message(FATAL_ERROR "The host tests can only build when host is selected as architecture")
-#  endif()
-#
-#endif()
+if(${MCU_ARCH} STREQUAL "host")
+ add_subdirectory(test)
+endif()
 
 ##########################################################################
