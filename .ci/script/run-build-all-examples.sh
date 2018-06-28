@@ -3,6 +3,9 @@
 cd $(dirname $(readlink -f $0))
 
 echo "[ATMEGA328P]"
+echo "  [haptic]"
+echo "    [DRV2605]"
+./run-build-single-example.sh examples/driver/haptic/DRV2605/driver-drv2605-i2c-atmega328p
 echo "  [ioexpander]"
 echo "    [PCA9547]"
 ./run-build-single-example.sh examples/driver/ioexpander/PCA9547/driver-pca9547-i2c-atmega328p
