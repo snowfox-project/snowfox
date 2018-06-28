@@ -18,6 +18,9 @@ echo "[ATMEGA328P::lora::RFM9x]"
 ./run-build-single-example.sh examples/driver/lora/RFM9x/driver-rfm9x-spi-atmega328p-receiver
 ./run-build-single-example.sh examples/driver/lora/RFM9x/driver-rfm9x-spi-atmega328p-transmitter
 
+echo "[ATMEGA328P::memory::memory]"
+./run-build-single-example.sh examples/driver/memory/PCF8570/driver-pcf8570-i2c-atmega328p
+
 echo "[AT90CAN128::serial]"
 ./run-build-single-example.sh examples/driver/serial/uart0-at90can128
 ./run-build-single-example.sh examples/driver/serial/uart1-at90can128
