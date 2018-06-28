@@ -7,7 +7,6 @@ install:
 
 before_script:
   - .ci/script/run-cppcheck.sh -out=xml
-  - .ci/script/run-pre-build-prepare-coverage-report.sh
 
 script:
   - .ci/script/run-build-libspectre.sh config/at90can32-default.cmake
@@ -19,10 +18,11 @@ script:
   - .ci/script/run-build-libspectre.sh config/atmega328p-default.cmake
   - .ci/script/run-build-libspectre.sh config/atmega16u4-default.cmake
   - .ci/script/run-build-libspectre.sh config/atmega32u4-default.cmake
+  - .ci/script/run-build-all-examples.sh
+  - .ci/script/run-pre-test-prepare-coverage-report.sh
   - .ci/script/run-build-libspectre.sh config/host-default.cmake
   - .ci/script/run-test.sh
-  - .ci/script/run-build-all-examples.sh
+  - .ci/script/run-post-test-create-coverage-report.sh
 
 after_script:
-  - .ci/script/run-post-build-create-coverage-report.sh
   - .ci/script/run-cleanup.sh
