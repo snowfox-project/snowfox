@@ -105,5 +105,13 @@ cd $(dirname $(readlink -f $0))
 ./run-build-single-example.sh examples/hal/AT90CAN64/hal-at90can64-digital-in-pin
 ./run-build-single-example.sh examples/hal/AT90CAN64/hal-at90can64-digital-out-pin
 
+##########################################################################
+# ATMEGA2560
+##########################################################################
+
+./run-build-single-example.sh examples/hal/ATMEGA2560/hal-atmega2560-digital-in-pin
+./run-build-single-example.sh examples/hal/ATMEGA2560/hal-atmega2560-digital-in-port
+./run-build-single-example.sh examples/hal/ATMEGA2560/hal-atmega2560-digital-out-pin
+./run-build-single-example.sh examples/hal/ATMEGA2560/hal-atmega2560-digital-out-port
 
 ##########################################################################
