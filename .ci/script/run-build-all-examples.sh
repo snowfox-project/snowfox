@@ -115,3 +115,12 @@ cd $(dirname $(readlink -f $0))
 ./run-build-single-example.sh examples/hal/ATMEGA2560/hal-atmega2560-digital-out-port
 
 ##########################################################################
+# ATMEGA32U4
+##########################################################################
+
+./run-build-single-example.sh examples/hal/ATMEGA32U4/hal-atmega32u4-digital-in-pin
+./run-build-single-example.sh examples/hal/ATMEGA32U4/hal-atmega32u4-digital-in-port
+./run-build-single-example.sh examples/hal/ATMEGA32U4/hal-atmega32u4-digital-out-pin
+./run-build-single-example.sh examples/hal/ATMEGA32U4/hal-atmega32u4-digital-out-port
+
+##########################################################################
