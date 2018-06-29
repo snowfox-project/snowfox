@@ -2,7 +2,7 @@
 
 include_directories(${SPECTRE_ROOT_PATH}/include)
 cmake_policy(SET CMP0015 NEW)
-link_directories(${SPECTRE_ROOT_PATH}/build/lib)
+link_directories(${SPECTRE_ROOT_PATH}/build)
 
 ##########################################################################
 
