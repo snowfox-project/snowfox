@@ -92,3 +92,18 @@ cd $(dirname $(readlink -f $0))
 ./run-build-single-example.sh examples/hal/AT90CAN128/hal-at90can128-digital-out-port
 
 ##########################################################################
+# AT90CAN32
+##########################################################################
+
+./run-build-single-example.sh examples/hal/AT90CAN32/hal-at90can32-digital-in-pin
+./run-build-single-example.sh examples/hal/AT90CAN32/hal-at90can32-digital-out-pin
+
+##########################################################################
+# AT90CAN64
+##########################################################################
+
+./run-build-single-example.sh examples/hal/AT90CAN64/hal-at90can64-digital-in-pin
+./run-build-single-example.sh examples/hal/AT90CAN64/hal-at90can64-digital-out-pin
+
+
+##########################################################################
