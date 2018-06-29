@@ -124,3 +124,13 @@ cd $(dirname $(readlink -f $0))
 ./run-build-single-example.sh examples/hal/ATMEGA32U4/hal-atmega32u4-digital-out-port
 
 ##########################################################################
+# ATMEGA328P
+##########################################################################
+
+./run-build-single-example.sh examples/hal/ATMEGA328P/hal-atmega328p-analog-digital-converter
+./run-build-single-example.sh examples/hal/ATMEGA328P/hal-atmega328p-digital-in-pin
+./run-build-single-example.sh examples/hal/ATMEGA328P/hal-atmega328p-digital-in-port
+./run-build-single-example.sh examples/hal/ATMEGA328P/hal-atmega328p-digital-out-pin
+./run-build-single-example.sh examples/hal/ATMEGA328P/hal-atmega328p-digital-out-port
+
+##########################################################################
