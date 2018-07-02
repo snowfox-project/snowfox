@@ -1,5 +1,5 @@
+dist: xenial
 language: cpp
-
 sudo: enabled
 
 install:
