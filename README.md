@@ -25,6 +25,7 @@ Work in progress ...
 | Atmel/Microchip ATMega640    | avr                   | atmega640         |
 | Atmel/Microchip ATMega1280   | avr                   | atmega1280        |
 | Atmel/Microchip ATMega2560   | avr                   | atmega2560        |
+| Atmel/Microchip ATMega1284   | avr                   | atmega1284        |
 | Atmel/Microchip ATMega328P   | avr                   | atmega328p        |
 | Atmel/Microchip ATMega16U4   | avr                   | atmega16u4        |
 | Atmel/Microchip ATMega32U4   | avr                   | atmega32u4        |

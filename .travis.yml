@@ -14,6 +14,7 @@ script:
   - .ci/script/run-build-libspectre.sh config/at90can128-default.cmake
   - .ci/script/run-build-libspectre.sh config/atmega640-default.cmake
   - .ci/script/run-build-libspectre.sh config/atmega1280-default.cmake
+  - .ci/script/run-build-libspectre.sh config/atmega1284-default.cmake
   - .ci/script/run-build-libspectre.sh config/atmega2560-default.cmake
   - .ci/script/run-build-libspectre.sh config/atmega328p-default.cmake
   - .ci/script/run-build-libspectre.sh config/atmega16u4-default.cmake
