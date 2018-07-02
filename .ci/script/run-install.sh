@@ -1,15 +1,19 @@
 #!/bin/bash
+
+WGET="travis_retry wget --continue --tries=20 --waitretry=10 --retry-connrefused --no-dns-cache --timeout 300"
+
 sudo apt-get update
+
 sudo apt-get install cppcheck
 sudo apt-get install lcov
 gem install coveralls-lcov
 lcov --version
 g++ --version
+
 sudo apt-get install cmake
-sudo apt-get install avr-libc=1:1.8.0+Atmel3.5.0-1
-sudo apt-get install binutils-avr=2.25+Atmel3.5.0-2
-sudo apt-get install gcc-avr=1:4.9.2+Atmel3.5.0-1
-sudo apt-get install avrdude
 
-
-
+$WGET http://atiselsts.github.io/resources/avr-gcc-4.9.2-compiled.tar.bz2
+tar xjf avr-gcc*.tar.bz2 -C /tmp/
+sudo cp -f -r /tmp/avr-gcc/* /usr/local/
+rm -rf /tmp/avr-gcc avr-gcc*.tar.bz2
+avr-gcc --version
