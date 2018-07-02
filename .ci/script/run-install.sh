@@ -1,5 +1,6 @@
 #!/bin/bash
 
+source travis_retry.sh
 WGET="travis_retry wget --continue --tries=20 --waitretry=10 --retry-connrefused --no-dns-cache --timeout 300"
 
 sudo apt-get update
