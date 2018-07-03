@@ -15,10 +15,10 @@ script:
   - .ci/script/run-build-libspectre.sh config/atmega640-default.cmake
   - .ci/script/run-build-libspectre.sh config/atmega1280-default.cmake
   - .ci/script/run-build-libspectre.sh config/atmega2560-default.cmake
-  - .ci/script/run-build-libspectre.sh config/atmega164-default.cmake
-  - .ci/script/run-build-libspectre.sh config/atmega324-default.cmake
-  - .ci/script/run-build-libspectre.sh config/atmega644-default.cmake
-  - .ci/script/run-build-libspectre.sh config/atmega1284-default.cmake
+  - .ci/script/run-build-libspectre.sh config/atmega164p-default.cmake
+  - .ci/script/run-build-libspectre.sh config/atmega324p-default.cmake
+  - .ci/script/run-build-libspectre.sh config/atmega644p-default.cmake
+  - .ci/script/run-build-libspectre.sh config/atmega1284p-default.cmake
   - .ci/script/run-build-libspectre.sh config/atmega328p-default.cmake
   - .ci/script/run-build-libspectre.sh config/atmega16u4-default.cmake
   - .ci/script/run-build-libspectre.sh config/atmega32u4-default.cmake

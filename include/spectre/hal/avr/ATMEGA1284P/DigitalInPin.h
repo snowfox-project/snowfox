@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_ATMEGA1284_DIGITALOUTPIN_H_
-#define INCLUDE_SPECTRE_HAL_AVR_ATMEGA1284_DIGITALOUTPIN_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_ATMEGA1284P_DIGITALINPIN_H_
+#define INCLUDE_SPECTRE_HAL_AVR_ATMEGA1284P_DIGITALINPIN_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/ATxxxx/DigitalOutPin.h>
+#include <spectre/hal/avr/common/ATxxxx/DigitalInPin.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,7 +42,7 @@ namespace ATMEGA1284
  * TYPEDEF
  **************************************************************************************/
 
-typedef ATxxxx::DigitalOutPin DigitalOutPin;
+typedef ATxxxx::DigitalInPin DigitalInPin;
 
 /**************************************************************************************
  * NAMESPACE
@@ -54,4 +54,4 @@ typedef ATxxxx::DigitalOutPin DigitalOutPin;
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_ATMEGA1284_DIGITALOUTPIN_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_ATMEGA1284P_DIGITALINPIN_H_ */

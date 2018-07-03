@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_COMMON_ATMEGA164_324_644_1284_INTERRUPTCONTROLLER_H_
-#define INCLUDE_SPECTRE_HAL_AVR_COMMON_ATMEGA164_324_644_1284_INTERRUPTCONTROLLER_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_COMMON_ATMEGA164P_324P_644P_1284P_INTERRUPTCONTROLLER_H_
+#define INCLUDE_SPECTRE_HAL_AVR_COMMON_ATMEGA164P_324P_644P_1284P_INTERRUPTCONTROLLER_H_
 
 /**************************************************************************************
  * INCLUDE
@@ -36,7 +36,7 @@ namespace spectre
 namespace hal
 {
 
-namespace ATMEGA164_324_644_1284
+namespace ATMEGA164P_324P_644P_1284P
 {
 
 /**************************************************************************************
@@ -98,10 +98,10 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA164_324_644_1284 */
+} /* ATMEGA164P_324P_644P_1284P */
 
 } /* hal */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_COMMON_ATMEGA164_324_644_1284_INTERRUPTCONTROLLER_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_COMMON_ATMEGA164P_324P_644P_1284P_INTERRUPTCONTROLLER_H_ */

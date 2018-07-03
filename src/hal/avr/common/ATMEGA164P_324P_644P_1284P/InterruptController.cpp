@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/ATMEGA164_324_644_1284/InterruptController.h>
+#include <spectre/hal/avr/common/ATMEGA164P_324P_644P_1284P/InterruptController.h>
 
 #include <assert.h>
 
@@ -39,7 +39,7 @@ namespace spectre
 namespace hal
 {
 
-namespace ATMEGA164_324_644_1284
+namespace ATMEGA164P_324P_644P_1284P
 {
 
 /**************************************************************************************
@@ -102,7 +102,7 @@ void InterruptController::registerInterruptCallback(uint8_t const isr_num, inter
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA164_324_644_1284 */
+} /* ATMEGA164P_324P_644P_1284P */
 
 } /* hal */
 
@@ -112,7 +112,7 @@ void InterruptController::registerInterruptCallback(uint8_t const isr_num, inter
  * INTERRUPT SERVICE ROUTINES
  **************************************************************************************/
 
-#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega164) || defined(MCU_TYPE_atmega324) || defined(MCU_TYPE_atmega644) || defined(MCU_TYPE_atmega1284) )
+#if defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega164p) || defined(MCU_TYPE_atmega324p) || defined(MCU_TYPE_atmega644p) || defined(MCU_TYPE_atmega1284p) )
 
 /**************************************************************************************
  * INCLUDE
@@ -125,7 +125,7 @@ void InterruptController::registerInterruptCallback(uint8_t const isr_num, inter
  * NAMESPACES
  **************************************************************************************/
 
-using namespace spectre::hal::ATMEGA164_324_644_1284;
+using namespace spectre::hal::ATMEGA164P_324P_644P_1284P;
 
 /**************************************************************************************
  * INTERRUPT SERVICE ROUTINES
@@ -133,4 +133,4 @@ using namespace spectre::hal::ATMEGA164_324_644_1284;
 
 /* TODO */
 
-#endif /* defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega164) || defined(MCU_TYPE_atmega324) || defined(MCU_TYPE_atmega644) || defined(MCU_TYPE_atmega1284) ) */
+#endif /* defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega164p) || defined(MCU_TYPE_atmega324p) || defined(MCU_TYPE_atmega644p) || defined(MCU_TYPE_atmega1284p) ) ) */

@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_ATMEGA1284_INTERRUPTCONTROLLER_H_
-#define INCLUDE_SPECTRE_HAL_AVR_ATMEGA1284_INTERRUPTCONTROLLER_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_ATMEGA164_INTERRUPTCONTROLLER_H_
+#define INCLUDE_SPECTRE_HAL_AVR_ATMEGA164_INTERRUPTCONTROLLER_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/ATMEGA164_324_644_1284/InterruptController.h>
+#include <spectre/hal/avr/common/ATMEGA164P_324P_644P_1284P/InterruptController.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -35,25 +35,25 @@ namespace spectre
 namespace hal
 {
 
-namespace ATMEGA1284
+namespace ATMEGA164
 {
 
 /**************************************************************************************
  * TYPEDEF
  **************************************************************************************/
 
-typedef ATMEGA164_324_644_1284::Interrupt               Interrupt;
-typedef ATMEGA164_324_644_1284::InterruptServiceRoutine InterruptServiceRoutine;
-typedef ATMEGA164_324_644_1284::InterruptController     InterruptController;
+typedef ATMEGA164P_324P_644P_1284P::Interrupt               Interrupt;
+typedef ATMEGA164P_324P_644P_1284P::InterruptServiceRoutine InterruptServiceRoutine;
+typedef ATMEGA164P_324P_644P_1284P::InterruptController     InterruptController;
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA1284 */
+} /* ATMEGA164 */
 
 } /* hal */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_ATMEGA1284_INTERRUPTCONTROLLER_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_ATMEGA164_INTERRUPTCONTROLLER_H_ */

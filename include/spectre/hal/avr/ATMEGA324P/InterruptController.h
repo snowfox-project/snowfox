@@ -23,7 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/ATMEGA164_324_644_1284/InterruptController.h>
+#include <spectre/hal/avr/common/ATMEGA164P_324P_644P_1284P/InterruptController.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,9 +42,9 @@ namespace ATMEGA324
  * TYPEDEF
  **************************************************************************************/
 
-typedef ATMEGA164_324_644_1284::Interrupt               Interrupt;
-typedef ATMEGA164_324_644_1284::InterruptServiceRoutine InterruptServiceRoutine;
-typedef ATMEGA164_324_644_1284::InterruptController     InterruptController;
+typedef ATMEGA164P_324P_644P_1284P::Interrupt               Interrupt;
+typedef ATMEGA164P_324P_644P_1284P::InterruptServiceRoutine InterruptServiceRoutine;
+typedef ATMEGA164P_324P_644P_1284P::InterruptController     InterruptController;
 
 /**************************************************************************************
  * NAMESPACE

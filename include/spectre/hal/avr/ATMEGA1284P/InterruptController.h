@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_ATMEGA1284_CRITICALSECTION_H_
-#define INCLUDE_SPECTRE_HAL_AVR_ATMEGA1284_CRITICALSECTION_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_ATMEGA1284P_INTERRUPTCONTROLLER_H_
+#define INCLUDE_SPECTRE_HAL_AVR_ATMEGA1284P_INTERRUPTCONTROLLER_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/ATxxxx/CriticalSection.h>
+#include <spectre/hal/avr/common/ATMEGA164P_324P_644P_1284P/InterruptController.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,7 +42,9 @@ namespace ATMEGA1284
  * TYPEDEF
  **************************************************************************************/
 
-typedef ATxxxx::CriticalSection CriticalSection;
+typedef ATMEGA164P_324P_644P_1284P::Interrupt               Interrupt;
+typedef ATMEGA164P_324P_644P_1284P::InterruptServiceRoutine InterruptServiceRoutine;
+typedef ATMEGA164P_324P_644P_1284P::InterruptController     InterruptController;
 
 /**************************************************************************************
  * NAMESPACE
@@ -54,4 +56,4 @@ typedef ATxxxx::CriticalSection CriticalSection;
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_ATMEGA1284_CRITICALSECTION_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_ATMEGA1284P_INTERRUPTCONTROLLER_H_ */
