@@ -22,13 +22,6 @@
 
 #include <spectre/hal/avr/common/AT90CAN32_64_128/InterruptController.h>
 
-#include <assert.h>
-
-/* Required for 'assert' which in turn needs 'abort' in avr-gcc */
-#if defined(MCU_ARCH_avr)
-  #include <stdlib.h>
-#endif
-
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
