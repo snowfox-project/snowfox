@@ -35,7 +35,7 @@ namespace spectre
 namespace hal
 {
 
-namespace ATMEGA1284
+namespace ATMEGA1284P
 {
 
 /**************************************************************************************
@@ -48,7 +48,7 @@ typedef ATxxxx::DigitalInPin DigitalInPin;
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA1284 */
+} /* ATMEGA1284P */
 
 } /* hal */
 

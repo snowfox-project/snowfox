@@ -35,7 +35,7 @@ namespace spectre
 namespace hal
 {
 
-namespace ATMEGA1284
+namespace ATMEGA1284P
 {
 
 /**************************************************************************************
@@ -50,7 +50,7 @@ typedef ATMEGA164P_324P_644P_1284P::InterruptController     InterruptController;
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA1284 */
+} /* ATMEGA1284P */
 
 } /* hal */
 
