@@ -34,6 +34,14 @@ set(SPECTRE_LIBRARY_HAL_AVR_AT90CAN32_64_128_SRCS
 )
 
 ##########################################################################
+# common/ATMEGA164_324_644_1284 ##########################################
+##########################################################################
+
+set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA164_324_644_1284_SRCS
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATMEGA164_324_644_1284/InterruptController.cpp
+)
+
+##########################################################################
 # common/ATMEGA16U4_32U4 #################################################
 ##########################################################################
 
@@ -105,6 +113,38 @@ set(SPECTRE_LIBRARY_HAL_AVR_AT90CAN64_SRCS
 
 set(SPECTRE_LIBRARY_HAL_AVR_AT90CAN128_SRCS
   ${SPECTRE_LIBRARY_HAL_AVR_AT90CAN32_64_128_SRCS}
+)
+
+##########################################################################
+# ATMEGA164  #############################################################
+##########################################################################
+
+set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA164_SRCS
+  ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA164_324_644_1284_SRCS}
+)
+
+##########################################################################
+# ATMEGA324  #############################################################
+##########################################################################
+
+set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA324_SRCS
+  ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA164_324_644_1284_SRCS}
+)
+
+##########################################################################
+# ATMEGA644  #############################################################
+##########################################################################
+
+set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA644_SRCS
+  ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA164_324_644_1284_SRCS}
+)
+
+##########################################################################
+# ATMEGA1284  ############################################################
+##########################################################################
+
+set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA1284_SRCS
+  ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA164_324_644_1284_SRCS}
 )
 
 ##########################################################################
@@ -181,6 +221,22 @@ if(${MCU_ARCH} STREQUAL "avr")
 
   if(${MCU_TYPE} STREQUAL "at90can128")
     set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_AT90CAN128_SRCS})  
+  endif()
+  
+  if(${MCU_TYPE} STREQUAL "atmega164")
+    set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA164_SRCS})  
+  endif()
+  
+  if(${MCU_TYPE} STREQUAL "atmega324")
+    set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA324_SRCS})  
+  endif()
+  
+  if(${MCU_TYPE} STREQUAL "atmega644")
+    set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA644_SRCS})  
+  endif()
+  
+  if(${MCU_TYPE} STREQUAL "atmega1284")
+    set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA1284_SRCS})  
   endif()
 
   if(${MCU_TYPE} STREQUAL "atmega640")
