@@ -107,6 +107,7 @@ sudo apt-get install avr-libc binutils-avr gcc-avr avrdude
 ### Clone repository
 ```
 git clone https://github.com/lxrobotics/spectre.git
+cd spectre
 ```
 
 ### Copy and edit configuration
@@ -117,7 +118,6 @@ vim config.cmake
 
 ### Build
 ```
-cd spectre
 mkdir build
 cd build
 cmake ..
