@@ -17,22 +17,27 @@ In his book "Refactoring: Improving the Design of Existing Code" Martin Fowler q
 Work in progress ...
 
 ## Hardware Abstraction Layers
-| MCU                                        | MCU_ARCH              | MCU_TYPE          |
-|:------------------------------------------:|:---------------------:|:-----------------:|
-| Atmel/Microchip AT90CAN32/64/128           | avr                   | at90can32         |
-| ...                                        | ...                   | at90can64         |
-| ...                                        | ...                   | at90can128        |
-| Atmel/Microchip ATMega640/1280/2560        | ...                   | atmega640         |
-| ...                                        | ...                   | atmega1280        |
-| ...                                        | ...                   | atmega2560        |
-| Atmel/Microchip ATMega164P/324P/644P/1284P | ...                   | atmega164p        |
-| ...                                        | ...                   | atmega324p        |
-| ...                                        | ...                   | atmega644p        |
-| ...                                        | ...                   | atmega1284p       |
-| Atmel/Microchip ATMega328P                 | ...                   | atmega328p        |
-| Atmel/Microchip ATMega16U4/32U4            | ...                   | atmega16u4        |
-|                                            | ...                   | atmega32u4        |
-| Host (Test Build)                          | host                  | -                 |
+### Atmel/Microchip
+| MCU                        | MCU_ARCH              | MCU_TYPE          |
+|:--------------------------:|:---------------------:|:-----------------:|
+| AT90CAN32                  | avr                   | at90can32         |
+| AT90CAN64                  | ...                   | at90can64         |
+| AT90CAN128                 | ...                   | at90can128        |
+| ATMega640                  | ...                   | atmega640         |
+| ATMega1280                 | ...                   | atmega1280        |
+| ATMega2560                 | ...                   | atmega2560        |
+| ATMega164P                 | ...                   | atmega164p        |
+| ATMega324P                 | ...                   | atmega324p        |
+| ATMega644P                 | ...                   | atmega644p        |
+| ATMega1284P                | ...                   | atmega1284p       |
+| ATMega328P                 | ...                   | atmega328p        |
+| ATMega16U4                 | ...                   | atmega16u4        |
+| ATMega32U4                 | ...                   | atmega32u4        |
+
+### Host (Test Build)
+| MCU                        | MCU_ARCH              | MCU_TYPE          |
+|:--------------------------:|:---------------------:|:-----------------:|
+| Host (Test Build)          | host                  | -                 |
 
 
 ## I/O Device Drivers
