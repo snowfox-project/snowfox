@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_ATMEGA328P_EINT1_H_
-#define INCLUDE_SPECTRE_HAL_AVR_ATMEGA328P_EINT1_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_ATMEGA324P_EINT1_H_
+#define INCLUDE_SPECTRE_HAL_AVR_ATMEGA324P_EINT1_H_
 
 /**************************************************************************************
  * INCLUDE
@@ -35,7 +35,7 @@ namespace spectre
 namespace hal
 {
 
-namespace ATMEGA328P
+namespace ATMEGA324P
 {
 
 /**************************************************************************************
@@ -49,10 +49,10 @@ typedef ATxxxx::EINT1_ExternalInterruptEventCallback EINT1_ExternalInterruptEven
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA328P */
+} /* ATMEGA324P */
 
 } /* hal */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_ATMEGA328P_EINT1_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_ATMEGA324P_EINT1_H_ */
