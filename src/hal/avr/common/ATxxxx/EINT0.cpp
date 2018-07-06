@@ -30,6 +30,14 @@
   #include <spectre/hal/avr/AT90CAN64/InterruptController.h>
 #elif defined(MCU_TYPE_at90can128)
   #include <spectre/hal/avr/AT90CAN128/InterruptController.h>
+#elif defined(MCU_TYPE_atmega164p)
+  #include <spectre/hal/avr/ATMEGA164P/InterruptController.h>
+#elif defined(MCU_TYPE_atmega324p)
+  #include <spectre/hal/avr/ATMEGA324P/InterruptController.h>
+#elif defined(MCU_TYPE_atmega644p)
+  #include <spectre/hal/avr/ATMEGA644P/InterruptController.h>
+#elif defined(MCU_TYPE_atmega1284p)
+  #include <spectre/hal/avr/ATMEGA1284P/InterruptController.h>
 #elif defined(MCU_TYPE_atmega640)
   #include <spectre/hal/avr/ATMEGA640/InterruptController.h>
 #elif defined(MCU_TYPE_atmega1280)
@@ -66,19 +74,27 @@ namespace ATxxxx
  **************************************************************************************/
 
 #if   defined(MCU_TYPE_atmega328p)
-  static uint8_t const INT_NUM = ATMEGA328P::toIntNum         (ATMEGA328P::Interrupt::EXTERNAL_INT0);
+  static uint8_t const INT_NUM = ATMEGA328P::toIntNum                 (ATMEGA328P::Interrupt::EXTERNAL_INT0 );
 #elif defined(MCU_TYPE_at90can32)
-  static uint8_t const INT_NUM = AT90CAN32_64_128::toIntNum   (AT90CAN32::Interrupt::EXTERNAL_INT0 );
+  static uint8_t const INT_NUM = AT90CAN32_64_128::toIntNum           (AT90CAN32::Interrupt::EXTERNAL_INT0  );
 #elif defined(MCU_TYPE_at90can64)
-  static uint8_t const INT_NUM = AT90CAN32_64_128::toIntNum   (AT90CAN64::Interrupt::EXTERNAL_INT0 );
+  static uint8_t const INT_NUM = AT90CAN32_64_128::toIntNum           (AT90CAN64::Interrupt::EXTERNAL_INT0  );
 #elif defined(MCU_TYPE_at90can128)
-  static uint8_t const INT_NUM = AT90CAN32_64_128::toIntNum   (AT90CAN128::Interrupt::EXTERNAL_INT0);
+  static uint8_t const INT_NUM = AT90CAN32_64_128::toIntNum           (AT90CAN128::Interrupt::EXTERNAL_INT0 );
+#elif defined(MCU_TYPE_atmega164p)
+  static uint8_t const INT_NUM = ATMEGA164P_324P_644P_1284P::toIntNum (ATMEGA164P::Interrupt::EXTERNAL_INT0 );
+#elif defined(MCU_TYPE_atmega324p)
+  static uint8_t const INT_NUM = ATMEGA164P_324P_644P_1284P::toIntNum (ATMEGA324P::Interrupt::EXTERNAL_INT0 );
+#elif defined(MCU_TYPE_atmega644p)
+  static uint8_t const INT_NUM = ATMEGA164P_324P_644P_1284P::toIntNum (ATMEGA644P::Interrupt::EXTERNAL_INT0 );
+#elif defined(MCU_TYPE_atmega1284p)
+  static uint8_t const INT_NUM = ATMEGA164P_324P_644P_1284P::toIntNum (ATMEGA1284P::Interrupt::EXTERNAL_INT0);
 #elif defined(MCU_TYPE_atmega640)
-  static uint8_t const INT_NUM = ATMEGA640_1280_2560::toIntNum(ATMEGA640::Interrupt::EXTERNAL_INT0 );
+  static uint8_t const INT_NUM = ATMEGA640_1280_2560::toIntNum        (ATMEGA640::Interrupt::EXTERNAL_INT0  );
 #elif defined(MCU_TYPE_atmega1280)
-  static uint8_t const INT_NUM = ATMEGA640_1280_2560::toIntNum(ATMEGA1280::Interrupt::EXTERNAL_INT0);
+  static uint8_t const INT_NUM = ATMEGA640_1280_2560::toIntNum        (ATMEGA1280::Interrupt::EXTERNAL_INT0 );
 #elif defined(MCU_TYPE_atmega2560)
-  static uint8_t const INT_NUM = ATMEGA640_1280_2560::toIntNum(ATMEGA2560::Interrupt::EXTERNAL_INT0);
+  static uint8_t const INT_NUM = ATMEGA640_1280_2560::toIntNum        (ATMEGA2560::Interrupt::EXTERNAL_INT0 );
 #else
   static uint8_t const INT_NUM = interface::InterruptController::INVALID_INT_NUM;
 #endif
