@@ -137,7 +137,20 @@ class InterruptController : public interface::InterruptController,
 
 public:
 
-           InterruptController();
+           InterruptController(volatile uint8_t * eimsk,
+                               volatile uint8_t * pcicr,
+                               volatile uint8_t * wdtcsr,
+                               volatile uint8_t * timsk2,
+                               volatile uint8_t * timsk1,
+                               volatile uint8_t * timsk0,
+                               volatile uint8_t * spcr,
+                               volatile uint8_t * ucsr0b,
+                               volatile uint8_t * acsr,
+                               volatile uint8_t * adcsra,
+                               volatile uint8_t * eecr,
+                               volatile uint8_t * twcr,
+                               volatile uint8_t * spmcsr,
+                               volatile uint8_t * ucsr1b);
   virtual ~InterruptController();
 
 
@@ -150,6 +163,24 @@ public:
   /* Interrupt Controller Assembly Interface */
 
   virtual void registerInterruptCallback(uint8_t const isr_num, interface::InterruptCallback * interrupt_callback) override;
+
+
+private:
+
+  volatile uint8_t * _EIMSK,
+                   * _PCICR,
+                   * _WDTCSR,
+                   * _TIMSK2,
+                   * _TIMSK1,
+                   * _TIMSK0,
+                   * _SPCR,
+                   * _UCSR0B,
+                   * _ACSR,
+                   * _ADCSRA,
+                   * _EECR,
+                   * _TWCR,
+                   * _SPMCSR,
+                   * _UCSR1B;
 
 };
 
