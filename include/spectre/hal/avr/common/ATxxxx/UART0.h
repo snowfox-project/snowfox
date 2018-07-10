@@ -106,9 +106,6 @@ private:
   interface::UARTCallback              * _uart_callback;
   uint32_t                       const   _f_cpu;
 
-
-  static uint16_t calcBaudRate(uint32_t const f_cpu, uint32_t const baud_rate);
-
 };
 
 /**************************************************************************************/

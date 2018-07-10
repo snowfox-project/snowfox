@@ -22,6 +22,8 @@
 
 #include <spectre/hal/avr/common/ATxxxx/UART0.h>
 
+#include <spectre/hal/avr/common/ATxxxx/UartUtil.h>
+
 #if   defined(MCU_TYPE_atmega328p)
   #include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
 #elif defined(MCU_TYPE_at90can32)
@@ -203,7 +205,7 @@ void UART0::setBaudRate(interface::UartBaudRate const baud_rate)
 
   switch(baud_rate)
   {
-  case interface::UartBaudRate::B115200: *_UBRR0 = calcBaudRate(_f_cpu, 115200); break;
+  case interface::UartBaudRate::B115200: *_UBRR0 = UartUtil::calcBaudRate(_f_cpu, 115200); break;
   }
 }
 
@@ -256,15 +258,6 @@ void UART0::ISR_onReceiveComplete()
     this->receive(rx_data);
     _uart_callback->onReceiveCompleteCallback(rx_data);
   }
-}
-
-/**************************************************************************************
- * PRIVATE MEMBER FUNCTIONS
- **************************************************************************************/
-
-uint16_t UART0::calcBaudRate(uint32_t const f_cpu, uint32_t const baud_rate)
-{
-  return (static_cast<uint16_t>(f_cpu/(8*baud_rate)) - 1);
 }
 
 /**************************************************************************************
