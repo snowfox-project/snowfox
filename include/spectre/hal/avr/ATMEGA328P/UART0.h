@@ -42,7 +42,9 @@ namespace ATMEGA328P
  * TYPEDEF
  **************************************************************************************/
 
-typedef ATxxxx::UART0 UART0;
+typedef ATxxxx::UART0                               UART0;
+typedef ATxxxx::UART0_TransmitRegisterEmptyCallback UART0_TransmitRegisterEmptyCallback;
+typedef ATxxxx::UART0_ReceiveCompleteCallback       UART0_ReceiveCompleteCallback;
 
 /**************************************************************************************
  * NAMESPACE
