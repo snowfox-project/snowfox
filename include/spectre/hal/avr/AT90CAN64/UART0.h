@@ -23,7 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/AT90CAN32_64_128/UART0.h>
+#include <spectre/hal/avr/common/ATxxxx/UART0.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,9 +42,9 @@ namespace AT90CAN64
  * TYPEDEF
  **************************************************************************************/
 
-typedef AT90CAN32_64_128::UART0                               UART0;
-typedef AT90CAN32_64_128::UART0_TransmitRegisterEmptyCallback UART0_TransmitRegisterEmptyCallback;
-typedef AT90CAN32_64_128::UART0_ReceiveCompleteCallback       UART0_ReceiveCompleteCallback;
+typedef ATxxxx::UART0                               UART0;
+typedef ATxxxx::UART0_TransmitRegisterEmptyCallback UART0_TransmitRegisterEmptyCallback;
+typedef ATxxxx::UART0_ReceiveCompleteCallback       UART0_ReceiveCompleteCallback;
 
 /**************************************************************************************
  * NAMESPACE

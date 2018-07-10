@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_AT90CAN32_64_128_UART0_H_
-#define INCLUDE_SPECTRE_HAL_AVR_AT90CAN32_64_128_UART0_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_UART1_H_
+#define INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_UART1_H_
 
 /**************************************************************************************
  * INCLUDE
@@ -41,14 +41,14 @@ namespace spectre
 namespace hal
 {
 
-namespace AT90CAN32_64_128
+namespace ATxxxx
 {
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UART0 : public interface::UART,
+class UART1 : public interface::UART,
               public interface::UARTConfiguration,
               public interface::UARTAssembly
 {
@@ -56,14 +56,14 @@ class UART0 : public interface::UART,
 public:
 
 
-           UART0(volatile uint8_t * udr0,
-                 volatile uint8_t * ucsr0a,
-                 volatile uint8_t * ucsr0b,
-                 volatile uint8_t * ucsr0c,
-                 volatile uint16_t * ubrr0,
-                 interface::InterruptController & int_ctrl,
-                 uint32_t const f_cpu);
-  virtual ~UART0();
+           UART1(volatile uint8_t                     * udr1,
+                 volatile uint8_t                     * ucsr1a,
+                 volatile uint8_t                     * ucsr1b,
+                 volatile uint8_t                     * ucsr1c,
+                 volatile uint16_t                    * ubrr1,
+                 interface::InterruptController       & int_ctrl,
+                 uint32_t                       const   f_cpu);
+  virtual ~UART1();
 
 
   /* UART Interface */
@@ -94,64 +94,62 @@ public:
   void ISR_onTransmitRegisterEmpty();
   void ISR_onReceiveComplete      ();
 
+
 private:
 
-  volatile uint8_t  * _UDR0,
-                    * _UCSR0A,
-                    * _UCSR0B,
-                    * _UCSR0C;
-  volatile uint16_t * _UBRR0;
+  volatile uint8_t  * _UDR1,
+                    * _UCSR1A,
+                    * _UCSR1B,
+                    * _UCSR1C;
+  volatile uint16_t * _UBRR1;
 
   interface::InterruptController       & _int_ctrl;
   interface::UARTCallback              * _uart_callback;
   uint32_t                       const   _f_cpu;
 
+};
 
-  static uint16_t calcBaudRate(uint32_t const f_cpu, uint32_t const baud_rate);
+/**************************************************************************************/
+
+class UART1_TransmitRegisterEmptyCallback : public interface::InterruptCallback
+{
+
+public:
+
+           UART1_TransmitRegisterEmptyCallback(UART1 & uart1) : _uart1(uart1) { }
+  virtual ~UART1_TransmitRegisterEmptyCallback() { }
+
+
+  virtual void interruptServiceRoutine() override
+  {
+    _uart1.ISR_onTransmitRegisterEmpty();
+  }
+
+private:
+
+  UART1 & _uart1;
 
 };
 
 /**************************************************************************************/
 
-class UART0_TransmitRegisterEmptyCallback : public interface::InterruptCallback
+class UART1_ReceiveCompleteCallback : public interface::InterruptCallback
 {
 
 public:
 
-           UART0_TransmitRegisterEmptyCallback(UART0 & uart0) : _uart0(uart0) { }
-  virtual ~UART0_TransmitRegisterEmptyCallback() { }
+           UART1_ReceiveCompleteCallback(UART1 & uart1) : _uart1(uart1) { }
+  virtual ~UART1_ReceiveCompleteCallback() { }
 
 
   virtual void interruptServiceRoutine() override
   {
-    _uart0.ISR_onTransmitRegisterEmpty();
+    _uart1.ISR_onReceiveComplete();
   }
 
 private:
 
-  UART0 & _uart0;
-
-};
-
-/**************************************************************************************/
-
-class UART0_ReceiveCompleteCallback : public interface::InterruptCallback
-{
-
-public:
-
-           UART0_ReceiveCompleteCallback(UART0 & uart0) : _uart0(uart0) { }
-  virtual ~UART0_ReceiveCompleteCallback() { }
-
-
-  virtual void interruptServiceRoutine() override
-  {
-    _uart0.ISR_onReceiveComplete();
-  }
-
-private:
-
-  UART0 & _uart0;
+  UART1 & _uart1;
 
 };
 
@@ -159,10 +157,10 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CAN32_64_128 */
+} /* ATxxxx */
 
 } /* hal */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_AT90CAN32_64_128_UART0_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_UART1_H_ */
