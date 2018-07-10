@@ -58,6 +58,9 @@ EXAMPLES_HAL="examples/hal"
 ./run-build-example.sh $EXAMPLES_HAL/AT90CAN64/hal-at90can64-digital-in-pin
 ./run-build-example.sh $EXAMPLES_HAL/AT90CAN64/hal-at90can64-digital-out-pin
 
+./run-build-example.sh $EXAMPLES_HAL/ATMEGA1284P/hal-atmega1284p-digital-in-pin
+./run-build-example.sh $EXAMPLES_HAL/ATMEGA1284P/hal-atmega1284p-digital-out-pin
+
 ./run-build-example.sh $EXAMPLES_HAL/ATMEGA2560/hal-atmega2560-digital-in-pin
 ./run-build-example.sh $EXAMPLES_HAL/ATMEGA2560/hal-atmega2560-digital-in-port
 ./run-build-example.sh $EXAMPLES_HAL/ATMEGA2560/hal-atmega2560-digital-out-pin
