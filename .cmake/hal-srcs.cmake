@@ -89,6 +89,7 @@ set(SPECTRE_LIBRARY_HAL_AVR_ATxxxx_SRCS
   ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/Flash.cpp
   ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/I2CMasterBase.cpp       
   ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/SpiMaster.cpp
+  ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/UART0.cpp
 )
 
 ##########################################################################
