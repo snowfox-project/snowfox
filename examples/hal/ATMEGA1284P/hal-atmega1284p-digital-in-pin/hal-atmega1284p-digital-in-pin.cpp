@@ -20,10 +20,11 @@
  * This example program is tailored for usage with Moteino-Mega-USB
  *
  * Electrical interface:
- *   LED = D15 = PD7
+ *   LED    = D15 = PD7
+ *   SWITCH = D0  = PB0
  *
  * Upload via avrdude
- *   avrdude -p atmega1284p -c arduino -e -U flash:w:bin/hal-atmega1284p-digital-out-pin
+ *   avrdude -p atmega1284p -c arduino -e -U flash:w:bin/hal-atmega1284p-digital-in-pin
  **************************************************************************************/
 
 /**************************************************************************************
@@ -32,7 +33,7 @@
 
 #include <avr/io.h>
 
-#include <spectre/hal/avr/ATMEGA1284P/Delay.h>
+#include <spectre/hal/avr/ATMEGA1284P/DigitalInPin.h>
 #include <spectre/hal/avr/ATMEGA1284P/DigitalOutPin.h>
 
 /**************************************************************************************
@@ -45,8 +46,8 @@ using namespace spectre::hal;
  * GLOBAL VARIABLES
  **************************************************************************************/
 
-ATMEGA1284P::Delay         delay;
-ATMEGA1284P::DigitalOutPin led_out(&DDRD, &PORTD, PD7);
+ATMEGA1284P::DigitalInPin  switch_in(&DDRB, &PORTB, &PINB, PB0);
+ATMEGA1284P::DigitalOutPin led_out  (&DDRD, &PORTD, PD7);
 
 /**************************************************************************************
  * MAIN
@@ -54,16 +55,12 @@ ATMEGA1284P::DigitalOutPin led_out(&DDRD, &PORTD, PD7);
 
 int main()
 {
-  bool is_led_on = false;
+  switch_in.setPullUpMode(interface::PullUpMode::PULL_UP);
 
   for(;;)
   {
-    if  (is_led_on) led_out.set();
-    else            led_out.clr();
-
-    is_led_on = !is_led_on;
-
-    delay.delay_ms(100);
+    if  (switch_in.isSet()) led_out.set();
+    else                    led_out.clr();
   }
 
   return 0;
