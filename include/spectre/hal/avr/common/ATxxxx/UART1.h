@@ -77,7 +77,6 @@ public:
   virtual void enableTx         () override;
   virtual void enableRx         () override;
   virtual void disableTx        () override;
-  virtual void disableRx        () override;
 
   virtual void setBaudRate      (interface::UartBaudRate const   baud_rate) override;
   virtual void setParity        (interface::UartParity   const   parity   ) override;

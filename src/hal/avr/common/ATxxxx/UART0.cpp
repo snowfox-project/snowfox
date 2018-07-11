@@ -193,12 +193,6 @@ void UART0::disableTx()
   *_UCSR0B &= ~TXEN0_bm;
 }
 
-void UART0::disableRx()
-{
-  *_UCSR0B &= ~RXEN0_bm;
-  _int_ctrl.disableInterrupt(INT_NUM_RECEIVE_COMPLETE);
-}
-
 void UART0::setBaudRate(interface::UartBaudRate const baud_rate)
 {
   *_UCSR0A |= U2X0_bm;
