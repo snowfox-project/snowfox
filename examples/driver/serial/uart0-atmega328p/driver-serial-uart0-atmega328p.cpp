@@ -27,10 +27,12 @@
 #include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
 
 #include <spectre/driver/serial/Serial.h>
-#include <spectre/driver/serial/UART/UART_ReceiveBuffer.h>
-#include <spectre/driver/serial/UART/UART_TransmitBuffer.h>
-#include <spectre/driver/serial/UART/UART_CallbackHandler.h>
-#include <spectre/driver/serial/UART/UART_SerialController.h>
+#include <spectre/driver/serial/UART/UART_SerialConfig.h>
+#include <spectre/driver/serial/UART/UART_SerialControl.h>
+#include <spectre/driver/serial/UART/events/UART_onRxDoneCallback.h>
+#include <spectre/driver/serial/UART/events/UART_onTxDoneCallback.h>
+
+#include <spectre/memory/container/Queue.h>
 
 /**************************************************************************************
  * NAMESPACES
@@ -44,8 +46,8 @@ using namespace spectre::driver;
  * CONSTANTS
  **************************************************************************************/
 
-static uint16_t const RX_BUFFER_SIZE = 16;
-static uint16_t const TX_BUFFER_SIZE = 16;
+static uint16_t const UART_RX_BUFFER_SIZE = 16;
+static uint16_t const UART_TX_BUFFER_SIZE = 16;
 
 /**************************************************************************************
  * MAIN
@@ -65,19 +67,19 @@ int main()
   int_ctrl.registerInterruptCallback(ATMEGA328P::toIsrNum(ATMEGA328P::InterruptServiceRoutine::USART_UART_DATA_REGISTER_EMPTY), &uart0_uart_data_register_empty_callback);
   int_ctrl.registerInterruptCallback(ATMEGA328P::toIsrNum(ATMEGA328P::InterruptServiceRoutine::USART_RECEIVE_COMPLETE        ), &uart0_receive_complete_callback        );
 
+
   /* DRIVER ***************************************************************************/
 
-  serial::UART::UART_TransmitBuffer   serial_tx_buffer  (TX_BUFFER_SIZE, crit_sec, uart0);
-  serial::UART::UART_ReceiveBuffer    serial_rx_buffer  (RX_BUFFER_SIZE, crit_sec, uart0);
-  serial::UART::UART_CallbackHandler  serial_callback   (serial_tx_buffer, serial_rx_buffer);
-  serial::UART::UART_SerialController serial_ctrl       (uart0);
-  serial::Serial                      serial            (serial_ctrl, serial_tx_buffer, serial_rx_buffer);
+  memory::container::Queue<uint8_t>   serial_rx_queue           (UART_RX_BUFFER_SIZE),
+                                      serial_tx_queue           (UART_TX_BUFFER_SIZE);
+  serial::UART::UART_onRxDoneCallback serial_on_rx_done_callback(crit_sec, serial_rx_queue);
+  serial::UART::UART_onTxDoneCallback serial_on_tx_done_callback(crit_sec, serial_tx_queue, uart0);
+  serial::UART::UART_SerialConfig     serial_config             (uart0);
+  serial::UART::UART_SerialControl    serial_control            (crit_sec, serial_rx_queue, serial_tx_queue, uart0);
+  serial::Serial                      serial                    (serial_config, serial_control);
 
-  uart0.registerUARTCallback(&serial_callback);
-
-  int_ctrl.enableInterrupt            (ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
-
-  /* APPLICATION **********************************************************************/
+  uart0.register_onRxDoneCallback(&serial_on_rx_done_callback);
+  uart0.register_onTxDoneCallback(&serial_on_tx_done_callback);
 
   uint8_t baud_rate = static_cast<uint8_t>(serial::interface::SerialBaudRate::B115200);
   uint8_t parity    = static_cast<uint8_t>(serial::interface::SerialParity::None     );
@@ -87,6 +89,14 @@ int main()
   serial.ioctl(serial::IOCTL_SET_BAUDRATE, static_cast<void *>(&baud_rate));
   serial.ioctl(serial::IOCTL_SET_PARITY,   static_cast<void *>(&parity   ));
   serial.ioctl(serial::IOCTL_SET_STOPBIT,  static_cast<void *>(&stop_bit ));
+
+
+  /* GLOBAL INTERRUPT *****************************************************************/
+
+  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
+
+
+  /* APPLICATION **********************************************************************/
 
   uint8_t buf[5] = {0};
   for(;;)

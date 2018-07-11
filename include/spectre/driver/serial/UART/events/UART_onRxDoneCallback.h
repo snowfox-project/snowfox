@@ -16,15 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_INTERFACE_SERIALCONTROLLER_H_
-#define INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_INTERFACE_SERIALCONTROLLER_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_UART_ONRXDONECALLBACK_H_
+#define INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_UART_ONRXDONECALLBACK_H_
 
 /**************************************************************************************
- * NAMESPACE
+ * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
-#include <stdbool.h>
+#include <spectre/hal/interface/uart/events/UART_onRxDoneCallback.h>
+
+#include <spectre/hal/interface/locking/CriticalSection.h>
+
+#include <spectre/memory/container/Queue.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,48 +42,30 @@ namespace driver
 namespace serial
 {
 
-namespace interface
+namespace UART
 {
-
-/**************************************************************************************
- * TYPEDEF
- **************************************************************************************/
-
-enum class SerialBaudRate : uint8_t
-{
-  B115200
-};
-
-enum class SerialParity : uint8_t
-{
-  None,
-  Even,
-  Odd
-};
-
-enum class SerialStopBit : uint8_t
-{
-  _1,
-  _2
-};
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class SerialController
+class UART_onRxDoneCallback : public hal::interface::UART_onRxDoneCallback
 {
 
 public:
 
+           UART_onRxDoneCallback(hal::interface::CriticalSection   & crit_sec,
+                                 memory::container::Queue<uint8_t> & rx_queue);
+  virtual ~UART_onRxDoneCallback();
 
-           SerialController() { }
-  virtual ~SerialController() { }
+
+  virtual void onRxDone(uint8_t const data) override;
 
 
-  virtual void setBaudRate       (SerialBaudRate const baud_rate) = 0;
-  virtual void setParity         (SerialParity   const parity   ) = 0;
-  virtual void setStopBit        (SerialStopBit  const stop_bit ) = 0;
+private:
+
+  hal::interface::CriticalSection   & _crit_sec;
+  memory::container::Queue<uint8_t> & _rx_queue;
 
 };
 
@@ -88,7 +73,7 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
+} /* UART */
 
 } /* serial */
 
@@ -96,4 +81,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_INTERFACE_SERIALCONTROLLER_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_UART_ONRXDONECALLBACK_H_ */

@@ -16,15 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INTERFACE_UART_CALLBACK_H_
-#define INTERFACE_UART_CALLBACK_H_
-
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
-#include <stdbool.h>
+#include <spectre/driver/serial/UART/events/UART_onTxDoneCallback.h>
+
+#include <spectre/hal/interface/locking/LockGuard.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -33,38 +31,60 @@
 namespace spectre
 {
 
-namespace hal
+namespace driver
 {
 
-namespace interface
+namespace serial
+{
+
+namespace UART
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class UARTCallback
+UART_onTxDoneCallback::UART_onTxDoneCallback(hal::interface::CriticalSection & crit_sec, memory::container::Queue<uint8_t> & tx_queue, hal::interface::UARTControl & uart_ctrl)
+: _crit_sec (crit_sec ),
+  _tx_queue (tx_queue ),
+  _uart_ctrl(uart_ctrl)
 {
 
-public:
+}
 
-           UARTCallback() { }
-  virtual ~UARTCallback() { }
+UART_onTxDoneCallback::~UART_onTxDoneCallback()
+{
 
+}
 
-  virtual bool onTransmitRegisterEmptyCallback(uint8_t       * tx_data) = 0;
-  virtual void onReceiveCompleteCallback      (uint8_t const   rx_data) = 0;
-  
-};
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
+
+void UART_onTxDoneCallback::onTxDone()
+{
+  hal::interface::LockGuard lock(_crit_sec);
+
+  if(!_tx_queue.isEmpty())
+  {
+    uint8_t data = 0;
+    _tx_queue.pop(&data);
+    _uart_ctrl.transmit(data);
+  }
+  else
+  {
+    _uart_ctrl.disableTx();
+  }
+}
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface*/
+} /* UART */
 
-} /* hal */
+} /* serial */
+
+} /* driver */
 
 } /* spectre */
-
-#endif /* INTERFACE_UART_CALLBACK_H_ */

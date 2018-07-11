@@ -16,16 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_SERIAL_UART_UART_TRANSMITBUFFER_H_
-#define INCLUDE_SPECTRE_DRIVER_SERIAL_UART_UART_TRANSMITBUFFER_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_SERIAL_UART_EVENTS_UART_ONTXDONECALLBACK_H_
+#define INCLUDE_SPECTRE_DRIVER_SERIAL_UART_EVENTS_UART_ONTXDONECALLBACK_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/serial/interface/SerialTransmitBuffer.h>
+#include <spectre/hal/interface/uart/events/UART_onTxDoneCallback.h>
 
-#include <spectre/hal/interface/uart/UARTConfiguration.h>
+#include <spectre/hal/interface/uart/UARTControl.h>
 #include <spectre/hal/interface/locking/CriticalSection.h>
 
 #include <spectre/memory/container/Queue.h>
@@ -50,24 +50,25 @@ namespace UART
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UART_TransmitBuffer : public interface::SerialTransmitBuffer
+class UART_onTxDoneCallback : public hal::interface::UART_onTxDoneCallback
 {
 
 public:
 
-           UART_TransmitBuffer(uint16_t const size, hal::interface::CriticalSection & crit_sec, hal::interface::UARTConfiguration & uart_config);
-  virtual ~UART_TransmitBuffer();
+           UART_onTxDoneCallback(hal::interface::CriticalSection   & crit_sec,
+                                 memory::container::Queue<uint8_t> & tx_queue,
+                                 hal::interface::UARTControl       & uart_ctrl);
+  virtual ~UART_onTxDoneCallback();
 
 
-  virtual bool isFull                 (                       ) override;
-  virtual void putData                (uint8_t const   data   ) override;
-  virtual bool onTransmitRegisterEmpty(uint8_t       * tx_data) override;
+  virtual void onTxDone() override;
+
 
 private:
 
-  memory::container::Queue<uint8_t>   _tx_queue;
   hal::interface::CriticalSection   & _crit_sec;
-  hal::interface::UARTConfiguration & _uart_config;
+  memory::container::Queue<uint8_t> & _tx_queue;
+  hal::interface::UARTControl       & _uart_ctrl;
 
 };
 
@@ -83,4 +84,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_SERIAL_UART_UART_TRANSMITBUFFER_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_SERIAL_UART_EVENTS_UART_ONTXDONECALLBACK_H_ */

@@ -44,10 +44,12 @@ namespace UART
  * CTOR/DTOR
  **************************************************************************************/
 
-UART_TransmitBuffer::UART_TransmitBuffer(uint16_t const size, hal::interface::CriticalSection & crit_sec, hal::interface::UARTConfiguration & uart_config)
-: _tx_queue   (size       ),
-  _crit_sec   (crit_sec   ),
-  _uart_config(uart_config)
+UART_TransmitBuffer::UART_TransmitBuffer(hal::interface::CriticalSection   & crit_sec,
+                                         memory::container::Queue<uint8_t> & tx_queue,
+                                         hal::interface::UARTControl       & uart_ctrl)
+: _crit_sec (crit_sec ),
+  _tx_queue (tx_queue ),
+  _uart_ctrl(uart_ctrl)
 {
 
 }
@@ -75,23 +77,7 @@ void UART_TransmitBuffer::putData(uint8_t const data)
   if(!_tx_queue.isFull())
   {
     _tx_queue.push(data);
-    _uart_config.enableTx();
-  }
-}
-
-bool UART_TransmitBuffer::onTransmitRegisterEmpty(uint8_t * tx_data)
-{
-  hal::interface::LockGuard lock(_crit_sec);
-
-  if(!_tx_queue.isEmpty())
-  {
-    _tx_queue.pop(tx_data);
-    return true;
-  }
-  else
-  {
-    _uart_config.disableTx();
-    return false;
+    _uart_ctrl.enableTx();
   }
 }
 

@@ -16,17 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_UARTCALLBACKHANDLER_H_
-#define INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_UARTCALLBACKHANDLER_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_SERIAL_UART_UART_SERIALCONTROL_H_
+#define INCLUDE_SPECTRE_DRIVER_SERIAL_UART_UART_SERIALCONTROL_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/interface/uart/UARTCallback.h>
+#include <spectre/driver/serial/interface/SerialControl.h>
 
-#include <spectre/driver/serial/interface/SerialTransmitBuffer.h>
-#include <spectre/driver/serial/interface/SerialReceiveBuffer.h>
+#include <spectre/hal/interface/uart/UARTControl.h>
+#include <spectre/hal/interface/locking/CriticalSection.h>
+
+#include <spectre/memory/container/Queue.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -48,23 +50,29 @@ namespace UART
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UART_CallbackHandler : public spectre::hal::interface::UARTCallback
+class UART_SerialControl : public interface::SerialControl
 {
 
 public:
 
-           UART_CallbackHandler(interface::SerialTransmitBuffer & serial_tx_buf, interface::SerialReceiveBuffer & serial_rx_buf);
-  virtual ~UART_CallbackHandler();
+
+           UART_SerialControl(hal::interface::CriticalSection   & crit_sec,
+                              memory::container::Queue<uint8_t> & rx_queue,
+                              memory::container::Queue<uint8_t> & tx_queue,
+                              hal::interface::UARTControl       & uart_ctrl);
+  virtual ~UART_SerialControl();
 
 
-  virtual bool onTransmitRegisterEmptyCallback(uint8_t       * tx_data) override;
-  virtual void onReceiveCompleteCallback      (uint8_t const   rx_data) override;
+  virtual uint16_t receive (uint8_t       * data, uint16_t const num_bytes) override;
+  virtual uint16_t transmit(uint8_t const * data, uint16_t const num_bytes) override;
 
 
 private:
 
-  interface::SerialTransmitBuffer & _serial_tx_buf;
-  interface::SerialReceiveBuffer  & _serial_rx_buf;
+  hal::interface::CriticalSection   & _crit_sec;
+  memory::container::Queue<uint8_t> & _rx_queue,
+                                    & _tx_queue;
+  hal::interface::UARTControl       & _uart_ctrl;
 
 };
 
@@ -80,4 +88,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_UARTCALLBACKHANDLER_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_SERIAL_UART_UART_SERIALCONTROL_H_ */

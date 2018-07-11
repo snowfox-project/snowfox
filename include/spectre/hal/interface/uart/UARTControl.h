@@ -16,15 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_SERIAL_INTERFACE_SERIALTRANSMITBUFFER_H_
-#define INCLUDE_SPECTRE_DRIVER_SERIAL_INTERFACE_SERIALTRANSMITBUFFER_H_
+#ifndef INTERFACE_UART_H_
+#define INTERFACE_UART_H_
 
 /**************************************************************************************
- * NAMESPACE
+ * INCLUDE
  **************************************************************************************/
 
 #include <stdint.h>
-#include <stdbool.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -33,10 +32,7 @@
 namespace spectre
 {
 
-namespace driver
-{
-
-namespace serial
+namespace hal
 {
 
 namespace interface
@@ -46,18 +42,20 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class SerialTransmitBuffer
+class UARTControl
 {
 
 public:
 
-           SerialTransmitBuffer() { }
-  virtual ~SerialTransmitBuffer() { }
+           UARTControl() { }
+  virtual ~UARTControl() { }
 
 
-  virtual bool isFull                 (                       ) = 0;
-  virtual void putData                (uint8_t const   data   ) = 0;
-  virtual bool onTransmitRegisterEmpty(uint8_t       * tx_data) = 0;
+  virtual void transmit (uint8_t const   data) = 0;
+  virtual void receive  (uint8_t       & data) = 0;
+  virtual void enableTx (                    ) = 0;
+  virtual void enableRx (                    ) = 0;
+  virtual void disableTx(                    ) = 0;
 
 };
 
@@ -65,12 +63,10 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
+} /* interface*/
 
-} /* serial */
-
-} /* driver */
+} /* hal */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_SERIAL_INTERFACE_SERIALTRANSMITBUFFER_H_ */
+#endif /* INTERFACE_UART_H_ */

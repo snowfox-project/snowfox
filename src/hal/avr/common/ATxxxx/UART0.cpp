@@ -144,14 +144,15 @@ namespace ATxxxx
  **************************************************************************************/
 
 UART0::UART0(volatile uint8_t * udr0, volatile uint8_t * ucsr0a, volatile uint8_t * ucsr0b, volatile uint8_t * ucsr0c, volatile uint16_t * ubrr0, interface::InterruptController & int_ctrl, uint32_t const f_cpu)
-: _UDR0         (udr0    ),
-  _UCSR0A       (ucsr0a  ),
-  _UCSR0B       (ucsr0b  ),
-  _UCSR0C       (ucsr0c  ),
-  _UBRR0        (ubrr0   ),
-  _int_ctrl     (int_ctrl),
-  _uart_callback(0       ),
-  _f_cpu        (f_cpu   )
+: _UDR0               (udr0    ),
+  _UCSR0A             (ucsr0a  ),
+  _UCSR0B             (ucsr0b  ),
+  _UCSR0C             (ucsr0c  ),
+  _UBRR0              (ubrr0   ),
+  _int_ctrl           (int_ctrl),
+  _f_cpu              (f_cpu   ),
+  _on_rx_done_callback(0       ),
+  _on_tx_done_callback(0       )
 {
 
 }
@@ -226,31 +227,28 @@ void UART0::setStopBit(interface::UartStopBit const stop_bit)
   }
 }
 
-void UART0::registerUARTCallback(interface::UARTCallback * uart_callback)
+void UART0::register_onRxDoneCallback(interface::UART_onRxDoneCallback * on_rx_done_callback)
 {
-  _uart_callback = uart_callback;
+  _on_rx_done_callback = on_rx_done_callback;
+}
+
+void UART0::register_onTxDoneCallback(interface::UART_onTxDoneCallback * on_tx_done_callback)
+{
+  _on_tx_done_callback = on_tx_done_callback;
 }
 
 void UART0::ISR_onTransmitRegisterEmpty()
 {
-  if(_uart_callback)
-  {
-    uint8_t tx_data = 0;
-    bool const is_tx_requested = _uart_callback->onTransmitRegisterEmptyCallback(&tx_data);
-    if(is_tx_requested)
-    {
-      this->transmit(tx_data);
-    }
-  }
+  if(_on_tx_done_callback) _on_tx_done_callback->onTxDone();
 }
 
 void UART0::ISR_onReceiveComplete()
 {
-  if(_uart_callback)
+  if(_on_rx_done_callback)
   {
-    uint8_t rx_data = 0;
-    this->receive(rx_data);
-    _uart_callback->onReceiveCompleteCallback(rx_data);
+    uint8_t data = 0;
+    this->receive(data);
+    _on_rx_done_callback->onRxDone(data);
   }
 }
 

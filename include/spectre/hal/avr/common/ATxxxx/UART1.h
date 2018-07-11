@@ -23,9 +23,8 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/interface/uart/UART.h>
+#include <spectre/hal/interface/uart/UARTControl.h>
 #include <spectre/hal/interface/uart/UARTAssembly.h>
-#include <spectre/hal/interface/uart/UARTCallback.h>
 #include <spectre/hal/interface/uart/UARTConfiguration.h>
 
 #include <spectre/hal/interface/interrupt/InterruptCallback.h>
@@ -48,7 +47,7 @@ namespace ATxxxx
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UART1 : public interface::UART,
+class UART1 : public interface::UARTControl,
               public interface::UARTConfiguration,
               public interface::UARTAssembly
 {
@@ -66,17 +65,16 @@ public:
   virtual ~UART1();
 
 
-  /* UART Interface */
+  /* UART Control Interface */
 
   virtual void transmit         (uint8_t  const    data) override;
   virtual void receive          (uint8_t         & data) override;
+  virtual void enableTx         (                      ) override;
+  virtual void enableRx         (                      ) override;
+  virtual void disableTx        (                      ) override;
 
 
   /* UART Configuration Interface */
-
-  virtual void enableTx         () override;
-  virtual void enableRx         () override;
-  virtual void disableTx        () override;
 
   virtual void setBaudRate      (interface::UartBaudRate const   baud_rate) override;
   virtual void setParity        (interface::UartParity   const   parity   ) override;
@@ -85,7 +83,8 @@ public:
 
   /* UART Assembly */
 
-  virtual void registerUARTCallback(interface::UARTCallback * uart_callback) override;
+  virtual void register_onRxDoneCallback(interface::UART_onRxDoneCallback * on_rx_done_callback) override;
+  virtual void register_onTxDoneCallback(interface::UART_onTxDoneCallback * on_tx_done_callback) override;
 
 
   /* Functions to be called upon execution of a interrupt service routine */
@@ -102,9 +101,10 @@ private:
                     * _UCSR1C;
   volatile uint16_t * _UBRR1;
 
-  interface::InterruptController       & _int_ctrl;
-  interface::UARTCallback              * _uart_callback;
-  uint32_t                       const   _f_cpu;
+  interface::InterruptController         & _int_ctrl;
+  uint32_t                         const   _f_cpu;
+  interface::UART_onRxDoneCallback       * _on_rx_done_callback;
+  interface::UART_onTxDoneCallback       * _on_tx_done_callback;
 
 };
 

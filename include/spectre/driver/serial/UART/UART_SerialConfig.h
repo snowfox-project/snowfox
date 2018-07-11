@@ -16,14 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INTERFACE_UART_H_
-#define INTERFACE_UART_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_SERIALCONFIG_H_
+#define INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_SERIALCONFIG_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
+#include <spectre/driver/serial/interface/SerialConfig.h>
+
+#include <spectre/hal/interface/uart/UARTConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -32,27 +34,36 @@
 namespace spectre
 {
 
-namespace hal
+namespace driver
 {
 
-namespace interface
+namespace serial
+{
+
+namespace UART
 {
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UART
+class UART_SerialConfig : public interface::SerialConfig
 {
 
 public:
 
-           UART() { }
-  virtual ~UART() { }
+
+           UART_SerialConfig(hal::interface::UARTConfiguration & uart_config);
+  virtual ~UART_SerialConfig();
 
 
-  virtual void transmit(uint8_t const   data) = 0;
-  virtual void receive (uint8_t       & data) = 0;
+  virtual void setBaudRate       (interface::SerialBaudRate const baud_rate) override;
+  virtual void setParity         (interface::SerialParity   const parity   ) override;
+  virtual void setStopBit        (interface::SerialStopBit  const stop_bit ) override;
+
+private:
+
+  hal::interface::UARTConfiguration & _uart_config;
 
 };
 
@@ -60,10 +71,12 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface*/
+} /* UART */
 
-} /* hal */
+} /* serial */
+
+} /* driver */
 
 } /* spectre */
 
-#endif /* INTERFACE_UART_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_SERIALCONFIG_H_ */

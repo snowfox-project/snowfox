@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/serial/Serial.h>
+#include <spectre/driver/serial/UART/UART_SerialConfig.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -35,18 +35,20 @@ namespace driver
 namespace serial
 {
 
+namespace UART
+{
+
 /**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
-Serial::Serial(interface::SerialConfig & config, interface::SerialControl & control)
-: _config (config ),
-  _control(control)
+UART_SerialConfig::UART_SerialConfig(hal::interface::UARTConfiguration & uart_config)
+: _uart_config(uart_config)
 {
 
 }
 
-Serial::~Serial()
+UART_SerialConfig::~UART_SerialConfig()
 {
 
 }
@@ -55,65 +57,38 @@ Serial::~Serial()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool Serial::open()
+void UART_SerialConfig::setBaudRate(interface::SerialBaudRate const baud_rate)
 {
-  return true;
+  switch(baud_rate)
+  {
+  case interface::SerialBaudRate::B115200: _uart_config.setBaudRate(hal::interface::UartBaudRate::B115200); break;
+  }
 }
 
-ssize_t Serial::read(uint8_t * buffer, ssize_t const num_bytes)
+void UART_SerialConfig::setParity(interface::SerialParity const parity)
 {
-  return _control.receive(buffer, num_bytes);
+  switch(parity)
+  {
+  case interface::SerialParity::None: _uart_config.setParity(hal::interface::UartParity::None); break;
+  case interface::SerialParity::Even: _uart_config.setParity(hal::interface::UartParity::Even); break;
+  case interface::SerialParity::Odd : _uart_config.setParity(hal::interface::UartParity::Odd ); break;
+  }
 }
 
-ssize_t Serial::write(uint8_t const * buffer, ssize_t const num_bytes)
+void UART_SerialConfig::setStopBit(interface::SerialStopBit const stop_bit)
 {
-  return _control.transmit(buffer, num_bytes);
-}
-
-bool Serial::ioctl(uint32_t const cmd, void * arg)
-{
-  switch(cmd)
+  switch(stop_bit)
   {
-  /* SET_BAUDRATE *********************************************************************/
-  case IOCTL_SET_BAUDRATE:
-  {
-    uint8_t                   const * arg_ptr   = static_cast<uint8_t *>                (arg     );
-    interface::SerialBaudRate const   baud_rate = static_cast<interface::SerialBaudRate>(*arg_ptr);
-    _config.setBaudRate(baud_rate);
-    return true;
+  case interface::SerialStopBit::_1: _uart_config.setStopBit(hal::interface::UartStopBit::_1); break;
+  case interface::SerialStopBit::_2: _uart_config.setStopBit(hal::interface::UartStopBit::_2); break;
   }
-  break;
-  /* SET_PARITY ***********************************************************************/
-  case IOCTL_SET_PARITY:
-  {
-    uint8_t                 const * arg_ptr = static_cast<uint8_t *>              (arg     );
-    interface::SerialParity const   parity  = static_cast<interface::SerialParity>(*arg_ptr);
-    _config.setParity(parity);
-    return true;
-  }
-  break;
-  /* SET_STOPBIT **********************************************************************/
-  case IOCTL_SET_STOPBIT:
-  {
-    uint8_t                  const * arg_ptr  = static_cast<uint8_t *>               (arg     );
-    interface::SerialStopBit const   stop_bit = static_cast<interface::SerialStopBit>(*arg_ptr);
-    _config.setStopBit(stop_bit);
-    return true;
-  }
-  break;
-  }
-
-  return false;
-}
-
-void Serial::close()
-{
-
 }
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* UART */
 
 } /* serial */
 

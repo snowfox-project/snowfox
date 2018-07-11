@@ -16,19 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_SERIAL_UART_UART_RECEIVEBUFFER_H_
-#define INCLUDE_SPECTRE_DRIVER_SERIAL_UART_UART_RECEIVEBUFFER_H_
-
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/serial/interface/SerialReceiveBuffer.h>
+#include <spectre/driver/serial/UART/UART_SerialControl.h>
 
-#include <spectre/hal/interface/uart/UARTConfiguration.h>
-#include <spectre/hal/interface/locking/CriticalSection.h>
-
-#include <spectre/memory/container/Queue.h>
+#include <spectre/hal/interface/locking/LockGuard.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -47,29 +41,61 @@ namespace UART
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class UART_ReceiveBuffer : public interface::SerialReceiveBuffer
+UART_SerialControl::UART_SerialControl(hal::interface::CriticalSection   & crit_sec,
+                                       memory::container::Queue<uint8_t> & rx_queue,
+                                       memory::container::Queue<uint8_t> & tx_queue,
+                                       hal::interface::UARTControl       & uart_ctrl)
+: _crit_sec (crit_sec ),
+  _rx_queue (rx_queue ),
+  _tx_queue (tx_queue ),
+  _uart_ctrl(uart_ctrl)
+{
+  _uart_ctrl.enableRx();
+}
+
+UART_SerialControl::~UART_SerialControl()
 {
 
-public:
+}
 
-           UART_ReceiveBuffer(uint16_t const size, hal::interface::CriticalSection & crit_sec, hal::interface::UARTConfiguration & uart_config);
-  virtual ~UART_ReceiveBuffer();
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
+uint16_t UART_SerialControl::receive(uint8_t * data, uint16_t const num_bytes)
+{
+  hal::interface::LockGuard lock(_crit_sec);
 
-  virtual bool isEmpty          (                       ) override;
-  virtual void getData          (uint8_t       * data   ) override;
-  virtual void onReceiveComplete(uint8_t const   rx_data) override;
+  uint16_t bytes_read = 0;
+  for(;
+      (bytes_read < num_bytes) && !_rx_queue.isEmpty();
+      bytes_read++)
+  {
+    _rx_queue.pop(data + bytes_read);
+  }
 
-private:
+  return bytes_read;
+}
 
-  memory::container::Queue<uint8_t>   _rx_queue;
-  hal::interface::CriticalSection   & _crit_sec;
-  hal::interface::UARTConfiguration & _uart_config;
+uint16_t UART_SerialControl::transmit(uint8_t const * data, uint16_t const num_bytes)
+{
+  hal::interface::LockGuard lock(_crit_sec);
 
-};
+  uint16_t bytes_written = 0;
+  for(;
+      (bytes_written < num_bytes) && !_tx_queue.isFull();
+      bytes_written++)
+  {
+    _tx_queue.push(data[bytes_written]);
+  }
+
+  _uart_ctrl.enableTx();
+
+  return bytes_written;
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -82,5 +108,3 @@ private:
 } /* driver */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_SERIAL_UART_UART_RECEIVEBUFFER_H_ */

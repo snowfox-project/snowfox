@@ -44,12 +44,14 @@ namespace UART
  * CTOR/DTOR
  **************************************************************************************/
 
-UART_ReceiveBuffer::UART_ReceiveBuffer(uint16_t const size, hal::interface::CriticalSection & crit_sec, hal::interface::UARTConfiguration & uart_config)
-: _rx_queue   (size    ),
-  _crit_sec   (crit_sec),
-  _uart_config(uart_config)
+UART_ReceiveBuffer::UART_ReceiveBuffer(hal::interface::CriticalSection   & crit_sec,
+                                       memory::container::Queue<uint8_t> & rx_queue,
+                                       hal::interface::UARTControl       & uart_ctrl)
+: _crit_sec (crit_sec ),
+  _rx_queue (rx_queue ),
+  _uart_ctrl(uart_ctrl)
 {
-  _uart_config.enableRx();
+  _uart_ctrl.enableRx();
 }
 
 UART_ReceiveBuffer::~UART_ReceiveBuffer()
@@ -73,16 +75,6 @@ void UART_ReceiveBuffer::getData(uint8_t * data)
   hal::interface::LockGuard lock(_crit_sec);
 
   _rx_queue.pop(data);
-}
-
-void UART_ReceiveBuffer::onReceiveComplete(uint8_t const rx_data)
-{
-  hal::interface::LockGuard lock(_crit_sec);
-
-  if(!_rx_queue.isFull())
-  {
-    _rx_queue.push(rx_data);
-  }
 }
 
 /**************************************************************************************

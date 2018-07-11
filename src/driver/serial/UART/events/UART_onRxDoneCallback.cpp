@@ -16,15 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_SERIAL_INTERFACE_SERIALRECEIVEBUFFER_H_
-#define INCLUDE_SPECTRE_DRIVER_SERIAL_INTERFACE_SERIALRECEIVEBUFFER_H_
-
 /**************************************************************************************
- * NAMESPACE
+ * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
-#include <stdbool.h>
+#include <spectre/driver/serial/UART/events/UART_onRxDoneCallback.h>
+
+#include <spectre/hal/interface/locking/LockGuard.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,37 +37,47 @@ namespace driver
 namespace serial
 {
 
-namespace interface
+namespace UART
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class SerialReceiveBuffer
+UART_onRxDoneCallback::UART_onRxDoneCallback(hal::interface::CriticalSection & crit_sec, memory::container::Queue<uint8_t> & rx_queue)
+: _crit_sec(crit_sec),
+  _rx_queue(rx_queue)
 {
 
-public:
+}
 
-           SerialReceiveBuffer() { }
-  virtual ~SerialReceiveBuffer() { }
+UART_onRxDoneCallback::~UART_onRxDoneCallback()
+{
 
-  virtual bool isEmpty          (                       ) = 0;
-  virtual void getData          (uint8_t       * data   ) = 0;
-  virtual void onReceiveComplete(uint8_t const   rx_data) = 0;
+}
 
-};
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
+
+void UART_onRxDoneCallback::onRxDone(uint8_t const data)
+{
+  hal::interface::LockGuard lock(_crit_sec);
+
+  if(!_rx_queue.isFull())
+  {
+    _rx_queue.push(data);
+  }
+}
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
+} /* UART */
 
 } /* serial */
 
 } /* driver */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_SERIAL_INTERFACE_SERIALRECEIVEBUFFER_H_ */

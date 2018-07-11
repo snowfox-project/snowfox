@@ -16,11 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_SERIAL_INTERFACE_SERIALCONFIG_H_
+#define INCLUDE_SPECTRE_DRIVER_SERIAL_INTERFACE_SERIALCONFIG_H_
+
 /**************************************************************************************
- * INCLUDE
+ * NAMESPACE
  **************************************************************************************/
 
-#include <spectre/driver/serial/UART/UART_CallbackHandler.h>
+#include <stdint.h>
+#include <stdbool.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -35,47 +39,61 @@ namespace driver
 namespace serial
 {
 
-namespace UART
+namespace interface
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * TYPEDEF
  **************************************************************************************/
 
-UART_CallbackHandler::UART_CallbackHandler(interface::SerialTransmitBuffer & serial_tx_buf, interface::SerialReceiveBuffer & serial_rx_buf)
-: _serial_tx_buf(serial_tx_buf),
-  _serial_rx_buf(serial_rx_buf)
+enum class SerialBaudRate : uint8_t
 {
+  B115200
+};
 
-}
-
-UART_CallbackHandler::~UART_CallbackHandler()
+enum class SerialParity : uint8_t
 {
+  None,
+  Even,
+  Odd
+};
 
-}
+enum class SerialStopBit : uint8_t
+{
+  _1,
+  _2
+};
 
 /**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
+ * CLASS DECLARATION
  **************************************************************************************/
 
-bool UART_CallbackHandler::onTransmitRegisterEmptyCallback(uint8_t * tx_data)
+class SerialConfig
 {
-  return _serial_tx_buf.onTransmitRegisterEmpty(tx_data);
-}
 
-void UART_CallbackHandler::onReceiveCompleteCallback(uint8_t const data)
-{
-  _serial_rx_buf.onReceiveComplete(data);
-}
+public:
+
+
+           SerialConfig() { }
+  virtual ~SerialConfig() { }
+
+
+  virtual void setBaudRate       (SerialBaudRate const baud_rate) = 0;
+  virtual void setParity         (SerialParity   const parity   ) = 0;
+  virtual void setStopBit        (SerialStopBit  const stop_bit ) = 0;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* UART */
+} /* interface */
 
 } /* serial */
 
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_SERIAL_INTERFACE_SERIALCONFIG_H_ */

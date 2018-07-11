@@ -16,16 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_SERIALCONTROLLER_H_
-#define INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_SERIALCONTROLLER_H_
+#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_UART_EVENTS_UART_ONRXDONECALLBACK_H_
+#define INCLUDE_SPECTRE_HAL_INTERFACE_UART_EVENTS_UART_ONRXDONECALLBACK_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/serial/interface/SerialController.h>
-
-#include <spectre/hal/interface/uart/UARTConfiguration.h>
+#include <stdint.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -34,36 +32,26 @@
 namespace spectre
 {
 
-namespace driver
+namespace hal
 {
 
-namespace serial
-{
-
-namespace UART
+namespace interface
 {
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UART_SerialController : public interface::SerialController
+class UART_onRxDoneCallback
 {
 
 public:
 
+           UART_onRxDoneCallback() { }
+  virtual ~UART_onRxDoneCallback() { }
 
-           UART_SerialController(hal::interface::UARTConfiguration & uart_config);
-  virtual ~UART_SerialController();
 
-
-  virtual void setBaudRate       (interface::SerialBaudRate const baud_rate) override;
-  virtual void setParity         (interface::SerialParity   const parity   ) override;
-  virtual void setStopBit        (interface::SerialStopBit  const stop_bit ) override;
-
-private:
-
-  hal::interface::UARTConfiguration & _uart_config;
+  virtual void onRxDone(uint8_t const data) = 0;
 
 };
 
@@ -71,12 +59,10 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* UART */
+} /* interface*/
 
-} /* serial */
-
-} /* driver */
+} /* hal */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_SERIALCONTROLLER_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_UART_EVENTS_UART_ONRXDONECALLBACK_H_ */

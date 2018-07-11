@@ -16,15 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INTERFACE_UART_ASSEMBLY_H_
-#define INTERFACE_UART_ASSEMBLY_H_
+#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_UART_EVENTS_UART_ONTXDONECALLBACK_H_
+#define INCLUDE_SPECTRE_HAL_INTERFACE_UART_EVENTS_UART_ONTXDONECALLBACK_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/interface/uart/events/UART_onRxDoneCallback.h>
-#include <spectre/hal/interface/uart/events/UART_onTxDoneCallback.h>
+#include <stdint.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -43,17 +42,16 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UARTAssembly
+class UART_onTxDoneCallback
 {
 
 public:
 
-           UARTAssembly() { }
-  virtual ~UARTAssembly() { }
+           UART_onTxDoneCallback() { }
+  virtual ~UART_onTxDoneCallback() { }
 
 
-  virtual void register_onRxDoneCallback(UART_onRxDoneCallback * on_rx_done_callback) = 0;
-  virtual void register_onTxDoneCallback(UART_onTxDoneCallback * on_tx_done_callback) = 0;
+  virtual void onTxDone() = 0;
 
 };
 
@@ -67,4 +65,4 @@ public:
 
 } /* spectre */
 
-#endif /* INTERFACE_UART_ASSEMBLY_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_UART_EVENTS_UART_ONTXDONECALLBACK_H_ */
