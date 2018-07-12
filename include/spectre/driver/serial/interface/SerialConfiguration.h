@@ -16,16 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_SERIALCONFIG_H_
-#define INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_SERIALCONFIG_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_SERIAL_INTERFACE_SERIALCONFIGURATION_H_
+#define INCLUDE_SPECTRE_DRIVER_SERIAL_INTERFACE_SERIALCONFIGURATION_H_
 
 /**************************************************************************************
- * INCLUDE
+ * NAMESPACE
  **************************************************************************************/
 
-#include <spectre/driver/serial/interface/SerialConfig.h>
-
-#include <spectre/hal/interface/uart/UartConfiguration.h>
+#include <stdint.h>
+#include <stdbool.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -40,30 +39,48 @@ namespace driver
 namespace serial
 {
 
-namespace UART
+namespace interface
 {
+
+/**************************************************************************************
+ * TYPEDEF
+ **************************************************************************************/
+
+enum class SerialBaudRate : uint8_t
+{
+  B115200
+};
+
+enum class SerialParity : uint8_t
+{
+  None,
+  Even,
+  Odd
+};
+
+enum class SerialStopBit : uint8_t
+{
+  _1,
+  _2
+};
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UART_SerialConfig : public interface::SerialConfig
+class SerialConfiguration
 {
 
 public:
 
 
-           UART_SerialConfig(hal::interface::UartConfiguration & uart_config);
-  virtual ~UART_SerialConfig();
+           SerialConfiguration() { }
+  virtual ~SerialConfiguration() { }
 
 
-  virtual void setBaudRate       (interface::SerialBaudRate const baud_rate) override;
-  virtual void setParity         (interface::SerialParity   const parity   ) override;
-  virtual void setStopBit        (interface::SerialStopBit  const stop_bit ) override;
-
-private:
-
-  hal::interface::UartConfiguration & _uart_config;
+  virtual void setBaudRate       (SerialBaudRate const baud_rate) = 0;
+  virtual void setParity         (SerialParity   const parity   ) = 0;
+  virtual void setStopBit        (SerialStopBit  const stop_bit ) = 0;
 
 };
 
@@ -71,7 +88,7 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* UART */
+} /* interface */
 
 } /* serial */
 
@@ -79,4 +96,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_SERIALCONFIG_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_SERIAL_INTERFACE_SERIALCONFIGURATION_H_ */

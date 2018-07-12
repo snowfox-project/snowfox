@@ -16,11 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_SERIALCONFIG_H_
+#define INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_SERIALCONFIG_H_
+
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/serial/UART/UART_SerialConfig.h>
+#include <spectre/driver/serial/interface/SerialConfiguration.h>
+
+#include <spectre/hal/interface/uart/UartConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,50 +44,28 @@ namespace UART
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * CLASS DECLARATION
  **************************************************************************************/
 
-UART_SerialConfig::UART_SerialConfig(hal::interface::UartConfiguration & uart_config)
-: _uart_config(uart_config)
+class UART_SerialConfiguration : public interface::SerialConfiguration
 {
 
-}
+public:
 
-UART_SerialConfig::~UART_SerialConfig()
-{
 
-}
+           UART_SerialConfiguration(hal::interface::UartConfiguration & uart_config);
+  virtual ~UART_SerialConfiguration();
 
-/**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
- **************************************************************************************/
 
-void UART_SerialConfig::setBaudRate(interface::SerialBaudRate const baud_rate)
-{
-  switch(baud_rate)
-  {
-  case interface::SerialBaudRate::B115200: _uart_config.setBaudRate(hal::interface::UartBaudRate::B115200); break;
-  }
-}
+  virtual void setBaudRate       (interface::SerialBaudRate const baud_rate) override;
+  virtual void setParity         (interface::SerialParity   const parity   ) override;
+  virtual void setStopBit        (interface::SerialStopBit  const stop_bit ) override;
 
-void UART_SerialConfig::setParity(interface::SerialParity const parity)
-{
-  switch(parity)
-  {
-  case interface::SerialParity::None: _uart_config.setParity(hal::interface::UartParity::None); break;
-  case interface::SerialParity::Even: _uart_config.setParity(hal::interface::UartParity::Even); break;
-  case interface::SerialParity::Odd : _uart_config.setParity(hal::interface::UartParity::Odd ); break;
-  }
-}
+private:
 
-void UART_SerialConfig::setStopBit(interface::SerialStopBit const stop_bit)
-{
-  switch(stop_bit)
-  {
-  case interface::SerialStopBit::_1: _uart_config.setStopBit(hal::interface::UartStopBit::_1); break;
-  case interface::SerialStopBit::_2: _uart_config.setStopBit(hal::interface::UartStopBit::_2); break;
-  }
-}
+  hal::interface::UartConfiguration & _uart_config;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
@@ -95,3 +78,5 @@ void UART_SerialConfig::setStopBit(interface::SerialStopBit const stop_bit)
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_CONSOLE_SERIAL_SERIALCONFIG_H_ */

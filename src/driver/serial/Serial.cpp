@@ -39,7 +39,7 @@ namespace serial
  * CTOR/DTOR
  **************************************************************************************/
 
-Serial::Serial(interface::SerialConfig & config, interface::SerialControl & control)
+Serial::Serial(interface::SerialConfiguration & config, interface::SerialControl & control)
 : _config (config ),
   _control(control)
 {

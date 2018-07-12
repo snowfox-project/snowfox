@@ -25,8 +25,8 @@
 
 #include <spectre/driver/interface/Driver.h>
 
-#include <spectre/driver/serial/interface/SerialConfig.h>
 #include <spectre/driver/serial/interface/SerialControl.h>
+#include <spectre/driver/serial/interface/SerialConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -59,8 +59,8 @@ class Serial : public driver::interface::Driver
 public:
 
 
-           Serial(interface::SerialConfig  & config,
-                  interface::SerialControl & control);
+           Serial(interface::SerialConfiguration & config,
+                  interface::SerialControl       & control);
   virtual ~Serial();
 
 
@@ -73,8 +73,8 @@ public:
 
 private:
 
-  interface::SerialConfig  & _config;
-  interface::SerialControl & _control;
+  interface::SerialConfiguration & _config;
+  interface::SerialControl       & _control;
 };
 
 /**************************************************************************************

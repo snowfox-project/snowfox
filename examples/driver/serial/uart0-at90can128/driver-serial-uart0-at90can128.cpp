@@ -27,8 +27,8 @@
 #include <spectre/hal/avr/AT90CAN128/InterruptController.h>
 
 #include <spectre/driver/serial/Serial.h>
-#include <spectre/driver/serial/UART/UART_SerialConfig.h>
 #include <spectre/driver/serial/UART/UART_SerialControl.h>
+#include <spectre/driver/serial/UART/UART_SerialConfiguration.h>
 #include <spectre/driver/serial/UART/events/UART_onRxDoneCallback.h>
 #include <spectre/driver/serial/UART/events/UART_onTxDoneCallback.h>
 
@@ -70,13 +70,13 @@ int main()
 
   /* DRIVER ***************************************************************************/
 
-  memory::container::Queue<uint8_t>   serial_rx_queue           (UART_RX_BUFFER_SIZE),
-                                      serial_tx_queue           (UART_TX_BUFFER_SIZE);
-  serial::UART::UART_onRxDoneCallback serial_on_rx_done_callback(crit_sec, serial_rx_queue);
-  serial::UART::UART_onTxDoneCallback serial_on_tx_done_callback(crit_sec, serial_tx_queue, uart0);
-  serial::UART::UART_SerialConfig     serial_config             (uart0);
-  serial::UART::UART_SerialControl    serial_control            (crit_sec, serial_rx_queue, serial_tx_queue, uart0);
-  serial::Serial                      serial                    (serial_config, serial_control);
+  memory::container::Queue<uint8_t>       serial_rx_queue           (UART_RX_BUFFER_SIZE),
+                                          serial_tx_queue           (UART_TX_BUFFER_SIZE);
+  serial::UART::UART_onRxDoneCallback     serial_on_rx_done_callback(crit_sec, serial_rx_queue);
+  serial::UART::UART_onTxDoneCallback     serial_on_tx_done_callback(crit_sec, serial_tx_queue, uart0);
+  serial::UART::UART_SerialConfiguration  serial_config             (uart0);
+  serial::UART::UART_SerialControl        serial_control            (crit_sec, serial_rx_queue, serial_tx_queue, uart0);
+  serial::Serial                          serial                    (serial_config, serial_control);
 
   uart0.register_onRxDoneCallback(&serial_on_rx_done_callback);
   uart0.register_onTxDoneCallback(&serial_on_tx_done_callback);
