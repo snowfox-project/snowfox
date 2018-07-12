@@ -25,7 +25,7 @@
 
 #include <spectre/hal/interface/uart/events/UART_onTxDoneCallback.h>
 
-#include <spectre/hal/interface/uart/UARTControl.h>
+#include <spectre/hal/interface/uart/UartControl.h>
 #include <spectre/hal/interface/locking/CriticalSection.h>
 
 #include <spectre/memory/container/Queue.h>
@@ -57,7 +57,7 @@ public:
 
            UART_onTxDoneCallback(hal::interface::CriticalSection   & crit_sec,
                                  memory::container::Queue<uint8_t> & tx_queue,
-                                 hal::interface::UARTControl       & uart_ctrl);
+                                 hal::interface::UartControl       & uart_ctrl);
   virtual ~UART_onTxDoneCallback();
 
 
@@ -68,7 +68,7 @@ private:
 
   hal::interface::CriticalSection   & _crit_sec;
   memory::container::Queue<uint8_t> & _tx_queue;
-  hal::interface::UARTControl       & _uart_ctrl;
+  hal::interface::UartControl       & _uart_ctrl;
 
 };
 

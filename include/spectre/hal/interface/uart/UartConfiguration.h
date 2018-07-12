@@ -64,13 +64,13 @@ enum class UartStopBit : uint8_t
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UARTConfiguration
+class UartConfiguration
 {
 
 public:
 
-           UARTConfiguration() { }
-  virtual ~UARTConfiguration() { }
+           UartConfiguration() { }
+  virtual ~UartConfiguration() { }
 
 
   virtual void setBaudRate(UartBaudRate const baud_rate) = 0;

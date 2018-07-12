@@ -25,7 +25,7 @@
 
 #include <spectre/driver/serial/interface/SerialConfig.h>
 
-#include <spectre/hal/interface/uart/UARTConfiguration.h>
+#include <spectre/hal/interface/uart/UartConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -53,7 +53,7 @@ class UART_SerialConfig : public interface::SerialConfig
 public:
 
 
-           UART_SerialConfig(hal::interface::UARTConfiguration & uart_config);
+           UART_SerialConfig(hal::interface::UartConfiguration & uart_config);
   virtual ~UART_SerialConfig();
 
 
@@ -63,7 +63,7 @@ public:
 
 private:
 
-  hal::interface::UARTConfiguration & _uart_config;
+  hal::interface::UartConfiguration & _uart_config;
 
 };
 

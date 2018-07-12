@@ -42,13 +42,13 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UARTControl
+class UartControl
 {
 
 public:
 
-           UARTControl() { }
-  virtual ~UARTControl() { }
+           UartControl() { }
+  virtual ~UartControl() { }
 
 
   virtual void transmit (uint8_t const   data) = 0;

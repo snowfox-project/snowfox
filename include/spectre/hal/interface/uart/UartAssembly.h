@@ -43,13 +43,13 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UARTAssembly
+class UartAssembly
 {
 
 public:
 
-           UARTAssembly() { }
-  virtual ~UARTAssembly() { }
+           UartAssembly() { }
+  virtual ~UartAssembly() { }
 
 
   virtual void register_onRxDoneCallback(UART_onRxDoneCallback * on_rx_done_callback) = 0;

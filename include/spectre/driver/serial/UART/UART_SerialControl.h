@@ -25,7 +25,7 @@
 
 #include <spectre/driver/serial/interface/SerialControl.h>
 
-#include <spectre/hal/interface/uart/UARTControl.h>
+#include <spectre/hal/interface/uart/UartControl.h>
 #include <spectre/hal/interface/locking/CriticalSection.h>
 
 #include <spectre/memory/container/Queue.h>
@@ -59,7 +59,7 @@ public:
            UART_SerialControl(hal::interface::CriticalSection   & crit_sec,
                               memory::container::Queue<uint8_t> & rx_queue,
                               memory::container::Queue<uint8_t> & tx_queue,
-                              hal::interface::UARTControl       & uart_ctrl);
+                              hal::interface::UartControl       & uart_ctrl);
   virtual ~UART_SerialControl();
 
 
@@ -72,7 +72,7 @@ private:
   hal::interface::CriticalSection   & _crit_sec;
   memory::container::Queue<uint8_t> & _rx_queue,
                                     & _tx_queue;
-  hal::interface::UARTControl       & _uart_ctrl;
+  hal::interface::UartControl       & _uart_ctrl;
 
 };
 

@@ -42,7 +42,7 @@ namespace UART
  * CTOR/DTOR
  **************************************************************************************/
 
-UART_SerialConfig::UART_SerialConfig(hal::interface::UARTConfiguration & uart_config)
+UART_SerialConfig::UART_SerialConfig(hal::interface::UartConfiguration & uart_config)
 : _uart_config(uart_config)
 {
 
