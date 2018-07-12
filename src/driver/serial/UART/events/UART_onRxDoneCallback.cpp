@@ -44,9 +44,10 @@ namespace UART
  * CTOR/DTOR
  **************************************************************************************/
 
-UART_onRxDoneCallback::UART_onRxDoneCallback(hal::interface::CriticalSection & crit_sec, memory::container::Queue<uint8_t> & rx_queue)
-: _crit_sec(crit_sec),
-  _rx_queue(rx_queue)
+UART_onRxDoneCallback::UART_onRxDoneCallback(hal::interface::CriticalSection & crit_sec, memory::container::Queue<uint8_t> & rx_queue, hal::interface::UartControl & uart_ctrl)
+: _crit_sec (crit_sec ),
+  _rx_queue (rx_queue ),
+  _uart_ctrl(uart_ctrl)
 {
 
 }
@@ -60,9 +61,12 @@ UART_onRxDoneCallback::~UART_onRxDoneCallback()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void UART_onRxDoneCallback::onRxDone(uint8_t const data)
+void UART_onRxDoneCallback::onRxDone()
 {
   hal::interface::LockGuard lock(_crit_sec);
+
+  uint8_t data = 0;
+  _uart_ctrl.receive(data);
 
   if(!_rx_queue.isFull())
   {

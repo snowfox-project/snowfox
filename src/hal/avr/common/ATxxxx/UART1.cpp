@@ -244,12 +244,7 @@ void UART1::ISR_onTransmitRegisterEmpty()
 
 void UART1::ISR_onReceiveComplete()
 {
-  if(_on_rx_done_callback)
-  {
-    uint8_t data = 0;
-    this->receive(data);
-    _on_rx_done_callback->onRxDone(data);
-  }
+  if(_on_rx_done_callback) _on_rx_done_callback->onRxDone();
 }
 
 /**************************************************************************************

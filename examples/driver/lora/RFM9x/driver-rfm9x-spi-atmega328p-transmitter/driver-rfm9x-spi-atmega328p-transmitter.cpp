@@ -180,7 +180,7 @@ int main()
   /* SERIAL ***************************************************************************/
   memory::container::Queue<uint8_t>       serial_rx_queue           (UART_RX_BUFFER_SIZE),
                                           serial_tx_queue           (UART_TX_BUFFER_SIZE);
-  serial::UART::UART_onRxDoneCallback     serial_on_rx_done_callback(crit_sec, serial_rx_queue);
+  serial::UART::UART_onRxDoneCallback     serial_on_rx_done_callback(crit_sec, serial_rx_queue, uart0);
   serial::UART::UART_onTxDoneCallback     serial_on_tx_done_callback(crit_sec, serial_tx_queue, uart0);
   serial::UART::UART_SerialConfiguration  serial_config             (uart0);
   serial::UART::UART_SerialControl        serial_control            (crit_sec, serial_rx_queue, serial_tx_queue, uart0);
