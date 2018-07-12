@@ -6,7 +6,7 @@ Spectre = RTOS + HAL + IO + COMSTACK + CI + C++
 
 ### What ?
 
-Spectre consists of an Real Time Operating System + an Hardware Abstraction Layer for dedicated architectures + IO driver support for various sensors and actuators + various industrial communication stacks encapsulated in a comfortable, small and elegant C++ API. Additionally a continous integration approach is employed with integrated unit testing ensuring code quality and functionality.
+Spectre consists of an Real Time Operating System + an Hardware Abstraction Layer for dedicated architectures + IO driver support for various sensors and actuators + various industrial communication stacks encapsulated in a comfortable, small and elegant C++ API. Additionally a continous integration approach is employed with integrated unit testing ensuring code quality and functionality. **The codebase can be compiled for the host (x86) and the desired target platform which allows to run the complete firmware within the host pc without the need for target hardware.**
 
 ### Why ?
 
