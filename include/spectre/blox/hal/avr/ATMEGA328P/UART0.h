@@ -49,32 +49,20 @@ class UART0
 
 public:
 
-  class ParamIn
-  {
+  UART0(volatile uint8_t                                  * udr0,
+        volatile uint8_t                                  * ucsr0a,
+        volatile uint8_t                                  * ucsr0b,
+        volatile uint8_t                                  * ucsr0c,
+        volatile uint16_t                                 * ubrr0,
+        hal::interface::InterruptController               & int_ctrl,
+        hal::interface::InterruptControllerAssembly       & int_ctrl_assembly,
+        uint32_t                                    const   f_cpu);
 
-  public:
-
-    ParamIn(volatile uint8_t * udr0, volatile uint8_t * ucsr0a, volatile uint8_t * ucsr0b, volatile uint8_t * ucsr0c, volatile uint16_t * ubrr0, hal::interface::InterruptController & int_ctrl, hal::interface::InterruptControllerAssembly & int_ctrl_assembly, uint32_t const f_cpu)
-    : _udr0(udr0), _ucsr0a(ucsr0a), _ucsr0b(ucsr0b), _ucsr0c(ucsr0c), _ubrr0(ubrr0), _int_ctrl(int_ctrl), _int_ctrl_assembly(int_ctrl_assembly), _f_cpu(f_cpu)
-    {
-    }
-
-    volatile uint8_t                                  * _udr0, * _ucsr0a, * _ucsr0b, * _ucsr0c;
-    volatile uint16_t                                 * _ubrr0;
-    hal::interface::InterruptController               & _int_ctrl;
-    hal::interface::InterruptControllerAssembly       & _int_ctrl_assembly;
-    uint32_t                                    const   _f_cpu;
-
-  };
-
-  UART0(ParamIn & in);
-
-public:
-
-  hal::ATMEGA328P::UART0                                _uart0;
+  hal::ATMEGA328P::UART0 & operator () () { return _uart0; }
 
 private:
 
+  hal::ATMEGA328P::UART0                                _uart0;
   hal::ATMEGA328P::UART0_TransmitRegisterEmptyCallback  _uart0_uart_data_register_empty_callback;
   hal::ATMEGA328P::UART0_ReceiveCompleteCallback        _uart0_receive_complete_callback;
 
