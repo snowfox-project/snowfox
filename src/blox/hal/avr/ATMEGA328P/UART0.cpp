@@ -16,16 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_BLOX_HAL_AVR_ATMEGA328P_UART0_H_
-#define INCLUDE_SPECTRE_BLOX_HAL_AVR_ATMEGA328P_UART0_H_
-
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/ATMEGA328P/UART0.h>
+#include <spectre/blox/hal/avr/ATMEGA328P/UART0.h>
 
-#include <spectre/hal/interface/interrupt/InterruptControllerAssembly.h>
+#include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -44,41 +41,15 @@ namespace ATMEGA328P
  * CTOR/DTOR
  **************************************************************************************/
 
-class UART0
+UART0::UART0(ParamIn & in)
+: _uart0                                  (in._udr0, in._ucsr0a, in._ucsr0b, in._ucsr0c, in._ubrr0, in._int_ctrl, in._f_cpu),
+  _uart0_uart_data_register_empty_callback(_uart0),
+  _uart0_receive_complete_callback        (_uart0)
+
 {
-
-public:
-
-  class ParamIn
-  {
-
-  public:
-
-    ParamIn(volatile uint8_t * udr0, volatile uint8_t * ucsr0a, volatile uint8_t * ucsr0b, volatile uint8_t * ucsr0c, volatile uint16_t * ubrr0, hal::interface::InterruptController & int_ctrl, hal::interface::InterruptControllerAssembly & int_ctrl_assembly, uint32_t const f_cpu)
-    : _udr0(udr0), _ucsr0a(ucsr0a), _ucsr0b(ucsr0b), _ucsr0c(ucsr0c), _ubrr0(ubrr0), _int_ctrl(int_ctrl), _int_ctrl_assembly(int_ctrl_assembly), _f_cpu(f_cpu)
-    {
-    }
-
-    volatile uint8_t                                  * _udr0, * _ucsr0a, * _ucsr0b, * _ucsr0c;
-    volatile uint16_t                                 * _ubrr0;
-    hal::interface::InterruptController               & _int_ctrl;
-    hal::interface::InterruptControllerAssembly       & _int_ctrl_assembly;
-    uint32_t                                    const   _f_cpu;
-
-  };
-
-  UART0(ParamIn & in);
-
-public:
-
-  hal::ATMEGA328P::UART0                                _uart0;
-
-private:
-
-  hal::ATMEGA328P::UART0_TransmitRegisterEmptyCallback  _uart0_uart_data_register_empty_callback;
-  hal::ATMEGA328P::UART0_ReceiveCompleteCallback        _uart0_receive_complete_callback;
-
-};
+  in._int_ctrl_assembly.registerInterruptCallback(hal::ATMEGA328P::toIsrNum(hal::ATMEGA328P::InterruptServiceRoutine::USART_UART_DATA_REGISTER_EMPTY), &_uart0_uart_data_register_empty_callback);
+  in._int_ctrl_assembly.registerInterruptCallback(hal::ATMEGA328P::toIsrNum(hal::ATMEGA328P::InterruptServiceRoutine::USART_RECEIVE_COMPLETE        ), &_uart0_receive_complete_callback        );
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -89,5 +60,3 @@ private:
 } /* blox */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_BLOX_HAL_AVR_ATMEGA328P_UART0_H_ */

@@ -25,6 +25,9 @@ include(config.cmake)
 # SRCS ###################################################################
 ##########################################################################
 
+set(SPECTRE_LIBRARY_BLOX_SRCS "")
+include(.cmake/blox-srcs.cmake)
+
 set(SPECTRE_LIBRARY_CPU_SRCS "")
 include(.cmake/cpu-srcs.cmake)
 
@@ -41,6 +44,7 @@ set(SPECTRE_LIBRARY_OS_SRCS "")
 include(.cmake/os-srcs.cmake)
 
 set(SPECTRE_LIBRARY_SRCS
+  ${SPECTRE_LIBRARY_BLOX_SRCS}
   ${SPECTRE_LIBRARY_CPU_SRCS}
   ${SPECTRE_LIBRARY_DEBUG_SRCS}
   ${SPECTRE_LIBRARY_HAL_SRCS}
