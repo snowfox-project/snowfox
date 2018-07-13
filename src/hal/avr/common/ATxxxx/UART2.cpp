@@ -67,7 +67,7 @@ namespace ATxxxx
  * DEFINES
  **************************************************************************************/
 
-/* UXSR2A */
+/* UCSR2A */
 #define RXC2_bm     (1<<7)
 #define TXC2_bm     (1<<6)
 #define UDRE2_bm    (1<<5)
@@ -77,7 +77,7 @@ namespace ATxxxx
 #define U2X2_bm     (1<<1)
 #define MPCM2_bm    (1<<0)
 
-/* UXSR2B */
+/* UCSR2B */
 #define RXCIE2_bm   (1<<7)
 #define TXCIE2_bm   (1<<6)
 #define UDRIE2_bm   (1<<5)
@@ -87,7 +87,7 @@ namespace ATxxxx
 #define RXB82_bm    (1<<1)
 #define TXB82_bm    (1<<0)
 
-/* UCSR1C */
+/* UCSR2C */
 #define UMSEL21_bm  (1<<7)
 #define UMSEL20_bm  (1<<6)
 #define UPM21_bm    (1<<5)

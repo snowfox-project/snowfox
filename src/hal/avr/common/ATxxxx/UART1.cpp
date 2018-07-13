@@ -67,7 +67,7 @@ namespace ATxxxx
  * DEFINES
  **************************************************************************************/
 
-/* UXSR1A */
+/* UCSR1A */
 #define RXC1_bm     (1<<7)
 #define TXC1_bm     (1<<6)
 #define UDRE1_bm    (1<<5)
@@ -77,7 +77,7 @@ namespace ATxxxx
 #define U2X1_bm     (1<<1)
 #define MPCM1_bm    (1<<0)
 
-/* UXSR1B */
+/* UCSR1B */
 #define RXCIE1_bm   (1<<7)
 #define TXCIE1_bm   (1<<6)
 #define UDRIE1_bm   (1<<5)
