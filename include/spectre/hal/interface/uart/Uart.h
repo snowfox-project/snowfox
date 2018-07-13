@@ -49,6 +49,8 @@ class Uart : public interface::UartControl,
              public interface::UartAssembly
 {
 
+public:
+
            Uart() { }
   virtual ~Uart() { }
 
