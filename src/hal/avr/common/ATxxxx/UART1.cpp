@@ -85,7 +85,7 @@ namespace ATxxxx
 #define TXEN1_bm    (1<<3)
 #define UCSZ12_bm   (1<<2)
 #define RXB81_bm    (1<<1)
-#define TXB80_bm    (1<<0)
+#define TXB81_bm    (1<<0)
 
 /* UCSR1C */
 #define UMSEL11_bm  (1<<7)
