@@ -37,21 +37,19 @@ namespace blox
  **************************************************************************************/
 
 SerialUart::SerialUart(hal::interface::CriticalSection       & crit_sec,
-                       hal::interface::UartConfiguration     & uart_config,
-                       hal::interface::UartControl           & uart_ctrl,
-                       hal::interface::UartAssembly          & uart_assembly,
+                       hal::interface::Uart                  & uart,
                        uint16_t                        const   uart_rx_buffer_size,
                        uint16_t                        const   uart_tx_buffer_size)
-: _serial_rx_queue           (uart_rx_buffer_size                                    ),
-  _serial_tx_queue           (uart_tx_buffer_size                                    ),
-  _serial_on_rx_done_callback(crit_sec, _serial_rx_queue, uart_ctrl                  ),
-  _serial_on_tx_done_callback(crit_sec, _serial_tx_queue, uart_ctrl                  ),
-  _serial_config             (uart_config                                            ),
-  _serial_control            (crit_sec, _serial_rx_queue, _serial_tx_queue, uart_ctrl),
-  _serial                    (_serial_config, _serial_control                        )
+: _serial_rx_queue           (uart_rx_buffer_size                               ),
+  _serial_tx_queue           (uart_tx_buffer_size                               ),
+  _serial_on_rx_done_callback(crit_sec, _serial_rx_queue, uart                  ),
+  _serial_on_tx_done_callback(crit_sec, _serial_tx_queue, uart                  ),
+  _serial_config             (uart                                              ),
+  _serial_control            (crit_sec, _serial_rx_queue, _serial_tx_queue, uart),
+  _serial                    (_serial_config, _serial_control                   )
 {
-  uart_assembly.register_onRxDoneCallback(&_serial_on_rx_done_callback);
-  uart_assembly.register_onTxDoneCallback(&_serial_on_tx_done_callback);
+  uart.register_onRxDoneCallback(&_serial_on_rx_done_callback);
+  uart.register_onTxDoneCallback(&_serial_on_tx_done_callback);
 }
 
 /**************************************************************************************

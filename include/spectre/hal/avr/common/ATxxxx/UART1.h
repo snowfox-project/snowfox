@@ -23,9 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/interface/uart/UartControl.h>
-#include <spectre/hal/interface/uart/UartAssembly.h>
-#include <spectre/hal/interface/uart/UartConfiguration.h>
+#include <spectre/hal/interface/uart/Uart.h>
 
 #include <spectre/hal/interface/interrupt/InterruptCallback.h>
 #include <spectre/hal/interface/interrupt/InterruptController.h>
@@ -47,9 +45,7 @@ namespace ATxxxx
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UART1 : public interface::UartControl,
-              public interface::UartConfiguration,
-              public interface::UartAssembly
+class UART1 : public interface::Uart
 {
 
 public:

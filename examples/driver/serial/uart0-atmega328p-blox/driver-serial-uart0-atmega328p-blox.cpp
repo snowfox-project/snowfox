@@ -60,7 +60,7 @@ int main()
 
   /* DRIVER ***************************************************************************/
 
-  blox::SerialUart serial(crit_sec, uart0(), uart0(), uart0(), UART_RX_BUFFER_SIZE, UART_TX_BUFFER_SIZE);
+  blox::SerialUart serial(crit_sec, uart0(), UART_RX_BUFFER_SIZE, UART_TX_BUFFER_SIZE);
 
   uint8_t baud_rate = static_cast<uint8_t>(serial::interface::SerialBaudRate::B115200);
   uint8_t parity    = static_cast<uint8_t>(serial::interface::SerialParity::None     );

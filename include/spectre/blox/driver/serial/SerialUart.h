@@ -23,9 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/interface/uart/UartControl.h>
-#include <spectre/hal/interface/uart/UartAssembly.h>
-#include <spectre/hal/interface/uart/UartConfiguration.h>
+#include <spectre/hal/interface/uart/Uart.h>
 #include <spectre/hal/interface/locking/CriticalSection.h>
 
 #include <spectre/driver/serial/Serial.h>
@@ -56,9 +54,7 @@ class SerialUart
 public:
 
   SerialUart(hal::interface::CriticalSection       & crit_sec,
-             hal::interface::UartConfiguration     & uart_config,
-             hal::interface::UartControl           & uart_ctrl,
-             hal::interface::UartAssembly          & uart_assembly,
+             hal::interface::Uart                  & uart,
              uint16_t                        const   uart_rx_buffer_size,
              uint16_t                        const   uart_tx_buffer_size);
 
