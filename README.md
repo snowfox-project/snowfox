@@ -6,11 +6,11 @@ Spectre = RTOS + HAL + IO + COMSTACK + CI + C++
 
 ### What ?
 
-Spectre consists of an Real Time Operating System + an Hardware Abstraction Layer for dedicated architectures + IO driver support for various sensors and actuators + various industrial communication stacks encapsulated in a comfortable, small and elegant C++ API. Additionally a continous integration approach is employed with integrated unit testing ensuring code quality and functionality. **The codebase can be compiled for the host (x86) and the desired target platform which allows to run the complete firmware within the host pc without the need for target hardware.**
+Spectre consists of a Real Time Operating System + a Hardware Abstraction Layer + IO driver support for various sensors, actuators and communication controllers as well as industrial communication stacks encapsulated in a small and elegant C++ API. Additionally a continous integration approach is employed with integrated unit testing ensuring code quality and functionality. **The codebase can be simultaneously compiled for both host (x86) and desired target platform which enables the user to run and verify the complete firmware within the host pc without the need for target hardware.**
 
 ### Why ?
 
-In his book "Refactoring: Improving the Design of Existing Code" Martin Fowler quite frankly states that *“Any fool can write code that a computer can understand. Good programmers write code that humans can understand.”* **This project aims to do just that.** You are kindly invited to browse the code and form your own opinion about how well the code matches the requirements for readability / maintainability / extensibility.
+In his book "Refactoring: Improving the Design of Existing Code" Martin Fowler quite frankly states that *“Any fool can write code that a computer can understand. Good programmers write code that humans can understand.”* **This project aims to do just that.** You are kindly invited to browse the code and form your own opinion about how well the code is adhering to the well known **SOLID** principles.
 
 ## RTOS
 
