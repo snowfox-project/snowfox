@@ -43,9 +43,11 @@ Work in progress ...
 ## I/O Device Drivers
 #### [/driver/can](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/can)
 * **MCP2515** (CAN Controller)
+[![Examples](https://github.com/lxrobotics/spectre/blob/master/.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](https://github.com/lxrobotics/spectre/tree/master/examples/driver/can/MCP2515)
 
 #### [/driver/glcd](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/glcd)
 * **RA6963** (GLCD Controller)
+[![Examples](https://github.com/lxrobotics/spectre/blob/master/.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](https://github.com/lxrobotics/spectre/tree/master/examples/driver/glcd/RA6963)
 
 #### [/driver/haptic](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/haptic)
 * **DRV2605L** (Haptic Driver for LRA and ERM)
@@ -88,6 +90,7 @@ Work in progress ...
 
 #### [/driver/stepper](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/stepper)
 * **TCM26x** (Trinamic TCM26x configurable stepper driver)
+[![Examples](https://github.com/lxrobotics/spectre/blob/master/.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](https://github.com/lxrobotics/spectre/tree/master/examples/driver/stepper/TMC260x)
 
 ## Communication Stacks
 
