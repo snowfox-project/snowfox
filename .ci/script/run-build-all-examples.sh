@@ -6,6 +6,7 @@ set -e
 EXAMPLES_DEBUG="examples/debug"
 ##########################################################################
 ./run-build-example.sh $EXAMPLES_DEBUG/debug-serial-atmega328p-uart0
+./run-build-example.sh $EXAMPLES_DEBUG/debug-serial-atmega1284p-uart0
 ##########################################################################
 EXAMPLES_DRIVER_CAN="examples/driver/can"
 EXAMPLES_DRIVER_GLCD="examples/driver/glcd"
