@@ -103,7 +103,7 @@ namespace ATxxxx
  * CTOR/DTOR
  **************************************************************************************/
 
-EINT5::EINT5(volatile uint8_t * eicrb, interface::InterruptController & int_ctrl)
+EINT5::EINT5(volatile uint8_t * eicrb, interface::InterruptControl & int_ctrl)
 : _EICRB                      (eicrb   ),
   _int_ctrl                   (int_ctrl),
   _external_interrupt_callback(0       )

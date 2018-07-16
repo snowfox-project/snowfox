@@ -103,7 +103,7 @@ namespace ATxxxx
  * CTOR/DTOR
  **************************************************************************************/
 
-EINT1::EINT1(volatile uint8_t * eicra, interface::InterruptController & int_ctrl)
+EINT1::EINT1(volatile uint8_t * eicra, interface::InterruptControl & int_ctrl)
 : _EICRA                      (eicra   ),
   _int_ctrl                   (int_ctrl),
   _external_interrupt_callback(0       )

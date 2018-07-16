@@ -27,8 +27,8 @@
 #include <spectre/hal/interface/extint/ExternalInterruptCallback.h>
 #include <spectre/hal/interface/extint/ExternalInterruptConfiguration.h>
 
+#include <spectre/hal/interface/interrupt/InterruptControl.h>
 #include <spectre/hal/interface/interrupt/InterruptCallback.h>
-#include <spectre/hal/interface/interrupt/InterruptController.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -53,7 +53,7 @@ class EINT0 : public interface::ExternalInterruptConfiguration,
 
 public:
 
-           EINT0(volatile uint8_t * eicra, interface::InterruptController & int_ctrl);
+           EINT0(volatile uint8_t * eicra, interface::InterruptControl & int_ctrl);
   virtual ~EINT0();
 
 
@@ -76,8 +76,8 @@ public:
 
 private:
 
-  volatile uint8_t               * _EICRA;
-  interface::InterruptController & _int_ctrl;
+  volatile uint8_t            * _EICRA;
+  interface::InterruptControl & _int_ctrl;
 
   interface::ExternalInterruptCallback * _external_interrupt_callback;
 
