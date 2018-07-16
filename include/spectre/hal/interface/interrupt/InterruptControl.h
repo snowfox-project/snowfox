@@ -16,14 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_BLOX_HAL_AVR_ATMEGA328P_UART0_H_
-#define INCLUDE_SPECTRE_BLOX_HAL_AVR_ATMEGA328P_UART0_H_
+#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_INTERRUPT_INTERRUPTCONTROL_H_
+#define INCLUDE_SPECTRE_HAL_INTERFACE_INTERRUPT_INTERRUPTCONTROL_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/ATMEGA328P/UART0.h>
+#include <stdint.h>
+#include <limits.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -32,36 +33,30 @@
 namespace spectre
 {
 
-namespace blox
+namespace hal
 {
 
-namespace ATMEGA328P
+namespace interface
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * CLASS DECLARATION
  **************************************************************************************/
 
-class UART0
+class InterruptControl
 {
 
 public:
 
-  UART0(volatile uint8_t                                  * udr0,
-        volatile uint8_t                                  * ucsr0a,
-        volatile uint8_t                                  * ucsr0b,
-        volatile uint8_t                                  * ucsr0c,
-        volatile uint16_t                                 * ubrr0,
-        hal::interface::InterruptController               & int_ctrl,
-        uint32_t                                    const   f_cpu);
+           InterruptControl() { }
+  virtual ~InterruptControl() { }
 
-  hal::ATMEGA328P::UART0 & operator () () { return _uart0; }
 
-private:
+  static uint8_t constexpr INVALID_INT_NUM = UCHAR_MAX;
 
-  hal::ATMEGA328P::UART0                                _uart0;
-  hal::ATMEGA328P::UART0_TransmitRegisterEmptyCallback  _uart0_uart_data_register_empty_callback;
-  hal::ATMEGA328P::UART0_ReceiveCompleteCallback        _uart0_receive_complete_callback;
+
+  virtual void enableInterrupt (uint8_t const int_num) = 0;
+  virtual void disableInterrupt(uint8_t const int_num) = 0;
 
 };
 
@@ -69,10 +64,10 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA328P */
+} /* interface*/
 
-} /* blox */
+} /* hal */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_BLOX_HAL_AVR_ATMEGA328P_UART0_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_INTERRUPT_INTERRUPTCONTROL_H_ */

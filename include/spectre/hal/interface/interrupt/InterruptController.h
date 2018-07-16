@@ -23,8 +23,8 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
-#include <limits.h>
+#include <spectre/hal/interface/interrupt/InterruptControl.h>
+#include <spectre/hal/interface/interrupt/InterruptAssembly.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -43,20 +43,14 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class InterruptController
+class InterruptController : public InterruptControl,
+                            public InterruptAssembly
 {
 
 public:
 
            InterruptController() { }
   virtual ~InterruptController() { }
-
-
-  static uint8_t constexpr INVALID_INT_NUM = UCHAR_MAX;
-
-
-  virtual void enableInterrupt (uint8_t const int_num) = 0;
-  virtual void disableInterrupt(uint8_t const int_num) = 0;
 
 };
 

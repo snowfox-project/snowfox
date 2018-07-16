@@ -44,13 +44,13 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class InterruptControllerAssembly
+class InterruptAssembly
 {
 
 public:
 
-           InterruptControllerAssembly() { }
-  virtual ~InterruptControllerAssembly() { }
+           InterruptAssembly() { }
+  virtual ~InterruptAssembly() { }
 
 
   virtual void registerInterruptCallback(uint8_t const isr_num, InterruptCallback * interrupt_callback) = 0;

@@ -47,15 +47,14 @@ UART0::UART0(volatile uint8_t                                  * udr0,
              volatile uint8_t                                  * ucsr0c,
              volatile uint16_t                                 * ubrr0,
              hal::interface::InterruptController               & int_ctrl,
-             hal::interface::InterruptControllerAssembly       & int_ctrl_assembly,
              uint32_t                                    const   f_cpu)
 : _uart0                                  (udr0, ucsr0a, ucsr0b, ucsr0c, ubrr0, int_ctrl, f_cpu),
   _uart0_uart_data_register_empty_callback(_uart0),
   _uart0_receive_complete_callback        (_uart0)
 
 {
-  int_ctrl_assembly.registerInterruptCallback(hal::ATMEGA328P::toIsrNum(hal::ATMEGA328P::InterruptServiceRoutine::USART_UART_DATA_REGISTER_EMPTY), &_uart0_uart_data_register_empty_callback);
-  int_ctrl_assembly.registerInterruptCallback(hal::ATMEGA328P::toIsrNum(hal::ATMEGA328P::InterruptServiceRoutine::USART_RECEIVE_COMPLETE        ), &_uart0_receive_complete_callback        );
+  int_ctrl.registerInterruptCallback(hal::ATMEGA328P::toIsrNum(hal::ATMEGA328P::InterruptServiceRoutine::USART_UART_DATA_REGISTER_EMPTY), &_uart0_uart_data_register_empty_callback);
+  int_ctrl.registerInterruptCallback(hal::ATMEGA328P::toIsrNum(hal::ATMEGA328P::InterruptServiceRoutine::USART_RECEIVE_COMPLETE        ), &_uart0_receive_complete_callback        );
 }
 
 /**************************************************************************************

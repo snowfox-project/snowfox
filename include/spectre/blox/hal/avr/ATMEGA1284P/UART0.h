@@ -25,8 +25,6 @@
 
 #include <spectre/hal/avr/ATMEGA1284P/UART0.h>
 
-#include <spectre/hal/interface/interrupt/InterruptControllerAssembly.h>
-
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -55,7 +53,6 @@ public:
         volatile uint8_t                                  * ucsr0c,
         volatile uint16_t                                 * ubrr0,
         hal::interface::InterruptController               & int_ctrl,
-        hal::interface::InterruptControllerAssembly       & int_ctrl_assembly,
         uint32_t                                    const   f_cpu);
 
   hal::ATMEGA1284P::UART0 & operator () () { return _uart0; }

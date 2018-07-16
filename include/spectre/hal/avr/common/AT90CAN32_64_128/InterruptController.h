@@ -24,7 +24,6 @@
  **************************************************************************************/
 
 #include <spectre/hal/interface/interrupt/InterruptController.h>
-#include <spectre/hal/interface/interrupt/InterruptControllerAssembly.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -148,8 +147,7 @@ constexpr uint8_t toIsrNum(InterruptServiceRoutine const interrupt_service_routi
  * CLASS DECLARATION
  **************************************************************************************/
 
-class InterruptController : public interface::InterruptController,
-                            public interface::InterruptControllerAssembly
+class InterruptController : public interface::InterruptController
 {
 
 public:
