@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/ioexpander/MCP23017/MCP23017_IoI2c.h>
+#include <spectre/driver/ioexpander/MCP23017/MCP23017_Configuration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,14 +42,13 @@ namespace MCP23017
  * CTOR/DTOR
  **************************************************************************************/
 
-MCP23017_IoI2c::MCP23017_IoI2c(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
-: _i2c_address(i2c_address),
-  _i2c_master (i2c_master )
+MCP23017_Configuration::MCP23017_Configuration(interface::MCP23017_Io & io)
+: _io(io)
 {
 
 }
 
-MCP23017_IoI2c::~MCP23017_IoI2c()
+MCP23017_Configuration::~MCP23017_Configuration()
 {
 
 }
@@ -58,25 +57,27 @@ MCP23017_IoI2c::~MCP23017_IoI2c()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool MCP23017_IoI2c::readRegister(interface::Register const reg, uint8_t * data)
+bool MCP23017_Configuration::setDirection(interface::Port const port, interface::Pin const pin, interface::Direction const direction)
 {
-  uint8_t const reg_addr = static_cast<uint8_t>(reg);
+  uint8_t reg_iodir_content = 0;
 
-  if(!_i2c_master.begin      (_i2c_address, false  )) return false;
-  if(!_i2c_master.write      (reg_addr             )) return false;
-  if(!_i2c_master.requestFrom(_i2c_address, data, 1)) return false;
+  interface::Register iodir_reg = interface::Register::IODIR_A;
 
-  return true;
-}
+  switch(port)
+  {
+  case interface::Port::A: iodir_reg = interface::Register::IODIR_A; break;
+  case interface::Port::B: iodir_reg = interface::Register::IODIR_B; break;
+  }
 
-bool MCP23017_IoI2c::writeRegister(interface::Register const reg, uint8_t const data)
-{
-  uint8_t const reg_addr = static_cast<uint8_t>(reg);
+  if(!_io.readRegister(iodir_reg, &reg_iodir_content)) return false;
 
-  if(!_i2c_master.begin(_i2c_address, false)) return false;
-  if(!_i2c_master.write(reg_addr           )) return false;
-  if(!_i2c_master.write(data               )) return false;
-      _i2c_master.end  (                   );
+  switch(direction)
+  {
+  case interface::Direction::Input : reg_iodir_content |=  static_cast<uint8_t>(pin); break;
+  case interface::Direction::Output: reg_iodir_content &= ~static_cast<uint8_t>(pin); break;
+  }
+
+  if(!_io.writeRegister(iodir_reg, reg_iodir_content)) return false;
 
   return true;
 }

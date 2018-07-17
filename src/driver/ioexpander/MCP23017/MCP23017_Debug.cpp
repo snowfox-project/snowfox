@@ -115,7 +115,7 @@ void MCP23017_Debug::debug_dumpSingleReg(debug::interface::Debug & debug_interfa
  * NAMESPACE
  **************************************************************************************/
 
-} /* MCP23017_IoI2c */
+} /* MCP23017 */
 
 } /* ioexpander */
 

@@ -16,11 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_CONFIGURATION_H_
+#define INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_CONFIGURATION_H_
+
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/ioexpander/MCP23017/MCP23017_IoI2c.h>
+#include <stdint.h>
+#include <stdbool.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -38,52 +42,70 @@ namespace ioexpander
 namespace MCP23017
 {
 
-/**************************************************************************************
- * CTOR/DTOR
- **************************************************************************************/
-
-MCP23017_IoI2c::MCP23017_IoI2c(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
-: _i2c_address(i2c_address),
-  _i2c_master (i2c_master )
+namespace interface
 {
-
-}
-
-MCP23017_IoI2c::~MCP23017_IoI2c()
-{
-
-}
 
 /**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
+ * DEFINES
  **************************************************************************************/
 
-bool MCP23017_IoI2c::readRegister(interface::Register const reg, uint8_t * data)
+#define MCP23017_REG_IODIR_IO7_bm (1<<7)
+#define MCP23017_REG_IODIR_IO6_bm (1<<6)
+#define MCP23017_REG_IODIR_IO5_bm (1<<5)
+#define MCP23017_REG_IODIR_IO4_bm (1<<4)
+#define MCP23017_REG_IODIR_IO3_bm (1<<3)
+#define MCP23017_REG_IODIR_IO2_bm (1<<2)
+#define MCP23017_REG_IODIR_IO1_bm (1<<1)
+#define MCP23017_REG_IODIR_IO0_bm (1<<0)
+
+/**************************************************************************************
+ * TYPEDEF
+ **************************************************************************************/
+
+enum class Port : uint8_t
 {
-  uint8_t const reg_addr = static_cast<uint8_t>(reg);
+  A, B
+};
 
-  if(!_i2c_master.begin      (_i2c_address, false  )) return false;
-  if(!_i2c_master.write      (reg_addr             )) return false;
-  if(!_i2c_master.requestFrom(_i2c_address, data, 1)) return false;
-
-  return true;
-}
-
-bool MCP23017_IoI2c::writeRegister(interface::Register const reg, uint8_t const data)
+enum class Pin : uint8_t
 {
-  uint8_t const reg_addr = static_cast<uint8_t>(reg);
+  IO0 = MCP23017_REG_IODIR_IO0_bm,
+  IO1 = MCP23017_REG_IODIR_IO1_bm,
+  IO2 = MCP23017_REG_IODIR_IO2_bm,
+  IO3 = MCP23017_REG_IODIR_IO3_bm,
+  IO4 = MCP23017_REG_IODIR_IO4_bm,
+  IO5 = MCP23017_REG_IODIR_IO5_bm,
+  IO6 = MCP23017_REG_IODIR_IO5_bm,
+  IO7 = MCP23017_REG_IODIR_IO7_bm
+};
 
-  if(!_i2c_master.begin(_i2c_address, false)) return false;
-  if(!_i2c_master.write(reg_addr           )) return false;
-  if(!_i2c_master.write(data               )) return false;
-      _i2c_master.end  (                   );
+enum class Direction : uint8_t
+{
+  Input, Output
+};
 
-  return true;
-}
+/**************************************************************************************
+ * CLASS DECLARATION
+ **************************************************************************************/
+
+class MCP23017_Configuration
+{
+
+public:
+
+           MCP23017_Configuration() { }
+  virtual ~MCP23017_Configuration() { }
+
+
+  virtual bool setDirection(Port const port, Pin const pin, Direction const direction) = 0;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* MCP23017 */
 
@@ -92,3 +114,5 @@ bool MCP23017_IoI2c::writeRegister(interface::Register const reg, uint8_t const 
 } /* driver */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_CONFIGURATION_H_ */
