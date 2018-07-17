@@ -23,7 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/ioexpander/MCP23017/interface/MCP23017_Configuration.h>
+#include <spectre/driver/ioexpander/MCP23017/interface/config/MCP23017_Configuration.h>
 
 #include <spectre/driver/ioexpander/MCP23017/interface/MCP23017_Io.h>
 
