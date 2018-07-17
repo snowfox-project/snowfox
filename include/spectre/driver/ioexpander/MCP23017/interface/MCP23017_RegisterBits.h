@@ -16,16 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_CONFIGURATION_H_
-#define INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_CONFIGURATION_H_
-
-/**************************************************************************************
- * INCLUDE
- **************************************************************************************/
-
-#include <stdbool.h>
-
-#include <spectre/driver/ioexpander/MCP23017/interface/MCP23017_Types.h>
+#ifndef INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_REGISTERBITS_H_
+#define INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_REGISTERBITS_H_
 
 /**************************************************************************************
  * NAMESPACE
@@ -47,23 +39,18 @@ namespace interface
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * DEFINES
  **************************************************************************************/
 
-class MCP23017_Configuration
-{
-
-public:
-
-           MCP23017_Configuration() { }
-  virtual ~MCP23017_Configuration() { }
-
-
-  virtual bool setDirection (Port const port, Pin const pin, Direction const direction) = 0;
-  virtual bool enablePullUp (Port const port, Pin const pin                           ) = 0;
-  virtual bool disablePullUp(Port const port, Pin const pin                           ) = 0;
-
-};
+/* IODIR ******************************************************************************/
+#define MCP23017_REG_IODIR_IO7_bm (1<<7)
+#define MCP23017_REG_IODIR_IO6_bm (1<<6)
+#define MCP23017_REG_IODIR_IO5_bm (1<<5)
+#define MCP23017_REG_IODIR_IO4_bm (1<<4)
+#define MCP23017_REG_IODIR_IO3_bm (1<<3)
+#define MCP23017_REG_IODIR_IO2_bm (1<<2)
+#define MCP23017_REG_IODIR_IO1_bm (1<<1)
+#define MCP23017_REG_IODIR_IO0_bm (1<<0)
 
 /**************************************************************************************
  * NAMESPACE
@@ -79,4 +66,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_CONFIGURATION_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_REGISTERBITS_H_ */

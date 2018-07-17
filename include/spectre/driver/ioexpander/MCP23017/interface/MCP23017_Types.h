@@ -16,16 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_CONFIGURATION_H_
-#define INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_CONFIGURATION_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_TYPES_H_
+#define INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_TYPES_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdbool.h>
+#include <stdint.h>
 
-#include <spectre/driver/ioexpander/MCP23017/interface/MCP23017_Types.h>
+#include <spectre/driver/ioexpander/MCP23017/interface/MCP23017_RegisterBits.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -47,22 +47,29 @@ namespace interface
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * TYPEDEF
  **************************************************************************************/
 
-class MCP23017_Configuration
+enum class Port
 {
+  A, B
+};
 
-public:
+enum class Pin : uint8_t
+{
+  IO0 = MCP23017_REG_IODIR_IO0_bm,
+  IO1 = MCP23017_REG_IODIR_IO1_bm,
+  IO2 = MCP23017_REG_IODIR_IO2_bm,
+  IO3 = MCP23017_REG_IODIR_IO3_bm,
+  IO4 = MCP23017_REG_IODIR_IO4_bm,
+  IO5 = MCP23017_REG_IODIR_IO5_bm,
+  IO6 = MCP23017_REG_IODIR_IO5_bm,
+  IO7 = MCP23017_REG_IODIR_IO7_bm
+};
 
-           MCP23017_Configuration() { }
-  virtual ~MCP23017_Configuration() { }
-
-
-  virtual bool setDirection (Port const port, Pin const pin, Direction const direction) = 0;
-  virtual bool enablePullUp (Port const port, Pin const pin                           ) = 0;
-  virtual bool disablePullUp(Port const port, Pin const pin                           ) = 0;
-
+enum class Direction
+{
+  Input, Output
 };
 
 /**************************************************************************************
@@ -79,4 +86,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_CONFIGURATION_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_TYPES_H_ */

@@ -16,16 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_CONFIGURATION_H_
-#define INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_CONFIGURATION_H_
-
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdbool.h>
-
-#include <spectre/driver/ioexpander/MCP23017/interface/MCP23017_Types.h>
+#include <spectre/driver/ioexpander/MCP23017/MCP23017_Control.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -43,33 +38,48 @@ namespace ioexpander
 namespace MCP23017
 {
 
-namespace interface
-{
-
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class MCP23017_Configuration
+MCP23017_Control::MCP23017_Control(interface::MCP23017_Io & io)
+: _io(io)
 {
 
-public:
+}
 
-           MCP23017_Configuration() { }
-  virtual ~MCP23017_Configuration() { }
+MCP23017_Control::~MCP23017_Control()
+{
 
+}
 
-  virtual bool setDirection (Port const port, Pin const pin, Direction const direction) = 0;
-  virtual bool enablePullUp (Port const port, Pin const pin                           ) = 0;
-  virtual bool disablePullUp(Port const port, Pin const pin                           ) = 0;
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
-};
+bool MCP23017_Control::set(interface::Port const port, interface::Pin const pin)
+{
+  /* TODO */ return false;
+}
+
+bool MCP23017_Control::clr(interface::Port const port, interface::Pin const pin)
+{
+  /* TODO */ return false;
+}
+
+bool MCP23017_Control::isSet(interface::Port const port, interface::Pin const pin)
+{
+  /* TODO */ return false;
+}
+
+bool MCP23017_Control::isClr(interface::Port const port, interface::Pin const pin)
+{
+  /* TODO */ return false;
+}
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
-
-} /* interface */
 
 } /* MCP23017 */
 
@@ -78,5 +88,3 @@ public:
 } /* driver */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_CONFIGURATION_H_ */

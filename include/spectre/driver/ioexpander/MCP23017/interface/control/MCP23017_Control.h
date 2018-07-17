@@ -16,16 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_CONFIGURATION_H_
-#define INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_CONFIGURATION_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_CONTROL_MCP23017_CONTROL_H_
+#define INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_CONTROL_MCP23017_CONTROL_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdbool.h>
-
-#include <spectre/driver/ioexpander/MCP23017/interface/MCP23017_Types.h>
+#include <spectre/driver/ioexpander/MCP23017/interface/control/MCP23017_DigitalInControl.h>
+#include <spectre/driver/ioexpander/MCP23017/interface/control/MCP23017_DigitalOutControl.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -50,18 +49,14 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MCP23017_Configuration
+class MCP23017_Control : public MCP23017_DigitalInControl,
+                         public MCP23017_DigitalOutControl
 {
 
 public:
 
-           MCP23017_Configuration() { }
-  virtual ~MCP23017_Configuration() { }
-
-
-  virtual bool setDirection (Port const port, Pin const pin, Direction const direction) = 0;
-  virtual bool enablePullUp (Port const port, Pin const pin                           ) = 0;
-  virtual bool disablePullUp(Port const port, Pin const pin                           ) = 0;
+           MCP23017_Control() { }
+  virtual ~MCP23017_Control() { }
 
 };
 
@@ -79,4 +74,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_CONFIGURATION_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_CONTROL_MCP23017_CONTROL_H_ */

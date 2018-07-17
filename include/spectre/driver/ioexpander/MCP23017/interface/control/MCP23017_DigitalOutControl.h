@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_CONFIGURATION_H_
-#define INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_CONFIGURATION_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_CONTROL_MCP23017_DIGITALOUTCONTROL_H_
+#define INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_CONTROL_MCP23017_DIGITALOUTCONTROL_H_
 
 /**************************************************************************************
  * INCLUDE
@@ -50,18 +50,17 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MCP23017_Configuration
+class MCP23017_DigitalOutControl
 {
 
 public:
 
-           MCP23017_Configuration() { }
-  virtual ~MCP23017_Configuration() { }
+           MCP23017_DigitalOutControl() { }
+  virtual ~MCP23017_DigitalOutControl() { }
 
 
-  virtual bool setDirection (Port const port, Pin const pin, Direction const direction) = 0;
-  virtual bool enablePullUp (Port const port, Pin const pin                           ) = 0;
-  virtual bool disablePullUp(Port const port, Pin const pin                           ) = 0;
+  virtual bool set(Port const port, Pin const pin) = 0;
+  virtual bool clr(Port const port, Pin const pin) = 0;
 
 };
 
@@ -79,4 +78,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_CONFIGURATION_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_CONTROL_MCP23017_DIGITALOUTCONTROL_H_ */

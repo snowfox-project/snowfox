@@ -16,16 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_CONFIGURATION_H_
-#define INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_CONFIGURATION_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_MCP23017_CONTROL_H_
+#define INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_MCP23017_CONTROL_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdbool.h>
+#include <spectre/driver/ioexpander/MCP23017/interface/control/MCP23017_Control.h>
 
-#include <spectre/driver/ioexpander/MCP23017/interface/MCP23017_Types.h>
+#include <spectre/driver/ioexpander/MCP23017/interface/MCP23017_Io.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -43,33 +43,34 @@ namespace ioexpander
 namespace MCP23017
 {
 
-namespace interface
-{
-
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MCP23017_Configuration
+class MCP23017_Control : public interface::MCP23017_Control
 {
 
 public:
 
-           MCP23017_Configuration() { }
-  virtual ~MCP23017_Configuration() { }
+           MCP23017_Control(interface::MCP23017_Io & io);
+  virtual ~MCP23017_Control();
 
 
-  virtual bool setDirection (Port const port, Pin const pin, Direction const direction) = 0;
-  virtual bool enablePullUp (Port const port, Pin const pin                           ) = 0;
-  virtual bool disablePullUp(Port const port, Pin const pin                           ) = 0;
+  virtual bool set  (interface::Port const port, interface::Pin const pin) override;
+  virtual bool clr  (interface::Port const port, interface::Pin const pin) override;
+  virtual bool isSet(interface::Port const port, interface::Pin const pin) override;
+  virtual bool isClr(interface::Port const port, interface::Pin const pin) override;
+
+
+private:
+
+  interface::MCP23017_Io & _io;
 
 };
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
-
-} /* interface */
 
 } /* MCP23017 */
 
@@ -79,4 +80,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_CONFIGURATION_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_MCP23017_CONTROL_H_ */
