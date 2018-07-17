@@ -16,18 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_MCP23017_DEBUG_H_
-#define INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_MCP23017_DEBUG_H_
-
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/debug/interface/Debug.h>
-
-#include <spectre/driver/ioexpander/MCP23017/interface/MCP23017_Io.h>
-
-#include <spectre/hal/interface/flash/Flash.h>
+#include <spectre/driver/ioexpander/MCP23017/MCP23017.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -46,42 +39,56 @@ namespace MCP23017
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class MCP23017_Debug
+MCP23017::MCP23017()
 {
 
-public:
+}
 
-  static void debug_dumpAllRegs(debug::interface::Debug & debug_interface,
-                                hal::interface::Flash   & flash,
-                                interface::MCP23017_Io  & io);
+MCP23017::~MCP23017()
+{
 
-private:
+}
 
-  MCP23017_Debug() { }
-  MCP23017_Debug(MCP23017_Debug const & other) { }
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
+bool MCP23017::open()
+{
+  /* TODO */ return false;
+}
 
-  static void debug_dumpSingleReg(debug::interface::Debug   & debug_interface,
-                                  hal::interface::Flash     & flash,
-                                  interface::MCP23017_Io    & io,
-                                  char                const * msg,
-                                  interface::Register const   reg);
+ssize_t MCP23017::read(uint8_t * buffer, ssize_t const num_bytes)
+{
+  /* TODO */ return -1;
+}
 
-};
+ssize_t MCP23017::write(uint8_t const * buffer, ssize_t const num_bytes)
+{
+  /* TODO */ return -1;
+}
+
+bool MCP23017::ioctl(uint32_t const cmd, void * arg)
+{
+  /* TODO */ return false;
+}
+
+void MCP23017::close()
+{
+  /* TODO */
+}
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* MCP23017 */
+} /* MCP23017_IoI2c */
 
 } /* ioexpander */
 
 } /* driver */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_MCP23017_DEBUG_H_ */

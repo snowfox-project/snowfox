@@ -16,18 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_MCP23017_DEBUG_H_
-#define INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_MCP23017_DEBUG_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_MCP23017_H_
+#define INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_MCP23017_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/debug/interface/Debug.h>
-
-#include <spectre/driver/ioexpander/MCP23017/interface/MCP23017_Io.h>
-
-#include <spectre/hal/interface/flash/Flash.h>
+#include <spectre/driver/interface/Driver.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -46,29 +42,29 @@ namespace MCP23017
 {
 
 /**************************************************************************************
+ * CONSTANTS
+ **************************************************************************************/
+
+/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MCP23017_Debug
+class MCP23017 : public driver::interface::Driver
 {
 
 public:
 
-  static void debug_dumpAllRegs(debug::interface::Debug & debug_interface,
-                                hal::interface::Flash   & flash,
-                                interface::MCP23017_Io  & io);
+           MCP23017();
+  virtual ~MCP23017();
+
+
+  virtual bool    open (                                                  ) override;
+  virtual ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) override;
+  virtual ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override;
+  virtual bool    ioctl(uint32_t const   cmd,    void          * arg      ) override;
+  virtual void    close(                                                  ) override;
 
 private:
-
-  MCP23017_Debug() { }
-  MCP23017_Debug(MCP23017_Debug const & other) { }
-
-
-  static void debug_dumpSingleReg(debug::interface::Debug   & debug_interface,
-                                  hal::interface::Flash     & flash,
-                                  interface::MCP23017_Io    & io,
-                                  char                const * msg,
-                                  interface::Register const   reg);
 
 };
 
@@ -84,4 +80,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_MCP23017_DEBUG_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_MCP23017_H_ */
