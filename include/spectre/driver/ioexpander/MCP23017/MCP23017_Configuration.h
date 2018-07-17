@@ -56,12 +56,17 @@ public:
   virtual ~MCP23017_Configuration();
 
 
-  virtual bool setDirection(interface::Port const port, interface::Pin const pin, interface::Direction const direction) override;
+  virtual bool setDirection (interface::Port const port, interface::Pin const pin, interface::Direction const direction) override;
+  virtual bool enablePullUp (interface::Port const port, interface::Pin const pin                                      ) override;
+  virtual bool disablePullUp(interface::Port const port, interface::Pin const pin                                      ) override;
 
 
 private:
 
   interface::MCP23017_Io & _io;
+
+  static interface::Register toReg_IODIR(interface::Port const port);
+  static interface::Register toReg_GPPU (interface::Port const port);
 
 };
 

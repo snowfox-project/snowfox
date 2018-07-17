@@ -97,7 +97,9 @@ public:
   virtual ~MCP23017_Configuration() { }
 
 
-  virtual bool setDirection(Port const port, Pin const pin, Direction const direction) = 0;
+  virtual bool setDirection (Port const port, Pin const pin, Direction const direction) = 0;
+  virtual bool enablePullUp (Port const port, Pin const pin                           ) = 0;
+  virtual bool disablePullUp(Port const port, Pin const pin                           ) = 0;
 
 };
 
