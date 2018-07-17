@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_CONTROL_MCP23017_DIGITALOUTCONTROL_H_
-#define INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_CONTROL_MCP23017_DIGITALOUTCONTROL_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_CONTROL_MCP23017_DIGITALINPINCONTROL_H_
+#define INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_CONTROL_MCP23017_DIGITALINPINCONTROL_H_
 
 /**************************************************************************************
  * INCLUDE
@@ -50,17 +50,17 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MCP23017_DigitalOutControl
+class MCP23017_DigitalInPinControl
 {
 
 public:
 
-           MCP23017_DigitalOutControl() { }
-  virtual ~MCP23017_DigitalOutControl() { }
+           MCP23017_DigitalInPinControl() { }
+  virtual ~MCP23017_DigitalInPinControl() { }
 
 
-  virtual bool set(Port const port, Pin const pin) = 0;
-  virtual bool clr(Port const port, Pin const pin) = 0;
+  virtual bool isSet(Port const port, Pin const pin) = 0;
+  virtual bool isClr(Port const port, Pin const pin) = 0;
 
 };
 
@@ -78,4 +78,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_CONTROL_MCP23017_DIGITALOUTCONTROL_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_CONTROL_MCP23017_DIGITALINPINCONTROL_H_ */

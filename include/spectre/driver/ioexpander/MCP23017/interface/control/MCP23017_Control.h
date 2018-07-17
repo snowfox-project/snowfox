@@ -23,8 +23,8 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/ioexpander/MCP23017/interface/control/MCP23017_DigitalInControl.h>
-#include <spectre/driver/ioexpander/MCP23017/interface/control/MCP23017_DigitalOutControl.h>
+#include <spectre/driver/ioexpander/MCP23017/interface/control/MCP23017_DigitalInPinControl.h>
+#include <spectre/driver/ioexpander/MCP23017/interface/control/MCP23017_DigitalOutPinControl.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -49,8 +49,8 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MCP23017_Control : public MCP23017_DigitalInControl,
-                         public MCP23017_DigitalOutControl
+class MCP23017_Control : public MCP23017_DigitalInPinControl,
+                         public MCP23017_DigitalOutPinControl
 {
 
 public:
