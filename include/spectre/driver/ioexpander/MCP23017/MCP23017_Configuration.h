@@ -65,9 +65,6 @@ private:
 
   interface::MCP23017_Io & _io;
 
-  static interface::Register toReg_IODIR(interface::Port const port);
-  static interface::Register toReg_GPPU (interface::Port const port);
-
 };
 
 /**************************************************************************************

@@ -61,7 +61,7 @@ bool MCP23017_Configuration::setDirection(interface::Port const port, interface:
 {
   uint8_t reg_iodir_content = 0;
 
-  if(!_io.readRegister(toReg_IODIR(port), &reg_iodir_content)) return false;
+  if(!_io.readRegister(interface::toReg_IODIR(port), &reg_iodir_content)) return false;
 
   switch(direction)
   {
@@ -69,7 +69,7 @@ bool MCP23017_Configuration::setDirection(interface::Port const port, interface:
   case interface::Direction::Output: reg_iodir_content &= ~static_cast<uint8_t>(pin); break;
   }
 
-  if(!_io.writeRegister(toReg_IODIR(port), reg_iodir_content)) return false;
+  if(!_io.writeRegister(interface::toReg_IODIR(port), reg_iodir_content)) return false;
 
   return true;
 }
@@ -78,11 +78,11 @@ bool MCP23017_Configuration::enablePullUp(interface::Port const port, interface:
 {
   uint8_t reg_gppu_content = 0;
 
-  if(!_io.readRegister(toReg_GPPU(port), &reg_gppu_content)) return false;
+  if(!_io.readRegister(interface::toReg_GPPU(port), &reg_gppu_content)) return false;
 
   reg_gppu_content |= static_cast<uint8_t>(pin);
 
-  if(!_io.writeRegister(toReg_GPPU(port), reg_gppu_content)) return false;
+  if(!_io.writeRegister(interface::toReg_GPPU(port), reg_gppu_content)) return false;
 
   return true;
 }
@@ -91,29 +91,13 @@ bool MCP23017_Configuration::disablePullUp(interface::Port const port, interface
 {
   uint8_t reg_gppu_content = 0;
 
-  if(!_io.readRegister(toReg_GPPU(port), &reg_gppu_content)) return false;
+  if(!_io.readRegister(interface::toReg_GPPU(port), &reg_gppu_content)) return false;
 
   reg_gppu_content &= ~static_cast<uint8_t>(pin);
 
-  if(!_io.writeRegister(toReg_GPPU(port), reg_gppu_content)) return false;
+  if(!_io.writeRegister(interface::toReg_GPPU(port), reg_gppu_content)) return false;
 
   return true;
-}
-
-/**************************************************************************************
- * PRIVATE MEMBER FUNCTIONS
- **************************************************************************************/
-
-interface::Register MCP23017_Configuration::toReg_IODIR(interface::Port const port)
-{
-  if  (port == interface::Port::A) return interface::Register::IODIR_A;
-  else                             return interface::Register::IODIR_B;
-}
-
-interface::Register MCP23017_Configuration::toReg_GPPU(interface::Port const port)
-{
-  if  (port == interface::Port::A) return interface::Register::GPPU_A;
-  else                             return interface::Register::GPPU_B;
 }
 
 /**************************************************************************************

@@ -16,17 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_TYPES_H_
-#define INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_TYPES_H_
-
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
-
-#include <spectre/driver/ioexpander/MCP23017/interface/MCP23017_Io.h>
-#include <spectre/driver/ioexpander/MCP23017/interface/MCP23017_RegisterBits.h>
+#include <spectre/driver/ioexpander/MCP23017/interface/MCP23017_Types.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -48,37 +42,20 @@ namespace interface
 {
 
 /**************************************************************************************
- * TYPEDEF
+ * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-enum class Port
+Register toReg_IODIR(Port const port)
 {
-  A, B
-};
+  if  (port == Port::A) return Register::IODIR_A;
+  else                  return Register::IODIR_B;
+}
 
-enum class Pin : uint8_t
+Register toReg_GPPU(Port const port)
 {
-  IO0 = MCP23017_REG_IODIR_IO0_bm,
-  IO1 = MCP23017_REG_IODIR_IO1_bm,
-  IO2 = MCP23017_REG_IODIR_IO2_bm,
-  IO3 = MCP23017_REG_IODIR_IO3_bm,
-  IO4 = MCP23017_REG_IODIR_IO4_bm,
-  IO5 = MCP23017_REG_IODIR_IO5_bm,
-  IO6 = MCP23017_REG_IODIR_IO5_bm,
-  IO7 = MCP23017_REG_IODIR_IO7_bm
-};
-
-enum class Direction
-{
-  Input, Output
-};
-
-/**************************************************************************************
- * FUNCTION PROTOTYPES
- **************************************************************************************/
-
-Register toReg_IODIR(Port const port);
-Register toReg_GPPU (Port const port);
+  if  (port == Port::A) return Register::GPPU_A;
+  else                  return Register::GPPU_B;
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -93,5 +70,3 @@ Register toReg_GPPU (Port const port);
 } /* driver */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_INTERFACE_MCP23017_TYPES_H_ */
