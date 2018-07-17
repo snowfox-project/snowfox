@@ -16,18 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_DRV2605_DEBUG_H_
-#define INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_DRV2605_DEBUG_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_MCP23017_DEBUG_H_
+#define INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_MCP23017_DEBUG_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/debug/interface/Debug.h>
+#include <spectre/driver/ioexpander/MCP23017/interface/MCP23017_Io.h>
 
 #include <spectre/hal/interface/flash/Flash.h>
 
 #include <spectre/driver/haptic/DRV2605/interface/DRV2605_Io.h>
+
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,34 +40,34 @@ namespace spectre
 namespace driver
 {
 
-namespace haptic
+namespace ioexpander
 {
 
-namespace DRV2605
+namespace MCP23017
 {
 
 /**************************************************************************************
- * CLASS DECLARATION DRV2605
+ * CLASS DECLARATION
  **************************************************************************************/
 
-class DRV2605_Debug
+class MCP23017_Debug
 {
 
 public:
 
   static void debug_dumpAllRegs(debug::interface::Debug & debug_interface,
                                 hal::interface::Flash   & flash,
-                                interface::DRV2605_Io   & io);
+                                interface::MCP23017_Io  & io);
 
 private:
 
-  DRV2605_Debug() { }
-  DRV2605_Debug(DRV2605_Debug const & other) { }
+  MCP23017_Debug() { }
+  MCP23017_Debug(MCP23017_Debug const & other) { }
 
 
   static void debug_dumpSingleReg(debug::interface::Debug   & debug_interface,
                                   hal::interface::Flash     & flash,
-                                  interface::DRV2605_Io     & io,
+                                  interface::MCP23017_Io    & io,
                                   char                const * msg,
                                   interface::Register const   reg);
 
@@ -76,12 +77,12 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* DRV2605 */
+} /* MCP23017 */
 
-} /* haptic */
+} /* ioexpander */
 
 } /* driver */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_DRV2605_DEBUG_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_IOEXPANDER_MCP23017_MCP23017_DEBUG_H_ */
