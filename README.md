@@ -6,15 +6,15 @@ Spectre = RTOS + HAL + IO + COMSTACK + CI + C++
 
 ### What ?
 
-Spectre consists of a Real Time Operating System + a Hardware Abstraction Layer + IO driver support for various sensors, actuators and communication controllers as well as industrial communication stacks encapsulated in a small and elegant C++ API. Additionally a continous integration approach is employed with integrated unit testing ensuring code quality and functionality. **The codebase can be simultaneously compiled for both host (x86) and desired target platform which enables the user to run and verify the complete firmware within the host pc without the need for target hardware.**
+Spectre consists of a Real Time Operating System + a Hardware Abstraction Layer + IO driver support for various sensors, actuators and communication controllers + industrial communication stacks written mostly in C++. **The codebase can be simultaneously compiled for both host (x86) and desired target platform which enables the user to run and verify the complete firmware within the host pc without the need for target hardware.** Upon commit unit tests are run and code quality metrics are measured in order to ensure code quality and functionality.
 
 ### Why #1?
 
-The application of OO principles such as dependency injection leads to a clean code base and minimizes coupling between modules. This enables the application of **Test Driven Development** which gives the programmer instantenous feedback on his code therefore eliminating tedious integration and bug fixing sessions so typical for Debug-Later-Programming. Deliver your projects on time, budget and scope.
+The application of OO principles such as SOLID leads to a clean code base and minimize coupling between modules. This enables the application of Test Driven Development which gives the programmer instantenous feedback on his code therefore eliminating tedious integration and bug fixing sessions so typical for Debug-Later-Programming. **Deliver your projects on budget, time and scope.**
 
 ### Why #2?
 
-In his book "Refactoring: Improving the Design of Existing Code" Martin Fowler quite frankly states that *“Any fool can write code that a computer can understand. Good programmers write code that humans can understand.”* **This project aims to do just that.** You are kindly invited to browse the code and form your own opinion about how well the code is adhering to  **SOLID**.
+In his book "Refactoring: Improving the Design of Existing Code" Martin Fowler quite frankly states that *“Any fool can write code that a computer can understand. Good programmers write code that humans can understand.”* **This project aims to do just that for the embedded domain.** You are kindly invited to browse the code and form your own opinion about how well the code is adhering to our claim.
 
 ## RTOS
 
