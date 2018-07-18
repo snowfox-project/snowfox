@@ -75,7 +75,6 @@ Register toReg_GPPU (Port const port);
 Register toReg_GPIO (Port const port);
 Register toReg_IODIR(Port const port);
 
-
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
