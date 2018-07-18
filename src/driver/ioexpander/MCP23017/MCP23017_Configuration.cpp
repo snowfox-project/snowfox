@@ -76,38 +76,30 @@ bool MCP23017_Configuration::configAsOutput(interface::Port const port, interfac
 
 bool MCP23017_Configuration::setDirection(interface::Port const port, interface::Pin const pin, Direction const direction)
 {
-  interface::Register const reg_iodir_addr    = interface::toReg_IODIR(port);
-  uint8_t                   reg_iodir_content = 0;
-
-  if(!_io.readRegister(reg_iodir_addr, &reg_iodir_content)) return false;
+  interface::Register const reg     = interface::toReg_IODIR(port);
+  uint8_t             const bit_pos = static_cast<uint8_t>  (pin );
 
   switch(direction)
   {
-  case Direction::Input : reg_iodir_content |=  static_cast<uint8_t>(pin); break;
-  case Direction::Output: reg_iodir_content &= ~static_cast<uint8_t>(pin); break;
+  case Direction::Input : return interface::setBit(_io, reg, bit_pos); break;
+  case Direction::Output: return interface::clrBit(_io, reg, bit_pos); break;
   }
 
-  if(!_io.writeRegister(reg_iodir_addr, reg_iodir_content)) return false;
-
-  return true;
+  return false;
 }
 
 bool MCP23017_Configuration::setPullUpMode(interface::Port const port, interface::Pin const pin, interface::PullUpMode const pull_up_mode)
 {
-  interface::Register const reg_gppu_addr    = interface::toReg_GPPU(port);
-  uint8_t                   reg_gppu_content = 0;
-
-  if(!_io.readRegister(reg_gppu_addr, &reg_gppu_content)) return false;
+  interface::Register const reg     = interface::toReg_GPPU(port);
+  uint8_t             const bit_pos = static_cast<uint8_t> (pin );
 
   switch(pull_up_mode)
   {
-  case interface::PullUpMode::Enabled : reg_gppu_content |=  static_cast<uint8_t>(pin); break;
-  case interface::PullUpMode::Disabled: reg_gppu_content &= ~static_cast<uint8_t>(pin); break;
+  case interface::PullUpMode::Enabled : return interface::setBit(_io, reg, bit_pos); break;
+  case interface::PullUpMode::Disabled: return interface::clrBit(_io, reg, bit_pos); break;
   }
 
-  if(!_io.writeRegister(reg_gppu_addr, reg_gppu_content)) return false;
-
-  return true;
+  return false;
 }
 
 /**************************************************************************************
