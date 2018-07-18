@@ -25,6 +25,9 @@
 
 #include <spectre/driver/interface/Driver.h>
 
+#include <spectre/driver/ioexpander/MCP23017/interface/config/MCP23017_Configuration.h>
+
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -42,8 +45,27 @@ namespace MCP23017
 {
 
 /**************************************************************************************
+ * TYPEDEF
+ **************************************************************************************/
+
+typedef struct
+{
+  interface::Port port;
+  interface::Pin  pin;
+} PortPinIdentifier;
+
+typedef struct
+{
+  PortPinIdentifier     port_pin_ident;
+  interface::PullUpMode pull_up_mode;
+} InputConfigParameter;
+
+/**************************************************************************************
  * CONSTANTS
  **************************************************************************************/
+
+static uint32_t constexpr IOCTL_CONFIG_INPUT  = 0; /* Arg: InputConfigParameter *             */
+static uint32_t constexpr IOCTL_CONFIG_OUTPUT = 1; /* Arg: PortPinIdentifier    *             */
 
 /**************************************************************************************
  * CLASS DECLARATION
@@ -54,7 +76,7 @@ class MCP23017 : public driver::interface::Driver
 
 public:
 
-           MCP23017();
+           MCP23017(interface::MCP23017_Configuration & config);
   virtual ~MCP23017();
 
 
@@ -64,7 +86,10 @@ public:
   virtual bool    ioctl(uint32_t const   cmd,    void          * arg      ) override;
   virtual void    close(                                                  ) override;
 
+
 private:
+
+  interface::MCP23017_Configuration & _config;
 
 };
 

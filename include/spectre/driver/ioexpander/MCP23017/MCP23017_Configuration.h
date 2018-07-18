@@ -56,14 +56,22 @@ public:
   virtual ~MCP23017_Configuration();
 
 
-  virtual bool setDirection (interface::Port const port, interface::Pin const pin, interface::Direction const direction) override;
-  virtual bool enablePullUp (interface::Port const port, interface::Pin const pin                                      ) override;
-  virtual bool disablePullUp(interface::Port const port, interface::Pin const pin                                      ) override;
+  virtual bool configAsInput (interface::Port const port, interface::Pin const pin, interface::PullUpMode const pull_up_mode) override;
+  virtual bool configAsOutput(interface::Port const port, interface::Pin const pin                                          ) override;
 
 
 private:
 
   interface::MCP23017_Io & _io;
+
+
+  enum class Direction
+  {
+    Input, Output
+  };
+
+  bool setDirection (interface::Port const port, interface::Pin const pin, Direction             const direction   );
+  bool setPullUpMode(interface::Port const port, interface::Pin const pin, interface::PullUpMode const pull_up_mode);
 
 };
 

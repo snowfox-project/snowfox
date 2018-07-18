@@ -26,7 +26,6 @@
 #include <stdint.h>
 
 #include <spectre/driver/ioexpander/MCP23017/interface/MCP23017_Io.h>
-#include <spectre/driver/ioexpander/MCP23017/interface/MCP23017_RegisterBits.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -58,19 +57,14 @@ enum class Port
 
 enum class Pin : uint8_t
 {
-  IO0 = MCP23017_REG_IODIR_IO0_bm,
-  IO1 = MCP23017_REG_IODIR_IO1_bm,
-  IO2 = MCP23017_REG_IODIR_IO2_bm,
-  IO3 = MCP23017_REG_IODIR_IO3_bm,
-  IO4 = MCP23017_REG_IODIR_IO4_bm,
-  IO5 = MCP23017_REG_IODIR_IO5_bm,
-  IO6 = MCP23017_REG_IODIR_IO5_bm,
-  IO7 = MCP23017_REG_IODIR_IO7_bm
-};
-
-enum class Direction
-{
-  Input, Output
+  IO0 = (1<<0),
+  IO1 = (1<<1),
+  IO2 = (1<<2),
+  IO3 = (1<<3),
+  IO4 = (1<<4),
+  IO5 = (1<<5),
+  IO6 = (1<<6),
+  IO7 = (1<<7)
 };
 
 /**************************************************************************************

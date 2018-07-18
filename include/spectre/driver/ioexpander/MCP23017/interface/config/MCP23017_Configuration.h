@@ -47,6 +47,15 @@ namespace interface
 {
 
 /**************************************************************************************
+ * TYPEDEFS
+ **************************************************************************************/
+
+enum class PullUpMode
+{
+  Enabled, Disabled
+};
+
+/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
@@ -59,9 +68,8 @@ public:
   virtual ~MCP23017_Configuration() { }
 
 
-  virtual bool setDirection (Port const port, Pin const pin, Direction const direction) = 0;
-  virtual bool enablePullUp (Port const port, Pin const pin                           ) = 0;
-  virtual bool disablePullUp(Port const port, Pin const pin                           ) = 0;
+  virtual bool configAsInput (Port const port, Pin const pin, PullUpMode const pull_up_mode) = 0;
+  virtual bool configAsOutput(Port const port, Pin const pin                               ) = 0;
 
 };
 

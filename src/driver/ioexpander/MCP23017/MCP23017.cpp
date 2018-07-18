@@ -42,7 +42,8 @@ namespace MCP23017
  * CTOR/DTOR
  **************************************************************************************/
 
-MCP23017::MCP23017()
+MCP23017::MCP23017(interface::MCP23017_Configuration & config)
+: _config(config)
 {
 
 }
@@ -73,7 +74,27 @@ ssize_t MCP23017::write(uint8_t const * buffer, ssize_t const num_bytes)
 
 bool MCP23017::ioctl(uint32_t const cmd, void * arg)
 {
-  /* TODO */ return false;
+  switch(cmd)
+  {
+  /* IOCTL_CONFIG_INPUT ***************************************************************/
+  case IOCTL_CONFIG_INPUT:
+  {
+    InputConfigParameter const * arg_ptr = static_cast<InputConfigParameter const *>(arg);
+    return _config.configAsInput(arg_ptr->port_pin_ident.port,
+                                 arg_ptr->port_pin_ident.pin,
+                                 arg_ptr->pull_up_mode);
+  }
+  break;
+  /* IOCTL_CONFIG_OUTPUT **************************************************************/
+  case IOCTL_CONFIG_OUTPUT:
+  {
+    PortPinIdentifier const * arg_ptr = static_cast<PortPinIdentifier const *>(arg);
+    return _config.configAsOutput(arg_ptr->port, arg_ptr->pin);
+  }
+  break;
+  }
+
+  return false;
 }
 
 void MCP23017::close()

@@ -57,45 +57,55 @@ MCP23017_Configuration::~MCP23017_Configuration()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool MCP23017_Configuration::setDirection(interface::Port const port, interface::Pin const pin, interface::Direction const direction)
+bool MCP23017_Configuration::configAsInput(interface::Port const port, interface::Pin const pin, interface::PullUpMode const pull_up_mode)
 {
-  uint8_t reg_iodir_content = 0;
+  if(!setDirection (port, pin, Direction::Input)) return false;
+  if(!setPullUpMode(port, pin, pull_up_mode    )) return false;
 
-  if(!_io.readRegister(interface::toReg_IODIR(port), &reg_iodir_content)) return false;
+  return true;
+}
+
+bool MCP23017_Configuration::configAsOutput(interface::Port const port, interface::Pin const pin)
+{
+  return setDirection(port, pin, Direction::Output);
+}
+
+/**************************************************************************************
+ * PRIVATE MEMBER FUNCTIONS
+ **************************************************************************************/
+
+bool MCP23017_Configuration::setDirection(interface::Port const port, interface::Pin const pin, Direction const direction)
+{
+  interface::Register const reg_iodir_addr    = interface::toReg_IODIR(port);
+  uint8_t                   reg_iodir_content = 0;
+
+  if(!_io.readRegister(reg_iodir_addr, &reg_iodir_content)) return false;
 
   switch(direction)
   {
-  case interface::Direction::Input : reg_iodir_content |=  static_cast<uint8_t>(pin); break;
-  case interface::Direction::Output: reg_iodir_content &= ~static_cast<uint8_t>(pin); break;
+  case Direction::Input : reg_iodir_content |=  static_cast<uint8_t>(pin); break;
+  case Direction::Output: reg_iodir_content &= ~static_cast<uint8_t>(pin); break;
   }
 
-  if(!_io.writeRegister(interface::toReg_IODIR(port), reg_iodir_content)) return false;
+  if(!_io.writeRegister(reg_iodir_addr, reg_iodir_content)) return false;
 
   return true;
 }
 
-bool MCP23017_Configuration::enablePullUp(interface::Port const port, interface::Pin const pin)
+bool MCP23017_Configuration::setPullUpMode(interface::Port const port, interface::Pin const pin, interface::PullUpMode const pull_up_mode)
 {
-  uint8_t reg_gppu_content = 0;
+  interface::Register const reg_gppu_addr    = interface::toReg_GPPU(port);
+  uint8_t                   reg_gppu_content = 0;
 
-  if(!_io.readRegister(interface::toReg_GPPU(port), &reg_gppu_content)) return false;
+  if(!_io.readRegister(reg_gppu_addr, &reg_gppu_content)) return false;
 
-  reg_gppu_content |= static_cast<uint8_t>(pin);
+  switch(pull_up_mode)
+  {
+  case interface::PullUpMode::Enabled : reg_gppu_content |=  static_cast<uint8_t>(pin); break;
+  case interface::PullUpMode::Disabled: reg_gppu_content &= ~static_cast<uint8_t>(pin); break;
+  }
 
-  if(!_io.writeRegister(interface::toReg_GPPU(port), reg_gppu_content)) return false;
-
-  return true;
-}
-
-bool MCP23017_Configuration::disablePullUp(interface::Port const port, interface::Pin const pin)
-{
-  uint8_t reg_gppu_content = 0;
-
-  if(!_io.readRegister(interface::toReg_GPPU(port), &reg_gppu_content)) return false;
-
-  reg_gppu_content &= ~static_cast<uint8_t>(pin);
-
-  if(!_io.writeRegister(interface::toReg_GPPU(port), reg_gppu_content)) return false;
+  if(!_io.writeRegister(reg_gppu_addr, reg_gppu_content)) return false;
 
   return true;
 }
