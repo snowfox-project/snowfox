@@ -6,15 +6,15 @@ Spectre = RTOS + HAL + IO + COMSTACK + CI + C++
 
 ### What ?
 
-Spectre consists of a Real Time Operating System + a Hardware Abstraction Layer + IO driver support for various sensors, actuators and communication controllers + industrial communication stacks written mostly in C++. **The codebase can be simultaneously compiled for both host (x86) and desired target platform which enables the user to run and verify the complete firmware within the host pc without the need for target hardware.** Upon commit unit tests are run and code quality metrics are measured in order to ensure code quality and functionality.
+Spectre consists of a Real Time Operating System + a Hardware Abstraction Layer + IO driver support for various sensors, actuators and communication controllers + industrial communication stacks written mostly in C++. **The codebase can be simultaneously compiled for both host and desired target platform which enables the user to run and verify the complete firmware within the host pc without the need for target hardware.** Unit tests are run and code quality metrics are gathered automatically upon commit in order to ensure code quality and functionality.
 
 ### Why #1?
 
-The application of OO principles such as SOLID leads to a clean code base and minimizes coupling between modules. This enables the application of Test Driven Development which gives the programmer instantenous feedback on his code therefore eliminating tedious integration and bug fixing sessions so typical for Debug-Later-Programming. **Deliver your projects on budget, time and scope.**
+The application of OO principles such as SOLID leads to a clean code base and minimizes coupling between modules. This enables the application of Test Driven Development which gives developers instantenous feedback on their code therefore eliminating tedious integration and bug fixing sessions typical for Debug-Later-Programming. **Deliver your projects on budget, time and scope.**
 
 ### Why #2?
 
-In his book "Refactoring: Improving the Design of Existing Code" Martin Fowler quite frankly states that *“Any fool can write code that a computer can understand. Good programmers write code that humans can understand.”* **This project aims to do just that for the embedded domain.** You are kindly invited to browse the code and form your own opinion about how well the code is adhering to our claim.
+In his book "Refactoring: Improving the Design of Existing Code" Martin Fowler frankly states that *“Any fool can write code that a computer can understand. Good programmers write code that humans can understand.”* **This project aims to do just that for the embedded domain.** You are kindly invited to browse the code and form your own opinion about how well the code is adhering to our claim.
 
 ## RTOS
 
@@ -58,6 +58,7 @@ Work in progress ...
 [![Examples](https://github.com/lxrobotics/spectre/blob/master/.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](https://github.com/lxrobotics/spectre/tree/master/examples/driver/haptic/DRV2605)
 
 #### [/driver/ioexpander](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/ioexpander)
+* **MCP23017** (16-Bit I/O Expander)
 * **PCA9547** (8-channel I2C-Bus multiplexer)
 [![Examples](https://github.com/lxrobotics/spectre/blob/master/.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](https://github.com/lxrobotics/spectre/tree/master/examples/driver/ioexpander/PCA9547)
 
