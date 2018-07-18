@@ -45,16 +45,22 @@ namespace interface
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-Register toReg_IODIR(Port const port)
-{
-  if  (port == Port::A) return Register::IODIR_A;
-  else                  return Register::IODIR_B;
-}
-
 Register toReg_GPPU(Port const port)
 {
   if  (port == Port::A) return Register::GPPU_A;
   else                  return Register::GPPU_B;
+}
+
+Register toReg_GPIO (Port const port)
+{
+  if  (port == Port::A) return Register::GPIO_A;
+  else                  return Register::GPIO_B;
+}
+
+Register toReg_IODIR(Port const port)
+{
+  if  (port == Port::A) return Register::IODIR_A;
+  else                  return Register::IODIR_B;
 }
 
 /**************************************************************************************
