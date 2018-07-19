@@ -60,6 +60,7 @@ public:
 
 
   virtual bool isSet(Port const port, Pin const pin, bool * is_set) = 0;
+  virtual bool read (Port const port, uint8_t * port_val          ) = 0;
 
 };
 

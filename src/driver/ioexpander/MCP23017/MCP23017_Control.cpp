@@ -86,6 +86,11 @@ bool MCP23017_Control::isSet(interface::Port const port, interface::Pin const pi
   }
 }
 
+bool MCP23017_Control::read(interface::Port const port, uint8_t * port_val)
+{
+  return _io.readRegister(interface::toReg_GPIO(port), port_val);
+}
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
