@@ -60,7 +60,7 @@ MCP23017::~MCP23017()
 
 bool MCP23017::open()
 {
-  /* TODO */ return false;
+  return true; /* Nothing to do */
 }
 
 ssize_t MCP23017::read(uint8_t * buffer, ssize_t const num_bytes)
@@ -127,7 +127,7 @@ bool MCP23017::ioctl(uint32_t const cmd, void * arg)
 
 void MCP23017::close()
 {
-  /* TODO */
+  /* Nothing to do */
 }
 
 /**************************************************************************************
