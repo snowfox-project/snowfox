@@ -48,42 +48,98 @@ namespace MCP23017
  * TYPEDEF
  **************************************************************************************/
 
-typedef struct
+class ConfigInputParam
 {
-  interface::Port       port;
-  interface::Pin        pin;
-  interface::PullUpMode pull_up_mode;
-} ConfigInputParameter;
 
-typedef struct
-{
-  interface::Port       port;
-  interface::Pin        pin;
-  interface::PullUpMode pull_up_mode;
-} ConfigOutputParameter;
+public:
 
-typedef struct
-{
-  interface::Port port;
-  interface::Pin  pin;
-  bool            set;
-} SetOutputPinParam;
+  ConfigInputParam(interface::Port const port, interface::Pin const pin, interface::PullUpMode const pull_up_mode)
+  {
+    data.port         = port;
+    data.pin          = pin;
+    data.pull_up_mode = pull_up_mode;
+  }
 
-typedef struct
+  struct
+  {
+    interface::Port       port;
+    interface::Pin        pin;
+    interface::PullUpMode pull_up_mode;
+  } data;
+};
+
+/**************************************************************************************/
+
+class ConfigOutputParam
 {
-  interface::Port port;
-  interface::Pin  pin;
-  bool            is_set;
-} GetInputPinParam;
+
+public:
+
+  ConfigOutputParam(interface::Port const port, interface::Pin const pin)
+  {
+    data.port = port;
+    data.pin  = pin;
+  }
+
+  struct
+  {
+    interface::Port       port;
+    interface::Pin        pin;
+  } data;
+};
+
+/**************************************************************************************/
+
+class SetOutputPinParam
+{
+
+public:
+
+  SetOutputPinParam(interface::Port const port, interface::Pin const pin, bool const set)
+  {
+    data.port = port;
+    data.pin  = pin;
+    data.set  = set;
+  }
+
+  struct
+  {
+    interface::Port port;
+    interface::Pin  pin;
+    bool            set;
+  } data;
+};
+
+/**************************************************************************************/
+
+class GetInputPinParam
+{
+
+public:
+
+  GetInputPinParam(interface::Port const port, interface::Pin const pin, bool * is_set)
+  {
+    data.port   = port;
+    data.pin    = pin;
+    data.is_set = is_set;
+  }
+
+  struct
+  {
+    interface::Port   port;
+    interface::Pin    pin;
+    bool            * is_set;
+  } data;
+};
 
 /**************************************************************************************
  * CONSTANTS
  **************************************************************************************/
 
-static uint32_t constexpr IOCTL_CONFIG_INPUT   = 0; /* Arg: ConfigInputParameter  *  */
-static uint32_t constexpr IOCTL_CONFIG_OUTPUT  = 1; /* Arg: ConfigOutputParameter *  */
-static uint32_t constexpr IOCTL_SET_OUTPUT_PIN = 2; /* Arg: SetOutputPinParam     *  */
-static uint32_t constexpr IOCTL_GET_INPUT_PIN = 3;  /* Arg: GetInputPinParam      *  */
+static uint32_t constexpr IOCTL_CONFIG_INPUT   = 0; /* Arg: ConfigInputParam  *  */
+static uint32_t constexpr IOCTL_CONFIG_OUTPUT  = 1; /* Arg: ConfigOutputParam *  */
+static uint32_t constexpr IOCTL_SET_OUTPUT_PIN = 2; /* Arg: SetOutputPinParam *  */
+static uint32_t constexpr IOCTL_GET_INPUT_PIN = 3;  /* Arg: GetInputPinParam  *  */
 
 /**************************************************************************************
  * CLASS DECLARATION

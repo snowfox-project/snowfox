@@ -25,6 +25,7 @@ EXAMPLES_DRIVER_STEPPER="examples/driver/stepper"
 ./run-build-example.sh $EXAMPLES_DRIVER_HAPTIC/DRV2605/driver-drv2605-i2c-atmega328p
 
 ./run-build-example.sh $EXAMPLES_DRIVER_IOEXPANDER/PCA9547/driver-pca9547-i2c-atmega328p
+./run-build-example.sh $EXAMPLES_DRIVER_IOEXPANDER/MCP23017/driver-mcp23017-i2c-atmega328p
 
 ./run-build-example.sh $EXAMPLES_DRIVER_LORA/RFM9x/driver-rfm9x-spi-atmega328p-receiver
 ./run-build-example.sh $EXAMPLES_DRIVER_LORA/RFM9x/driver-rfm9x-spi-atmega328p-transmitter
