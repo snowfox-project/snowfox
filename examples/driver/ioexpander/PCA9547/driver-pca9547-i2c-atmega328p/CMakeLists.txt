@@ -16,7 +16,7 @@ include(../../../../.cmake/example.cmake)
 
 add_executable(
   ${TARGET}
-  driver-pca9547-i2c-atmega328p
+  driver-pca9547-i2c-atmega328p.cpp
 )
 
 target_link_libraries(
