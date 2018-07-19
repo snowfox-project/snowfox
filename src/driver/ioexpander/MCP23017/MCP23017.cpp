@@ -77,7 +77,14 @@ ssize_t MCP23017::read(uint8_t * buffer, ssize_t const num_bytes)
 
 ssize_t MCP23017::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
-  /* TODO */ return -1;
+  static ssize_t const WRITE_BUFFER_SIZE = 2;
+
+  if(num_bytes < WRITE_BUFFER_SIZE) return -1;
+
+  if(!_control.write(interface::Port::A, buffer[0])) return -1;
+  if(!_control.write(interface::Port::B, buffer[1])) return -1;
+
+  return WRITE_BUFFER_SIZE;
 }
 
 bool MCP23017::ioctl(uint32_t const cmd, void * arg)

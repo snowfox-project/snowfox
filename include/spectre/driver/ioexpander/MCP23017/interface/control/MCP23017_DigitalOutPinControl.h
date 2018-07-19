@@ -59,8 +59,9 @@ public:
   virtual ~MCP23017_DigitalOutPinControl() { }
 
 
-  virtual bool set(Port const port, Pin const pin) = 0;
-  virtual bool clr(Port const port, Pin const pin) = 0;
+  virtual bool set  (Port const port, Pin     const pin     ) = 0;
+  virtual bool clr  (Port const port, Pin     const pin     ) = 0;
+  virtual bool write(Port const port, uint8_t const port_val) = 0;
 
 };
 

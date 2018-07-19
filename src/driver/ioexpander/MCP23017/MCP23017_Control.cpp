@@ -67,6 +67,11 @@ bool MCP23017_Control::clr(interface::Port const port, interface::Pin const pin)
   return interface::clrBit(_io, interface::toReg_GPIO(port), static_cast<uint8_t>(pin));
 }
 
+bool MCP23017_Control::write(interface::Port const port, uint8_t const port_val)
+{
+  return _io.writeRegister(interface::toReg_GPIO(port), port_val);
+}
+
 bool MCP23017_Control::isSet(interface::Port const port, interface::Pin const pin, bool * is_set)
 {
   uint8_t reg_gpio_val = 0;
