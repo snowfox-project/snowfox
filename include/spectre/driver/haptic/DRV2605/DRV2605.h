@@ -47,11 +47,23 @@ namespace DRV2605
  * TYPEDEF
  **************************************************************************************/
 
-typedef struct
+class IoctlSetWaveFormArg
 {
-  interface::WaveformSequencer waveform_sequencer;
-  uint8_t                      waveform;
-} IoctlSetWaveFormArg;
+
+public:
+
+  IoctlSetWaveFormArg(interface::WaveformSequencer const waveform_sequencer, uint8_t const waveform)
+  {
+    data.waveform_sequencer = waveform_sequencer;
+    data.waveform           = waveform;
+  }
+
+  struct
+  {
+    interface::WaveformSequencer waveform_sequencer;
+    uint8_t                      waveform;
+  } data;
+};
 
 /**************************************************************************************
  * CONSTANTS

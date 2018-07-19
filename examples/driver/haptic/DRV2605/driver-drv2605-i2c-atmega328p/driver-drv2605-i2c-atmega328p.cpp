@@ -82,13 +82,10 @@ int main()
 
   for(uint8_t w = DRV2605_MIN_LRA_LIB_WAVEFORM_NUM; ; w++)
   {
-    haptic::DRV2605::IoctlSetWaveFormArg waveform_arg;
+    haptic::DRV2605::IoctlSetWaveFormArg set_waveform_arg(haptic::DRV2605::interface::WaveformSequencer::SEQ_1, w);
 
-    waveform_arg.waveform_sequencer = haptic::DRV2605::interface::WaveformSequencer::SEQ_1;
-    waveform_arg.waveform           = w;
-
-    drv2605.ioctl(haptic::DRV2605::IOCTL_SET_WAVEFORM, static_cast<void *>(&waveform_arg));
-    drv2605.ioctl(haptic::DRV2605::IOCTL_SET_GO,       0                                 );
+    drv2605.ioctl(haptic::DRV2605::IOCTL_SET_WAVEFORM, static_cast<void *>(&set_waveform_arg));
+    drv2605.ioctl(haptic::DRV2605::IOCTL_SET_GO,       0                                     );
 
     if(w == DRV2605_MAX_LRA_LIB_WAVEFORM_NUM) w = DRV2605_MIN_LRA_LIB_WAVEFORM_NUM;
 
