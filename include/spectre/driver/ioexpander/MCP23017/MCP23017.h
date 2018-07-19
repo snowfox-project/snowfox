@@ -25,8 +25,8 @@
 
 #include <spectre/driver/interface/Driver.h>
 
+#include <spectre/driver/ioexpander/MCP23017/interface/control/MCP23017_Control.h>
 #include <spectre/driver/ioexpander/MCP23017/interface/config/MCP23017_Configuration.h>
-
 
 /**************************************************************************************
  * NAMESPACE
@@ -50,22 +50,40 @@ namespace MCP23017
 
 typedef struct
 {
-  interface::Port port;
-  interface::Pin  pin;
-} PortPinIdentifier;
+  interface::Port       port;
+  interface::Pin        pin;
+  interface::PullUpMode pull_up_mode;
+} ConfigInputParameter;
 
 typedef struct
 {
-  PortPinIdentifier     port_pin_ident;
+  interface::Port       port;
+  interface::Pin        pin;
   interface::PullUpMode pull_up_mode;
-} InputConfigParameter;
+} ConfigOutputParameter;
+
+typedef struct
+{
+  interface::Port port;
+  interface::Pin  pin;
+  bool            set;
+} SetOutputPinParam;
+
+typedef struct
+{
+  interface::Port port;
+  interface::Pin  pin;
+  bool            is_set;
+} GetInputPinParam;
 
 /**************************************************************************************
  * CONSTANTS
  **************************************************************************************/
 
-static uint32_t constexpr IOCTL_CONFIG_INPUT  = 0; /* Arg: InputConfigParameter *             */
-static uint32_t constexpr IOCTL_CONFIG_OUTPUT = 1; /* Arg: PortPinIdentifier    *             */
+static uint32_t constexpr IOCTL_CONFIG_INPUT   = 0; /* Arg: ConfigInputParameter  *  */
+static uint32_t constexpr IOCTL_CONFIG_OUTPUT  = 1; /* Arg: ConfigOutputParameter *  */
+static uint32_t constexpr IOCTL_SET_OUTPUT_PIN = 2; /* Arg: SetOutputPinParam     *  */
+static uint32_t constexpr IOCTL_GET_INPUT_PIN = 3;  /* Arg: GetInputPinParam      *  */
 
 /**************************************************************************************
  * CLASS DECLARATION
@@ -76,7 +94,8 @@ class MCP23017 : public driver::interface::Driver
 
 public:
 
-           MCP23017(interface::MCP23017_Configuration & config);
+           MCP23017(interface::MCP23017_Configuration & config,
+                    interface::MCP23017_Control       & control);
   virtual ~MCP23017();
 
 
@@ -90,6 +109,7 @@ public:
 private:
 
   interface::MCP23017_Configuration & _config;
+  interface::MCP23017_Control       & _control;
 
 };
 

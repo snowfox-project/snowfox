@@ -58,8 +58,7 @@ public:
 
   virtual bool set  (interface::Port const port, interface::Pin const pin               ) override;
   virtual bool clr  (interface::Port const port, interface::Pin const pin               ) override;
-  virtual bool isSet(interface::Port const port, interface::Pin const pin, bool & is_set) override;
-  virtual bool isClr(interface::Port const port, interface::Pin const pin, bool & is_clr) override;
+  virtual bool isSet(interface::Port const port, interface::Pin const pin, bool * is_set) override;
 
 
 private:

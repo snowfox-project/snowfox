@@ -59,8 +59,7 @@ public:
   virtual ~MCP23017_DigitalInPinControl() { }
 
 
-  virtual bool isSet(Port const port, Pin const pin, bool & is_set) = 0;
-  virtual bool isClr(Port const port, Pin const pin, bool & is_clr) = 0;
+  virtual bool isSet(Port const port, Pin const pin, bool * is_set) = 0;
 
 };
 

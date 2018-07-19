@@ -67,7 +67,7 @@ bool MCP23017_Control::clr(interface::Port const port, interface::Pin const pin)
   return interface::clrBit(_io, interface::toReg_GPIO(port), static_cast<uint8_t>(pin));
 }
 
-bool MCP23017_Control::isSet(interface::Port const port, interface::Pin const pin, bool & is_set)
+bool MCP23017_Control::isSet(interface::Port const port, interface::Pin const pin, bool * is_set)
 {
   uint8_t reg_gpio_val = 0;
 
@@ -76,26 +76,7 @@ bool MCP23017_Control::isSet(interface::Port const port, interface::Pin const pi
     uint8_t const bit_pos  = static_cast<uint8_t>(pin);
     uint8_t const bit_mask = (1<<bit_pos);
 
-    is_set = (reg_gpio_val & bit_mask) == bit_mask;
-
-    return true;
-  }
-  else
-  {
-    return false;
-  }
-}
-
-bool MCP23017_Control::isClr(interface::Port const port, interface::Pin const pin, bool & is_clr)
-{
-  uint8_t reg_gpio_val = 0;
-
-  if(_io.readRegister(interface::toReg_GPIO(port), &reg_gpio_val))
-  {
-    uint8_t const bit_pos  = static_cast<uint8_t>(pin);
-    uint8_t const bit_mask = (1<<bit_pos);
-
-    is_clr = (reg_gpio_val & bit_mask) == 0;
+    *is_set = (reg_gpio_val & bit_mask) == bit_mask;
 
     return true;
   }

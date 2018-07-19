@@ -42,8 +42,9 @@ namespace MCP23017
  * CTOR/DTOR
  **************************************************************************************/
 
-MCP23017::MCP23017(interface::MCP23017_Configuration & config)
-: _config(config)
+MCP23017::MCP23017(interface::MCP23017_Configuration & config, interface::MCP23017_Control & control)
+: _config (config ),
+  _control(control)
 {
 
 }
@@ -79,17 +80,30 @@ bool MCP23017::ioctl(uint32_t const cmd, void * arg)
   /* IOCTL_CONFIG_INPUT ***************************************************************/
   case IOCTL_CONFIG_INPUT:
   {
-    InputConfigParameter const * arg_ptr = static_cast<InputConfigParameter const *>(arg);
-    return _config.configAsInput(arg_ptr->port_pin_ident.port,
-                                 arg_ptr->port_pin_ident.pin,
-                                 arg_ptr->pull_up_mode);
+    ConfigInputParameter const * arg_ptr = static_cast<ConfigInputParameter const *>(arg);
+    return _config.configAsInput(arg_ptr->port, arg_ptr->pin, arg_ptr->pull_up_mode);
   }
   break;
   /* IOCTL_CONFIG_OUTPUT **************************************************************/
   case IOCTL_CONFIG_OUTPUT:
   {
-    PortPinIdentifier const * arg_ptr = static_cast<PortPinIdentifier const *>(arg);
+    ConfigOutputParameter const * arg_ptr = static_cast<ConfigOutputParameter const *>(arg);
     return _config.configAsOutput(arg_ptr->port, arg_ptr->pin);
+  }
+  break;
+  /* IOCTL_SET_OUTPUT_PIN *************************************************************/
+  case IOCTL_SET_OUTPUT_PIN:
+  {
+    SetOutputPinParam const * arg_ptr = static_cast<SetOutputPinParam const *>(arg);
+    if  (arg_ptr->set) return _control.set(arg_ptr->port, arg_ptr->pin);
+    else               return _control.clr(arg_ptr->port, arg_ptr->pin);
+  }
+  break;
+  /* IOCTL_GET_INPUT_PIN **************************************************************/
+  case IOCTL_GET_INPUT_PIN:
+  {
+    GetInputPinParam * arg_ptr = static_cast<GetInputPinParam *>(arg);
+    return _control.isSet(arg_ptr->port, arg_ptr->pin, &arg_ptr->is_set);
   }
   break;
   }
