@@ -6,7 +6,7 @@ Spectre = RTOS + HAL + IO + COMSTACK + CI + C++
 
 ### What ?
 
-Spectre consists of a Real Time Operating System + a Hardware Abstraction Layer + IO driver support for various sensors, actuators and communication controllers + industrial communication stacks written mostly in C++. **The codebase can be simultaneously compiled for both host and desired target platform which enables the user to run and verify the complete firmware within the host pc without the need for target hardware.** Unit tests are run and code quality metrics are gathered automatically upon commit in order to ensure code quality and functionality.
+Spectre consists of a Real Time Operating System + a Hardware Abstraction Layer + IO driver support for various sensors, actuators and communication controllers + industrial communication stacks written mostly in C++. **The codebase can be simultaneously compiled for both host and desired target platform which enables the user to run and verify the complete firmware within the host pc without the need for target hardware.** Furthermore unit tests are run and code quality metrics are gathered automatically upon commit in order to ensure code quality and functionality.
 
 ### Why #1?
 
@@ -59,6 +59,7 @@ Work in progress ...
 
 #### [/driver/ioexpander](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/ioexpander)
 * **MCP23017** (16-Bit I/O Expander)
+[![Examples](https://github.com/lxrobotics/spectre/blob/master/.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](https://github.com/lxrobotics/spectre/tree/master/examples/driver/ioexpander/MCP23017)
 * **PCA9547** (8-channel I2C-Bus multiplexer)
 [![Examples](https://github.com/lxrobotics/spectre/blob/master/.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](https://github.com/lxrobotics/spectre/tree/master/examples/driver/ioexpander/PCA9547)
 
