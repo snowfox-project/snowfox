@@ -48,12 +48,12 @@ namespace MCP23017
  * TYPEDEF
  **************************************************************************************/
 
-class ConfigInputParam
+class IoctlConfigInputArg
 {
 
 public:
 
-  ConfigInputParam(interface::Port const port, interface::Pin const pin, interface::PullUpMode const pull_up_mode)
+  IoctlConfigInputArg(interface::Port const port, interface::Pin const pin, interface::PullUpMode const pull_up_mode)
   {
     data.port         = port;
     data.pin          = pin;
@@ -70,12 +70,12 @@ public:
 
 /**************************************************************************************/
 
-class ConfigOutputParam
+class IoctlConfigOutputArg
 {
 
 public:
 
-  ConfigOutputParam(interface::Port const port, interface::Pin const pin)
+  IoctlConfigOutputArg(interface::Port const port, interface::Pin const pin)
   {
     data.port = port;
     data.pin  = pin;
@@ -90,12 +90,12 @@ public:
 
 /**************************************************************************************/
 
-class SetOutputPinParam
+class IoctlSetOutputPinArg
 {
 
 public:
 
-  SetOutputPinParam(interface::Port const port, interface::Pin const pin, bool const set)
+  IoctlSetOutputPinArg(interface::Port const port, interface::Pin const pin, bool const set)
   {
     data.port = port;
     data.pin  = pin;
@@ -112,12 +112,12 @@ public:
 
 /**************************************************************************************/
 
-class GetInputPinParam
+class IoctlGetInputPinArg
 {
 
 public:
 
-  GetInputPinParam(interface::Port const port, interface::Pin const pin, bool * is_set)
+  IoctlGetInputPinArg(interface::Port const port, interface::Pin const pin, bool * is_set)
   {
     data.port   = port;
     data.pin    = pin;
@@ -136,10 +136,10 @@ public:
  * CONSTANTS
  **************************************************************************************/
 
-static uint32_t constexpr IOCTL_CONFIG_INPUT   = 0; /* Arg: ConfigInputParam  *  */
-static uint32_t constexpr IOCTL_CONFIG_OUTPUT  = 1; /* Arg: ConfigOutputParam *  */
-static uint32_t constexpr IOCTL_SET_OUTPUT_PIN = 2; /* Arg: SetOutputPinParam *  */
-static uint32_t constexpr IOCTL_GET_INPUT_PIN = 3;  /* Arg: GetInputPinParam  *  */
+static uint32_t constexpr IOCTL_CONFIG_INPUT   = 0; /* Arg: ConfigInputArg  *  */
+static uint32_t constexpr IOCTL_CONFIG_OUTPUT  = 1; /* Arg: ConfigOutputArg *  */
+static uint32_t constexpr IOCTL_SET_OUTPUT_PIN = 2; /* Arg: SetOutputPinArg *  */
+static uint32_t constexpr IOCTL_GET_INPUT_PIN = 3;  /* Arg: GetInputPinArg  *  */
 
 /**************************************************************************************
  * CLASS DECLARATION

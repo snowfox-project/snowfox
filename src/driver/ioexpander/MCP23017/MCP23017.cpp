@@ -94,21 +94,21 @@ bool MCP23017::ioctl(uint32_t const cmd, void * arg)
   /* IOCTL_CONFIG_INPUT ***************************************************************/
   case IOCTL_CONFIG_INPUT:
   {
-    ConfigInputParam const * arg_ptr = static_cast<ConfigInputParam const *>(arg);
+    IoctlConfigInputArg const * arg_ptr = static_cast<IoctlConfigInputArg const *>(arg);
     return _config.configAsInput(arg_ptr->data.port, arg_ptr->data.pin, arg_ptr->data.pull_up_mode);
   }
   break;
   /* IOCTL_CONFIG_OUTPUT **************************************************************/
   case IOCTL_CONFIG_OUTPUT:
   {
-    ConfigOutputParam const * arg_ptr = static_cast<ConfigOutputParam const *>(arg);
+    IoctlConfigOutputArg const * arg_ptr = static_cast<IoctlConfigOutputArg const *>(arg);
     return _config.configAsOutput(arg_ptr->data.port, arg_ptr->data.pin);
   }
   break;
   /* IOCTL_SET_OUTPUT_PIN *************************************************************/
   case IOCTL_SET_OUTPUT_PIN:
   {
-    SetOutputPinParam const * arg_ptr = static_cast<SetOutputPinParam const *>(arg);
+    IoctlSetOutputPinArg const * arg_ptr = static_cast<IoctlSetOutputPinArg const *>(arg);
     if  (arg_ptr->data.set) return _control.set(arg_ptr->data.port, arg_ptr->data.pin);
     else                    return _control.clr(arg_ptr->data.port, arg_ptr->data.pin);
   }
@@ -116,7 +116,7 @@ bool MCP23017::ioctl(uint32_t const cmd, void * arg)
   /* IOCTL_GET_INPUT_PIN **************************************************************/
   case IOCTL_GET_INPUT_PIN:
   {
-    GetInputPinParam * arg_ptr = static_cast<GetInputPinParam *>(arg);
+    IoctlGetInputPinArg * arg_ptr = static_cast<IoctlGetInputPinArg *>(arg);
     return _control.isSet(arg_ptr->data.port, arg_ptr->data.pin, arg_ptr->data.is_set);
   }
   break;
