@@ -41,7 +41,7 @@ Work in progress ...
 ### Host (Test Build)
 | MCU                        | MCU_ARCH              | MCU_TYPE          |
 |:--------------------------:|:---------------------:|:-----------------:|
-| Host (Test Build)          | host                  | -                 |
+| Host (Test Build)          | host                  | host              |
 
 
 ## I/O Device Drivers
