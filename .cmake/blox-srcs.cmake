@@ -36,6 +36,17 @@ if(${MCU_ARCH} STREQUAL "avr")
 
   set(SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH src/blox/hal/avr)
 
+  # AT90CAN128 ###########################################################
+
+  set(SPECTRE_LIBRARY_BLOX_HAL_AVR_AT90CAN128_SRCS 
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/AT90CAN128/UART0.cpp
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/AT90CAN128/UART1.cpp
+  )
+
+  if(${MCU_TYPE} STREQUAL "at90can128")
+    set(SPECTRE_LIBRARY_BLOX_SRCS ${SPECTRE_LIBRARY_BLOX_SRCS} ${SPECTRE_LIBRARY_BLOX_HAL_AVR_AT90CAN128_SRCS})  
+  endif()
+
   # ATMEGA1284P ##########################################################
 
   set(SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA1284P_SRCS 
