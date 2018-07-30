@@ -43,7 +43,6 @@ EXAMPLES_DRIVER_STEPPER="examples/driver/stepper"
 
 ./run-build-example.sh $EXAMPLES_DRIVER_SERIAL/uart0-at90can128
 ./run-build-example.sh $EXAMPLES_DRIVER_SERIAL/uart0-atmega328p
-./run-build-example.sh $EXAMPLES_DRIVER_SERIAL/uart0-atmega328p-blox
 ./run-build-example.sh $EXAMPLES_DRIVER_SERIAL/uart1-at90can128
 
 ./run-build-example.sh $EXAMPLES_DRIVER_STEPPER/TMC260x/driver-tmc260x-spi-atmega328p

@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 2.8)
 
 ##########################################################################
 
-set(TARGET driver-serial-uart0-atmega328p)
+set(TARGET driver-serial-uart0-atmega328p-blox)
 
 ##########################################################################
 
@@ -16,7 +16,7 @@ include(../../../.cmake/example.cmake)
 
 add_executable(
   ${TARGET}
-  driver-serial-uart0-atmega328p.cpp
+  driver-serial-uart0-atmega328p-blox.cpp
 )
 
 target_link_libraries(
