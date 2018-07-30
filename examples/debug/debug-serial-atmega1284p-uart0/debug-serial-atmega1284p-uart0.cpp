@@ -50,7 +50,7 @@ using namespace spectre::driver;
  * CONSTANTS
  **************************************************************************************/
 
-static uint16_t const UART_RX_BUFFER_SIZE = 16;
+static uint16_t const UART_RX_BUFFER_SIZE =  0;
 static uint16_t const UART_TX_BUFFER_SIZE = 16;
 
 /**************************************************************************************
@@ -60,6 +60,7 @@ static uint16_t const UART_TX_BUFFER_SIZE = 16;
 int main()
 {
   /* HAL ******************************************************************************/
+
   ATMEGA1284P::InterruptController int_ctrl(&EIMSK, &PCICR, &WDTCSR, &TIMSK2, &TIMSK1, &TIMSK0, &SPCR, &UCSR0B, &ACSR, &ADCSRA, &EECR, &TWCR, &SPMCSR, &UCSR1B);
   ATMEGA1284P::CriticalSection     crit_sec(&SREG);
 
@@ -67,6 +68,7 @@ int main()
 
 
   /* DRIVER ***************************************************************************/
+
   blox::SerialUart serial(crit_sec, uart0(), UART_RX_BUFFER_SIZE, UART_TX_BUFFER_SIZE);
 
   uint8_t baud_rate = static_cast<uint8_t>(serial::interface::SerialBaudRate::B115200);
@@ -80,14 +82,14 @@ int main()
 
 
   /* GLOBAL INTERRUPT *****************************************************************/
-  debug::DebugSerial debug_serial(serial());
 
-
-  /* GLOBAL INTERRUPT *****************************************************************/
   int_ctrl.enableInterrupt(ATMEGA164P_324P_644P_1284P::toIntNum(ATMEGA1284P::Interrupt::GLOBAL));
 
 
   /* APPLICATION **********************************************************************/
+
+  debug::DebugSerial debug_serial(serial());
+
   for(uint32_t cnt = 0;; cnt++)
   {
     debug_serial.print("( %08X ) Hello ATMEGA1284P\r\n", cnt);
