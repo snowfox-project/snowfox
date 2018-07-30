@@ -90,7 +90,7 @@ int main()
   /* APPLICATION **********************************************************************/
   for(uint32_t cnt = 0;; cnt++)
   {
-    debug_serial.print("( %08X ) Hello ATMEGA1284P\n", cnt);
+    debug_serial.print("( %08X ) Hello ATMEGA1284P\r\n", cnt);
   }
 
   return 0;

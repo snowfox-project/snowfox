@@ -101,7 +101,7 @@ int main()
 
   for(uint32_t cnt = 0;; cnt++)
   {
-    debug_serial.print("( %08X ) Hello ATMEGA328P\n", cnt);
+    debug_serial.print("( %08X ) Hello ATMEGA328P\r\n", cnt);
   }
 
   return 0;
