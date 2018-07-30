@@ -16,7 +16,7 @@ include(../../../.cmake/example.cmake)
 
 add_executable(
   ${TARGET}
-  driver-serial-uart0-atmega328p-blox.cpp
+  driver-serial-uart0-atmega328p.cpp
 )
 
 target_link_libraries(
