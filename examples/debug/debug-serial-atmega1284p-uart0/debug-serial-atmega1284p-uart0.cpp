@@ -20,7 +20,7 @@
  * This example program is tailored for usage with Moteino-Mega-USB
  *
  * Upload via avrdude
- *   avrdude -p atmega1284p -c arduino -e -U flash:w:bin/debug-serial-atmega1284p-uart0
+ *   avrdude -p atmega1284p -c arduino -P /dev/ttyUSB0 -e -U flash:w:debug-serial-atmega1284p-uart0
  **************************************************************************************/
 
 /**************************************************************************************
