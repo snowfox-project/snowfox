@@ -92,7 +92,10 @@ uint16_t UART_SerialControl::transmit(uint8_t const * data, uint16_t const num_b
     _tx_queue.push(data[bytes_written]);
   }
 
-  _uart_ctrl.enableTx();
+  if(bytes_written > 0)
+  {
+    _uart_ctrl.enableTx();
+  }
 
   return bytes_written;
 }
