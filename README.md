@@ -26,17 +26,17 @@ Work in progress ...
 |:--------------------------:|:---------------------:|:-----------------:|:----------------:|
 | AT90CAN32                  | avr                   | at90can32         |                  |
 | AT90CAN64                  | ...                   | at90can64         |                  |
-| AT90CAN128                 | ...                   | at90can128        |                  |
+| AT90CAN128                 | ...                   | at90can128        | Olimex AVR-CAN   |
 | ATMega640                  | ...                   | atmega640         |                  |
 | ATMega1280                 | ...                   | atmega1280        |                  |
-| ATMega2560                 | ...                   | atmega2560        |                  |
+| ATMega2560                 | ...                   | atmega2560        | Arduino Mega     |
 | ATMega164P                 | ...                   | atmega164p        |                  |
 | ATMega324P                 | ...                   | atmega324p        |                  |
 | ATMega644P                 | ...                   | atmega644p        |                  |
 | ATMega1284P                | ...                   | atmega1284p       | Moteino Mega USB |
 | ATMega328P                 | ...                   | atmega328p        | Arduino Uno      |
 | ATMega16U4                 | ...                   | atmega16u4        |                  |
-| ATMega32U4                 | ...                   | atmega32u4        |                  |
+| ATMega32U4                 | ...                   | atmega32u4        | Arduino Leonardo |
 
 ### Host (Test Build)
 | MCU                        | MCU_ARCH              | MCU_TYPE          |
@@ -64,9 +64,8 @@ Work in progress ...
 [![Examples](https://github.com/lxrobotics/spectre/blob/master/.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](https://github.com/lxrobotics/spectre/tree/master/examples/driver/ioexpander/PCA9547)
 
 #### [/driver/lora](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/lora)
-* **RFM9x** (HopeRF RFM95/96/97/98 Low Power Long Range Transceiver Module)
+* **RFM9x** (HopeRF RFM95/96/97/98 Low Power Long Range Transceiver Module) *(Moteino Mega USB, Dragino LoRa Shield V1.4)*
 [![Examples](https://github.com/lxrobotics/spectre/blob/master/.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](https://github.com/lxrobotics/spectre/tree/master/examples/driver/lora)
-(Moteino Mega USB, Dragino LoRa Shield V1.4)
 
 #### [/driver/memory](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/memory)
 * **AT45DBx** (SPI Data Flash)
