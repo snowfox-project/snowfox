@@ -74,16 +74,17 @@ enum class RetCodeWrite : ssize_t
  * CONSTANTS
  **************************************************************************************/
 
-static uint32_t constexpr IOCTL_SET_FREQUENCY_HZ      = 0; /* Arg: uint32_t *                                 */
-static uint32_t constexpr IOCTL_SET_SIGNAL_BANDWIDTH  = 1; /* Arg: interface::SignalBandwidth * -> uint8_t *  */
-static uint32_t constexpr IOCTL_SET_CODING_RATE       = 2; /* Arg: interface::CodingRate *      -> uint8_t *  */
-static uint32_t constexpr IOCTL_SET_SPREADING_FACTOR  = 3; /* Arg: interface::SpreadingFactor * -> uint8_t *  */
-static uint32_t constexpr IOCTL_SET_PREAMBLE_LENGTH   = 4; /* Arg: uint16_t *                                 */
-static uint32_t constexpr IOCTL_SET_TX_FIFO_SIZE      = 5; /* Arg: uint16_t *                                 */
-static uint32_t constexpr IOCTL_SET_RX_FIFO_SIZE      = 6; /* Arg: uint16_t *                                 */
-static uint32_t constexpr IOCTL_GET_CURRENT_RSSI      = 7; /* Arg: int16_t *                                  */
-static uint32_t constexpr IOCTL_GET_LAST_PACKET_RSSI  = 8; /* Arg: int16_t *                                  */
-static uint32_t constexpr IOCTL_GET_LAST_PACKET_SNR   = 9; /* Arg: int8_t *                                   */
+static uint32_t constexpr IOCTL_SET_FREQUENCY_HZ      =  0; /* Arg: uint32_t *                                 */
+static uint32_t constexpr IOCTL_SET_SIGNAL_BANDWIDTH  =  1; /* Arg: interface::SignalBandwidth * -> uint8_t *  */
+static uint32_t constexpr IOCTL_SET_CODING_RATE       =  2; /* Arg: interface::CodingRate *      -> uint8_t *  */
+static uint32_t constexpr IOCTL_SET_SPREADING_FACTOR  =  3; /* Arg: interface::SpreadingFactor * -> uint8_t *  */
+static uint32_t constexpr IOCTL_SET_PREAMBLE_LENGTH   =  4; /* Arg: uint16_t *                                 */
+static uint32_t constexpr IOCTL_SET_RX_SYMBOL_TIMEOUT =  5; /* Arg: uint16_t *                                 */
+static uint32_t constexpr IOCTL_SET_TX_FIFO_SIZE      =  6; /* Arg: uint16_t *                                 */
+static uint32_t constexpr IOCTL_SET_RX_FIFO_SIZE      =  7; /* Arg: uint16_t *                                 */
+static uint32_t constexpr IOCTL_GET_CURRENT_RSSI      =  8; /* Arg: int16_t *                                  */
+static uint32_t constexpr IOCTL_GET_LAST_PACKET_RSSI  =  9; /* Arg: int16_t *                                  */
+static uint32_t constexpr IOCTL_GET_LAST_PACKET_SNR   = 10; /* Arg: int8_t *                                   */
 
 /**************************************************************************************
  * CLASS DECLARATION

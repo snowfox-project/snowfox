@@ -136,6 +136,7 @@ public:
   virtual void setSpreadingFactor     (SpreadingFactor     const spreading_factor    ) = 0;
   virtual void setPreambleLength      (uint16_t            const preamble_length     ) = 0;
   virtual void setTransceiverLocation (TransceiverLocation const transceiver_location) = 0;
+  virtual void setRxSymbolTimeout     (uint16_t            const rx_symbol_timeout   ) = 0;
 
 };
 

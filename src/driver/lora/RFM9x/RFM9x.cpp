@@ -206,6 +206,14 @@ bool RFM9x::ioctl(uint32_t const cmd, void * arg)
     return true;
   }
   break;
+  /* IOCTL_SET_RX_SYMBOL_TIMEOUT ******************************************************/
+  case IOCTL_SET_RX_SYMBOL_TIMEOUT:
+  {
+    uint16_t const * rx_symbol_timeout = static_cast<uint16_t *>(arg);
+    _config.setRxSymbolTimeout(*rx_symbol_timeout);
+    return true;
+  }
+  break;
   /* IOCTL_SET_TX_FIFO_SIZE ***********************************************************/
   case IOCTL_SET_TX_FIFO_SIZE:
   {

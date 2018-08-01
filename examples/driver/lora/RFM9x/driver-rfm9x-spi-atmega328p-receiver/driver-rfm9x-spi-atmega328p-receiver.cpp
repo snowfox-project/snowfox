@@ -210,22 +210,25 @@ int main()
   rfm9x_dio1_eint1.registerExternalInterruptCallback(&rfm9x_dio1_event_callback);
 
 
-  uint32_t frequenzy_Hz     = 433775000; /* 433.775 Mhz - Dedicated for digital communication channels in the 70 cm band */
-  uint8_t  signal_bandwidth = static_cast<uint8_t>(lora::RFM9x::interface::SignalBandwidth::BW_250_kHz);
-  uint8_t  coding_rate      = static_cast<uint8_t>(lora::RFM9x::interface::CodingRate::CR_4_5         );
-  uint8_t  spreading_factor = static_cast<uint8_t>(lora::RFM9x::interface::SpreadingFactor::SF_128    );
-  uint16_t preamble_length  = 8;
-  uint16_t tx_fifo_size     = 128;
-  uint16_t rx_fifo_size     = 128;
+  uint32_t frequenzy_Hz      = 433775000; /* 433.775 Mhz - Dedicated for digital communication channels in the 70 cm band */
+  uint8_t  signal_bandwidth  = static_cast<uint8_t>(lora::RFM9x::interface::SignalBandwidth::BW_250_kHz);
+  uint8_t  coding_rate       = static_cast<uint8_t>(lora::RFM9x::interface::CodingRate::CR_4_5         );
+  uint8_t  spreading_factor  = static_cast<uint8_t>(lora::RFM9x::interface::SpreadingFactor::SF_128    );
+  uint16_t preamble_length   = 8;
+  uint16_t rx_symbol_timeout = 50; /* 50 * TSymbol */
+  uint16_t tx_fifo_size      = 128;
+  uint16_t rx_fifo_size      = 128;
 
   rfm9x.open();
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_FREQUENCY_HZ,      static_cast<void *>(&frequenzy_Hz    ));
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_SIGNAL_BANDWIDTH,  static_cast<void *>(&signal_bandwidth));
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_CODING_RATE,       static_cast<void *>(&coding_rate     ));
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_SPREADING_FACTOR,  static_cast<void *>(&spreading_factor));
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_PREAMBLE_LENGTH,   static_cast<void *>(&preamble_length ));
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_TX_FIFO_SIZE,      static_cast<void *>(&tx_fifo_size    ));
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_RX_FIFO_SIZE,      static_cast<void *>(&rx_fifo_size    ));
+  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_FREQUENCY_HZ,      static_cast<void *>(&frequenzy_Hz      ));
+  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_SIGNAL_BANDWIDTH,  static_cast<void *>(&signal_bandwidth  ));
+  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_CODING_RATE,       static_cast<void *>(&coding_rate       ));
+  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_SPREADING_FACTOR,  static_cast<void *>(&spreading_factor  ));
+  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_PREAMBLE_LENGTH,   static_cast<void *>(&preamble_length   ));
+  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_RX_SYMBOL_TIMEOUT, static_cast<void *>(&rx_symbol_timeout ));
+
+  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_TX_FIFO_SIZE,      static_cast<void *>(&tx_fifo_size      ));
+  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_RX_FIFO_SIZE,      static_cast<void *>(&rx_fifo_size      ));
 
   /* ALL ******************************************************************************/
   int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));

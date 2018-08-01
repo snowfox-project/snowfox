@@ -66,6 +66,7 @@ public:
   virtual void     setSpreadingFactor     (interface::SpreadingFactor     const spreading_factor    )       override;
   virtual void     setPreambleLength      (uint16_t                       const preamble_length     )       override;
   virtual void     setTransceiverLocation (interface::TransceiverLocation const transceiver_location)       override;
+  virtual void     setRxSymbolTimeout     (uint16_t                       const rx_symbol_timeout   )       override;
 
   virtual bool     setTxFifoSize          (uint16_t                       const tx_fifo_size        )       override;
   virtual bool     setRxFifoSize          (uint16_t                       const rx_fifo_size        )       override;

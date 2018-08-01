@@ -165,6 +165,12 @@ void RFM9x_Configuration::setSpreadingFactor(interface::SpreadingFactor const sp
   _io.writeRegister(interface::Register::MODEM_CONFIG2, reg_op_modem_config_2_content);
 }
 
+void RFM9x_Configuration::setPreambleLength(uint16_t const preamble_length)
+{
+  _io.writeRegister(interface::Register::PREAMBLE_MSB, static_cast<uint8_t>((preamble_length & 0xFF00) >> 8));
+  _io.writeRegister(interface::Register::PREAMBLE_LSB, static_cast<uint8_t>((preamble_length & 0x00FF) >> 0));
+}
+
 void RFM9x_Configuration::setTransceiverLocation(interface::TransceiverLocation const transceiver_location)
 {
   uint8_t reg_op_modem_config_3_content = 0;
@@ -177,10 +183,21 @@ void RFM9x_Configuration::setTransceiverLocation(interface::TransceiverLocation 
   _io.writeRegister(interface::Register::MODEM_CONFIG3, reg_op_modem_config_3_content);
 }
 
-void RFM9x_Configuration::setPreambleLength(uint16_t const preamble_length)
+void RFM9x_Configuration::setRxSymbolTimeout(uint16_t const rx_symbol_timeout)
 {
-  _io.writeRegister(interface::Register::PREAMBLE_MSB, static_cast<uint8_t>((preamble_length & 0xFF00) >> 8));
-  _io.writeRegister(interface::Register::PREAMBLE_LSB, static_cast<uint8_t>((preamble_length & 0x00FF) >> 0));
+  uint8_t const rx_symbol_timeout_msb = static_cast<uint8_t>((rx_symbol_timeout & 0x0300) >> 8); /* RegModemConfig2  (1:0) = SymbTimeout(9:8) */
+  uint8_t const rx_symbol_timeout_lsb = static_cast<uint8_t>((rx_symbol_timeout & 0x00FF) >> 0); /* RegSymbTimeoutLsb(7:0) = SymbTimeout(7:0) */
+
+  uint8_t reg_op_modem_config_2_content = 0;
+
+  _io.readRegister(interface::Register::MODEM_CONFIG2, &reg_op_modem_config_2_content);
+
+  reg_op_modem_config_2_content &= ~(RFM9x_REG_MODEM_CONFIG_2_SYMB_TIMEOUT_MSB_1_bm | RFM9x_REG_MODEM_CONFIG_2_SYMB_TIMEOUT_MSB_0_bm);
+  reg_op_modem_config_2_content |= rx_symbol_timeout_msb;
+
+  _io.writeRegister(interface::Register::MODEM_CONFIG2, reg_op_modem_config_2_content);
+
+  _io.writeRegister(interface::Register::SYMB_TIMEOUT_LSB, rx_symbol_timeout_lsb);
 }
 
 bool RFM9x_Configuration::setTxFifoSize(uint16_t const tx_fifo_size)

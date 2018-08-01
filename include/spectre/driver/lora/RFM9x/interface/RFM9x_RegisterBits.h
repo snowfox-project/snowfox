@@ -75,6 +75,8 @@ namespace interface
 #define RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_2_bm      (1<<6)
 #define RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_1_bm      (1<<5)
 #define RFM9x_REG_MODEM_CONFIG_2_SPREADING_FACTOR_0_bm      (1<<4)
+#define RFM9x_REG_MODEM_CONFIG_2_SYMB_TIMEOUT_MSB_1_bm      (1<<1)
+#define RFM9x_REG_MODEM_CONFIG_2_SYMB_TIMEOUT_MSB_0_bm      (1<<0)
 
 /* REG_MODEM_CONFIG_3 *****************************************************************/
 #define RFM9x_REG_MODEM_CONFIG_3_MOBILE_NODE_bm             (1<<3)
