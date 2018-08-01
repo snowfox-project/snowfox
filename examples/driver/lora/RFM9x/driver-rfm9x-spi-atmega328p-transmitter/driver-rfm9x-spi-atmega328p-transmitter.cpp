@@ -29,7 +29,7 @@
  *   DIO1 = D3  = PD3 = INT1
  *
  * Upload via avrdude
- *   avrdude -p atmega328p -c avrisp2 -e -U flash:w:bin/driver-rfm9x-spi-atmega328p-transmitter
+ *   avrdude -p atmega328p -c avrisp2 -e -U flash:w:driver-rfm9x-spi-atmega328p-transmitter
  **************************************************************************************/
 
 /**************************************************************************************
@@ -43,7 +43,6 @@
 
 #include <spectre/hal/avr/ATMEGA328P/EINT0.h>
 #include <spectre/hal/avr/ATMEGA328P/EINT1.h>
-#include <spectre/hal/avr/ATMEGA328P/UART0.h>
 #include <spectre/hal/avr/ATMEGA328P/Flash.h>
 #include <spectre/hal/avr/ATMEGA328P/Delay.h>
 #include <spectre/hal/avr/ATMEGA328P/SpiMaster.h>
@@ -52,11 +51,9 @@
 #include <spectre/hal/avr/ATMEGA328P/CriticalSection.h>
 #include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
 
-#include <spectre/driver/serial/Serial.h>
-#include <spectre/driver/serial/UART/UART_SerialControl.h>
-#include <spectre/driver/serial/UART/UART_SerialConfiguration.h>
-#include <spectre/driver/serial/UART/events/UART_onRxDoneCallback.h>
-#include <spectre/driver/serial/UART/events/UART_onTxDoneCallback.h>
+#include <spectre/blox/hal/avr/ATMEGA328P/UART0.h>
+
+#include <spectre/blox/driver/serial/SerialUart.h>
 
 #include <spectre/driver/lora/RFM9x/RFM9x.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_Debug.h>
@@ -114,18 +111,13 @@ int main()
    * HAL
    ************************************************************************************/
 
-  ATMEGA328P::Flash                               flash;
-  ATMEGA328P::Delay                               delay;
-  ATMEGA328P::InterruptController                 int_ctrl                               (&EIMSK, &PCICR, &WDTCSR, &TIMSK2, &TIMSK1, &TIMSK0, &SPCR, &UCSR0B, &ADCSRA, &EECR, &ACSR, &TWCR, &SPMCSR);
-  ATMEGA328P::CriticalSection                     crit_sec                               (&SREG);
+  ATMEGA328P::Flash               flash;
+  ATMEGA328P::Delay               delay;
+  ATMEGA328P::InterruptController int_ctrl(&EIMSK, &PCICR, &WDTCSR, &TIMSK2, &TIMSK1, &TIMSK0, &SPCR, &UCSR0B, &ADCSRA, &EECR, &ACSR, &TWCR, &SPMCSR);
+  ATMEGA328P::CriticalSection     crit_sec(&SREG);
 
-  /* UART0 ****************************************************************************/
-  ATMEGA328P::UART0                               uart0                                  (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl, F_CPU);
-  ATMEGA328P::UART0_TransmitRegisterEmptyCallback uart0_uart_data_register_empty_callback(uart0);
-  ATMEGA328P::UART0_ReceiveCompleteCallback       uart0_receive_complete_callback        (uart0);
+  blox::ATMEGA328P::UART0         uart0   (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl, F_CPU);
 
-  int_ctrl.registerInterruptCallback(ATMEGA328P::toIsrNum(ATMEGA328P::InterruptServiceRoutine::USART_UART_DATA_REGISTER_EMPTY), &uart0_uart_data_register_empty_callback);
-  int_ctrl.registerInterruptCallback(ATMEGA328P::toIsrNum(ATMEGA328P::InterruptServiceRoutine::USART_RECEIVE_COMPLETE        ), &uart0_receive_complete_callback        );
 
   /* SPI/CS for RFM95 *****************************************************************/
   /* As the datasheet state: 'If SS is configured as an input and is driven low
@@ -178,27 +170,18 @@ int main()
    ************************************************************************************/
 
   /* SERIAL ***************************************************************************/
-  memory::container::Queue<uint8_t>       serial_rx_queue           (UART_RX_BUFFER_SIZE),
-                                          serial_tx_queue           (UART_TX_BUFFER_SIZE);
-  serial::UART::UART_onRxDoneCallback     serial_on_rx_done_callback(crit_sec, serial_rx_queue, uart0);
-  serial::UART::UART_onTxDoneCallback     serial_on_tx_done_callback(crit_sec, serial_tx_queue, uart0);
-  serial::UART::UART_SerialConfiguration  serial_config             (uart0);
-  serial::UART::UART_SerialControl        serial_control            (crit_sec, serial_rx_queue, serial_tx_queue, uart0);
-  serial::Serial                          serial                    (serial_config, serial_control);
-
-  uart0.register_onRxDoneCallback(&serial_on_rx_done_callback);
-  uart0.register_onTxDoneCallback(&serial_on_tx_done_callback);
+  blox::SerialUart serial(crit_sec, uart0(), UART_RX_BUFFER_SIZE, UART_TX_BUFFER_SIZE);
 
   uint8_t baud_rate = static_cast<uint8_t>(serial::interface::SerialBaudRate::B115200);
   uint8_t parity    = static_cast<uint8_t>(serial::interface::SerialParity::None     );
   uint8_t stop_bit  = static_cast<uint8_t>(serial::interface::SerialStopBit::_1      );
 
-  serial.open();
-  serial.ioctl(serial::IOCTL_SET_BAUDRATE, static_cast<void *>(&baud_rate));
-  serial.ioctl(serial::IOCTL_SET_PARITY,   static_cast<void *>(&parity   ));
-  serial.ioctl(serial::IOCTL_SET_STOPBIT,  static_cast<void *>(&stop_bit ));
+  serial().open();
+  serial().ioctl(serial::IOCTL_SET_BAUDRATE, static_cast<void *>(&baud_rate));
+  serial().ioctl(serial::IOCTL_SET_PARITY,   static_cast<void *>(&parity   ));
+  serial().ioctl(serial::IOCTL_SET_STOPBIT,  static_cast<void *>(&stop_bit ));
 
-  debug::DebugSerial debug_serial(serial);
+  debug::DebugSerial debug_serial(serial());
 
   /* RFM95 ****************************************************************************/
   lora::RFM9x::RFM9x_IoSpi                        rfm9x_spi                             (spi_master, rfm9x_cs      );
@@ -273,7 +256,6 @@ int main()
 
   /* CLEANUP **************************************************************************/
 
-  serial.close();
   rfm9x.close ();
 
   return 0;
