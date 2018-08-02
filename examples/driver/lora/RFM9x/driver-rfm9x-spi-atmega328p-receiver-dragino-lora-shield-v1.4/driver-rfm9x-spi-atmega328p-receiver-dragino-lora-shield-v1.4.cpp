@@ -29,7 +29,7 @@
  *   DIO1 = D3  = PD3 = INT1
  *
  * Upload via avrdude
- *   avrdude -p atmega328p -c avrisp2 -e -U flash:w:driver-rfm9x-spi-atmega328p-transmitter
+ *   avrdude -p atmega328p -c avrisp2 -e -U flash:w:driver-rfm9x-spi-atmega328p-receiver-dragino-lora-shield-v1.4
  **************************************************************************************/
 
 /**************************************************************************************
@@ -210,22 +210,25 @@ int main()
   rfm9x_dio1_eint1.registerExternalInterruptCallback(&rfm9x_dio1_event_callback);
 
 
-  uint32_t frequenzy_Hz     = 433775000; /* 433.775 Mhz - Dedicated for digital communication channels in the 70 cm band */
-  uint8_t  signal_bandwidth = static_cast<uint8_t>(lora::RFM9x::interface::SignalBandwidth::BW_250_kHz);
-  uint8_t  coding_rate      = static_cast<uint8_t>(lora::RFM9x::interface::CodingRate::CR_4_5         );
-  uint8_t  spreading_factor = static_cast<uint8_t>(lora::RFM9x::interface::SpreadingFactor::SF_128    );
-  uint16_t preamble_length  = 8;
-  uint16_t tx_fifo_size     = 128;
-  uint16_t rx_fifo_size     = 128;
+  uint32_t frequenzy_Hz      = 433775000; /* 433.775 Mhz - Dedicated for digital communication channels in the 70 cm band */
+  uint8_t  signal_bandwidth  = static_cast<uint8_t>(lora::RFM9x::interface::SignalBandwidth::BW_250_kHz);
+  uint8_t  coding_rate       = static_cast<uint8_t>(lora::RFM9x::interface::CodingRate::CR_4_5         );
+  uint8_t  spreading_factor  = static_cast<uint8_t>(lora::RFM9x::interface::SpreadingFactor::SF_128    );
+  uint16_t preamble_length   = 8;
+  uint16_t rx_symbol_timeout = 50; /* 50 * TSymbol */
+  uint16_t tx_fifo_size      = 128;
+  uint16_t rx_fifo_size      = 128;
 
   rfm9x.open();
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_FREQUENCY_HZ,      static_cast<void *>(&frequenzy_Hz    ));
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_SIGNAL_BANDWIDTH,  static_cast<void *>(&signal_bandwidth));
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_CODING_RATE,       static_cast<void *>(&coding_rate     ));
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_SPREADING_FACTOR,  static_cast<void *>(&spreading_factor));
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_PREAMBLE_LENGTH,   static_cast<void *>(&preamble_length ));
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_TX_FIFO_SIZE,      static_cast<void *>(&tx_fifo_size    ));
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_RX_FIFO_SIZE,      static_cast<void *>(&rx_fifo_size    ));
+  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_FREQUENCY_HZ,      static_cast<void *>(&frequenzy_Hz      ));
+  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_SIGNAL_BANDWIDTH,  static_cast<void *>(&signal_bandwidth  ));
+  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_CODING_RATE,       static_cast<void *>(&coding_rate       ));
+  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_SPREADING_FACTOR,  static_cast<void *>(&spreading_factor  ));
+  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_PREAMBLE_LENGTH,   static_cast<void *>(&preamble_length   ));
+  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_RX_SYMBOL_TIMEOUT, static_cast<void *>(&rx_symbol_timeout ));
+
+  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_TX_FIFO_SIZE,      static_cast<void *>(&tx_fifo_size      ));
+  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_RX_FIFO_SIZE,      static_cast<void *>(&rx_fifo_size      ));
 
   /* ALL ******************************************************************************/
   int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
@@ -240,19 +243,16 @@ int main()
   {
     uint8_t msg[64] = {0};
 
-    uint16_t const msg_len = snprintf(reinterpret_cast<char *>(msg), 64, "[Spectre RTOS (c) LXRobotics] [lora::RFM9x] Message %d\r\n", msg_cnt);
+    ssize_t const ret_code = rfm9x.read(msg, 64);
 
-    ssize_t const ret_code = rfm9x.write(msg, msg_len);
-
-    if     (ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::ParameterError      )) debug_serial.print("ERROR   - ParameterError\r\n");
-    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::TxFifoSizeExceeded  )) debug_serial.print("ERROR   - TxFifoSizeExceeded\r\n");
-    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::ModemBusy_NotSleep  )) debug_serial.print("ERROR   - ModemBusy_NotSleep\r\n");
-    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::ModemBusy_NotStandby)) debug_serial.print("ERROR   - ModemBusy_NotStandby\r\n");
-    else                                                                                       debug_serial.print("SUCCESS - %s", msg);
-
-    delay.delay_ms(1000);
+    if     (ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeRead::ParameterError      )) debug_serial.print("ERROR   - ParameterError\r\n");
+    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeRead::RxFifoSizeExceeded  )) debug_serial.print("ERROR   - RxFifoSizeExceeded\r\n");
+    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeRead::ModemBusy_NotSleep  )) debug_serial.print("ERROR   - ModemBusy_NotSleep\r\n");
+    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeRead::ModemBusy_NotStandby)) debug_serial.print("ERROR   - ModemBusy_NotStandby\r\n");
+    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeRead::RxTimeout           )) debug_serial.print("ERROR   - RxTimeout\r\n");
+    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeRead::UnkownError         )) debug_serial.print("ERROR   - UnkownError\r\n");
+    else                                                                                      debug_serial.print("SUCCESS - %s", msg);
   }
-
 
   /* CLEANUP **************************************************************************/
 

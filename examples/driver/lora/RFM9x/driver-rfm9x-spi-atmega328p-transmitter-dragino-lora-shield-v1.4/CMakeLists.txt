@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 2.8)
 
 ##########################################################################
 
-set(TARGET driver-rfm9x-spi-atmega328p-receiver)
+set(TARGET driver-rfm9x-spi-atmega328p-transmitter-dragino-lora-shield-v1.4)
 
 ##########################################################################
 
@@ -16,8 +16,8 @@ include(../../../../.cmake/example.cmake)
 
 add_executable(
   ${TARGET}
-
-  driver-rfm9x-spi-atmega328p-receiver.cpp
+  
+  driver-rfm9x-spi-atmega328p-transmitter-dragino-lora-shield-v1.4.cpp
 )
 
 target_link_libraries(
