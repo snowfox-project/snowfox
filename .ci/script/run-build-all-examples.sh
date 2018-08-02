@@ -59,7 +59,7 @@ RESET='tput sgr0'
 for (( i=0; i<${NUM_LIST_ENTRIES}; i++ ));
 do
   $RED
-  echo "[ " $i " / " ${NUM_LIST_ENTRIES} " ] " ${EXAMPLE_LIST[$i]}
+  echo "[ " $(($i+1)) " / " ${NUM_LIST_ENTRIES} " ] " ${EXAMPLE_LIST[$i]}
   $RESET
   ./run-build-example.sh ${EXAMPLE_LIST[$i]}
 done
