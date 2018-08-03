@@ -115,9 +115,7 @@ int main()
   ATMEGA328P::Delay               delay;
   ATMEGA328P::InterruptController int_ctrl(&EIMSK, &PCICR, &WDTCSR, &TIMSK2, &TIMSK1, &TIMSK0, &SPCR, &UCSR0B, &ADCSRA, &EECR, &ACSR, &TWCR, &SPMCSR);
   ATMEGA328P::CriticalSection     crit_sec(&SREG);
-
   blox::ATMEGA328P::UART0         uart0   (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl, F_CPU);
-
 
   /* SPI/CS for RFM95 *****************************************************************/
   /* As the datasheet state: 'If SS is configured as an input and is driven low
@@ -127,7 +125,7 @@ int main()
    */
   ATMEGA328P::DigitalOutPin rfm9x_cs  (&DDRB, &PORTB,        2);     /* CS   = D10 = PB2 */
   ATMEGA328P::DigitalOutPin rfm9x_sck (&DDRB, &PORTB,        5);     /* SCK  = D13 = PB5 */
-  ATMEGA328P::DigitalInPin  rfm9x_miso(&DDRB, &PORTB, &PINB, 4);     /* MOSI = D12 = PB4 */
+  ATMEGA328P::DigitalInPin  rfm9x_miso(&DDRB, &PORTB, &PINB, 4);     /* MISO = D12 = PB4 */
   ATMEGA328P::DigitalOutPin rfm9x_mosi(&DDRB, &PORTB,        3);     /* MOSI = D11 = PB3 */
 
   rfm9x_cs.set();
@@ -176,7 +174,6 @@ int main()
   uint8_t parity    = static_cast<uint8_t>(serial::interface::SerialParity::None     );
   uint8_t stop_bit  = static_cast<uint8_t>(serial::interface::SerialStopBit::_1      );
 
-  serial().open();
   serial().ioctl(serial::IOCTL_SET_BAUDRATE, static_cast<void *>(&baud_rate));
   serial().ioctl(serial::IOCTL_SET_PARITY,   static_cast<void *>(&parity   ));
   serial().ioctl(serial::IOCTL_SET_STOPBIT,  static_cast<void *>(&stop_bit ));
@@ -227,12 +224,13 @@ int main()
   rfm9x.ioctl(lora::RFM9x::IOCTL_SET_TX_FIFO_SIZE,      static_cast<void *>(&tx_fifo_size    ));
   rfm9x.ioctl(lora::RFM9x::IOCTL_SET_RX_FIFO_SIZE,      static_cast<void *>(&rx_fifo_size    ));
 
-  /* ALL ******************************************************************************/
+  /* GLOBAL INTERRUPT *****************************************************************/
   int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
 
 
-
-  /* APPLICATION **********************************************************************/
+  /************************************************************************************
+   * APPLICATION
+   ************************************************************************************/
 
   lora::RFM9x::RFM9x_Debug::debug_dumpAllRegs(debug_serial, flash, rfm9x_spi);
 

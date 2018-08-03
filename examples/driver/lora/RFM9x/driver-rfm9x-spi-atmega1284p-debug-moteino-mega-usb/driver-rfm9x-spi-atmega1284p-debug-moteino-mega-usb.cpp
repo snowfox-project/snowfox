@@ -79,7 +79,6 @@ int main()
   ATMEGA1284P::CriticalSection     crit_sec(&SREG);
   blox::ATMEGA1284P::UART0         uart0   (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl, F_CPU);
 
-
   /* SPI/CS for RFM95 *****************************************************************/
   ATMEGA1284P::DigitalOutPin rfm9x_cs  (&DDRB, &PORTB,        4);     /* CS   = D4 = PB4 */
   ATMEGA1284P::DigitalOutPin rfm9x_sck (&DDRB, &PORTB,        7);     /* SCK  = D7 = PB7 */
