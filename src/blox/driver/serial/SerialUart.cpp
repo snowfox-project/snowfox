@@ -52,6 +52,24 @@ SerialUart::SerialUart(hal::interface::CriticalSection       & crit_sec,
   uart.register_onTxDoneCallback(&_serial_on_tx_done_callback);
 }
 
+SerialUart::SerialUart(hal::interface::CriticalSection      & crit_sec,
+            hal::interface::Uart                            & uart,
+            uint16_t                                  const   uart_rx_buffer_size,
+            uint16_t                                  const   uart_tx_buffer_size,
+            driver::serial::interface::SerialBaudRate const   baud_rate,
+            driver::serial::interface::SerialParity   const   parity,
+            driver::serial::interface::SerialStopBit  const   stop_bit)
+: SerialUart(crit_sec, uart, uart_rx_buffer_size, uart_tx_buffer_size)
+{
+  uint8_t ioctl_baud_rate = static_cast<uint8_t>(baud_rate);
+  uint8_t ioctl_parity    = static_cast<uint8_t>(parity   );
+  uint8_t ioctl_stop_bit  = static_cast<uint8_t>(stop_bit );
+
+  _serial.ioctl(driver::serial::IOCTL_SET_BAUDRATE, static_cast<void *>(&ioctl_baud_rate));
+  _serial.ioctl(driver::serial::IOCTL_SET_PARITY,   static_cast<void *>(&ioctl_parity   ));
+  _serial.ioctl(driver::serial::IOCTL_SET_STOPBIT,  static_cast<void *>(&ioctl_stop_bit ));
+}
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
