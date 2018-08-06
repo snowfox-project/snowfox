@@ -5,6 +5,7 @@ set -e
 ##########################################################################
 declare -a EXAMPLE_LIST=("examples/debug/debug-serial-atmega328p-uart0"
                          "examples/debug/debug-serial-atmega1284p-uart0"
+                         "examples/driver/can/MCP2515/driver-mcp2515-spi-atmega328p-debug"
                          "examples/driver/can/MCP2515/driver-mcp2515-spi-atmega328p-transmitter"
                          "examples/driver/glcd/RA6963/driver-ra6963-gpio-at90can128"
                          "examples/driver/haptic/DRV2605/driver-drv2605-i2c-atmega328p"
