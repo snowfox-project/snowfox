@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_BLOX_HAL_AVR_ATMEGA1284P_EXTERNALINTERRUPTCONTROLLER_H_
-#define INCLUDE_SPECTRE_BLOX_HAL_AVR_ATMEGA1284P_EXTERNALINTERRUPTCONTROLLER_H_
+#ifndef INCLUDE_SPECTRE_BLOX_HAL_AVR_ATMEGA164P_EXTERNALINTERRUPTCONTROLLER_H_
+#define INCLUDE_SPECTRE_BLOX_HAL_AVR_ATMEGA164P_EXTERNALINTERRUPTCONTROLLER_H_
 
 /**************************************************************************************
  * INCLUDE
@@ -37,7 +37,7 @@ namespace spectre
 namespace blox
 {
 
-namespace ATMEGA1284P
+namespace ATMEGA164P
 {
 
 /**************************************************************************************
@@ -50,10 +50,10 @@ typedef ATMEGA164P_324P_644P_1284P::ExternalInterruptController ExternalInterrup
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA1284P */
+} /* ATMEGA164P */
 
 } /* blox */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_BLOX_HAL_AVR_ATMEGA1284P_EXTERNALINTERRUPTCONTROLLER_H_ */
+#endif /* INCLUDE_SPECTRE_BLOX_HAL_AVR_ATMEGA164P_EXTERNALINTERRUPTCONTROLLER_H_ */
