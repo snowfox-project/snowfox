@@ -64,9 +64,9 @@ public:
   virtual ~ExternalInterruptConfiguration() { }
 
 
-  virtual void setTriggerMode(TriggerMode const trigger_mode) = 0;
-  virtual void enable        (                              ) = 0;
-  virtual void disable       (                              ) = 0;
+  virtual void setTriggerMode(uint8_t const ext_int_num, TriggerMode const trigger_mode) = 0;
+  virtual void enable        (uint8_t const ext_int_num                                ) = 0;
+  virtual void disable       (uint8_t const ext_int_num                                ) = 0;
 
 };
 
