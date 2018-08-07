@@ -136,9 +136,11 @@ public:
   void ISR_onPinChange2Event();
   void ISR_onPinChange3Event();
 
+
 private:
 
   static uint8_t constexpr NUM_EXTERNAL_INTERRUPTS = 35;
+
 
   volatile uint8_t                     * _EICRA,
                                        * _PCMSK0,
@@ -147,6 +149,11 @@ private:
                                        * _PCMSK3;
   interface::InterruptControl          & _int_ctrl;
   interface::ExternalInterruptCallback * _external_interrupt_callback[NUM_EXTERNAL_INTERRUPTS];
+
+
+  void setTriggerModeEint0(interface::TriggerMode const trigger_mode);
+  void setTriggerModeEint1(interface::TriggerMode const trigger_mode);
+  void setTriggerModeEint2(interface::TriggerMode const trigger_mode);
 
 };
 

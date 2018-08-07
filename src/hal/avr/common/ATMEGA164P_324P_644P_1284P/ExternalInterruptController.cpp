@@ -41,6 +41,14 @@ namespace ATMEGA164P_324P_644P_1284P
  * DEFINES
  **************************************************************************************/
 
+/* EICRA */
+#define ISC21_bm   (1<<5)
+#define ISC20_bm   (1<<4)
+#define ISC11_bm   (1<<3)
+#define ISC10_bm   (1<<2)
+#define ISC01_bm   (1<<1)
+#define ISC00_bm   (1<<0)
+
 /* PCMSK0 */
 #define PCINT7_bm  (1<<7)
 #define PCINT6_bm  (1<<6)
@@ -112,7 +120,13 @@ ExternalInterruptController::~ExternalInterruptController()
 
 void ExternalInterruptController::setTriggerMode(uint8_t const ext_int_num, interface::TriggerMode const trigger_mode)
 {
-  /* TODO */
+  switch(ext_int_num)
+  {
+  case toExtIntNum(ExternalInterrupt::EINT0): setTriggerModeEint0(trigger_mode); break;
+  case toExtIntNum(ExternalInterrupt::EINT1): setTriggerModeEint1(trigger_mode); break;
+  case toExtIntNum(ExternalInterrupt::EINT2): setTriggerModeEint2(trigger_mode); break;
+  default                                   : /* PCINT trigger mode is Any */    break;
+  }
 }
 
 void ExternalInterruptController::enable(uint8_t const ext_int_num)
@@ -280,6 +294,52 @@ void ExternalInterruptController::ISR_onPinChange3Event()
     {
       _external_interrupt_callback[ext_int_num]->onExternalEventCallback();
     }
+  }
+}
+
+/**************************************************************************************
+ * PRIVATE MEMBER FUNCTIONS
+ **************************************************************************************/
+
+void ExternalInterruptController::setTriggerModeEint0(interface::TriggerMode const trigger_mode)
+{
+  *_EICRA &= ~(ISC01_bm | ISC00_bm);
+
+  switch(trigger_mode)
+  {
+  case interface::TriggerMode::Any        : *_EICRA |=            ISC00_bm; break;
+  case interface::TriggerMode::Low        : *_EICRA |= 0;                   break;
+  case interface::TriggerMode::High       : /* Not supported */             break;
+  case interface::TriggerMode::RisingEdge : *_EICRA |= ISC01_bm | ISC00_bm; break;
+  case interface::TriggerMode::FallingEdge: *_EICRA |= ISC01_bm;            break;
+  }
+}
+
+void ExternalInterruptController::setTriggerModeEint1(interface::TriggerMode const trigger_mode)
+{
+  *_EICRA &= ~(ISC11_bm | ISC10_bm);
+
+  switch(trigger_mode)
+  {
+  case interface::TriggerMode::Any        : *_EICRA |=            ISC10_bm; break;
+  case interface::TriggerMode::Low        : *_EICRA |= 0;                   break;
+  case interface::TriggerMode::High       : /* Not supported */             break;
+  case interface::TriggerMode::RisingEdge : *_EICRA |= ISC11_bm | ISC10_bm; break;
+  case interface::TriggerMode::FallingEdge: *_EICRA |= ISC11_bm;            break;
+  }
+}
+
+void ExternalInterruptController::setTriggerModeEint2(interface::TriggerMode const trigger_mode)
+{
+  *_EICRA &= ~(ISC21_bm | ISC20_bm);
+
+  switch(trigger_mode)
+  {
+  case interface::TriggerMode::Any        : *_EICRA |=            ISC20_bm; break;
+  case interface::TriggerMode::Low        : *_EICRA |= 0;                   break;
+  case interface::TriggerMode::High       : /* Not supported */             break;
+  case interface::TriggerMode::RisingEdge : *_EICRA |= ISC21_bm | ISC20_bm; break;
+  case interface::TriggerMode::FallingEdge: *_EICRA |= ISC21_bm;            break;
   }
 }
 
