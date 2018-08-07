@@ -68,6 +68,16 @@ if(${MCU_ARCH} STREQUAL "avr")
   if(${MCU_TYPE} STREQUAL "at90can64")
     set(SPECTRE_LIBRARY_BLOX_SRCS ${SPECTRE_LIBRARY_BLOX_SRCS} ${SPECTRE_LIBRARY_BLOX_HAL_AVR_AT90CAN64_SRCS})  
   endif()
+  
+  # ATMEGA1280 ###########################################################
+
+  set(SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA1280_SRCS 
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATMEGA640_1280_2560/ExternalInterruptController.cpp
+  )
+
+  if(${MCU_TYPE} STREQUAL "atmega1280")
+    set(SPECTRE_LIBRARY_BLOX_SRCS ${SPECTRE_LIBRARY_BLOX_SRCS} ${SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA1280_SRCS})  
+  endif()
 
   # ATMEGA1284P ##########################################################
 

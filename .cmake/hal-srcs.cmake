@@ -61,6 +61,7 @@ if(${MCU_ARCH} STREQUAL "avr" OR ${MCU_ARCH} STREQUAL "host")
   ########################################################################
 
   set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA640_1280_2560_SRCS
+    ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATMEGA640_1280_2560/ExternalInterruptController.cpp
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATMEGA640_1280_2560/InterruptController.cpp
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATMEGA640_1280_2560/TIMER0.cpp
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATMEGA640_1280_2560/TIMER1.cpp
