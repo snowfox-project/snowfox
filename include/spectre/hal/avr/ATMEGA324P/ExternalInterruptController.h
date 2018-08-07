@@ -42,8 +42,15 @@ namespace ATMEGA324P
  * TYPEDEF
  **************************************************************************************/
 
-typedef ATMEGA164P_324P_644P_1284P::ExternalInterrupt           ExternalInterrupt;
-typedef ATMEGA164P_324P_644P_1284P::ExternalInterruptController ExternalInterruptController;
+typedef ATMEGA164P_324P_644P_1284P::ExternalInterrupt                         ExternalInterrupt;
+typedef ATMEGA164P_324P_644P_1284P::ExternalInterruptController               ExternalInterruptController;
+typedef ATMEGA164P_324P_644P_1284P::EINT0_ExternalInterruptEventCallback      EINT0_ExternalInterruptEventCallback;
+typedef ATMEGA164P_324P_644P_1284P::EINT1_ExternalInterruptEventCallback      EINT1_ExternalInterruptEventCallback;
+typedef ATMEGA164P_324P_644P_1284P::EINT2_ExternalInterruptEventCallback      EINT2_ExternalInterruptEventCallback;
+typedef ATMEGA164P_324P_644P_1284P::PinChange0_ExternalInterruptEventCallback PinChange0_ExternalInterruptEventCallback;
+typedef ATMEGA164P_324P_644P_1284P::PinChange1_ExternalInterruptEventCallback PinChange1_ExternalInterruptEventCallback;
+typedef ATMEGA164P_324P_644P_1284P::PinChange2_ExternalInterruptEventCallback PinChange2_ExternalInterruptEventCallback;
+typedef ATMEGA164P_324P_644P_1284P::PinChange3_ExternalInterruptEventCallback PinChange3_ExternalInterruptEventCallback;
 
 /**************************************************************************************
  * NAMESPACE
