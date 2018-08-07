@@ -38,7 +38,6 @@
 #include <avr/io.h>
 
 #include <spectre/hal/avr/ATMEGA328P/EINT0.h>
-#include <spectre/hal/avr/ATMEGA328P/UART0.h>
 #include <spectre/hal/avr/ATMEGA328P/Flash.h>
 #include <spectre/hal/avr/ATMEGA328P/Delay.h>
 #include <spectre/hal/avr/ATMEGA328P/SpiMaster.h>
@@ -47,14 +46,11 @@
 #include <spectre/hal/avr/ATMEGA328P/CriticalSection.h>
 #include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
 
-#include <spectre/driver/serial/Serial.h>
-#include <spectre/driver/serial/UART/UART_SerialControl.h>
-#include <spectre/driver/serial/UART/UART_SerialConfiguration.h>
-#include <spectre/driver/serial/UART/events/UART_onRxDoneCallback.h>
-#include <spectre/driver/serial/UART/events/UART_onTxDoneCallback.h>
+#include <spectre/blox/hal/avr/ATMEGA328P/UART0.h>
+
+#include <spectre/blox/driver/serial/SerialUart.h>
 
 #include <spectre/driver/can/Can.h>
-
 #include <spectre/driver/can/interface/CanFrameBuffer.h>
 
 #include <spectre/driver/can/MCP2515/MCP2515_IoSpi.h>
@@ -70,8 +66,6 @@
 #include <spectre/driver/can/MCP2515/events/MCP2515_onTransmitBufferEmpty.h>
 
 #include <spectre/debug/serial/DebugSerial.h>
-
-#include <spectre/memory/container/Queue.h>
 
 /**************************************************************************************
  * NAMESPACES
@@ -103,20 +97,15 @@ static uint16_t                    const CAN_RX_BUFFER_SIZE       = 8;
 
 int main()
 {
-  /* HAL ******************************************************************************/
+  /************************************************************************************
+   * HAL
+   ************************************************************************************/
 
   ATMEGA328P::Flash               flash;
   ATMEGA328P::Delay               delay;
   ATMEGA328P::InterruptController int_ctrl(&EIMSK, &PCICR, &WDTCSR, &TIMSK2, &TIMSK1, &TIMSK0, &SPCR, &UCSR0B, &ADCSRA, &EECR, &ACSR, &TWCR, &SPMCSR);
   ATMEGA328P::CriticalSection     crit_sec(&SREG);
-
-  /* UART0 ****************************************************************************/
-  ATMEGA328P::UART0                               uart0                                  (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl, F_CPU);
-  ATMEGA328P::UART0_TransmitRegisterEmptyCallback uart0_uart_data_register_empty_callback(uart0);
-  ATMEGA328P::UART0_ReceiveCompleteCallback       uart0_receive_complete_callback        (uart0);
-
-  int_ctrl.registerInterruptCallback(ATMEGA328P::toIsrNum(ATMEGA328P::InterruptServiceRoutine::USART_UART_DATA_REGISTER_EMPTY), &uart0_uart_data_register_empty_callback);
-  int_ctrl.registerInterruptCallback(ATMEGA328P::toIsrNum(ATMEGA328P::InterruptServiceRoutine::USART_RECEIVE_COMPLETE        ), &uart0_receive_complete_callback        );
+  blox::ATMEGA328P::UART0         uart0   (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl, F_CPU);
 
   /* SPI/CS for MCP2515 ***************************************************************/
   ATMEGA328P::DigitalOutPin mcp2515_cs  (&DDRB, &PORTB,        2); /* CS   = D10 = PB2 */
@@ -146,30 +135,20 @@ int main()
 
 
 
-  /* DRIVER ***************************************************************************/
+  /************************************************************************************
+   * DRIVER
+   ************************************************************************************/
 
   /* SERIAL ***************************************************************************/
-  memory::container::Queue<uint8_t>       serial_rx_queue           (UART_RX_BUFFER_SIZE),
-                                          serial_tx_queue           (UART_TX_BUFFER_SIZE);
-  serial::UART::UART_onRxDoneCallback     serial_on_rx_done_callback(crit_sec, serial_rx_queue, uart0);
-  serial::UART::UART_onTxDoneCallback     serial_on_tx_done_callback(crit_sec, serial_tx_queue, uart0);
-  serial::UART::UART_SerialConfiguration  serial_config             (uart0);
-  serial::UART::UART_SerialControl        serial_control            (crit_sec, serial_rx_queue, serial_tx_queue, uart0);
-  serial::Serial                          serial                    (serial_config, serial_control);
+  blox::SerialUart   serial(crit_sec,
+                            uart0(),
+                            UART_RX_BUFFER_SIZE,
+                            UART_TX_BUFFER_SIZE,
+                            serial::interface::SerialBaudRate::B115200,
+                            serial::interface::SerialParity::None,
+                            serial::interface::SerialStopBit::_1);
 
-  uart0.register_onRxDoneCallback(&serial_on_rx_done_callback);
-  uart0.register_onTxDoneCallback(&serial_on_tx_done_callback);
-
-  uint8_t baud_rate = static_cast<uint8_t>(serial::interface::SerialBaudRate::B115200);
-  uint8_t parity    = static_cast<uint8_t>(serial::interface::SerialParity::None     );
-  uint8_t stop_bit  = static_cast<uint8_t>(serial::interface::SerialStopBit::_1      );
-
-  serial.open();
-  serial.ioctl(serial::IOCTL_SET_BAUDRATE, static_cast<void *>(&baud_rate));
-  serial.ioctl(serial::IOCTL_SET_PARITY,   static_cast<void *>(&parity   ));
-  serial.ioctl(serial::IOCTL_SET_STOPBIT,  static_cast<void *>(&stop_bit ));
-
-  debug::DebugSerial debug_serial(serial);
+  debug::DebugSerial debug_serial(serial());
 
   /* MCP2515 **************************************************************************/
   can::interface::CanFrameBuffer              mcp2515_can_tx_buf                (CAN_TX_BUFFER_SIZE);
@@ -201,11 +180,13 @@ int main()
 
   can.ioctl(can::IOCTL_SET_BITRATE, static_cast<void *>(&bitrate));
 
-  /* ALL ******************************************************************************/
+  /* GLOBAL INTERRUPT *****************************************************************/
   int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
 
 
-  /* APPLICATION **********************************************************************/
+  /************************************************************************************
+   * APPLICATION
+   ************************************************************************************/
 
   can::MCP2515::MCP2515_Debug::debug_dumpAllRegs(debug_serial, flash, mcp2515_io_spi);
 
