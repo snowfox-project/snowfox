@@ -102,6 +102,16 @@ if(${MCU_ARCH} STREQUAL "avr")
     set(SPECTRE_LIBRARY_BLOX_SRCS ${SPECTRE_LIBRARY_BLOX_SRCS} ${SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA164P_SRCS})  
   endif()
   
+  # ATMEGA2560 ###########################################################
+
+  set(SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA2560_SRCS 
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATMEGA640_1280_2560/ExternalInterruptController.cpp
+  )
+
+  if(${MCU_TYPE} STREQUAL "atmega2560")
+    set(SPECTRE_LIBRARY_BLOX_SRCS ${SPECTRE_LIBRARY_BLOX_SRCS} ${SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA2560_SRCS})  
+  endif()
+  
   # ATMEGA324P ###########################################################
 
   set(SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA324P_SRCS 
@@ -121,6 +131,16 @@ if(${MCU_ARCH} STREQUAL "avr")
   
   if(${MCU_TYPE} STREQUAL "atmega328p")
     set(SPECTRE_LIBRARY_BLOX_SRCS ${SPECTRE_LIBRARY_BLOX_SRCS} ${SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA328P_SRCS})  
+  endif()
+  
+  # ATMEGA640 ############################################################
+
+  set(SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA640_SRCS 
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATMEGA640_1280_2560/ExternalInterruptController.cpp
+  )
+
+  if(${MCU_TYPE} STREQUAL "atmega640")
+    set(SPECTRE_LIBRARY_BLOX_SRCS ${SPECTRE_LIBRARY_BLOX_SRCS} ${SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA640_SRCS})  
   endif()
   
   # ATMEGA644P ###########################################################
