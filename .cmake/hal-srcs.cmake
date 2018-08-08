@@ -85,14 +85,6 @@ if(${MCU_ARCH} STREQUAL "avr" OR ${MCU_ARCH} STREQUAL "host")
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/DigitalOutPin.cpp   
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/DigitalOutPort.cpp
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/EEPROM.cpp
-#    ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/EINT0.cpp
-#    ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/EINT1.cpp
-#    ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/EINT2.cpp
-#    ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/EINT3.cpp
-#    ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/EINT4.cpp
-#    ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/EINT5.cpp
-#    ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/EINT6.cpp
-#    ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/EINT7.cpp  
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/Flash.cpp
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/I2CMasterBase.cpp       
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/SpiMaster.cpp
