@@ -23,6 +23,7 @@
 #include <spectre/hal/avr/common/ATMEGA640_1280_2560/ExternalInterruptController.h>
 
 #include <spectre/hal/avr/common/ATMEGA640_1280_2560/InterruptController.h>
+#include <spectre/hal/avr/common/ATxxxx/util/ExternalInterruptTriggerModeConfig.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -40,26 +41,6 @@ namespace ATMEGA640_1280_2560
 /**************************************************************************************
  * DEFINES
  **************************************************************************************/
-
-/* EICRA */
-#define ISC31_bm   (1<<7)
-#define ISC30_bm   (1<<6)
-#define ISC21_bm   (1<<5)
-#define ISC20_bm   (1<<4)
-#define ISC11_bm   (1<<3)
-#define ISC10_bm   (1<<2)
-#define ISC01_bm   (1<<1)
-#define ISC00_bm   (1<<0)
-
-/* EICRB */
-#define ISC71_bm   (1<<7)
-#define ISC70_bm   (1<<6)
-#define ISC61_bm   (1<<5)
-#define ISC60_bm   (1<<4)
-#define ISC51_bm   (1<<3)
-#define ISC50_bm   (1<<2)
-#define ISC41_bm   (1<<1)
-#define ISC40_bm   (1<<0)
 
 /* PCMSK0 */
 #define PCINT7_bm  (1<<7)
@@ -122,7 +103,18 @@ ExternalInterruptController::~ExternalInterruptController()
 
 void ExternalInterruptController::setTriggerMode(uint8_t const ext_int_num, interface::TriggerMode const trigger_mode)
 {
-  /* TODO */
+  switch(ext_int_num)
+  {
+  case toExtIntNum(ExternalInterrupt::EINT0): ATxxxx::ExternalInterruptTriggerModeConfig::setTriggerModeEint0(trigger_mode, _EICRA); break;
+  case toExtIntNum(ExternalInterrupt::EINT1): ATxxxx::ExternalInterruptTriggerModeConfig::setTriggerModeEint1(trigger_mode, _EICRA); break;
+  case toExtIntNum(ExternalInterrupt::EINT2): ATxxxx::ExternalInterruptTriggerModeConfig::setTriggerModeEint2(trigger_mode, _EICRA); break;
+  case toExtIntNum(ExternalInterrupt::EINT3): ATxxxx::ExternalInterruptTriggerModeConfig::setTriggerModeEint3(trigger_mode, _EICRA); break;
+  case toExtIntNum(ExternalInterrupt::EINT4): ATxxxx::ExternalInterruptTriggerModeConfig::setTriggerModeEint4(trigger_mode, _EICRB); break;
+  case toExtIntNum(ExternalInterrupt::EINT5): ATxxxx::ExternalInterruptTriggerModeConfig::setTriggerModeEint5(trigger_mode, _EICRB); break;
+  case toExtIntNum(ExternalInterrupt::EINT6): ATxxxx::ExternalInterruptTriggerModeConfig::setTriggerModeEint6(trigger_mode, _EICRB); break;
+  case toExtIntNum(ExternalInterrupt::EINT7): ATxxxx::ExternalInterruptTriggerModeConfig::setTriggerModeEint7(trigger_mode, _EICRB); break;
+  default                                   : /* PCINT trigger mode is Any */                                                        break;
+  }
 }
 
 void ExternalInterruptController::enable(uint8_t const ext_int_num)

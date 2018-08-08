@@ -63,25 +63,6 @@ namespace ATxxxx
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void ExternalInterruptTriggerModeConfig::setTriggerMode(ExtInt const ext_int, interface::TriggerMode const trigger_mode, volatile uint8_t * eicra, volatile uint8_t * eicrb)
-{
-  switch(ext_int)
-  {
-  case ExtInt::EINT0: setTriggerModeEint0(trigger_mode, eicra); break;
-  case ExtInt::EINT1: setTriggerModeEint1(trigger_mode, eicra); break;
-  case ExtInt::EINT2: setTriggerModeEint2(trigger_mode, eicra); break;
-  case ExtInt::EINT3: setTriggerModeEint3(trigger_mode, eicra); break;
-  case ExtInt::EINT4: setTriggerModeEint4(trigger_mode, eicrb); break;
-  case ExtInt::EINT5: setTriggerModeEint5(trigger_mode, eicrb); break;
-  case ExtInt::EINT6: setTriggerModeEint6(trigger_mode, eicrb); break;
-  case ExtInt::EINT7: setTriggerModeEint7(trigger_mode, eicrb); break;
-  }
-}
-
-/**************************************************************************************
- * PRIVATE MEMBER FUNCTIONS
- **************************************************************************************/
-
 void ExternalInterruptTriggerModeConfig::setTriggerModeEint0(interface::TriggerMode const trigger_mode, volatile uint8_t * eicra)
 {
   *eicra &= ~(ISC01_bm | ISC00_bm);

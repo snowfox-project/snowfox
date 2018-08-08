@@ -150,11 +150,6 @@ private:
   interface::InterruptControl          & _int_ctrl;
   interface::ExternalInterruptCallback * _external_interrupt_callback[NUM_EXTERNAL_INTERRUPTS];
 
-
-  void setTriggerModeEint0(interface::TriggerMode const trigger_mode);
-  void setTriggerModeEint1(interface::TriggerMode const trigger_mode);
-  void setTriggerModeEint2(interface::TriggerMode const trigger_mode);
-
 };
 
 /**************************************************************************************/

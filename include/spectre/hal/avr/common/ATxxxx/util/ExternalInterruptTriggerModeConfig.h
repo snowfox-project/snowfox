@@ -39,15 +39,6 @@ namespace ATxxxx
 {
 
 /**************************************************************************************
- * TYPEDEF
- **************************************************************************************/
-
-enum class ExtInt
-{
-  EINT0, EINT1, EINT2, EINT3, EINT4, EINT5, EINT6, EINT7
-};
-
-/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
@@ -57,14 +48,6 @@ class ExternalInterruptTriggerModeConfig
 public:
 
 
-  static void setTriggerMode(ExtInt const ext_int, interface::TriggerMode const trigger_mode, volatile uint8_t * eicra, volatile uint8_t * eicrb);
-
-
-private:
-
-  ExternalInterruptTriggerModeConfig() { }
-  ExternalInterruptTriggerModeConfig(ExternalInterruptTriggerModeConfig const & other) { }
-
   static void setTriggerModeEint0(interface::TriggerMode const trigger_mode, volatile uint8_t * eicra);
   static void setTriggerModeEint1(interface::TriggerMode const trigger_mode, volatile uint8_t * eicra);
   static void setTriggerModeEint2(interface::TriggerMode const trigger_mode, volatile uint8_t * eicra);
@@ -73,6 +56,12 @@ private:
   static void setTriggerModeEint5(interface::TriggerMode const trigger_mode, volatile uint8_t * eicrb);
   static void setTriggerModeEint6(interface::TriggerMode const trigger_mode, volatile uint8_t * eicrb);
   static void setTriggerModeEint7(interface::TriggerMode const trigger_mode, volatile uint8_t * eicrb);
+
+
+private:
+
+  ExternalInterruptTriggerModeConfig() { }
+  ExternalInterruptTriggerModeConfig(ExternalInterruptTriggerModeConfig const & other) { }
 
 };
 
