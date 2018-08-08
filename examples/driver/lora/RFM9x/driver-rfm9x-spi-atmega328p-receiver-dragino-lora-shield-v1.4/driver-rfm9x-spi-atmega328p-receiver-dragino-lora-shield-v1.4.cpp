@@ -141,15 +141,15 @@ int main()
   ATMEGA328P::DigitalInPin rfm9x_dio0_int_pin              (&DDRD, &PORTD, &PIND, 2); /* D2 = PD2 = INT0 */
                            rfm9x_dio0_int_pin.setPullUpMode(hal::interface::PullUpMode::PULL_UP);
 
-  ext_int_ctrl().setTriggerMode(ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::ExtInt0), RFM9x_DIO0_INT_TRIGGER_MODE);
-  ext_int_ctrl().enable        (ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::ExtInt0)                             );
+  ext_int_ctrl().setTriggerMode(ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::EXTERNAL_INT0), RFM9x_DIO0_INT_TRIGGER_MODE);
+  ext_int_ctrl().enable        (ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::EXTERNAL_INT0)                             );
 
   /* EXT INT #1 for DIO1 notifications by RFM9x ***************************************/
   ATMEGA328P::DigitalInPin rfm9x_dio1_int_pin              (&DDRD, &PORTD, &PIND, 3); /* D3 = PD3 = INT1 */
                            rfm9x_dio1_int_pin.setPullUpMode(hal::interface::PullUpMode::PULL_UP);
 
-  ext_int_ctrl().setTriggerMode(ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::ExtInt1), RFM9x_DIO1_INT_TRIGGER_MODE);
-  ext_int_ctrl().enable        (ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::ExtInt1)                             );
+  ext_int_ctrl().setTriggerMode(ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::EXTERNAL_INT1), RFM9x_DIO1_INT_TRIGGER_MODE);
+  ext_int_ctrl().enable        (ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::EXTERNAL_INT1)                             );
 
 
   /************************************************************************************
@@ -191,8 +191,8 @@ int main()
 
   lora::RFM9x::RFM9x                              rfm9x                                 (rfm9x_config, rfm9x_control, rfm9x_status, rfm9x_rx_done_event, rfm9x_rx_timeout_event, rfm9x_tx_done_event);
 
-  ext_int_ctrl().registerExternalInterruptCallback(ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::ExtInt0), &rfm9x_dio0_event_callback);
-  ext_int_ctrl().registerExternalInterruptCallback(ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::ExtInt1), &rfm9x_dio1_event_callback);
+  ext_int_ctrl().registerExternalInterruptCallback(ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::EXTERNAL_INT0), &rfm9x_dio0_event_callback);
+  ext_int_ctrl().registerExternalInterruptCallback(ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::EXTERNAL_INT1), &rfm9x_dio1_event_callback);
 
 
   uint32_t frequenzy_Hz      = 433775000; /* 433.775 Mhz - Dedicated for digital communication channels in the 70 cm band */

@@ -37,7 +37,6 @@
 
 #include <avr/io.h>
 
-#include <spectre/hal/avr/ATMEGA328P/EINT0.h>
 #include <spectre/hal/avr/ATMEGA328P/Flash.h>
 #include <spectre/hal/avr/ATMEGA328P/Delay.h>
 #include <spectre/hal/avr/ATMEGA328P/SpiMaster.h>
@@ -47,6 +46,7 @@
 #include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
 
 #include <spectre/blox/hal/avr/ATMEGA328P/UART0.h>
+#include <spectre/blox/hal/avr/ATMEGA328P/ExternalInterruptController.h>
 
 #include <spectre/blox/driver/serial/SerialUart.h>
 
@@ -101,11 +101,12 @@ int main()
    * HAL
    ************************************************************************************/
 
-  ATMEGA328P::Flash               flash;
-  ATMEGA328P::Delay               delay;
-  ATMEGA328P::InterruptController int_ctrl(&EIMSK, &PCICR, &WDTCSR, &TIMSK2, &TIMSK1, &TIMSK0, &SPCR, &UCSR0B, &ADCSRA, &EECR, &ACSR, &TWCR, &SPMCSR);
-  ATMEGA328P::CriticalSection     crit_sec(&SREG);
-  blox::ATMEGA328P::UART0         uart0   (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl, F_CPU);
+  ATMEGA328P::Flash                             flash;
+  ATMEGA328P::Delay                             delay;
+  ATMEGA328P::InterruptController               int_ctrl    (&EIMSK, &PCICR, &WDTCSR, &TIMSK2, &TIMSK1, &TIMSK0, &SPCR, &UCSR0B, &ADCSRA, &EECR, &ACSR, &TWCR, &SPMCSR);
+  ATMEGA328P::CriticalSection                   crit_sec    (&SREG);
+  blox::ATMEGA328P::UART0                       uart0       (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl, F_CPU);
+  blox::ATMEGA328P::ExternalInterruptController ext_int_ctrl(&EICRA, &PCMSK0, &PCMSK1, &PCMSK2, int_ctrl);
 
   /* SPI/CS for MCP2515 ***************************************************************/
   ATMEGA328P::DigitalOutPin mcp2515_cs  (&DDRB, &PORTB,        2); /* CS   = D10 = PB2 */
@@ -123,16 +124,11 @@ int main()
   spi_master.setSpiPrescaler(MCP2515_SPI_PRESCALER);
 
   /* EXT INT #0 for notifications by MCP2515 ******************************************/
-  ATMEGA328P::DigitalInPin                         mcp2515_int_pin        (&DDRD, &PORTD, &PIND, 2); /* D2 = PD2 = INT0 */
-  ATMEGA328P::EINT0                                mcp2515_eint0          (&EICRA, int_ctrl       );
-  ATMEGA328P::EINT0_ExternalInterruptEventCallback mcp2515_eint0_callback (mcp2515_eint0          );
+  ATMEGA328P::DigitalInPin mcp2515_int_pin              (&DDRD, &PORTD, &PIND, 2); /* D2 = PD2 = INT0 */
+                           mcp2515_int_pin.setPullUpMode(hal::interface::PullUpMode::PULL_UP);
 
-  mcp2515_int_pin.setPullUpMode (hal::interface::PullUpMode::PULL_UP);
-
-  mcp2515_eint0.setTriggerMode  (MCP2515_INT_TRIGGER_MODE);
-
-  int_ctrl.registerInterruptCallback(ATMEGA328P::toIsrNum(ATMEGA328P::InterruptServiceRoutine::EXTERNAL_INT0), &mcp2515_eint0_callback);
-
+  ext_int_ctrl().setTriggerMode(ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::EXTERNAL_INT0), MCP2515_INT_TRIGGER_MODE);
+  ext_int_ctrl().enable        (ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::EXTERNAL_INT0)                          );
 
 
   /************************************************************************************
@@ -170,8 +166,7 @@ int main()
 
   can::Can                                    can                               (mcp2515_can_config, mcp2515_can_control);
 
-
-  mcp2515_eint0.registerExternalInterruptCallback(&mcp2515_event_callback);
+  ext_int_ctrl().registerExternalInterruptCallback(ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::EXTERNAL_INT0), &mcp2515_event_callback);
 
 
   uint8_t bitrate = static_cast<uint8_t>(can::interface::CanBitRate::BR_250kBPS);
