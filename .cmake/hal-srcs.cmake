@@ -210,7 +210,8 @@ if(${MCU_ARCH} STREQUAL "avr" OR ${MCU_ARCH} STREQUAL "host")
   ########################################################################
 
   set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA328P_SRCS
-    ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATMEGA328P/AnalogDigitalConverter.cpp        
+    ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATMEGA328P/AnalogDigitalConverter.cpp
+    ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATMEGA328P/ExternalInterruptController.cpp
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATMEGA328P/I2CMaster.cpp          
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATMEGA328P/InterruptController.cpp
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATMEGA328P/TIMER0.cpp
