@@ -41,8 +41,6 @@
 
 #include <avr/io.h>
 
-#include <spectre/hal/avr/ATMEGA328P/EINT0.h>
-#include <spectre/hal/avr/ATMEGA328P/EINT1.h>
 #include <spectre/hal/avr/ATMEGA328P/Flash.h>
 #include <spectre/hal/avr/ATMEGA328P/Delay.h>
 #include <spectre/hal/avr/ATMEGA328P/SpiMaster.h>
@@ -52,6 +50,7 @@
 #include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
 
 #include <spectre/blox/hal/avr/ATMEGA328P/UART0.h>
+#include <spectre/blox/hal/avr/ATMEGA328P/ExternalInterruptController.h>
 
 #include <spectre/blox/driver/serial/SerialUart.h>
 
@@ -111,11 +110,12 @@ int main()
    * HAL
    ************************************************************************************/
 
-  ATMEGA328P::Flash               flash;
-  ATMEGA328P::Delay               delay;
-  ATMEGA328P::InterruptController int_ctrl(&EIMSK, &PCICR, &WDTCSR, &TIMSK2, &TIMSK1, &TIMSK0, &SPCR, &UCSR0B, &ADCSRA, &EECR, &ACSR, &TWCR, &SPMCSR);
-  ATMEGA328P::CriticalSection     crit_sec(&SREG);
-  blox::ATMEGA328P::UART0         uart0   (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl, F_CPU);
+  ATMEGA328P::Flash                             flash;
+  ATMEGA328P::Delay                             delay;
+  ATMEGA328P::InterruptController               int_ctrl    (&EIMSK, &PCICR, &WDTCSR, &TIMSK2, &TIMSK1, &TIMSK0, &SPCR, &UCSR0B, &ADCSRA, &EECR, &ACSR, &TWCR, &SPMCSR);
+  ATMEGA328P::CriticalSection                   crit_sec    (&SREG);
+  blox::ATMEGA328P::UART0                       uart0       (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl, F_CPU);
+  blox::ATMEGA328P::ExternalInterruptController ext_int_ctrl(&EICRA, &PCMSK0, &PCMSK1, &PCMSK2, int_ctrl);
 
   /* SPI/CS for RFM95 *****************************************************************/
   /* As the datasheet state: 'If SS is configured as an input and is driven low
@@ -138,29 +138,18 @@ int main()
   spi_master.setSpiPrescaler(RFM9x_SPI_PRESCALER);
 
   /* EXT INT #0 for DIO0 notifications by RFM9x ***************************************/
-  ATMEGA328P::DigitalInPin                          rfm9x_dio0_int_pin        (&DDRD, &PORTD, &PIND, 2); /* D2 = PD2 = INT0 */
-  ATMEGA328P::EINT0                                 rfm9x_dio0_eint0          (&EICRA, int_ctrl);
-  ATMEGA328P::EINT0_ExternalInterruptEventCallback  rfm9x_dio0_eint0_callback (rfm9x_dio0_eint0);
+  ATMEGA328P::DigitalInPin rfm9x_dio0_int_pin              (&DDRD, &PORTD, &PIND, 2); /* D2 = PD2 = INT0 */
+                           rfm9x_dio0_int_pin.setPullUpMode(hal::interface::PullUpMode::PULL_UP);
 
-  rfm9x_dio0_int_pin.setPullUpMode  (hal::interface::PullUpMode::PULL_UP);
-
-  int_ctrl.registerInterruptCallback(ATMEGA328P::toIsrNum(ATMEGA328P::InterruptServiceRoutine::EXTERNAL_INT0), &rfm9x_dio0_eint0_callback);
-
-  rfm9x_dio0_eint0.setTriggerMode   (RFM9x_DIO0_INT_TRIGGER_MODE);
-  rfm9x_dio0_eint0.enable           ();
-
+  ext_int_ctrl().setTriggerMode(ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::ExtInt0), RFM9x_DIO0_INT_TRIGGER_MODE);
+  ext_int_ctrl().enable        (ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::ExtInt0)                             );
 
   /* EXT INT #1 for DIO1 notifications by RFM9x ***************************************/
-  ATMEGA328P::DigitalInPin                          rfm9x_dio1_int_pin        (&DDRD, &PORTD, &PIND, 3); /* D3 = PD3 = INT1 */
-  ATMEGA328P::EINT1                                 rfm9x_dio1_eint1          (&EICRA, int_ctrl);
-  ATMEGA328P::EINT1_ExternalInterruptEventCallback  rfm9x_dio1_eint1_callback (rfm9x_dio1_eint1);
+  ATMEGA328P::DigitalInPin rfm9x_dio1_int_pin              (&DDRD, &PORTD, &PIND, 3); /* D3 = PD3 = INT1 */
+                           rfm9x_dio1_int_pin.setPullUpMode(hal::interface::PullUpMode::PULL_UP);
 
-  rfm9x_dio1_int_pin.setPullUpMode  (hal::interface::PullUpMode::PULL_UP);
-
-  int_ctrl.registerInterruptCallback(ATMEGA328P::toIsrNum(ATMEGA328P::InterruptServiceRoutine::EXTERNAL_INT1), &rfm9x_dio1_eint1_callback);
-
-  rfm9x_dio1_eint1.setTriggerMode   (RFM9x_DIO1_INT_TRIGGER_MODE);
-  rfm9x_dio1_eint1.enable           ();
+  ext_int_ctrl().setTriggerMode(ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::ExtInt1), RFM9x_DIO1_INT_TRIGGER_MODE);
+  ext_int_ctrl().enable        (ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::ExtInt1)                             );
 
 
   /************************************************************************************
@@ -202,9 +191,8 @@ int main()
 
   lora::RFM9x::RFM9x                              rfm9x                                 (rfm9x_config, rfm9x_control, rfm9x_status, rfm9x_rx_done_event, rfm9x_rx_timeout_event, rfm9x_tx_done_event);
 
-
-  rfm9x_dio0_eint0.registerExternalInterruptCallback(&rfm9x_dio0_event_callback);
-  rfm9x_dio1_eint1.registerExternalInterruptCallback(&rfm9x_dio1_event_callback);
+  ext_int_ctrl().registerExternalInterruptCallback(ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::ExtInt0), &rfm9x_dio0_event_callback);
+  ext_int_ctrl().registerExternalInterruptCallback(ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::ExtInt1), &rfm9x_dio1_event_callback);
 
 
   uint32_t frequenzy_Hz     = 433775000; /* 433.775 Mhz - Dedicated for digital communication channels in the 70 cm band */

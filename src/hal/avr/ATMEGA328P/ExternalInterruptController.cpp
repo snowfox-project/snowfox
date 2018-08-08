@@ -102,9 +102,9 @@ void ExternalInterruptController::setTriggerMode(uint8_t const ext_int_num, inte
 {
   switch(ext_int_num)
   {
-  case toExtIntNum(ExternalInterrupt::EINT0): ATxxxx::ExternalInterruptTriggerModeConfig::setTriggerModeEint0(trigger_mode, _EICRA); break;
-  case toExtIntNum(ExternalInterrupt::EINT1): ATxxxx::ExternalInterruptTriggerModeConfig::setTriggerModeEint1(trigger_mode, _EICRA); break;
-  default                                   : /* PCINT trigger mode is Any */                                                        break;
+  case toExtIntNum(ExternalInterrupt::ExtInt0): ATxxxx::ExternalInterruptTriggerModeConfig::setTriggerModeEint0(trigger_mode, _EICRA); break;
+  case toExtIntNum(ExternalInterrupt::ExtInt1): ATxxxx::ExternalInterruptTriggerModeConfig::setTriggerModeEint1(trigger_mode, _EICRA); break;
+  default                                     : /* PCINT trigger mode is Any */                                                        break;
   }
 }
 
@@ -128,24 +128,24 @@ void ExternalInterruptController::registerExternalInterruptCallback(uint8_t cons
 
 void ExternalInterruptController::ISR_onEint0Event()
 {
-  if(_external_interrupt_callback[toExtIntNum(ExternalInterrupt::EINT0)])
+  if(_external_interrupt_callback[toExtIntNum(ExternalInterrupt::ExtInt0)])
   {
-    _external_interrupt_callback[toExtIntNum(ExternalInterrupt::EINT0)]->onExternalEventCallback();
+    _external_interrupt_callback[toExtIntNum(ExternalInterrupt::ExtInt0)]->onExternalEventCallback();
   }
 }
 
 void ExternalInterruptController::ISR_onEint1Event()
 {
-  if(_external_interrupt_callback[toExtIntNum(ExternalInterrupt::EINT1)])
+  if(_external_interrupt_callback[toExtIntNum(ExternalInterrupt::ExtInt1)])
   {
-    _external_interrupt_callback[toExtIntNum(ExternalInterrupt::EINT1)]->onExternalEventCallback();
+    _external_interrupt_callback[toExtIntNum(ExternalInterrupt::ExtInt1)]->onExternalEventCallback();
   }
 }
 
 void ExternalInterruptController::ISR_onPinChange0Event()
 {
-  for(uint8_t ext_int_num = toExtIntNum(ExternalInterrupt::PCINT0);
-      ext_int_num <= toExtIntNum(ExternalInterrupt::PCINT7);
+  for(uint8_t ext_int_num = toExtIntNum(ExternalInterrupt::PinChangeInt0);
+      ext_int_num <= toExtIntNum(ExternalInterrupt::PinChangeInt7);
       ext_int_num++)
   {
     if(_external_interrupt_callback[ext_int_num])
@@ -157,8 +157,8 @@ void ExternalInterruptController::ISR_onPinChange0Event()
 
 void ExternalInterruptController::ISR_onPinChange1Event()
 {
-  for(uint8_t ext_int_num = toExtIntNum(ExternalInterrupt::PCINT8);
-      ext_int_num <= toExtIntNum(ExternalInterrupt::PCINT14);
+  for(uint8_t ext_int_num = toExtIntNum(ExternalInterrupt::PinChangeInt8);
+      ext_int_num <= toExtIntNum(ExternalInterrupt::PinChangeInt14);
       ext_int_num++)
   {
     if(_external_interrupt_callback[ext_int_num])
@@ -170,8 +170,8 @@ void ExternalInterruptController::ISR_onPinChange1Event()
 
 void ExternalInterruptController::ISR_onPinChange2Event()
 {
-  for(uint8_t ext_int_num = toExtIntNum(ExternalInterrupt::PCINT16);
-      ext_int_num <= toExtIntNum(ExternalInterrupt::PCINT23);
+  for(uint8_t ext_int_num = toExtIntNum(ExternalInterrupt::PinChangeInt16);
+      ext_int_num <= toExtIntNum(ExternalInterrupt::PinChangeInt23);
       ext_int_num++)
   {
     if(_external_interrupt_callback[ext_int_num])
