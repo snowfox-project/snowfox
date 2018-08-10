@@ -45,6 +45,17 @@ if(${MCU_ARCH} STREQUAL "avr")
     ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATMEGA164P_324P_644P_1284P/UART0.cpp
     ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATMEGA164P_324P_644P_1284P/UART1.cpp
   )
+  
+  ########################################################################
+  # common/ATMEGA640_1280_2560 ###########################################
+  ########################################################################
+
+  set(SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA640_1280_2560_SRCS
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATMEGA640_1280_2560/ExternalInterruptController.cpp
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATMEGA640_1280_2560/UART0.cpp
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATMEGA640_1280_2560/UART1.cpp
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATMEGA640_1280_2560/UART2.cpp
+  )
 
   # AT90CAN128 ###########################################################
 
@@ -82,7 +93,7 @@ if(${MCU_ARCH} STREQUAL "avr")
   # ATMEGA1280 ###########################################################
 
   set(SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA1280_SRCS 
-    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATMEGA640_1280_2560/ExternalInterruptController.cpp
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA640_1280_2560_SRCS}
   )
 
   if(${MCU_TYPE} STREQUAL "atmega1280")
@@ -112,7 +123,7 @@ if(${MCU_ARCH} STREQUAL "avr")
   # ATMEGA2560 ###########################################################
 
   set(SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA2560_SRCS 
-    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATMEGA640_1280_2560/ExternalInterruptController.cpp
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA640_1280_2560_SRCS}
   )
 
   if(${MCU_TYPE} STREQUAL "atmega2560")
@@ -143,7 +154,7 @@ if(${MCU_ARCH} STREQUAL "avr")
   # ATMEGA640 ############################################################
 
   set(SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA640_SRCS 
-    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATMEGA640_1280_2560/ExternalInterruptController.cpp
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA640_1280_2560_SRCS}
   )
 
   if(${MCU_TYPE} STREQUAL "atmega640")
