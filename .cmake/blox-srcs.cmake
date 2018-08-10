@@ -35,6 +35,16 @@ if(${MCU_ARCH} STREQUAL "avr")
 ##########################################################################
 
   set(SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH src/blox/hal/avr)
+  
+  ########################################################################
+  # common/ATMEGA164P_324P_644P_1284P ####################################
+  ########################################################################
+
+  set(SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA164P_324P_644P_1284P_SRCS
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATMEGA164P_324P_644P_1284P/ExternalInterruptController.cpp
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATMEGA164P_324P_644P_1284P/UART0.cpp
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATMEGA164P_324P_644P_1284P/UART1.cpp
+  )
 
   # AT90CAN128 ###########################################################
 
@@ -82,9 +92,7 @@ if(${MCU_ARCH} STREQUAL "avr")
   # ATMEGA1284P ##########################################################
 
   set(SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA1284P_SRCS 
-    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATMEGA164P_324P_644P_1284P/ExternalInterruptController.cpp
-    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/ATMEGA1284P/UART0.cpp
-    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/ATMEGA1284P/UART1.cpp
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA164P_324P_644P_1284P_SRCS}
   )
 
   if(${MCU_TYPE} STREQUAL "atmega1284p")
@@ -94,9 +102,7 @@ if(${MCU_ARCH} STREQUAL "avr")
   # ATMEGA164P ###########################################################
 
   set(SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA164P_SRCS 
-    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATMEGA164P_324P_644P_1284P/ExternalInterruptController.cpp
-    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/ATMEGA164P/UART0.cpp
-    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/ATMEGA164P/UART1.cpp
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA164P_324P_644P_1284P_SRCS}
   )
   
   if(${MCU_TYPE} STREQUAL "atmega164p")
@@ -116,9 +122,7 @@ if(${MCU_ARCH} STREQUAL "avr")
   # ATMEGA324P ###########################################################
 
   set(SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA324P_SRCS 
-    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATMEGA164P_324P_644P_1284P/ExternalInterruptController.cpp
-    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/ATMEGA324P/UART0.cpp
-    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/ATMEGA324P/UART1.cpp
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA164P_324P_644P_1284P_SRCS}
   )
   
   if(${MCU_TYPE} STREQUAL "atmega324p")
@@ -149,9 +153,7 @@ if(${MCU_ARCH} STREQUAL "avr")
   # ATMEGA644P ###########################################################
 
   set(SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA644P_SRCS 
-    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATMEGA164P_324P_644P_1284P/ExternalInterruptController.cpp
-    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/ATMEGA644P/UART0.cpp
-    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/ATMEGA644P/UART1.cpp
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA164P_324P_644P_1284P_SRCS}
   )
   
   if(${MCU_TYPE} STREQUAL "atmega644p")

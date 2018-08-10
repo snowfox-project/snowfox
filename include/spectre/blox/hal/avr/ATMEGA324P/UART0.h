@@ -23,7 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/ATMEGA324P/UART0.h>
+#include <spectre/blox/hal/avr/common/ATMEGA164P_324P_644P_1284P/UART0.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,31 +39,10 @@ namespace ATMEGA324P
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * TYPEDEF
  **************************************************************************************/
 
-class UART0
-{
-
-public:
-
-  UART0(volatile uint8_t                                  * udr0,
-        volatile uint8_t                                  * ucsr0a,
-        volatile uint8_t                                  * ucsr0b,
-        volatile uint8_t                                  * ucsr0c,
-        volatile uint16_t                                 * ubrr0,
-        hal::interface::InterruptController               & int_ctrl,
-        uint32_t                                    const   f_cpu);
-
-  hal::ATMEGA324P::UART0 & operator () () { return _uart0; }
-
-private:
-
-  hal::ATMEGA324P::UART0                                _uart0;
-  hal::ATMEGA324P::UART0_TransmitRegisterEmptyCallback  _uart0_uart_data_register_empty_callback;
-  hal::ATMEGA324P::UART0_ReceiveCompleteCallback        _uart0_receive_complete_callback;
-
-};
+typedef ATMEGA164P_324P_644P_1284P::UART0 UART0;
 
 /**************************************************************************************
  * NAMESPACE

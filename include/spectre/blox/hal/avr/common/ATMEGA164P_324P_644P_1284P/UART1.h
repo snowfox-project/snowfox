@@ -16,13 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_BLOX_HAL_AVR_COMMON_ATMEGA164P_324P_644P_1284P_UART1_H_
+#define INCLUDE_SPECTRE_BLOX_HAL_AVR_COMMON_ATMEGA164P_324P_644P_1284P_UART1_H_
+
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/blox/hal/avr/ATMEGA644P/UART1.h>
-
-#include <spectre/hal/avr/ATMEGA644P/InterruptController.h>
+#include <spectre/hal/avr/common/ATxxxx/UART1.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -34,35 +35,44 @@ namespace spectre
 namespace blox
 {
 
-namespace ATMEGA644P
+namespace ATMEGA164P_324P_644P_1284P
 {
 
 /**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
-UART1::UART1(volatile uint8_t                                  * udr1,
-             volatile uint8_t                                  * ucsr1a,
-             volatile uint8_t                                  * ucsr1b,
-             volatile uint8_t                                  * ucsr1c,
-             volatile uint16_t                                 * ubrr1,
-             hal::interface::InterruptController               & int_ctrl,
-             uint32_t                                    const   f_cpu)
-: _uart1                                  (udr1, ucsr1a, ucsr1b, ucsr1c, ubrr1, int_ctrl, f_cpu),
-  _uart1_uart_data_register_empty_callback(_uart1),
-  _uart1_receive_complete_callback        (_uart1)
-
+class UART1
 {
-  int_ctrl.registerInterruptCallback(hal::ATMEGA164P_324P_644P_1284P::toIsrNum(hal::ATMEGA644P::InterruptServiceRoutine::USART1_UART_DATA_REGISTER_EMPTY), &_uart1_uart_data_register_empty_callback);
-  int_ctrl.registerInterruptCallback(hal::ATMEGA164P_324P_644P_1284P::toIsrNum(hal::ATMEGA644P::InterruptServiceRoutine::USART1_RECEIVE_COMPLETE        ), &_uart1_receive_complete_callback        );
-}
+
+public:
+
+  UART1(volatile uint8_t                                  * udr1,
+        volatile uint8_t                                  * ucsr1a,
+        volatile uint8_t                                  * ucsr1b,
+        volatile uint8_t                                  * ucsr1c,
+        volatile uint16_t                                 * ubrr1,
+        hal::interface::InterruptController               & int_ctrl,
+        uint32_t                                    const   f_cpu);
+
+  hal::ATxxxx::UART1 & operator () () { return _uart1; }
+
+private:
+
+  hal::ATxxxx::UART1                               _uart1;
+  hal::ATxxxx::UART1_TransmitRegisterEmptyCallback _uart1_uart_data_register_empty_callback;
+  hal::ATxxxx::UART1_ReceiveCompleteCallback       _uart1_receive_complete_callback;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA644P */
+} /* ATMEGA164P_324P_644P_1284P */
 
 } /* blox */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_BLOX_HAL_AVR_COMMON_ATMEGA164P_324P_644P_1284P_UART1_H_ */
