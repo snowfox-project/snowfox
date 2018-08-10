@@ -35,6 +35,15 @@ if(${MCU_ARCH} STREQUAL "avr")
 ##########################################################################
 
   set(SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH src/blox/hal/avr)
+ 
+  ########################################################################
+  # common/AT90CAN32_64_128 ##############################################
+  ########################################################################
+
+  set(SPECTRE_LIBRARY_BLOX_HAL_AVR_AT90CAN32_64_128_SRCS
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/AT90CAN32_64_128/UART0.cpp
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/AT90CAN32_64_128/UART1.cpp
+  )
   
   ########################################################################
   # common/ATMEGA164P_324P_644P_1284P ####################################
@@ -60,8 +69,7 @@ if(${MCU_ARCH} STREQUAL "avr")
   # AT90CAN128 ###########################################################
 
   set(SPECTRE_LIBRARY_BLOX_HAL_AVR_AT90CAN128_SRCS 
-    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/AT90CAN128/UART0.cpp
-    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/AT90CAN128/UART1.cpp
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_AT90CAN32_64_128_SRCS}
   )
 
   if(${MCU_TYPE} STREQUAL "at90can128")
@@ -71,8 +79,7 @@ if(${MCU_ARCH} STREQUAL "avr")
   # AT90CAN32 ############################################################
 
   set(SPECTRE_LIBRARY_BLOX_HAL_AVR_AT90CAN32_SRCS 
-    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/AT90CAN32/UART0.cpp
-    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/AT90CAN32/UART1.cpp
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_AT90CAN32_64_128_SRCS}
   )
 
   if(${MCU_TYPE} STREQUAL "at90can32")
@@ -82,8 +89,7 @@ if(${MCU_ARCH} STREQUAL "avr")
   # AT90CAN64 ############################################################
 
   set(SPECTRE_LIBRARY_BLOX_HAL_AVR_AT90CAN64_SRCS 
-    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/AT90CAN64/UART0.cpp
-    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/AT90CAN64/UART1.cpp
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_AT90CAN32_64_128_SRCS}
   )
 
   if(${MCU_TYPE} STREQUAL "at90can64")

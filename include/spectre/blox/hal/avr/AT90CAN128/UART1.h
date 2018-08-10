@@ -23,7 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/AT90CAN128/UART1.h>
+#include <spectre/blox/hal/avr/common/AT90CAN32_64_128/UART1.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,31 +39,10 @@ namespace AT90CAN128
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * TYPEDEF
  **************************************************************************************/
 
-class UART1
-{
-
-public:
-
-  UART1(volatile uint8_t                          * udr1,
-        volatile uint8_t                          * ucsr1a,
-        volatile uint8_t                          * ucsr1b,
-        volatile uint8_t                          * ucsr1c,
-        volatile uint16_t                         * ubrr1,
-        hal::interface::InterruptController       & int_ctrl,
-        uint32_t                            const   f_cpu);
-
-  hal::AT90CAN128::UART1 & operator () () { return _uart1; }
-
-private:
-
-  hal::AT90CAN128::UART1                               _uart1;
-  hal::AT90CAN128::UART1_TransmitRegisterEmptyCallback _uart1_uart_data_register_empty_callback;
-  hal::AT90CAN128::UART1_ReceiveCompleteCallback       _uart1_receive_complete_callback;
-
-};
+typedef AT90CAN32_64_128::UART1 UART1;
 
 /**************************************************************************************
  * NAMESPACE

@@ -16,14 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_BLOX_HAL_AVR_AT90CAN64_UART1_H_
-#define INCLUDE_SPECTRE_BLOX_HAL_AVR_AT90CAN64_UART1_H_
-
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
 #include <spectre/blox/hal/avr/common/AT90CAN32_64_128/UART1.h>
+
+#include <spectre/hal/avr/common/AT90CAN32_64_128/InterruptController.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -35,23 +34,35 @@ namespace spectre
 namespace blox
 {
 
-namespace AT90CAN64
+namespace AT90CAN32_64_128
 {
 
 /**************************************************************************************
- * TYPEDEF
+ * CTOR/DTOR
  **************************************************************************************/
 
-typedef AT90CAN32_64_128::UART1 UART1;
+UART1::UART1(volatile uint8_t                                  * udr1,
+             volatile uint8_t                                  * ucsr1a,
+             volatile uint8_t                                  * ucsr1b,
+             volatile uint8_t                                  * ucsr1c,
+             volatile uint16_t                                 * ubrr1,
+             hal::interface::InterruptController               & int_ctrl,
+             uint32_t                                    const   f_cpu)
+: _uart1                                  (udr1, ucsr1a, ucsr1b, ucsr1c, ubrr1, int_ctrl, f_cpu),
+  _uart1_uart_data_register_empty_callback(_uart1),
+  _uart1_receive_complete_callback        (_uart1)
+
+{
+  int_ctrl.registerInterruptCallback(hal::AT90CAN32_64_128::toIsrNum(hal::AT90CAN32_64_128::InterruptServiceRoutine::USART1_UART_DATA_REGISTER_EMPTY), &_uart1_uart_data_register_empty_callback);
+  int_ctrl.registerInterruptCallback(hal::AT90CAN32_64_128::toIsrNum(hal::AT90CAN32_64_128::InterruptServiceRoutine::USART1_RECEIVE_COMPLETE        ), &_uart1_receive_complete_callback        );
+}
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CAN64 */
+} /* AT90CAN32_64_128 */
 
 } /* blox */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_BLOX_HAL_AVR_AT90CAN64_UART1_H_ */

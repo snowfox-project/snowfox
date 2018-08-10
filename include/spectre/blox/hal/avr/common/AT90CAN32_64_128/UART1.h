@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_BLOX_HAL_AVR_AT90CAN64_UART1_H_
-#define INCLUDE_SPECTRE_BLOX_HAL_AVR_AT90CAN64_UART1_H_
+#ifndef INCLUDE_SPECTRE_BLOX_HAL_AVR_COMMON_AT90CAN32_64_128_UART1_H_
+#define INCLUDE_SPECTRE_BLOX_HAL_AVR_COMMON_AT90CAN32_64_128_UART1_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/blox/hal/avr/common/AT90CAN32_64_128/UART1.h>
+#include <spectre/hal/avr/common/ATxxxx/UART1.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -35,23 +35,44 @@ namespace spectre
 namespace blox
 {
 
-namespace AT90CAN64
+namespace AT90CAN32_64_128
 {
 
 /**************************************************************************************
- * TYPEDEF
+ * CTOR/DTOR
  **************************************************************************************/
 
-typedef AT90CAN32_64_128::UART1 UART1;
+class UART1
+{
+
+public:
+
+  UART1(volatile uint8_t                          * udr1,
+        volatile uint8_t                          * ucsr1a,
+        volatile uint8_t                          * ucsr1b,
+        volatile uint8_t                          * ucsr1c,
+        volatile uint16_t                         * ubrr1,
+        hal::interface::InterruptController       & int_ctrl,
+        uint32_t                            const   f_cpu);
+
+  hal::ATxxxx::UART1 & operator () () { return _uart1; }
+
+private:
+
+  hal::ATxxxx::UART1                               _uart1;
+  hal::ATxxxx::UART1_TransmitRegisterEmptyCallback _uart1_uart_data_register_empty_callback;
+  hal::ATxxxx::UART1_ReceiveCompleteCallback       _uart1_receive_complete_callback;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CAN64 */
+} /* AT90CAN32_64_128 */
 
 } /* blox */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_BLOX_HAL_AVR_AT90CAN64_UART1_H_ */
+#endif /* INCLUDE_SPECTRE_BLOX_HAL_AVR_COMMON_AT90CAN32_64_128_UART1_H_ */
