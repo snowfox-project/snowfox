@@ -26,17 +26,17 @@ Work in progress ...
 |:--------------------------:|:---------------------:|:-----------------:|:----------------:|
 | AT90CAN32                  | avr                   | at90can32         |                  |
 | AT90CAN64                  | ...                   | at90can64         |                  |
-| AT90CAN128                 | ...                   | at90can128        | Olimex AVR-CAN   |
+| AT90CAN128                 | ...                   | at90can128        | [Olimex AVR-CAN](examples/eval-board-schematics/olimex-avr-can.pdf)   |
 | ATMega640                  | ...                   | atmega640         |                  |
 | ATMega1280                 | ...                   | atmega1280        |                  |
-| ATMega2560                 | ...                   | atmega2560        | Arduino Mega     |
+| ATMega2560                 | ...                   | atmega2560        | [Arduino Mega](examples/eval-board-schematics/arduino-mega.pdf)     |
 | ATMega164P                 | ...                   | atmega164p        |                  |
 | ATMega324P                 | ...                   | atmega324p        |                  |
 | ATMega644P                 | ...                   | atmega644p        |                  |
 | ATMega1284P                | ...                   | atmega1284p       | Moteino Mega USB |
-| ATMega328P                 | ...                   | atmega328p        | Arduino Uno      |
+| ATMega328P                 | ...                   | atmega328p        | [Arduino Uno](examples/eval-board-schematics/arduino-uno.pdf)      |
 | ATMega16U4                 | ...                   | atmega16u4        |                  |
-| ATMega32U4                 | ...                   | atmega32u4        | Arduino Leonardo |
+| ATMega32U4                 | ...                   | atmega32u4        | [Arduino Leonardo](examples/eval-board-schematics/arduino-leonardo.pdf) |
 
 ### Host (Test Build)
 | MCU                        | MCU_ARCH              | MCU_TYPE          |
