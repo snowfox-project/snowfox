@@ -42,7 +42,7 @@ namespace RFM9x
  * CTOR/DTOR
  **************************************************************************************/
 
-RFM9x_IoSpi::RFM9x_IoSpi(hal::interface::SPIMaster & spi_master, hal::interface::DigitalOutPin & cs)
+RFM9x_IoSpi::RFM9x_IoSpi(hal::interface::SpiMaster & spi_master, hal::interface::DigitalOutPin & cs)
 : _spi_master(spi_master),
   _cs        (cs        )
 {

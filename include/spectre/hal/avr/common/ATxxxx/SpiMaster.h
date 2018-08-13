@@ -23,8 +23,8 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/interface/spi/SPIMaster.h>
-#include <spectre/hal/interface/spi/SPIMasterConfiguration.h>
+#include <spectre/hal/interface/spi/SpiMaster.h>
+#include <spectre/hal/interface/spi/SpiMasterConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -43,8 +43,8 @@ namespace ATxxxx
  * CLASS DECLARATION
  **************************************************************************************/
 
-class SpiMaster : public interface::SPIMaster,
-                  public interface::SPIMasterConfiguration
+class SpiMaster : public interface::SpiMaster,
+                  public interface::SpiMasterConfiguration
 {
 
 public:

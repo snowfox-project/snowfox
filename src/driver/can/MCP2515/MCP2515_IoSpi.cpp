@@ -66,7 +66,7 @@ enum class RxBufferBytePos : uint8_t
  * CTOR/DTOR
  **************************************************************************************/
 
-MCP2515_IoSpi::MCP2515_IoSpi(hal::interface::SPIMaster & spi_master, hal::interface::DigitalOutPin & cs)
+MCP2515_IoSpi::MCP2515_IoSpi(hal::interface::SpiMaster & spi_master, hal::interface::DigitalOutPin & cs)
 : _spi_master(spi_master),
   _cs        (cs        )
 {

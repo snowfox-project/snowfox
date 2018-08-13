@@ -25,7 +25,7 @@
 
 #include <spectre/driver/lora/RFM9x/interface/RFM9x_Io.h>
 
-#include <spectre/hal/interface/spi/SPIMaster.h>
+#include <spectre/hal/interface/spi/SpiMaster.h>
 #include <spectre/hal/interface/gpio/DigitalOutPin.h>
 
 /**************************************************************************************
@@ -53,7 +53,7 @@ class RFM9x_IoSpi : public interface::RFM9x_Io
 
 public:
 
-           RFM9x_IoSpi(hal::interface::SPIMaster & spi_master, hal::interface::DigitalOutPin & cs);
+           RFM9x_IoSpi(hal::interface::SpiMaster & spi_master, hal::interface::DigitalOutPin & cs);
   virtual ~RFM9x_IoSpi();
 
 
@@ -64,7 +64,7 @@ public:
 
 private:
 
-  hal::interface::SPIMaster     & _spi_master;
+  hal::interface::SpiMaster     & _spi_master;
   hal::interface::DigitalOutPin & _cs;
 
 };

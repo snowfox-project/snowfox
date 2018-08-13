@@ -16,11 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INTERFACE_SPI_MASTER_CONFIGURATION_H_
-#define INTERFACE_SPI_MASTER_CONFIGURATION_H_
+#ifndef INTERFACE_SPI_MASTER_H_
+#define INTERFACE_SPI_MASTER_H_
 
 /**************************************************************************************
- * INCLUDE
+ * NAMESPACE
  **************************************************************************************/
 
 #include <stdint.h>
@@ -39,39 +39,20 @@ namespace interface
 {
 
 /**************************************************************************************
- * TYPEDEF
- **************************************************************************************/
-
-enum class SpiMode
-{
-  MODE_0,   /* CPOL = 0, CPHA = 0 */
-  MODE_1,   /* CPOL = 0, CPHA = 1 */
-  MODE_2,   /* CPOL = 1, CPHA = 0 */
-  MODE_3    /* CPOL = 1, CPHA = 1 */
-};
-
-enum class SpiBitOrder
-{
-  LSB_FIRST,
-  MSB_FIRST
-};
-
-/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class SPIMasterConfiguration
+class SpiMaster
 {
 
 public:
 
-           SPIMasterConfiguration() { }
-  virtual ~SPIMasterConfiguration() { }
+           SpiMaster() { }
+  virtual ~SpiMaster() { }
 
-  virtual void setSpiMode     (SpiMode     const spi_mode     ) = 0;
-  virtual void setSpiBitOrder (SpiBitOrder const spi_bit_order) = 0;
-  virtual void setSpiPrescaler(uint32_t    const spi_prescaler) = 0;
-  
+
+  virtual uint8_t exchange(uint8_t const data) = 0;
+
 };
 
 /**************************************************************************************
@@ -84,4 +65,4 @@ public:
 
 } /* spectre */
 
-#endif /* INTERFACE_SPI_MASTER_CONFIGURATION_H_ */
+#endif /* INTERFACE_SPI_MASTER_H_ */
