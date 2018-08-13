@@ -41,6 +41,7 @@ if(${MCU_ARCH} STREQUAL "avr")
   ########################################################################
 
   set(SPECTRE_LIBRARY_BLOX_HAL_AVR_AT90CAN32_64_128_SRCS
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/AT90CAN32_64_128/ExternalInterruptController.cpp
     ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/AT90CAN32_64_128/UART0.cpp
     ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/AT90CAN32_64_128/UART1.cpp
   )
