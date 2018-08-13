@@ -22,7 +22,7 @@
 
 #include <spectre/hal/avr/common/ATxxxx/UART0.h>
 
-#include <spectre/hal/avr/common/ATxxxx/UartUtil.h>
+#include <spectre/hal/avr/common/ATxxxx/util/UartBaudConfig.h>
 
 #if   defined(MCU_TYPE_atmega328p)
   #include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
@@ -200,7 +200,7 @@ void UART0::setBaudRate(interface::UartBaudRate const baud_rate)
 
   switch(baud_rate)
   {
-  case interface::UartBaudRate::B115200: *_UBRR0 = UartUtil::calcBaudRate(_f_cpu, 115200); break;
+  case interface::UartBaudRate::B115200: *_UBRR0 = UartBaudConfig::calcBaudRate(_f_cpu, 115200); break;
   }
 }
 

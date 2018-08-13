@@ -16,14 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_UARTUTIL_H_
-#define INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_UARTUTIL_H_
-
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
+#include <spectre/hal/avr/common/ATxxxx/util/UartBaudConfig.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,23 +36,13 @@ namespace ATxxxx
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
-class UartUtil
+uint16_t UartBaudConfig::calcBaudRate(uint32_t const f_cpu, uint32_t const baud_rate)
 {
-
-public:
-
-  static uint16_t calcBaudRate(uint32_t const f_cpu, uint32_t const baud_rate);
-
-
-private:
-
-  UartUtil() { }
-  UartUtil(UartUtil const & other) { }
-
-};
+  return (static_cast<uint16_t>(f_cpu/(8*baud_rate)) - 1);
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -66,5 +53,3 @@ private:
 } /* hal */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_UARTUTIL_H_ */
