@@ -64,7 +64,7 @@ Work in progress ...
 [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/ioexpander/PCA9547)
 
 #### [/driver/lora](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/lora)
-* **RFM9x** (HopeRF RFM95/96/97/98 Low Power Long Range Transceiver Module) *(Moteino Mega USB, Dragino LoRa Shield V1.4)*
+* **RFM9x** (HopeRF RFM95/96/97/98 Low Power Long Range Transceiver Module) ([Dragino LoRa Shield V1.4](examples/eval-board-schematics/dragino-lora-shield-v-1-4.png), [Moteino Mega USB](examples/eval-board-schematics/low-power-lab-moteino-mega-lora-usb.png))
 [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/lora)
 
 #### [/driver/memory](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/memory)
