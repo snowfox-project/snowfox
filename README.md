@@ -45,58 +45,41 @@ Work in progress ...
 
 
 ## I/O Device Drivers
-#### [/driver/can](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/can)
-* **MCP2515** (CAN Controller)
-[![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/can/MCP2515)
+#### [/driver/can](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/can) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/can)
+* **MCP2515** (CAN Controller) ([Seedstudio CAN Shield V2.0](examples/eval-board-schematics/seedstudio-can-shield-v-2-0.pdf))
 
-#### [/driver/glcd](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/glcd)
+#### [/driver/glcd](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/glcd) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/glcd)
 * **RA6963** (GLCD Controller)
-[![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/glcd/RA6963)
 
-#### [/driver/haptic](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/haptic)
+#### [/driver/haptic](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/haptic) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/haptic)
 * **DRV2605L** (Haptic Driver for LRA and ERM)
-[![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/haptic/DRV2605)
 
-#### [/driver/ioexpander](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/ioexpander)
+#### [/driver/ioexpander](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/ioexpander) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/ioexpander)
 * **MCP23017** (16-Bit I/O Expander)
-[![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/ioexpander/MCP23017)
 * **PCA9547** (8-channel I2C-Bus multiplexer)
-[![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/ioexpander/PCA9547)
 
-#### [/driver/lora](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/lora)
+#### [/driver/lora](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/lora) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/lora)
 * **RFM9x** (HopeRF RFM95/96/97/98 Low Power Long Range Transceiver Module) ([Dragino LoRa Shield V1.4](examples/eval-board-schematics/dragino-lora-shield-v-1-4.png), [Moteino Mega USB](examples/eval-board-schematics/low-power-lab-moteino-mega-lora-usb.png))
-[![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/lora)
 
-#### [/driver/memory](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/memory)
+#### [/driver/memory](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/memory) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/memory)
 * **AT45DBx** (SPI Data Flash)
 * **PCF8570** (256 × 8-Bit Static Low-Voltage RAM)
-[![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/memory)
 
-#### [/driver/sensor](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/sensor)
+#### [/driver/sensor](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/sensor) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/sensor)
 * **AD7151** (1-channel capacitance converter for proximity sensing)
-[![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/sensor/AD7151)
 * **AS5600** (12-Bit programmable contactless potentiometer)
-[![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/sensor/AS5600)
 * **BMG160** (3-axis digital output MEMS gyroscope)
-[![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/sensor/BMG160)
 * **INA220** (Low- or high-side, bidirectional, I2C current monitor)
-[![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/sensor/INA220)
 * **L3GD20** (3-axis digital output MEMS gyroscope)
-[![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/sensor/L3GD20)
 * **LIS2DSH** (3-axis digital output MEMS accelerometer)
-[![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/sensor/LIS2DSH)
 * **LIS3DSH** (3-axis digital output MEMS accelerometer)
-[![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/sensor/LIS3DSH)
 * **LIS3MDL** (3-axis digital output MEMS magnetometer)
-[![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/sensor/LIS3MDL)
 
-#### [/driver/serial](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/serial)
+#### [/driver/serial](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/serial) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/serial)
 * **UART** (Serial UART Driver)
-[![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/serial)
 
-#### [/driver/stepper](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/stepper)
+#### [/driver/stepper](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/stepper) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/stepper)
 * **TCM26x** (Trinamic TCM26x configurable stepper driver)
-[![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/stepper/TMC260x)
 
 ## Communication Stacks
 
@@ -149,7 +132,7 @@ As an alternative, Spectre can be made available under a commercial license. Und
 | Do I have to open my source code?                                   | yes               | no                 |
 | Do I have to open source my changes to Spectre?                     | yes               | no                 |
 | Do I have to offer the Spectre source code to users of my product?  | yes               | no                 |
-| Do I have to document that my product uses Spectre?	                | yes               | no                 |
+| Do I have to document that my product uses Spectre?	              | yes               | no                 |
 | Can I redistribute Spectre in source code format?                   | yes               | no                 |
 | Can I receive professional technical support on a commercial basis? | no                | yes                |
 
