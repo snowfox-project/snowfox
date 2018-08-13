@@ -30,6 +30,7 @@ if(${MCU_ARCH} STREQUAL "avr" OR ${MCU_ARCH} STREQUAL "host")
   ########################################################################
 
   set(SPECTRE_LIBRARY_HAL_AVR_AT90CAN32_64_128_SRCS
+    ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/AT90CAN32_64_128/ExternalInterruptController.cpp
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/AT90CAN32_64_128/InterruptController.cpp
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/AT90CAN32_64_128/TIMER0.cpp
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/AT90CAN32_64_128/TIMER1.cpp
