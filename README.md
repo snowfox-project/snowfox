@@ -79,7 +79,7 @@ Work in progress ...
 * **UART** (Serial UART Driver)
 
 #### [/driver/stepper](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/stepper) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/stepper)
-* **TMC26x** (Trinamic TMC26x configurable stepper driver) [Trinamic TOS-100 TMC-26x Shield](examples/eval-board-schematics/trinamic-tmc26x-shield.pdf)
+* **TMC26x** (Trinamic TMC26x configurable stepper driver) ([Trinamic TOS-100 TMC-26x Shield](examples/eval-board-schematics/trinamic-tmc26x-shield.pdf))
 
 ## Communication Stacks
 
