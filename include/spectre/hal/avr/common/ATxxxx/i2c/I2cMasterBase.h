@@ -65,7 +65,7 @@ public:
 
   /* I2C Master Configuration Interface */
 
-  virtual void setI2CClock(eI2cClock const i2c_clock) override;
+  virtual void setI2cClock(hal::interface::I2cClock const i2c_clock) override;
 
 
 private:

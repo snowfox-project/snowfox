@@ -56,7 +56,7 @@ int main()
   ATMEGA328P::I2cMaster i2c_master_atmega328p(&TWCR, &TWDR, &TWSR, &TWBR);
   ATxxxx::I2cMasterBase i2c_master           (i2c_master_atmega328p);
 
-  i2c_master.setI2CClock(hal::interface::I2cMasterConfiguration::F_100_kHz);
+  i2c_master.setI2cClock(hal::interface::I2cClock::F_100_kHz);
 
   ATMEGA328P::Delay     delay;
 

@@ -95,7 +95,7 @@ bool I2cMasterBase::requestFrom(uint8_t const address, uint8_t * data, uint16_t 
   return true;
 }
 
-void I2cMasterBase::setI2CClock(eI2cClock const i2c_clock)
+void I2cMasterBase::setI2cClock(hal::interface::I2cClock const i2c_clock)
 {
   uint32_t const TWI_PRESCALER = 1;
 
@@ -103,10 +103,10 @@ void I2cMasterBase::setI2CClock(eI2cClock const i2c_clock)
 
   switch(i2c_clock)
   {
-  case F_100_kHz  : _i2c_master_mcu.setTWBR( 100000, TWI_PRESCALER); break;
-  case F_400_kHz  : _i2c_master_mcu.setTWBR( 400000, TWI_PRESCALER); break;
-  case F_1000_kHz : _i2c_master_mcu.setTWBR(1000000, TWI_PRESCALER); break;
-  default: break;
+  case hal::interface::I2cClock::F_100_kHz : _i2c_master_mcu.setTWBR( 100000, TWI_PRESCALER); break;
+  case hal::interface::I2cClock::F_400_kHz : _i2c_master_mcu.setTWBR( 400000, TWI_PRESCALER); break;
+  case hal::interface::I2cClock::F_1000_kHz: _i2c_master_mcu.setTWBR(1000000, TWI_PRESCALER); break;
+  default                                  :                                                  break;
   }
 }
 
