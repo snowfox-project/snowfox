@@ -25,7 +25,7 @@
 
 #include <spectre/driver/sensor/BMG160/interface/BMG160_Io.h>
 
-#include <spectre/hal/interface/i2c/I2CMaster.h>
+#include <spectre/hal/interface/i2c/I2cMaster.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -52,7 +52,7 @@ class BMG160_IoI2c : public interface::BMG160_Io
 
 public:
 
-           BMG160_IoI2c(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master);
+           BMG160_IoI2c(uint8_t const i2c_address, hal::interface::I2cMaster & i2c_master);
   virtual ~BMG160_IoI2c();
 
 
@@ -65,7 +65,7 @@ public:
 private:
 
   uint8_t                     _i2c_address;
-  hal::interface::I2CMaster & _i2c_master;
+  hal::interface::I2cMaster & _i2c_master;
 
 };
 

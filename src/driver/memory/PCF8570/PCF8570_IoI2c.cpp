@@ -42,7 +42,7 @@ namespace PCF8570
  * CTOR/DTOR
  **************************************************************************************/
 
-PCF8570_IoI2c::PCF8570_IoI2c(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
+PCF8570_IoI2c::PCF8570_IoI2c(uint8_t const i2c_address, hal::interface::I2cMaster & i2c_master)
 : _i2c_address(i2c_address),
   _i2c_master (i2c_master )
 {

@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/ATxxxx/i2c/I2CMasterBase.h>
+#include <spectre/hal/avr/common/ATxxxx/i2c/I2cMasterBase.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -47,13 +47,13 @@ namespace ATxxxx
  * CTOR/DTOR
  **************************************************************************************/
 
-I2CMasterBase::I2CMasterBase(interface::I2CMasterMCU & i2c_master_mcu)
+I2cMasterBase::I2cMasterBase(interface::I2cMasterMcu & i2c_master_mcu)
 : _i2c_master_mcu(i2c_master_mcu)
 {
 
 }
 
-I2CMasterBase::~I2CMasterBase()
+I2cMasterBase::~I2cMasterBase()
 {
 
 }
@@ -62,22 +62,22 @@ I2CMasterBase::~I2CMasterBase()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool I2CMasterBase::begin(uint8_t const address, bool const is_read_access)
+bool I2cMasterBase::begin(uint8_t const address, bool const is_read_access)
 {
   return _i2c_master_mcu.start(convertI2CAddress(address, is_read_access));
 }
 
-bool I2CMasterBase::write(uint8_t const data)
+bool I2cMasterBase::write(uint8_t const data)
 {
   return _i2c_master_mcu.transmitByte(data);
 }
 
-void I2CMasterBase::end()
+void I2cMasterBase::end()
 {
   _i2c_master_mcu.stop();
 }
 
-bool I2CMasterBase::requestFrom(uint8_t const address, uint8_t * data, uint16_t const num_bytes)
+bool I2cMasterBase::requestFrom(uint8_t const address, uint8_t * data, uint16_t const num_bytes)
 {
   if(num_bytes == 0        ) return false;
 
@@ -95,7 +95,7 @@ bool I2CMasterBase::requestFrom(uint8_t const address, uint8_t * data, uint16_t 
   return true;
 }
 
-void I2CMasterBase::setI2CClock(eI2CClock const i2c_clock)
+void I2cMasterBase::setI2CClock(eI2cClock const i2c_clock)
 {
   uint32_t const TWI_PRESCALER = 1;
 
@@ -114,7 +114,7 @@ void I2CMasterBase::setI2CClock(eI2CClock const i2c_clock)
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
-uint8_t I2CMasterBase::convertI2CAddress(uint8_t const address, bool is_read_access)
+uint8_t I2cMasterBase::convertI2CAddress(uint8_t const address, bool is_read_access)
 {
   if(is_read_access)  return (address | 0x01);
   else                return address;

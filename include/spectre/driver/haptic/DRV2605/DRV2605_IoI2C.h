@@ -25,7 +25,7 @@
 
 #include <spectre/driver/haptic/DRV2605/interface/DRV2605_Io.h>
 
-#include <spectre/hal/interface/i2c/I2CMaster.h>
+#include <spectre/hal/interface/i2c/I2cMaster.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -52,7 +52,7 @@ class DRV2605_IoI2C : public interface::DRV2605_Io
 
 public:
 
-           DRV2605_IoI2C(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master);
+           DRV2605_IoI2C(uint8_t const i2c_address, hal::interface::I2cMaster & i2c_master);
   virtual ~DRV2605_IoI2C();
 
 
@@ -63,7 +63,7 @@ public:
 private:
 
   uint8_t                     _i2c_address;
-  hal::interface::I2CMaster & _i2c_master;
+  hal::interface::I2cMaster & _i2c_master;
 
 };
 

@@ -22,8 +22,8 @@
 
 #include <avr/io.h>
 
-#include <spectre/hal/avr/ATMEGA328P/I2CMaster.h>
-#include <spectre/hal/avr/common/ATxxxx/i2c/I2CMasterBase.h>
+#include <spectre/hal/avr/ATMEGA328P/I2cMaster.h>
+#include <spectre/hal/avr/common/ATxxxx/i2c/I2cMasterBase.h>
 
 #include <spectre/driver/ioexpander/PCA9547/PCA9547.h>
 #include <spectre/driver/ioexpander/PCA9547/PCA9547_IoI2c.h>
@@ -51,10 +51,10 @@ int main()
 {
   /* HAL ******************************************************************************/
 
-  ATMEGA328P::I2CMaster i2c_master_atmega328p(&TWCR, &TWDR, &TWSR, &TWBR);
-  ATxxxx::I2CMasterBase i2c_master           (i2c_master_atmega328p);
+  ATMEGA328P::I2cMaster i2c_master_atmega328p(&TWCR, &TWDR, &TWSR, &TWBR);
+  ATxxxx::I2cMasterBase i2c_master           (i2c_master_atmega328p);
 
-  i2c_master.setI2CClock(hal::interface::I2CMasterConfiguration::F_100_kHz);
+  i2c_master.setI2CClock(hal::interface::I2cMasterConfiguration::F_100_kHz);
 
   /* DRIVER ***************************************************************************/
 

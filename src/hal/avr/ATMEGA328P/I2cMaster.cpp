@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/ATMEGA328P/I2CMaster.h>
+#include <spectre/hal/avr/ATMEGA328P/I2cMaster.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -87,7 +87,7 @@ namespace ATMEGA328P
  * CTOR/DTOR
  **************************************************************************************/
 
-I2CMaster::I2CMaster(volatile uint8_t * twcr, volatile uint8_t * twdr, volatile uint8_t * twsr, volatile uint8_t * twbr)
+I2cMaster::I2cMaster(volatile uint8_t * twcr, volatile uint8_t * twdr, volatile uint8_t * twsr, volatile uint8_t * twbr)
 : _TWCR(twcr),
   _TWDR(twdr),
   _TWSR(twsr),
@@ -96,7 +96,7 @@ I2CMaster::I2CMaster(volatile uint8_t * twcr, volatile uint8_t * twdr, volatile 
 
 }
 
-I2CMaster::~I2CMaster()
+I2cMaster::~I2cMaster()
 {
 
 }
@@ -105,7 +105,7 @@ I2CMaster::~I2CMaster()
  * PROTECTED MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool I2CMaster::start(uint8_t const address)
+bool I2cMaster::start(uint8_t const address)
 {
   /* Transmit START condition */
   *_TWCR = TWINT_bm | TWSTA_bm | TWEN_bm;
@@ -132,7 +132,7 @@ bool I2CMaster::start(uint8_t const address)
   else                                                      return true;
 }
 
-bool I2CMaster::transmitByte(uint8_t const data)
+bool I2cMaster::transmitByte(uint8_t const data)
 {
   /* Load data into data register */
   *_TWDR = data;
@@ -147,7 +147,7 @@ bool I2CMaster::transmitByte(uint8_t const data)
   else                                     return true;
 }
 
-void I2CMaster::receiveByteAndSendACK(uint8_t * data)
+void I2cMaster::receiveByteAndSendACK(uint8_t * data)
 {
   /* Start TWI module and acknowledge data after reception */
   *_TWCR = TWINT_bm | TWEN_bm | TWEA_bm;
@@ -159,7 +159,7 @@ void I2CMaster::receiveByteAndSendACK(uint8_t * data)
   *data = *_TWDR;
 }
 
-void I2CMaster::receiveByteAndSendNACK(uint8_t * data)
+void I2cMaster::receiveByteAndSendNACK(uint8_t * data)
 {
   /* Start receiving without acknowledging reception */
   *_TWCR = TWINT_bm | TWEN_bm;
@@ -171,13 +171,13 @@ void I2CMaster::receiveByteAndSendNACK(uint8_t * data)
   *data = *_TWDR;
 }
 
-void I2CMaster::stop()
+void I2cMaster::stop()
 {
   /* Transmit STOP condition */
   *_TWCR = TWINT_bm | TWEN_bm | TWSTO_bm;
 }
 
-void I2CMaster::setTWIPrescaler(uint32_t const prescaler)
+void I2cMaster::setTWIPrescaler(uint32_t const prescaler)
 {
   *_TWSR &= ~(TWPS1_bm | TWPS0_bm);
 
@@ -191,7 +191,7 @@ void I2CMaster::setTWIPrescaler(uint32_t const prescaler)
   }
 }
 
-void I2CMaster::setTWBR(uint32_t const i2c_speed_Hz, uint32_t const i2c_prescaler)
+void I2cMaster::setTWBR(uint32_t const i2c_speed_Hz, uint32_t const i2c_prescaler)
 {
   uint32_t const twbr_val = (((static_cast<uint32_t>(F_CPU) / i2c_speed_Hz) / i2c_prescaler) - 16) / 2;
 

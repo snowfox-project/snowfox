@@ -16,17 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_MCU_AVR_ATXXXX_I2CMASTER_H_
-#define INCLUDE_SPECTRE_MCU_AVR_ATXXXX_I2CMASTER_H_
+#ifndef INTERFACE_I2C_MASTER_H_
+#define INTERFACE_I2C_MASTER_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/interface/i2c/I2CMaster.h>
-#include <spectre/hal/interface/i2c/I2CMasterConfiguration.h>
-
-#include <spectre/hal/avr/common/ATxxxx/i2c/interface/I2CMasterMCU.h>
+#include <stdint.h>
+#include <stdbool.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -38,41 +36,25 @@ namespace spectre
 namespace hal
 {
 
-namespace ATxxxx
+namespace interface
 {
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class I2CMasterBase : public hal::interface::I2CMaster,
-                      public hal::interface::I2CMasterConfiguration
+class I2cMaster
 {
 
 public:
 
-           I2CMasterBase(interface::I2CMasterMCU & i2c_master_mcu);
-  virtual ~I2CMasterBase();
+           I2cMaster() { }
+  virtual ~I2cMaster() { }
 
-
-  /* I2C Master Interface */
-
-  virtual bool begin      (uint8_t const address, bool const is_read_access               ) override;
-  virtual void end        (                                                               ) override;
-  virtual bool write      (uint8_t const data                                             ) override;
-  virtual bool requestFrom(uint8_t const address, uint8_t * data, uint16_t const num_bytes) override;
-
-
-  /* I2C Master Configuration Interface */
-
-  virtual void setI2CClock(eI2CClock const i2c_clock) override;
-
-
-private:
-
-  interface::I2CMasterMCU & _i2c_master_mcu;
-
-  static uint8_t convertI2CAddress(uint8_t const address, bool is_read_access);
+  virtual bool begin      (uint8_t const address, bool const is_read_access               ) = 0;
+  virtual void end        (                                                               ) = 0;
+  virtual bool write      (uint8_t const data                                             ) = 0;
+  virtual bool requestFrom(uint8_t const address, uint8_t * data, uint16_t const num_bytes) = 0;
 
 };
 
@@ -80,10 +62,10 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATxxxx */
+} /* interface*/
 
 } /* hal */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_MCU_AVR_ATXXXX_I2CMASTER_H_ */
+#endif /* INTERFACE_I2C_MASTER_H_*/

@@ -36,7 +36,7 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class I2CMasterConfiguration
+class I2cMasterConfiguration
 {
 
 public:
@@ -46,14 +46,14 @@ public:
     F_100_kHz,   /* Standard mode  */
     F_400_kHz,   /* Fast mode      */
     F_1000_kHz   /* Fast mode plus */
-  } eI2CClock;
+  } eI2cClock;
 
 
-           I2CMasterConfiguration() { }
-  virtual ~I2CMasterConfiguration() { }
+           I2cMasterConfiguration() { }
+  virtual ~I2cMasterConfiguration() { }
 
 
-  virtual void setI2CClock(eI2CClock const i2c_clock) = 0;
+  virtual void setI2CClock(eI2cClock const i2c_clock) = 0;
   
 };
 

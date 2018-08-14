@@ -45,13 +45,13 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class I2CMasterMCU
+class I2cMasterMcu
 {
 
 public:
 
-           I2CMasterMCU() { }
-  virtual ~I2CMasterMCU() { }
+           I2cMasterMcu() { }
+  virtual ~I2cMasterMcu() { }
 
 
   virtual bool start                 (uint8_t const   address                                  ) = 0;

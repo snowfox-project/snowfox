@@ -42,7 +42,7 @@ namespace DRV2605
  * CTOR/DTOR
  **************************************************************************************/
 
-DRV2605_IoI2C::DRV2605_IoI2C(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
+DRV2605_IoI2C::DRV2605_IoI2C(uint8_t const i2c_address, hal::interface::I2cMaster & i2c_master)
 : _i2c_address(i2c_address),
   _i2c_master (i2c_master )
 {

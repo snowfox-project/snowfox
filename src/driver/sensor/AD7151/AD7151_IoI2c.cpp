@@ -42,7 +42,7 @@ namespace AD7151
  * CTOR/DTOR
  **************************************************************************************/
 
-AD7151_IoI2c::AD7151_IoI2c(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
+AD7151_IoI2c::AD7151_IoI2c(uint8_t const i2c_address, hal::interface::I2cMaster & i2c_master)
 : _i2c_address(i2c_address),
   _i2c_master (i2c_master )
 {

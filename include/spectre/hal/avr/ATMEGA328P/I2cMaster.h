@@ -16,15 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INTERFACE_I2C_MASTER_H_
-#define INTERFACE_I2C_MASTER_H_
+#ifndef INCLUDE_SPECTRE_MCU_AVR_ATMEGA328P_I2CMASTER_H_
+#define INCLUDE_SPECTRE_MCU_AVR_ATMEGA328P_I2CMASTER_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
-#include <stdbool.h>
+#include <spectre/hal/avr/common/ATxxxx/i2c/interface/I2cMasterMcu.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -36,36 +35,46 @@ namespace spectre
 namespace hal
 {
 
-namespace interface
+namespace ATMEGA328P
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CLASS DECLARATION I2CMaster
  **************************************************************************************/
 
-class I2CMaster
+class I2cMaster : public ATxxxx::interface::I2cMasterMcu
 {
 
 public:
 
-           I2CMaster() { }
-  virtual ~I2CMaster() { }
+           I2cMaster(volatile uint8_t * twcr, volatile uint8_t * twdr, volatile uint8_t * twsr, volatile uint8_t * twbr);
+  virtual ~I2cMaster();
 
-  virtual bool begin      (uint8_t const address, bool const is_read_access               ) = 0;
-  virtual void end        (                                                               ) = 0;
-  virtual bool write      (uint8_t const data                                             ) = 0;
-  virtual bool requestFrom(uint8_t const address, uint8_t * data, uint16_t const num_bytes) = 0;
 
+  virtual bool start                 (uint8_t  const   address                                 ) override;
+  virtual bool transmitByte          (uint8_t  const   data                                    ) override;
+  virtual void receiveByteAndSendACK (uint8_t        * data                                    ) override;
+  virtual void receiveByteAndSendNACK(uint8_t        * data                                    ) override;
+  virtual void stop                  (                                                         ) override;
+  virtual void setTWIPrescaler       (uint32_t const prescaler                                 ) override;
+  virtual void setTWBR               (uint32_t const i2c_speed_Hz, uint32_t const i2c_prescaler) override;
+
+private:
+
+  volatile uint8_t * _TWCR,
+                   * _TWDR,
+                   * _TWSR,
+                   * _TWBR;
 };
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface*/
+} /* ATMEGA328P */
 
 } /* hal */
 
 } /* spectre */
 
-#endif /* INTERFACE_I2C_MASTER_H_*/
+#endif /* INCLUDE_SPECTRE_MCU_AVR_ATMEGA328P_I2CMASTER_H_ */

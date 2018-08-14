@@ -24,7 +24,8 @@
  **************************************************************************************/
 
 #include <spectre/driver/sensor/INA220/interface/INA220_Io.h>
-#include <spectre/hal/interface/i2c/I2CMaster.h>
+
+#include <spectre/hal/interface/i2c/I2cMaster.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -51,7 +52,7 @@ class INA220_IoI2c : public interface::INA220_Io
 
 public:
 
-           INA220_IoI2c(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master);
+           INA220_IoI2c(uint8_t const i2c_address, hal::interface::I2cMaster & i2c_master);
   virtual ~INA220_IoI2c();
 
 
@@ -61,7 +62,7 @@ public:
 private:
 
   uint8_t                     _i2c_address;
-  hal::interface::I2CMaster & _i2c_master;
+  hal::interface::I2cMaster & _i2c_master;
 
 };
 

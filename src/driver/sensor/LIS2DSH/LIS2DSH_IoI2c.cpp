@@ -42,7 +42,7 @@ namespace LIS2DSH
  * CTOR/DTOR
  **************************************************************************************/
 
-LIS2DSH_IoI2c::LIS2DSH_IoI2c(uint8_t const i2c_address, hal::interface::I2CMaster & i2c_master)
+LIS2DSH_IoI2c::LIS2DSH_IoI2c(uint8_t const i2c_address, hal::interface::I2cMaster & i2c_master)
 : _i2c_address(i2c_address),
   _i2c_master (i2c_master )
 {
