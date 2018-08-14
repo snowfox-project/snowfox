@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_UART_BAUD_CONFIG_H_
-#define INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_UART_BAUD_CONFIG_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_EXTINTTRIGGERMODEUTIL_H_
+#define INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_EXTINTTRIGGERMODEUTIL_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
+#include <spectre/hal/interface/extint/ExternalInterruptConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,23 +39,17 @@ namespace ATxxxx
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * PROTOTYPES
  **************************************************************************************/
 
-class UartBaudConfig
-{
-
-public:
-
-  static uint16_t calcBaudRate(uint32_t const f_cpu, uint32_t const baud_rate);
-
-
-private:
-
-  UartBaudConfig() { }
-  UartBaudConfig(UartBaudConfig const & other) { }
-
-};
+void setTriggerModeEint0(interface::TriggerMode const trigger_mode, volatile uint8_t * eicra);
+void setTriggerModeEint1(interface::TriggerMode const trigger_mode, volatile uint8_t * eicra);
+void setTriggerModeEint2(interface::TriggerMode const trigger_mode, volatile uint8_t * eicra);
+void setTriggerModeEint3(interface::TriggerMode const trigger_mode, volatile uint8_t * eicra);
+void setTriggerModeEint4(interface::TriggerMode const trigger_mode, volatile uint8_t * eicrb);
+void setTriggerModeEint5(interface::TriggerMode const trigger_mode, volatile uint8_t * eicrb);
+void setTriggerModeEint6(interface::TriggerMode const trigger_mode, volatile uint8_t * eicrb);
+void setTriggerModeEint7(interface::TriggerMode const trigger_mode, volatile uint8_t * eicrb);
 
 /**************************************************************************************
  * NAMESPACE
@@ -67,4 +61,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_UART_BAUD_CONFIG_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_EXTINTTRIGGERMODEUTIL_H_ */

@@ -16,14 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_EXTINTTRIGGERMODEUTIL_H_
-#define INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_EXTINTTRIGGERMODEUTIL_H_
-
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/interface/extint/ExternalInterruptConfiguration.h>
+#include <spectre/hal/avr/common/ATxxxx/util/UartUtil.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,31 +36,13 @@ namespace ATxxxx
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
-class ExternalInterruptTriggerModeConfig
+uint16_t calcUartBaudRate(uint32_t const f_cpu, uint32_t const baud_rate)
 {
-
-public:
-
-
-  static void setTriggerModeEint0(interface::TriggerMode const trigger_mode, volatile uint8_t * eicra);
-  static void setTriggerModeEint1(interface::TriggerMode const trigger_mode, volatile uint8_t * eicra);
-  static void setTriggerModeEint2(interface::TriggerMode const trigger_mode, volatile uint8_t * eicra);
-  static void setTriggerModeEint3(interface::TriggerMode const trigger_mode, volatile uint8_t * eicra);
-  static void setTriggerModeEint4(interface::TriggerMode const trigger_mode, volatile uint8_t * eicrb);
-  static void setTriggerModeEint5(interface::TriggerMode const trigger_mode, volatile uint8_t * eicrb);
-  static void setTriggerModeEint6(interface::TriggerMode const trigger_mode, volatile uint8_t * eicrb);
-  static void setTriggerModeEint7(interface::TriggerMode const trigger_mode, volatile uint8_t * eicrb);
-
-
-private:
-
-  ExternalInterruptTriggerModeConfig() { }
-  ExternalInterruptTriggerModeConfig(ExternalInterruptTriggerModeConfig const & other) { }
-
-};
+  return (static_cast<uint16_t>(f_cpu/(8*baud_rate)) - 1);
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -74,5 +53,3 @@ private:
 } /* hal */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_EXTINTTRIGGERMODEUTIL_H_ */

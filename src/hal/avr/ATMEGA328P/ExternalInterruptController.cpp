@@ -23,7 +23,7 @@
 #include <spectre/hal/avr/ATMEGA328P/ExternalInterruptController.h>
 
 #include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
-#include <spectre/hal/avr/common/ATxxxx/util/ExternalInterruptTriggerModeConfig.h>
+#include <spectre/hal/avr/common/ATxxxx/util/ExternalInterruptUtil.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -102,9 +102,9 @@ void ExternalInterruptController::setTriggerMode(uint8_t const ext_int_num, inte
 {
   switch(ext_int_num)
   {
-  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT0): ATxxxx::ExternalInterruptTriggerModeConfig::setTriggerModeEint0(trigger_mode, _EICRA); break;
-  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT1): ATxxxx::ExternalInterruptTriggerModeConfig::setTriggerModeEint1(trigger_mode, _EICRA); break;
-  default                                           : /* PCINT trigger mode is Any */                                                        break;
+  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT0): ATxxxx::setTriggerModeEint0(trigger_mode, _EICRA); break;
+  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT1): ATxxxx::setTriggerModeEint1(trigger_mode, _EICRA); break;
+  default                                           : /* PCINT trigger mode is Any */                    break;
   }
 }
 

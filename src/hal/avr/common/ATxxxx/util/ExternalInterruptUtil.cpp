@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/ATxxxx/util/ExternalInterruptTriggerModeConfig.h>
+#include <spectre/hal/avr/common/ATxxxx/util/ExternalInterruptUtil.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -60,10 +60,10 @@ namespace ATxxxx
 #define ISC40_bm   (1<<0)
 
 /**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
+ * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-void ExternalInterruptTriggerModeConfig::setTriggerModeEint0(interface::TriggerMode const trigger_mode, volatile uint8_t * eicra)
+void setTriggerModeEint0(interface::TriggerMode const trigger_mode, volatile uint8_t * eicra)
 {
   *eicra &= ~(ISC01_bm | ISC00_bm);
 
@@ -77,7 +77,7 @@ void ExternalInterruptTriggerModeConfig::setTriggerModeEint0(interface::TriggerM
   }
 }
 
-void ExternalInterruptTriggerModeConfig::setTriggerModeEint1(interface::TriggerMode const trigger_mode, volatile uint8_t * eicra)
+void setTriggerModeEint1(interface::TriggerMode const trigger_mode, volatile uint8_t * eicra)
 {
   *eicra &= ~(ISC11_bm | ISC10_bm);
 
@@ -91,7 +91,7 @@ void ExternalInterruptTriggerModeConfig::setTriggerModeEint1(interface::TriggerM
   }
 }
 
-void ExternalInterruptTriggerModeConfig::setTriggerModeEint2(interface::TriggerMode const trigger_mode, volatile uint8_t * eicra)
+void setTriggerModeEint2(interface::TriggerMode const trigger_mode, volatile uint8_t * eicra)
 {
   *eicra &= ~(ISC21_bm | ISC20_bm);
 
@@ -105,7 +105,7 @@ void ExternalInterruptTriggerModeConfig::setTriggerModeEint2(interface::TriggerM
   }
 }
 
-void ExternalInterruptTriggerModeConfig::setTriggerModeEint3(interface::TriggerMode const trigger_mode, volatile uint8_t * eicra)
+void setTriggerModeEint3(interface::TriggerMode const trigger_mode, volatile uint8_t * eicra)
 {
   *eicra &= ~(ISC31_bm | ISC30_bm);
 
@@ -119,7 +119,7 @@ void ExternalInterruptTriggerModeConfig::setTriggerModeEint3(interface::TriggerM
   }
 }
 
-void ExternalInterruptTriggerModeConfig::setTriggerModeEint4(interface::TriggerMode const trigger_mode, volatile uint8_t * eicrb)
+void setTriggerModeEint4(interface::TriggerMode const trigger_mode, volatile uint8_t * eicrb)
 {
   *eicrb &= ~(ISC41_bm | ISC40_bm);
 
@@ -133,7 +133,7 @@ void ExternalInterruptTriggerModeConfig::setTriggerModeEint4(interface::TriggerM
   }
 }
 
-void ExternalInterruptTriggerModeConfig::setTriggerModeEint5(interface::TriggerMode const trigger_mode, volatile uint8_t * eicrb)
+void setTriggerModeEint5(interface::TriggerMode const trigger_mode, volatile uint8_t * eicrb)
 {
   *eicrb &= ~(ISC51_bm | ISC50_bm);
 
@@ -147,7 +147,7 @@ void ExternalInterruptTriggerModeConfig::setTriggerModeEint5(interface::TriggerM
   }
 }
 
-void ExternalInterruptTriggerModeConfig::setTriggerModeEint6(interface::TriggerMode const trigger_mode, volatile uint8_t * eicrb)
+void setTriggerModeEint6(interface::TriggerMode const trigger_mode, volatile uint8_t * eicrb)
 {
   *eicrb &= ~(ISC61_bm | ISC60_bm);
 
@@ -161,7 +161,7 @@ void ExternalInterruptTriggerModeConfig::setTriggerModeEint6(interface::TriggerM
   }
 }
 
-void ExternalInterruptTriggerModeConfig::setTriggerModeEint7(interface::TriggerMode const trigger_mode, volatile uint8_t * eicrb)
+void setTriggerModeEint7(interface::TriggerMode const trigger_mode, volatile uint8_t * eicrb)
 {
   *eicrb &= ~(ISC71_bm | ISC70_bm);
 

@@ -77,8 +77,8 @@ if(${MCU_ARCH} STREQUAL "avr" OR ${MCU_ARCH} STREQUAL "host")
   ########################################################################
 
   set(SPECTRE_LIBRARY_HAL_AVR_ATxxxx_SRCS
-    ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/util/ExternalInterruptTriggerModeConfig.cpp
-    ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/util/UartBaudConfig.cpp
+    ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/util/ExternalInterruptUtil.cpp
+    ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/util/UartUtil.cpp
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/Delay.cpp
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/CriticalSection.cpp
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/DigitalInOutPort.cpp

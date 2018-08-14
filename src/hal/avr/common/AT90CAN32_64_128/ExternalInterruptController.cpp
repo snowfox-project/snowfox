@@ -23,7 +23,7 @@
 #include <spectre/hal/avr/common/AT90CAN32_64_128/ExternalInterruptController.h>
 
 #include <spectre/hal/avr/common/AT90CAN32_64_128/InterruptController.h>
-#include <spectre/hal/avr/common/ATxxxx/util/ExternalInterruptTriggerModeConfig.h>
+#include <spectre/hal/avr/common/ATxxxx/util/ExternalInterruptUtil.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -65,15 +65,15 @@ void ExternalInterruptController::setTriggerMode(uint8_t const ext_int_num, inte
 {
   switch(ext_int_num)
   {
-  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT0): ATxxxx::ExternalInterruptTriggerModeConfig::setTriggerModeEint0(trigger_mode, _EICRA); break;
-  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT1): ATxxxx::ExternalInterruptTriggerModeConfig::setTriggerModeEint1(trigger_mode, _EICRA); break;
-  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT2): ATxxxx::ExternalInterruptTriggerModeConfig::setTriggerModeEint2(trigger_mode, _EICRA); break;
-  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT3): ATxxxx::ExternalInterruptTriggerModeConfig::setTriggerModeEint3(trigger_mode, _EICRA); break;
-  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT4): ATxxxx::ExternalInterruptTriggerModeConfig::setTriggerModeEint4(trigger_mode, _EICRB); break;
-  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT5): ATxxxx::ExternalInterruptTriggerModeConfig::setTriggerModeEint5(trigger_mode, _EICRB); break;
-  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT6): ATxxxx::ExternalInterruptTriggerModeConfig::setTriggerModeEint6(trigger_mode, _EICRB); break;
-  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT7): ATxxxx::ExternalInterruptTriggerModeConfig::setTriggerModeEint7(trigger_mode, _EICRB); break;
-  default                                           : /* PCINT trigger mode is Any */                                                        break;
+  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT0): ATxxxx::setTriggerModeEint0(trigger_mode, _EICRA); break;
+  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT1): ATxxxx::setTriggerModeEint1(trigger_mode, _EICRA); break;
+  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT2): ATxxxx::setTriggerModeEint2(trigger_mode, _EICRA); break;
+  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT3): ATxxxx::setTriggerModeEint3(trigger_mode, _EICRA); break;
+  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT4): ATxxxx::setTriggerModeEint4(trigger_mode, _EICRB); break;
+  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT5): ATxxxx::setTriggerModeEint5(trigger_mode, _EICRB); break;
+  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT6): ATxxxx::setTriggerModeEint6(trigger_mode, _EICRB); break;
+  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT7): ATxxxx::setTriggerModeEint7(trigger_mode, _EICRB); break;
+  default                                           : /* PCINT trigger mode is Any */                    break;
   }
 }
 
