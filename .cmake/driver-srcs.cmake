@@ -245,3 +245,15 @@ if(${DRIVER_STEPPER_TMC26x} STREQUAL "yes")
 endif()
 
 ##########################################################################
+
+set(DRIVER_TLCD_SRC_PATH src/driver/tlcd)
+
+if(${DRIVER_TLCD_HD44780} STREQUAL "yes")
+  set(DRIVER_TLCD_HD44780_SRCS
+    ${DRIVER_TLCD_SRC_PATH}/HD44780/HD44780_IoGpio8Bit.cpp
+  )
+  
+  set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} ${DRIVER_TLCD_HD44780})
+endif()
+
+##########################################################################

@@ -40,4 +40,6 @@ set(DRIVER_SERIAL              yes)
 
 set(DRIVER_STEPPER_TMC26x      yes)
 
+set(DRIVER_TLCD_HD44780        yes)
+
 ##########################################################################

@@ -81,6 +81,9 @@ Work in progress ...
 #### [/driver/stepper](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/stepper) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/stepper)
 * **TMC26x** (Trinamic TMC26x configurable stepper driver) ([Trinamic TOS-100 TMC-26x Shield](examples/eval-board-schematics/trinamic-tmc26x-shield.pdf))
 
+#### [/driver/tlcd](include/spectre/driver/tlcd)
+* **HD44780** (Dot Matrix LCD Controller/Driver)
+
 ## Communication Stacks
 
 * **CANOpen** ( Work in progress ... )
