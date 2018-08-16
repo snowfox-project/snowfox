@@ -45,27 +45,27 @@ Work in progress ...
 
 
 ## I/O Device Drivers
-#### [/driver/can](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/can) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/can)
+#### [/driver/can](include/spectre/driver/can) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/can)
 * **MCP2515** (CAN Controller) ([Seedstudio CAN Shield V2.0](examples/eval-board-schematics/seedstudio-can-shield-v-2-0.pdf))
 
-#### [/driver/glcd](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/glcd) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/glcd)
+#### [/driver/glcd](include/spectre/driver/glcd) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/glcd)
 * **RA6963** (GLCD Controller)
 
-#### [/driver/haptic](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/haptic) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/haptic)
+#### [/driver/haptic](include/spectre/driver/haptic) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/haptic)
 * **DRV2605L** (Haptic Driver for LRA and ERM)
 
-#### [/driver/ioexpander](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/ioexpander) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/ioexpander)
+#### [/driver/ioexpander](include/spectre/driver/ioexpander) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/ioexpander)
 * **MCP23017** (16-Bit I/O Expander)
 * **PCA9547** (8-channel I2C-Bus multiplexer)
 
-#### [/driver/lora](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/lora) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/lora)
+#### [/driver/lora](include/spectre/driver/lora) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/lora)
 * **RFM9x** (HopeRF RFM95/96/97/98 Low Power Long Range Transceiver Module) ([Dragino LoRa Shield V1.4](examples/eval-board-schematics/dragino-lora-shield-v-1-4.png), [Moteino Mega USB](examples/eval-board-schematics/low-power-lab-moteino-mega-lora-usb.png))
 
-#### [/driver/memory](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/memory) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/memory)
+#### [/driver/memory](include/spectre/driver/memory) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/memory)
 * **AT45DBx** (SPI Data Flash)
 * **PCF8570** (256 × 8-Bit Static Low-Voltage RAM)
 
-#### [/driver/sensor](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/sensor) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/sensor)
+#### [/driver/sensor](include/spectre/driver/sensor) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/sensor)
 * **AD7151** (1-channel capacitance converter for proximity sensing)
 * **AS5600** (12-Bit programmable contactless potentiometer)
 * **BMG160** (3-axis digital output MEMS gyroscope)
@@ -75,10 +75,10 @@ Work in progress ...
 * **LIS3DSH** (3-axis digital output MEMS accelerometer)
 * **LIS3MDL** (3-axis digital output MEMS magnetometer)
 
-#### [/driver/serial](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/serial) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/serial)
+#### [/driver/serial](include/spectre/driver/serial) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/serial)
 * **UART** (Serial UART Driver)
 
-#### [/driver/stepper](https://github.com/lxrobotics/spectre/tree/master/include/spectre/driver/stepper) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/stepper)
+#### [/driver/stepper](include/spectre/driver/stepper) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/stepper)
 * **TMC26x** (Trinamic TMC26x configurable stepper driver) ([Trinamic TOS-100 TMC-26x Shield](examples/eval-board-schematics/trinamic-tmc26x-shield.pdf))
 
 #### [/driver/tlcd](include/spectre/driver/tlcd)
