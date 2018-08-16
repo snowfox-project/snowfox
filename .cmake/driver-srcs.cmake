@@ -253,7 +253,7 @@ if(${DRIVER_TLCD_HD44780} STREQUAL "yes")
     ${DRIVER_TLCD_SRC_PATH}/HD44780/HD44780_IoGpio8Bit.cpp
   )
   
-  set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} ${DRIVER_TLCD_HD44780})
+  set(SPECTRE_LIBRARY_DRIVER ${SPECTRE_LIBRARY_DRIVER} ${DRIVER_TLCD_HD44780_SRCS})
 endif()
 
 ##########################################################################
