@@ -42,21 +42,55 @@ namespace HD44780
  * CTOR/DTOR
  **************************************************************************************/
 
-HD44780_IoGpio8Bit::HD44780_IoGpio8Bit(hal::interface::DigitalOutPin             & rs,
+HD44780_IoGpio8Bit::HD44780_IoGpio8Bit(hal::interface::Delay                     & delay,
+                                       hal::interface::DigitalOutPin             & rs,
                                        hal::interface::DigitalOutPin             & rw,
                                        hal::interface::DigitalOutPin             & enable,
                                        hal::interface::DigitalInOutPort<uint8_t> & data)
-: _rs    (rs    ),
+: _delay (delay ),
+  _rs    (rs    ),
   _rw    (rw    ),
   _enable(enable),
   _data  (data  )
 {
+  _rs.set    ();
+  _rw.set    ();
+  _enable.clr();
 
+  _data.setMode(hal::interface::DigitalInOutPortConfiguration::OUTPUT);
 }
 
 HD44780_IoGpio8Bit::~HD44780_IoGpio8Bit()
 {
 
+}
+
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
+
+void HD44780_IoGpio8Bit::writeData(uint8_t const data_val)
+{
+  _rw.clr        ();
+  _data.set      (data_val);
+  _enable.set    ();
+  _delay.delay_us(1);
+  _enable.clr    ();
+  _delay.delay_us(100);
+  _rw.set        ();
+}
+
+void HD44780_IoGpio8Bit::writeCommand(uint8_t const cmd_val)
+{
+  _rs.clr        ();
+  _rw.clr        ();
+  _data.set      (cmd_val);
+  _enable.set    ();
+  _delay.delay_us(1);
+  _enable.clr    ();
+  _delay.delay_us(100);
+  _rw.set        ();
+  _rs.set        ();
 }
 
 /**************************************************************************************

@@ -54,16 +54,22 @@ class HD44780_IoGpio8Bit : public interface::HD44780_Io
 
 public:
 
-           HD44780_IoGpio8Bit(hal::interface::DigitalOutPin             & rs,
+           HD44780_IoGpio8Bit(hal::interface::Delay                     & delay,
+                              hal::interface::DigitalOutPin             & rs,
                               hal::interface::DigitalOutPin             & rw,
                               hal::interface::DigitalOutPin             & enable,
                               hal::interface::DigitalInOutPort<uint8_t> & data);
   virtual ~HD44780_IoGpio8Bit();
 
 
+  virtual void writeData   (uint8_t const data_val) override;
+  virtual void writeCommand(uint8_t const cmd_val ) override;
+
+
 private:
 
 
+  hal::interface::Delay                     & _delay;
   hal::interface::DigitalOutPin             & _rs,
                                             & _rw,
                                             & _enable;
