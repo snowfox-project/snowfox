@@ -23,9 +23,9 @@
 #include <avr/io.h>
 
 #include <spectre/hal/avr/ATMEGA328P/Flash.h>
+#include <spectre/hal/avr/ATMEGA328P/I2cMaster.h>
 #include <spectre/hal/avr/ATMEGA328P/CriticalSection.h>
 #include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
-#include <spectre/hal/avr/ATMEGA328P/I2cMaster.h>
 
 #include <spectre/blox/hal/avr/ATMEGA328P/UART0.h>
 
@@ -95,7 +95,9 @@ int main()
   int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
 
 
-  /* APPLICATION **********************************************************************/
+  /**************************************************************************************
+   * APPLICATION
+   **************************************************************************************/
 
   haptic::DRV2605::DRV2605_Debug::debug_dumpAllRegs(debug_serial, flash, drv2605_io_i2c);
 
