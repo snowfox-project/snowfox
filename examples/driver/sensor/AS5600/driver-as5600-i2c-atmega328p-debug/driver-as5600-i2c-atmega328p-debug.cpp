@@ -22,12 +22,19 @@
 
 #include <avr/io.h>
 
-#include <spectre/hal/avr/ATMEGA328P/Delay.h>
+#include <spectre/hal/avr/ATMEGA328P/Flash.h>
 #include <spectre/hal/avr/ATMEGA328P/I2cMaster.h>
+#include <spectre/hal/avr/ATMEGA328P/CriticalSection.h>
+#include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
 
-#include <spectre/driver/sensor/AS5600/AS5600.h>
+#include <spectre/blox/hal/avr/ATMEGA328P/UART0.h>
+
+#include <spectre/blox/driver/serial/SerialUart.h>
+
 #include <spectre/driver/sensor/AS5600/AS5600_IoI2c.h>
-#include <spectre/driver/sensor/AS5600/AS5600_Control.h>
+#include <spectre/driver/sensor/AS5600/AS5600_Debug.h>
+
+#include <spectre/debug/serial/DebugSerial.h>
 
 /**************************************************************************************
  * NAMESPACES
@@ -41,8 +48,10 @@ using namespace spectre::driver;
  * GLOBAL CONSTANTS
  **************************************************************************************/
 
-static uint8_t  const AS5600_I2C_ADDR  = (0x36 << 1);
-static uint32_t const LOOP_DELAY_ms    = 1000; /* 1 s */
+static uint16_t const UART_RX_BUFFER_SIZE = 0;
+static uint16_t const UART_TX_BUFFER_SIZE = 16;
+
+static uint8_t  const AS5600_I2C_ADDR     = (0x36 << 1);
 
 /**************************************************************************************
  * MAIN
@@ -54,8 +63,12 @@ int main()
    * HAL
    ************************************************************************************/
 
-  ATMEGA328P::Delay     delay;
-  ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
+  ATMEGA328P::Flash               flash;
+  ATMEGA328P::InterruptController int_ctrl  (&EIMSK, &PCICR, &WDTCSR, &TIMSK2, &TIMSK1, &TIMSK0, &SPCR, &UCSR0B, &ADCSRA, &EECR, &ACSR, &TWCR, &SPMCSR);
+  ATMEGA328P::CriticalSection     crit_sec  (&SREG);
+  ATMEGA328P::I2cMaster           i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
+
+  blox::ATMEGA328P::UART0         uart0     (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl, F_CPU);
 
   i2c_master.setI2cClock(hal::interface::I2cClock::F_100_kHz);
 
@@ -64,39 +77,33 @@ int main()
    * DRIVER
    ************************************************************************************/
 
-  sensor::AS5600::AS5600_IoI2c      as5600_io_i2c (AS5600_I2C_ADDR, i2c_master);
-  sensor::AS5600::AS5600_Control    as5600_control(as5600_io_i2c              );
-  sensor::AS5600::AS5600            as5600        (as5600_control             );
+  /* SERIAL ***************************************************************************/
+  blox::SerialUart   serial(crit_sec,
+                            uart0(),
+                            UART_RX_BUFFER_SIZE,
+                            UART_TX_BUFFER_SIZE,
+                            serial::interface::SerialBaudRate::B115200,
+                            serial::interface::SerialParity::None,
+                            serial::interface::SerialStopBit::_1);
 
-  uint8_t power_mode            = static_cast<uint8_t>(sensor::AS5600::interface::PowerMode::NORMAL                    );
-  uint8_t hysteresis            = static_cast<uint8_t>(sensor::AS5600::interface::Hysteresis::HYST_OFF                 );
-  uint8_t output_stage          = static_cast<uint8_t>(sensor::AS5600::interface::OutputStage::REDUCED_ANALOG          );
-  uint8_t pwm_frequency         = static_cast<uint8_t>(sensor::AS5600::interface::PwmFrequency::F_115_Hz               );
-  uint8_t slow_filter           = static_cast<uint8_t>(sensor::AS5600::interface::SlowFilter::SF_4x                    );
-  uint8_t fast_filter_threshold = static_cast<uint8_t>(sensor::AS5600::interface::FastFilterThreshold::ONLY_SLOW_FILTER);
+  debug::DebugSerial debug_serial(serial());
 
-  as5600.open();
+  /* AS5600 ***************************************************************************/
+  sensor::AS5600::AS5600_IoI2c      as5600_io(AS5600_I2C_ADDR, i2c_master);
 
-  as5600.ioctl(sensor::AS5600::IOCTL_SET_POWER_MODE,            static_cast<void *>(&power_mode           ));
-  as5600.ioctl(sensor::AS5600::IOCTL_SET_HYSTERESIS,            static_cast<void *>(&hysteresis           ));
-  as5600.ioctl(sensor::AS5600::IOCTL_SET_OUTPUT_STAGE,          static_cast<void *>(&output_stage         ));
-  as5600.ioctl(sensor::AS5600::IOCTL_SET_PWM_FREQUENCY,         static_cast<void *>(&pwm_frequency        ));
-  as5600.ioctl(sensor::AS5600::IOCTL_SET_SLOW_FILTER,           static_cast<void *>(&slow_filter          ));
-  as5600.ioctl(sensor::AS5600::IOCTL_SET_FAST_FILTER_THRESHOLD, static_cast<void *>(&fast_filter_threshold));
-  as5600.ioctl(sensor::AS5600::IOCTL_DISABLE_WATCHDOG,          0                                          );
+  /* GLOBAL INTERRUPT *****************************************************************/
+  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
 
 
   /************************************************************************************
    * APPLICATION
    ************************************************************************************/
 
+  sensor::AS5600::AS5600_Debug::debug_dumpAllRegs(debug_serial, flash, as5600_io);
+
   for(;;)
   {
-    /* TODO Read from sensor and write to serial debug interface */
-    delay.delay_ms(LOOP_DELAY_ms);
   }
-
-  as5600.close();
 
   return 0;
 }
