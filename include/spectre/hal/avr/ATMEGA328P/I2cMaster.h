@@ -23,7 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/ATxxxx/i2c/interface/I2cMasterMcu.h>
+#include <spectre/hal/avr/common/ATxxxx/I2cMaster.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,33 +39,10 @@ namespace ATMEGA328P
 {
 
 /**************************************************************************************
- * CLASS DECLARATION I2CMaster
+ * TYPEDEF
  **************************************************************************************/
 
-class I2cMaster : public ATxxxx::interface::I2cMasterMcu
-{
-
-public:
-
-           I2cMaster(volatile uint8_t * twcr, volatile uint8_t * twdr, volatile uint8_t * twsr, volatile uint8_t * twbr);
-  virtual ~I2cMaster();
-
-
-  virtual bool start                 (uint8_t  const   address                                 ) override;
-  virtual bool transmitByte          (uint8_t  const   data                                    ) override;
-  virtual void receiveByteAndSendACK (uint8_t        * data                                    ) override;
-  virtual void receiveByteAndSendNACK(uint8_t        * data                                    ) override;
-  virtual void stop                  (                                                         ) override;
-  virtual void setTWIPrescaler       (uint32_t const prescaler                                 ) override;
-  virtual void setTWBR               (uint32_t const i2c_speed_Hz, uint32_t const i2c_prescaler) override;
-
-private:
-
-  volatile uint8_t * _TWCR,
-                   * _TWDR,
-                   * _TWSR,
-                   * _TWBR;
-};
+typedef ATxxxx::I2cMaster I2cMaster;
 
 /**************************************************************************************
  * NAMESPACE

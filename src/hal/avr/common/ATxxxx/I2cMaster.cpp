@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/ATMEGA328P/I2cMaster.h>
+#include <spectre/hal/avr/common/ATxxxx/I2cMaster.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -32,7 +32,7 @@ namespace spectre
 namespace hal
 {
 
-namespace ATMEGA328P
+namespace ATxxxx
 {
 
 /**************************************************************************************
@@ -40,17 +40,17 @@ namespace ATMEGA328P
  **************************************************************************************/
 
 /* TWCR */
-#define TWIE_bm     (1<<0)
-#define TWEN_bm     (1<<2)
-#define TWWC_bm     (1<<3)
-#define TWSTO_bm    (1<<4)
-#define TWSTA_bm    (1<<5)
-#define TWEA_bm     (1<<6)
-#define TWINT_bm    (1<<7)
+#define TWIE_bm                  (1<<0)
+#define TWEN_bm                  (1<<2)
+#define TWWC_bm                  (1<<3)
+#define TWSTO_bm                 (1<<4)
+#define TWSTA_bm                 (1<<5)
+#define TWEA_bm                  (1<<6)
+#define TWINT_bm                 (1<<7)
 
 /* TWSR */
-#define TWPS0_bm    (1<<0)
-#define TWPS1_bm    (1<<1)
+#define TWPS0_bm                 (1<<0)
+#define TWPS1_bm                 (1<<1)
 
 /* TWI STATUS DEFINITIONS */
 
@@ -101,8 +101,61 @@ I2cMaster::~I2cMaster()
 
 }
 
+
 /**************************************************************************************
- * PROTECTED MEMBER FUNCTIONS
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
+
+bool I2cMaster::begin(uint8_t const address, bool const is_read_access)
+{
+  return start(convertI2cAddress(address, is_read_access));
+}
+
+bool I2cMaster::write(uint8_t const data)
+{
+  return transmitByte(data);
+}
+
+void I2cMaster::end()
+{
+  stop();
+}
+
+bool I2cMaster::requestFrom(uint8_t const address, uint8_t * data, uint16_t const num_bytes)
+{
+  if(num_bytes == 0        ) return false;
+
+  if(!begin(address, true )) return false;
+
+  for(uint16_t i = 0; i < (num_bytes - 1); i++)
+  {
+    receiveByteAndSendACK(data+i);
+  }
+
+  receiveByteAndSendNACK(data + num_bytes - 1);
+
+  end();
+
+  return true;
+}
+
+void I2cMaster::setI2cClock(hal::interface::I2cClock const i2c_clock)
+{
+  uint32_t const TWI_PRESCALER = 1;
+
+  setTwiPrescaler(TWI_PRESCALER);
+
+  switch(i2c_clock)
+  {
+  case hal::interface::I2cClock::F_100_kHz : setTwiBitRateRegister( 100000, TWI_PRESCALER); break;
+  case hal::interface::I2cClock::F_400_kHz : setTwiBitRateRegister( 400000, TWI_PRESCALER); break;
+  case hal::interface::I2cClock::F_1000_kHz: setTwiBitRateRegister(1000000, TWI_PRESCALER); break;
+  default                                  :                                                 break;
+  }
+}
+
+/**************************************************************************************
+ * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
 bool I2cMaster::start(uint8_t const address)
@@ -177,7 +230,7 @@ void I2cMaster::stop()
   *_TWCR = TWINT_bm | TWEN_bm | TWSTO_bm;
 }
 
-void I2cMaster::setTWIPrescaler(uint32_t const prescaler)
+void I2cMaster::setTwiPrescaler(uint32_t const prescaler)
 {
   *_TWSR &= ~(TWPS1_bm | TWPS0_bm);
 
@@ -191,7 +244,7 @@ void I2cMaster::setTWIPrescaler(uint32_t const prescaler)
   }
 }
 
-void I2cMaster::setTWBR(uint32_t const i2c_speed_Hz, uint32_t const i2c_prescaler)
+void I2cMaster::setTwiBitRateRegister(uint32_t const i2c_speed_Hz, uint32_t const i2c_prescaler)
 {
   uint32_t const twbr_val = (((static_cast<uint32_t>(F_CPU) / i2c_speed_Hz) / i2c_prescaler) - 16) / 2;
 
@@ -199,10 +252,20 @@ void I2cMaster::setTWBR(uint32_t const i2c_speed_Hz, uint32_t const i2c_prescale
 }
 
 /**************************************************************************************
+ * PUBLIC FUNCTIONS
+ **************************************************************************************/
+
+uint8_t convertI2cAddress(uint8_t const address, bool is_read_access)
+{
+  if(is_read_access)  return (address | 0x01);
+  else                return address;
+}
+
+/**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA328P */
+} /* ATxxxx */
 
 } /* hal */
 

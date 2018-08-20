@@ -88,7 +88,7 @@ if(${MCU_ARCH} STREQUAL "avr" OR ${MCU_ARCH} STREQUAL "host")
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/DigitalOutPort.cpp
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/EEPROM.cpp
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/Flash.cpp
-    ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/I2cMasterBase.cpp       
+    ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/I2cMaster.cpp       
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/SpiMaster.cpp
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/Stack.cpp
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATxxxx/UART0.cpp
@@ -214,7 +214,6 @@ if(${MCU_ARCH} STREQUAL "avr" OR ${MCU_ARCH} STREQUAL "host")
   set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA328P_SRCS
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATMEGA328P/AnalogDigitalConverter.cpp
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATMEGA328P/ExternalInterruptController.cpp
-    ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATMEGA328P/I2cMaster.cpp          
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATMEGA328P/InterruptController.cpp
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATMEGA328P/TIMER0.cpp
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/ATMEGA328P/TIMER1.cpp

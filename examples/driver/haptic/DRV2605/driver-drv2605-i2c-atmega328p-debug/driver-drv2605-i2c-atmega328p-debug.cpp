@@ -22,18 +22,17 @@
 
 #include <avr/io.h>
 
-#include <spectre/blox/hal/avr/ATMEGA328P/UART0.h> /* TODO: Why is it problematic if this is included adter I2cMaster */
-
 #include <spectre/hal/avr/ATMEGA328P/Flash.h>
 #include <spectre/hal/avr/ATMEGA328P/CriticalSection.h>
 #include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
 #include <spectre/hal/avr/ATMEGA328P/I2cMaster.h>
-#include <spectre/hal/avr/common/ATxxxx/i2c/I2cMasterBase.h>
+
+#include <spectre/blox/hal/avr/ATMEGA328P/UART0.h>
 
 #include <spectre/blox/driver/serial/SerialUart.h>
 
-#include <spectre/driver/haptic/DRV2605/DRV2605_Debug.h>
 #include <spectre/driver/haptic/DRV2605/DRV2605_IoI2C.h>
+#include <spectre/driver/haptic/DRV2605/DRV2605_Debug.h>
 
 #include <spectre/debug/serial/DebugSerial.h>
 
@@ -65,12 +64,11 @@ int main()
    ************************************************************************************/
 
   ATMEGA328P::Flash               flash;
-  ATMEGA328P::InterruptController int_ctrl             (&EIMSK, &PCICR, &WDTCSR, &TIMSK2, &TIMSK1, &TIMSK0, &SPCR, &UCSR0B, &ADCSRA, &EECR, &ACSR, &TWCR, &SPMCSR);
-  ATMEGA328P::CriticalSection     crit_sec             (&SREG);
-  ATMEGA328P::I2cMaster           i2c_master_atmega328p(&TWCR, &TWDR, &TWSR, &TWBR);
-  ATxxxx::I2cMasterBase           i2c_master           (i2c_master_atmega328p);
+  ATMEGA328P::InterruptController int_ctrl  (&EIMSK, &PCICR, &WDTCSR, &TIMSK2, &TIMSK1, &TIMSK0, &SPCR, &UCSR0B, &ADCSRA, &EECR, &ACSR, &TWCR, &SPMCSR);
+  ATMEGA328P::CriticalSection     crit_sec  (&SREG);
+  ATMEGA328P::I2cMaster           i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
 
-  blox::ATMEGA328P::UART0         uart0                (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl, F_CPU);
+  blox::ATMEGA328P::UART0         uart0     (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl, F_CPU);
 
   i2c_master.setI2cClock(hal::interface::I2cClock::F_100_kHz);
 

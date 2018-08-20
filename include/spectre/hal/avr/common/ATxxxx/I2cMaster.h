@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_MCU_AVR_ATXXXX_I2CMASTER_BASE_H_
-#define INCLUDE_SPECTRE_MCU_AVR_ATXXXX_I2CMASTER_BASE_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_I2CMASTER_H_
+#define INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_I2CMASTER_H_
 
 /**************************************************************************************
  * INCLUDE
@@ -25,8 +25,6 @@
 
 #include <spectre/hal/interface/i2c/I2cMaster.h>
 #include <spectre/hal/interface/i2c/I2cMasterConfiguration.h>
-
-#include <spectre/hal/avr/common/ATxxxx/i2c/interface/I2cMasterMcu.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -45,14 +43,14 @@ namespace ATxxxx
  * CLASS DECLARATION
  **************************************************************************************/
 
-class I2cMasterBase : public hal::interface::I2cMaster,
-                      public hal::interface::I2cMasterConfiguration
+class I2cMaster : public hal::interface::I2cMaster,
+                  public hal::interface::I2cMasterConfiguration
 {
 
 public:
 
-           I2cMasterBase(interface::I2cMasterMcu & i2c_master_mcu);
-  virtual ~I2cMasterBase();
+           I2cMaster(volatile uint8_t * twcr, volatile uint8_t * twdr, volatile uint8_t * twsr, volatile uint8_t * twbr);
+  virtual ~I2cMaster();
 
 
   /* I2C Master Interface */
@@ -70,11 +68,27 @@ public:
 
 private:
 
-  interface::I2cMasterMcu & _i2c_master_mcu;
 
-  static uint8_t convertI2CAddress(uint8_t const address, bool is_read_access);
+  volatile uint8_t * _TWCR,
+                   * _TWDR,
+                   * _TWSR,
+                   * _TWBR;
+
+  bool start                 (uint8_t const   address                                  );
+  bool transmitByte          (uint8_t const   data                                     );
+  void receiveByteAndSendACK (uint8_t       * data                                     );
+  void receiveByteAndSendNACK(uint8_t       * data                                     );
+  void stop                  (                                                         );
+  void setTwiPrescaler       (uint32_t const prescaler                                 );
+  void setTwiBitRateRegister (uint32_t const i2c_speed_Hz, uint32_t const i2c_prescaler);
 
 };
+
+/**************************************************************************************
+ * PROTOTYPES
+ **************************************************************************************/
+
+uint8_t convertI2cAddress(uint8_t const address, bool is_read_access);
 
 /**************************************************************************************
  * NAMESPACE
@@ -86,4 +100,6 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_MCU_AVR_ATXXXX_I2CMASTER_BASE_H_ */
+
+
+#endif /* INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_I2CMASTER_H_ */
