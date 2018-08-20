@@ -23,7 +23,6 @@
 #include <avr/io.h>
 
 #include <spectre/hal/avr/ATMEGA328P/I2cMaster.h>
-#include <spectre/hal/avr/common/ATxxxx/i2c/I2cMasterBase.h>
 
 #include <spectre/driver/ioexpander/MCP23017/MCP23017.h>
 #include <spectre/driver/ioexpander/MCP23017/MCP23017_IoI2c.h>
@@ -50,14 +49,18 @@ static uint8_t const MCP23017_I2C_ADDR = (0x10 << 1);
 
 int main()
 {
-  /* HAL ******************************************************************************/
+  /**************************************************************************************
+   * HAL
+   **************************************************************************************/
 
-  ATMEGA328P::I2cMaster i2c_master_atmega328p(&TWCR, &TWDR, &TWSR, &TWBR);
-  ATxxxx::I2cMasterBase i2c_master           (i2c_master_atmega328p);
+  ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
 
   i2c_master.setI2cClock(hal::interface::I2cClock::F_100_kHz);
 
-  /* DRIVER ***************************************************************************/
+
+  /**************************************************************************************
+   * DRIVER
+   **************************************************************************************/
 
   ioexpander::MCP23017::MCP23017_IoI2c          mcp23017_i2c    (MCP23017_I2C_ADDR, i2c_master);
   ioexpander::MCP23017::MCP23017_Configuration  mcp23017_config (mcp23017_i2c);
@@ -68,11 +71,14 @@ int main()
   ioexpander::MCP23017::IoctlConfigOutputArg    mcp23017_pb7_config_output_arg(ioexpander::MCP23017::interface::Port::B, ioexpander::MCP23017::interface::Pin::IO7);
 
   mcp23017.open();
+
   mcp23017.ioctl(ioexpander::MCP23017::IOCTL_CONFIG_INPUT,  static_cast<void *>(&mcp23017_pa0_config_input_arg ));
   mcp23017.ioctl(ioexpander::MCP23017::IOCTL_CONFIG_OUTPUT, static_cast<void *>(&mcp23017_pb7_config_output_arg));
 
 
-  /* APPLICATION **********************************************************************/
+  /**************************************************************************************
+   * APPLICATION
+   **************************************************************************************/
 
   for(;;)
   {
@@ -85,7 +91,6 @@ int main()
     bool set_pb7 = true;
     ioexpander::MCP23017::IoctlSetOutputPinArg mcp23017_pb7_set_output_pin_arg(ioexpander::MCP23017::interface::Port::B, ioexpander::MCP23017::interface::Pin::IO7, set_pb7);
     mcp23017.ioctl(ioexpander::MCP23017::IOCTL_SET_OUTPUT_PIN, static_cast<void *>(&mcp23017_pb7_set_output_pin_arg));
-
   }
 
 

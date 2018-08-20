@@ -26,7 +26,6 @@
 
 #include <spectre/hal/avr/ATMEGA328P/Delay.h>
 #include <spectre/hal/avr/ATMEGA328P/I2cMaster.h>
-#include <spectre/hal/avr/common/ATxxxx/i2c/I2cMasterBase.h>
 
 #include <spectre/driver/sensor/LIS3MDL/LIS3MDL.h>
 #include <spectre/driver/sensor/LIS3MDL/LIS3MDL_IoI2c.h>
@@ -53,22 +52,23 @@ static uint32_t const LOOP_DELAY_ms     = 1000; /* 1 s */
 
 int main()
 {
-  /* HAL ******************************************************************************/
+  /**************************************************************************************
+   * HAL
+   **************************************************************************************/
 
-  ATMEGA328P::I2cMaster i2c_master_atmega328p(&TWCR, &TWDR, &TWSR, &TWBR);
-  ATxxxx::I2cMasterBase i2c_master           (i2c_master_atmega328p);
+  ATMEGA328P::Delay     delay;
+  ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
 
   i2c_master.setI2cClock(hal::interface::I2cClock::F_100_kHz);
 
-  ATMEGA328P::Delay     delay;
 
-  /* DRIVER ***************************************************************************/
+  /**************************************************************************************
+   * DRIVER
+   **************************************************************************************/
 
   sensor::LIS3MDL::LIS3MDL_IoI2c      lis3mdl_io_i2c (LIS3MDL_I2C_ADDR, i2c_master);
   sensor::LIS3MDL::LIS3MDL_Control    lis3mdl_control(lis3mdl_io_i2c              );
   sensor::LIS3MDL::LIS3MDL            lis3mdl        (lis3mdl_control             );
-
-  /* APPLICATION **********************************************************************/
 
   uint8_t operation_mode_xy = static_cast<uint8_t>(sensor::LIS3MDL::interface::OperationMode_XY::UHP                );
   uint8_t operation_mode_z  = static_cast<uint8_t>(sensor::LIS3MDL::interface::OperationMode_Z::UHP                 );
@@ -84,10 +84,14 @@ int main()
   lis3mdl.ioctl(sensor::LIS3MDL::IOCTL_SET_FULL_SCALE_RANGE,  static_cast<void *>(&full_scale_range ));
   lis3mdl.ioctl(sensor::LIS3MDL::IOCTL_SET_CONVERSION_MODE,   static_cast<void *>(&conversion_mode  ));
 
+
+  /**************************************************************************************
+   * APPLICATION
+   **************************************************************************************/
+
   for(;;)
   {
     /* TODO Read from sensor and write to serial debug interface */
-
     delay.delay_ms(LOOP_DELAY_ms);
   }
 

@@ -24,7 +24,6 @@
 
 #include <spectre/hal/avr/ATMEGA328P/Delay.h>
 #include <spectre/hal/avr/ATMEGA328P/I2cMaster.h>
-#include <spectre/hal/avr/common/ATxxxx/i2c/I2cMasterBase.h>
 
 #include <spectre/driver/haptic/DRV2605/DRV2605.h>
 #include <spectre/driver/haptic/DRV2605/DRV2605_IoI2C.h>
@@ -51,16 +50,19 @@ static uint32_t const LOOP_DELAY_ms    = 1000; /* 1 s */
 
 int main()
 {
-  /* HAL ******************************************************************************/
+  /************************************************************************************
+   * HAL
+   ************************************************************************************/
 
-  ATMEGA328P::I2cMaster i2c_master_atmega328p(&TWCR, &TWDR, &TWSR, &TWBR);
-  ATxxxx::I2cMasterBase i2c_master           (i2c_master_atmega328p);
+  ATMEGA328P::Delay     delay;
+  ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
 
   i2c_master.setI2cClock(hal::interface::I2cClock::F_100_kHz);
 
-  ATMEGA328P::Delay     delay;
 
-  /* DRIVER ***************************************************************************/
+  /************************************************************************************
+   * DRIVER
+   ************************************************************************************/
 
   haptic::DRV2605::DRV2605_IoI2C    drv2605_io_i2c(DRV2605_I2C_ADDR, i2c_master);
   haptic::DRV2605::DRV2605_Control  drv2605_ctrl  (drv2605_io_i2c, delay       );
@@ -70,12 +72,15 @@ int main()
   uint8_t actuator     = static_cast<uint8_t>(haptic::DRV2605::interface::Actuator::LRA         );
   uint8_t waveform_lib = static_cast<uint8_t>(haptic::DRV2605::interface::WaveformLibrary::LRA  );
 
-  /* APPLICATION **********************************************************************/
-
   drv2605.open();
   drv2605.ioctl(haptic::DRV2605::IOCTL_SET_MODE,             static_cast<void *>(&mode        ));
   drv2605.ioctl(haptic::DRV2605::IOCTL_SET_ACTUATOR,         static_cast<void *>(&actuator    ));
   drv2605.ioctl(haptic::DRV2605::IOCTL_SET_WAVEFORM_LIBRARY, static_cast<void *>(&waveform_lib));
+
+
+  /************************************************************************************
+   * APPLICATION
+   ************************************************************************************/
 
   uint8_t  const DRV2605_MIN_LRA_LIB_WAVEFORM_NUM = 1;
   uint8_t  const DRV2605_MAX_LRA_LIB_WAVEFORM_NUM = 127;

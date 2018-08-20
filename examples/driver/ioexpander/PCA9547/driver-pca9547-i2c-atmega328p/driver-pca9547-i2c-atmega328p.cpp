@@ -23,7 +23,6 @@
 #include <avr/io.h>
 
 #include <spectre/hal/avr/ATMEGA328P/I2cMaster.h>
-#include <spectre/hal/avr/common/ATxxxx/i2c/I2cMasterBase.h>
 
 #include <spectre/driver/ioexpander/PCA9547/PCA9547.h>
 #include <spectre/driver/ioexpander/PCA9547/PCA9547_IoI2c.h>
@@ -51,8 +50,7 @@ int main()
 {
   /* HAL ******************************************************************************/
 
-  ATMEGA328P::I2cMaster i2c_master_atmega328p(&TWCR, &TWDR, &TWSR, &TWBR);
-  ATxxxx::I2cMasterBase i2c_master           (i2c_master_atmega328p);
+  ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
 
   i2c_master.setI2cClock(hal::interface::I2cClock::F_100_kHz);
 
@@ -61,6 +59,7 @@ int main()
   ioexpander::PCA9547::PCA9547_IoI2c    pca9547_io_i2c(PCA9547_I2C_ADDR, i2c_master);
   ioexpander::PCA9547::PCA9547_Control  pca9547_ctrl  (pca9547_io_i2c              );
   ioexpander::PCA9547::PCA9547          pca9547       (pca9547_ctrl                );
+
 
   /* APPLICATION **********************************************************************/
 
@@ -72,7 +71,9 @@ int main()
   pca9547.ioctl(ioexpander::PCA9547::IOCTL_GET_CHANNEL, static_cast<void *>(&i2c_channel_get));
   pca9547.close();
 
-  for(;;) { }
+  for(;;)
+  {
+  }
 
   return 0;
 }

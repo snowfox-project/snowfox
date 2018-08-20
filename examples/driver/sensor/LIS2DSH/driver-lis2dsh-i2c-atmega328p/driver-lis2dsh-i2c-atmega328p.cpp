@@ -26,7 +26,6 @@
 
 #include <spectre/hal/avr/ATMEGA328P/Delay.h>
 #include <spectre/hal/avr/ATMEGA328P/I2cMaster.h>
-#include <spectre/hal/avr/common/ATxxxx/i2c/I2cMasterBase.h>
 
 #include <spectre/driver/sensor/LIS2DSH/LIS2DSH.h>
 #include <spectre/driver/sensor/LIS2DSH/LIS2DSH_IoI2c.h>
@@ -53,22 +52,22 @@ static uint32_t const LOOP_DELAY_ms     = 1000; /* 1 s */
 
 int main()
 {
-  /* HAL ******************************************************************************/
+  /**************************************************************************************
+   * HAL
+   **************************************************************************************/
 
-  ATMEGA328P::I2cMaster i2c_master_atmega328p(&TWCR, &TWDR, &TWSR, &TWBR);
-  ATxxxx::I2cMasterBase i2c_master           (i2c_master_atmega328p);
+  ATMEGA328P::Delay     delay;
+  ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
 
   i2c_master.setI2cClock(hal::interface::I2cClock::F_100_kHz);
 
-  ATMEGA328P::Delay     delay;
-
-  /* DRIVER ***************************************************************************/
+  /**************************************************************************************
+   * DRIVER
+   **************************************************************************************/
 
   sensor::LIS2DSH::LIS2DSH_IoI2c      lis2dsh_io_i2c (LIS2DSH_I2C_ADDR, i2c_master);
   sensor::LIS2DSH::LIS2DSH_Control    lis2dsh_control(lis2dsh_io_i2c              );
   sensor::LIS2DSH::LIS2DSH            lis2dsh        (lis2dsh_control             );
-
-  /* APPLICATION **********************************************************************/
 
   uint8_t operating_mode   = static_cast<uint8_t>(sensor::LIS2DSH::interface::OperatingMode::OM_10_Bit_Normal );
   uint8_t output_data_rate = static_cast<uint8_t>(sensor::LIS2DSH::interface::OutputDataRate::ODR_10_Hz       );
@@ -81,10 +80,14 @@ int main()
   lis2dsh.ioctl(sensor::LIS2DSH::IOCTL_SET_FULL_SCALE_RANGE, static_cast<void *>(&full_scale_range));
   lis2dsh.ioctl(sensor::LIS2DSH::IOCTL_ENABLE_XYZ,           0                                     );
 
+
+  /**************************************************************************************
+   * APPLICATIONS
+   **************************************************************************************/
+
   for(;;)
   {
     /* TODO Read from sensor and write to serial debug interface */
-
     delay.delay_ms(LOOP_DELAY_ms);
   }
 

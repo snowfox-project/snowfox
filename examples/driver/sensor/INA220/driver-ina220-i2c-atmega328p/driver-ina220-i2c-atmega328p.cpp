@@ -26,7 +26,6 @@
 
 #include <spectre/hal/avr/ATMEGA328P/Delay.h>
 #include <spectre/hal/avr/ATMEGA328P/I2cMaster.h>
-#include <spectre/hal/avr/common/ATxxxx/i2c/I2cMasterBase.h>
 
 #include <spectre/driver/sensor/INA220/INA220.h>
 #include <spectre/driver/sensor/INA220/INA220_IoI2c.h>
@@ -53,22 +52,23 @@ static uint32_t const LOOP_DELAY_ms    = 1000; /* 1 s */
 
 int main()
 {
-  /* HAL ******************************************************************************/
+  /**************************************************************************************
+   * HAL
+   **************************************************************************************/
 
-  ATMEGA328P::I2cMaster i2c_master_atmega328p(&TWCR, &TWDR, &TWSR, &TWBR);
-  ATxxxx::I2cMasterBase i2c_master           (i2c_master_atmega328p);
+  ATMEGA328P::Delay     delay;
+  ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
 
   i2c_master.setI2cClock(hal::interface::I2cClock::F_100_kHz);
 
-  ATMEGA328P::Delay     delay;
 
-  /* DRIVER ***************************************************************************/
+  /**************************************************************************************
+   * DRIVER
+   **************************************************************************************/
 
-  sensor::INA220::INA220_IoI2c      ina220_io_i2c (INA220_I2C_ADDR, i2c_master);
-  sensor::INA220::INA220_Control    ina220_control(ina220_io_i2c              );
-  sensor::INA220::INA220            ina220        (ina220_control             );
-
-  /* APPLICATION **********************************************************************/
+  sensor::INA220::INA220_IoI2c   ina220_io_i2c (INA220_I2C_ADDR, i2c_master);
+  sensor::INA220::INA220_Control ina220_control(ina220_io_i2c              );
+  sensor::INA220::INA220         ina220        (ina220_control             );
 
   uint16_t bus_voltage           = static_cast<uint8_t>(sensor::INA220::interface::BusVoltageRange::RANGE_16V                   );
   uint16_t shunt_pga_gain        = static_cast<uint8_t>(sensor::INA220::interface::ShuntPgaGain::GAIN_1_0_RANGE_plus_minus_40_mV);
@@ -83,6 +83,11 @@ int main()
   ina220.ioctl(sensor::INA220::IOCTL_SET_BUS_ADC_RESOLUTION,    static_cast<void *>(&bus_adc_resolution  ));
   ina220.ioctl(sensor::INA220::IOCTL_SET_SHUNT_ADC_RESOLUTION,  static_cast<void *>(&shunt_adc_resolution));
   ina220.ioctl(sensor::INA220::IOCTL_SET_OPERATING_MODE,        static_cast<void *>(&operating_mode      ));
+
+
+  /**************************************************************************************
+   * APPLICATION
+   **************************************************************************************/
 
   for(;;)
   {

@@ -23,7 +23,6 @@
 #include <avr/io.h>
 
 #include <spectre/hal/avr/ATMEGA328P/I2cMaster.h>
-#include <spectre/hal/avr/common/ATxxxx/i2c/I2cMasterBase.h>
 
 #include <spectre/driver/memory/PCF8570/PCF8570.h>
 #include <spectre/driver/memory/PCF8570/PCF8570_IoI2c.h>
@@ -49,22 +48,27 @@ static uint8_t const PCF8570_I2C_ADDR = (0x50 << 1);
 
 int main()
 {
-  /* HAL ******************************************************************************/
+  /**************************************************************************************
+   * HAL
+   **************************************************************************************/
 
-  ATMEGA328P::I2cMaster i2c_master_atmega328p(&TWCR, &TWDR, &TWSR, &TWBR);
-  ATxxxx::I2cMasterBase i2c_master           (i2c_master_atmega328p);
+  ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
 
   i2c_master.setI2cClock(hal::interface::I2cClock::F_100_kHz);
 
-  /* DRIVER ***************************************************************************/
+
+  /**************************************************************************************
+   * DRIVER
+   **************************************************************************************/
 
   memory::PCF8570::PCF8570_IoI2c    pcf8570_io_i2c(PCF8570_I2C_ADDR, i2c_master);
   memory::PCF8570::PCF8570_Control  pcf8570_ctrl  (pcf8570_io_i2c              );
   memory::PCF8570::PCF8570          pcf8570       (pcf8570_ctrl                );
 
-  /* APPLICATION **********************************************************************/
-
   pcf8570.open ();
+
+
+  /* APPLICATION **********************************************************************/
 
   for(uint8_t address = 0; address < 0xFF; address += 4)
   {

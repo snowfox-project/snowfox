@@ -26,7 +26,6 @@
 
 #include <spectre/hal/avr/ATMEGA328P/Delay.h>
 #include <spectre/hal/avr/ATMEGA328P/I2cMaster.h>
-#include <spectre/hal/avr/common/ATxxxx/i2c/I2cMasterBase.h>
 
 #include <spectre/driver/sensor/AD7151/AD7151.h>
 #include <spectre/driver/sensor/AD7151/AD7151_IoI2c.h>
@@ -53,28 +52,34 @@ static uint32_t const LOOP_DELAY_ms    = 1000; /* 1 s */
 
 int main()
 {
-  /* HAL ******************************************************************************/
+  /**************************************************************************************
+   * HAL
+   **************************************************************************************/
 
-  ATMEGA328P::I2cMaster i2c_master_atmega328p(&TWCR, &TWDR, &TWSR, &TWBR);
-  ATxxxx::I2cMasterBase i2c_master           (i2c_master_atmega328p);
+  ATMEGA328P::Delay     delay;
+  ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
 
   i2c_master.setI2cClock(hal::interface::I2cClock::F_100_kHz);
 
-  ATMEGA328P::Delay     delay;
 
-  /* DRIVER ***************************************************************************/
+  /**************************************************************************************
+   * DRIVER
+   **************************************************************************************/
 
   sensor::AD7151::AD7151_IoI2c      ad7151_io_i2c (AD7151_I2C_ADDR, i2c_master);
   sensor::AD7151::AD7151_Control    ad7151_control(ad7151_io_i2c              );
   sensor::AD7151::AD7151            ad7151        (ad7151_control             );
-
-  /* APPLICATION **********************************************************************/
 
   uint8_t capacitive_input_range = static_cast<uint8_t>(sensor::AD7151::interface::CapacitiveInputRange::RANGE_1_0_pF);
 
   ad7151.open();
 
   ad7151.ioctl(sensor::AD7151::IOCTL_SET_CAPACITIVE_INPUT_RANGE, static_cast<void *>(&capacitive_input_range));
+
+
+  /**************************************************************************************
+   * APPLICATIONS
+   **************************************************************************************/
 
   for(;;)
   {

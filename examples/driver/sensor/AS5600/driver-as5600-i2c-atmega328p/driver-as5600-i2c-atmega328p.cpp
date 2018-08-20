@@ -26,7 +26,6 @@
 
 #include <spectre/hal/avr/ATMEGA328P/Delay.h>
 #include <spectre/hal/avr/ATMEGA328P/I2cMaster.h>
-#include <spectre/hal/avr/common/ATxxxx/i2c/I2cMasterBase.h>
 
 #include <spectre/driver/sensor/AS5600/AS5600.h>
 #include <spectre/driver/sensor/AS5600/AS5600_IoI2c.h>
@@ -53,22 +52,23 @@ static uint32_t const LOOP_DELAY_ms    = 1000; /* 1 s */
 
 int main()
 {
-  /* HAL ******************************************************************************/
+  /**************************************************************************************
+   * HAL
+   **************************************************************************************/
 
-  ATMEGA328P::I2cMaster i2c_master_atmega328p(&TWCR, &TWDR, &TWSR, &TWBR);
-  ATxxxx::I2cMasterBase i2c_master           (i2c_master_atmega328p);
+  ATMEGA328P::Delay     delay;
+  ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
 
   i2c_master.setI2cClock(hal::interface::I2cClock::F_100_kHz);
 
-  ATMEGA328P::Delay     delay;
 
-  /* DRIVER ***************************************************************************/
+  /**************************************************************************************
+   * DRIVER
+   **************************************************************************************/
 
   sensor::AS5600::AS5600_IoI2c      as5600_io_i2c (AS5600_I2C_ADDR, i2c_master);
   sensor::AS5600::AS5600_Control    as5600_control(as5600_io_i2c              );
   sensor::AS5600::AS5600            as5600        (as5600_control             );
-
-  /* APPLICATION **********************************************************************/
 
   uint8_t power_mode            = static_cast<uint8_t>(sensor::AS5600::interface::PowerMode::NORMAL                    );
   uint8_t hysteresis            = static_cast<uint8_t>(sensor::AS5600::interface::Hysteresis::HYST_OFF                 );
@@ -87,10 +87,14 @@ int main()
   as5600.ioctl(sensor::AS5600::IOCTL_SET_FAST_FILTER_THRESHOLD, static_cast<void *>(&fast_filter_threshold));
   as5600.ioctl(sensor::AS5600::IOCTL_DISABLE_WATCHDOG,          0                                          );
 
+
+  /**************************************************************************************
+   * APPLICATION
+   **************************************************************************************/
+
   for(;;)
   {
     /* TODO Read from sensor and write to serial debug interface */
-
     delay.delay_ms(LOOP_DELAY_ms);
   }
 
