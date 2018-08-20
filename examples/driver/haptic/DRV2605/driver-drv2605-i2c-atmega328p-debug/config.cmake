@@ -36,7 +36,7 @@ set(DRIVER_SENSOR_LIS2DSH     no )
 set(DRIVER_SENSOR_LIS3DSH     no )
 set(DRIVER_SENSOR_LIS3MDL     no )
 
-set(DRIVER_SERIAL             no )
+set(DRIVER_SERIAL             yes)
 
 set(DRIVER_STEPPER_TMC26x     no )
 

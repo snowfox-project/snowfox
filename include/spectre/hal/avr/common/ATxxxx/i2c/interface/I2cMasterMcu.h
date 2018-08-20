@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_INTERFACE_I2C_I2CMASTER_H_
-#define INCLUDE_SPECTRE_HAL_AVR_INTERFACE_I2C_I2CMASTER_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_INTERFACE_I2C_I2CMASTER_MCU_H_
+#define INCLUDE_SPECTRE_HAL_AVR_INTERFACE_I2C_I2CMASTER_MCU_H_
 
 /**************************************************************************************
  * INCLUDE
@@ -77,4 +77,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_INTERFACE_I2C_I2CMASTER_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_INTERFACE_I2C_I2CMASTER_MCU_H_ */

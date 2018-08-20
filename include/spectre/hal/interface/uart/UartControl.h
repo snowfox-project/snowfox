@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INTERFACE_UART_H_
-#define INTERFACE_UART_H_
+#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_UART_UARTCONTROL_H_
+#define INCLUDE_SPECTRE_HAL_INTERFACE_UART_UARTCONTROL_H_
 
 /**************************************************************************************
  * INCLUDE
@@ -69,4 +69,4 @@ public:
 
 } /* spectre */
 
-#endif /* INTERFACE_UART_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_UART_UARTCONTROL_H_ */

@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_MCU_AVR_ATXXXX_I2CMASTER_H_
-#define INCLUDE_SPECTRE_MCU_AVR_ATXXXX_I2CMASTER_H_
+#ifndef INCLUDE_SPECTRE_MCU_AVR_ATXXXX_I2CMASTER_BASE_H_
+#define INCLUDE_SPECTRE_MCU_AVR_ATXXXX_I2CMASTER_BASE_H_
 
 /**************************************************************************************
  * INCLUDE
@@ -86,4 +86,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_MCU_AVR_ATXXXX_I2CMASTER_H_ */
+#endif /* INCLUDE_SPECTRE_MCU_AVR_ATXXXX_I2CMASTER_BASE_H_ */
