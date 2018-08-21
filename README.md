@@ -112,6 +112,14 @@ vim config.cmake
 ```
 
 ### Build
+
+#### Example
+```
+cd .ci/script
+./run-build-example.sh examples/driver/sensor/LIS3MDL/driver-lis3mdl-i2c-atmega328p-debug
+```
+
+#### Library
 ```
 mkdir build
 cd build
