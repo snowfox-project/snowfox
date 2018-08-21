@@ -101,3 +101,10 @@ if(${MCU_ARCH} STREQUAL "host")
 endif()
 
 ##########################################################################
+# INSTALL/UNINSTALL ######################################################
+##########################################################################
+
+install(TARGETS ${SPECTRY_LIBRARY_TARGET} ARCHIVE DESTINATION /usr/local/lib)
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/ DESTINATION /usr/local/include)
+
+##########################################################################
