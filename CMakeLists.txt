@@ -79,15 +79,15 @@ set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} ${SPECTRE_CMAKE_CXX_FLAGS})
 ##########################################################################
 
 if(${MCU_ARCH} STREQUAL "host")
-  set(SPECTRY_LIBRARY_NAME_MCU ${PROJECT_NAME}-host)
+  set(SPECTRY_LIBRARY_TARGET ${PROJECT_NAME}-host)
 else()
-  set(SPECTRY_LIBRARY_NAME_MCU ${PROJECT_NAME}-${MCU_TYPE})
+  set(SPECTRY_LIBRARY_TARGET ${PROJECT_NAME}-${MCU_TYPE})
 endif()
 
 ##########################################################################
 
 add_library(
-  ${SPECTRY_LIBRARY_NAME_MCU} 
+  ${SPECTRY_LIBRARY_TARGET} 
   STATIC
   ${SPECTRE_LIBRARY_SRCS}
 )
