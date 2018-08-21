@@ -101,10 +101,26 @@ if(${MCU_ARCH} STREQUAL "host")
 endif()
 
 ##########################################################################
-# INSTALL/UNINSTALL ######################################################
+# INSTALL ################################################################
 ##########################################################################
 
 install(TARGETS ${SPECTRY_LIBRARY_TARGET} ARCHIVE DESTINATION /usr/local/lib)
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/ DESTINATION /usr/local/include)
+
+##########################################################################
+# UNINSTALL ##############################################################
+##########################################################################
+
+if(NOT TARGET uninstall)
+  configure_file(
+    "${CMAKE_SOURCE_DIR}/.cmake/uninstall.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/uninstall.cmake"
+    IMMEDIATE @ONLY
+  )
+
+  add_custom_target(uninstall
+    COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/uninstall.cmake
+  )
+endif()
 
 ##########################################################################

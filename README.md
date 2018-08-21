@@ -126,6 +126,7 @@ cd build
 cmake ..
 make
 sudo make install
+(sudo make uninstall)
 ```
 
 ## Licensing
