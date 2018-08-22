@@ -113,20 +113,32 @@ vim config.cmake
 
 ### Build
 
-#### Example
 ```
-cd .ci/script
-./run-build-example.sh examples/driver/sensor/LIS3MDL/driver-lis3mdl-i2c-atmega328p-debug
+mkdir build && cd build
+cmake ..
+make
+sudo make install
+(sudo make uninstall)
 ```
 
-#### Library
+## Build Examples
+
+### Build Library
 ```
+cp examples/debug/debug-serial-atmega328p-uart0/config.cmake config.cmake
 mkdir build
 cd build
 cmake ..
 make
 sudo make install
-(sudo make uninstall)
+```
+
+### Build Executable
+```
+cd examples/debug/debug-serial-atmega328p-uart0
+mkdir build && cd build
+cmake ..
+make
 ```
 
 ## Licensing
