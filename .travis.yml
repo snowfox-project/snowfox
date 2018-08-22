@@ -10,7 +10,7 @@ before_script:
 
 script:
   - .ci/script/run-build-libspectre-all-architectures.sh
-  - .ci/script/run-build-all-examples.sh | grep "Linking CXX executable
+  - .ci/script/run-build-all-examples.sh
   - .ci/script/run-pre-test-prepare-coverage-report.sh
   - .ci/script/run-build-libspectre.sh config/host-default.cmake
   - .ci/script/run-test.sh
