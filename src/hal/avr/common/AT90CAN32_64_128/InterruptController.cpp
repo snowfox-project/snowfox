@@ -263,7 +263,7 @@ void InterruptController::enableInterrupt(uint8_t const int_num)
 #if defined(MCU_ARCH_avr)
   case toIntNum(Interrupt::GLOBAL                          ): asm volatile("sei");    break;
 #endif
-  case toIntNum(Interrupt::INVALID                         ): /* DO NOTHING */        break;
+  default                                                   : /* DO NOTHING */        break;
   }
 }
 
@@ -315,6 +315,7 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
 #if defined(MCU_ARCH_avr)
   case toIntNum(Interrupt::GLOBAL                          ): asm volatile("cli");     break;
 #endif
+  default                                                   : /* DO NOTHING */         break;
   }
 }
 
@@ -358,6 +359,7 @@ void InterruptController::registerInterruptCallback(uint8_t const isr_num, inter
   case toIsrNum(InterruptServiceRoutine::USART1_TRANSMIT_COMPLETE       ): isr_usart1_transmit_complete        = interrupt_callback; break;
   case toIsrNum(InterruptServiceRoutine::TWO_WIRE_INT                   ): isr_two_wire_int                    = interrupt_callback; break;
   case toIsrNum(InterruptServiceRoutine::SPM_READY                      ): isr_spm_ready                       = interrupt_callback; break;
+  default                                                                : /* DO NOTHING */                                          break;
   }
 }
 

@@ -312,7 +312,7 @@ void InterruptController::enableInterrupt(uint8_t const int_num)
 #if defined(MCU_ARCH_avr)
   case toIntNum(Interrupt::GLOBAL                         ): asm volatile("sei");    break;
 #endif
-  case toIntNum(Interrupt::INVALID                        ): /* DO NOTHING */        break;
+  default                                                  : /* DO NOTHING */        break;
   }
 }
 
@@ -379,6 +379,7 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
 #if defined(MCU_ARCH_avr)
   case toIntNum(Interrupt::GLOBAL                         ): asm volatile("cli");     break;
 #endif
+  default                                                  : /* DO NOTHING */         break;
   }
 }
 
@@ -442,6 +443,7 @@ void InterruptController::registerInterruptCallback(uint8_t const isr_num, inter
   case toIsrNum(InterruptServiceRoutine::USART3_RECEIVE_COMPLETE        ): isr_usart3_receive_complete         = interrupt_callback; break;
   case toIsrNum(InterruptServiceRoutine::USART3_UART_DATA_REGISTER_EMPTY): isr_usart3_uart_data_register_empty = interrupt_callback; break;
   case toIsrNum(InterruptServiceRoutine::USART3_TRANSMIT_COMPLETE       ): isr_usart3_transmit_complete        = interrupt_callback; break;
+  default                                                                : /* DO NOTHING */                                          break;
   }
 }
 
