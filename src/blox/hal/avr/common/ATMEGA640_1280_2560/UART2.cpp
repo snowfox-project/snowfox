@@ -51,7 +51,6 @@ UART2::UART2(volatile uint8_t                                  * udr2,
 : _uart2                                  (udr2, ucsr2a, ucsr2b, ucsr2c, ubrr2, int_ctrl, f_cpu),
   _uart2_uart_data_register_empty_callback(_uart2),
   _uart2_receive_complete_callback        (_uart2)
-
 {
   int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIsrNum(hal::ATMEGA640_1280_2560::InterruptServiceRoutine::USART2_UART_DATA_REGISTER_EMPTY), &_uart2_uart_data_register_empty_callback);
   int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIsrNum(hal::ATMEGA640_1280_2560::InterruptServiceRoutine::USART2_RECEIVE_COMPLETE        ), &_uart2_receive_complete_callback        );

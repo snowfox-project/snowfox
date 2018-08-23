@@ -16,13 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_BLOX_HAL_AVR_COMMON_ATMEGA640_1280_2560_UART3_H_
+#define INCLUDE_SPECTRE_BLOX_HAL_AVR_COMMON_ATMEGA640_1280_2560_UART3_H_
+
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/blox/hal/avr/common/ATMEGA640_1280_2560/UART1.h>
-
-#include <spectre/hal/avr/common/ATMEGA640_1280_2560/InterruptController.h>
+#include <spectre/hal/avr/common/ATxxxx/UART3.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -41,20 +42,28 @@ namespace ATMEGA640_1280_2560
  * CTOR/DTOR
  **************************************************************************************/
 
-UART1::UART1(volatile uint8_t                                  * udr1,
-             volatile uint8_t                                  * ucsr1a,
-             volatile uint8_t                                  * ucsr1b,
-             volatile uint8_t                                  * ucsr1c,
-             volatile uint16_t                                 * ubrr1,
-             hal::interface::InterruptController               & int_ctrl,
-             uint32_t                                    const   f_cpu)
-: _uart1                                  (udr1, ucsr1a, ucsr1b, ucsr1c, ubrr1, int_ctrl, f_cpu),
-  _uart1_uart_data_register_empty_callback(_uart1),
-  _uart1_receive_complete_callback        (_uart1)
+class UART3
 {
-  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIsrNum(hal::ATMEGA640_1280_2560::InterruptServiceRoutine::USART1_UART_DATA_REGISTER_EMPTY), &_uart1_uart_data_register_empty_callback);
-  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIsrNum(hal::ATMEGA640_1280_2560::InterruptServiceRoutine::USART1_RECEIVE_COMPLETE        ), &_uart1_receive_complete_callback        );
-}
+
+public:
+
+  UART3(volatile uint8_t                          * udr3,
+        volatile uint8_t                          * ucsr3a,
+        volatile uint8_t                          * ucsr3b,
+        volatile uint8_t                          * ucsr3c,
+        volatile uint16_t                         * ubrr3,
+        hal::interface::InterruptController       & int_ctrl,
+        uint32_t                            const   f_cpu);
+
+  hal::ATxxxx::UART3 & operator () () { return _uart3; }
+
+private:
+
+  hal::ATxxxx::UART3                               _uart3;
+  hal::ATxxxx::UART3_TransmitRegisterEmptyCallback _uart3_uart_data_register_empty_callback;
+  hal::ATxxxx::UART3_ReceiveCompleteCallback       _uart3_receive_complete_callback;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
@@ -65,3 +74,5 @@ UART1::UART1(volatile uint8_t                                  * udr1,
 } /* blox */
 
 } /* spectre */
+
+#endif /* INCLUDE_SPECTRE_BLOX_HAL_AVR_COMMON_ATMEGA640_1280_2560_UART3_H_ */

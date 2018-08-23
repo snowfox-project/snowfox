@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/blox/hal/avr/common/ATMEGA640_1280_2560/UART1.h>
+#include <spectre/blox/hal/avr/common/ATMEGA640_1280_2560/UART3.h>
 
 #include <spectre/hal/avr/common/ATMEGA640_1280_2560/InterruptController.h>
 
@@ -41,19 +41,19 @@ namespace ATMEGA640_1280_2560
  * CTOR/DTOR
  **************************************************************************************/
 
-UART1::UART1(volatile uint8_t                                  * udr1,
-             volatile uint8_t                                  * ucsr1a,
-             volatile uint8_t                                  * ucsr1b,
-             volatile uint8_t                                  * ucsr1c,
-             volatile uint16_t                                 * ubrr1,
+UART3::UART3(volatile uint8_t                                  * udr3,
+             volatile uint8_t                                  * ucsr3a,
+             volatile uint8_t                                  * ucsr3b,
+             volatile uint8_t                                  * ucsr3c,
+             volatile uint16_t                                 * ubrr3,
              hal::interface::InterruptController               & int_ctrl,
              uint32_t                                    const   f_cpu)
-: _uart1                                  (udr1, ucsr1a, ucsr1b, ucsr1c, ubrr1, int_ctrl, f_cpu),
-  _uart1_uart_data_register_empty_callback(_uart1),
-  _uart1_receive_complete_callback        (_uart1)
+: _uart3                                  (udr3, ucsr3a, ucsr3b, ucsr3c, ubrr3, int_ctrl, f_cpu),
+  _uart3_uart_data_register_empty_callback(_uart3),
+  _uart3_receive_complete_callback        (_uart3)
 {
-  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIsrNum(hal::ATMEGA640_1280_2560::InterruptServiceRoutine::USART1_UART_DATA_REGISTER_EMPTY), &_uart1_uart_data_register_empty_callback);
-  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIsrNum(hal::ATMEGA640_1280_2560::InterruptServiceRoutine::USART1_RECEIVE_COMPLETE        ), &_uart1_receive_complete_callback        );
+  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIsrNum(hal::ATMEGA640_1280_2560::InterruptServiceRoutine::USART3_UART_DATA_REGISTER_EMPTY), &_uart3_uart_data_register_empty_callback);
+  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIsrNum(hal::ATMEGA640_1280_2560::InterruptServiceRoutine::USART3_RECEIVE_COMPLETE        ), &_uart3_receive_complete_callback        );
 }
 
 /**************************************************************************************
