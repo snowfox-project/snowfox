@@ -121,7 +121,7 @@ sudo make install
 (sudo make uninstall)
 ```
 
-## Build Examples
+## Build Example
 
 ### Build Library
 ```
