@@ -55,6 +55,14 @@ if(${MCU_ARCH} STREQUAL "avr")
     ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATMEGA164P_324P_644P_1284P/UART0.cpp
     ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATMEGA164P_324P_644P_1284P/UART1.cpp
   )
+
+  ########################################################################
+  # common/ATMEGA16U4_32U4 ###############################################
+  ########################################################################
+
+  set(SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA16U4_32U4_SRCS
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATMEGA16U4_32U4/ExternalInterruptController.cpp
+  )
   
   ########################################################################
   # common/ATMEGA640_1280_2560 ###########################################
@@ -128,6 +136,16 @@ if(${MCU_ARCH} STREQUAL "avr")
     set(SPECTRE_LIBRARY_BLOX_SRCS ${SPECTRE_LIBRARY_BLOX_SRCS} ${SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA164P_SRCS})  
   endif()
   
+  # ATMEGA16U4 ###########################################################
+
+  set(SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA16U4_SRCS 
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA16U4_32U4_SRCS}
+  )
+  
+  if(${MCU_TYPE} STREQUAL "atmega16u4")
+    set(SPECTRE_LIBRARY_BLOX_SRCS ${SPECTRE_LIBRARY_BLOX_SRCS} ${SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA16U4_SRCS})  
+  endif()
+  
   # ATMEGA2560 ###########################################################
 
   set(SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA2560_SRCS 
@@ -157,6 +175,16 @@ if(${MCU_ARCH} STREQUAL "avr")
   
   if(${MCU_TYPE} STREQUAL "atmega328p")
     set(SPECTRE_LIBRARY_BLOX_SRCS ${SPECTRE_LIBRARY_BLOX_SRCS} ${SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA328P_SRCS})  
+  endif()
+  
+  # ATMEGA32U4 ###########################################################
+
+  set(SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA32U4_SRCS 
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA16U4_32U4_SRCS}
+  )
+  
+  if(${MCU_TYPE} STREQUAL "atmega32u4")
+    set(SPECTRE_LIBRARY_BLOX_SRCS ${SPECTRE_LIBRARY_BLOX_SRCS} ${SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA32U4_SRCS})  
   endif()
   
   # ATMEGA640 ############################################################
