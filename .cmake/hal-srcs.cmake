@@ -46,6 +46,7 @@ if(${MCU_ARCH} STREQUAL "avr" OR ${MCU_ARCH} STREQUAL "host")
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATMEGA164P_324P_644P_1284P/ExternalInterruptController.cpp
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATMEGA164P_324P_644P_1284P/InterruptController.cpp
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATMEGA164P_324P_644P_1284P/TIMER0.cpp
+    ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATMEGA164P_324P_644P_1284P/TIMER2.cpp
   )
 
   ########################################################################

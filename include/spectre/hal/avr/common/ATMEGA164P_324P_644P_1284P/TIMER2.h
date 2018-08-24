@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_COMMON_ATMEGA640_1280_2560_TIMER2_H_
-#define INCLUDE_SPECTRE_HAL_AVR_COMMON_ATMEGA640_1280_2560_TIMER2_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_COMMON_ATMEGA164P_324P_644P_1284P_TIMER2_H_
+#define INCLUDE_SPECTRE_HAL_AVR_COMMON_ATMEGA164P_324P_644P_1284P_TIMER2_H_
 
 /**************************************************************************************
  * INCLUDE
@@ -38,7 +38,7 @@ namespace spectre
 namespace hal
 {
 
-namespace ATMEGA640_1280_2560
+namespace ATMEGA164P_324P_644P_1284P
 {
 
 /**************************************************************************************
@@ -94,10 +94,10 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA640_1280_2560 */
+} /* ATMEGA164P_324P_644P_1284P */
 
 } /* hal */
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_COMMON_ATMEGA640_1280_2560_TIMER2_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_COMMON_ATMEGA164P_324P_644P_1284P_TIMER2_H_ */
