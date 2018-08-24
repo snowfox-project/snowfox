@@ -75,13 +75,12 @@ enum class Interrupt : uint8_t
   TIMER3_OVERFLOW                 = 28,
   TWO_WIRE_INT                    = 29,
   SPM_READY                       = 30,
-  TIMER4_CAPTURE                  = 31,
-  TIMER4_COMPARE_A                = 32,
-  TIMER4_COMPARE_B                = 33,
-  TIMER4_COMPARE_C                = 34,
-  TIMER4_OVERFLOW                 = 35,
-  TIMER4_FAULT_PROTECTION         = 36,
-  GLOBAL                          = 37,
+  TIMER4_COMPARE_A                = 31,
+  TIMER4_COMPARE_B                = 32,
+  TIMER4_COMPARE_D                = 33,
+  TIMER4_OVERFLOW                 = 34,
+  TIMER4_FAULT_PROTECTION         = 35,
+  GLOBAL                          = 36,
   INVALID                         = interface::InterruptController::INVALID_INT_NUM
 };
 
@@ -91,8 +90,38 @@ enum class InterruptServiceRoutine : uint8_t
   EXTERNAL_INT1                   =  1,
   EXTERNAL_INT2                   =  2,
   EXTERNAL_INT3                   =  3,
-  EXTERNAL_INT6                   =  4
-  /* TODO */
+  EXTERNAL_INT6                   =  4,
+  PIN_CHANGE_INT0                 =  5,
+  USB_GENERAL                     =  6,
+  USB_ENDPOINT                    =  7,
+  WATCHDOG_TIMER                  =  8,
+  TIMER1_CAPTURE                  =  9,
+  TIMER1_COMPARE_A                = 10,
+  TIMER1_COMPARE_B                = 11,
+  TIMER1_COMPARE_C                = 12,
+  TIMER1_OVERFLOW                 = 13,
+  TIMER0_COMPARE_A                = 14,
+  TIMER0_COMPARE_B                = 15,
+  TIMER0_OVERFLOW                 = 16,
+  SPI_SERIAL_TRANSFER_COMPLETE    = 17,
+  USART1_RECEIVE_COMPLETE         = 18,
+  USART1_UART_DATA_REGISTER_EMPTY = 19,
+  USART1_TRANSMIT_COMPLETE        = 20,
+  ANALOG_COMPARATOR               = 21,
+  ANALOG_DIGITAL_CONVERTER        = 22,
+  EEPROM_READY                    = 23,
+  TIMER3_CAPTURE                  = 24,
+  TIMER3_COMPARE_A                = 25,
+  TIMER3_COMPARE_B                = 26,
+  TIMER3_COMPARE_C                = 27,
+  TIMER3_OVERFLOW                 = 28,
+  TWO_WIRE_INT                    = 29,
+  SPM_READY                       = 30,
+  TIMER4_COMPARE_A                = 31,
+  TIMER4_COMPARE_B                = 32,
+  TIMER4_COMPARE_D                = 33,
+  TIMER4_OVERFLOW                 = 34,
+  TIMER4_FAULT_PROTECTION         = 35
 };
 
 /**************************************************************************************
@@ -118,7 +147,8 @@ class InterruptController : public interface::InterruptController
 
 public:
 
-           InterruptController(volatile uint8_t * eimsk);
+           InterruptController(volatile uint8_t * eimsk,
+                               volatile uint8_t * pcicr);
   virtual ~InterruptController();
 
 
@@ -135,7 +165,8 @@ public:
 
 private:
 
-  volatile uint8_t * _EIMSK;
+  volatile uint8_t * _EIMSK,
+                   * _PCICR;
 
 };
 
