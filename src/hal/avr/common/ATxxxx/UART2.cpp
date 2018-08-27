@@ -46,6 +46,10 @@
   #include <spectre/hal/avr/ATMEGA1280/InterruptController.h>
 #elif defined(MCU_TYPE_atmega2560)
   #include <spectre/hal/avr/ATMEGA2560/InterruptController.h>
+#elif defined(MCU_TYPE_atmega16u4)
+  #include <spectre/hal/avr/ATMEGA16U4/InterruptController.h>
+#elif defined(MCU_TYPE_atmega32u4)
+  #include <spectre/hal/avr/ATMEGA32U4/InterruptController.h>
 #else
   #include <spectre/hal/interface/interrupt/InterruptController.h>
 #endif
@@ -134,6 +138,12 @@ namespace ATxxxx
 #elif defined(MCU_TYPE_atmega2560)
   static uint8_t const INT_NUM_UART_DATA_REGISTER_EMPTY = ATMEGA640_1280_2560::toIntNum(ATMEGA2560::Interrupt::USART2_UART_DATA_REGISTER_EMPTY );
   static uint8_t const INT_NUM_RECEIVE_COMPLETE         = ATMEGA640_1280_2560::toIntNum(ATMEGA2560::Interrupt::USART2_RECEIVE_COMPLETE         );
+#elif defined(MCU_TYPE_atmega16u4)
+  static uint8_t const INT_NUM_UART_DATA_REGISTER_EMPTY = interface::InterruptController::INVALID_INT_NUM;
+  static uint8_t const INT_NUM_RECEIVE_COMPLETE         = interface::InterruptController::INVALID_INT_NUM;
+#elif defined(MCU_TYPE_atmega32u4)
+  static uint8_t const INT_NUM_UART_DATA_REGISTER_EMPTY = interface::InterruptController::INVALID_INT_NUM;
+  static uint8_t const INT_NUM_RECEIVE_COMPLETE         = interface::InterruptController::INVALID_INT_NUM;
 #else
   static uint8_t const INT_NUM_UART_DATA_REGISTER_EMPTY = interface::InterruptController::INVALID_INT_NUM;
   static uint8_t const INT_NUM_RECEIVE_COMPLETE         = interface::InterruptController::INVALID_INT_NUM;
