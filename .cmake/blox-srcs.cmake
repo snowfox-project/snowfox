@@ -62,6 +62,7 @@ if(${MCU_ARCH} STREQUAL "avr")
 
   set(SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA16U4_32U4_SRCS
     ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATMEGA16U4_32U4/ExternalInterruptController.cpp
+    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATMEGA16U4_32U4/UART1.cpp
   )
   
   ########################################################################
