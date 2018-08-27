@@ -37,7 +37,7 @@ set_target_properties(
   ${TARGET}
 
   PROPERTIES
-    LINK_FLAGS "-mmcu==at90can128"
+    LINK_FLAGS "-mmcu=at90can128"
 )
 
 ##########################################################################
