@@ -61,7 +61,7 @@ int main()
 {
   /* HAL ******************************************************************************/
 
-  ATMEGA1284P::InterruptController int_ctrl(&EIMSK, &PCICR, &WDTCSR, &TIMSK2, &TIMSK1, &TIMSK0, &SPCR, &UCSR0B, &ACSR, &ADCSRA, &EECR, &TWCR, &SPMCSR, &UCSR1B);
+  ATMEGA1284P::InterruptController int_ctrl(&EIMSK, &PCICR, &WDTCSR, &TIMSK0, &TIMSK1, &TIMSK2, &UCSR0B, &UCSR1B, &SPCR, &TWCR, &EECR, &SPMCSR, &ACSR, &ADCSRA);
   ATMEGA1284P::CriticalSection     crit_sec(&SREG);
 
   blox::ATMEGA1284P::UART0         uart0   (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl, F_CPU);
