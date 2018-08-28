@@ -59,22 +59,22 @@ SCENARIO("ATMEGA328P::UART0 - TODO", "[ATMEGA328P::UART0]")
   Register<uint8_t>  EIMSK  (EIMSK_RESET_VALUE  ),
                      PCICR  (PCICR_RESET_VALUE  ),
                      WDTCSR (WDTCSR_RESET_VALUE ),
-                     TIMSK2 (TIMSK2_RESET_VALUE ),
-                     TIMSK1 (TIMSK1_RESET_VALUE ),
                      TIMSK0 (TIMSK0_RESET_VALUE ),
+                     TIMSK1 (TIMSK1_RESET_VALUE ),
+                     TIMSK2 (TIMSK2_RESET_VALUE ),
                      SPCR   (SPCR_RESET_VALUE   ),
+                     TWCR   (TWCR_RESET_VALUE   ),
+                     EECR   (EECR_RESET_VALUE   ),
+                     SPMCSR (SPMCSR_RESET_VALUE ),
                      UDR0   (UDR0_RESET_VALUE   ),
                      UCSR0A (UCSR0A_RESET_VALUE ),
                      UCSR0B (UCSR0B_RESET_VALUE ),
                      UCSR0C (UCSR0C_RESET_VALUE ),
-                     ADCSRA (ADCSRA_RESET_VALUE ),
-                     EECR   (EECR_RESET_VALUE   ),
                      ACSR   (ACSR_RESET_VALUE   ),
-                     TWCR   (TWCR_RESET_VALUE   ),
-                     SPMCSR (SPMCSR_RESET_VALUE );
+                     ADCSRA (ADCSRA_RESET_VALUE );
   Register<uint16_t> UBRR0  (UBRR0_RESET_VALUE  );
 
-  ATMEGA328P::InterruptController int_ctrl(EIMSK(), PCICR(), WDTCSR(), TIMSK2(), TIMSK1(), TIMSK0(), SPCR(), UCSR0B(), ADCSRA(), EECR(), ACSR(), TWCR(), SPMCSR());
+  ATMEGA328P::InterruptController int_ctrl(EIMSK(), PCICR(), WDTCSR(), TIMSK0(), TIMSK1(), TIMSK2(), UCSR0B(), SPCR(), TWCR(), EECR(), SPMCSR(), ACSR(), ADCSRA());
   ATMEGA328P::UART0               uart0   (UDR0(), UCSR0A(), UCSR0B(), UCSR0C(), UBRR0(), int_ctrl, F_CPU_Hz);
 
   /* TODO */
