@@ -153,19 +153,19 @@ class InterruptController : public interface::InterruptController
 public:
 
            InterruptController(volatile uint8_t * eimsk,
-                               volatile uint8_t * timsk2,
-                               volatile uint8_t * timsk1,
                                volatile uint8_t * timsk0,
+                               volatile uint8_t * timsk1,
+                               volatile uint8_t * timsk2,
+                               volatile uint8_t * timsk3,
+                               volatile uint8_t * ucsr0b,
+                               volatile uint8_t * ucsr1b,
                                volatile uint8_t * cangie,
                                volatile uint8_t * spcr,
-                               volatile uint8_t * ucsr0b,
-                               volatile uint8_t * acsr,
-                               volatile uint8_t * adcsra,
-                               volatile uint8_t * eecr,
-                               volatile uint8_t * timsk3,
-                               volatile uint8_t * ucsr1b,
                                volatile uint8_t * twcr,
-                               volatile uint8_t * spmcsr);
+                               volatile uint8_t * eecr,
+                               volatile uint8_t * spmcsr,
+                               volatile uint8_t * acsr,
+                               volatile uint8_t * adcsra);
   virtual ~InterruptController();
 
 
@@ -183,19 +183,19 @@ public:
 private:
 
   volatile uint8_t * _EIMSK,
-                   * _TIMSK2,
-                   * _TIMSK1,
                    * _TIMSK0,
+                   * _TIMSK1,
+                   * _TIMSK2,
+                   * _TIMSK3,
+                   * _UCSR0B,
+                   * _UCSR1B,
                    * _CANGIE,
                    * _SPCR,
-                   * _UCSR0B,
-                   * _ACSR,
-                   * _ADCSRA,
-                   * _EECR,
-                   * _TIMSK3,
-                   * _UCSR1B,
                    * _TWCR,
-                   * _SPMCSR;
+                   * _EECR,
+                   * _SPMCSR,
+                   * _ACSR,
+                   * _ADCSRA;
 
 };
 

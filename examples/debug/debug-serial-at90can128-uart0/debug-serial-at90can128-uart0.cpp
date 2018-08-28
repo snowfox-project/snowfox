@@ -61,7 +61,7 @@ int main()
 {
   /* HAL ******************************************************************************/
 
-  AT90CAN128::InterruptController int_ctrl(&EIMSK, &TIMSK2, &TIMSK1, &TIMSK0, &CANGIE, &SPCR, &UCSR0B, &ACSR, &ADCSRA, &EECR, &TIMSK3, &UCSR1B, &TWCR, &SPMCSR);
+  AT90CAN128::InterruptController int_ctrl(&EIMSK, &TIMSK0, &TIMSK1, &TIMSK2, &TIMSK3, &UCSR0B, &UCSR1B, &CANGIE, &SPCR, &TWCR, &EECR, &SPMCSR, &ACSR, &ADCSRA);
   AT90CAN128::CriticalSection     crit_sec(&SREG);
 
   blox::AT90CAN128::UART0         uart0   (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl, F_CPU);
