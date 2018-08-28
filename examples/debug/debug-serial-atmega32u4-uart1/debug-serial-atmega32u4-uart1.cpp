@@ -61,7 +61,7 @@ int main()
 {
   /* HAL ******************************************************************************/
 
-  ATMEGA32U4::InterruptController int_ctrl(&EIMSK, &PCICR); /*, &WDTCSR, &TIMSK2, &TIMSK1, &TIMSK0, &SPCR, &UCSR0B, &ADCSRA, &EECR, &ACSR, &TWCR, &SPMCSR); */
+  ATMEGA32U4::InterruptController int_ctrl(&EIMSK, &PCICR, &WDTCSR, &TIMSK0, &TIMSK1, &TIMSK3, &TIMSK4, &TCCR4D, &UCSR1B, &SPCR, &TWCR, &EECR, &SPMCSR, &ACSR, &ADCSRA);
   ATMEGA32U4::CriticalSection     crit_sec(&SREG);
 
   blox::ATMEGA32U4::UART1         uart1   (&UDR1, &UCSR1A, &UCSR1B, &UCSR1C, &UBRR1, int_ctrl, F_CPU);
