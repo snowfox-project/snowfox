@@ -49,6 +49,59 @@ namespace ATMEGA16U4_32U4
 /* PCICR */
 #define PCIE0_bm  (1<<0)
 
+/* WDTCSR */
+#define WDIE_bm   (1<<6)
+
+/* TIMSK1 */
+#define ICIE1_bm  (1<<5)
+#define OCIE1C_bm (1<<3)
+#define OCIE1B_bm (1<<2)
+#define OCIE1A_bm (1<<1)
+#define TOIE1_bm  (1<<0)
+
+/* TIMSK0 */
+#define OCIE0B_bm (1<<2)
+#define OCIE0A_bm (1<<1)
+#define TOIE0_bm  (1<<0)
+
+/* SPCR */
+#define SPIE_bm   (1<<7)
+
+/* UCSR1B */
+#define RXCIE1_bm (1<<7)
+#define TXCIE1_bm (1<<6)
+#define UDRIE1_bm (1<<5)
+
+/* ACSR */
+#define ACIE_bm   (1<<3)
+
+/* ADCSRA */
+#define ADIE_bm   (1<<3)
+
+/* EECR */
+#define EERIE_bm  (1<<3)
+
+/* TIMSK3 */
+#define ICIE3_bm  (1<<5)
+#define OCIE3C_bm (1<<3)
+#define OCIE3B_bm (1<<2)
+#define OCIE3A_bm (1<<1)
+#define TOIE3_bm  (1<<0)
+
+/* TWCR */
+#define TWIE_bm   (1<<0)
+
+/* SPMCSR */
+#define SPMIE_bm  (1<<7)
+
+/* TIMSK4 */
+#define OCIE4D_bm (1<<7)
+#define OCIE4A_bm (1<<6)
+#define OCIE4B_bm (1<<5)
+#define TOIE4_bm  (1<<3)
+
+/* TCCR4D */
+#define FPEN4_bm  (1<<6)
 
 /**************************************************************************************
  * GLOBAL VARIABLES
@@ -96,9 +149,35 @@ static interface::InterruptCallback * isr_external_int0                   = 0,
  **************************************************************************************/
 
 InterruptController::InterruptController(volatile uint8_t * eimsk,
-                                         volatile uint8_t * pcicr)
+                                         volatile uint8_t * pcicr,
+                                         volatile uint8_t * wdtcsr,
+                                         volatile uint8_t * timsk1,
+                                         volatile uint8_t * timsk0,
+                                         volatile uint8_t * spcr,
+                                         volatile uint8_t * ucsr1b,
+                                         volatile uint8_t * acsr,
+                                         volatile uint8_t * adcsra,
+                                         volatile uint8_t * eecr,
+                                         volatile uint8_t * timsk3,
+                                         volatile uint8_t * twcr,
+                                         volatile uint8_t * spmcsr,
+                                         volatile uint8_t * timsk4,
+                                         volatile uint8_t * tccr4d)
 : _EIMSK (eimsk ),
-  _PCICR (pcicr )
+  _PCICR (pcicr ),
+  _WDTCSR(wdtcsr),
+  _TIMSK1(timsk1),
+  _TIMSK0(timsk0),
+  _SPCR  (spcr  ),
+  _UCSR1B(ucsr1b),
+  _ACSR  (acsr  ),
+  _ADCSRA(adcsra),
+  _EECR  (eecr  ),
+  _TIMSK3(timsk3),
+  _TWCR  (twcr  ),
+  _SPMCSR(spmcsr),
+  _TIMSK4(timsk4),
+  _TCCR4D(tccr4d)
 {
 
 }
@@ -116,46 +195,46 @@ void InterruptController::enableInterrupt(uint8_t const int_num)
 {
   switch(int_num)
   {
-  case toIntNum(Interrupt::EXTERNAL_INT0                  ): *_EIMSK   |= INT0_bm;   break;
-  case toIntNum(Interrupt::EXTERNAL_INT1                  ): *_EIMSK   |= INT1_bm;   break;
-  case toIntNum(Interrupt::EXTERNAL_INT2                  ): *_EIMSK   |= INT2_bm;   break;
-  case toIntNum(Interrupt::EXTERNAL_INT3                  ): *_EIMSK   |= INT3_bm;   break;
-  case toIntNum(Interrupt::EXTERNAL_INT6                  ): *_EIMSK   |= INT6_bm;   break;
-  case toIntNum(Interrupt::PIN_CHANGE_INT0                ): *_PCICR   |= PCIE0_bm;  break;
-  case toIntNum(Interrupt::USB_GENERAL                    ): break;
-  case toIntNum(Interrupt::USB_ENDPOINT                   ): break;
-  case toIntNum(Interrupt::WATCHDOG_TIMER                 ): break;
-  case toIntNum(Interrupt::TIMER1_CAPTURE                 ): break;
-  case toIntNum(Interrupt::TIMER1_COMPARE_A               ): break;
-  case toIntNum(Interrupt::TIMER1_COMPARE_B               ): break;
-  case toIntNum(Interrupt::TIMER1_COMPARE_C               ): break;
-  case toIntNum(Interrupt::TIMER1_OVERFLOW                ): break;
-  case toIntNum(Interrupt::TIMER0_COMPARE_A               ): break;
-  case toIntNum(Interrupt::TIMER0_COMPARE_B               ): break;
-  case toIntNum(Interrupt::TIMER0_OVERFLOW                ): break;
-  case toIntNum(Interrupt::SPI_SERIAL_TRANSFER_COMPLETE   ): break;
-  case toIntNum(Interrupt::USART1_RECEIVE_COMPLETE        ): break;
-  case toIntNum(Interrupt::USART1_UART_DATA_REGISTER_EMPTY): break;
-  case toIntNum(Interrupt::USART1_TRANSMIT_COMPLETE       ): break;
-  case toIntNum(Interrupt::ANALOG_COMPARATOR              ): break;
-  case toIntNum(Interrupt::ANALOG_DIGITAL_CONVERTER       ): break;
-  case toIntNum(Interrupt::EEPROM_READY                   ): break;
-  case toIntNum(Interrupt::TIMER3_CAPTURE                 ): break;
-  case toIntNum(Interrupt::TIMER3_COMPARE_A               ): break;
-  case toIntNum(Interrupt::TIMER3_COMPARE_B               ): break;
-  case toIntNum(Interrupt::TIMER3_COMPARE_C               ): break;
-  case toIntNum(Interrupt::TIMER3_OVERFLOW                ): break;
-  case toIntNum(Interrupt::TWO_WIRE_INT                   ): break;
-  case toIntNum(Interrupt::SPM_READY                      ): break;
-  case toIntNum(Interrupt::TIMER4_COMPARE_A               ): break;
-  case toIntNum(Interrupt::TIMER4_COMPARE_B               ): break;
-  case toIntNum(Interrupt::TIMER4_COMPARE_D               ): break;
-  case toIntNum(Interrupt::TIMER4_OVERFLOW                ): break;
-  case toIntNum(Interrupt::TIMER4_FAULT_PROTECTION        ): break;
+  case toIntNum(Interrupt::EXTERNAL_INT0                  ): *_EIMSK  |= INT0_bm;   break;
+  case toIntNum(Interrupt::EXTERNAL_INT1                  ): *_EIMSK  |= INT1_bm;   break;
+  case toIntNum(Interrupt::EXTERNAL_INT2                  ): *_EIMSK  |= INT2_bm;   break;
+  case toIntNum(Interrupt::EXTERNAL_INT3                  ): *_EIMSK  |= INT3_bm;   break;
+  case toIntNum(Interrupt::EXTERNAL_INT6                  ): *_EIMSK  |= INT6_bm;   break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT0                ): *_PCICR  |= PCIE0_bm;  break;
+  case toIntNum(Interrupt::USB_GENERAL                    ): /* TODO */             break;
+  case toIntNum(Interrupt::USB_ENDPOINT                   ): /* TODO */             break;
+  case toIntNum(Interrupt::WATCHDOG_TIMER                 ): *_WDTCSR |= WDIE_bm;   break;
+  case toIntNum(Interrupt::TIMER1_CAPTURE                 ): *_TIMSK1 |= ICIE1_bm;  break;
+  case toIntNum(Interrupt::TIMER1_COMPARE_A               ): *_TIMSK1 |= OCIE1A_bm; break;
+  case toIntNum(Interrupt::TIMER1_COMPARE_B               ): *_TIMSK1 |= OCIE1B_bm; break;
+  case toIntNum(Interrupt::TIMER1_COMPARE_C               ): *_TIMSK1 |= OCIE1C_bm; break;
+  case toIntNum(Interrupt::TIMER1_OVERFLOW                ): *_TIMSK1 |= TOIE1_bm;  break;
+  case toIntNum(Interrupt::TIMER0_COMPARE_A               ): *_TIMSK0 |= OCIE0A_bm; break;
+  case toIntNum(Interrupt::TIMER0_COMPARE_B               ): *_TIMSK0 |= OCIE0B_bm; break;
+  case toIntNum(Interrupt::TIMER0_OVERFLOW                ): *_TIMSK0 |= TOIE0_bm;  break;
+  case toIntNum(Interrupt::SPI_SERIAL_TRANSFER_COMPLETE   ): *_SPCR   |= SPIE_bm;   break;
+  case toIntNum(Interrupt::USART1_RECEIVE_COMPLETE        ): *_UCSR1B |= RXCIE1_bm; break;
+  case toIntNum(Interrupt::USART1_UART_DATA_REGISTER_EMPTY): *_UCSR1B |= UDRIE1_bm; break;
+  case toIntNum(Interrupt::USART1_TRANSMIT_COMPLETE       ): *_UCSR1B |= TXCIE1_bm; break;
+  case toIntNum(Interrupt::ANALOG_COMPARATOR              ): *_ACSR   |= ACIE_bm;   break;
+  case toIntNum(Interrupt::ANALOG_DIGITAL_CONVERTER       ): *_ADCSRA |= ADIE_bm;   break;
+  case toIntNum(Interrupt::EEPROM_READY                   ): *_EECR   |= EERIE_bm;  break;
+  case toIntNum(Interrupt::TIMER3_CAPTURE                 ): *_TIMSK3 |= ICIE3_bm;  break;
+  case toIntNum(Interrupt::TIMER3_COMPARE_A               ): *_TIMSK3 |= OCIE3A_bm; break;
+  case toIntNum(Interrupt::TIMER3_COMPARE_B               ): *_TIMSK3 |= OCIE3B_bm; break;
+  case toIntNum(Interrupt::TIMER3_COMPARE_C               ): *_TIMSK3 |= OCIE3C_bm; break;
+  case toIntNum(Interrupt::TIMER3_OVERFLOW                ): *_TIMSK3 |= TOIE3_bm;  break;
+  case toIntNum(Interrupt::TWO_WIRE_INT                   ): *_TWCR   |= TWIE_bm;   break;
+  case toIntNum(Interrupt::SPM_READY                      ): *_SPMCSR |= SPMIE_bm;  break;
+  case toIntNum(Interrupt::TIMER4_COMPARE_A               ): *_TIMSK4 |= OCIE4A_bm; break;
+  case toIntNum(Interrupt::TIMER4_COMPARE_B               ): *_TIMSK4 |= OCIE4B_bm; break;
+  case toIntNum(Interrupt::TIMER4_COMPARE_D               ): *_TIMSK4 |= OCIE4D_bm; break;
+  case toIntNum(Interrupt::TIMER4_OVERFLOW                ): *_TIMSK4 |= TOIE4_bm;  break;
+  case toIntNum(Interrupt::TIMER4_FAULT_PROTECTION        ): *_TCCR4D |= FPEN4_bm;  break;
 #if defined(MCU_ARCH_avr)
-  case toIntNum(Interrupt::GLOBAL                         ): asm volatile("sei");    break;
+  case toIntNum(Interrupt::GLOBAL                         ): asm volatile("sei");   break;
 #endif
-  default                                                  : /* DO NOTHING */        break;
+  default                                                  : /* DO NOTHING */       break;
   }
 }
 
@@ -163,16 +242,46 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
 {
   switch(int_num)
   {
-  case toIntNum(Interrupt::EXTERNAL_INT0                  ): *_EIMSK   &= ~INT0_bm;   break;
-  case toIntNum(Interrupt::EXTERNAL_INT1                  ): *_EIMSK   &= ~INT1_bm;   break;
-  case toIntNum(Interrupt::EXTERNAL_INT2                  ): *_EIMSK   &= ~INT2_bm;   break;
-  case toIntNum(Interrupt::EXTERNAL_INT3                  ): *_EIMSK   &= ~INT3_bm;   break;
-  case toIntNum(Interrupt::EXTERNAL_INT6                  ): *_EIMSK   &= ~INT6_bm;   break;
-  case toIntNum(Interrupt::PIN_CHANGE_INT0                ): *_PCICR   &= ~PCIE0_bm;  break;
+  case toIntNum(Interrupt::EXTERNAL_INT0                  ): *_EIMSK  &= ~INT0_bm;   break;
+  case toIntNum(Interrupt::EXTERNAL_INT1                  ): *_EIMSK  &= ~INT1_bm;   break;
+  case toIntNum(Interrupt::EXTERNAL_INT2                  ): *_EIMSK  &= ~INT2_bm;   break;
+  case toIntNum(Interrupt::EXTERNAL_INT3                  ): *_EIMSK  &= ~INT3_bm;   break;
+  case toIntNum(Interrupt::EXTERNAL_INT6                  ): *_EIMSK  &= ~INT6_bm;   break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT0                ): *_PCICR  &= ~PCIE0_bm;  break;
+  case toIntNum(Interrupt::USB_GENERAL                    ): /* TODO */              break;
+  case toIntNum(Interrupt::USB_ENDPOINT                   ): /* TODO */              break;
+  case toIntNum(Interrupt::WATCHDOG_TIMER                 ): *_WDTCSR &= ~WDIE_bm;   break;
+  case toIntNum(Interrupt::TIMER1_CAPTURE                 ): *_TIMSK1 &= ~ICIE1_bm;  break;
+  case toIntNum(Interrupt::TIMER1_COMPARE_A               ): *_TIMSK1 &= ~OCIE1A_bm; break;
+  case toIntNum(Interrupt::TIMER1_COMPARE_B               ): *_TIMSK1 &= ~OCIE1B_bm; break;
+  case toIntNum(Interrupt::TIMER1_COMPARE_C               ): *_TIMSK1 &= ~OCIE1C_bm; break;
+  case toIntNum(Interrupt::TIMER1_OVERFLOW                ): *_TIMSK1 &= ~TOIE1_bm;  break;
+  case toIntNum(Interrupt::TIMER0_COMPARE_A               ): *_TIMSK0 &= ~OCIE0A_bm; break;
+  case toIntNum(Interrupt::TIMER0_COMPARE_B               ): *_TIMSK0 &= ~OCIE0B_bm; break;
+  case toIntNum(Interrupt::TIMER0_OVERFLOW                ): *_TIMSK0 &= ~TOIE0_bm;  break;
+  case toIntNum(Interrupt::SPI_SERIAL_TRANSFER_COMPLETE   ): *_SPCR   &= ~SPIE_bm;   break;
+  case toIntNum(Interrupt::USART1_RECEIVE_COMPLETE        ): *_UCSR1B &= ~RXCIE1_bm; break;
+  case toIntNum(Interrupt::USART1_UART_DATA_REGISTER_EMPTY): *_UCSR1B &= ~UDRIE1_bm; break;
+  case toIntNum(Interrupt::USART1_TRANSMIT_COMPLETE       ): *_UCSR1B &= ~TXCIE1_bm; break;
+  case toIntNum(Interrupt::ANALOG_COMPARATOR              ): *_ACSR   &= ~ACIE_bm;   break;
+  case toIntNum(Interrupt::ANALOG_DIGITAL_CONVERTER       ): *_ADCSRA &= ~ADIE_bm;   break;
+  case toIntNum(Interrupt::EEPROM_READY                   ): *_EECR   &= ~EERIE_bm;  break;
+  case toIntNum(Interrupt::TIMER3_CAPTURE                 ): *_TIMSK3 &= ~ICIE3_bm;  break;
+  case toIntNum(Interrupt::TIMER3_COMPARE_A               ): *_TIMSK3 &= ~OCIE3A_bm; break;
+  case toIntNum(Interrupt::TIMER3_COMPARE_B               ): *_TIMSK3 &= ~OCIE3B_bm; break;
+  case toIntNum(Interrupt::TIMER3_COMPARE_C               ): *_TIMSK3 &= ~OCIE3C_bm; break;
+  case toIntNum(Interrupt::TIMER3_OVERFLOW                ): *_TIMSK3 &= ~TOIE3_bm;  break;
+  case toIntNum(Interrupt::TWO_WIRE_INT                   ): *_TWCR   &= ~TWIE_bm;   break;
+  case toIntNum(Interrupt::SPM_READY                      ): *_SPMCSR &= ~SPMIE_bm;  break;
+  case toIntNum(Interrupt::TIMER4_COMPARE_A               ): *_TIMSK4 &= ~OCIE4A_bm; break;
+  case toIntNum(Interrupt::TIMER4_COMPARE_B               ): *_TIMSK4 &= ~OCIE4B_bm; break;
+  case toIntNum(Interrupt::TIMER4_COMPARE_D               ): *_TIMSK4 &= ~OCIE4D_bm; break;
+  case toIntNum(Interrupt::TIMER4_OVERFLOW                ): *_TIMSK4 &= ~TOIE4_bm;  break;
+  case toIntNum(Interrupt::TIMER4_FAULT_PROTECTION        ): *_TCCR4D &= ~FPEN4_bm;  break;
 #if defined(MCU_ARCH_avr)
-  case toIntNum(Interrupt::GLOBAL                         ): asm volatile("cli");     break;
+  case toIntNum(Interrupt::GLOBAL                         ): asm volatile("cli");    break;
 #endif
-  default                                                  : /* DO NOTHING */         break;
+  default                                                  : /* DO NOTHING */        break;
   }
 }
 
