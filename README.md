@@ -26,17 +26,17 @@ Work in progress ...
 |:--------------------------:|:---------------------:|:-----------------:|:------------------------------------------------------------------------------------------:|
 | AT90CAN32                  | avr                   | at90can32         |                                                                                            |
 | AT90CAN64                  | ...                   | at90can64         |                                                                                            |
-| AT90CAN128                 | ...                   | at90can128        | [Olimex AVR-CAN](examples/eval-board-schematics/olimex-avr-can.pdf)                        |
+| AT90CAN128                 | ...                   | at90can128        | [Olimex AVR-CAN](examples/board-schematics/mcu/olimex-avr-can.pdf)                         |
 | ATMega640                  | ...                   | atmega640         |                                                                                            |
 | ATMega1280                 | ...                   | atmega1280        |                                                                                            |
-| ATMega2560                 | ...                   | atmega2560        | [Arduino Mega](examples/eval-board-schematics/arduino-mega.pdf)                            |
+| ATMega2560                 | ...                   | atmega2560        | [Arduino Mega](examples/board-schematics/mcu/arduino-mega.pdf)                             |
 | ATMega164P                 | ...                   | atmega164p        |                                                                                            |
 | ATMega324P                 | ...                   | atmega324p        |                                                                                            |
 | ATMega644P                 | ...                   | atmega644p        |                                                                                            |
-| ATMega1284P                | ...                   | atmega1284p       | [Moteino Mega USB](examples/eval-board-schematics/low-power-lab-moteino-mega-lora-usb.png) |
-| ATMega328P                 | ...                   | atmega328p        | [Arduino Uno](examples/eval-board-schematics/arduino-uno.pdf)                              |
+| ATMega1284P                | ...                   | atmega1284p       | [Moteino Mega USB](examples/board-schematics/io/low-power-lab-moteino-mega-lora-usb.png)   |
+| ATMega328P                 | ...                   | atmega328p        | [Arduino Uno](examples/board-schematics/mcu/arduino-uno.pdf)                               |
 | ATMega16U4                 | ...                   | atmega16u4        |                                                                                            |
-| ATMega32U4                 | ...                   | atmega32u4        | [Arduino Leonardo](examples/eval-board-schematics/arduino-leonardo.pdf)                    |
+| ATMega32U4                 | ...                   | atmega32u4        | [Arduino Leonardo](examples/board-schematics/mcu/arduino-leonardo.pdf)                     |
 
 ### Host (Test Build)
 | MCU                        | MCU_ARCH              | MCU_TYPE          |
@@ -46,7 +46,7 @@ Work in progress ...
 
 ## I/O Device Drivers
 #### [/driver/can](include/spectre/driver/can) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/can)
-* **MCP2515** (CAN Controller) ([Seedstudio CAN Shield V2.0](examples/eval-board-schematics/seedstudio-can-shield-v-2-0.pdf))
+* **MCP2515** (CAN Controller) ([Seedstudio CAN Shield V2.0](examples/board-schematics/io/seedstudio-can-shield-v-2-0.pdf))
 
 #### [/driver/glcd](include/spectre/driver/glcd) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/glcd)
 * **RA6963** (GLCD Controller)
@@ -59,7 +59,7 @@ Work in progress ...
 * **PCA9547** (8-channel I2C-Bus multiplexer)
 
 #### [/driver/lora](include/spectre/driver/lora) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/lora)
-* **RFM9x** (HopeRF RFM95/96/97/98 Low Power Long Range Transceiver Module) ([Dragino LoRa Shield V1.4](examples/eval-board-schematics/dragino-lora-shield-v-1-4.png), [Moteino Mega USB](examples/eval-board-schematics/low-power-lab-moteino-mega-lora-usb.png))
+* **RFM9x** (HopeRF RFM95/96/97/98 Low Power Long Range Transceiver Module) ([Dragino LoRa Shield V1.4](examples/board-schematics/io/dragino-lora-shield-v-1-4.png), [Moteino Mega USB](examples/board-schematics/io/low-power-lab-moteino-mega-lora-usb.png))
 
 #### [/driver/memory](include/spectre/driver/memory) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/memory)
 * **AT45DBx** (SPI Data Flash)
@@ -79,7 +79,7 @@ Work in progress ...
 * **UART** (Serial UART Driver)
 
 #### [/driver/stepper](include/spectre/driver/stepper) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/stepper)
-* **TMC26x** (Trinamic TMC26x configurable stepper driver) ([Trinamic TOS-100 TMC-26x Shield](examples/eval-board-schematics/trinamic-tmc26x-shield.pdf))
+* **TMC26x** (Trinamic TMC26x configurable stepper driver) ([Trinamic TOS-100 TMC-26x Shield](examples/board-schematics/io/trinamic-tmc26x-shield.pdf))
 
 #### [/driver/tlcd](include/spectre/driver/tlcd)
 * **HD44780** (Dot Matrix LCD Controller/Driver)
