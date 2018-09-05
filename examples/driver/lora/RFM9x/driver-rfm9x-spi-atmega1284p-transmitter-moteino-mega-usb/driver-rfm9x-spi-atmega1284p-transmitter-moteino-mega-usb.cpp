@@ -17,19 +17,19 @@
  */
 
 /**************************************************************************************
- * This example programm is tailored for usage with Arduino Uno
- * and Dragino LoRa Shield V1.4
+ * This example program is tailored for usage with Moteino-Mega-USB
  *
  * Electrical interface:
- *   CS   = D10 = PB2
- *   SCK  = D13 = PB5
- *   MISO = D12 = PB4
- *   MOSI = D11 = PB3
- *   DIO0 = D2  = PD2 = INT0
- *   DIO1 = D3  = PD3 = INT1 (Connect Pin #2 / DIO1 of connector SV1 with D3/INT1)
+ *   CS   = D4 = PB4
+ *   SCK  = D7 = PB7
+ *   MISO = D6 = PB6
+ *   MOSI = D5 = PB5
  *
- * Upload via avrdude
- *   avrdude -p atmega328p -c avrisp2 -e -U flash:w:driver-rfm9x-spi-atmega328p-receiver-dragino-lora-shield-v1.4
+ * Upload via avrdude (and the USB connection of the Moteino-Mega-USB)
+ *   avrdude -p atmega1284p -c arduino -P /dev/ttyUSB0 -e -U flash:w:driver-rfm9x-spi-atmega1284p-transmitter-moteino-mega-usb
+ *
+ * Upload via avrdude (and eHajo uISP-Stick)
+ *   avrdude -p atmega1284p -c usbtiny -P usb -e -U flash:w:driver-rfm9x-spi-atmega1284p-transmitter-moteino-mega-usb
  **************************************************************************************/
 
 /**************************************************************************************
@@ -41,21 +41,20 @@
 
 #include <avr/io.h>
 
-#include <spectre/hal/avr/ATMEGA328P/Flash.h>
-#include <spectre/hal/avr/ATMEGA328P/Delay.h>
-#include <spectre/hal/avr/ATMEGA328P/SpiMaster.h>
-#include <spectre/hal/avr/ATMEGA328P/DigitalInPin.h>
-#include <spectre/hal/avr/ATMEGA328P/DigitalOutPin.h>
-#include <spectre/hal/avr/ATMEGA328P/CriticalSection.h>
-#include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
+#include <spectre/hal/avr/ATMEGA1284P/Delay.h>
+#include <spectre/hal/avr/ATMEGA1284P/SpiMaster.h>
+#include <spectre/hal/avr/ATMEGA1284P/DigitalInPin.h>
+#include <spectre/hal/avr/ATMEGA1284P/DigitalOutPin.h>
+#include <spectre/hal/avr/ATMEGA1284P/CriticalSection.h>
+#include <spectre/hal/avr/ATMEGA1284P/InterruptController.h>
+#include <spectre/hal/avr/ATMEGA1284P/ExternalInterruptController.h>
 
-#include <spectre/blox/hal/avr/ATMEGA328P/UART0.h>
-#include <spectre/blox/hal/avr/ATMEGA328P/ExternalInterruptController.h>
+#include <spectre/blox/hal/avr/ATMEGA1284P/UART0.h>
+#include <spectre/blox/hal/avr/ATMEGA1284P/ExternalInterruptController.h>
 
 #include <spectre/blox/driver/serial/SerialUart.h>
 
 #include <spectre/driver/lora/RFM9x/RFM9x.h>
-#include <spectre/driver/lora/RFM9x/RFM9x_Debug.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_IoSpi.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_Status.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_Control.h>
@@ -87,16 +86,15 @@ using namespace spectre::driver;
  * CONSTANTS
  **************************************************************************************/
 
-static uint16_t                    const UART_RX_BUFFER_SIZE         = 0;
-static uint16_t                    const UART_TX_BUFFER_SIZE         = 64;
+static uint16_t                    const UART_RX_BUFFER_SIZE =  0;
+static uint16_t                    const UART_TX_BUFFER_SIZE = 16;
 
 static hal::interface::SpiMode     const RFM9x_SPI_MODE              = hal::interface::SpiMode::MODE_0;
 static hal::interface::SpiBitOrder const RFM9x_SPI_BIT_ORDER         = hal::interface::SpiBitOrder::MSB_FIRST;
-static uint32_t                    const RFM9x_SPI_PRESCALER         = 16;       /* Arduino Uno Clk = 16 MHz -> SPI Clk = 1 MHz */
+static uint32_t                    const RFM9x_SPI_PRESCALER         = 16; /* Moteino Mega USB CLK = 16 MHz -> SPI Clk = 1 MHz */
 
 static uint32_t                    const RFM9x_F_XOSC_Hz             = 32000000; /* 32 MHz                                      */
 static hal::interface::TriggerMode const RFM9x_DIO0_INT_TRIGGER_MODE = hal::interface::TriggerMode::RisingEdge;
-static hal::interface::TriggerMode const RFM9x_DIO1_INT_TRIGGER_MODE = hal::interface::TriggerMode::RisingEdge;
 
 /**************************************************************************************
  * MAIN
@@ -108,46 +106,34 @@ int main()
    * HAL
    ************************************************************************************/
 
-  ATMEGA328P::Flash                             flash;
-  ATMEGA328P::Delay                             delay;
-  ATMEGA328P::InterruptController               int_ctrl    (&EIMSK, &PCICR, &WDTCSR, &TIMSK0, &TIMSK1, &TIMSK2, &UCSR0B, &SPCR, &TWCR, &EECR, &SPMCSR, &ACSR, &ADCSRA);
-  ATMEGA328P::CriticalSection                   crit_sec    (&SREG);
-  blox::ATMEGA328P::UART0                       uart0       (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl, F_CPU);
-  blox::ATMEGA328P::ExternalInterruptController ext_int_ctrl(&EICRA, &PCMSK0, &PCMSK1, &PCMSK2, int_ctrl);
+  ATMEGA1284P::Delay                             delay;
+  ATMEGA1284P::InterruptController               int_ctrl    (&EIMSK, &PCICR, &WDTCSR, &TIMSK0, &TIMSK1, &TIMSK2, &UCSR0B, &UCSR1B, &SPCR, &TWCR, &EECR, &SPMCSR, &ACSR, &ADCSRA);
+  ATMEGA1284P::CriticalSection                   crit_sec    (&SREG);
+  blox::ATMEGA1284P::UART0                       uart0       (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl, F_CPU);
+  blox::ATMEGA1284P::ExternalInterruptController ext_int_ctrl(&EICRA, &PCMSK0, &PCMSK1, &PCMSK2, &PCMSK3, int_ctrl);
 
   /* SPI/CS for RFM95 *****************************************************************/
-  /* As the datasheet state: 'If SS is configured as an input and is driven low
-   * while MSTR is set, MSTR will be cleared.'. This means that in this special
-   * case where the CS pin is equal with SS pin we need to set it before configuring
-   * the SPI interface.
-   */
-  ATMEGA328P::DigitalOutPin rfm9x_cs  (&DDRB, &PORTB,        2);     /* CS   = D10 = PB2 */
-  ATMEGA328P::DigitalOutPin rfm9x_sck (&DDRB, &PORTB,        5);     /* SCK  = D13 = PB5 */
-  ATMEGA328P::DigitalInPin  rfm9x_miso(&DDRB, &PORTB, &PINB, 4);     /* MISO = D12 = PB4 */
-  ATMEGA328P::DigitalOutPin rfm9x_mosi(&DDRB, &PORTB,        3);     /* MOSI = D11 = PB3 */
+  ATMEGA1284P::DigitalOutPin rfm9x_cs  (&DDRB, &PORTB,        4);     /* CS   = D4 = PB4 */
+  ATMEGA1284P::DigitalOutPin rfm9x_sck (&DDRB, &PORTB,        7);     /* SCK  = D7 = PB7 */
+  ATMEGA1284P::DigitalInPin  rfm9x_miso(&DDRB, &PORTB, &PINB, 6);     /* MISO = D6 = PB6 */
+  ATMEGA1284P::DigitalOutPin rfm9x_mosi(&DDRB, &PORTB,        5);     /* MOSI = D5 = PB5 */
 
   rfm9x_cs.set();
   rfm9x_miso.setPullUpMode(hal::interface::PullUpMode::PULL_UP);
 
-  ATMEGA328P::SpiMaster     spi_master(&SPCR, &SPSR, &SPDR);
+  ATMEGA1284P::SpiMaster     spi_master(&SPCR, &SPSR, &SPDR);
 
   spi_master.setSpiMode     (RFM9x_SPI_MODE     );
   spi_master.setSpiBitOrder (RFM9x_SPI_BIT_ORDER);
   spi_master.setSpiPrescaler(RFM9x_SPI_PRESCALER);
 
-  /* EXT INT #0 for DIO0 notifications by RFM9x ***************************************/
-  ATMEGA328P::DigitalInPin rfm9x_dio0_int_pin              (&DDRD, &PORTD, &PIND, 2); /* D2 = PD2 = INT0 */
-                           rfm9x_dio0_int_pin.setPullUpMode(hal::interface::PullUpMode::PULL_UP);
+  /* EXT INT #2 for DIO0 notifications by RFM9x ***************************************/
+  ATMEGA1284P::DigitalInPin rfm9x_dio0_int_pin              (&DDRB, &PORTB, &PINB, 2); /* D2 = PB2 = INT2 */
+                            rfm9x_dio0_int_pin.setPullUpMode(hal::interface::PullUpMode::PULL_UP);
 
-  ext_int_ctrl().setTriggerMode(ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::EXTERNAL_INT0), RFM9x_DIO0_INT_TRIGGER_MODE);
-  ext_int_ctrl().enable        (ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::EXTERNAL_INT0)                             );
+  ext_int_ctrl().setTriggerMode(ATMEGA164P_324P_644P_1284P::toExtIntNum(ATMEGA1284P::ExternalInterrupt::EXTERNAL_INT2), RFM9x_DIO0_INT_TRIGGER_MODE);
+  ext_int_ctrl().enable        (ATMEGA164P_324P_644P_1284P::toExtIntNum(ATMEGA1284P::ExternalInterrupt::EXTERNAL_INT2)                             );
 
-  /* EXT INT #1 for DIO1 notifications by RFM9x ***************************************/
-  ATMEGA328P::DigitalInPin rfm9x_dio1_int_pin              (&DDRD, &PORTD, &PIND, 3); /* D3 = PD3 = INT1 */
-                           rfm9x_dio1_int_pin.setPullUpMode(hal::interface::PullUpMode::PULL_UP);
-
-  ext_int_ctrl().setTriggerMode(ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::EXTERNAL_INT1), RFM9x_DIO1_INT_TRIGGER_MODE);
-  ext_int_ctrl().enable        (ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::EXTERNAL_INT1)                             );
 
 
   /************************************************************************************
@@ -187,58 +173,51 @@ int main()
 
   lora::RFM9x::RFM9x                              rfm9x                                 (rfm9x_config, rfm9x_control, rfm9x_status, rfm9x_rx_done_event, rfm9x_rx_timeout_event, rfm9x_tx_done_event);
 
-  ext_int_ctrl().registerExternalInterruptCallback(ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::EXTERNAL_INT0), &rfm9x_dio0_event_callback);
-  ext_int_ctrl().registerExternalInterruptCallback(ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::EXTERNAL_INT1), &rfm9x_dio1_event_callback);
+  ext_int_ctrl().registerExternalInterruptCallback(ATMEGA164P_324P_644P_1284P::toExtIntNum(ATMEGA1284P::ExternalInterrupt::EXTERNAL_INT2), &rfm9x_dio0_event_callback);
+//  ext_int_ctrl().registerExternalInterruptCallback(ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::EXTERNAL_INT1), &rfm9x_dio1_event_callback);
 
 
-  uint32_t frequenzy_Hz      = 433775000; /* 433.775 Mhz - Dedicated for digital communication channels in the 70 cm band */
-  uint8_t  signal_bandwidth  = static_cast<uint8_t>(lora::RFM9x::interface::SignalBandwidth::BW_250_kHz);
-  uint8_t  coding_rate       = static_cast<uint8_t>(lora::RFM9x::interface::CodingRate::CR_4_5         );
-  uint8_t  spreading_factor  = static_cast<uint8_t>(lora::RFM9x::interface::SpreadingFactor::SF_128    );
-  uint16_t preamble_length   = 8;
-  uint16_t rx_symbol_timeout = 50; /* 50 * TSymbol */
-  uint16_t tx_fifo_size      = 128;
-  uint16_t rx_fifo_size      = 128;
+  uint32_t frequenzy_Hz     = 433775000; /* 433.775 Mhz - Dedicated for digital communication channels in the 70 cm band */
+  uint8_t  signal_bandwidth = static_cast<uint8_t>(lora::RFM9x::interface::SignalBandwidth::BW_250_kHz);
+  uint8_t  coding_rate      = static_cast<uint8_t>(lora::RFM9x::interface::CodingRate::CR_4_5         );
+  uint8_t  spreading_factor = static_cast<uint8_t>(lora::RFM9x::interface::SpreadingFactor::SF_128    );
+  uint16_t preamble_length  = 8;
+  uint16_t tx_fifo_size     = 128;
+  uint16_t rx_fifo_size     = 128;
 
   rfm9x.open();
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_FREQUENCY_HZ,      static_cast<void *>(&frequenzy_Hz      ));
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_SIGNAL_BANDWIDTH,  static_cast<void *>(&signal_bandwidth  ));
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_CODING_RATE,       static_cast<void *>(&coding_rate       ));
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_SPREADING_FACTOR,  static_cast<void *>(&spreading_factor  ));
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_PREAMBLE_LENGTH,   static_cast<void *>(&preamble_length   ));
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_RX_SYMBOL_TIMEOUT, static_cast<void *>(&rx_symbol_timeout ));
-
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_TX_FIFO_SIZE,      static_cast<void *>(&tx_fifo_size      ));
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_RX_FIFO_SIZE,      static_cast<void *>(&rx_fifo_size      ));
+  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_FREQUENCY_HZ,      static_cast<void *>(&frequenzy_Hz    ));
+  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_SIGNAL_BANDWIDTH,  static_cast<void *>(&signal_bandwidth));
+  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_CODING_RATE,       static_cast<void *>(&coding_rate     ));
+  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_SPREADING_FACTOR,  static_cast<void *>(&spreading_factor));
+  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_PREAMBLE_LENGTH,   static_cast<void *>(&preamble_length ));
+  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_TX_FIFO_SIZE,      static_cast<void *>(&tx_fifo_size    ));
+  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_RX_FIFO_SIZE,      static_cast<void *>(&rx_fifo_size    ));
 
   /* GLOBAL INTERRUPT *****************************************************************/
-  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
+  int_ctrl.enableInterrupt(ATMEGA164P_324P_644P_1284P::toIntNum(ATMEGA1284P::Interrupt::GLOBAL));
 
 
   /************************************************************************************
    * APPLICATION
    ************************************************************************************/
 
-  lora::RFM9x::RFM9x_Debug::debug_dumpAllRegs(debug_serial, flash, rfm9x_spi);
-
   for(uint16_t msg_cnt = 0;; msg_cnt++)
   {
     uint8_t msg[64] = {0};
 
-    ssize_t const ret_code = rfm9x.read(msg, 64);
+    uint16_t const msg_len = snprintf(reinterpret_cast<char *>(msg), 64, "[Spectre RTOS (c) LXRobotics] [lora::RFM9x] Message %d\r\n", msg_cnt);
 
-    if     (ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeRead::ParameterError      )) debug_serial.print("ERROR   - ParameterError\r\n");
-    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeRead::RxFifoSizeExceeded  )) debug_serial.print("ERROR   - RxFifoSizeExceeded\r\n");
-    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeRead::ModemBusy_NotSleep  )) debug_serial.print("ERROR   - ModemBusy_NotSleep\r\n");
-    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeRead::ModemBusy_NotStandby)) debug_serial.print("ERROR   - ModemBusy_NotStandby\r\n");
-    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeRead::RxTimeout           )) debug_serial.print("ERROR   - RxTimeout\r\n");
-    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeRead::UnkownError         )) debug_serial.print("ERROR   - UnkownError\r\n");
-    else                                                                                      debug_serial.print("SUCCESS - %s", msg);
+    ssize_t const ret_code = rfm9x.write(msg, msg_len);
+
+    if     (ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::ParameterError      )) debug_serial.print("ERROR   - ParameterError\r\n");
+    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::TxFifoSizeExceeded  )) debug_serial.print("ERROR   - TxFifoSizeExceeded\r\n");
+    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::ModemBusy_NotSleep  )) debug_serial.print("ERROR   - ModemBusy_NotSleep\r\n");
+    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::ModemBusy_NotStandby)) debug_serial.print("ERROR   - ModemBusy_NotStandby\r\n");
+    else                                                                                       debug_serial.print("SUCCESS - %s", msg);
+
+    delay.delay_ms(1000);
   }
-
-  /* CLEANUP **************************************************************************/
-
-  rfm9x.close ();
 
   return 0;
 }

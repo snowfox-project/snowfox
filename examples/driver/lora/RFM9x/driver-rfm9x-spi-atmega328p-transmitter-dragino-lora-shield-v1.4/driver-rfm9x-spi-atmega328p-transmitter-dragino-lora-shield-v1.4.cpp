@@ -41,7 +41,6 @@
 
 #include <avr/io.h>
 
-#include <spectre/hal/avr/ATMEGA328P/Flash.h>
 #include <spectre/hal/avr/ATMEGA328P/Delay.h>
 #include <spectre/hal/avr/ATMEGA328P/SpiMaster.h>
 #include <spectre/hal/avr/ATMEGA328P/DigitalInPin.h>
@@ -55,7 +54,6 @@
 #include <spectre/blox/driver/serial/SerialUart.h>
 
 #include <spectre/driver/lora/RFM9x/RFM9x.h>
-#include <spectre/driver/lora/RFM9x/RFM9x_Debug.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_IoSpi.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_Status.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_Control.h>
@@ -74,8 +72,6 @@
 #include <spectre/os/event/Event.h>
 
 #include <spectre/debug/serial/DebugSerial.h>
-
-#include <spectre/memory/container/Queue.h>
 
 /**************************************************************************************
  * NAMESPACES
@@ -110,7 +106,6 @@ int main()
    * HAL
    ************************************************************************************/
 
-  ATMEGA328P::Flash                             flash;
   ATMEGA328P::Delay                             delay;
   ATMEGA328P::InterruptController               int_ctrl    (&EIMSK, &PCICR, &WDTCSR, &TIMSK0, &TIMSK1, &TIMSK2, &UCSR0B, &SPCR, &TWCR, &EECR, &SPMCSR, &ACSR, &ADCSRA);
   ATMEGA328P::CriticalSection                   crit_sec    (&SREG);
@@ -217,8 +212,6 @@ int main()
   /************************************************************************************
    * APPLICATION
    ************************************************************************************/
-
-  lora::RFM9x::RFM9x_Debug::debug_dumpAllRegs(debug_serial, flash, rfm9x_spi);
 
   for(uint16_t msg_cnt = 0;; msg_cnt++)
   {
