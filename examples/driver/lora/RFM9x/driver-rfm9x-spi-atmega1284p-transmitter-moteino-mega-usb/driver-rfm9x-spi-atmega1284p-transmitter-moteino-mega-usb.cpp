@@ -20,10 +20,12 @@
  * This example program is tailored for usage with Moteino-Mega-USB
  *
  * Electrical interface:
- *   CS   = D4 = PB4
- *   SCK  = D7 = PB7
- *   MISO = D6 = PB6
- *   MOSI = D5 = PB5
+ *   CS   = D4  = PB4
+ *   SCK  = D7  = PB7
+ *   MISO = D6  = PB6
+ *   MOSI = D5  = PB5
+ *   DIO0 = D2  = PB2 = INT2
+ *   DIO1 = D22 = PC6 = PCINT22
  *
  * Upload via avrdude (and the USB connection of the Moteino-Mega-USB)
  *   avrdude -p atmega1284p -c arduino -P /dev/ttyUSB0 -e -U flash:w:driver-rfm9x-spi-atmega1284p-transmitter-moteino-mega-usb
@@ -134,7 +136,12 @@ int main()
   ext_int_ctrl().setTriggerMode(ATMEGA164P_324P_644P_1284P::toExtIntNum(ATMEGA1284P::ExternalInterrupt::EXTERNAL_INT2), RFM9x_DIO0_INT_TRIGGER_MODE);
   ext_int_ctrl().enable        (ATMEGA164P_324P_644P_1284P::toExtIntNum(ATMEGA1284P::ExternalInterrupt::EXTERNAL_INT2)                             );
 
+  /* EXT INT #2 for DIO1 notifications by RFM9x ***************************************/
+  ATMEGA1284P::DigitalInPin rfm9x_dio1_int_pin              (&DDRC, &PORTC, &PINC, 6); /* D22 = PC6 = PCINT22 */
+                            rfm9x_dio1_int_pin.setPullUpMode(hal::interface::PullUpMode::PULL_UP);
 
+  /* TODO - SET TRIGGER MODE */
+  ext_int_ctrl().enable        (ATMEGA164P_324P_644P_1284P::toExtIntNum(ATMEGA1284P::ExternalInterrupt::PIN_CHANGE_INT22)                          );
 
   /************************************************************************************
    * DRIVER
@@ -173,8 +180,8 @@ int main()
 
   lora::RFM9x::RFM9x                              rfm9x                                 (rfm9x_config, rfm9x_control, rfm9x_status, rfm9x_rx_done_event, rfm9x_rx_timeout_event, rfm9x_tx_done_event);
 
-  ext_int_ctrl().registerExternalInterruptCallback(ATMEGA164P_324P_644P_1284P::toExtIntNum(ATMEGA1284P::ExternalInterrupt::EXTERNAL_INT2), &rfm9x_dio0_event_callback);
-//  ext_int_ctrl().registerExternalInterruptCallback(ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::EXTERNAL_INT1), &rfm9x_dio1_event_callback);
+  ext_int_ctrl().registerExternalInterruptCallback(ATMEGA164P_324P_644P_1284P::toExtIntNum(ATMEGA1284P::ExternalInterrupt::EXTERNAL_INT2   ), &rfm9x_dio0_event_callback);
+  ext_int_ctrl().registerExternalInterruptCallback(ATMEGA164P_324P_644P_1284P::toExtIntNum(ATMEGA1284P::ExternalInterrupt::PIN_CHANGE_INT22), &rfm9x_dio1_event_callback);
 
 
   uint32_t frequenzy_Hz     = 433775000; /* 433.775 Mhz - Dedicated for digital communication channels in the 70 cm band */
