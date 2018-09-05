@@ -97,6 +97,7 @@ static uint32_t                    const RFM9x_SPI_PRESCALER         = 16; /* Mo
 
 static uint32_t                    const RFM9x_F_XOSC_Hz             = 32000000; /* 32 MHz                                      */
 static hal::interface::TriggerMode const RFM9x_DIO0_INT_TRIGGER_MODE = hal::interface::TriggerMode::RisingEdge;
+static hal::interface::TriggerMode const RFM9x_DIO1_INT_TRIGGER_MODE = hal::interface::TriggerMode::RisingEdge;
 
 /**************************************************************************************
  * MAIN
@@ -140,8 +141,9 @@ int main()
   ATMEGA1284P::DigitalInPin rfm9x_dio1_int_pin              (&DDRC, &PORTC, &PINC, 6); /* D22 = PC6 = PCINT22 */
                             rfm9x_dio1_int_pin.setPullUpMode(hal::interface::PullUpMode::PULL_UP);
 
-  /* TODO - SET TRIGGER MODE */
-  ext_int_ctrl().enable        (ATMEGA164P_324P_644P_1284P::toExtIntNum(ATMEGA1284P::ExternalInterrupt::PIN_CHANGE_INT22)                          );
+  /* The following line is not supported for PIN CHANGE INTERRUPTS - an interrupt occurs on every change */
+  /* ext_int_ctrl().setTriggerMode(ATMEGA164P_324P_644P_1284P::toExtIntNum(ATMEGA1284P::ExternalInterrupt::PIN_CHANGE_INT22), RFM9x_DIO1_INT_TRIGGER_MODE); */
+  ext_int_ctrl().enable        (ATMEGA164P_324P_644P_1284P::toExtIntNum(ATMEGA1284P::ExternalInterrupt::PIN_CHANGE_INT22)                             );
 
   /************************************************************************************
    * DRIVER
