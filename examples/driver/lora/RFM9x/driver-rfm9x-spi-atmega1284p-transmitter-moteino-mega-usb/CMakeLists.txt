@@ -8,7 +8,7 @@ set(TARGET driver-rfm9x-spi-atmega1284p-transmitter-moteino-mega-usb)
 
 ##########################################################################
 
-include_directories(/usr/local/include)
+include_directories(/usr/local/include include)
 link_directories(/usr/local/lib)
 
 ##########################################################################
@@ -26,7 +26,8 @@ set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "-Wl,--relax,--gc-sections")
 add_executable(
   ${TARGET}
 
-  driver-rfm9x-spi-atmega1284p-transmitter-moteino-mega-usb.cpp
+  src/driver-rfm9x-spi-atmega1284p-transmitter-moteino-mega-usb.cpp
+  src/RFM9x_Dio1EventCallbackAdapter.cpp
 )
 
 target_link_libraries(

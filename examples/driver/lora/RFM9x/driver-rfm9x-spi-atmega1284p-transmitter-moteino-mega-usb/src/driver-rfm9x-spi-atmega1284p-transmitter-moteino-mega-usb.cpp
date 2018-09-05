@@ -76,6 +76,8 @@
 
 #include <spectre/debug/serial/DebugSerial.h>
 
+#include <RFM9x_Dio1EventCallbackAdapter.h>
+
 /**************************************************************************************
  * NAMESPACES
  **************************************************************************************/
@@ -97,7 +99,6 @@ static uint32_t                    const RFM9x_SPI_PRESCALER         = 16; /* Mo
 
 static uint32_t                    const RFM9x_F_XOSC_Hz             = 32000000; /* 32 MHz                                      */
 static hal::interface::TriggerMode const RFM9x_DIO0_INT_TRIGGER_MODE = hal::interface::TriggerMode::RisingEdge;
-static hal::interface::TriggerMode const RFM9x_DIO1_INT_TRIGGER_MODE = hal::interface::TriggerMode::RisingEdge;
 
 /**************************************************************************************
  * MAIN
@@ -141,9 +142,7 @@ int main()
   ATMEGA1284P::DigitalInPin rfm9x_dio1_int_pin              (&DDRC, &PORTC, &PINC, 6); /* D22 = PC6 = PCINT22 */
                             rfm9x_dio1_int_pin.setPullUpMode(hal::interface::PullUpMode::PULL_UP);
 
-  /* The following line is not supported for PIN CHANGE INTERRUPTS - an interrupt occurs on every change */
-  /* ext_int_ctrl().setTriggerMode(ATMEGA164P_324P_644P_1284P::toExtIntNum(ATMEGA1284P::ExternalInterrupt::PIN_CHANGE_INT22), RFM9x_DIO1_INT_TRIGGER_MODE); */
-  ext_int_ctrl().enable        (ATMEGA164P_324P_644P_1284P::toExtIntNum(ATMEGA1284P::ExternalInterrupt::PIN_CHANGE_INT22)                             );
+  ext_int_ctrl().enable        (ATMEGA164P_324P_644P_1284P::toExtIntNum(ATMEGA1284P::ExternalInterrupt::PIN_CHANGE_INT22));
 
   /************************************************************************************
    * DRIVER
@@ -179,11 +178,12 @@ int main()
   lora::RFM9x::RFM9x_onFhssChangeChannelCallback  rfm9x_on_fhss_change_channel_callback;
   lora::RFM9x::RFM9x_onCadDetectedCallback        rfm9x_on_cad_detected_callback;
   lora::RFM9x::RFM9x_Dio1EventCallback            rfm9x_dio1_event_callback             (rfm9x_control, rfm9x_on_rx_timeout_callback, rfm9x_on_fhss_change_channel_callback, rfm9x_on_cad_detected_callback);
+  lora::RFM9x::RFM9x_Dio1EventCallbackAdapter     rfm9x_dio1_event_callback_adapter     (rfm9x_dio1_event_callback, rfm9x_dio1_int_pin);
 
   lora::RFM9x::RFM9x                              rfm9x                                 (rfm9x_config, rfm9x_control, rfm9x_status, rfm9x_rx_done_event, rfm9x_rx_timeout_event, rfm9x_tx_done_event);
 
-  ext_int_ctrl().registerExternalInterruptCallback(ATMEGA164P_324P_644P_1284P::toExtIntNum(ATMEGA1284P::ExternalInterrupt::EXTERNAL_INT2   ), &rfm9x_dio0_event_callback);
-  ext_int_ctrl().registerExternalInterruptCallback(ATMEGA164P_324P_644P_1284P::toExtIntNum(ATMEGA1284P::ExternalInterrupt::PIN_CHANGE_INT22), &rfm9x_dio1_event_callback);
+  ext_int_ctrl().registerExternalInterruptCallback(ATMEGA164P_324P_644P_1284P::toExtIntNum(ATMEGA1284P::ExternalInterrupt::EXTERNAL_INT2   ), &rfm9x_dio0_event_callback        );
+  ext_int_ctrl().registerExternalInterruptCallback(ATMEGA164P_324P_644P_1284P::toExtIntNum(ATMEGA1284P::ExternalInterrupt::PIN_CHANGE_INT22), &rfm9x_dio1_event_callback_adapter);
 
 
   uint32_t frequenzy_Hz     = 433775000; /* 433.775 Mhz - Dedicated for digital communication channels in the 70 cm band */
