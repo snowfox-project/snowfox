@@ -141,6 +141,10 @@ cmake ..
 make
 ```
 
+## Documentation
+ 
+* [Debug-Tools](README-Debug-Tools.md)
+
 ## Licensing
 
 Spectre is open source and licensed under version 3 of the GNU GPL. Spectre is free under this license and can be freely used and distributed under its terms.
