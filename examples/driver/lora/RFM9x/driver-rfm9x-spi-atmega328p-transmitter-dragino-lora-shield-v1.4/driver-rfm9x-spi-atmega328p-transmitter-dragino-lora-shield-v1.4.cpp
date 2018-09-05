@@ -26,7 +26,7 @@
  *   MISO = D12 = PB4
  *   MOSI = D11 = PB3
  *   DIO0 = D2  = PD2 = INT0
- *   DIO1 = D3  = PD3 = INT1
+ *   DIO1 = D3  = PD3 = INT1 (Connect Pin #2 / DIO1 of connector SV1 with D3/INT1)
  *
  * Upload via avrdude
  *   avrdude -p atmega328p -c avrisp2 -e -U flash:w:driver-rfm9x-spi-atmega328p-transmitter-dragino-lora-shield-v1.4
