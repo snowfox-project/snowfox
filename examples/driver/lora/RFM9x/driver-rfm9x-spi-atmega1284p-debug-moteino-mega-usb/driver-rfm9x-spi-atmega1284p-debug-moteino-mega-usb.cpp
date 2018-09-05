@@ -19,8 +19,17 @@
 /**************************************************************************************
  * This example program is tailored for usage with Moteino-Mega-USB
  *
- * Upload via avrdude
+ * Electrical interface:
+ *   CS   = D4 = PB4
+ *   SCK  = D7 = PB7
+ *   MISO = D6 = PB6
+ *   MOSI = D5 = PB5
+ *
+ * Upload via avrdude (and the USB connection of the Moteino-Mega-USB)
  *   avrdude -p atmega1284p -c arduino -P /dev/ttyUSB0 -e -U flash:w:driver-rfm9x-spi-atmega1284p-debug-moteino-mega-usb
+ *
+ * Upload via avrdude (and eHajo uISP-Stick)
+ *   avrdude -p atmega1284p -c usbtiny -P usb -e -U flash:w:driver-rfm9x-spi-atmega1284p-debug-moteino-mega-usb
  **************************************************************************************/
 
 /**************************************************************************************
