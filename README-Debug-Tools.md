@@ -1,9 +1,7 @@
-Examples
-========
+Debug-Tools
+===========
 
-# ISP/Debug-Tools
-
-## eHajo µISP-Stick
+# eHajo µISP-Stick
 When using the eHajo µISP-Stick with Ubuntu the default USB vendor/product id need to be set. The correct vendor/product id can be seen when plugging in the µISP-Stick in the computer while monitoring the output of dmesg.
 ```
 dmesg -wH
@@ -14,6 +12,8 @@ dmesg -wH
 ```
 In this case the vendor id is 0x16d0 and the product id is 0x0ba5. Since the eHajo µISP-Stick is behaving like an usbtiny programmer we need to edit the usbtiny configuration in /etc/avrdude.conf. 
 ```
+sudo gedit /etc/avrdude.conf
+...
 programmer
   id              = "usbtiny";
   desc            = "USBtiny simple USB programmer, http://www.ladyada.net/make/usbtinyisp/";
