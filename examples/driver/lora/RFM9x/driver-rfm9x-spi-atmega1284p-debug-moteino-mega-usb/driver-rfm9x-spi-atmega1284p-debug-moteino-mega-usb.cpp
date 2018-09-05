@@ -109,15 +109,13 @@ int main()
    ************************************************************************************/
 
   /* SERIAL ***************************************************************************/
-  blox::SerialUart serial(crit_sec, uart0(), UART_RX_BUFFER_SIZE, UART_TX_BUFFER_SIZE);
-
-  uint8_t baud_rate = static_cast<uint8_t>(serial::interface::SerialBaudRate::B115200);
-  uint8_t parity    = static_cast<uint8_t>(serial::interface::SerialParity::None     );
-  uint8_t stop_bit  = static_cast<uint8_t>(serial::interface::SerialStopBit::_1      );
-
-  serial().ioctl(serial::IOCTL_SET_BAUDRATE, static_cast<void *>(&baud_rate));
-  serial().ioctl(serial::IOCTL_SET_PARITY,   static_cast<void *>(&parity   ));
-  serial().ioctl(serial::IOCTL_SET_STOPBIT,  static_cast<void *>(&stop_bit ));
+  blox::SerialUart serial(crit_sec,
+                          uart0(),
+                          UART_RX_BUFFER_SIZE,
+                          UART_TX_BUFFER_SIZE,
+                          serial::interface::SerialBaudRate::B115200,
+                          serial::interface::SerialParity::None,
+                          serial::interface::SerialStopBit::_1);
 
   debug::DebugSerial debug_serial(serial());
 
