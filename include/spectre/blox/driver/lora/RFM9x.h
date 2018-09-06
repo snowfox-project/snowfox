@@ -67,6 +67,17 @@ public:
         driver::lora::RFM9x::interface::RFM9x_Io       & rfm9x_io,
         uint32_t                                 const   rfm9x_f_xosc_hz);
 
+  RFM9x(hal::interface::CriticalSection                        & crit_sec,
+        driver::lora::RFM9x::interface::RFM9x_Io               & rfm9x_io,
+        uint32_t                                         const   rfm9x_f_xosc_hz,
+        uint32_t                                         const   frequency_hz,
+        driver::lora::RFM9x::interface::SignalBandwidth  const   signal_bandwidth,
+        driver::lora::RFM9x::interface::CodingRate       const   coding_rate,
+        driver::lora::RFM9x::interface::SpreadingFactor  const   spreading_factor,
+        uint16_t                                         const   preamble_length,
+        uint16_t                                         const   tx_fifo_size,
+        uint16_t                                         const   rx_fifo_size);
+
 
   driver::lora::RFM9x::RFM9x & operator () () { return _rfm9x; }
 
