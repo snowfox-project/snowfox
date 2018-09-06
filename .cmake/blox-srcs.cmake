@@ -7,20 +7,34 @@
 ##########################################################################
 
 ##########################################################################
+# LORA ###################################################################
+##########################################################################
+
+set(SPECTRE_LIBRARY_BLOX_DRIVER_LORA_PATH src/blox/driver/lora)
+
+##########################################################################
+
+set(SPECTRE_LIBRARY_BLOX_DRIVER_LORA_SRCS 
+  ${SPECTRE_LIBRARY_BLOX_DRIVER_LORA_PATH}/RFM9x.cpp
+)
+
+##########################################################################
+
+set(SPECTRE_LIBRARY_BLOX_SRCS ${SPECTRE_LIBRARY_BLOX_SRCS} ${SPECTRE_LIBRARY_BLOX_DRIVER_LORA_SRCS})
+
+##########################################################################
 # SERIAL #################################################################
 ##########################################################################
 
 set(SPECTRE_LIBRARY_BLOX_DRIVER_SERIAL_PATH src/blox/driver/serial)
 
-# UART ###################################################################
-
-set(SPECTRE_LIBRARY_BLOX_DRIVER_SERIAL_UART_SRCS 
+set(SPECTRE_LIBRARY_BLOX_DRIVER_SERIAL_SRCS 
   ${SPECTRE_LIBRARY_BLOX_DRIVER_SERIAL_PATH}/SerialUart.cpp
 )
 
 ##########################################################################
 
-set(SPECTRE_LIBRARY_BLOX_SRCS ${SPECTRE_LIBRARY_BLOX_SRCS} ${SPECTRE_LIBRARY_BLOX_DRIVER_SERIAL_UART_SRCS})
+set(SPECTRE_LIBRARY_BLOX_SRCS ${SPECTRE_LIBRARY_BLOX_SRCS} ${SPECTRE_LIBRARY_BLOX_DRIVER_SERIAL_SRCS})
 
 ##########################################################################
 # HAL ####################################################################
