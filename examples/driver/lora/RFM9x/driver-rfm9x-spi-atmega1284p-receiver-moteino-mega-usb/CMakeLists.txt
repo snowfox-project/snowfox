@@ -1,0 +1,45 @@
+##########################################################################
+
+cmake_minimum_required(VERSION 2.8)
+
+##########################################################################
+
+set(TARGET driver-rfm9x-spi-atmega1284p-receiver-moteino-mega-usb)
+
+##########################################################################
+
+include_directories(/usr/local/include include)
+link_directories(/usr/local/lib)
+
+##########################################################################
+
+set(CMAKE_C_COMPILER avr-gcc)
+set(CMAKE_CXX_COMPILER avr-g++)
+
+##########################################################################
+
+set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-mmcu=atmega1284p -DF_CPU=16000000UL -std=c++11 -Os -Wall -pedantic -pedantic-errors -funsigned-char -funsigned-bitfields -fshort-enums -ffunction-sections -fdata-sections -fno-exceptions")
+set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "-Wl,--relax,--gc-sections")
+
+##########################################################################
+
+add_executable(
+  ${TARGET}
+
+  src/driver-rfm9x-spi-atmega1284p-receiver-moteino-mega-usb.cpp
+  src/RFM9x_Dio1EventCallbackAdapter.cpp
+)
+
+target_link_libraries(
+  ${TARGET}
+  spectre-atmega1284p
+)
+
+set_target_properties(
+  ${TARGET}
+
+  PROPERTIES
+    LINK_FLAGS "-mmcu=atmega1284p"
+)
+
+##########################################################################
