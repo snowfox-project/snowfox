@@ -24,6 +24,7 @@
  **************************************************************************************/
 
 #include <spectre/hal/interface/locking/CriticalSection.h>
+#include <spectre/hal/interface/extint/ExternalInterruptAssembly.h>
 
 #include <spectre/driver/lora/RFM9x/interface/RFM9x_Io.h>
 
@@ -64,10 +65,16 @@ class RFM9x
 public:
 
   RFM9x(hal::interface::CriticalSection                & crit_sec,
+        hal::interface::ExternalInterruptAssembly      & ext_int_ctrl,
+        uint8_t                                  const   dio0_ext_int_num,
+        uint8_t                                  const   dio1_ext_int_num,
         driver::lora::RFM9x::interface::RFM9x_Io       & rfm9x_io,
         uint32_t                                 const   rfm9x_f_xosc_hz);
 
   RFM9x(hal::interface::CriticalSection                        & crit_sec,
+        hal::interface::ExternalInterruptAssembly              & ext_int_ctrl,
+        uint8_t                                          const   dio0_ext_int_num,
+        uint8_t                                          const   dio1_ext_int_num,
         driver::lora::RFM9x::interface::RFM9x_Io               & rfm9x_io,
         uint32_t                                         const   rfm9x_f_xosc_hz,
         uint32_t                                         const   frequency_hz,
@@ -78,6 +85,7 @@ public:
         uint16_t                                         const   tx_fifo_size,
         uint16_t                                         const   rx_fifo_size);
 
+  ~RFM9x();
 
   driver::lora::RFM9x::RFM9x & operator () () { return _rfm9x; }
 

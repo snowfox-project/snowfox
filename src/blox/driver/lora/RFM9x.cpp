@@ -37,6 +37,9 @@ namespace blox
  **************************************************************************************/
 
 RFM9x::RFM9x(hal::interface::CriticalSection                & crit_sec,
+             hal::interface::ExternalInterruptAssembly      & ext_int_ctrl,
+             uint8_t                                  const   dio0_ext_int_num,
+             uint8_t                                  const   dio1_ext_int_num,
              driver::lora::RFM9x::interface::RFM9x_Io       & rfm9x_io,
              uint32_t                                 const   rfm9x_f_xosc_hz)
 : _rfm9x_config                          (rfm9x_io, rfm9x_f_xosc_hz),
@@ -59,10 +62,16 @@ RFM9x::RFM9x(hal::interface::CriticalSection                & crit_sec,
 
   _rfm9x                                 (_rfm9x_config, _rfm9x_control, _rfm9x_status, _rfm9x_rx_done_event, _rfm9x_rx_timeout_event, _rfm9x_tx_done_event)
 {
+  ext_int_ctrl.registerExternalInterruptCallback(dio0_ext_int_num, &_rfm9x_dio0_event_callback);
+  ext_int_ctrl.registerExternalInterruptCallback(dio1_ext_int_num, &_rfm9x_dio1_event_callback);
+
   _rfm9x.open();
 }
 
 RFM9x::RFM9x(hal::interface::CriticalSection                        & crit_sec,
+             hal::interface::ExternalInterruptAssembly              & ext_int_ctrl,
+             uint8_t                                          const   dio0_ext_int_num,
+             uint8_t                                          const   dio1_ext_int_num,
              driver::lora::RFM9x::interface::RFM9x_Io               & rfm9x_io,
              uint32_t                                         const   rfm9x_f_xosc_hz,
              uint32_t                                         const   frequency_hz,
@@ -72,7 +81,7 @@ RFM9x::RFM9x(hal::interface::CriticalSection                        & crit_sec,
              uint16_t                                         const   preamble_length,
              uint16_t                                         const   tx_fifo_size,
              uint16_t                                         const   rx_fifo_size)
-: RFM9x(crit_sec, rfm9x_io, rfm9x_f_xosc_hz)
+: RFM9x(crit_sec, ext_int_ctrl, dio0_ext_int_num, dio1_ext_int_num, rfm9x_io, rfm9x_f_xosc_hz)
 {
   uint32_t ioctl_frequenzy_Hz     = frequency_hz;
   uint8_t  ioctl_signal_bandwidth = static_cast<uint8_t>(signal_bandwidth);
@@ -89,6 +98,11 @@ RFM9x::RFM9x(hal::interface::CriticalSection                        & crit_sec,
   _rfm9x.ioctl(driver::lora::RFM9x::IOCTL_SET_PREAMBLE_LENGTH,  static_cast<void *>(&ioctl_preamble_length ));
   _rfm9x.ioctl(driver::lora::RFM9x::IOCTL_SET_TX_FIFO_SIZE,     static_cast<void *>(&ioctl_tx_fifo_size    ));
   _rfm9x.ioctl(driver::lora::RFM9x::IOCTL_SET_RX_FIFO_SIZE,     static_cast<void *>(&ioctl_rx_fifo_size    ));
+}
+
+RFM9x::~RFM9x()
+{
+  _rfm9x.close();
 }
 
 /**************************************************************************************
