@@ -53,8 +53,8 @@ UART0::UART0(volatile uint8_t                                  * udr0,
   _uart0_receive_complete_callback        (_uart0)
 
 {
-  int_ctrl.registerInterruptCallback(hal::AT90CAN32_64_128::toIsrNum(hal::AT90CAN32_64_128::InterruptServiceRoutine::USART0_UART_DATA_REGISTER_EMPTY), &_uart0_uart_data_register_empty_callback);
-  int_ctrl.registerInterruptCallback(hal::AT90CAN32_64_128::toIsrNum(hal::AT90CAN32_64_128::InterruptServiceRoutine::USART0_RECEIVE_COMPLETE        ), &_uart0_receive_complete_callback        );
+  int_ctrl.registerInterruptCallback(hal::AT90CAN32_64_128::toIntNum(hal::AT90CAN32_64_128::Interrupt::USART0_UART_DATA_REGISTER_EMPTY), &_uart0_uart_data_register_empty_callback);
+  int_ctrl.registerInterruptCallback(hal::AT90CAN32_64_128::toIntNum(hal::AT90CAN32_64_128::Interrupt::USART0_RECEIVE_COMPLETE        ), &_uart0_receive_complete_callback        );
 }
 
 /**************************************************************************************

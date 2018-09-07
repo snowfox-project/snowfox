@@ -42,9 +42,8 @@ namespace ATMEGA1284P
  * TYPEDEF
  **************************************************************************************/
 
-typedef ATMEGA164P_324P_644P_1284P::Interrupt               Interrupt;
-typedef ATMEGA164P_324P_644P_1284P::InterruptServiceRoutine InterruptServiceRoutine;
-typedef ATMEGA164P_324P_644P_1284P::InterruptController     InterruptController;
+typedef ATMEGA164P_324P_644P_1284P::Interrupt           Interrupt;
+typedef ATMEGA164P_324P_644P_1284P::InterruptController InterruptController;
 
 /**************************************************************************************
  * NAMESPACE

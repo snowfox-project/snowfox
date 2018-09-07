@@ -60,17 +60,17 @@ ExternalInterruptController::ExternalInterruptController(volatile uint8_t       
   _pcint1_event_callback(_ext_int_ctrl),
   _pcint2_event_callback(_ext_int_ctrl)
 {
-  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIsrNum(hal::ATMEGA640_1280_2560::InterruptServiceRoutine::EXTERNAL_INT0  ), &_eint0_event_callback );
-  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIsrNum(hal::ATMEGA640_1280_2560::InterruptServiceRoutine::EXTERNAL_INT1  ), &_eint1_event_callback );
-  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIsrNum(hal::ATMEGA640_1280_2560::InterruptServiceRoutine::EXTERNAL_INT2  ), &_eint2_event_callback );
-  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIsrNum(hal::ATMEGA640_1280_2560::InterruptServiceRoutine::EXTERNAL_INT3  ), &_eint3_event_callback );
-  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIsrNum(hal::ATMEGA640_1280_2560::InterruptServiceRoutine::EXTERNAL_INT4  ), &_eint4_event_callback );
-  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIsrNum(hal::ATMEGA640_1280_2560::InterruptServiceRoutine::EXTERNAL_INT5  ), &_eint5_event_callback );
-  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIsrNum(hal::ATMEGA640_1280_2560::InterruptServiceRoutine::EXTERNAL_INT6  ), &_eint6_event_callback );
-  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIsrNum(hal::ATMEGA640_1280_2560::InterruptServiceRoutine::EXTERNAL_INT7  ), &_eint7_event_callback );
-  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIsrNum(hal::ATMEGA640_1280_2560::InterruptServiceRoutine::PIN_CHANGE_INT0), &_pcint0_event_callback);
-  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIsrNum(hal::ATMEGA640_1280_2560::InterruptServiceRoutine::PIN_CHANGE_INT1), &_pcint1_event_callback);
-  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIsrNum(hal::ATMEGA640_1280_2560::InterruptServiceRoutine::PIN_CHANGE_INT2), &_pcint2_event_callback);
+  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIntNum(hal::ATMEGA640_1280_2560::Interrupt::EXTERNAL_INT0  ), &_eint0_event_callback );
+  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIntNum(hal::ATMEGA640_1280_2560::Interrupt::EXTERNAL_INT1  ), &_eint1_event_callback );
+  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIntNum(hal::ATMEGA640_1280_2560::Interrupt::EXTERNAL_INT2  ), &_eint2_event_callback );
+  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIntNum(hal::ATMEGA640_1280_2560::Interrupt::EXTERNAL_INT3  ), &_eint3_event_callback );
+  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIntNum(hal::ATMEGA640_1280_2560::Interrupt::EXTERNAL_INT4  ), &_eint4_event_callback );
+  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIntNum(hal::ATMEGA640_1280_2560::Interrupt::EXTERNAL_INT5  ), &_eint5_event_callback );
+  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIntNum(hal::ATMEGA640_1280_2560::Interrupt::EXTERNAL_INT6  ), &_eint6_event_callback );
+  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIntNum(hal::ATMEGA640_1280_2560::Interrupt::EXTERNAL_INT7  ), &_eint7_event_callback );
+  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIntNum(hal::ATMEGA640_1280_2560::Interrupt::PIN_CHANGE_INT0), &_pcint0_event_callback);
+  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIntNum(hal::ATMEGA640_1280_2560::Interrupt::PIN_CHANGE_INT1), &_pcint1_event_callback);
+  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIntNum(hal::ATMEGA640_1280_2560::Interrupt::PIN_CHANGE_INT2), &_pcint2_event_callback);
 }
 
 /**************************************************************************************

@@ -52,8 +52,8 @@ UART0::UART0(volatile uint8_t                                  * udr0,
   _uart0_uart_data_register_empty_callback(_uart0),
   _uart0_receive_complete_callback        (_uart0)
 {
-  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIsrNum(hal::ATMEGA640_1280_2560::InterruptServiceRoutine::USART0_UART_DATA_REGISTER_EMPTY), &_uart0_uart_data_register_empty_callback);
-  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIsrNum(hal::ATMEGA640_1280_2560::InterruptServiceRoutine::USART0_RECEIVE_COMPLETE        ), &_uart0_receive_complete_callback        );
+  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIntNum(hal::ATMEGA640_1280_2560::Interrupt::USART0_UART_DATA_REGISTER_EMPTY), &_uart0_uart_data_register_empty_callback);
+  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIntNum(hal::ATMEGA640_1280_2560::Interrupt::USART0_RECEIVE_COMPLETE        ), &_uart0_receive_complete_callback        );
 }
 
 /**************************************************************************************

@@ -42,9 +42,8 @@ namespace AT90CAN64
  * TYPEDEF
  **************************************************************************************/
 
-typedef AT90CAN32_64_128::Interrupt               Interrupt;
-typedef AT90CAN32_64_128::InterruptServiceRoutine InterruptServiceRoutine;
-typedef AT90CAN32_64_128::InterruptController     InterruptController;
+typedef AT90CAN32_64_128::Interrupt           Interrupt;
+typedef AT90CAN32_64_128::InterruptController InterruptController;
 
 /**************************************************************************************
  * NAMESPACE

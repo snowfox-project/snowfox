@@ -285,47 +285,47 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
   }
 }
 
-void InterruptController::registerInterruptCallback(uint8_t const isr_num, interface::InterruptCallback * interrupt_callback)
+void InterruptController::registerInterruptCallback(uint8_t const int_num, interface::InterruptCallback * interrupt_callback)
 {
-  switch(isr_num)
+  switch(int_num)
   {
-  case toIsrNum(InterruptServiceRoutine::EXTERNAL_INT0                  ): isr_external_int0                   = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::EXTERNAL_INT1                  ): isr_external_int1                   = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::EXTERNAL_INT2                  ): isr_external_int2                   = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::EXTERNAL_INT3                  ): isr_external_int3                   = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::EXTERNAL_INT6                  ): isr_external_int6                   = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::PIN_CHANGE_INT0                ): isr_pin_change_int0                 = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::USB_GENERAL                    ): isr_usb_general                     = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::USB_ENDPOINT                   ): isr_usb_endpoint                    = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::WATCHDOG_TIMER                 ): isr_watchdog_timer                  = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::TIMER1_CAPTURE                 ): isr_timer1_capture                  = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::TIMER1_COMPARE_A               ): isr_timer1_compare_a                = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::TIMER1_COMPARE_B               ): isr_timer1_compare_b                = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::TIMER1_COMPARE_C               ): isr_timer1_compare_c                = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::TIMER1_OVERFLOW                ): isr_timer1_overflow                 = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::TIMER0_COMPARE_A               ): isr_timer0_compare_a                = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::TIMER0_COMPARE_B               ): isr_timer0_compare_b                = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::TIMER0_OVERFLOW                ): isr_timer0_overflow                 = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::SPI_SERIAL_TRANSFER_COMPLETE   ): isr_spi_serial_transfer_complete    = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::USART1_RECEIVE_COMPLETE        ): isr_usart1_receive_complete         = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::USART1_UART_DATA_REGISTER_EMPTY): isr_usart1_uart_data_register_empty = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::USART1_TRANSMIT_COMPLETE       ): isr_usart1_transmit_complete        = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::ANALOG_COMPARATOR              ): isr_analog_comparator               = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::ANALOG_DIGITAL_CONVERTER       ): isr_analog_digital_converter        = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::EEPROM_READY                   ): isr_eeprom_ready                    = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::TIMER3_CAPTURE                 ): isr_timer3_capture                  = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::TIMER3_COMPARE_A               ): isr_timer3_compare_a                = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::TIMER3_COMPARE_B               ): isr_timer3_compare_b                = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::TIMER3_COMPARE_C               ): isr_timer3_compare_c                = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::TIMER3_OVERFLOW                ): isr_timer3_overflow                 = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::TWO_WIRE_INT                   ): isr_two_wire_int                    = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::SPM_READY                      ): isr_spm_ready                       = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::TIMER4_COMPARE_A               ): isr_timer4_compare_a                = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::TIMER4_COMPARE_B               ): isr_timer4_compare_b                = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::TIMER4_COMPARE_D               ): isr_timer4_compare_d                = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::TIMER4_OVERFLOW                ): isr_timer4_overflow                 = interrupt_callback; break;
-  case toIsrNum(InterruptServiceRoutine::TIMER4_FAULT_PROTECTION        ): isr_timer4_fault_protection         = interrupt_callback; break;
-  default                                                                : /* DO NOTHING */                                          break;
+  case toIntNum(Interrupt::EXTERNAL_INT0                  ): isr_external_int0                   = interrupt_callback; break;
+  case toIntNum(Interrupt::EXTERNAL_INT1                  ): isr_external_int1                   = interrupt_callback; break;
+  case toIntNum(Interrupt::EXTERNAL_INT2                  ): isr_external_int2                   = interrupt_callback; break;
+  case toIntNum(Interrupt::EXTERNAL_INT3                  ): isr_external_int3                   = interrupt_callback; break;
+  case toIntNum(Interrupt::EXTERNAL_INT6                  ): isr_external_int6                   = interrupt_callback; break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT0                ): isr_pin_change_int0                 = interrupt_callback; break;
+  case toIntNum(Interrupt::USB_GENERAL                    ): isr_usb_general                     = interrupt_callback; break;
+  case toIntNum(Interrupt::USB_ENDPOINT                   ): isr_usb_endpoint                    = interrupt_callback; break;
+  case toIntNum(Interrupt::WATCHDOG_TIMER                 ): isr_watchdog_timer                  = interrupt_callback; break;
+  case toIntNum(Interrupt::TIMER1_CAPTURE                 ): isr_timer1_capture                  = interrupt_callback; break;
+  case toIntNum(Interrupt::TIMER1_COMPARE_A               ): isr_timer1_compare_a                = interrupt_callback; break;
+  case toIntNum(Interrupt::TIMER1_COMPARE_B               ): isr_timer1_compare_b                = interrupt_callback; break;
+  case toIntNum(Interrupt::TIMER1_COMPARE_C               ): isr_timer1_compare_c                = interrupt_callback; break;
+  case toIntNum(Interrupt::TIMER1_OVERFLOW                ): isr_timer1_overflow                 = interrupt_callback; break;
+  case toIntNum(Interrupt::TIMER0_COMPARE_A               ): isr_timer0_compare_a                = interrupt_callback; break;
+  case toIntNum(Interrupt::TIMER0_COMPARE_B               ): isr_timer0_compare_b                = interrupt_callback; break;
+  case toIntNum(Interrupt::TIMER0_OVERFLOW                ): isr_timer0_overflow                 = interrupt_callback; break;
+  case toIntNum(Interrupt::SPI_SERIAL_TRANSFER_COMPLETE   ): isr_spi_serial_transfer_complete    = interrupt_callback; break;
+  case toIntNum(Interrupt::USART1_RECEIVE_COMPLETE        ): isr_usart1_receive_complete         = interrupt_callback; break;
+  case toIntNum(Interrupt::USART1_UART_DATA_REGISTER_EMPTY): isr_usart1_uart_data_register_empty = interrupt_callback; break;
+  case toIntNum(Interrupt::USART1_TRANSMIT_COMPLETE       ): isr_usart1_transmit_complete        = interrupt_callback; break;
+  case toIntNum(Interrupt::ANALOG_COMPARATOR              ): isr_analog_comparator               = interrupt_callback; break;
+  case toIntNum(Interrupt::ANALOG_DIGITAL_CONVERTER       ): isr_analog_digital_converter        = interrupt_callback; break;
+  case toIntNum(Interrupt::EEPROM_READY                   ): isr_eeprom_ready                    = interrupt_callback; break;
+  case toIntNum(Interrupt::TIMER3_CAPTURE                 ): isr_timer3_capture                  = interrupt_callback; break;
+  case toIntNum(Interrupt::TIMER3_COMPARE_A               ): isr_timer3_compare_a                = interrupt_callback; break;
+  case toIntNum(Interrupt::TIMER3_COMPARE_B               ): isr_timer3_compare_b                = interrupt_callback; break;
+  case toIntNum(Interrupt::TIMER3_COMPARE_C               ): isr_timer3_compare_c                = interrupt_callback; break;
+  case toIntNum(Interrupt::TIMER3_OVERFLOW                ): isr_timer3_overflow                 = interrupt_callback; break;
+  case toIntNum(Interrupt::TWO_WIRE_INT                   ): isr_two_wire_int                    = interrupt_callback; break;
+  case toIntNum(Interrupt::SPM_READY                      ): isr_spm_ready                       = interrupt_callback; break;
+  case toIntNum(Interrupt::TIMER4_COMPARE_A               ): isr_timer4_compare_a                = interrupt_callback; break;
+  case toIntNum(Interrupt::TIMER4_COMPARE_B               ): isr_timer4_compare_b                = interrupt_callback; break;
+  case toIntNum(Interrupt::TIMER4_COMPARE_D               ): isr_timer4_compare_d                = interrupt_callback; break;
+  case toIntNum(Interrupt::TIMER4_OVERFLOW                ): isr_timer4_overflow                 = interrupt_callback; break;
+  case toIntNum(Interrupt::TIMER4_FAULT_PROTECTION        ): isr_timer4_fault_protection         = interrupt_callback; break;
+  default                                                  : /* DO NOTHING */                                          break;
   }
 }
 

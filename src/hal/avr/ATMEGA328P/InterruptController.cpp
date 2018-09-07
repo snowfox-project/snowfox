@@ -195,7 +195,7 @@ void InterruptController::enableInterrupt(uint8_t const int_num)
 #if defined(MCU_ARCH_avr) && defined(MCU_TYPE_atmega328p)
   case toIntNum(Interrupt::GLOBAL                        ): asm volatile("sei");    break;
 #endif
-  case toIntNum(Interrupt::INVALID                       ): /* DO NOTHING */        break;
+  default                                                 : /* DO NOTHING */        break;
   }
 }
 
@@ -231,6 +231,7 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
 #if defined(MCU_ARCH_avr) && defined(MCU_TYPE_atmega328p)
   case toIntNum(Interrupt::GLOBAL                        ): asm volatile("cli");     break;
 #endif
+  default                                                 : /* DO NOTHING */         break;
   }
 }
 
@@ -263,6 +264,7 @@ void InterruptController::registerInterruptCallback(uint8_t const int_num, inter
   case toIntNum(Interrupt::ANALOG_COMPARATOR             ) : isr_analog_comparator              = interrupt_callback; break;
   case toIntNum(Interrupt::TWO_WIRE_INT                  ) : isr_two_wire_int                   = interrupt_callback; break;
   case toIntNum(Interrupt::SPM_READY                     ) : isr_spm_ready                      = interrupt_callback; break;
+  default                                                  : /* DO NOTHING */                                         break;
   }
 }
 

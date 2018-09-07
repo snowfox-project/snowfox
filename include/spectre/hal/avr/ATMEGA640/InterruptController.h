@@ -42,9 +42,8 @@ namespace ATMEGA640
  * TYPEDEF
  **************************************************************************************/
 
-typedef ATMEGA640_1280_2560::Interrupt               Interrupt;
-typedef ATMEGA640_1280_2560::InterruptServiceRoutine InterruptServiceRoutine;
-typedef ATMEGA640_1280_2560::InterruptController     InterruptController;
+typedef ATMEGA640_1280_2560::Interrupt           Interrupt;
+typedef ATMEGA640_1280_2560::InterruptController InterruptController;
 
 /**************************************************************************************
  * NAMESPACE

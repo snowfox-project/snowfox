@@ -42,9 +42,8 @@ namespace ATMEGA16U4
  * TYPEDEF
  **************************************************************************************/
 
-typedef ATMEGA16U4_32U4::Interrupt               Interrupt;
-typedef ATMEGA16U4_32U4::InterruptServiceRoutine InterruptServiceRoutine;
-typedef ATMEGA16U4_32U4::InterruptController     InterruptController;
+typedef ATMEGA16U4_32U4::Interrupt           Interrupt;
+typedef ATMEGA16U4_32U4::InterruptController InterruptController;
 
 /**************************************************************************************
  * NAMESPACE

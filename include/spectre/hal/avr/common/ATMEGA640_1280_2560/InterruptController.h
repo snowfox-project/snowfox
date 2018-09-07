@@ -104,66 +104,6 @@ enum class Interrupt : uint8_t
   INVALID                         = interface::InterruptController::INVALID_INT_NUM
 };
 
-enum class InterruptServiceRoutine : uint8_t
-{
-  EXTERNAL_INT0                   =  0,
-  EXTERNAL_INT1                   =  1,
-  EXTERNAL_INT2                   =  2,
-  EXTERNAL_INT3                   =  3,
-  EXTERNAL_INT4                   =  4,
-  EXTERNAL_INT5                   =  5,
-  EXTERNAL_INT6                   =  6,
-  EXTERNAL_INT7                   =  7,
-  PIN_CHANGE_INT0                 =  8,
-  PIN_CHANGE_INT1                 =  9,
-  PIN_CHANGE_INT2                 = 10,
-  WATCHDOG_TIMER                  = 11,
-  TIMER2_COMPARE_A                = 12,
-  TIMER2_COMPARE_B                = 13,
-  TIMER2_OVERFLOW                 = 14,
-  TIMER1_CAPTURE                  = 15,
-  TIMER1_COMPARE_A                = 16,
-  TIMER1_COMPARE_B                = 17,
-  TIMER1_COMPARE_C                = 18,
-  TIMER1_OVERFLOW                 = 19,
-  TIMER0_COMPARE_A                = 20,
-  TIMER0_COMPARE_B                = 21,
-  TIMER0_OVERFLOW                 = 22,
-  SPI_SERIAL_TRANSFER_COMPLETE    = 23,
-  USART0_RECEIVE_COMPLETE         = 24,
-  USART0_UART_DATA_REGISTER_EMPTY = 25,
-  USART0_TRANSMIT_COMPLETE        = 26,
-  ANALOG_COMPARATOR               = 27,
-  ANALOG_DIGITAL_CONVERTER        = 28,
-  EEPROM_READY                    = 29,
-  TIMER3_CAPTURE                  = 30,
-  TIMER3_COMPARE_A                = 31,
-  TIMER3_COMPARE_B                = 32,
-  TIMER3_COMPARE_C                = 33,
-  TIMER3_OVERFLOW                 = 34,
-  USART1_RECEIVE_COMPLETE         = 35,
-  USART1_UART_DATA_REGISTER_EMPTY = 36,
-  USART1_TRANSMIT_COMPLETE        = 37,
-  TWO_WIRE_INT                    = 38,
-  SPM_READY                       = 39,
-  TIMER4_CAPTURE                  = 40,
-  TIMER4_COMPARE_A                = 41,
-  TIMER4_COMPARE_B                = 42,
-  TIMER4_COMPARE_C                = 43,
-  TIMER4_OVERFLOW                 = 44,
-  TIMER5_CAPTURE                  = 45,
-  TIMER5_COMPARE_A                = 46,
-  TIMER5_COMPARE_B                = 47,
-  TIMER5_COMPARE_C                = 48,
-  TIMER5_OVERFLOW                 = 49,
-  USART2_RECEIVE_COMPLETE         = 50,
-  USART2_UART_DATA_REGISTER_EMPTY = 51,
-  USART2_TRANSMIT_COMPLETE        = 52,
-  USART3_RECEIVE_COMPLETE         = 53,
-  USART3_UART_DATA_REGISTER_EMPTY = 54,
-  USART3_TRANSMIT_COMPLETE        = 55
-};
-
 /**************************************************************************************
  * CONSTEXPR FUNCTIONS
  **************************************************************************************/
@@ -171,11 +111,6 @@ enum class InterruptServiceRoutine : uint8_t
 constexpr uint8_t toIntNum(Interrupt const interrupt)
 {
   return static_cast<uint8_t>(interrupt);
-}
-
-constexpr uint8_t toIsrNum(InterruptServiceRoutine const interrupt_service_routine)
-{
-  return static_cast<uint8_t>(interrupt_service_routine);
 }
 
 /**************************************************************************************
@@ -217,7 +152,7 @@ public:
 
   /* Interrupt Controller Assembly Interface */
 
-  virtual void registerInterruptCallback(uint8_t const isr_num, interface::InterruptCallback * interrupt_callback) override;
+  virtual void registerInterruptCallback(uint8_t const int_num, interface::InterruptCallback * interrupt_callback) override;
 
 
 private:

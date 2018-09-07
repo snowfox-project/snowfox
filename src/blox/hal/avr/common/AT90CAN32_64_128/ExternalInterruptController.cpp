@@ -54,14 +54,14 @@ ExternalInterruptController::ExternalInterruptController(volatile uint8_t       
   _eint6_event_callback (_ext_int_ctrl),
   _eint7_event_callback (_ext_int_ctrl)
 {
-  int_ctrl.registerInterruptCallback(hal::AT90CAN32_64_128::toIsrNum(hal::AT90CAN32_64_128::InterruptServiceRoutine::EXTERNAL_INT0), &_eint0_event_callback );
-  int_ctrl.registerInterruptCallback(hal::AT90CAN32_64_128::toIsrNum(hal::AT90CAN32_64_128::InterruptServiceRoutine::EXTERNAL_INT1), &_eint1_event_callback );
-  int_ctrl.registerInterruptCallback(hal::AT90CAN32_64_128::toIsrNum(hal::AT90CAN32_64_128::InterruptServiceRoutine::EXTERNAL_INT2), &_eint2_event_callback );
-  int_ctrl.registerInterruptCallback(hal::AT90CAN32_64_128::toIsrNum(hal::AT90CAN32_64_128::InterruptServiceRoutine::EXTERNAL_INT3), &_eint3_event_callback );
-  int_ctrl.registerInterruptCallback(hal::AT90CAN32_64_128::toIsrNum(hal::AT90CAN32_64_128::InterruptServiceRoutine::EXTERNAL_INT4), &_eint4_event_callback );
-  int_ctrl.registerInterruptCallback(hal::AT90CAN32_64_128::toIsrNum(hal::AT90CAN32_64_128::InterruptServiceRoutine::EXTERNAL_INT5), &_eint5_event_callback );
-  int_ctrl.registerInterruptCallback(hal::AT90CAN32_64_128::toIsrNum(hal::AT90CAN32_64_128::InterruptServiceRoutine::EXTERNAL_INT6), &_eint6_event_callback );
-  int_ctrl.registerInterruptCallback(hal::AT90CAN32_64_128::toIsrNum(hal::AT90CAN32_64_128::InterruptServiceRoutine::EXTERNAL_INT7), &_eint7_event_callback );
+  int_ctrl.registerInterruptCallback(hal::AT90CAN32_64_128::toIntNum(hal::AT90CAN32_64_128::Interrupt::EXTERNAL_INT0), &_eint0_event_callback);
+  int_ctrl.registerInterruptCallback(hal::AT90CAN32_64_128::toIntNum(hal::AT90CAN32_64_128::Interrupt::EXTERNAL_INT1), &_eint1_event_callback);
+  int_ctrl.registerInterruptCallback(hal::AT90CAN32_64_128::toIntNum(hal::AT90CAN32_64_128::Interrupt::EXTERNAL_INT2), &_eint2_event_callback);
+  int_ctrl.registerInterruptCallback(hal::AT90CAN32_64_128::toIntNum(hal::AT90CAN32_64_128::Interrupt::EXTERNAL_INT3), &_eint3_event_callback);
+  int_ctrl.registerInterruptCallback(hal::AT90CAN32_64_128::toIntNum(hal::AT90CAN32_64_128::Interrupt::EXTERNAL_INT4), &_eint4_event_callback);
+  int_ctrl.registerInterruptCallback(hal::AT90CAN32_64_128::toIntNum(hal::AT90CAN32_64_128::Interrupt::EXTERNAL_INT5), &_eint5_event_callback);
+  int_ctrl.registerInterruptCallback(hal::AT90CAN32_64_128::toIntNum(hal::AT90CAN32_64_128::Interrupt::EXTERNAL_INT6), &_eint6_event_callback);
+  int_ctrl.registerInterruptCallback(hal::AT90CAN32_64_128::toIntNum(hal::AT90CAN32_64_128::Interrupt::EXTERNAL_INT7), &_eint7_event_callback);
 }
 
 /**************************************************************************************

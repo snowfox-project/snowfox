@@ -53,8 +53,8 @@ UART1::UART1(volatile uint8_t                                  * udr1,
   _uart1_receive_complete_callback        (_uart1)
 
 {
-  int_ctrl.registerInterruptCallback(hal::ATMEGA164P_324P_644P_1284P::toIsrNum(hal::ATMEGA164P_324P_644P_1284P::InterruptServiceRoutine::USART1_UART_DATA_REGISTER_EMPTY), &_uart1_uart_data_register_empty_callback);
-  int_ctrl.registerInterruptCallback(hal::ATMEGA164P_324P_644P_1284P::toIsrNum(hal::ATMEGA164P_324P_644P_1284P::InterruptServiceRoutine::USART1_RECEIVE_COMPLETE        ), &_uart1_receive_complete_callback        );
+  int_ctrl.registerInterruptCallback(hal::ATMEGA164P_324P_644P_1284P::toIntNum(hal::ATMEGA164P_324P_644P_1284P::Interrupt::USART1_UART_DATA_REGISTER_EMPTY), &_uart1_uart_data_register_empty_callback);
+  int_ctrl.registerInterruptCallback(hal::ATMEGA164P_324P_644P_1284P::toIntNum(hal::ATMEGA164P_324P_644P_1284P::Interrupt::USART1_RECEIVE_COMPLETE        ), &_uart1_receive_complete_callback        );
 }
 
 /**************************************************************************************

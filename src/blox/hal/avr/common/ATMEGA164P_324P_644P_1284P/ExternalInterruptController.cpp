@@ -56,13 +56,13 @@ ExternalInterruptController::ExternalInterruptController(volatile uint8_t       
   _pcint2_event_callback(_ext_int_ctrl),
   _pcint3_event_callback(_ext_int_ctrl)
 {
-  int_ctrl.registerInterruptCallback(hal::ATMEGA164P_324P_644P_1284P::toIsrNum(hal::ATMEGA164P_324P_644P_1284P::InterruptServiceRoutine::EXTERNAL_INT0  ), &_eint0_event_callback );
-  int_ctrl.registerInterruptCallback(hal::ATMEGA164P_324P_644P_1284P::toIsrNum(hal::ATMEGA164P_324P_644P_1284P::InterruptServiceRoutine::EXTERNAL_INT1  ), &_eint1_event_callback );
-  int_ctrl.registerInterruptCallback(hal::ATMEGA164P_324P_644P_1284P::toIsrNum(hal::ATMEGA164P_324P_644P_1284P::InterruptServiceRoutine::EXTERNAL_INT2  ), &_eint2_event_callback );
-  int_ctrl.registerInterruptCallback(hal::ATMEGA164P_324P_644P_1284P::toIsrNum(hal::ATMEGA164P_324P_644P_1284P::InterruptServiceRoutine::PIN_CHANGE_INT0), &_pcint0_event_callback);
-  int_ctrl.registerInterruptCallback(hal::ATMEGA164P_324P_644P_1284P::toIsrNum(hal::ATMEGA164P_324P_644P_1284P::InterruptServiceRoutine::PIN_CHANGE_INT1), &_pcint1_event_callback);
-  int_ctrl.registerInterruptCallback(hal::ATMEGA164P_324P_644P_1284P::toIsrNum(hal::ATMEGA164P_324P_644P_1284P::InterruptServiceRoutine::PIN_CHANGE_INT2), &_pcint2_event_callback);
-  int_ctrl.registerInterruptCallback(hal::ATMEGA164P_324P_644P_1284P::toIsrNum(hal::ATMEGA164P_324P_644P_1284P::InterruptServiceRoutine::PIN_CHANGE_INT3), &_pcint3_event_callback);
+  int_ctrl.registerInterruptCallback(hal::ATMEGA164P_324P_644P_1284P::toIntNum(hal::ATMEGA164P_324P_644P_1284P::Interrupt::EXTERNAL_INT0  ), &_eint0_event_callback );
+  int_ctrl.registerInterruptCallback(hal::ATMEGA164P_324P_644P_1284P::toIntNum(hal::ATMEGA164P_324P_644P_1284P::Interrupt::EXTERNAL_INT1  ), &_eint1_event_callback );
+  int_ctrl.registerInterruptCallback(hal::ATMEGA164P_324P_644P_1284P::toIntNum(hal::ATMEGA164P_324P_644P_1284P::Interrupt::EXTERNAL_INT2  ), &_eint2_event_callback );
+  int_ctrl.registerInterruptCallback(hal::ATMEGA164P_324P_644P_1284P::toIntNum(hal::ATMEGA164P_324P_644P_1284P::Interrupt::PIN_CHANGE_INT0), &_pcint0_event_callback);
+  int_ctrl.registerInterruptCallback(hal::ATMEGA164P_324P_644P_1284P::toIntNum(hal::ATMEGA164P_324P_644P_1284P::Interrupt::PIN_CHANGE_INT1), &_pcint1_event_callback);
+  int_ctrl.registerInterruptCallback(hal::ATMEGA164P_324P_644P_1284P::toIntNum(hal::ATMEGA164P_324P_644P_1284P::Interrupt::PIN_CHANGE_INT2), &_pcint2_event_callback);
+  int_ctrl.registerInterruptCallback(hal::ATMEGA164P_324P_644P_1284P::toIntNum(hal::ATMEGA164P_324P_644P_1284P::Interrupt::PIN_CHANGE_INT3), &_pcint3_event_callback);
 }
 
 /**************************************************************************************

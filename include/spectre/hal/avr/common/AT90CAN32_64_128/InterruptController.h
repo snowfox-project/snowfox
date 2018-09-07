@@ -89,46 +89,6 @@ enum class Interrupt : uint8_t
   INVALID                         = interface::InterruptController::INVALID_INT_NUM
 };
 
-enum class InterruptServiceRoutine : uint8_t
-{
-  EXTERNAL_INT0                   =  0,
-  EXTERNAL_INT1                   =  1,
-  EXTERNAL_INT2                   =  2,
-  EXTERNAL_INT3                   =  3,
-  EXTERNAL_INT4                   =  4,
-  EXTERNAL_INT5                   =  5,
-  EXTERNAL_INT6                   =  6,
-  EXTERNAL_INT7                   =  7,
-  TIMER2_COMPARE                  =  8,
-  TIMER2_OVERFLOW                 =  9,
-  TIMER1_CAPTURE                  = 10,
-  TIMER1_COMPARE_A                = 11,
-  TIMER1_COMPARE_B                = 12,
-  TIMER1_COMPARE_C                = 13,
-  TIMER1_OVERFLOW                 = 14,
-  TIMER0_COMPARE                  = 15,
-  TIMER0_OVERFLOW                 = 16,
-  CAN_ALL                         = 17,
-  CAN_TIMER_OVERRUN               = 18,
-  SPI_SERIAL_TRANSFER_COMPLETE    = 19,
-  USART0_RECEIVE_COMPLETE         = 20,
-  USART0_UART_DATA_REGISTER_EMPTY = 21,
-  USART0_TRANSMIT_COMPLETE        = 22,
-  ANALOG_COMPARATOR               = 23,
-  ANALOG_DIGITAL_CONVERTER        = 24,
-  EEPROM_READY                    = 25,
-  TIMER3_CAPTURE                  = 26,
-  TIMER3_COMPARE_A                = 27,
-  TIMER3_COMPARE_B                = 28,
-  TIMER3_COMPARE_C                = 29,
-  TIMER3_OVERFLOW                 = 30,
-  USART1_RECEIVE_COMPLETE         = 31,
-  USART1_UART_DATA_REGISTER_EMPTY = 32,
-  USART1_TRANSMIT_COMPLETE        = 33,
-  TWO_WIRE_INT                    = 34,
-  SPM_READY                       = 35
-};
-
 /**************************************************************************************
  * CONSTEXPR FUNCTIONS
  **************************************************************************************/
@@ -136,11 +96,6 @@ enum class InterruptServiceRoutine : uint8_t
 constexpr uint8_t toIntNum(Interrupt const interrupt)
 {
   return static_cast<uint8_t>(interrupt);
-}
-
-constexpr uint8_t toIsrNum(InterruptServiceRoutine const interrupt_service_routine)
-{
-  return static_cast<uint8_t>(interrupt_service_routine);
 }
 
 /**************************************************************************************
@@ -177,7 +132,7 @@ public:
 
   /* Interrupt Controller Assembly Interface */
 
-  virtual void registerInterruptCallback(uint8_t const isr_num, interface::InterruptCallback * interrupt_callback) override;
+  virtual void registerInterruptCallback(uint8_t const int_num, interface::InterruptCallback * interrupt_callback) override;
 
 
 private:
