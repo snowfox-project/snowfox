@@ -53,11 +53,11 @@ ExternalInterruptController::ExternalInterruptController(volatile uint8_t       
   _pcint1_event_callback(_ext_int_ctrl),
   _pcint2_event_callback(_ext_int_ctrl)
 {
-  int_ctrl.registerInterruptCallback(hal::ATMEGA328P::toIsrNum(hal::ATMEGA328P::InterruptServiceRoutine::EXTERNAL_INT0  ), &_eint0_event_callback );
-  int_ctrl.registerInterruptCallback(hal::ATMEGA328P::toIsrNum(hal::ATMEGA328P::InterruptServiceRoutine::EXTERNAL_INT1  ), &_eint1_event_callback );
-  int_ctrl.registerInterruptCallback(hal::ATMEGA328P::toIsrNum(hal::ATMEGA328P::InterruptServiceRoutine::PIN_CHANGE_INT0), &_pcint0_event_callback);
-  int_ctrl.registerInterruptCallback(hal::ATMEGA328P::toIsrNum(hal::ATMEGA328P::InterruptServiceRoutine::PIN_CHANGE_INT1), &_pcint1_event_callback);
-  int_ctrl.registerInterruptCallback(hal::ATMEGA328P::toIsrNum(hal::ATMEGA328P::InterruptServiceRoutine::PIN_CHANGE_INT2), &_pcint2_event_callback);
+  int_ctrl.registerInterruptCallback(hal::ATMEGA328P::toIntNum(hal::ATMEGA328P::Interrupt::EXTERNAL_INT0  ), &_eint0_event_callback );
+  int_ctrl.registerInterruptCallback(hal::ATMEGA328P::toIntNum(hal::ATMEGA328P::Interrupt::EXTERNAL_INT1  ), &_eint1_event_callback );
+  int_ctrl.registerInterruptCallback(hal::ATMEGA328P::toIntNum(hal::ATMEGA328P::Interrupt::PIN_CHANGE_INT0), &_pcint0_event_callback);
+  int_ctrl.registerInterruptCallback(hal::ATMEGA328P::toIntNum(hal::ATMEGA328P::Interrupt::PIN_CHANGE_INT1), &_pcint1_event_callback);
+  int_ctrl.registerInterruptCallback(hal::ATMEGA328P::toIntNum(hal::ATMEGA328P::Interrupt::PIN_CHANGE_INT2), &_pcint2_event_callback);
 }
 
 /**************************************************************************************

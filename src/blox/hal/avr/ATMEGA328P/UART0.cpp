@@ -53,8 +53,8 @@ UART0::UART0(volatile uint8_t                                  * udr0,
   _uart0_receive_complete_callback        (_uart0)
 
 {
-  int_ctrl.registerInterruptCallback(hal::ATMEGA328P::toIsrNum(hal::ATMEGA328P::InterruptServiceRoutine::USART_UART_DATA_REGISTER_EMPTY), &_uart0_uart_data_register_empty_callback);
-  int_ctrl.registerInterruptCallback(hal::ATMEGA328P::toIsrNum(hal::ATMEGA328P::InterruptServiceRoutine::USART_RECEIVE_COMPLETE        ), &_uart0_receive_complete_callback        );
+  int_ctrl.registerInterruptCallback(hal::ATMEGA328P::toIntNum(hal::ATMEGA328P::Interrupt::USART_UART_DATA_REGISTER_EMPTY), &_uart0_uart_data_register_empty_callback);
+  int_ctrl.registerInterruptCallback(hal::ATMEGA328P::toIntNum(hal::ATMEGA328P::Interrupt::USART_RECEIVE_COMPLETE        ), &_uart0_receive_complete_callback        );
 }
 
 /**************************************************************************************

@@ -73,35 +73,6 @@ enum class Interrupt : uint8_t
   INVALID                         = interface::InterruptController::INVALID_INT_NUM
 };
 
-enum class InterruptServiceRoutine : uint8_t
-{
-  EXTERNAL_INT0                   =  0,
-  EXTERNAL_INT1                   =  1,
-  PIN_CHANGE_INT0                 =  2,
-  PIN_CHANGE_INT1                 =  3,
-  PIN_CHANGE_INT2                 =  4,
-  WATCHDOG_TIMER                  =  5,
-  TIMER2_COMPARE_A                =  6,
-  TIMER2_COMPARE_B                =  7,
-  TIMER2_OVERFLOW                 =  8,
-  TIMER1_CAPTURE                  =  9,
-  TIMER1_COMPARE_A                = 10,
-  TIMER1_COMPARE_B                = 11,
-  TIMER1_OVERFLOW                 = 12,
-  TIMER0_COMPARE_A                = 13,
-  TIMER0_COMPARE_B                = 14,
-  TIMER0_OVERFLOW                 = 15,
-  SPI_SERIAL_TRANSFER_COMPLETE    = 16,
-  USART_RECEIVE_COMPLETE          = 17,
-  USART_UART_DATA_REGISTER_EMPTY  = 18,
-  USART_TRANSMIT_COMPLETE         = 19,
-  ANALOG_DIGITAL_CONVERTER        = 20,
-  EEPROM_READY                    = 21,
-  ANALOG_COMPARATOR               = 22,
-  TWO_WIRE_INT                    = 23,
-  SPM_READY                       = 24
-};
-
 /**************************************************************************************
  * CONSTEXPR FUNCTIONS
  **************************************************************************************/
@@ -109,11 +80,6 @@ enum class InterruptServiceRoutine : uint8_t
 constexpr uint8_t toIntNum(Interrupt const interrupt)
 {
   return static_cast<uint8_t>(interrupt);
-}
-
-constexpr uint8_t toIsrNum(InterruptServiceRoutine const interrupt_service_routine)
-{
-  return static_cast<uint8_t>(interrupt_service_routine);
 }
 
 /**************************************************************************************
@@ -149,7 +115,7 @@ public:
 
   /* Interrupt Controller Assembly Interface */
 
-  virtual void registerInterruptCallback(uint8_t const isr_num, interface::InterruptCallback * interrupt_callback) override;
+  virtual void registerInterruptCallback(uint8_t const int_num, interface::InterruptCallback * interrupt_callback) override;
 
 
 private:
