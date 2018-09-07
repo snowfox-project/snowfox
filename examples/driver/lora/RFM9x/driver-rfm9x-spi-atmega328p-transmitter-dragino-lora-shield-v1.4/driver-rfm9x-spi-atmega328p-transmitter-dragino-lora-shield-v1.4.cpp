@@ -51,25 +51,10 @@
 #include <spectre/blox/hal/avr/ATMEGA328P/UART0.h>
 #include <spectre/blox/hal/avr/ATMEGA328P/ExternalInterruptController.h>
 
+#include <spectre/blox/driver/lora/RFM9x.h>
 #include <spectre/blox/driver/serial/SerialUart.h>
 
-#include <spectre/driver/lora/RFM9x/RFM9x.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_IoSpi.h>
-#include <spectre/driver/lora/RFM9x/RFM9x_Status.h>
-#include <spectre/driver/lora/RFM9x/RFM9x_Control.h>
-#include <spectre/driver/lora/RFM9x/RFM9x_Configuration.h>
-
-#include <spectre/driver/lora/RFM9x/events/DIO0/RFM9x_Dio0EventCallback.h>
-#include <spectre/driver/lora/RFM9x/events/DIO0/RFM9x_onTxDoneCallback.h>
-#include <spectre/driver/lora/RFM9x/events/DIO0/RFM9x_onRxDoneCallback.h>
-#include <spectre/driver/lora/RFM9x/events/DIO0/RFM9x_onCadDoneCallback.h>
-
-#include <spectre/driver/lora/RFM9x/events/DIO1/RFM9x_Dio1EventCallback.h>
-#include <spectre/driver/lora/RFM9x/events/DIO1/RFM9x_onRxTimeoutCallback.h>
-#include <spectre/driver/lora/RFM9x/events/DIO1/RFM9x_onCadDetectedCallback.h>
-#include <spectre/driver/lora/RFM9x/events/DIO1/RFM9x_onFhssChangeChannelCallback.h>
-
-#include <spectre/os/event/Event.h>
 
 #include <spectre/debug/serial/DebugSerial.h>
 
@@ -95,6 +80,10 @@ static uint32_t                    const RFM9x_SPI_PRESCALER         = 16;      
 static uint32_t                    const RFM9x_F_XOSC_Hz             = 32000000; /* 32 MHz                                      */
 static hal::interface::TriggerMode const RFM9x_DIO0_INT_TRIGGER_MODE = hal::interface::TriggerMode::RisingEdge;
 static hal::interface::TriggerMode const RFM9x_DIO1_INT_TRIGGER_MODE = hal::interface::TriggerMode::RisingEdge;
+static uint32_t                    const RFM9x_FREQUENCY_Hz          = 433775000; /* 433.775 Mhz - Dedicated for digital communication channels in the 70 cm band */
+static uint16_t                    const RFM9x_PREAMBLE_LENGTH       = 8;
+static uint16_t                    const RFM9x_TX_FIFO_FIZE          = 128;
+static uint16_t                    const RFM9x_RX_FIFO_FIZE          = 128;
 
 /**************************************************************************************
  * MAIN
@@ -163,47 +152,21 @@ int main()
   debug::DebugSerial debug_serial(serial());
 
   /* RFM95 ****************************************************************************/
-  lora::RFM9x::RFM9x_IoSpi                        rfm9x_spi                             (spi_master, rfm9x_cs      );
-  lora::RFM9x::RFM9x_Configuration                rfm9x_config                          (rfm9x_spi, RFM9x_F_XOSC_Hz);
-  lora::RFM9x::RFM9x_Control                      rfm9x_control                         (rfm9x_spi                 );
-  lora::RFM9x::RFM9x_Status                       rfm9x_status                          (rfm9x_spi                 );
+  lora::RFM9x::RFM9x_IoSpi rfm9x_spi(spi_master, rfm9x_cs);
 
-  os::Event                                       rfm9x_tx_done_event                   (crit_sec);
-  os::Event                                       rfm9x_rx_done_event                   (crit_sec);
-  os::Event                                       rfm9x_rx_timeout_event                (crit_sec);
-
-  lora::RFM9x::RFM9x_onTxDoneCallback             rfm9x_on_tx_done_callback             (rfm9x_tx_done_event);
-  lora::RFM9x::RFM9x_onRxDoneCallback             rfm9x_on_rx_done_callback             (rfm9x_rx_done_event);
-  lora::RFM9x::RFM9x_onCadDoneCallback            rfm9x_on_cad_done_callback;
-  lora::RFM9x::RFM9x_Dio0EventCallback            rfm9x_dio0_event_callback             (rfm9x_control, rfm9x_on_tx_done_callback, rfm9x_on_rx_done_callback, rfm9x_on_cad_done_callback);
-
-  lora::RFM9x::RFM9x_onRxTimeoutCallback          rfm9x_on_rx_timeout_callback          (rfm9x_rx_timeout_event);
-  lora::RFM9x::RFM9x_onFhssChangeChannelCallback  rfm9x_on_fhss_change_channel_callback;
-  lora::RFM9x::RFM9x_onCadDetectedCallback        rfm9x_on_cad_detected_callback;
-  lora::RFM9x::RFM9x_Dio1EventCallback            rfm9x_dio1_event_callback             (rfm9x_control, rfm9x_on_rx_timeout_callback, rfm9x_on_fhss_change_channel_callback, rfm9x_on_cad_detected_callback);
-
-  lora::RFM9x::RFM9x                              rfm9x                                 (rfm9x_config, rfm9x_control, rfm9x_status, rfm9x_rx_done_event, rfm9x_rx_timeout_event, rfm9x_tx_done_event);
-
-  ext_int_ctrl().registerExternalInterruptCallback(ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::EXTERNAL_INT0), &rfm9x_dio0_event_callback);
-  ext_int_ctrl().registerExternalInterruptCallback(ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::EXTERNAL_INT1), &rfm9x_dio1_event_callback);
-
-
-  uint32_t frequenzy_Hz     = 433775000; /* 433.775 Mhz - Dedicated for digital communication channels in the 70 cm band */
-  uint8_t  signal_bandwidth = static_cast<uint8_t>(lora::RFM9x::interface::SignalBandwidth::BW_250_kHz);
-  uint8_t  coding_rate      = static_cast<uint8_t>(lora::RFM9x::interface::CodingRate::CR_4_5         );
-  uint8_t  spreading_factor = static_cast<uint8_t>(lora::RFM9x::interface::SpreadingFactor::SF_128    );
-  uint16_t preamble_length  = 8;
-  uint16_t tx_fifo_size     = 128;
-  uint16_t rx_fifo_size     = 128;
-
-  rfm9x.open();
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_FREQUENCY_HZ,      static_cast<void *>(&frequenzy_Hz    ));
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_SIGNAL_BANDWIDTH,  static_cast<void *>(&signal_bandwidth));
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_CODING_RATE,       static_cast<void *>(&coding_rate     ));
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_SPREADING_FACTOR,  static_cast<void *>(&spreading_factor));
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_PREAMBLE_LENGTH,   static_cast<void *>(&preamble_length ));
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_TX_FIFO_SIZE,      static_cast<void *>(&tx_fifo_size    ));
-  rfm9x.ioctl(lora::RFM9x::IOCTL_SET_RX_FIFO_SIZE,      static_cast<void *>(&rx_fifo_size    ));
+  blox::RFM9x rfm9x(crit_sec,
+                    ext_int_ctrl(),
+                    ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::EXTERNAL_INT0),
+                    ATMEGA328P::toExtIntNum(ATMEGA328P::ExternalInterrupt::EXTERNAL_INT1),
+                    rfm9x_spi,
+                    RFM9x_F_XOSC_Hz,
+                    RFM9x_FREQUENCY_Hz,
+                    lora::RFM9x::interface::SignalBandwidth::BW_250_kHz,
+                    lora::RFM9x::interface::CodingRate::CR_4_5,
+                    lora::RFM9x::interface::SpreadingFactor::SF_128,
+                    RFM9x_PREAMBLE_LENGTH,
+                    RFM9x_TX_FIFO_FIZE,
+                    RFM9x_RX_FIFO_FIZE);
 
   /* GLOBAL INTERRUPT *****************************************************************/
   int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
@@ -219,7 +182,7 @@ int main()
 
     uint16_t const msg_len = snprintf(reinterpret_cast<char *>(msg), 64, "[Spectre RTOS (c) LXRobotics] [lora::RFM9x] Message %d\r\n", msg_cnt);
 
-    ssize_t const ret_code = rfm9x.write(msg, msg_len);
+    ssize_t const ret_code = rfm9x().write(msg, msg_len);
 
     if     (ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::ParameterError      )) debug_serial.print("ERROR   - ParameterError\r\n");
     else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::TxFifoSizeExceeded  )) debug_serial.print("ERROR   - TxFifoSizeExceeded\r\n");
@@ -232,8 +195,6 @@ int main()
 
 
   /* CLEANUP **************************************************************************/
-
-  rfm9x.close ();
 
   return 0;
 }
