@@ -16,15 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_I2CMASTER_H_
-#define INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_I2CMASTER_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_I2CMASTERLOWLEVEL_H_
+#define INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_I2CMASTERLOWLEVEL_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
-
-#include <spectre/hal/interface/i2c/I2cMaster.h>
-#include <spectre/hal/interface/i2c/I2cMasterConfiguration.h>
 
 #include <spectre/hal/avr/common/ATxxxx/interface/I2cMasterLowLevel.h>
 
@@ -45,40 +42,32 @@ namespace ATxxxx
  * CLASS DECLARATION
  **************************************************************************************/
 
-class I2cMaster : public hal::interface::I2cMaster,
-                  public hal::interface::I2cMasterConfiguration
+class I2cMasterLowLevel : public interface::I2cMasterLowLevel
 {
 
 public:
 
-           I2cMaster(interface::I2cMasterLowLevel & i2c_master_low_level);
-  virtual ~I2cMaster();
+           I2cMasterLowLevel(volatile uint8_t * twcr, volatile uint8_t * twdr, volatile uint8_t * twsr, volatile uint8_t * twbr);
+  virtual ~I2cMasterLowLevel();
 
 
-  /* I2C Master Interface */
-
-  virtual bool begin      (uint8_t const address, bool const is_read_access               ) override;
-  virtual void end        (                                                               ) override;
-  virtual bool write      (uint8_t const data                                             ) override;
-  virtual bool requestFrom(uint8_t const address, uint8_t * data, uint16_t const num_bytes) override;
-
-
-  /* I2C Master Configuration Interface */
-
-  virtual void setI2cClock(hal::interface::I2cClock const i2c_clock) override;
-
+  virtual bool start                 (uint8_t const   address                                  ) override;
+  virtual bool transmitByte          (uint8_t const   data                                     ) override;
+  virtual void receiveByteAndSendACK (uint8_t       * data                                     ) override;
+  virtual void receiveByteAndSendNACK(uint8_t       * data                                     ) override;
+  virtual void stop                  (                                                         ) override;
+  virtual void setTwiPrescaler       (uint32_t const prescaler                                 ) override;
+  virtual void setTwiBitRateRegister (uint32_t const i2c_speed_Hz, uint32_t const i2c_prescaler) override;
 
 private:
 
-  interface::I2cMasterLowLevel & _i2c_master_low_level;
+
+  volatile uint8_t * _TWCR,
+                   * _TWDR,
+                   * _TWSR,
+                   * _TWBR;
 
 };
-
-/**************************************************************************************
- * PROTOTYPES
- **************************************************************************************/
-
-uint8_t convertI2cAddress(uint8_t const address, bool is_read_access);
 
 /**************************************************************************************
  * NAMESPACE
@@ -90,4 +79,4 @@ uint8_t convertI2cAddress(uint8_t const address, bool is_read_access);
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_I2CMASTER_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_I2CMASTERLOWLEVEL_H_ */
