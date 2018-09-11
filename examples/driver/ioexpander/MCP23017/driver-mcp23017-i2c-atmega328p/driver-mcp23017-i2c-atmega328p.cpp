@@ -22,7 +22,7 @@
 
 #include <avr/io.h>
 
-#include <spectre/hal/avr/ATMEGA328P/I2cMaster.h>
+#include <spectre/blox/hal/avr/ATMEGA328P/I2cMaster.h>
 
 #include <spectre/driver/ioexpander/MCP23017/MCP23017.h>
 #include <spectre/driver/ioexpander/MCP23017/MCP23017_IoI2c.h>
@@ -53,16 +53,16 @@ int main()
    * HAL
    ************************************************************************************/
 
-  ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
+  blox::ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
 
-  i2c_master.setI2cClock(hal::interface::I2cClock::F_100_kHz);
+  i2c_master().setI2cClock(hal::interface::I2cClock::F_100_kHz);
 
 
   /************************************************************************************
    * DRIVER
    ************************************************************************************/
 
-  ioexpander::MCP23017::MCP23017_IoI2c          mcp23017_i2c    (MCP23017_I2C_ADDR, i2c_master);
+  ioexpander::MCP23017::MCP23017_IoI2c          mcp23017_i2c    (MCP23017_I2C_ADDR, i2c_master());
   ioexpander::MCP23017::MCP23017_Configuration  mcp23017_config (mcp23017_i2c);
   ioexpander::MCP23017::MCP23017_Control        mcp23017_control(mcp23017_i2c);
   ioexpander::MCP23017::MCP23017                mcp23017        (mcp23017_config, mcp23017_control);
