@@ -23,7 +23,8 @@
 #include <avr/io.h>
 
 #include <spectre/hal/avr/ATMEGA328P/Delay.h>
-#include <spectre/hal/avr/ATMEGA328P/I2cMaster.h>
+
+#include <spectre/blox/hal/avr/ATMEGA328P/I2cMaster.h>
 
 #include <spectre/driver/haptic/DRV2605/DRV2605.h>
 #include <spectre/driver/haptic/DRV2605/DRV2605_IoI2C.h>
@@ -54,19 +55,19 @@ int main()
    * HAL
    ************************************************************************************/
 
-  ATMEGA328P::Delay     delay;
-  ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
+  ATMEGA328P::Delay           delay;
+  blox::ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
 
-  i2c_master.setI2cClock(hal::interface::I2cClock::F_100_kHz);
+  i2c_master().setI2cClock(hal::interface::I2cClock::F_100_kHz);
 
 
   /************************************************************************************
    * DRIVER
    ************************************************************************************/
 
-  haptic::DRV2605::DRV2605_IoI2C    drv2605_io_i2c(DRV2605_I2C_ADDR, i2c_master);
-  haptic::DRV2605::DRV2605_Control  drv2605_ctrl  (drv2605_io_i2c, delay       );
-  haptic::DRV2605::DRV2605          drv2605       (drv2605_ctrl                );
+  haptic::DRV2605::DRV2605_IoI2C    drv2605_io_i2c(DRV2605_I2C_ADDR, i2c_master());
+  haptic::DRV2605::DRV2605_Control  drv2605_ctrl  (drv2605_io_i2c, delay         );
+  haptic::DRV2605::DRV2605          drv2605       (drv2605_ctrl                  );
 
   uint8_t mode         = static_cast<uint8_t>(haptic::DRV2605::interface::Mode::INTERNAL_TRIGGER);
   uint8_t actuator     = static_cast<uint8_t>(haptic::DRV2605::interface::Actuator::LRA         );

@@ -25,7 +25,7 @@
 #include <avr/io.h>
 
 #include <spectre/hal/avr/ATMEGA328P/Delay.h>
-#include <spectre/hal/avr/ATMEGA328P/I2cMaster.h>
+#include <spectre/blox/hal/avr/ATMEGA328P/I2cMaster.h>
 
 #include <spectre/driver/sensor/LIS3DSH/LIS3DSH.h>
 #include <spectre/driver/sensor/LIS3DSH/LIS3DSH_IoI2c.h>
@@ -57,18 +57,18 @@ int main()
    ************************************************************************************/
 
   ATMEGA328P::Delay     delay;
-  ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
+  blox::ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
 
-  i2c_master.setI2cClock(hal::interface::I2cClock::F_100_kHz);
+  i2c_master().setI2cClock(hal::interface::I2cClock::F_100_kHz);
 
 
   /************************************************************************************
    * DRIVER
    ************************************************************************************/
 
-  sensor::LIS3DSH::LIS3DSH_IoI2c      lis3dsh_io_i2c (LIS3DSH_I2C_ADDR, i2c_master);
-  sensor::LIS3DSH::LIS3DSH_Control    lis3dsh_control(lis3dsh_io_i2c              );
-  sensor::LIS3DSH::LIS3DSH            lis3dsh        (lis3dsh_control             );
+  sensor::LIS3DSH::LIS3DSH_IoI2c      lis3dsh_io_i2c (LIS3DSH_I2C_ADDR, i2c_master());
+  sensor::LIS3DSH::LIS3DSH_Control    lis3dsh_control(lis3dsh_io_i2c                );
+  sensor::LIS3DSH::LIS3DSH            lis3dsh        (lis3dsh_control               );
 
   uint8_t output_data_rate = static_cast<uint8_t>(sensor::LIS3DSH::interface::OutputDataRate::ODR_25_Hz);
   uint8_t full_scale_range = static_cast<uint8_t>(sensor::LIS3DSH::interface::FullScaleRange::FS_plus_minus_2g);

@@ -25,7 +25,7 @@
 #include <avr/io.h>
 
 #include <spectre/hal/avr/ATMEGA328P/Delay.h>
-#include <spectre/hal/avr/ATMEGA328P/I2cMaster.h>
+#include <spectre/blox/hal/avr/ATMEGA328P/I2cMaster.h>
 
 #include <spectre/driver/sensor/BMG160/BMG160.h>
 #include <spectre/driver/sensor/BMG160/BMG160_IoI2c.h>
@@ -56,19 +56,19 @@ int main()
    * HAL
    ************************************************************************************/
 
-  ATMEGA328P::Delay     delay;
-  ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
+  ATMEGA328P::Delay           delay;
+  blox::ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
 
-  i2c_master.setI2cClock(hal::interface::I2cClock::F_100_kHz);
+  i2c_master().setI2cClock(hal::interface::I2cClock::F_100_kHz);
 
 
   /************************************************************************************
    * DRIVER
    ************************************************************************************/
 
-  sensor::BMG160::BMG160_IoI2c   bmg160_io_i2c (BMG160_I2C_ADDR, i2c_master);
-  sensor::BMG160::BMG160_Control bmg160_control(bmg160_io_i2c              );
-  sensor::BMG160::BMG160         bmg160        (bmg160_control             );
+  sensor::BMG160::BMG160_IoI2c   bmg160_io_i2c (BMG160_I2C_ADDR, i2c_master());
+  sensor::BMG160::BMG160_Control bmg160_control(bmg160_io_i2c                );
+  sensor::BMG160::BMG160         bmg160        (bmg160_control               );
 
   uint8_t output_data_rate_and_bandwidth = static_cast<uint8_t>(sensor::BMG160::interface::OutputDataRateAndBandwith::ODR_100_Hz_BandWidth_12_Hz);
   uint8_t full_scale_range               = static_cast<uint8_t>(sensor::BMG160::interface::FullScaleRange::FS_plus_minus_125_DPS                );

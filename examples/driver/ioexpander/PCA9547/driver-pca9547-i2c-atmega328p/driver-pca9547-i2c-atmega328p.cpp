@@ -22,7 +22,7 @@
 
 #include <avr/io.h>
 
-#include <spectre/hal/avr/ATMEGA328P/I2cMaster.h>
+#include <spectre/blox/hal/avr/ATMEGA328P/I2cMaster.h>
 
 #include <spectre/driver/ioexpander/PCA9547/PCA9547.h>
 #include <spectre/driver/ioexpander/PCA9547/PCA9547_IoI2c.h>
@@ -52,17 +52,17 @@ int main()
    * HAL
    ************************************************************************************/
 
-  ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
+  blox::ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
 
-  i2c_master.setI2cClock(hal::interface::I2cClock::F_100_kHz);
+  i2c_master().setI2cClock(hal::interface::I2cClock::F_100_kHz);
 
   /************************************************************************************
    * DRIVER
    ************************************************************************************/
 
-  ioexpander::PCA9547::PCA9547_IoI2c    pca9547_io_i2c(PCA9547_I2C_ADDR, i2c_master);
-  ioexpander::PCA9547::PCA9547_Control  pca9547_ctrl  (pca9547_io_i2c              );
-  ioexpander::PCA9547::PCA9547          pca9547       (pca9547_ctrl                );
+  ioexpander::PCA9547::PCA9547_IoI2c    pca9547_io_i2c(PCA9547_I2C_ADDR, i2c_master());
+  ioexpander::PCA9547::PCA9547_Control  pca9547_ctrl  (pca9547_io_i2c                );
+  ioexpander::PCA9547::PCA9547          pca9547       (pca9547_ctrl                  );
 
 
   /************************************************************************************

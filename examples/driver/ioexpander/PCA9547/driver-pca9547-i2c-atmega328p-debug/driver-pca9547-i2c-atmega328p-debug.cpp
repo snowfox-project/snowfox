@@ -23,11 +23,11 @@
 #include <avr/io.h>
 
 #include <spectre/hal/avr/ATMEGA328P/Flash.h>
-#include <spectre/hal/avr/ATMEGA328P/I2cMaster.h>
 #include <spectre/hal/avr/ATMEGA328P/CriticalSection.h>
 #include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
 
 #include <spectre/blox/hal/avr/ATMEGA328P/UART0.h>
+#include <spectre/blox/hal/avr/ATMEGA328P/I2cMaster.h>
 
 #include <spectre/blox/driver/serial/SerialUart.h>
 
@@ -65,11 +65,10 @@ int main()
 
   ATMEGA328P::InterruptController int_ctrl  (&EIMSK, &PCICR, &WDTCSR, &TIMSK0, &TIMSK1, &TIMSK2, &UCSR0B, &SPCR, &TWCR, &EECR, &SPMCSR, &ACSR, &ADCSRA);
   ATMEGA328P::CriticalSection     crit_sec  (&SREG);
-  ATMEGA328P::I2cMaster           i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
-
+  blox::ATMEGA328P::I2cMaster     i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
   blox::ATMEGA328P::UART0         uart0     (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl, F_CPU);
 
-  i2c_master.setI2cClock(hal::interface::I2cClock::F_100_kHz);
+  i2c_master().setI2cClock(hal::interface::I2cClock::F_100_kHz);
 
 
   /************************************************************************************
@@ -88,7 +87,7 @@ int main()
   debug::DebugSerial debug_serial(serial());
 
   /* PCA9547 **************************************************************************/
-  ioexpander::PCA9547::PCA9547_IoI2c pca9547_io(PCA9547_I2C_ADDR, i2c_master);
+  ioexpander::PCA9547::PCA9547_IoI2c pca9547_io(PCA9547_I2C_ADDR, i2c_master());
 
   /* GLOBAL INTERRUPT *****************************************************************/
   int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));

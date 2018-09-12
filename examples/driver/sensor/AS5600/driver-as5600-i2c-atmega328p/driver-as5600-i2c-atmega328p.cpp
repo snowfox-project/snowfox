@@ -23,7 +23,7 @@
 #include <avr/io.h>
 
 #include <spectre/hal/avr/ATMEGA328P/Delay.h>
-#include <spectre/hal/avr/ATMEGA328P/I2cMaster.h>
+#include <spectre/blox/hal/avr/ATMEGA328P/I2cMaster.h>
 
 #include <spectre/driver/sensor/AS5600/AS5600.h>
 #include <spectre/driver/sensor/AS5600/AS5600_IoI2c.h>
@@ -54,19 +54,19 @@ int main()
    * HAL
    ************************************************************************************/
 
-  ATMEGA328P::Delay     delay;
-  ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
+  ATMEGA328P::Delay           delay;
+  blox::ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
 
-  i2c_master.setI2cClock(hal::interface::I2cClock::F_100_kHz);
+  i2c_master().setI2cClock(hal::interface::I2cClock::F_100_kHz);
 
 
   /************************************************************************************
    * DRIVER
    ************************************************************************************/
 
-  sensor::AS5600::AS5600_IoI2c      as5600_io_i2c (AS5600_I2C_ADDR, i2c_master);
-  sensor::AS5600::AS5600_Control    as5600_control(as5600_io_i2c              );
-  sensor::AS5600::AS5600            as5600        (as5600_control             );
+  sensor::AS5600::AS5600_IoI2c      as5600_io_i2c (AS5600_I2C_ADDR, i2c_master());
+  sensor::AS5600::AS5600_Control    as5600_control(as5600_io_i2c                );
+  sensor::AS5600::AS5600            as5600        (as5600_control               );
 
   uint8_t power_mode            = static_cast<uint8_t>(sensor::AS5600::interface::PowerMode::NORMAL                    );
   uint8_t hysteresis            = static_cast<uint8_t>(sensor::AS5600::interface::Hysteresis::HYST_OFF                 );
