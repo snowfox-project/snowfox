@@ -22,6 +22,8 @@
 
 #include <spectre/hal/avr/common/ATxxxx/SpiMaster.h>
 
+#include <spectre/os/event/EventWaiter.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -70,12 +72,14 @@ enum class SpiPrescaler : uint8_t
  * CTOR/DTOR
  **************************************************************************************/
 
-SpiMaster::SpiMaster(volatile uint8_t * spcr,
-                     volatile uint8_t * spsr,
-                     volatile uint8_t * spdr)
-: _SPCR(spcr),
-  _SPSR(spsr),
-  _SPDR(spdr)
+SpiMaster::SpiMaster(volatile uint8_t             * spcr,
+                     volatile uint8_t             * spsr,
+                     volatile uint8_t             * spdr,
+                     os::interface::EventConsumer & serial_transfer_complete_event)
+: _SPCR                          (spcr                          ),
+  _SPSR                          (spsr                          ),
+  _SPDR                          (spdr                          ),
+  _serial_transfer_complete_event(serial_transfer_complete_event)
 {
   enableSpiMaster();
 }
@@ -93,7 +97,7 @@ uint8_t SpiMaster::exchange(uint8_t const data)
 {
   *_SPDR = data;
 
-  while (!(*_SPSR & SPIF_bm)) { }
+  os::EventWaiter::wait(_serial_transfer_complete_event);
 
   return *_SPDR;
 }

@@ -16,16 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_SPIMASTER_H_
-#define INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_SPIMASTER_H_
-
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/interface/spi/SpiMaster.h>
-
-#include <spectre/os/event/interface/EventConsumer.h>
+#include <spectre/hal/avr/common/ATxxxx/SpiMaster_onSerialTransferCompleteCallback.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -41,44 +36,28 @@ namespace ATxxxx
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class SpiMaster : public interface::SpiMaster
+SpiMaster_onSerialTransferCompleteCallback::SpiMaster_onSerialTransferCompleteCallback(os::interface::EventProducer & spi_transfer_complete_event)
+: _spi_transfer_complete_event(spi_transfer_complete_event)
 {
 
-public:
+}
 
-           SpiMaster(volatile uint8_t             * spcr,
-                     volatile uint8_t             * spsr,
-                     volatile uint8_t             * spdr,
-                     os::interface::EventConsumer & serial_transfer_complete_event);
-  virtual ~SpiMaster();
+SpiMaster_onSerialTransferCompleteCallback::~SpiMaster_onSerialTransferCompleteCallback()
+{
 
+}
 
-  /* SPI Master Control Interface */
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
-  virtual uint8_t exchange(uint8_t const data) override;
-
-
-  /* SPI Master Configuration Interface */
-
-  virtual void setSpiMode     (interface::SpiMode     const spi_mode     ) override;
-  virtual void setSpiBitOrder (interface::SpiBitOrder const spi_bit_order) override;
-  virtual void setSpiPrescaler(uint32_t               const spi_prescaler) override;
-
-
-private:
-
-  volatile uint8_t             * _SPCR,
-                               * _SPSR,
-                               * _SPDR;
-  os::interface::EventConsumer & _serial_transfer_complete_event;
-
-
-  void enableSpiMaster();
-
-};
+void SpiMaster_onSerialTransferCompleteCallback::onSerialTransferComplete()
+{
+  _spi_transfer_complete_event.set();
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -89,5 +68,3 @@ private:
 } /* hal */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_HAL_AVR_COMMON_ATXXXX_SPIMASTER_H_ */
