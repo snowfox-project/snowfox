@@ -95,6 +95,8 @@ SpiMaster::~SpiMaster()
 
 uint8_t SpiMaster::exchange(uint8_t const data)
 {
+  _serial_transfer_complete_event.clear();
+
   *_SPDR = data;
 
   os::EventWaiter::wait(_serial_transfer_complete_event);
