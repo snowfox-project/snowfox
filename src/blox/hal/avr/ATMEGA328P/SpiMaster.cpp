@@ -52,6 +52,7 @@ SpiMaster::SpiMaster(volatile uint8_t                    * spcr,
   _spi_master_on_serial_transfer_complete_callback_adapter(_spi_master_on_serial_transfer_complete_callback )
 {
   int_ctrl.registerInterruptCallback(hal::ATMEGA328P::toIntNum(hal::ATMEGA328P::Interrupt::SPI_SERIAL_TRANSFER_COMPLETE), &_spi_master_on_serial_transfer_complete_callback_adapter);
+  int_ctrl.enableInterrupt          (hal::ATMEGA328P::toIntNum(hal::ATMEGA328P::Interrupt::SPI_SERIAL_TRANSFER_COMPLETE));
 }
 
 /**************************************************************************************
