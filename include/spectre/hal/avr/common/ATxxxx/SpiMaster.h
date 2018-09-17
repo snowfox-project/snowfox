@@ -24,7 +24,6 @@
  **************************************************************************************/
 
 #include <spectre/hal/interface/spi/SpiMaster.h>
-#include <spectre/hal/interface/spi/SpiMasterConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -43,8 +42,7 @@ namespace ATxxxx
  * CLASS DECLARATION
  **************************************************************************************/
 
-class SpiMaster : public interface::SpiMaster,
-                  public interface::SpiMasterConfiguration
+class SpiMaster : public interface::SpiMaster
 {
 
 public:
@@ -55,7 +53,7 @@ public:
   virtual ~SpiMaster();
 
 
-  /* SPI Master Interface */
+  /* SPI Master Control Interface */
 
   virtual uint8_t exchange(uint8_t const data) override;
 

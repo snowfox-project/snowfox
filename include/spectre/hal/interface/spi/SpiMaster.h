@@ -20,10 +20,11 @@
 #define INTERFACE_SPI_MASTER_H_
 
 /**************************************************************************************
- * NAMESPACE
+ * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
+#include <spectre/hal/interface/spi/SpiMasterControl.h>
+#include <spectre/hal/interface/spi/SpiMasterConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,7 +43,8 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class SpiMaster
+class SpiMaster : public SpiMasterControl,
+                  public SpiMasterConfiguration
 {
 
 public:
@@ -50,16 +52,13 @@ public:
            SpiMaster() { }
   virtual ~SpiMaster() { }
 
-
-  virtual uint8_t exchange(uint8_t const data) = 0;
-
 };
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface*/
+} /* interface */
 
 } /* hal */
 
