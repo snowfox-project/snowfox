@@ -41,15 +41,14 @@
 
 #include <avr/io.h>
 
-#include <spectre/hal/avr/ATMEGA328P/Flash.h>
 #include <spectre/hal/avr/ATMEGA328P/Delay.h>
-#include <spectre/hal/avr/ATMEGA328P/SpiMaster.h>
 #include <spectre/hal/avr/ATMEGA328P/DigitalInPin.h>
 #include <spectre/hal/avr/ATMEGA328P/DigitalOutPin.h>
 #include <spectre/hal/avr/ATMEGA328P/CriticalSection.h>
 #include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
 
 #include <spectre/blox/hal/avr/ATMEGA328P/UART0.h>
+#include <spectre/blox/hal/avr/ATMEGA328P/SpiMaster.h>
 #include <spectre/blox/hal/avr/ATMEGA328P/ExternalInterruptController.h>
 
 #include <spectre/blox/driver/serial/SerialUart.h>
@@ -108,32 +107,46 @@ int main()
    * HAL
    ************************************************************************************/
 
-  ATMEGA328P::Flash                             flash;
-  ATMEGA328P::Delay                             delay;
-  ATMEGA328P::InterruptController               int_ctrl    (&EIMSK, &PCICR, &WDTCSR, &TIMSK0, &TIMSK1, &TIMSK2, &UCSR0B, &SPCR, &TWCR, &EECR, &SPMCSR, &ACSR, &ADCSRA);
-  ATMEGA328P::CriticalSection                   crit_sec    (&SREG);
-  blox::ATMEGA328P::UART0                       uart0       (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl, F_CPU);
-  blox::ATMEGA328P::ExternalInterruptController ext_int_ctrl(&EICRA, &PCMSK0, &PCMSK1, &PCMSK2, int_ctrl);
+  ATMEGA328P::Delay               delay;
 
-  /* SPI/CS for RFM95 *****************************************************************/
+  ATMEGA328P::InterruptController int_ctrl  (&EIMSK, &PCICR, &WDTCSR, &TIMSK0, &TIMSK1, &TIMSK2, &UCSR0B, &SPCR, &TWCR, &EECR, &SPMCSR, &ACSR, &ADCSRA);
+  ATMEGA328P::CriticalSection     crit_sec  (&SREG);
+
   /* As the datasheet state: 'If SS is configured as an input and is driven low
    * while MSTR is set, MSTR will be cleared.'. This means that in this special
    * case where the CS pin is equal with SS pin we need to set it before configuring
    * the SPI interface.
    */
-  ATMEGA328P::DigitalOutPin rfm9x_cs  (&DDRB, &PORTB,        2);     /* CS   = D10 = PB2 */
-  ATMEGA328P::DigitalOutPin rfm9x_sck (&DDRB, &PORTB,        5);     /* SCK  = D13 = PB5 */
-  ATMEGA328P::DigitalInPin  rfm9x_miso(&DDRB, &PORTB, &PINB, 4);     /* MISO = D12 = PB4 */
-  ATMEGA328P::DigitalOutPin rfm9x_mosi(&DDRB, &PORTB,        3);     /* MOSI = D11 = PB3 */
+  ATMEGA328P::DigitalOutPin       rfm9x_cs  (&DDRB, &PORTB,        2); /* CS   = D10 = PB2 */
+  ATMEGA328P::DigitalOutPin       rfm9x_sck (&DDRB, &PORTB,        5); /* SCK  = D13 = PB5 */
+  ATMEGA328P::DigitalInPin        rfm9x_miso(&DDRB, &PORTB, &PINB, 4); /* MISO = D12 = PB4 */
+  ATMEGA328P::DigitalOutPin       rfm9x_mosi(&DDRB, &PORTB,        3); /* MOSI = D11 = PB3 */
 
   rfm9x_cs.set();
   rfm9x_miso.setPullUpMode(hal::interface::PullUpMode::PULL_UP);
 
-  ATMEGA328P::SpiMaster     spi_master(&SPCR, &SPSR, &SPDR);
+  blox::ATMEGA328P::UART0                       uart0       (&UDR0,
+                                                             &UCSR0A,
+                                                             &UCSR0B,
+                                                             &UCSR0C,
+                                                             &UBRR0,
+                                                             int_ctrl,
+                                                             F_CPU);
 
-  spi_master.setSpiMode     (RFM9x_SPI_MODE     );
-  spi_master.setSpiBitOrder (RFM9x_SPI_BIT_ORDER);
-  spi_master.setSpiPrescaler(RFM9x_SPI_PRESCALER);
+  blox::ATMEGA328P::SpiMaster                   spi_master  (&SPCR,
+                                                             &SPSR,
+                                                             &SPDR,
+                                                             crit_sec,
+                                                             int_ctrl,
+                                                             RFM9x_SPI_MODE,
+                                                             RFM9x_SPI_BIT_ORDER,
+                                                             RFM9x_SPI_PRESCALER);
+
+  blox::ATMEGA328P::ExternalInterruptController ext_int_ctrl(&EICRA,
+                                                             &PCMSK0,
+                                                             &PCMSK1,
+                                                             &PCMSK2,
+                                                             int_ctrl);
 
   /* EXT INT #0 for DIO0 notifications by RFM9x ***************************************/
   ATMEGA328P::DigitalInPin rfm9x_dio0_int_pin              (&DDRD, &PORTD, &PIND, 2); /* D2 = PD2 = INT0 */
@@ -166,7 +179,7 @@ int main()
   debug::DebugSerial debug_serial(serial());
 
   /* RFM95 ****************************************************************************/
-  lora::RFM9x::RFM9x_IoSpi                        rfm9x_spi                             (spi_master, rfm9x_cs      );
+  lora::RFM9x::RFM9x_IoSpi                        rfm9x_spi                             (spi_master(), rfm9x_cs    );
   lora::RFM9x::RFM9x_Configuration                rfm9x_config                          (rfm9x_spi, RFM9x_F_XOSC_Hz);
   lora::RFM9x::RFM9x_Control                      rfm9x_control                         (rfm9x_spi                 );
   lora::RFM9x::RFM9x_Status                       rfm9x_status                          (rfm9x_spi                 );
@@ -218,8 +231,6 @@ int main()
   /************************************************************************************
    * APPLICATION
    ************************************************************************************/
-
-  lora::RFM9x::RFM9x_Debug::debug_dumpAllRegs(debug_serial, flash, rfm9x_spi);
 
   for(uint16_t msg_cnt = 0;; msg_cnt++)
   {
