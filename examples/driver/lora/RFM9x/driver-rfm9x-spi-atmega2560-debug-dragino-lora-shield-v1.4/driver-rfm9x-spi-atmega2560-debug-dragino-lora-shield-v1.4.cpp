@@ -36,13 +36,13 @@
 #include <avr/io.h>
 
 #include <spectre/hal/avr/ATMEGA2560/Flash.h>
-#include <spectre/hal/avr/ATMEGA2560/SpiMaster.h>
 #include <spectre/hal/avr/ATMEGA2560/DigitalInPin.h>
 #include <spectre/hal/avr/ATMEGA2560/DigitalOutPin.h>
 #include <spectre/hal/avr/ATMEGA2560/CriticalSection.h>
 #include <spectre/hal/avr/ATMEGA2560/InterruptController.h>
 
 #include <spectre/blox/hal/avr/ATMEGA2560/UART0.h>
+#include <spectre/blox/hal/avr/ATMEGA2560/SpiMaster.h>
 
 #include <spectre/blox/driver/serial/SerialUart.h>
 
@@ -81,26 +81,36 @@ int main()
    ************************************************************************************/
 
   ATMEGA2560::Flash               flash;
-  ATMEGA2560::InterruptController int_ctrl(&EIMSK, &PCICR, &WDTCSR, &TIMSK0, &TIMSK1, &TIMSK2, &TIMSK3, &TIMSK4, &TIMSK5, &UCSR0B, &UCSR1B, &UCSR2B, &UCSR3B, &SPCR, &TWCR, &EECR, &SPMCSR, &ACSR, &ADCSRA);
-  ATMEGA2560::CriticalSection     crit_sec(&SREG);
-  blox::ATMEGA2560::UART0         uart0   (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl, F_CPU);
 
-  /* SPI/CS for RFM95 *****************************************************************/
-  ATMEGA2560::DigitalOutPin rfm9x_cs     (&DDRB, &PORTB,        4);     /* CS   = D10          = PB4 */
-  ATMEGA2560::DigitalOutPin rfm9x_sck    (&DDRB, &PORTB,        1);     /* SCK  = ICSP SCK     = PB1 */
-  ATMEGA2560::DigitalInPin  rfm9x_miso   (&DDRB, &PORTB, &PINB, 3);     /* MISO = ICSP MISO    = PB3 */
-  ATMEGA2560::DigitalOutPin rfm9x_mosi   (&DDRB, &PORTB,        2);     /* MOSI = ICSP MOSI    = PB2 */
-  ATMEGA2560::DigitalOutPin atmega2560_ss(&DDRB, &PORTB,        0);     /* SS   = Slave Select = PB0 */
+  ATMEGA2560::InterruptController int_ctrl     (&EIMSK, &PCICR, &WDTCSR, &TIMSK0, &TIMSK1, &TIMSK2, &TIMSK3, &TIMSK4, &TIMSK5, &UCSR0B, &UCSR1B, &UCSR2B, &UCSR3B, &SPCR, &TWCR, &EECR, &SPMCSR, &ACSR, &ADCSRA);
+  ATMEGA2560::CriticalSection     crit_sec     (&SREG);
+
+  ATMEGA2560::DigitalOutPin       rfm9x_cs     (&DDRB, &PORTB,        4);     /* CS   = D10          = PB4 */
+  ATMEGA2560::DigitalOutPin       rfm9x_sck    (&DDRB, &PORTB,        1);     /* SCK  = ICSP SCK     = PB1 */
+  ATMEGA2560::DigitalInPin        rfm9x_miso   (&DDRB, &PORTB, &PINB, 3);     /* MISO = ICSP MISO    = PB3 */
+  ATMEGA2560::DigitalOutPin       rfm9x_mosi   (&DDRB, &PORTB,        2);     /* MOSI = ICSP MOSI    = PB2 */
+  ATMEGA2560::DigitalOutPin       atmega2560_ss(&DDRB, &PORTB,        0);     /* SS   = Slave Select = PB0 */
 
   atmega2560_ss.set(); /* Must be set in order to correctly configure SPI master when instantiating ATMEGA2560::SpiMaster */
   rfm9x_cs.set();
   rfm9x_miso.setPullUpMode(hal::interface::PullUpMode::PULL_UP);
 
-  ATMEGA2560::SpiMaster     spi_master(&SPCR, &SPSR, &SPDR);
+  blox::ATMEGA2560::UART0         uart0     (&UDR0,
+                                             &UCSR0A,
+                                             &UCSR0B,
+                                             &UCSR0C,
+                                             &UBRR0,
+                                             int_ctrl,
+                                             F_CPU);
 
-  spi_master.setSpiMode     (RFM9x_SPI_MODE     );
-  spi_master.setSpiBitOrder (RFM9x_SPI_BIT_ORDER);
-  spi_master.setSpiPrescaler(RFM9x_SPI_PRESCALER);
+  blox::ATMEGA2560::SpiMaster     spi_master(&SPCR,
+                                             &SPSR,
+                                             &SPDR,
+                                             crit_sec,
+                                             int_ctrl,
+                                             RFM9x_SPI_MODE,
+                                             RFM9x_SPI_BIT_ORDER,
+                                             RFM9x_SPI_PRESCALER);
 
 
   /************************************************************************************
@@ -119,7 +129,7 @@ int main()
   debug::DebugSerial debug_serial(serial());
 
   /* RFM95 ****************************************************************************/
-  lora::RFM9x::RFM9x_IoSpi rfm9x_spi(spi_master, rfm9x_cs);
+  lora::RFM9x::RFM9x_IoSpi rfm9x_spi(spi_master(), rfm9x_cs);
 
 
   /* GLOBAL INTERRUPT *****************************************************************/
