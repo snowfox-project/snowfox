@@ -38,13 +38,13 @@
 #include <avr/io.h>
 
 #include <spectre/hal/avr/ATMEGA328P/Flash.h>
-#include <spectre/hal/avr/ATMEGA328P/SpiMaster.h>
 #include <spectre/hal/avr/ATMEGA328P/DigitalInPin.h>
 #include <spectre/hal/avr/ATMEGA328P/DigitalOutPin.h>
 #include <spectre/hal/avr/ATMEGA328P/CriticalSection.h>
 #include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
 
 #include <spectre/blox/hal/avr/ATMEGA328P/UART0.h>
+#include <spectre/blox/hal/avr/ATMEGA328P/SpiMaster.h>
 
 #include <spectre/blox/driver/serial/SerialUart.h>
 
@@ -83,25 +83,34 @@ int main()
    ************************************************************************************/
 
   ATMEGA328P::Flash               flash;
-  ATMEGA328P::InterruptController int_ctrl(&EIMSK, &PCICR, &WDTCSR, &TIMSK0, &TIMSK1, &TIMSK2, &UCSR0B, &SPCR, &TWCR, &EECR, &SPMCSR, &ACSR, &ADCSRA);
-  ATMEGA328P::CriticalSection     crit_sec(&SREG);
-  blox::ATMEGA328P::UART0         uart0   (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl, F_CPU);
 
-  /* SPI/CS for MCP2515 ***************************************************************/
-  ATMEGA328P::DigitalOutPin mcp2515_cs  (&DDRB, &PORTB,        2); /* CS   = D10 = PB2 */
-  ATMEGA328P::DigitalOutPin mcp2515_sck (&DDRB, &PORTB,        5); /* SCK  = D13 = PB5 */
-  ATMEGA328P::DigitalInPin  mcp2515_miso(&DDRB, &PORTB, &PINB, 4); /* MISO = D12 = PB4 */
-  ATMEGA328P::DigitalOutPin mcp2515_mosi(&DDRB, &PORTB,        3); /* MOSI = D11 = PB3 */
+  ATMEGA328P::InterruptController int_ctrl    (&EIMSK, &PCICR, &WDTCSR, &TIMSK0, &TIMSK1, &TIMSK2, &UCSR0B, &SPCR, &TWCR, &EECR, &SPMCSR, &ACSR, &ADCSRA);
+  ATMEGA328P::CriticalSection     crit_sec    (&SREG);
+
+  ATMEGA328P::DigitalOutPin       mcp2515_cs  (&DDRB, &PORTB,        2); /* CS   = D10 = PB2 */
+  ATMEGA328P::DigitalOutPin       mcp2515_sck (&DDRB, &PORTB,        5); /* SCK  = D13 = PB5 */
+  ATMEGA328P::DigitalInPin        mcp2515_miso(&DDRB, &PORTB, &PINB, 4); /* MISO = D12 = PB4 */
+  ATMEGA328P::DigitalOutPin       mcp2515_mosi(&DDRB, &PORTB,        3); /* MOSI = D11 = PB3 */
 
   mcp2515_cs.set();
   mcp2515_miso.setPullUpMode(hal::interface::PullUpMode::PULL_UP);
 
-  ATMEGA328P::SpiMaster     spi_master(&SPCR, &SPSR, &SPDR);
+  blox::ATMEGA328P::UART0         uart0       (&UDR0,
+                                               &UCSR0A,
+                                               &UCSR0B,
+                                               &UCSR0C,
+                                               &UBRR0,
+                                               int_ctrl,
+                                               F_CPU);
 
-  spi_master.setSpiMode     (MCP2515_SPI_MODE     );
-  spi_master.setSpiBitOrder (MCP2515_SPI_BIT_ORDER);
-  spi_master.setSpiPrescaler(MCP2515_SPI_PRESCALER);
-
+  blox::ATMEGA328P::SpiMaster     spi_master  (&SPCR,
+                                               &SPSR,
+                                               &SPDR,
+                                               crit_sec,
+                                               int_ctrl,
+                                               MCP2515_SPI_MODE,
+                                               MCP2515_SPI_BIT_ORDER,
+                                               MCP2515_SPI_PRESCALER);
 
   /************************************************************************************
    * DRIVER
@@ -119,7 +128,7 @@ int main()
   debug::DebugSerial debug_serial(serial());
 
   /* MCP2515 **************************************************************************/
-  can::MCP2515::MCP2515_IoSpi mcp2515_io_spi(spi_master, mcp2515_cs);
+  can::MCP2515::MCP2515_IoSpi mcp2515_io_spi(spi_master(), mcp2515_cs);
 
   /* GLOBAL INTERRUPT *****************************************************************/
   int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
