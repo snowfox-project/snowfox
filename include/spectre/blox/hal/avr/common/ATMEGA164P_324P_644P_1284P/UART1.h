@@ -23,7 +23,9 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/ATxxxx/UART1.h>
+#include <spectre/blox/hal/avr/common/ATxxxx/UART1.hpp>
+
+#include <spectre/hal/avr/common/ATMEGA164P_324P_644P_1284P/InterruptController.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,31 +41,11 @@ namespace ATMEGA164P_324P_644P_1284P
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * TYPEDEF
  **************************************************************************************/
 
-class UART1
-{
-
-public:
-
-  UART1(volatile uint8_t                                  * udr1,
-        volatile uint8_t                                  * ucsr1a,
-        volatile uint8_t                                  * ucsr1b,
-        volatile uint8_t                                  * ucsr1c,
-        volatile uint16_t                                 * ubrr1,
-        hal::interface::InterruptController               & int_ctrl,
-        uint32_t                                    const   f_cpu);
-
-  hal::ATxxxx::UART1 & operator () () { return _uart1; }
-
-private:
-
-  hal::ATxxxx::UART1                               _uart1;
-  hal::ATxxxx::UART1_TransmitRegisterEmptyCallback _uart1_uart_data_register_empty_callback;
-  hal::ATxxxx::UART1_ReceiveCompleteCallback       _uart1_receive_complete_callback;
-
-};
+typedef ATxxxx::UART1<hal::ATMEGA164P_324P_644P_1284P::toIntNum(hal::ATMEGA164P_324P_644P_1284P::Interrupt::USART1_UART_DATA_REGISTER_EMPTY),
+                      hal::ATMEGA164P_324P_644P_1284P::toIntNum(hal::ATMEGA164P_324P_644P_1284P::Interrupt::USART1_RECEIVE_COMPLETE        )> UART1;
 
 /**************************************************************************************
  * NAMESPACE

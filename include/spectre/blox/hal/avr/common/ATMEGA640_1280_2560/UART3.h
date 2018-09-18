@@ -23,7 +23,9 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/ATxxxx/UART3.h>
+#include <spectre/blox/hal/avr/common/ATxxxx/UART3.hpp>
+
+#include <spectre/hal/avr/common/ATMEGA640_1280_2560/InterruptController.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,31 +41,11 @@ namespace ATMEGA640_1280_2560
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * TYPEDEF
  **************************************************************************************/
 
-class UART3
-{
-
-public:
-
-  UART3(volatile uint8_t                          * udr3,
-        volatile uint8_t                          * ucsr3a,
-        volatile uint8_t                          * ucsr3b,
-        volatile uint8_t                          * ucsr3c,
-        volatile uint16_t                         * ubrr3,
-        hal::interface::InterruptController       & int_ctrl,
-        uint32_t                            const   f_cpu);
-
-  hal::ATxxxx::UART3 & operator () () { return _uart3; }
-
-private:
-
-  hal::ATxxxx::UART3                               _uart3;
-  hal::ATxxxx::UART3_TransmitRegisterEmptyCallback _uart3_uart_data_register_empty_callback;
-  hal::ATxxxx::UART3_ReceiveCompleteCallback       _uart3_receive_complete_callback;
-
-};
+typedef ATxxxx::UART3<hal::ATMEGA640_1280_2560::toIntNum(hal::ATMEGA640_1280_2560::Interrupt::USART3_UART_DATA_REGISTER_EMPTY),
+                      hal::ATMEGA640_1280_2560::toIntNum(hal::ATMEGA640_1280_2560::Interrupt::USART3_RECEIVE_COMPLETE        )> UART3;
 
 /**************************************************************************************
  * NAMESPACE

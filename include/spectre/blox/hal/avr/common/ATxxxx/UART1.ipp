@@ -17,14 +17,6 @@
  */
 
 /**************************************************************************************
- * INCLUDE
- **************************************************************************************/
-
-#include <spectre/blox/hal/avr/common/ATMEGA16U4_32U4/UART1.h>
-
-#include <spectre/hal/avr/common/ATMEGA16U4_32U4/InterruptController.h>
-
-/**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
@@ -34,14 +26,17 @@ namespace spectre
 namespace blox
 {
 
-namespace ATMEGA16U4_32U4
+namespace ATxxxx
 {
 
 /**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
-UART1::UART1(volatile uint8_t                                  * udr1,
+template <uint8_t UART_DATA_REGISTER_EMPTY_INTERRUPT_NUMBER,
+          uint8_t UART_RECEIVE_COMPLETE_INTERRUPT_NUMBER>
+UART1<UART_DATA_REGISTER_EMPTY_INTERRUPT_NUMBER, UART_RECEIVE_COMPLETE_INTERRUPT_NUMBER>::UART1(
+             volatile uint8_t                                  * udr1,
              volatile uint8_t                                  * ucsr1a,
              volatile uint8_t                                  * ucsr1b,
              volatile uint8_t                                  * ucsr1c,
@@ -52,15 +47,15 @@ UART1::UART1(volatile uint8_t                                  * udr1,
   _uart1_uart_data_register_empty_callback(_uart1),
   _uart1_receive_complete_callback        (_uart1)
 {
-  int_ctrl.registerInterruptCallback(hal::ATMEGA16U4_32U4::toIntNum(hal::ATMEGA16U4_32U4::Interrupt::USART1_UART_DATA_REGISTER_EMPTY), &_uart1_uart_data_register_empty_callback);
-  int_ctrl.registerInterruptCallback(hal::ATMEGA16U4_32U4::toIntNum(hal::ATMEGA16U4_32U4::Interrupt::USART1_RECEIVE_COMPLETE        ), &_uart1_receive_complete_callback        );
+  int_ctrl.registerInterruptCallback(UART_DATA_REGISTER_EMPTY_INTERRUPT_NUMBER, &_uart1_uart_data_register_empty_callback);
+  int_ctrl.registerInterruptCallback(UART_RECEIVE_COMPLETE_INTERRUPT_NUMBER,    &_uart1_receive_complete_callback        );
 }
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA16U4_32U4 */
+} /* ATxxxx */
 
 } /* blox */
 

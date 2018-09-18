@@ -17,14 +17,6 @@
  */
 
 /**************************************************************************************
- * INCLUDE
- **************************************************************************************/
-
-#include <spectre/blox/hal/avr/common/ATMEGA164P_324P_644P_1284P/UART1.h>
-
-#include <spectre/hal/avr/common/ATMEGA164P_324P_644P_1284P/InterruptController.h>
-
-/**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
@@ -34,34 +26,36 @@ namespace spectre
 namespace blox
 {
 
-namespace ATMEGA164P_324P_644P_1284P
+namespace ATxxxx
 {
 
 /**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
-UART1::UART1(volatile uint8_t                                  * udr1,
-             volatile uint8_t                                  * ucsr1a,
-             volatile uint8_t                                  * ucsr1b,
-             volatile uint8_t                                  * ucsr1c,
-             volatile uint16_t                                 * ubrr1,
+template <uint8_t UART_DATA_REGISTER_EMPTY_INTERRUPT_NUMBER,
+          uint8_t UART_RECEIVE_COMPLETE_INTERRUPT_NUMBER>
+UART3<UART_DATA_REGISTER_EMPTY_INTERRUPT_NUMBER, UART_RECEIVE_COMPLETE_INTERRUPT_NUMBER>::UART3(
+             volatile uint8_t                                  * udr3,
+             volatile uint8_t                                  * ucsr3a,
+             volatile uint8_t                                  * ucsr3b,
+             volatile uint8_t                                  * ucsr3c,
+             volatile uint16_t                                 * ubrr3,
              hal::interface::InterruptController               & int_ctrl,
              uint32_t                                    const   f_cpu)
-: _uart1                                  (udr1, ucsr1a, ucsr1b, ucsr1c, ubrr1, int_ctrl, f_cpu),
-  _uart1_uart_data_register_empty_callback(_uart1),
-  _uart1_receive_complete_callback        (_uart1)
-
+: _uart3                                  (udr3, ucsr3a, ucsr3b, ucsr3c, ubrr3, int_ctrl, f_cpu),
+  _uart3_uart_data_register_empty_callback(_uart3),
+  _uart3_receive_complete_callback        (_uart3)
 {
-  int_ctrl.registerInterruptCallback(hal::ATMEGA164P_324P_644P_1284P::toIntNum(hal::ATMEGA164P_324P_644P_1284P::Interrupt::USART1_UART_DATA_REGISTER_EMPTY), &_uart1_uart_data_register_empty_callback);
-  int_ctrl.registerInterruptCallback(hal::ATMEGA164P_324P_644P_1284P::toIntNum(hal::ATMEGA164P_324P_644P_1284P::Interrupt::USART1_RECEIVE_COMPLETE        ), &_uart1_receive_complete_callback        );
+  int_ctrl.registerInterruptCallback(UART_DATA_REGISTER_EMPTY_INTERRUPT_NUMBER, &_uart3_uart_data_register_empty_callback);
+  int_ctrl.registerInterruptCallback(UART_RECEIVE_COMPLETE_INTERRUPT_NUMBER,    &_uart3_receive_complete_callback        );
 }
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA164P_324P_644P_1284P */
+} /* ATxxxx */
 
 } /* blox */
 

@@ -16,13 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_BLOX_HAL_AVR_COMMON_ATXXXX_UART2_HPP_
+#define INCLUDE_SPECTRE_BLOX_HAL_AVR_COMMON_ATXXXX_UART2_HPP_
+
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/blox/hal/avr/common/ATMEGA640_1280_2560/UART1.h>
-
-#include <spectre/hal/avr/common/ATMEGA640_1280_2560/InterruptController.h>
+#include <spectre/hal/avr/common/ATxxxx/UART2.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -34,34 +35,52 @@ namespace spectre
 namespace blox
 {
 
-namespace ATMEGA640_1280_2560
+namespace ATxxxx
 {
 
 /**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
-UART1::UART1(volatile uint8_t                                  * udr1,
-             volatile uint8_t                                  * ucsr1a,
-             volatile uint8_t                                  * ucsr1b,
-             volatile uint8_t                                  * ucsr1c,
-             volatile uint16_t                                 * ubrr1,
-             hal::interface::InterruptController               & int_ctrl,
-             uint32_t                                    const   f_cpu)
-: _uart1                                  (udr1, ucsr1a, ucsr1b, ucsr1c, ubrr1, int_ctrl, f_cpu),
-  _uart1_uart_data_register_empty_callback(_uart1),
-  _uart1_receive_complete_callback        (_uart1)
+template <uint8_t UART_DATA_REGISTER_EMPTY_INTERRUPT_NUMBER,
+          uint8_t UART_RECEIVE_COMPLETE_INTERRUPT_NUMBER>
+class UART2
 {
-  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIntNum(hal::ATMEGA640_1280_2560::Interrupt::USART1_UART_DATA_REGISTER_EMPTY), &_uart1_uart_data_register_empty_callback);
-  int_ctrl.registerInterruptCallback(hal::ATMEGA640_1280_2560::toIntNum(hal::ATMEGA640_1280_2560::Interrupt::USART1_RECEIVE_COMPLETE        ), &_uart1_receive_complete_callback        );
-}
+
+public:
+
+  UART2(volatile uint8_t                                  * udr2,
+        volatile uint8_t                                  * ucsr2a,
+        volatile uint8_t                                  * ucsr2b,
+        volatile uint8_t                                  * ucsr2c,
+        volatile uint16_t                                 * ubrr2,
+        hal::interface::InterruptController               & int_ctrl,
+        uint32_t                                    const   f_cpu);
+
+  hal::ATxxxx::UART2 & operator () () { return _uart2; }
+
+private:
+
+  hal::ATxxxx::UART2                               _uart2;
+  hal::ATxxxx::UART2_TransmitRegisterEmptyCallback _uart2_uart_data_register_empty_callback;
+  hal::ATxxxx::UART2_ReceiveCompleteCallback       _uart2_receive_complete_callback;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA640_1280_2560 */
+} /* ATxxxx */
 
 } /* blox */
 
 } /* spectre */
+
+/**************************************************************************************
+ * TEMPLATE CODE IMPLEMENTATION
+ **************************************************************************************/
+
+#include "UART2.ipp"
+
+#endif /* INCLUDE_SPECTRE_BLOX_HAL_AVR_COMMON_ATXXXX_UART2_HPP_ */
