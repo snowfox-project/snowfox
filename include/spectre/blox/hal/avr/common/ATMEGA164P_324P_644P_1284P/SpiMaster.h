@@ -23,13 +23,9 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/interface/locking/CriticalSection.h>
-#include <spectre/hal/interface/interrupt/InterruptController.h>
+#include <spectre/blox/hal/avr/common/ATxxxx/SpiMaster.hpp>
 
-#include <spectre/hal/avr/common/ATxxxx/SpiMaster.h>
-#include <spectre/hal/avr/common/ATxxxx/SpiMaster_onSerialTransferCompleteCallback.h>
-
-#include <spectre/os/event/Event.h>
+#include <spectre/hal/avr/common/ATMEGA164P_324P_644P_1284P/InterruptController.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -45,39 +41,10 @@ namespace ATMEGA164P_324P_644P_1284P
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * TYPEDEF
  **************************************************************************************/
 
-class SpiMaster
-{
-
-public:
-
-  SpiMaster(volatile uint8_t                    * spcr,
-            volatile uint8_t                    * spsr,
-            volatile uint8_t                    * spdr,
-            hal::interface::CriticalSection     & crit_sec,
-            hal::interface::InterruptController & int_ctrl);
-
-  SpiMaster(volatile uint8_t                          * spcr,
-            volatile uint8_t                          * spsr,
-            volatile uint8_t                          * spdr,
-            hal::interface::CriticalSection           & crit_sec,
-            hal::interface::InterruptController       & int_ctrl,
-            hal::interface::SpiMode             const   spi_mode,
-            hal::interface::SpiBitOrder         const   spi_bit_order,
-            uint32_t                            const   spi_prescaler);
-
-  hal::ATxxxx::SpiMaster & operator () () { return _spi_master; }
-
-private:
-
-  os::Event                                                      _serial_transfer_complete_event;
-  hal::ATxxxx::SpiMaster                                         _spi_master;
-  hal::ATxxxx::SpiMaster_onSerialTransferCompleteCallback        _spi_master_on_serial_transfer_complete_callback;
-  hal::ATxxxx::SpiMaster_onSerialTransferCompleteCallbackAdapter _spi_master_on_serial_transfer_complete_callback_adapter;
-
-};
+typedef ATxxxx::SpiMaster<hal::ATMEGA164P_324P_644P_1284P::toIntNum(hal::ATMEGA164P_324P_644P_1284P::Interrupt::SPI_SERIAL_TRANSFER_COMPLETE)> SpiMaster;
 
 /**************************************************************************************
  * NAMESPACE

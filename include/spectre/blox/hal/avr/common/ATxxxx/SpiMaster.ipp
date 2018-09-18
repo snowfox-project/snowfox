@@ -17,14 +17,6 @@
  */
 
 /**************************************************************************************
- * INCLUDE
- **************************************************************************************/
-
-#include <spectre/blox/hal/avr/common/ATMEGA164P_324P_644P_1284P/SpiMaster.h>
-
-#include <spectre/hal/avr/common/ATMEGA164P_324P_644P_1284P/InterruptController.h>
-
-/**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
@@ -34,36 +26,38 @@ namespace spectre
 namespace blox
 {
 
-namespace ATMEGA164P_324P_644P_1284P
+namespace ATxxxx
 {
 
 /**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
-SpiMaster::SpiMaster(volatile uint8_t                    * spcr,
-                     volatile uint8_t                    * spsr,
-                     volatile uint8_t                    * spdr,
-                     hal::interface::CriticalSection     & crit_sec,
-                     hal::interface::InterruptController & int_ctrl)
+template <uint8_t SERIAL_TRANSFER_COMPLETE_INTERRUPT_NUMBER>
+SpiMaster<SERIAL_TRANSFER_COMPLETE_INTERRUPT_NUMBER>::SpiMaster(volatile uint8_t                    * spcr,
+                                                                volatile uint8_t                    * spsr,
+                                                                volatile uint8_t                    * spdr,
+                                                                hal::interface::CriticalSection     & crit_sec,
+                                                                hal::interface::InterruptController & int_ctrl)
 : _serial_transfer_complete_event                         (crit_sec                                         ),
   _spi_master                                             (spcr, spsr, spdr, _serial_transfer_complete_event),
   _spi_master_on_serial_transfer_complete_callback        (_serial_transfer_complete_event                  ),
   _spi_master_on_serial_transfer_complete_callback_adapter(_spi_master_on_serial_transfer_complete_callback )
 {
-  int_ctrl.registerInterruptCallback(hal::ATMEGA164P_324P_644P_1284P::toIntNum(hal::ATMEGA164P_324P_644P_1284P::Interrupt::SPI_SERIAL_TRANSFER_COMPLETE), &_spi_master_on_serial_transfer_complete_callback_adapter);
-  int_ctrl.enableInterrupt          (hal::ATMEGA164P_324P_644P_1284P::toIntNum(hal::ATMEGA164P_324P_644P_1284P::Interrupt::SPI_SERIAL_TRANSFER_COMPLETE));
+  int_ctrl.registerInterruptCallback(SERIAL_TRANSFER_COMPLETE_INTERRUPT_NUMBER, &_spi_master_on_serial_transfer_complete_callback_adapter);
+  int_ctrl.enableInterrupt          (SERIAL_TRANSFER_COMPLETE_INTERRUPT_NUMBER);
 }
 
-SpiMaster::SpiMaster(volatile uint8_t                          * spcr,
-                     volatile uint8_t                          * spsr,
-                     volatile uint8_t                          * spdr,
-                     hal::interface::CriticalSection           & crit_sec,
-                     hal::interface::InterruptController       & int_ctrl,
-                     hal::interface::SpiMode             const   spi_mode,
-                     hal::interface::SpiBitOrder         const   spi_bit_order,
-                     uint32_t                            const   spi_prescaler)
-: SpiMaster(spcr, spsr, spdr, crit_sec, int_ctrl)
+template <uint8_t SERIAL_TRANSFER_COMPLETE_INTERRUPT_NUMBER>
+SpiMaster<SERIAL_TRANSFER_COMPLETE_INTERRUPT_NUMBER>::SpiMaster(volatile uint8_t                          * spcr,
+                                                                volatile uint8_t                          * spsr,
+                                                                volatile uint8_t                          * spdr,
+                                                                hal::interface::CriticalSection           & crit_sec,
+                                                                hal::interface::InterruptController       & int_ctrl,
+                                                                hal::interface::SpiMode             const   spi_mode,
+                                                                hal::interface::SpiBitOrder         const   spi_bit_order,
+                                                                uint32_t                            const   spi_prescaler)
+: SpiMaster<SERIAL_TRANSFER_COMPLETE_INTERRUPT_NUMBER>(spcr, spsr, spdr, crit_sec, int_ctrl)
 {
   _spi_master.setSpiMode     (spi_mode     );
   _spi_master.setSpiBitOrder (spi_bit_order);
@@ -74,7 +68,7 @@ SpiMaster::SpiMaster(volatile uint8_t                          * spcr,
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA164P_324P_644P_1284P */
+} /* ATxxxx */
 
 } /* blox */
 
