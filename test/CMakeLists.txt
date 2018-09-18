@@ -50,7 +50,6 @@ set(SPECTRE_TEST_HOST_HAL_AVR_ATxxxx_SRCS
   ${SPECTRE_TEST_HAL_AVR_PATH}/ATxxxx/test_DigitalInPort.cpp
   ${SPECTRE_TEST_HAL_AVR_PATH}/ATxxxx/test_DigitalOutPin.cpp
   ${SPECTRE_TEST_HAL_AVR_PATH}/ATxxxx/test_DigitalOutPort.cpp
-  ${SPECTRE_TEST_HAL_AVR_PATH}/ATxxxx/test_SpiMaster.cpp
 )
 
 ##########################################################################
