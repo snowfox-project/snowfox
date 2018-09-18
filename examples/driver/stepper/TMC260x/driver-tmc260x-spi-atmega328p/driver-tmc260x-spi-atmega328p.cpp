@@ -27,8 +27,12 @@
 
 #include <avr/io.h>
 
-#include <spectre/hal/avr/ATMEGA328P/SpiMaster.h>
+#include <spectre/hal/avr/ATMEGA328P/DigitalInPin.h>
 #include <spectre/hal/avr/ATMEGA328P/DigitalOutPin.h>
+#include <spectre/hal/avr/ATMEGA328P/CriticalSection.h>
+#include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
+
+#include <spectre/blox/hal/avr/ATMEGA328P/SpiMaster.h>
 
 #include <spectre/driver/stepper/TMC26x/TMC26x.h>
 
@@ -56,16 +60,31 @@ int main()
 {
   /* HAL ******************************************************************************/
 
-  ATMEGA328P::SpiMaster     spi_master             (&SPCR, &SPSR, &SPDR);
-  ATMEGA328P::DigitalOutPin tmc26x_cs              (&DDRB, &PORTB, 2);  /* D10 = PB2 */
-  ATMEGA328P::DigitalOutPin tmc26x_step            (&DDRD, &PORTD, 7);  /* D7  = PD7 */
-  ATMEGA328P::DigitalOutPin tmc26x_dir             (&DDRD, &PORTD, 6);  /* D6  = PD6 */
-  ATMEGA328P::DigitalOutPin tmc26x_nEnable         (&DDRD, &PORTD, 5);  /* D5  = PD5 */
-  ATMEGA328P::DigitalOutPin tmc26x_sg              (&DDRD, &PORTD, 4);  /* D4  = PD4 */
+  ATMEGA328P::InterruptController int_ctrl      (&EIMSK, &PCICR, &WDTCSR, &TIMSK0, &TIMSK1, &TIMSK2, &UCSR0B, &SPCR, &TWCR, &EECR, &SPMCSR, &ACSR, &ADCSRA);
+  ATMEGA328P::CriticalSection     crit_sec      (&SREG);
 
-  spi_master.setSpiMode         (TMC26x_SPI_MODE     );
-  spi_master.setSpiBitOrder     (TMC26x_SPI_BIT_ORDER);
-  spi_master.setSpiPrescaler    (TMC26x_SPI_PRESCALER);
+  ATMEGA328P::DigitalOutPin       tmc26x_cs     (&DDRB, &PORTB,        2); /* CS      = D10 = PB2 */
+  ATMEGA328P::DigitalOutPin       tmc26x_sck    (&DDRB, &PORTB,        5); /* SCK     = D13 = PB5 */
+  ATMEGA328P::DigitalInPin        tmc26x_miso   (&DDRB, &PORTB, &PINB, 4); /* MISO    = D12 = PB4 */
+  ATMEGA328P::DigitalOutPin       tmc26x_mosi   (&DDRB, &PORTB,        3); /* MOSI    = D11 = PB3 */
+
+  ATMEGA328P::DigitalOutPin       tmc26x_step   (&DDRD, &PORTD,        7); /* STEP    = D7  = PD7 */
+  ATMEGA328P::DigitalOutPin       tmc26x_dir    (&DDRD, &PORTD,        6); /* DIR     = D6  = PD6 */
+  ATMEGA328P::DigitalOutPin       tmc26x_nEnable(&DDRD, &PORTD,        5); /* nENABLE = D5  = PD5 */
+  ATMEGA328P::DigitalOutPin       tmc26x_sg     (&DDRD, &PORTD,        4); /* SG      = D4  = PD4 */
+
+  tmc26x_cs.set();
+  tmc26x_miso.setPullUpMode(hal::interface::PullUpMode::PULL_UP);
+
+  blox::ATMEGA328P::SpiMaster     spi_master    (&SPCR,
+                                                 &SPSR,
+                                                 &SPDR,
+                                                 crit_sec,
+                                                 int_ctrl,
+                                                 TMC26x_SPI_MODE,
+                                                 TMC26x_SPI_BIT_ORDER,
+                                                 TMC26x_SPI_PRESCALER);
+
 
   /* DRIVER ***************************************************************************/
 
