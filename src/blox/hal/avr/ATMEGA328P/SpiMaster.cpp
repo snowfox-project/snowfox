@@ -55,6 +55,21 @@ SpiMaster::SpiMaster(volatile uint8_t                    * spcr,
   int_ctrl.enableInterrupt          (hal::ATMEGA328P::toIntNum(hal::ATMEGA328P::Interrupt::SPI_SERIAL_TRANSFER_COMPLETE));
 }
 
+SpiMaster::SpiMaster(volatile uint8_t                          * spcr,
+                     volatile uint8_t                          * spsr,
+                     volatile uint8_t                          * spdr,
+                     hal::interface::CriticalSection           & crit_sec,
+                     hal::interface::InterruptController       & int_ctrl,
+                     hal::interface::SpiMode             const   spi_mode,
+                     hal::interface::SpiBitOrder         const   spi_bit_order,
+                     uint32_t                            const   spi_prescaler)
+: SpiMaster(spcr, spsr, spdr, crit_sec, int_ctrl)
+{
+  _spi_master.setSpiMode     (spi_mode     );
+  _spi_master.setSpiBitOrder (spi_bit_order);
+  _spi_master.setSpiPrescaler(spi_prescaler);
+}
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/

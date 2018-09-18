@@ -59,6 +59,14 @@ public:
             hal::interface::CriticalSection     & crit_sec,
             hal::interface::InterruptController & int_ctrl);
 
+  SpiMaster(volatile uint8_t                          * spcr,
+            volatile uint8_t                          * spsr,
+            volatile uint8_t                          * spdr,
+            hal::interface::CriticalSection           & crit_sec,
+            hal::interface::InterruptController       & int_ctrl,
+            hal::interface::SpiMode             const   spi_mode,
+            hal::interface::SpiBitOrder         const   spi_bit_order,
+            uint32_t                            const   spi_prescaler);
 
   hal::ATxxxx::SpiMaster & operator () () { return _spi_master; }
 
