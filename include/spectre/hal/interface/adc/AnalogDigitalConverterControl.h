@@ -16,15 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_ADC_ANALOGDIGITALCONVERTER_H_
-#define INCLUDE_SPECTRE_HAL_INTERFACE_ADC_ANALOGDIGITALCONVERTER_H_
+#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_ADC_ANALOGDIGITALCONVERTERCONTROL_H_
+#define INCLUDE_SPECTRE_HAL_INTERFACE_ADC_ANALOGDIGITALCONVERTERCONTROL_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/interface/adc/AnalogDigitalConverterControl.h>
-#include <spectre/hal/interface/adc/AnalogDigitalConverterConfiguration.h>
+#include <stdint.h>
+#include <stdbool.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -43,15 +43,19 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class AnalogDigitalConverter : public AnalogDigitalConverterControl,
-                               public AnalogDigitalConverterConfiguration
+class AnalogDigitalConverterControl
 {
 
 public:
 
-           AnalogDigitalConverter() { }
-  virtual ~AnalogDigitalConverter() { }
+           AnalogDigitalConverterControl() { }
+  virtual ~AnalogDigitalConverterControl() { }
 
+
+  virtual void     setAnalogChannel     (uint8_t const adc_channel) = 0;
+  virtual void     startConversion      (                         ) = 0;
+  virtual bool     isConversionComplete (                         ) = 0;
+  virtual uint32_t getConversionResult  (                         ) = 0;
 
 };
 
@@ -65,4 +69,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_ADC_ANALOGDIGITALCONVERTER_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_ADC_ANALOGDIGITALCONVERTERCONTROL_H_ */

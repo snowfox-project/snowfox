@@ -24,7 +24,6 @@
  **************************************************************************************/
 
 #include <spectre/hal/interface/adc/AnalogDigitalConverter.h>
-#include <spectre/hal/interface/adc/AnalogDigitalConverterConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -54,8 +53,7 @@ enum class VRef : uint8_t
  * CLASS DECLARATION
  **************************************************************************************/
 
-class AnalogDigitalConverter : public interface::AnalogDigitalConverter,
-                               public interface::AnalogDigitalConverterConfiguration
+class AnalogDigitalConverter : public interface::AnalogDigitalConverter
 {
 
 public:
@@ -64,12 +62,12 @@ public:
   virtual ~AnalogDigitalConverter();
 
 
-  /* Analog Digital Converter Interface */
+  /* Analog Digital Converter Control Interface */
 
-  virtual void     setAnalogChannel     (uint8_t  const adc_channel) override;
-  virtual void     startConversion      (                          ) override;
-  virtual bool     isConversionComplete (                          ) override;
-  virtual uint32_t getConversionResult  (                          ) override;
+  virtual void     setAnalogChannel     (uint8_t const adc_channel) override;
+  virtual void     startConversion      (                         ) override;
+  virtual bool     isConversionComplete (                         ) override;
+  virtual uint32_t getConversionResult  (                         ) override;
 
 
   /* Analog Digital Converter Configuration Interface */
