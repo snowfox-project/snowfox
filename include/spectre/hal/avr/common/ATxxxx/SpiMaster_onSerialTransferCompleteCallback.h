@@ -23,8 +23,6 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/interface/spi/events/SpiMaster_onSerialTransferCompleteCallback.h>
-
 #include <spectre/hal/interface/interrupt/InterruptCallback.h>
 
 #include <spectre/os/event/interface/EventProducer.h>
@@ -46,7 +44,9 @@ namespace ATxxxx
  * CLASS DECLARATION
  **************************************************************************************/
 
-class SpiMaster_onSerialTransferCompleteCallback : public interface::SpiMaster_onSerialTransferCompleteCallback
+/**************************************************************************************/
+
+class SpiMaster_onSerialTransferCompleteCallback : public interface::InterruptCallback
 {
 
 public:
@@ -55,34 +55,11 @@ public:
   virtual ~SpiMaster_onSerialTransferCompleteCallback();
 
 
-  virtual void onSerialTransferComplete() override;
-
+  virtual void interruptServiceRoutine() override;
 
 private:
 
   os::interface::EventProducer & _spi_transfer_complete_event;
-
-};
-
-/**************************************************************************************/
-
-class SpiMaster_onSerialTransferCompleteCallbackAdapter : public interface::InterruptCallback
-{
-
-public:
-
-           SpiMaster_onSerialTransferCompleteCallbackAdapter(SpiMaster_onSerialTransferCompleteCallback & on_serial_transfer_complete_callback) : _on_serial_transfer_complete_callback(on_serial_transfer_complete_callback) { }
-  virtual ~SpiMaster_onSerialTransferCompleteCallbackAdapter() { }
-
-
-  virtual void interruptServiceRoutine() override
-  {
-    _on_serial_transfer_complete_callback.onSerialTransferComplete();
-  }
-
-private:
-
-  SpiMaster_onSerialTransferCompleteCallback & _on_serial_transfer_complete_callback;
 
 };
 

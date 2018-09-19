@@ -54,7 +54,7 @@ SpiMaster_onSerialTransferCompleteCallback::~SpiMaster_onSerialTransferCompleteC
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void SpiMaster_onSerialTransferCompleteCallback::onSerialTransferComplete()
+void SpiMaster_onSerialTransferCompleteCallback::interruptServiceRoutine()
 {
   _spi_transfer_complete_event.set();
 }

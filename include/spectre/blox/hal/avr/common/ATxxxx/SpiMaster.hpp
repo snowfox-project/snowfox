@@ -75,10 +75,9 @@ public:
 
 private:
 
-  os::Event                                                      _serial_transfer_complete_event;
-  hal::ATxxxx::SpiMaster                                         _spi_master;
-  hal::ATxxxx::SpiMaster_onSerialTransferCompleteCallback        _spi_master_on_serial_transfer_complete_callback;
-  hal::ATxxxx::SpiMaster_onSerialTransferCompleteCallbackAdapter _spi_master_on_serial_transfer_complete_callback_adapter;
+  os::Event                                               _serial_transfer_complete_event;
+  hal::ATxxxx::SpiMaster                                  _spi_master;
+  hal::ATxxxx::SpiMaster_onSerialTransferCompleteCallback _spi_master_on_serial_transfer_complete_callback;
 
 };
 

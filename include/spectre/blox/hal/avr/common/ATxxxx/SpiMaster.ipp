@@ -39,12 +39,11 @@ SpiMaster<SERIAL_TRANSFER_COMPLETE_INTERRUPT_NUMBER>::SpiMaster(volatile uint8_t
                                                                 volatile uint8_t                    * spdr,
                                                                 hal::interface::CriticalSection     & crit_sec,
                                                                 hal::interface::InterruptController & int_ctrl)
-: _serial_transfer_complete_event                         (crit_sec                                         ),
-  _spi_master                                             (spcr, spsr, spdr, _serial_transfer_complete_event),
-  _spi_master_on_serial_transfer_complete_callback        (_serial_transfer_complete_event                  ),
-  _spi_master_on_serial_transfer_complete_callback_adapter(_spi_master_on_serial_transfer_complete_callback )
+: _serial_transfer_complete_event                 (crit_sec                                         ),
+  _spi_master                                     (spcr, spsr, spdr, _serial_transfer_complete_event),
+  _spi_master_on_serial_transfer_complete_callback(_serial_transfer_complete_event                  )
 {
-  int_ctrl.registerInterruptCallback(SERIAL_TRANSFER_COMPLETE_INTERRUPT_NUMBER, &_spi_master_on_serial_transfer_complete_callback_adapter);
+  int_ctrl.registerInterruptCallback(SERIAL_TRANSFER_COMPLETE_INTERRUPT_NUMBER, &_spi_master_on_serial_transfer_complete_callback);
   int_ctrl.enableInterrupt          (SERIAL_TRANSFER_COMPLETE_INTERRUPT_NUMBER);
 }
 
