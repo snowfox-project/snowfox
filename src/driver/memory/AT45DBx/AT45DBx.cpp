@@ -140,7 +140,7 @@ namespace AT45DBx
  * CTOR/DTOR
  **************************************************************************************/
 
-AT45DBx::AT45DBx(hal::interface::SpiMaster & spi_master, hal::interface::DigitalOutPin & cs)
+AT45DBx::AT45DBx(hal::interface::SpiMasterControl & spi_master, hal::interface::DigitalOutPin & cs)
 : _spi_master(spi_master),
   _cs        (cs        ),
   _page_shift(0         ),

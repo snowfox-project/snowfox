@@ -25,8 +25,8 @@
 
 #include <spectre/driver/can/MCP2515/interface/MCP2515_Io.h>
 
-#include <spectre/hal/interface/spi/SpiMaster.h>
 #include <spectre/hal/interface/gpio/DigitalOutPin.h>
+#include <spectre/hal/interface/spi/SpiMasterControl.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -53,7 +53,7 @@ class MCP2515_IoSpi : public interface::MCP2515_Io
 
 public:
 
-           MCP2515_IoSpi(hal::interface::SpiMaster & spi_master, hal::interface::DigitalOutPin & cs);
+           MCP2515_IoSpi(hal::interface::SpiMasterControl & spi_master, hal::interface::DigitalOutPin & cs);
   virtual ~MCP2515_IoSpi();
 
 
@@ -76,8 +76,8 @@ public:
 
 private:
 
-  hal::interface::SpiMaster     & _spi_master;
-  hal::interface::DigitalOutPin & _cs;
+  hal::interface::SpiMasterControl & _spi_master;
+  hal::interface::DigitalOutPin    & _cs;
 
   void loadTxX(uint8_t const instruction, uint8_t const * tx_buf);
   void loadRxX(uint8_t const instruction, uint8_t       * rx_buf);

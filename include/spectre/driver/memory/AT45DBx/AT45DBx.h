@@ -26,8 +26,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include <spectre/hal/interface/spi/SpiMaster.h>
 #include <spectre/hal/interface/gpio/DigitalOutPin.h>
+#include <spectre/hal/interface/spi/SpiMasterControl.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -92,7 +92,7 @@ class AT45DBx : public Interface,
 
 public:
 
-           AT45DBx(hal::interface::SpiMaster & spi_master, hal::interface::DigitalOutPin & cs);
+           AT45DBx(hal::interface::SpiMasterControl & spi_master, hal::interface::DigitalOutPin & cs);
   virtual ~AT45DBx();
 
 
@@ -117,8 +117,8 @@ public:
 
 private:
 
-  hal::interface::SpiMaster     & _spi_master;
-  hal::interface::DigitalOutPin & _cs;
+  hal::interface::SpiMasterControl & _spi_master;
+  hal::interface::DigitalOutPin    & _cs;
 
   uint32_t                        _page_shift;
   uint32_t                        _num_pages;
