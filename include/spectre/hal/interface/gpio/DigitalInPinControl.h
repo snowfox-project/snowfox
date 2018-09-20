@@ -16,15 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINPIN_H_
-#define INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINPIN_H_
+#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINPINCONTROL_H_
+#define INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINPINCONTROL_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/interface/gpio/DigitalInPinControl.h>
-#include <spectre/hal/interface/gpio/DigitalInConfiguration.h>
+#include <stdbool.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -43,14 +42,16 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class DigitalInPin : public DigitalInPinControl,
-                     public DigitalInConfiguration
+class DigitalInPinControl
 {
 
 public:
 
-           DigitalInPin() { }
-  virtual ~DigitalInPin() { }
+           DigitalInPinControl() { }
+  virtual ~DigitalInPinControl() { }
+
+  virtual bool isSet() = 0;
+  inline  bool isClr() { return !isSet(); }
 
 };
 
@@ -64,4 +65,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINPIN_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINPINCONTROL_H_ */

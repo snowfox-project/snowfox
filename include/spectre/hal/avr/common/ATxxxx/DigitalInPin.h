@@ -26,7 +26,6 @@
 #include <stdint.h>
 
 #include <spectre/hal/interface/gpio/DigitalInPin.h>
-#include <spectre/hal/interface/gpio/DigitalInConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -45,8 +44,7 @@ namespace ATxxxx
  * CLASS DECLARATION
  **************************************************************************************/
 
-class DigitalInPin : public interface::DigitalInPin,
-                     public interface::DigitalInConfiguration
+class DigitalInPin : public interface::DigitalInPin
 {
 
 public:
