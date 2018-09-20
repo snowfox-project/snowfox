@@ -10,7 +10,7 @@ Spectre consists of a Real Time Operating System + a Hardware Abstraction Layer 
 
 ### Why #1?
 
-The application of OO principles such as SOLID leads to a clean code base and minimizes coupling between modules. This enables the application of Test Driven Development which gives developers instantenous feedback on their code therefore eliminating tedious integration and bug fixing sessions typical for Debug-Later-Programming. **Deliver your projects on budget, time and scope.**
+The application of OO principles such as SOLID leads to a clean code base and minimizes coupling between modules. This enables the application of Test Driven Development which gives developers instantenous feedback on their code therefore eliminating tedious integration and bug fixing sessions typical for Debug-Later-Programming.
 
 ### Why #2?
 
@@ -141,7 +141,7 @@ cmake ..
 make
 ```
 
-## Documentation
+## Further Reading
  
 * [Debug-Tools](README-Debug-Tools.md)
 
