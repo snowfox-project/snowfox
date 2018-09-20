@@ -45,7 +45,7 @@ namespace interface
  **************************************************************************************/
 
 template <typename T>
-class DigitalInOutPort : public DigitalInPortControl <T>,
+class DigitalInOutPort : public DigitalInPortControl<T>,
                          public DigitalOutPort<T>,
                          public DigitalInOutPortConfiguration
 {
