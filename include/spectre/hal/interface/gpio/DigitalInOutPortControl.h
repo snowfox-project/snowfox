@@ -16,15 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINOUTPORT_H_
-#define INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINOUTPORT_H_
+#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINOUTPORTCONTROL_H_
+#define INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINOUTPORTCONTROL_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/interface/gpio/DigitalInOutPortControl.h>
-#include <spectre/hal/interface/gpio/DigitalInOutPortConfiguration.h>
+#include <spectre/hal/interface/gpio/DigitalInPortControl.h>
+#include <spectre/hal/interface/gpio/DigitalOutPortControl.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -44,14 +44,14 @@ namespace interface
  **************************************************************************************/
 
 template <typename T>
-class DigitalInOutPort : public DigitalInOutPortControl<T>,
-                         public DigitalInOutPortConfiguration
+class DigitalInOutPortControl : public DigitalInPortControl<T>,
+                                public DigitalOutPortControl<T>
 {
 
 public:
 
-           DigitalInOutPort() { }
-  virtual ~DigitalInOutPort() { }
+           DigitalInOutPortControl() { }
+  virtual ~DigitalInOutPortControl() { }
 
 };
 
@@ -65,4 +65,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINOUTPORT_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINOUTPORTCONTROL_H_ */
