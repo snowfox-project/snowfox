@@ -26,7 +26,6 @@
 #include <stdint.h>
 
 #include <spectre/hal/interface/gpio/DigitalInPort.h>
-#include <spectre/hal/interface/gpio/DigitalInConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -45,8 +44,7 @@ namespace ATxxxx
  * CLASS DECLARATION
  **************************************************************************************/
 
-class DigitalInPort : public interface::DigitalInPort<uint8_t>,
-                      public interface::DigitalInConfiguration
+class DigitalInPort : public interface::DigitalInPort<uint8_t>
 {
 
 public:

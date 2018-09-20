@@ -16,15 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINPORT_H_
-#define INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINPORT_H_
-
-/**************************************************************************************
- * INCLUDE
- **************************************************************************************/
-
-#include <spectre/hal/interface/gpio/DigitalInPortControl.h>
-#include <spectre/hal/interface/gpio/DigitalInConfiguration.h>
+#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINPORT_CONTROL_H_
+#define INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINPORT_CONTROL_H_
 
 /**************************************************************************************
  * NAMESPACE
@@ -44,14 +37,15 @@ namespace interface
  **************************************************************************************/
 
 template <typename T>
-class DigitalInPort : public DigitalInPortControl<T>,
-                      public DigitalInConfiguration
+class DigitalInPortControl
 {
 
 public:
 
-           DigitalInPort() { }
-  virtual ~DigitalInPort() { }
+           DigitalInPortControl() { }
+  virtual ~DigitalInPortControl() { }
+
+  virtual T get() = 0;
 
 };
 
@@ -65,4 +59,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINPORT_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINPORT_CONTROL_H_ */

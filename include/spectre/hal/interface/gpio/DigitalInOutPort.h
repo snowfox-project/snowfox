@@ -23,7 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/interface/gpio/DigitalInPort.h>
+#include <spectre/hal/interface/gpio/DigitalInPortControl.h>
 #include <spectre/hal/interface/gpio/DigitalOutPort.h>
 #include <spectre/hal/interface/gpio/DigitalInOutPortConfiguration.h>
 
@@ -45,7 +45,7 @@ namespace interface
  **************************************************************************************/
 
 template <typename T>
-class DigitalInOutPort : public DigitalInPort <T>,
+class DigitalInOutPort : public DigitalInPortControl <T>,
                          public DigitalOutPort<T>,
                          public DigitalInOutPortConfiguration
 {
