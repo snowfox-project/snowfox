@@ -20,6 +20,12 @@
 #define INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALOUTPORT_H_
 
 /**************************************************************************************
+ * INCLUDE
+ **************************************************************************************/
+
+#include <spectre/hal/interface/gpio/DigitalOutPortControl.h>
+
+/**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
@@ -37,15 +43,13 @@ namespace interface
  **************************************************************************************/
 
 template <typename T>
-class DigitalOutPort
+class DigitalOutPort : public DigitalOutPortControl<T>
 {
 
 public:
 
            DigitalOutPort() { }
   virtual ~DigitalOutPort() { }
-
-  virtual void set(T const val) = 0;
 
 };
 
