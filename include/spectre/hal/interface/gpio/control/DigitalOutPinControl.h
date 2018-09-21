@@ -16,14 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALOUTPIN_H_
-#define INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALOUTPIN_H_
-
-/**************************************************************************************
- * INCLUDE
- **************************************************************************************/
-
-#include <spectre/hal/interface/gpio/control/DigitalOutPinControl.h>
+#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_CONTROL_DIGITALOUTPINCONTROL_H_
+#define INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_CONTROL_DIGITALOUTPINCONTROL_H_
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,13 +36,16 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class DigitalOutPin : public DigitalOutPinControl
+class DigitalOutPinControl
 {
 
 public:
 
-           DigitalOutPin() { }
-  virtual ~DigitalOutPin() { }
+           DigitalOutPinControl() { }
+  virtual ~DigitalOutPinControl() { }
+
+  virtual void set() = 0;
+  virtual void clr() = 0;
 
 };
 
@@ -62,4 +59,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALOUTPIN_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_CONTROL_DIGITALOUTPINCONTROL_H_ */
