@@ -16,14 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINCONFIGURATION_H_
-#define INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINCONFIGURATION_H_
+#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINOUTPORTCONTROL_H_
+#define INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINOUTPORTCONTROL_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/interface/gpio/PullUpMode.h>
+#include <spectre/hal/interface/gpio/control/DigitalInPortControl.h>
+#include <spectre/hal/interface/gpio/control/DigitalOutPortControl.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,16 +43,15 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class DigitalInConfiguration
+template <typename T>
+class DigitalInOutPortControl : public DigitalInPortControl<T>,
+                                public DigitalOutPortControl<T>
 {
 
 public:
 
-           DigitalInConfiguration() { }
-  virtual ~DigitalInConfiguration() { }
-
-
-  virtual void setPullUpMode(PullUpMode const pullup_mode) = 0;
+           DigitalInOutPortControl() { }
+  virtual ~DigitalInOutPortControl() { }
 
 };
 
@@ -65,4 +65,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINCONFIGURATION_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALINOUTPORTCONTROL_H_ */

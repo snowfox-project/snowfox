@@ -23,8 +23,8 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/interface/gpio/DigitalInPortControl.h>
-#include <spectre/hal/interface/gpio/DigitalInConfiguration.h>
+#include <spectre/hal/interface/gpio/control/DigitalInPortControl.h>
+#include <spectre/hal/interface/gpio/config/DigitalInConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE

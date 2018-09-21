@@ -23,7 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/interface/gpio/DigitalOutPortControl.h>
+#include <spectre/hal/interface/gpio/control/DigitalOutPortControl.h>
 
 /**************************************************************************************
  * NAMESPACE

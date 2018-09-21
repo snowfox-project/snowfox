@@ -19,8 +19,6 @@
 #ifndef INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALOUTPIN_H_
 #define INCLUDE_SPECTRE_HAL_INTERFACE_GPIO_DIGITALOUTPIN_H_
 
-#include <stdbool.h>
-
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
