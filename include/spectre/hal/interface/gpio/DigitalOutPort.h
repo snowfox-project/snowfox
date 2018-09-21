@@ -39,19 +39,11 @@ namespace interface
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * TYPEDEF (ALIAS TEMPLATE)
  **************************************************************************************/
 
-template <typename T>
-class DigitalOutPort : public DigitalOutPortControl<T>
-{
-
-public:
-
-           DigitalOutPort() { }
-  virtual ~DigitalOutPort() { }
-
-};
+template<typename T>
+using DigitalOutPort = DigitalOutPortControl<T>;
 
 /**************************************************************************************
  * NAMESPACE
