@@ -39,18 +39,10 @@ namespace interface
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * TYPEDEF
  **************************************************************************************/
 
-class DigitalOutPin : public DigitalOutPinControl
-{
-
-public:
-
-           DigitalOutPin() { }
-  virtual ~DigitalOutPin() { }
-
-};
+typedef DigitalOutPinControl DigitalOutPin;
 
 /**************************************************************************************
  * NAMESPACE
