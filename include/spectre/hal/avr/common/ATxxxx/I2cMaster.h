@@ -24,7 +24,6 @@
  **************************************************************************************/
 
 #include <spectre/hal/interface/i2c/I2cMaster.h>
-#include <spectre/hal/interface/i2c/I2cMasterConfiguration.h>
 
 #include <spectre/hal/avr/common/ATxxxx/interface/I2cMasterLowLevel.h>
 
@@ -45,8 +44,7 @@ namespace ATxxxx
  * CLASS DECLARATION
  **************************************************************************************/
 
-class I2cMaster : public hal::interface::I2cMaster,
-                  public hal::interface::I2cMasterConfiguration
+class I2cMaster : public hal::interface::I2cMaster
 {
 
 public:

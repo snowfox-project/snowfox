@@ -16,15 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INTERFACE_I2C_MASTER_H_
-#define INTERFACE_I2C_MASTER_H_
+#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_I2C_I2CMASTERCONTROL_H_
+#define INCLUDE_SPECTRE_HAL_INTERFACE_I2C_I2CMASTERCONTROL_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/interface/i2c/I2cMasterControl.h>
-#include <spectre/hal/interface/i2c/I2cMasterConfiguration.h>
+#include <stdint.h>
+#include <stdbool.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -43,14 +43,19 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class I2cMaster : public I2cMasterControl,
-                  public I2cMasterConfiguration
+class I2cMasterControl
 {
 
 public:
 
-           I2cMaster() { }
-  virtual ~I2cMaster() { }
+           I2cMasterControl() { }
+  virtual ~I2cMasterControl() { }
+
+
+  virtual bool begin      (uint8_t const address, bool const is_read_access               ) = 0;
+  virtual void end        (                                                               ) = 0;
+  virtual bool write      (uint8_t const data                                             ) = 0;
+  virtual bool requestFrom(uint8_t const address, uint8_t * data, uint16_t const num_bytes) = 0;
 
 };
 
@@ -64,4 +69,4 @@ public:
 
 } /* spectre */
 
-#endif /* INTERFACE_I2C_MASTER_H_*/
+#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_I2C_I2CMASTERCONTROL_H_ */
