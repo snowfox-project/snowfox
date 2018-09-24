@@ -16,15 +16,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_BLOX_HAL_AVR_COMMON_ATXXXX_I2CMASTER_H_
-#define INCLUDE_SPECTRE_BLOX_HAL_AVR_COMMON_ATXXXX_I2CMASTER_H_
+#ifndef INCLUDE_SPECTRE_BLOX_HAL_AVR_COMMON_ATXXXX_I2CMASTER_HPP_
+#define INCLUDE_SPECTRE_BLOX_HAL_AVR_COMMON_ATXXXX_I2CMASTER_HPP_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
+#include <stdint.h>
+
+#include <spectre/hal/interface/locking/CriticalSection.h>
+#include <spectre/hal/interface/interrupt/InterruptController.h>
+
 #include <spectre/hal/avr/common/ATxxxx/I2cMaster.h>
 #include <spectre/hal/avr/common/ATxxxx/I2cMasterLowLevel.h>
+#include <spectre/hal/avr/common/ATxxxx/I2cMaster_onI2cTransferCompleteCallback.h>
+
+#include <spectre/os/event/Event.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -43,22 +51,27 @@ namespace ATxxxx
  * CTOR/DTOR
  **************************************************************************************/
 
+template <uint8_t I2C_TRANSFER_COMPLETE_INTERRUPT_NUMBER>
 class I2cMaster
 {
 
 public:
 
-  I2cMaster(volatile uint8_t * twcr,
-            volatile uint8_t * twdr,
-            volatile uint8_t * twsr,
-            volatile uint8_t * twbr);
+  I2cMaster(volatile uint8_t                    * twcr,
+            volatile uint8_t                    * twdr,
+            volatile uint8_t                    * twsr,
+            volatile uint8_t                    * twbr,
+            hal::interface::CriticalSection     & crit_sec,
+            hal::interface::InterruptController & int_ctrl);
 
   hal::ATxxxx::I2cMaster & operator () () { return _i2c_master; }
 
 private:
 
-  hal::ATxxxx::I2cMasterLowLevel _i2c_master_low_level;
-  hal::ATxxxx::I2cMaster         _i2c_master;
+  os::Event                                            _i2c_transfer_complete_event;
+  hal::ATxxxx::I2cMasterLowLevel                       _i2c_master_low_level;
+  hal::ATxxxx::I2cMaster                               _i2c_master;
+  hal::ATxxxx::I2cMaster_onI2cTransferCompleteCallback _i2c_master_on_i2c_transfer_complete_callback;
 
 };
 
@@ -72,4 +85,10 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_BLOX_HAL_AVR_COMMON_ATXXXX_I2CMASTER_H_ */
+/**************************************************************************************
+ * TEMPLATE CODE IMPLEMENTATION
+ **************************************************************************************/
+
+#include "I2cMaster.ipp"
+
+#endif /* INCLUDE_SPECTRE_BLOX_HAL_AVR_COMMON_ATXXXX_I2CMASTER_HPP_ */

@@ -22,6 +22,8 @@
 
 #include <spectre/hal/avr/common/ATxxxx/I2cMasterLowLevel.h>
 
+#include <spectre/os/event/EventWaiter.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -87,11 +89,16 @@ namespace ATxxxx
  * CTOR/DTOR
  **************************************************************************************/
 
-I2cMasterLowLevel::I2cMasterLowLevel(volatile uint8_t * twcr, volatile uint8_t * twdr, volatile uint8_t * twsr, volatile uint8_t * twbr)
-: _TWCR(twcr),
-  _TWDR(twdr),
-  _TWSR(twsr),
-  _TWBR(twbr)
+I2cMasterLowLevel::I2cMasterLowLevel(volatile uint8_t             * twcr,
+                                     volatile uint8_t             * twdr,
+                                     volatile uint8_t             * twsr,
+                                     volatile uint8_t             * twbr,
+                                     os::interface::EventConsumer & i2c_transfer_complete_event)
+: _TWCR                       (twcr                       ),
+  _TWDR                       (twdr                       ),
+  _TWSR                       (twsr                       ),
+  _TWBR                       (twbr                       ),
+  _i2c_transfer_complete_event(i2c_transfer_complete_event)
 {
 
 }
@@ -108,11 +115,12 @@ I2cMasterLowLevel::~I2cMasterLowLevel()
 
 bool I2cMasterLowLevel::start(uint8_t const address)
 {
+  _i2c_transfer_complete_event.clear();
   /* Transmit START condition */
   *_TWCR = TWINT_bm | TWSTA_bm | TWEN_bm;
 
   /* Wait for end of transmission */
-  while( !(*_TWCR & TWINT_bm) );
+  os::EventWaiter::wait(_i2c_transfer_complete_event);
 
   /* Check if the start condition was successfully transmitted */
   uint8_t twst = *_TWSR & 0xF8;
@@ -121,11 +129,12 @@ bool I2cMasterLowLevel::start(uint8_t const address)
   /* Load slave address into data register */
   *_TWDR = address;
 
+  _i2c_transfer_complete_event.clear();
   /* Start transmission of address */
   *_TWCR = TWINT_bm | TWEN_bm;
 
   /* Wait for end of transmission */
-  while( !(*_TWCR & TWINT_bm) );
+  os::EventWaiter::wait(_i2c_transfer_complete_event);
 
   /* Check if the device has acknowledged the READ / WRITE mode */
   twst = *_TWSR & 0xF8;
@@ -138,11 +147,12 @@ bool I2cMasterLowLevel::transmitByte(uint8_t const data)
   /* Load data into data register */
   *_TWDR = data;
 
+  _i2c_transfer_complete_event.clear();
   /* Start transmission of data */
   *_TWCR = TWINT_bm | TWEN_bm;
 
   /* Wait for end of transmission */
-  while( !(*_TWCR & TWINT_bm) );
+  os::EventWaiter::wait(_i2c_transfer_complete_event);
 
   if  ((*_TWSR & 0xF8) != TW_MT_DATA_ACK ) return false;
   else                                     return true;
@@ -150,11 +160,12 @@ bool I2cMasterLowLevel::transmitByte(uint8_t const data)
 
 void I2cMasterLowLevel::receiveByteAndSendACK(uint8_t * data)
 {
+  _i2c_transfer_complete_event.clear();
   /* Start TWI module and acknowledge data after reception */
   *_TWCR = TWINT_bm | TWEN_bm | TWEA_bm;
 
   /* Wait for end of transmission */
-  while( !(*_TWCR & TWINT_bm) );
+  os::EventWaiter::wait(_i2c_transfer_complete_event);
 
   /* Read received data from TWDR */
   *data = *_TWDR;
@@ -162,11 +173,12 @@ void I2cMasterLowLevel::receiveByteAndSendACK(uint8_t * data)
 
 void I2cMasterLowLevel::receiveByteAndSendNACK(uint8_t * data)
 {
+  _i2c_transfer_complete_event.clear();
   /* Start receiving without acknowledging reception */
   *_TWCR = TWINT_bm | TWEN_bm;
 
   /* Wait for end of transmission */
-  while( !(*_TWCR & TWINT_bm) );
+  os::EventWaiter::wait(_i2c_transfer_complete_event);
 
   /* Read received data from TWDR */
   *data = *_TWDR;

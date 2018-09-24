@@ -82,16 +82,6 @@ if(${MCU_ARCH} STREQUAL "avr")
     ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATMEGA640_1280_2560/ExternalInterruptController.cpp
   )
   
-  ########################################################################
-  # common/ATxxxx ########################################################
-  ########################################################################
-
-  set(SPECTRE_LIBRARY_BLOX_HAL_AVR_ATxxxx_SRCS
-    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATxxxx/I2cMaster.cpp
-  )
-  
-  set(SPECTRE_LIBRARY_BLOX_SRCS ${SPECTRE_LIBRARY_BLOX_SRCS} ${SPECTRE_LIBRARY_BLOX_HAL_AVR_ATxxxx_SRCS})  
- 
   # AT90CAN128 ###########################################################
 
   set(SPECTRE_LIBRARY_BLOX_HAL_AVR_AT90CAN128_SRCS 

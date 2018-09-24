@@ -17,12 +17,6 @@
  */
 
 /**************************************************************************************
- * INCLUDE
- **************************************************************************************/
-
-#include <spectre/blox/hal/avr/common/ATxxxx/I2cMaster.h>
-
-/**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
@@ -39,14 +33,20 @@ namespace ATxxxx
  * CTOR/DTOR
  **************************************************************************************/
 
-I2cMaster::I2cMaster(volatile uint8_t * twcr,
-                     volatile uint8_t * twdr,
-                     volatile uint8_t * twsr,
-                     volatile uint8_t * twbr)
-: _i2c_master_low_level(twcr, twdr, twsr, twbr),
-  _i2c_master          (_i2c_master_low_level )
+template <uint8_t I2C_TRANSFER_COMPLETE_INTERRUPT_NUMBER>
+I2cMaster<I2C_TRANSFER_COMPLETE_INTERRUPT_NUMBER>::I2cMaster(volatile uint8_t                    * twcr,
+                                                             volatile uint8_t                    * twdr,
+                                                             volatile uint8_t                    * twsr,
+                                                             volatile uint8_t                    * twbr,
+                                                             hal::interface::CriticalSection     & crit_sec,
+                                                             hal::interface::InterruptController & int_ctrl)
+: _i2c_transfer_complete_event                 (crit_sec                                            ),
+  _i2c_master_low_level                        (twcr, twdr, twsr, twbr, _i2c_transfer_complete_event),
+  _i2c_master                                  (_i2c_master_low_level                               ),
+  _i2c_master_on_i2c_transfer_complete_callback(_i2c_transfer_complete_event                        )
 {
-
+  int_ctrl.registerInterruptCallback(I2C_TRANSFER_COMPLETE_INTERRUPT_NUMBER, &_i2c_master_on_i2c_transfer_complete_callback);
+  int_ctrl.enableInterrupt          (I2C_TRANSFER_COMPLETE_INTERRUPT_NUMBER);
 }
 
 /**************************************************************************************

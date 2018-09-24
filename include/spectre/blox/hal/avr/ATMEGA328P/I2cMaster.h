@@ -23,7 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/blox/hal/avr/common/ATxxxx/I2cMaster.h>
+#include <spectre/blox/hal/avr/common/ATxxxx/I2cMaster.hpp>
 
 /**************************************************************************************
  * NAMESPACE

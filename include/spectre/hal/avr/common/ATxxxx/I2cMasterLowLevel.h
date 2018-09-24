@@ -25,6 +25,8 @@
 
 #include <spectre/hal/avr/common/ATxxxx/interface/I2cMasterLowLevel.h>
 
+#include <spectre/os/event/interface/EventConsumer.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -47,7 +49,11 @@ class I2cMasterLowLevel : public interface::I2cMasterLowLevel
 
 public:
 
-           I2cMasterLowLevel(volatile uint8_t * twcr, volatile uint8_t * twdr, volatile uint8_t * twsr, volatile uint8_t * twbr);
+           I2cMasterLowLevel(volatile uint8_t             * twcr,
+                             volatile uint8_t             * twdr,
+                             volatile uint8_t             * twsr,
+                             volatile uint8_t             * twbr,
+                             os::interface::EventConsumer & i2c_transfer_complete_event);
   virtual ~I2cMasterLowLevel();
 
 
@@ -62,10 +68,11 @@ public:
 private:
 
 
-  volatile uint8_t * _TWCR,
-                   * _TWDR,
-                   * _TWSR,
-                   * _TWBR;
+  volatile uint8_t             * _TWCR,
+                               * _TWDR,
+                               * _TWSR,
+                               * _TWBR;
+  os::interface::EventConsumer & _i2c_transfer_complete_event;
 
 };
 
