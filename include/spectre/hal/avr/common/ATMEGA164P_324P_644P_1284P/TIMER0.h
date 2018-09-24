@@ -26,7 +26,6 @@
 #include <stdint.h>
 
 #include <spectre/hal/interface/timer/Timer.h>
-#include <spectre/hal/interface/timer/TimerConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -45,8 +44,7 @@ namespace ATMEGA164P_324P_644P_1284P
  * CLASS DECLARATION
  **************************************************************************************/
 
-class TIMER0 : public interface::Timer<uint8_t>,
-               public interface::TimerConfiguration
+class TIMER0 : public interface::Timer<uint8_t>
 {
 
 public:

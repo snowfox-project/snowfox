@@ -20,6 +20,13 @@
 #define INCLUDE_SPECTRE_HAL_INTERFACE_TIMER_TIMER_H_
 
 /**************************************************************************************
+ * INCLUDE
+ **************************************************************************************/
+
+#include <spectre/hal/interface/timer/TimerControl.h>
+#include <spectre/hal/interface/timer/TimerConfiguration.h>
+
+/**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
@@ -37,21 +44,14 @@ namespace interface
  **************************************************************************************/
 
 template <class T>
-class Timer
+class Timer : public TimerControl<T>,
+              public TimerConfiguration
 {
 
 public:
 
            Timer() { }
   virtual ~Timer() { }
-
-
-  virtual void start              (           ) = 0;
-  virtual void stop               (           ) = 0;
-  virtual void set                (T const val) = 0;
-  virtual T    get                (           ) = 0;
-
-  virtual void setCompareRegister (uint8_t  const compare_reg_sel, T const val) = 0;
 
 };
 

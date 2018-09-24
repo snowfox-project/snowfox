@@ -26,7 +26,6 @@
 #include <stdint.h>
 
 #include <spectre/hal/interface/timer/Timer.h>
-#include <spectre/hal/interface/timer/TimerConfiguration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -45,8 +44,7 @@ namespace AT90CAN32_64_128
  * CLASS DECLARATION
  **************************************************************************************/
 
-class TIMER1 : public interface::Timer<uint16_t>,
-               public interface::TimerConfiguration
+class TIMER1 : public interface::Timer<uint16_t>
 {
 
 public:
