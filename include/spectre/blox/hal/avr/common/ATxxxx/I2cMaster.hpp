@@ -64,7 +64,17 @@ public:
             hal::interface::CriticalSection     & crit_sec,
             hal::interface::InterruptController & int_ctrl);
 
+  I2cMaster(volatile uint8_t                          * twcr,
+            volatile uint8_t                          * twdr,
+            volatile uint8_t                          * twsr,
+            volatile uint8_t                          * twbr,
+            hal::interface::CriticalSection           & crit_sec,
+            hal::interface::InterruptController       & int_ctrl,
+            hal::interface::I2cClock            const   i2c_clock);
+
+
   hal::ATxxxx::I2cMaster & operator () () { return _i2c_master; }
+
 
 private:
 
