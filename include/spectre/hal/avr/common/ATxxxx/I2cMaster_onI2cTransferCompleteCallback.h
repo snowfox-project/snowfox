@@ -44,9 +44,7 @@ namespace ATxxxx
  * CLASS DECLARATION
  **************************************************************************************/
 
-/**************************************************************************************/
-
-class I2cMaster_onI2cTransferCompleteCallback : public interface::InterruptCallback
+class I2cMaster_onI2cTransferCompleteCallback : public hal::interface::InterruptCallback
 {
 
 public:

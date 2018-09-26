@@ -46,7 +46,7 @@ namespace ATxxxx
 
 /**************************************************************************************/
 
-class SpiMaster_onSerialTransferCompleteCallback : public interface::InterruptCallback
+class SpiMaster_onSerialTransferCompleteCallback : public hal::interface::InterruptCallback
 {
 
 public:

@@ -25,6 +25,8 @@
 
 #include <spectre/blox/hal/avr/common/ATxxxx/I2cMaster.hpp>
 
+#include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -42,7 +44,7 @@ namespace ATMEGA328P
  * TYPEDEF
  **************************************************************************************/
 
-typedef ATxxxx::I2cMaster I2cMaster;
+typedef ATxxxx::I2cMaster<hal::ATMEGA328P::toIntNum(hal::ATMEGA328P::Interrupt::TWO_WIRE_INT)> I2cMaster;
 
 /**************************************************************************************
  * NAMESPACE
