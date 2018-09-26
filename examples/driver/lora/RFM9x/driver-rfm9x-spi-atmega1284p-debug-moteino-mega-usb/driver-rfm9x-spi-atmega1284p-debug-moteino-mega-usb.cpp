@@ -113,6 +113,9 @@ int main()
                                               RFM9x_SPI_BIT_ORDER,
                                               RFM9x_SPI_PRESCALER);
 
+  /* GLOBAL INTERRUPT *****************************************************************/
+  int_ctrl.enableInterrupt(ATMEGA164P_324P_644P_1284P::toIntNum(ATMEGA1284P::Interrupt::GLOBAL));
+
 
   /************************************************************************************
    * DRIVER
@@ -131,10 +134,6 @@ int main()
 
   /* RFM95 ****************************************************************************/
   lora::RFM9x::RFM9x_IoSpi rfm9x_spi(spi_master(), rfm9x_cs);
-
-
-  /* GLOBAL INTERRUPT *****************************************************************/
-  int_ctrl.enableInterrupt(ATMEGA164P_324P_644P_1284P::toIntNum(ATMEGA1284P::Interrupt::GLOBAL));
 
 
   /************************************************************************************

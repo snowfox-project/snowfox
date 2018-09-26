@@ -160,6 +160,10 @@ int main()
 
   ext_int_ctrl().enable        (ATMEGA164P_324P_644P_1284P::toExtIntNum(ATMEGA1284P::ExternalInterrupt::PIN_CHANGE_INT22));
 
+  /* GLOBAL INTERRUPT *****************************************************************/
+  int_ctrl.enableInterrupt(ATMEGA164P_324P_644P_1284P::toIntNum(ATMEGA1284P::Interrupt::GLOBAL));
+
+
   /************************************************************************************
    * DRIVER
    ************************************************************************************/
@@ -218,9 +222,6 @@ int main()
   rfm9x.ioctl(lora::RFM9x::IOCTL_SET_PREAMBLE_LENGTH,   static_cast<void *>(&preamble_length ));
   rfm9x.ioctl(lora::RFM9x::IOCTL_SET_TX_FIFO_SIZE,      static_cast<void *>(&tx_fifo_size    ));
   rfm9x.ioctl(lora::RFM9x::IOCTL_SET_RX_FIFO_SIZE,      static_cast<void *>(&rx_fifo_size    ));
-
-  /* GLOBAL INTERRUPT *****************************************************************/
-  int_ctrl.enableInterrupt(ATMEGA164P_324P_644P_1284P::toIntNum(ATMEGA1284P::Interrupt::GLOBAL));
 
 
   /************************************************************************************

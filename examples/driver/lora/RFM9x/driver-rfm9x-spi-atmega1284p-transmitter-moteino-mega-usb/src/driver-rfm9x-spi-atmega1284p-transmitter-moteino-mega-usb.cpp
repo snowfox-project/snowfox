@@ -147,6 +147,7 @@ int main()
                                                               &PCMSK3,
                                                               int_ctrl);
 
+
   /* EXT INT #2 for DIO0 notifications by RFM9x ***************************************/
   ATMEGA1284P::DigitalInPin rfm9x_dio0_int_pin              (&DDRB, &PORTB, &PINB, 2); /* D2 = PB2 = INT2 */
                             rfm9x_dio0_int_pin.setPullUpMode(hal::interface::PullUpMode::PULL_UP);
@@ -159,6 +160,10 @@ int main()
                             rfm9x_dio1_int_pin.setPullUpMode(hal::interface::PullUpMode::PULL_UP);
 
   ext_int_ctrl().enable        (ATMEGA164P_324P_644P_1284P::toExtIntNum(ATMEGA1284P::ExternalInterrupt::PIN_CHANGE_INT22));
+
+  /* GLOBAL INTERRUPT *****************************************************************/
+  int_ctrl.enableInterrupt(ATMEGA164P_324P_644P_1284P::toIntNum(ATMEGA1284P::Interrupt::GLOBAL));
+
 
   /************************************************************************************
    * DRIVER
@@ -218,9 +223,6 @@ int main()
   rfm9x.ioctl(lora::RFM9x::IOCTL_SET_PREAMBLE_LENGTH,   static_cast<void *>(&preamble_length ));
   rfm9x.ioctl(lora::RFM9x::IOCTL_SET_TX_FIFO_SIZE,      static_cast<void *>(&tx_fifo_size    ));
   rfm9x.ioctl(lora::RFM9x::IOCTL_SET_RX_FIFO_SIZE,      static_cast<void *>(&rx_fifo_size    ));
-
-  /* GLOBAL INTERRUPT *****************************************************************/
-  int_ctrl.enableInterrupt(ATMEGA164P_324P_644P_1284P::toIntNum(ATMEGA1284P::Interrupt::GLOBAL));
 
 
   /************************************************************************************

@@ -85,10 +85,15 @@ int main()
                                                  TMC26x_SPI_BIT_ORDER,
                                                  TMC26x_SPI_PRESCALER);
 
+  /* GLOBAL INTERRUPT *****************************************************************/
+  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
+
 
   /* DRIVER ***************************************************************************/
 
-  stepper::TMC26x::TMC26x       tmc26x;
+  /* TMC26x ***************************************************************************/
+  stepper::TMC26x::TMC26x tmc26x;
+
 
   /* APPLICATION **********************************************************************/
 
