@@ -70,6 +70,9 @@ int main()
                                                int_ctrl,
                                                hal::interface::I2cClock::F_100_kHz);
 
+  /* GLOBAL INTERRUPT *****************************************************************/
+  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
+
 
   /************************************************************************************
    * DRIVER
@@ -79,9 +82,6 @@ int main()
   sensor::AS5600::AS5600_IoI2c      as5600_io_i2c (AS5600_I2C_ADDR, i2c_master());
   sensor::AS5600::AS5600_Control    as5600_control(as5600_io_i2c                );
   sensor::AS5600::AS5600            as5600        (as5600_control               );
-
-  /* GLOBAL INTERRUPT *****************************************************************/
-  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
 
 
   /************************************************************************************

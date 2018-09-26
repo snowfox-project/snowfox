@@ -84,13 +84,13 @@ int main()
                                                int_ctrl,
                                                F_CPU);
 
+  /* GLOBAL INTERRUPT *****************************************************************/
+  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
+
 
   /************************************************************************************
    * DRIVER
    ************************************************************************************/
-
-  /* GLOBAL INTERRUPT *****************************************************************/
-  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
 
   /* SERIAL ***************************************************************************/
   blox::SerialUart   serial(crit_sec,

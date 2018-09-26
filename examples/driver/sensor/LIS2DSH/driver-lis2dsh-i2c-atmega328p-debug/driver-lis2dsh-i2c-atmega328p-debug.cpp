@@ -84,6 +84,9 @@ int main()
                                                int_ctrl,
                                                F_CPU);
 
+  /* GLOBAL INTERRUPT *****************************************************************/
+  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
+
 
   /************************************************************************************
    * DRIVER
@@ -102,9 +105,6 @@ int main()
 
   /* LIS3DSH **************************************************************************/
   sensor::LIS2DSH::LIS2DSH_IoI2c lis2dsh_io(LIS2DSH_I2C_ADDR, i2c_master());
-
-  /* GLOBAL INTERRUPT *****************************************************************/
-  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
 
 
   /************************************************************************************

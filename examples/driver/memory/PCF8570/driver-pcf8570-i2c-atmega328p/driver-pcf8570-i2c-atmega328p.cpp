@@ -66,6 +66,9 @@ int main()
                                                int_ctrl,
                                                hal::interface::I2cClock::F_100_kHz);
 
+  /* GLOBAL INTERRUPT *****************************************************************/
+  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
+
 
   /************************************************************************************
    * DRIVER
@@ -75,9 +78,6 @@ int main()
   memory::PCF8570::PCF8570_IoI2c    pcf8570_io_i2c(PCF8570_I2C_ADDR, i2c_master());
   memory::PCF8570::PCF8570_Control  pcf8570_ctrl  (pcf8570_io_i2c                );
   memory::PCF8570::PCF8570          pcf8570       (pcf8570_ctrl                  );
-
-  /* GLOBAL INTERRUPT *****************************************************************/
-  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
 
 
   /************************************************************************************

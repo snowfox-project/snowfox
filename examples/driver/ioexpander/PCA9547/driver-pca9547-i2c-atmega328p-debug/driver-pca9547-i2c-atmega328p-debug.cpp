@@ -82,6 +82,9 @@ int main()
                                                int_ctrl,
                                                F_CPU);
 
+  /* GLOBAL INTERRUPT *****************************************************************/
+  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
+
 
   /************************************************************************************
    * DRIVER
@@ -100,9 +103,6 @@ int main()
 
   /* PCA9547 **************************************************************************/
   ioexpander::PCA9547::PCA9547_IoI2c pca9547_io(PCA9547_I2C_ADDR, i2c_master());
-
-  /* GLOBAL INTERRUPT *****************************************************************/
-  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
 
 
   /************************************************************************************

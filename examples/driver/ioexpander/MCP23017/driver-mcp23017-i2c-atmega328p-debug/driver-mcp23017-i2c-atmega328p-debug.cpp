@@ -84,6 +84,9 @@ int main()
                                                int_ctrl,
                                                F_CPU);
 
+  /* GLOBAL INTERRUPT *****************************************************************/
+  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
+
 
   /************************************************************************************
    * DRIVER
@@ -102,9 +105,6 @@ int main()
 
   /* MCP2307 **************************************************************************/
   ioexpander::MCP23017::MCP23017_IoI2c mcp23017_io(MCP23017_I2C_ADDR, i2c_master());
-
-  /* GLOBAL INTERRUPT *****************************************************************/
-  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
 
 
   /************************************************************************************

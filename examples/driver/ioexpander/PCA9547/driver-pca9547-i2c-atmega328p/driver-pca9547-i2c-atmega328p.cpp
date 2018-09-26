@@ -66,6 +66,9 @@ int main()
                                                int_ctrl,
                                                hal::interface::I2cClock::F_100_kHz);
 
+  /* GLOBAL INTERRUPT *****************************************************************/
+  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
+
 
   /************************************************************************************
    * DRIVER
@@ -75,9 +78,6 @@ int main()
   ioexpander::PCA9547::PCA9547_IoI2c    pca9547_io_i2c(PCA9547_I2C_ADDR, i2c_master());
   ioexpander::PCA9547::PCA9547_Control  pca9547_ctrl  (pca9547_io_i2c                );
   ioexpander::PCA9547::PCA9547          pca9547       (pca9547_ctrl                  );
-
-  /* GLOBAL INTERRUPT *****************************************************************/
-  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
 
 
   /************************************************************************************

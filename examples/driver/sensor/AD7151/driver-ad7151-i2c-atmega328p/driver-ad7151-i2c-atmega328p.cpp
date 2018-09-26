@@ -72,6 +72,9 @@ int main()
                                                int_ctrl,
                                                hal::interface::I2cClock::F_100_kHz);
 
+  /* GLOBAL INTERRUPT *****************************************************************/
+  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
+
 
   /************************************************************************************
    * DRIVER
@@ -81,9 +84,6 @@ int main()
   sensor::AD7151::AD7151_IoI2c      ad7151_io_i2c (AD7151_I2C_ADDR, i2c_master());
   sensor::AD7151::AD7151_Control    ad7151_control(ad7151_io_i2c                );
   sensor::AD7151::AD7151            ad7151        (ad7151_control               );
-
-  /* GLOBAL INTERRUPT *****************************************************************/
-  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
 
 
   /************************************************************************************

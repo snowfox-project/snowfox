@@ -72,6 +72,9 @@ int main()
                                                int_ctrl,
                                                hal::interface::I2cClock::F_100_kHz);
 
+  /* GLOBAL INTERRUPT *****************************************************************/
+  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
+
 
   /************************************************************************************
    * DRIVER
@@ -81,9 +84,6 @@ int main()
   sensor::BMG160::BMG160_IoI2c   bmg160_io_i2c (BMG160_I2C_ADDR, i2c_master());
   sensor::BMG160::BMG160_Control bmg160_control(bmg160_io_i2c                );
   sensor::BMG160::BMG160         bmg160        (bmg160_control               );
-
-  /* GLOBAL INTERRUPT *****************************************************************/
-  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
 
 
   /************************************************************************************
