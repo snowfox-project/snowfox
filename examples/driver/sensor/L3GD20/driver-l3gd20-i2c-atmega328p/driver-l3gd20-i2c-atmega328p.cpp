@@ -25,6 +25,9 @@
 #include <avr/io.h>
 
 #include <spectre/hal/avr/ATMEGA328P/Delay.h>
+#include <spectre/hal/avr/ATMEGA328P/CriticalSection.h>
+#include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
+
 #include <spectre/blox/hal/avr/ATMEGA328P/I2cMaster.h>
 
 #include <spectre/driver/sensor/L3GD20/L3GD20.h>
@@ -56,16 +59,28 @@ int main()
    * HAL
    ************************************************************************************/
 
-  ATMEGA328P::Delay     delay;
-  blox::ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
+  ATMEGA328P::Delay               delay;
 
-  i2c_master().setI2cClock(hal::interface::I2cClock::F_100_kHz);
+  ATMEGA328P::InterruptController int_ctrl    (&EIMSK, &PCICR, &WDTCSR, &TIMSK0, &TIMSK1, &TIMSK2, &UCSR0B, &SPCR, &TWCR, &EECR, &SPMCSR, &ACSR, &ADCSRA);
+  ATMEGA328P::CriticalSection     crit_sec    (&SREG);
+
+  blox::ATMEGA328P::I2cMaster     i2c_master  (&TWCR,
+                                               &TWDR,
+                                               &TWSR,
+                                               &TWBR,
+                                               crit_sec,
+                                               int_ctrl,
+                                               hal::interface::I2cClock::F_100_kHz);
+
+  /* GLOBAL INTERRUPT *****************************************************************/
+  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
 
 
   /************************************************************************************
    * DRIVER
    ************************************************************************************/
 
+  /* L3GD20 ***************************************************************************/
   sensor::L3GD20::L3GD20_IoI2c      l3gd20_io_i2c (L3GD20_I2C_ADDR, i2c_master());
   sensor::L3GD20::L3GD20_Control    l3gd20_control(l3gd20_io_i2c                );
   sensor::L3GD20::L3GD20            l3gd20        (l3gd20_control               );

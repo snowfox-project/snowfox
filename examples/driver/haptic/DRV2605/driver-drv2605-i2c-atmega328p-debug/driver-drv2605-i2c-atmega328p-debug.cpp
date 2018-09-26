@@ -64,17 +64,33 @@ int main()
    ************************************************************************************/
 
   ATMEGA328P::Flash               flash;
-  ATMEGA328P::InterruptController int_ctrl  (&EIMSK, &PCICR, &WDTCSR, &TIMSK0, &TIMSK1, &TIMSK2, &UCSR0B, &SPCR, &TWCR, &EECR, &SPMCSR, &ACSR, &ADCSRA);
-  ATMEGA328P::CriticalSection     crit_sec  (&SREG);
-  blox::ATMEGA328P::I2cMaster     i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
-  blox::ATMEGA328P::UART0         uart0     (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl, F_CPU);
 
-  i2c_master().setI2cClock(hal::interface::I2cClock::F_100_kHz);
+  ATMEGA328P::InterruptController int_ctrl    (&EIMSK, &PCICR, &WDTCSR, &TIMSK0, &TIMSK1, &TIMSK2, &UCSR0B, &SPCR, &TWCR, &EECR, &SPMCSR, &ACSR, &ADCSRA);
+  ATMEGA328P::CriticalSection     crit_sec    (&SREG);
+
+  blox::ATMEGA328P::I2cMaster     i2c_master  (&TWCR,
+                                               &TWDR,
+                                               &TWSR,
+                                               &TWBR,
+                                               crit_sec,
+                                               int_ctrl,
+                                               hal::interface::I2cClock::F_100_kHz);
+
+  blox::ATMEGA328P::UART0         uart0       (&UDR0,
+                                               &UCSR0A,
+                                               &UCSR0B,
+                                               &UCSR0C,
+                                               &UBRR0,
+                                               int_ctrl,
+                                               F_CPU);
 
 
   /************************************************************************************
    * DRIVER
    ************************************************************************************/
+
+  /* GLOBAL INTERRUPT *****************************************************************/
+  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
 
   /* SERIAL ***************************************************************************/
   blox::SerialUart   serial(crit_sec,
@@ -89,9 +105,6 @@ int main()
 
   /* DRV2605 **************************************************************************/
   haptic::DRV2605::DRV2605_IoI2C    drv2605_io_i2c(DRV2605_I2C_ADDR, i2c_master());
-
-  /* GLOBAL INTERRUPT *****************************************************************/
-  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
 
 
   /************************************************************************************

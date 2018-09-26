@@ -23,6 +23,8 @@
 #include <avr/io.h>
 
 #include <spectre/hal/avr/ATMEGA328P/Delay.h>
+#include <spectre/hal/avr/ATMEGA328P/CriticalSection.h>
+#include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
 
 #include <spectre/blox/hal/avr/ATMEGA328P/I2cMaster.h>
 
@@ -55,19 +57,36 @@ int main()
    * HAL
    ************************************************************************************/
 
-  ATMEGA328P::Delay           delay;
-  blox::ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
+  ATMEGA328P::Delay               delay;
 
-  i2c_master().setI2cClock(hal::interface::I2cClock::F_100_kHz);
+  ATMEGA328P::InterruptController int_ctrl    (&EIMSK, &PCICR, &WDTCSR, &TIMSK0, &TIMSK1, &TIMSK2, &UCSR0B, &SPCR, &TWCR, &EECR, &SPMCSR, &ACSR, &ADCSRA);
+  ATMEGA328P::CriticalSection     crit_sec    (&SREG);
+
+  blox::ATMEGA328P::I2cMaster     i2c_master  (&TWCR,
+                                               &TWDR,
+                                               &TWSR,
+                                               &TWBR,
+                                               crit_sec,
+                                               int_ctrl,
+                                               hal::interface::I2cClock::F_100_kHz);
 
 
   /************************************************************************************
    * DRIVER
    ************************************************************************************/
 
+  /* GLOBAL INTERRUPT *****************************************************************/
+  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
+
+  /* DRV2605 **************************************************************************/
   haptic::DRV2605::DRV2605_IoI2C    drv2605_io_i2c(DRV2605_I2C_ADDR, i2c_master());
   haptic::DRV2605::DRV2605_Control  drv2605_ctrl  (drv2605_io_i2c, delay         );
   haptic::DRV2605::DRV2605          drv2605       (drv2605_ctrl                  );
+
+
+  /************************************************************************************
+   * APPLICATION
+   ************************************************************************************/
 
   uint8_t mode         = static_cast<uint8_t>(haptic::DRV2605::interface::Mode::INTERNAL_TRIGGER);
   uint8_t actuator     = static_cast<uint8_t>(haptic::DRV2605::interface::Actuator::LRA         );
@@ -77,11 +96,6 @@ int main()
   drv2605.ioctl(haptic::DRV2605::IOCTL_SET_MODE,             static_cast<void *>(&mode        ));
   drv2605.ioctl(haptic::DRV2605::IOCTL_SET_ACTUATOR,         static_cast<void *>(&actuator    ));
   drv2605.ioctl(haptic::DRV2605::IOCTL_SET_WAVEFORM_LIBRARY, static_cast<void *>(&waveform_lib));
-
-
-  /************************************************************************************
-   * APPLICATION
-   ************************************************************************************/
 
   uint8_t  const DRV2605_MIN_LRA_LIB_WAVEFORM_NUM = 1;
   uint8_t  const DRV2605_MAX_LRA_LIB_WAVEFORM_NUM = 127;

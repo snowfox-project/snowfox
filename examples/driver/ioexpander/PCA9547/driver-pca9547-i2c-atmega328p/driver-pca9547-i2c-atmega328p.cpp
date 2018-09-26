@@ -22,6 +22,9 @@
 
 #include <avr/io.h>
 
+#include <spectre/hal/avr/ATMEGA328P/CriticalSection.h>
+#include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
+
 #include <spectre/blox/hal/avr/ATMEGA328P/I2cMaster.h>
 
 #include <spectre/driver/ioexpander/PCA9547/PCA9547.h>
@@ -52,17 +55,29 @@ int main()
    * HAL
    ************************************************************************************/
 
-  blox::ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
+  ATMEGA328P::InterruptController int_ctrl    (&EIMSK, &PCICR, &WDTCSR, &TIMSK0, &TIMSK1, &TIMSK2, &UCSR0B, &SPCR, &TWCR, &EECR, &SPMCSR, &ACSR, &ADCSRA);
+  ATMEGA328P::CriticalSection     crit_sec    (&SREG);
 
-  i2c_master().setI2cClock(hal::interface::I2cClock::F_100_kHz);
+  blox::ATMEGA328P::I2cMaster     i2c_master  (&TWCR,
+                                               &TWDR,
+                                               &TWSR,
+                                               &TWBR,
+                                               crit_sec,
+                                               int_ctrl,
+                                               hal::interface::I2cClock::F_100_kHz);
+
 
   /************************************************************************************
    * DRIVER
    ************************************************************************************/
 
+  /* PCA9547 **************************************************************************/
   ioexpander::PCA9547::PCA9547_IoI2c    pca9547_io_i2c(PCA9547_I2C_ADDR, i2c_master());
   ioexpander::PCA9547::PCA9547_Control  pca9547_ctrl  (pca9547_io_i2c                );
   ioexpander::PCA9547::PCA9547          pca9547       (pca9547_ctrl                  );
+
+  /* GLOBAL INTERRUPT *****************************************************************/
+  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
 
 
   /************************************************************************************

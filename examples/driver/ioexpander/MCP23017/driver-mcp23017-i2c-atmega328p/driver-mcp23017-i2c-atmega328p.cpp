@@ -22,6 +22,9 @@
 
 #include <avr/io.h>
 
+#include <spectre/hal/avr/ATMEGA328P/CriticalSection.h>
+#include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
+
 #include <spectre/blox/hal/avr/ATMEGA328P/I2cMaster.h>
 
 #include <spectre/driver/ioexpander/MCP23017/MCP23017.h>
@@ -53,15 +56,26 @@ int main()
    * HAL
    ************************************************************************************/
 
-  blox::ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
+  ATMEGA328P::InterruptController int_ctrl    (&EIMSK, &PCICR, &WDTCSR, &TIMSK0, &TIMSK1, &TIMSK2, &UCSR0B, &SPCR, &TWCR, &EECR, &SPMCSR, &ACSR, &ADCSRA);
+  ATMEGA328P::CriticalSection     crit_sec    (&SREG);
 
-  i2c_master().setI2cClock(hal::interface::I2cClock::F_100_kHz);
+  blox::ATMEGA328P::I2cMaster     i2c_master  (&TWCR,
+                                               &TWDR,
+                                               &TWSR,
+                                               &TWBR,
+                                               crit_sec,
+                                               int_ctrl,
+                                               hal::interface::I2cClock::F_100_kHz);
 
 
   /************************************************************************************
    * DRIVER
    ************************************************************************************/
 
+  /* GLOBAL INTERRUPT *****************************************************************/
+  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
+
+  /* MCP2307 **************************************************************************/
   ioexpander::MCP23017::MCP23017_IoI2c          mcp23017_i2c    (MCP23017_I2C_ADDR, i2c_master());
   ioexpander::MCP23017::MCP23017_Configuration  mcp23017_config (mcp23017_i2c);
   ioexpander::MCP23017::MCP23017_Control        mcp23017_control(mcp23017_i2c);
@@ -70,15 +84,15 @@ int main()
   ioexpander::MCP23017::IoctlConfigInputArg     mcp23017_pa0_config_input_arg (ioexpander::MCP23017::interface::Port::A, ioexpander::MCP23017::interface::Pin::IO0, ioexpander::MCP23017::interface::PullUpMode::Enabled);
   ioexpander::MCP23017::IoctlConfigOutputArg    mcp23017_pb7_config_output_arg(ioexpander::MCP23017::interface::Port::B, ioexpander::MCP23017::interface::Pin::IO7);
 
-  mcp23017.open();
-
-  mcp23017.ioctl(ioexpander::MCP23017::IOCTL_CONFIG_INPUT,  static_cast<void *>(&mcp23017_pa0_config_input_arg ));
-  mcp23017.ioctl(ioexpander::MCP23017::IOCTL_CONFIG_OUTPUT, static_cast<void *>(&mcp23017_pb7_config_output_arg));
-
 
   /************************************************************************************
    * APPLICATION
    ************************************************************************************/
+
+  mcp23017.open();
+
+  mcp23017.ioctl(ioexpander::MCP23017::IOCTL_CONFIG_INPUT,  static_cast<void *>(&mcp23017_pa0_config_input_arg ));
+  mcp23017.ioctl(ioexpander::MCP23017::IOCTL_CONFIG_OUTPUT, static_cast<void *>(&mcp23017_pb7_config_output_arg));
 
   for(;;)
   {

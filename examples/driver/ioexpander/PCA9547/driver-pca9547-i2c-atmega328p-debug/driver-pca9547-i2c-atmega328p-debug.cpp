@@ -63,12 +63,24 @@ int main()
    * HAL
    ************************************************************************************/
 
-  ATMEGA328P::InterruptController int_ctrl  (&EIMSK, &PCICR, &WDTCSR, &TIMSK0, &TIMSK1, &TIMSK2, &UCSR0B, &SPCR, &TWCR, &EECR, &SPMCSR, &ACSR, &ADCSRA);
-  ATMEGA328P::CriticalSection     crit_sec  (&SREG);
-  blox::ATMEGA328P::I2cMaster     i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
-  blox::ATMEGA328P::UART0         uart0     (&UDR0, &UCSR0A, &UCSR0B, &UCSR0C, &UBRR0, int_ctrl, F_CPU);
+  ATMEGA328P::InterruptController int_ctrl    (&EIMSK, &PCICR, &WDTCSR, &TIMSK0, &TIMSK1, &TIMSK2, &UCSR0B, &SPCR, &TWCR, &EECR, &SPMCSR, &ACSR, &ADCSRA);
+  ATMEGA328P::CriticalSection     crit_sec    (&SREG);
 
-  i2c_master().setI2cClock(hal::interface::I2cClock::F_100_kHz);
+  blox::ATMEGA328P::I2cMaster     i2c_master  (&TWCR,
+                                               &TWDR,
+                                               &TWSR,
+                                               &TWBR,
+                                               crit_sec,
+                                               int_ctrl,
+                                               hal::interface::I2cClock::F_100_kHz);
+
+  blox::ATMEGA328P::UART0         uart0       (&UDR0,
+                                               &UCSR0A,
+                                               &UCSR0B,
+                                               &UCSR0C,
+                                               &UBRR0,
+                                               int_ctrl,
+                                               F_CPU);
 
 
   /************************************************************************************

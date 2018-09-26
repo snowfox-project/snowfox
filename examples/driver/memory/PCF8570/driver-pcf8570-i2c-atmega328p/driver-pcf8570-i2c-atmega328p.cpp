@@ -22,6 +22,9 @@
 
 #include <avr/io.h>
 
+#include <spectre/hal/avr/ATMEGA328P/CriticalSection.h>
+#include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
+
 #include <spectre/blox/hal/avr/ATMEGA328P/I2cMaster.h>
 
 #include <spectre/driver/memory/PCF8570/PCF8570.h>
@@ -52,25 +55,36 @@ int main()
    * HAL
    ************************************************************************************/
 
-  blox::ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
+  ATMEGA328P::InterruptController int_ctrl    (&EIMSK, &PCICR, &WDTCSR, &TIMSK0, &TIMSK1, &TIMSK2, &UCSR0B, &SPCR, &TWCR, &EECR, &SPMCSR, &ACSR, &ADCSRA);
+  ATMEGA328P::CriticalSection     crit_sec    (&SREG);
 
-  i2c_master().setI2cClock(hal::interface::I2cClock::F_100_kHz);
+  blox::ATMEGA328P::I2cMaster     i2c_master  (&TWCR,
+                                               &TWDR,
+                                               &TWSR,
+                                               &TWBR,
+                                               crit_sec,
+                                               int_ctrl,
+                                               hal::interface::I2cClock::F_100_kHz);
 
 
   /************************************************************************************
    * DRIVER
    ************************************************************************************/
 
+  /* PCF8570 **************************************************************************/
   memory::PCF8570::PCF8570_IoI2c    pcf8570_io_i2c(PCF8570_I2C_ADDR, i2c_master());
   memory::PCF8570::PCF8570_Control  pcf8570_ctrl  (pcf8570_io_i2c                );
   memory::PCF8570::PCF8570          pcf8570       (pcf8570_ctrl                  );
 
-  pcf8570.open ();
+  /* GLOBAL INTERRUPT *****************************************************************/
+  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
 
 
   /************************************************************************************
    * APPLICATION
    ************************************************************************************/
+
+  pcf8570.open();
 
   for(uint8_t address = 0; address < 0xFF; address += 4)
   {

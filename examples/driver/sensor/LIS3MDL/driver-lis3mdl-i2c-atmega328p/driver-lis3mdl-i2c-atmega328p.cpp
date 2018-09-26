@@ -25,6 +25,8 @@
 #include <avr/io.h>
 
 #include <spectre/hal/avr/ATMEGA328P/Delay.h>
+#include <spectre/hal/avr/ATMEGA328P/CriticalSection.h>
+#include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
 
 #include <spectre/blox/hal/avr/ATMEGA328P/I2cMaster.h>
 
@@ -57,16 +59,28 @@ int main()
    * HAL
    ************************************************************************************/
 
-  ATMEGA328P::Delay           delay;
-  blox::ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
+  ATMEGA328P::Delay               delay;
 
-  i2c_master().setI2cClock(hal::interface::I2cClock::F_100_kHz);
+  ATMEGA328P::InterruptController int_ctrl    (&EIMSK, &PCICR, &WDTCSR, &TIMSK0, &TIMSK1, &TIMSK2, &UCSR0B, &SPCR, &TWCR, &EECR, &SPMCSR, &ACSR, &ADCSRA);
+  ATMEGA328P::CriticalSection     crit_sec    (&SREG);
+
+  blox::ATMEGA328P::I2cMaster     i2c_master  (&TWCR,
+                                               &TWDR,
+                                               &TWSR,
+                                               &TWBR,
+                                               crit_sec,
+                                               int_ctrl,
+                                               hal::interface::I2cClock::F_100_kHz);
+
+  /* GLOBAL INTERRUPT *****************************************************************/
+  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
 
 
   /************************************************************************************
    * DRIVER
    ************************************************************************************/
 
+  /* LIS3MDL **************************************************************************/
   sensor::LIS3MDL::LIS3MDL_IoI2c      lis3mdl_io_i2c (LIS3MDL_I2C_ADDR, i2c_master());
   sensor::LIS3MDL::LIS3MDL_Control    lis3mdl_control(lis3mdl_io_i2c                );
   sensor::LIS3MDL::LIS3MDL            lis3mdl        (lis3mdl_control               );

@@ -23,6 +23,9 @@
 #include <avr/io.h>
 
 #include <spectre/hal/avr/ATMEGA328P/Delay.h>
+#include <spectre/hal/avr/ATMEGA328P/CriticalSection.h>
+#include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
+
 #include <spectre/blox/hal/avr/ATMEGA328P/I2cMaster.h>
 
 #include <spectre/driver/sensor/AS5600/AS5600.h>
@@ -54,19 +57,36 @@ int main()
    * HAL
    ************************************************************************************/
 
-  ATMEGA328P::Delay           delay;
-  blox::ATMEGA328P::I2cMaster i2c_master(&TWCR, &TWDR, &TWSR, &TWBR);
+  ATMEGA328P::Delay               delay;
 
-  i2c_master().setI2cClock(hal::interface::I2cClock::F_100_kHz);
+  ATMEGA328P::InterruptController int_ctrl    (&EIMSK, &PCICR, &WDTCSR, &TIMSK0, &TIMSK1, &TIMSK2, &UCSR0B, &SPCR, &TWCR, &EECR, &SPMCSR, &ACSR, &ADCSRA);
+  ATMEGA328P::CriticalSection     crit_sec    (&SREG);
+
+  blox::ATMEGA328P::I2cMaster     i2c_master  (&TWCR,
+                                               &TWDR,
+                                               &TWSR,
+                                               &TWBR,
+                                               crit_sec,
+                                               int_ctrl,
+                                               hal::interface::I2cClock::F_100_kHz);
 
 
   /************************************************************************************
    * DRIVER
    ************************************************************************************/
 
+  /* AS5600 ***************************************************************************/
   sensor::AS5600::AS5600_IoI2c      as5600_io_i2c (AS5600_I2C_ADDR, i2c_master());
   sensor::AS5600::AS5600_Control    as5600_control(as5600_io_i2c                );
   sensor::AS5600::AS5600            as5600        (as5600_control               );
+
+  /* GLOBAL INTERRUPT *****************************************************************/
+  int_ctrl.enableInterrupt(ATMEGA328P::toIntNum(ATMEGA328P::Interrupt::GLOBAL));
+
+
+  /************************************************************************************
+   * APPLICATION
+   ************************************************************************************/
 
   uint8_t power_mode            = static_cast<uint8_t>(sensor::AS5600::interface::PowerMode::NORMAL                    );
   uint8_t hysteresis            = static_cast<uint8_t>(sensor::AS5600::interface::Hysteresis::HYST_OFF                 );
@@ -84,11 +104,6 @@ int main()
   as5600.ioctl(sensor::AS5600::IOCTL_SET_SLOW_FILTER,           static_cast<void *>(&slow_filter          ));
   as5600.ioctl(sensor::AS5600::IOCTL_SET_FAST_FILTER_THRESHOLD, static_cast<void *>(&fast_filter_threshold));
   as5600.ioctl(sensor::AS5600::IOCTL_DISABLE_WATCHDOG,          0                                          );
-
-
-  /************************************************************************************
-   * APPLICATION
-   ************************************************************************************/
 
   for(;;)
   {
