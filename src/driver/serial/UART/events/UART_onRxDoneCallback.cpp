@@ -22,7 +22,7 @@
 
 #include <spectre/driver/serial/UART/events/UART_onRxDoneCallback.h>
 
-#include <spectre/hal/interface/locking/LockGuard.h>
+#include <spectre/hal/interface/locking/LockGuard.hpp>
 
 /**************************************************************************************
  * NAMESPACE
@@ -63,7 +63,7 @@ UART_onRxDoneCallback::~UART_onRxDoneCallback()
 
 void UART_onRxDoneCallback::onRxDone()
 {
-  hal::interface::LockGuard lock(_crit_sec);
+  hal::interface::LockGuard<hal::interface::CriticalSection> lock(_crit_sec);
 
   uint8_t data = 0;
   _uart_ctrl.receive(data);

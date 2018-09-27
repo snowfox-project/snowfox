@@ -22,7 +22,7 @@
 
 #include <spectre/driver/serial/UART/UART_SerialControl.h>
 
-#include <spectre/hal/interface/locking/LockGuard.h>
+#include <spectre/hal/interface/locking/LockGuard.hpp>
 
 /**************************************************************************************
  * NAMESPACE
@@ -67,7 +67,7 @@ UART_SerialControl::~UART_SerialControl()
 
 uint16_t UART_SerialControl::receive(uint8_t * data, uint16_t const num_bytes)
 {
-  hal::interface::LockGuard lock(_crit_sec);
+  hal::interface::LockGuard<hal::interface::CriticalSection> lock(_crit_sec);
 
   uint16_t bytes_read = 0;
   for(;
@@ -82,7 +82,7 @@ uint16_t UART_SerialControl::receive(uint8_t * data, uint16_t const num_bytes)
 
 uint16_t UART_SerialControl::transmit(uint8_t const * data, uint16_t const num_bytes)
 {
-  hal::interface::LockGuard lock(_crit_sec);
+  hal::interface::LockGuard<hal::interface::CriticalSection> lock(_crit_sec);
 
   uint16_t bytes_written = 0;
   for(;

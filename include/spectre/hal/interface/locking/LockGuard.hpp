@@ -16,11 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**************************************************************************************
- * INCLUDE
- **************************************************************************************/
-
-#include <spectre/hal/interface/locking/LockGuard.h>
+#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_LOCKING_LOCKGUARD_HPP_
+#define INCLUDE_SPECTRE_HAL_INTERFACE_LOCKING_LOCKGUARD_HPP_
 
 /**************************************************************************************
  * NAMESPACE
@@ -36,19 +33,23 @@ namespace interface
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * CLASS DECLARATION
  **************************************************************************************/
 
-LockGuard::LockGuard(CriticalSection & crit_sec)
-: _crit_sec(crit_sec)
+template <typename T>
+class LockGuard
 {
-  _crit_sec.lock();
-}
 
-LockGuard::~LockGuard()
-{
-  _crit_sec.unlock();
-}
+public:
+
+   LockGuard(T & lock);
+  ~LockGuard();
+
+private:
+
+  T & _lock;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
@@ -59,3 +60,11 @@ LockGuard::~LockGuard()
 } /* hal */
 
 } /* spectre */
+
+/**************************************************************************************
+ * TEMPLATE CODE IMPLEMENTATION
+ **************************************************************************************/
+
+#include "LockGuard.ipp"
+
+#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_LOCKING_LOCKGUARD_HPP_ */

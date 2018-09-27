@@ -22,7 +22,7 @@
 
 #include <spectre/os/event/Event.h>
 
-#include <spectre/hal/interface/locking/LockGuard.h>
+#include <spectre/hal/interface/locking/LockGuard.hpp>
 
 /**************************************************************************************
  * NAMESPACE
@@ -56,19 +56,19 @@ Event::~Event()
 
 void Event::set()
 {
-  hal::interface::LockGuard lock(_crit_sec);
+  hal::interface::LockGuard<hal::interface::CriticalSection> lock(_crit_sec);
   _is_set = true;
 }
 
 void Event::clear()
 {
-  hal::interface::LockGuard lock(_crit_sec);
+  hal::interface::LockGuard<hal::interface::CriticalSection> lock(_crit_sec);
   _is_set = false;
 }
 
 bool Event::isSet()
 {
-  hal::interface::LockGuard lock(_crit_sec);
+  hal::interface::LockGuard<hal::interface::CriticalSection> lock(_crit_sec);
   return _is_set;
 }
 
