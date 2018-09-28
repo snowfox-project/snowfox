@@ -2,6 +2,12 @@
 # DRIVER #################################################################
 ##########################################################################
 
+##########################################################################
+# CAN ####################################################################
+##########################################################################
+
+# MCP2515 ################################################################
+
 set(DRIVER_CAN_SRC_PATH src/driver/can)
 
 if(${DRIVER_CAN_MCP2515} STREQUAL "yes")
@@ -23,6 +29,8 @@ if(${DRIVER_CAN_MCP2515} STREQUAL "yes")
   set(SPECTRE_LIBRARY_DRIVER_SRCS ${SPECTRE_LIBRARY_DRIVER_SRCS} ${DRIVER_CAN_MCP2515_SRCS})
 endif()
 
+# CAN ####################################################################
+
 if(${DRIVER_CAN_MCP2515} STREQUAL "yes")
   set(DRIVER_CAN_SRCS
     ${DRIVER_CAN_SRC_PATH}/Can.cpp
@@ -31,8 +39,12 @@ if(${DRIVER_CAN_MCP2515} STREQUAL "yes")
 endif()
 
 ##########################################################################
+# GLCD ###################################################################
+##########################################################################
 
 set(DRIVER_GLCD_SRC_PATH src/driver/glcd)
+
+# RA6963 #################################################################
 
 if(${DRIVER_GLCD_RA6963} STREQUAL "yes")
   set(DRIVER_GLCD_RA6963_SRCS
@@ -45,8 +57,12 @@ if(${DRIVER_GLCD_RA6963} STREQUAL "yes")
 endif()
 
 ##########################################################################
+# HAPTIC #################################################################
+##########################################################################
 
 set(DRIVER_HAPTIC_SRC_PATH src/driver/haptic)
+
+# DRV2650 ################################################################
 
 if(${DRIVER_HAPTIC_DRV2605} STREQUAL "yes")
   set(DRIVER_HAPTIC_DRV2605_SRCS
@@ -59,8 +75,12 @@ if(${DRIVER_HAPTIC_DRV2605} STREQUAL "yes")
 endif()
 
 ##########################################################################
+# IOEXPANDER #############################################################
+##########################################################################
 
 set(DRIVER_IOEXPANDER_SRC_PATH src/driver/ioexpander)
+
+# MCP23017 ###############################################################
 
 if(${DRIVER_IOEXPANDER_MCP23017} STREQUAL "yes")
   set(DRIVER_IOEXPANDER_MCP23017_SRCS
@@ -75,6 +95,8 @@ if(${DRIVER_IOEXPANDER_MCP23017} STREQUAL "yes")
   set(SPECTRE_LIBRARY_DRIVER_SRCS ${SPECTRE_LIBRARY_DRIVER_SRCS} ${DRIVER_IOEXPANDER_MCP23017_SRCS})
 endif()
 
+# PCA9547 ################################################################
+
 if(${DRIVER_IOEXPANDER_PCA9547} STREQUAL "yes")
   set(DRIVER_IOEXPANDER_PCA9547_SRCS
     ${DRIVER_IOEXPANDER_SRC_PATH}/PCA9547/PCA9547_Control.cpp
@@ -86,8 +108,12 @@ if(${DRIVER_IOEXPANDER_PCA9547} STREQUAL "yes")
 endif()
 
 ##########################################################################
+# LORA ###################################################################
+##########################################################################
 
 set(DRIVER_LORA_SRC_PATH src/driver/lora)
+
+# RFM9x ##################################################################
 
 if(${DRIVER_LORA_RFM9x} STREQUAL "yes")
   set(DRIVER_LORA_RFM9x_SRCS
@@ -114,8 +140,12 @@ if(${DRIVER_LORA_RFM9x} STREQUAL "yes")
 endif()
 
 ##########################################################################
+# MEMORY #################################################################
+##########################################################################
 
 set(DRIVER_MEMORY_SRC_PATH src/driver/memory)
+
+# AT45DBx ################################################################
 
 if(${DRIVER_MEMORY_AT45DBX} STREQUAL "yes")
   set(DRIVER_MEMORY_AT45DBX_SRCS
@@ -124,6 +154,8 @@ if(${DRIVER_MEMORY_AT45DBX} STREQUAL "yes")
   set(SPECTRE_LIBRARY_DRIVER_SRCS ${SPECTRE_LIBRARY_DRIVER_SRCS} ${DRIVER_MEMORY_AT45DBX_SRCS})  
 
 endif()
+
+# PCF8570 ################################################################
 
 if(${DRIVER_MEMORY_PCF8570} STREQUAL "yes")
   set(DRIVER_MEMORY_PCF8570_SRCS
@@ -135,8 +167,12 @@ if(${DRIVER_MEMORY_PCF8570} STREQUAL "yes")
 endif()
 
 ##########################################################################
+# SENSOR #################################################################
+##########################################################################
 
 set(DRIVER_SENSOR_SRC_PATH src/driver/sensor)
+
+# AD7151 #################################################################
 
 if(${DRIVER_SENSOR_AD7151} STREQUAL "yes")
   set(DRIVER_SENSOR_AD7151_SRCS
@@ -148,6 +184,8 @@ if(${DRIVER_SENSOR_AD7151} STREQUAL "yes")
   set(SPECTRE_LIBRARY_DRIVER_SRCS ${SPECTRE_LIBRARY_DRIVER_SRCS} ${DRIVER_SENSOR_AD7151_SRCS})
 endif()
 
+# AS5600 #################################################################
+
 if(${DRIVER_SENSOR_AS5600} STREQUAL "yes")
   set(DRIVER_SENSOR_AS5600_SRCS
     ${DRIVER_SENSOR_SRC_PATH}/AS5600/AS5600_Control.cpp
@@ -157,6 +195,8 @@ if(${DRIVER_SENSOR_AS5600} STREQUAL "yes")
   )
   set(SPECTRE_LIBRARY_DRIVER_SRCS ${SPECTRE_LIBRARY_DRIVER_SRCS} ${DRIVER_SENSOR_AS5600_SRCS})
 endif()
+
+# BMG160 #################################################################
 
 if(${DRIVER_SENSOR_BMG160} STREQUAL "yes")
   set(DRIVER_SENSOR_BMG160_SRCS
@@ -168,6 +208,8 @@ if(${DRIVER_SENSOR_BMG160} STREQUAL "yes")
   set(SPECTRE_LIBRARY_DRIVER_SRCS ${SPECTRE_LIBRARY_DRIVER_SRCS} ${DRIVER_SENSOR_BMG160_SRCS})
 endif()
 
+# INA220 #################################################################
+
 if(${DRIVER_SENSOR_INA220} STREQUAL "yes")
   set(DRIVER_SENSOR_INA220_SRCS
     ${DRIVER_SENSOR_SRC_PATH}/INA220/INA220_Control.cpp
@@ -177,6 +219,8 @@ if(${DRIVER_SENSOR_INA220} STREQUAL "yes")
   )
   set(SPECTRE_LIBRARY_DRIVER_SRCS ${SPECTRE_LIBRARY_DRIVER_SRCS} ${DRIVER_SENSOR_INA220_SRCS})
 endif()
+
+# L3GD20 #################################################################
 
 if(${DRIVER_SENSOR_L3GD20} STREQUAL "yes")
   set(DRIVER_SENSOR_L3GD20_SRCS
@@ -188,6 +232,8 @@ if(${DRIVER_SENSOR_L3GD20} STREQUAL "yes")
   set(SPECTRE_LIBRARY_DRIVER_SRCS ${SPECTRE_LIBRARY_DRIVER_SRCS} ${DRIVER_SENSOR_L3GD20_SRCS})
 endif()
 
+# LIS2DSH ################################################################
+
 if(${DRIVER_SENSOR_LIS2DSH} STREQUAL "yes")
   set(DRIVER_SENSOR_LIS2DSH_SRCS
     ${DRIVER_SENSOR_SRC_PATH}/LIS2DSH/LIS2DSH_Control.cpp
@@ -198,6 +244,8 @@ if(${DRIVER_SENSOR_LIS2DSH} STREQUAL "yes")
   set(SPECTRE_LIBRARY_DRIVER_SRCS ${SPECTRE_LIBRARY_DRIVER_SRCS} ${DRIVER_SENSOR_LIS2DSH_SRCS})
 endif()
 
+# LIS3DSH ################################################################
+
 if(${DRIVER_SENSOR_LIS3DSH} STREQUAL "yes")
   set(DRIVER_SENSOR_LIS3DSH_SRCS
     ${DRIVER_SENSOR_SRC_PATH}/LIS3DSH/LIS3DSH_Control.cpp
@@ -207,6 +255,8 @@ if(${DRIVER_SENSOR_LIS3DSH} STREQUAL "yes")
   )
   set(SPECTRE_LIBRARY_DRIVER_SRCS ${SPECTRE_LIBRARY_DRIVER_SRCS} ${DRIVER_SENSOR_LIS3DSH_SRCS})
 endif()
+
+# LIS3MDL ################################################################
 
 if(${DRIVER_SENSOR_LIS3MDL} STREQUAL "yes")
   set(DRIVER_SENSOR_LIS3MDL_SRCS
@@ -219,8 +269,12 @@ if(${DRIVER_SENSOR_LIS3MDL} STREQUAL "yes")
 endif()
 
 ##########################################################################
+# SERIAL #################################################################
+##########################################################################
 
 set(DRIVER_SERIAL_SRC_PATH src/driver/serial)
+
+# UART ###################################################################
 
 if(${DRIVER_SERIAL} STREQUAL "yes")
   set(DRIVER_SERIAL_SRCS
@@ -234,8 +288,12 @@ if(${DRIVER_SERIAL} STREQUAL "yes")
 endif()
 
 ##########################################################################
+# STEPPER ################################################################
+##########################################################################
 
 set(DRIVER_STEPPER_SRC_PATH src/driver/stepper)
+
+# TMC26x #################################################################
 
 if(${DRIVER_STEPPER_TMC26x} STREQUAL "yes")
   set(DRIVER_STEPPER_TMC26x_SRCS
@@ -245,15 +303,18 @@ if(${DRIVER_STEPPER_TMC26x} STREQUAL "yes")
 endif()
 
 ##########################################################################
+# TLCD ###################################################################
+##########################################################################
 
 set(DRIVER_TLCD_SRC_PATH src/driver/tlcd)
+
+# HD44780 ################################################################
 
 if(${DRIVER_TLCD_HD44780} STREQUAL "yes")
   set(DRIVER_TLCD_HD44780_SRCS
     ${DRIVER_TLCD_SRC_PATH}/HD44780/HD44780_IoGpio8Bit.cpp
     ${DRIVER_TLCD_SRC_PATH}/HD44780/HD44780.cpp
   )
-  
   set(SPECTRE_LIBRARY_DRIVER_SRCS ${SPECTRE_LIBRARY_DRIVER_SRCS} ${DRIVER_TLCD_HD44780_SRCS})
 endif()
 
