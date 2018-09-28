@@ -60,8 +60,8 @@ public:
   virtual ~MCP2515_CanControl();
 
 
-  virtual bool transmit(hal::interface::CanFrame const & frame) override;
-  virtual bool receive (hal::interface::CanFrame       * frame) override;
+  virtual bool transmit(comstack::canopen::CanFrame const & frame) override;
+  virtual bool receive (comstack::canopen::CanFrame       * frame) override;
 
 
 private:

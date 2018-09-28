@@ -23,7 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/interface/can/CanFrame.h>
+#include <spectre/comstack/canopen/CanFrame.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -54,8 +54,8 @@ public:
   virtual ~CanControl() { }
 
 
-  virtual bool transmit(hal::interface::CanFrame const & frame) = 0;
-  virtual bool receive (hal::interface::CanFrame       * frame) = 0;
+  virtual bool transmit(comstack::canopen::CanFrame const & frame) = 0;
+  virtual bool receive (comstack::canopen::CanFrame       * frame) = 0;
 
 };
 

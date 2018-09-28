@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/interface/can/CanFrame.h>
+#include <spectre/comstack/canopen/CanFrame.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -29,10 +29,10 @@
 namespace spectre
 {
 
-namespace hal
+namespace comstack
 {
 
-namespace interface
+namespace canopen
 {
 
 /**************************************************************************************
@@ -61,8 +61,8 @@ bool isErrorFrame(CanFrame const & frame)
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
+} /* canopen */
 
-} /* hal */
+} /* comstack */
 
 } /* spectre */

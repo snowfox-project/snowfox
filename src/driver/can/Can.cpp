@@ -65,7 +65,7 @@ bool Can::open()
 
 ssize_t Can::read(uint8_t * buffer, ssize_t const num_bytes)
 {
-  ssize_t const num_frames = num_bytes / sizeof(hal::interface::CanFrame);
+  ssize_t const num_frames = num_bytes / sizeof(comstack::canopen::CanFrame);
 
   if(num_frames < 0) return -1;
 
@@ -73,13 +73,13 @@ ssize_t Can::read(uint8_t * buffer, ssize_t const num_bytes)
 
   for(ssize_t f = 0;
       (f < num_frames);
-      f++, bytes_read += sizeof(hal::interface::CanFrame))
+      f++, bytes_read += sizeof(comstack::canopen::CanFrame))
   {
-    hal::interface::CanFrame can_frame;
+    comstack::canopen::CanFrame can_frame;
 
     if(!_control.receive(&can_frame)) break;
 
-    memcpy(buffer + bytes_read, &can_frame, sizeof(hal::interface::CanFrame));
+    memcpy(buffer + bytes_read, &can_frame, sizeof(comstack::canopen::CanFrame));
   }
 
   return bytes_read;
@@ -87,7 +87,7 @@ ssize_t Can::read(uint8_t * buffer, ssize_t const num_bytes)
 
 ssize_t Can::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
-  ssize_t const num_frames = num_bytes / sizeof(hal::interface::CanFrame);
+  ssize_t const num_frames = num_bytes / sizeof(comstack::canopen::CanFrame);
 
   if(num_frames < 0) return -1;
 
@@ -95,10 +95,10 @@ ssize_t Can::write(uint8_t const * buffer, ssize_t const num_bytes)
 
   for(ssize_t f = 0;
       (f < num_frames);
-      f++, bytes_written += sizeof(hal::interface::CanFrame))
+      f++, bytes_written += sizeof(comstack::canopen::CanFrame))
   {
-    hal::interface::CanFrame can_frame;
-    memcpy(&can_frame, buffer + bytes_written, sizeof(hal::interface::CanFrame));
+    comstack::canopen::CanFrame can_frame;
+    memcpy(&can_frame, buffer + bytes_written, sizeof(comstack::canopen::CanFrame));
 
     if(!_control.transmit(can_frame)) break;
   }

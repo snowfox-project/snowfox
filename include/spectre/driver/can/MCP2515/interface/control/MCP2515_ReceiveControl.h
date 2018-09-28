@@ -23,7 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/interface/can/CanFrame.h>
+#include <spectre/comstack/canopen/CanFrame.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -67,7 +67,7 @@ public:
   virtual ~MCP2515_ReceiveControl() { }
 
 
-  virtual void readFromReceiveBuffer(ReceiveBufferSelect const rx_buf_sel, hal::interface::CanFrame * frame) = 0;
+  virtual void readFromReceiveBuffer(ReceiveBufferSelect const rx_buf_sel, comstack::canopen::CanFrame * frame) = 0;
 
 };
 

@@ -101,7 +101,7 @@ bool MCP2515_Control::isTransmitRequestPending(interface::TransmitBufferSelect c
   return is_tx_pending;
 }
 
-void MCP2515_Control::writeToTransmitBuffer(interface::TransmitBufferSelect const tx_buf_sel, hal::interface::CanFrame const & frame)
+void MCP2515_Control::writeToTransmitBuffer(interface::TransmitBufferSelect const tx_buf_sel, comstack::canopen::CanFrame const & frame)
 {
   uint8_t sidh = static_cast<uint8_t>(frame.id & 0x000007F8);      /* SID10 - SID3 */
   uint8_t sidl = static_cast<uint8_t>(frame.id & 0x00000007) << 5; /* SID2  - SID0 */
@@ -109,7 +109,7 @@ void MCP2515_Control::writeToTransmitBuffer(interface::TransmitBufferSelect cons
   uint8_t eid8 = 0;
   uint8_t eid0 = 0;
 
-  if(hal::interface::isExtendedId(frame))
+  if(comstack::canopen::isExtendedId(frame))
   {
     sidl |= MCP2515_REG_TXBnSIDL_EXIDE_bm;
     sidl |= static_cast<uint8_t>(frame.id & 0x18000000); /* EID17 - EID16 */
@@ -117,7 +117,7 @@ void MCP2515_Control::writeToTransmitBuffer(interface::TransmitBufferSelect cons
     eid0  = static_cast<uint8_t>(frame.id & 0x0007F800); /* EID7  - EID0 */
   }
 
-  if(hal::interface::isRTR(frame))
+  if(comstack::canopen::isRTR(frame))
   {
     dlc |= MCP2515_REG_TXBnDLC_RTR_bm;
   }
@@ -157,7 +157,7 @@ void MCP2515_Control::requestTransmit(interface::TransmitBufferSelect const tx_b
   }
 }
 
-void MCP2515_Control::readFromReceiveBuffer(interface::ReceiveBufferSelect const rx_buf_sel, hal::interface::CanFrame * frame)
+void MCP2515_Control::readFromReceiveBuffer(interface::ReceiveBufferSelect const rx_buf_sel, comstack::canopen::CanFrame * frame)
 {
   uint8_t rx_buf_content[interface::MCP2515_Io::RX_BUF_MAX_SIZE] = { 0 };
 
@@ -188,9 +188,8 @@ void MCP2515_Control::readFromReceiveBuffer(interface::ReceiveBufferSelect const
     frame->id |= static_cast<uint32_t>(eid0       ) << 11; /* EID7  - EID0  */
   }
 
-  if(is_rtr_standard_id && !is_extended_id) frame->id |= hal::interface::CAN_RTR_BITMASK;
-  if(is_rtr_extended_id &&  is_extended_id) frame->id |= hal::interface::CAN_RTR_BITMASK;
-
+  if(is_rtr_standard_id && !is_extended_id) frame->id |= comstack::canopen::CAN_RTR_BITMASK;
+  if(is_rtr_extended_id &&  is_extended_id) frame->id |= comstack::canopen::CAN_RTR_BITMASK;
 
   frame->dlc = (dlc & 0x0F);
 

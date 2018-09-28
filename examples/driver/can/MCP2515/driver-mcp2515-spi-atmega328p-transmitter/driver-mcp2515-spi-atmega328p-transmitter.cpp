@@ -198,7 +198,7 @@ int main()
 
   for(;;)
   {
-    hal::interface::CanFrame frame;
+    comstack::canopen::CanFrame frame;
 
     /* This is how a Heartbeat frame looks like in CANOpen for
      * node id = 1, node state = preoperational

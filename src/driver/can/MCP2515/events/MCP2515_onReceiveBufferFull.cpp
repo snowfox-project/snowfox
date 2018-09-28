@@ -62,7 +62,7 @@ void MCP2515_onReceiveBufferFull::onReceiveBufferFull(interface::ReceiveBufferSe
 {
   if(!_can_rx_buf.isFull())
   {
-    hal::interface::CanFrame frame;
+    comstack::canopen::CanFrame frame;
 
     _ctrl.readFromReceiveBuffer(rx_buf_sel, &frame);
 

@@ -60,11 +60,11 @@ public:
   virtual void    clearEventFlag(interface::EventFlag            const event_flag) override;
 
 
-  virtual bool    isTransmitRequestPending(interface::TransmitBufferSelect const tx_buf_sel                                        ) override;
-  virtual void    writeToTransmitBuffer   (interface::TransmitBufferSelect const tx_buf_sel, hal::interface::CanFrame const & frame) override;
-  virtual void    requestTransmit         (interface::TransmitBufferSelect const tx_buf_sel                                        ) override;
+  virtual bool    isTransmitRequestPending(interface::TransmitBufferSelect const tx_buf_sel                                           ) override;
+  virtual void    writeToTransmitBuffer   (interface::TransmitBufferSelect const tx_buf_sel, comstack::canopen::CanFrame const & frame) override;
+  virtual void    requestTransmit         (interface::TransmitBufferSelect const tx_buf_sel                                           ) override;
 
-  virtual void    readFromReceiveBuffer   (interface::ReceiveBufferSelect  const rx_buf_sel, hal::interface::CanFrame       * frame) override;
+  virtual void    readFromReceiveBuffer   (interface::ReceiveBufferSelect  const rx_buf_sel, comstack::canopen::CanFrame       * frame) override;
 
 
 private:

@@ -23,7 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/interface/can/CanFrame.h>
+#include <spectre/comstack/canopen/CanFrame.h>
 
 #include <spectre/memory/container/Queue.h>
 
@@ -47,7 +47,7 @@ namespace interface
  * TYPEDEF
  **************************************************************************************/
 
-typedef memory::container::Queue<hal::interface::CanFrame> CanFrameBuffer;
+typedef memory::container::Queue<comstack::canopen::CanFrame> CanFrameBuffer;
 
 /**************************************************************************************
  * NAMESPACE
