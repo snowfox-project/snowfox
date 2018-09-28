@@ -42,10 +42,13 @@ namespace AT45DBx
  * DEFINE
  **************************************************************************************/
 
-#define AT45DB_CHIPERASE_1   0xC7 /* Chip Erase - byte 1 */
-#define AT45DB_CHIPERASE_2   0x94 /* Chip Erase - byte 2 */
-#define AT45DB_CHIPERASE_3   0x80 /* Chip Erase - byte 3 */
-#define AT45DB_CHIPERASE_4   0x9A /* Chip Erase - byte 4 */
+#define AT45DBx_CHIPERASE_1   0xC7
+#define AT45DBx_CHIPERASE_2   0x94
+#define AT45DBx_CHIPERASE_3   0x80
+#define AT45DBx_CHIPERASE_4   0x9A
+
+#define AT45DBx_PGERASE       0x81
+
 
 /**************************************************************************************
  * CTOR/DTOR
@@ -70,10 +73,25 @@ void AT45DBx_Control::erase()
 {
   uint8_t const buf_in[4] =
   {
-    AT45DB_CHIPERASE_1,
-    AT45DB_CHIPERASE_2,
-    AT45DB_CHIPERASE_3,
-    AT45DB_CHIPERASE_4
+    AT45DBx_CHIPERASE_1,
+    AT45DBx_CHIPERASE_2,
+    AT45DBx_CHIPERASE_3,
+    AT45DBx_CHIPERASE_4
+  };
+
+  _io.exchange(buf_in, 4);
+}
+
+void AT45DBx_Control::erase(uint32_t const page, uint32_t const page_shift)
+{
+  uint32_t const offset = page << page_shift;
+
+  uint8_t const buf_in[4] =
+  {
+    AT45DBx_PGERASE,
+    static_cast<uint8_t>((offset >> 16) & 0xFF),
+    static_cast<uint8_t>((offset >>  8) & 0xFF),
+    static_cast<uint8_t>((offset >>  0) & 0xFF)
   };
 
   _io.exchange(buf_in, 4);

@@ -20,6 +20,12 @@
 #define INCLUDE_SPECTRE_DRIVER_MEMORY_AT45DBX_INTERFACE_AT45DBX_CONTROL_H_
 
 /**************************************************************************************
+ * INCLUDE
+ **************************************************************************************/
+
+#include <stdint.h>
+
+/**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
@@ -51,7 +57,8 @@ public:
   virtual ~AT45DBx_Control() { }
 
 
-  virtual void erase() = 0;
+  virtual void erase(                                              ) = 0;
+  virtual void erase(uint32_t const page, uint32_t const page_shift) = 0;
 
 };
 
