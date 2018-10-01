@@ -60,6 +60,7 @@ public:
   virtual void exchange(uint8_t const * buf_cmd_in, uint16_t const buf_cmd_in_size) override;
   virtual void exchange(uint8_t const * buf_cmd_in, uint16_t const buf_cmd_size, uint8_t * buf_cmd_out) override;
   virtual void exchange(uint8_t const * buf_cmd_in, uint16_t const buf_cmd_in_size, uint8_t const * buf_data_in, uint16_t const buf_data_in_size) override;
+  virtual void exchange(uint8_t const * buf_cmd_in, uint16_t const buf_cmd_in_size, uint8_t       * buf_data_out, uint16_t const buf_data_out_size) override;
 
 
 private:

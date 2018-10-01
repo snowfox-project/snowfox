@@ -99,6 +99,23 @@ void AT45DBx_IoSpi::exchange(uint8_t const * buf_cmd_in, uint16_t const buf_cmd_
   _cs.set();
 }
 
+void AT45DBx_IoSpi::exchange(uint8_t const * buf_cmd_in, uint16_t const buf_cmd_in_size, uint8_t * buf_data_out, uint16_t const buf_data_out_size)
+{
+  _cs.clr();
+
+  for(uint16_t b = 0; b < buf_cmd_in_size; b++)
+  {
+    _spi_master.exchange(buf_cmd_in[b]);
+  }
+
+  for(uint16_t b = 0; b < buf_data_out_size; b++)
+  {
+    buf_data_out[b] = _spi_master.exchange(0);
+  }
+
+  _cs.set();
+}
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/

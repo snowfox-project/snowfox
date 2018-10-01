@@ -60,6 +60,7 @@ public:
   virtual void erase(                                                                      ) = 0;
   virtual void erase(uint32_t const page, uint32_t const page_shift                        ) = 0;
   virtual void write(uint32_t const page, uint32_t const page_shift, uint8_t const * buffer) = 0;
+  virtual void read (uint32_t const offset, uint8_t * buffer, uint16_t const num_bytes     ) = 0;
 
 };
 

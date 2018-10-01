@@ -51,6 +51,8 @@ namespace AT45DBx
 
 #define AT45DBx_MNTHRUBF1     0x82
 
+#define AT45DBx_RDARRAYHF     0x0B
+
 /**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
@@ -112,6 +114,19 @@ void AT45DBx_Control::write(uint32_t const page, uint32_t const page_shift, uint
   };
 
   _io.exchange(buf_cmd_in, 4, buffer, page_size);
+}
+
+void AT45DBx_Control::read(uint32_t const offset, uint8_t * buffer, uint16_t const num_bytes)
+{
+  uint8_t const buf_cmd_in[4] =
+  {
+    AT45DBx_RDARRAYHF,
+    static_cast<uint8_t>((offset >> 16) & 0xFF),
+    static_cast<uint8_t>((offset >>  8) & 0xFF),
+    static_cast<uint8_t>((offset >>  0) & 0xFF)
+  };
+
+  _io.exchange(buf_cmd_in, 4, buffer, num_bytes);
 }
 
 /**************************************************************************************
