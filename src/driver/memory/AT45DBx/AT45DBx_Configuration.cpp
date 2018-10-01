@@ -59,14 +59,14 @@ AT45DBx_Configuration::~AT45DBx_Configuration()
 
 void AT45DBx_Configuration::readDeviceId(uint8_t & dev_id_byte_0, uint8_t & dev_id_byte_1, uint8_t & dev_id_byte_2)
 {
-  uint8_t const buf_in [4] = {AT45DBx_RDDEVID, 0, 0, 0};
-  uint8_t       buf_out[4] = {0,               0, 0, 0};
+  uint8_t const buf_cmd_in [4] = {AT45DBx_RDDEVID, 0, 0, 0};
+  uint8_t       buf_cmd_out[4] = {0,               0, 0, 0};
 
-  _io.exchange(buf_in, buf_out, 4);
+  _io.exchange(buf_cmd_in, 4, buf_cmd_out);
 
-  dev_id_byte_0 = buf_out[1];
-  dev_id_byte_1 = buf_out[2];
-  dev_id_byte_2 = buf_out[3];
+  dev_id_byte_0 = buf_cmd_out[1];
+  dev_id_byte_1 = buf_cmd_out[2];
+  dev_id_byte_2 = buf_cmd_out[3];
 }
 
 /**************************************************************************************

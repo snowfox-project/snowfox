@@ -49,6 +49,8 @@ namespace AT45DBx
 
 #define AT45DBx_PGERASE       0x81
 
+#define AT45DBx_MNTHRUBF1     0x82
+
 /**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
@@ -83,9 +85,9 @@ void AT45DBx_Control::erase()
 
 void AT45DBx_Control::erase(uint32_t const page, uint32_t const page_shift)
 {
-  uint32_t const offset = page << page_shift;
+  uint32_t const offset = (page << page_shift);
 
-  uint8_t const buf_in[4] =
+  uint8_t const buf_cmd_in[4] =
   {
     AT45DBx_PGERASE,
     static_cast<uint8_t>((offset >> 16) & 0xFF),
@@ -93,7 +95,23 @@ void AT45DBx_Control::erase(uint32_t const page, uint32_t const page_shift)
     static_cast<uint8_t>((offset >>  0) & 0xFF)
   };
 
-  _io.exchange(buf_in, 4);
+  _io.exchange(buf_cmd_in, 4);
+}
+
+void AT45DBx_Control::write(uint32_t const page, uint32_t const page_shift, uint8_t const * buffer)
+{
+  uint32_t const offset    = (page << page_shift);
+  uint32_t const page_size = (1 << page_shift);
+
+  uint8_t const buf_cmd_in[4] =
+  {
+    AT45DBx_MNTHRUBF1,
+    static_cast<uint8_t>((offset >> 16) & 0xFF),
+    static_cast<uint8_t>((offset >>  8) & 0xFF),
+    static_cast<uint8_t>((offset >>  0) & 0xFF)
+  };
+
+  _io.exchange(buf_cmd_in, 4, buffer, page_size);
 }
 
 /**************************************************************************************

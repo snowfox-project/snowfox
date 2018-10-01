@@ -57,8 +57,9 @@ public:
   virtual ~AT45DBx_Io() { }
 
 
-  virtual void exchange(uint8_t const * buf_in, uint16_t const buf_in_size) = 0;
-  virtual void exchange(uint8_t const * buf_in, uint8_t * buf_out, uint16_t const buf_size) = 0;
+  virtual void exchange(uint8_t const * buf_cmd_in, uint16_t const buf_cmd_in_size) = 0;
+  virtual void exchange(uint8_t const * buf_cmd_in, uint16_t const buf_cmd_size, uint8_t * buf_cmd_out) = 0;
+  virtual void exchange(uint8_t const * buf_cmd_in, uint16_t const buf_cmd_in_size, uint8_t const * buf_data_in, uint16_t const buf_data_in_size) = 0;
 
 };
 
