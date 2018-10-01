@@ -58,11 +58,11 @@ AT45DBx_IoSpi::~AT45DBx_IoSpi()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void AT45DBx_IoSpi::exchange(uint8_t const * buf_cmd_in, uint16_t const buf_cmd_in_size)
+void AT45DBx_IoSpi::exchange(uint8_t const * buf_cmd_in)
 {
   _cs.clr();
 
-  for(uint16_t b = 0; b < buf_cmd_in_size; b++)
+  for(uint16_t b = 0; b < interface::AT45DBx_Io::COMMAND_BUFFER_SIZE; b++)
   {
     _spi_master.exchange(buf_cmd_in[b]);
   }
@@ -70,11 +70,11 @@ void AT45DBx_IoSpi::exchange(uint8_t const * buf_cmd_in, uint16_t const buf_cmd_
   _cs.set();
 }
 
-void AT45DBx_IoSpi::exchange(uint8_t const * buf_cmd_in, uint16_t const buf_cmd_size, uint8_t * buf_cmd_out)
+void AT45DBx_IoSpi::exchange(uint8_t const * buf_cmd_in, uint8_t * buf_cmd_out)
 {
   _cs.clr();
 
-  for(uint16_t b = 0; b < buf_cmd_size; b++)
+  for(uint16_t b = 0; b < interface::AT45DBx_Io::COMMAND_BUFFER_SIZE; b++)
   {
     buf_cmd_out[b] = _spi_master.exchange(buf_cmd_in[b]);
   }
@@ -82,11 +82,11 @@ void AT45DBx_IoSpi::exchange(uint8_t const * buf_cmd_in, uint16_t const buf_cmd_
   _cs.set();
 }
 
-void AT45DBx_IoSpi::exchange(uint8_t const * buf_cmd_in, uint16_t const buf_cmd_in_size, uint8_t const * buf_data_in, uint16_t const buf_data_in_size)
+void AT45DBx_IoSpi::exchange(uint8_t const * buf_cmd_in, uint8_t const * buf_data_in, uint16_t const buf_data_in_size)
 {
   _cs.clr();
 
-  for(uint16_t b = 0; b < buf_cmd_in_size; b++)
+  for(uint16_t b = 0; b < interface::AT45DBx_Io::COMMAND_BUFFER_SIZE; b++)
   {
     _spi_master.exchange(buf_cmd_in[b]);
   }
@@ -99,11 +99,11 @@ void AT45DBx_IoSpi::exchange(uint8_t const * buf_cmd_in, uint16_t const buf_cmd_
   _cs.set();
 }
 
-void AT45DBx_IoSpi::exchange(uint8_t const * buf_cmd_in, uint16_t const buf_cmd_in_size, uint8_t * buf_data_out, uint16_t const buf_data_out_size)
+void AT45DBx_IoSpi::exchange(uint8_t const * buf_cmd_in, uint8_t * buf_data_out, uint16_t const buf_data_out_size)
 {
   _cs.clr();
 
-  for(uint16_t b = 0; b < buf_cmd_in_size; b++)
+  for(uint16_t b = 0; b < interface::AT45DBx_Io::COMMAND_BUFFER_SIZE; b++)
   {
     _spi_master.exchange(buf_cmd_in[b]);
   }

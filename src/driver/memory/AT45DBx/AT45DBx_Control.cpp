@@ -74,7 +74,7 @@ AT45DBx_Control::~AT45DBx_Control()
 
 void AT45DBx_Control::erase()
 {
-  uint8_t const buf_in[4] =
+  uint8_t const buf_cmd_in[interface::AT45DBx_Io::COMMAND_BUFFER_SIZE] =
   {
     AT45DBx_CHIPERASE_1,
     AT45DBx_CHIPERASE_2,
@@ -82,14 +82,14 @@ void AT45DBx_Control::erase()
     AT45DBx_CHIPERASE_4
   };
 
-  _io.exchange(buf_in, 4);
+  _io.exchange(buf_cmd_in);
 }
 
 void AT45DBx_Control::erase(uint32_t const page, uint32_t const page_shift)
 {
   uint32_t const offset = (page << page_shift);
 
-  uint8_t const buf_cmd_in[4] =
+  uint8_t const buf_cmd_in[interface::AT45DBx_Io::COMMAND_BUFFER_SIZE] =
   {
     AT45DBx_PGERASE,
     static_cast<uint8_t>((offset >> 16) & 0xFF),
@@ -97,7 +97,7 @@ void AT45DBx_Control::erase(uint32_t const page, uint32_t const page_shift)
     static_cast<uint8_t>((offset >>  0) & 0xFF)
   };
 
-  _io.exchange(buf_cmd_in, 4);
+  _io.exchange(buf_cmd_in);
 }
 
 void AT45DBx_Control::write(uint32_t const page, uint32_t const page_shift, uint8_t const * buffer)
@@ -105,7 +105,7 @@ void AT45DBx_Control::write(uint32_t const page, uint32_t const page_shift, uint
   uint32_t const offset    = (page << page_shift);
   uint32_t const page_size = (1 << page_shift);
 
-  uint8_t const buf_cmd_in[4] =
+  uint8_t const buf_cmd_in[interface::AT45DBx_Io::COMMAND_BUFFER_SIZE] =
   {
     AT45DBx_MNTHRUBF1,
     static_cast<uint8_t>((offset >> 16) & 0xFF),
@@ -113,12 +113,12 @@ void AT45DBx_Control::write(uint32_t const page, uint32_t const page_shift, uint
     static_cast<uint8_t>((offset >>  0) & 0xFF)
   };
 
-  _io.exchange(buf_cmd_in, 4, buffer, page_size);
+  _io.exchange(buf_cmd_in, buffer, page_size);
 }
 
 void AT45DBx_Control::read(uint32_t const offset, uint8_t * buffer, uint16_t const num_bytes)
 {
-  uint8_t const buf_cmd_in[4] =
+  uint8_t const buf_cmd_in[interface::AT45DBx_Io::COMMAND_BUFFER_SIZE] =
   {
     AT45DBx_RDARRAYHF,
     static_cast<uint8_t>((offset >> 16) & 0xFF),
@@ -126,7 +126,7 @@ void AT45DBx_Control::read(uint32_t const offset, uint8_t * buffer, uint16_t con
     static_cast<uint8_t>((offset >>  0) & 0xFF)
   };
 
-  _io.exchange(buf_cmd_in, 4, buffer, num_bytes);
+  _io.exchange(buf_cmd_in, buffer, num_bytes);
 }
 
 /**************************************************************************************
