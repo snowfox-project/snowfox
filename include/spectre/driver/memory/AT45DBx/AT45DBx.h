@@ -23,11 +23,10 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
-#include <stdbool.h>
+#include <spectre/driver/interface/Driver.h>
 
-#include <spectre/hal/interface/gpio/DigitalOutPin.h>
-#include <spectre/hal/interface/spi/SpiMasterControl.h>
+#include <spectre/driver/memory/AT45DBx/interface/AT45DBx_Control.h>
+#include <spectre/driver/memory/AT45DBx/interface/AT45DBx_Configuration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -46,84 +45,30 @@ namespace AT45DBx
 {
 
 /**************************************************************************************
- * CLASS DECLARATION Interface
+ * CLASS DECLARATION
  **************************************************************************************/
 
-class Interface
+class AT45DBx : public driver::interface::Driver
 {
 
 public:
 
-           Interface() { }
-  virtual ~Interface() { }
-
-
-  virtual void eraseChip   (                                                                       ) = 0;
-  virtual void erasePage   (uint16_t const page                                                    ) = 0;
-  virtual void writePage   (uint16_t const page,   uint8_t const * buffer                          ) = 0;
-  virtual void read        (uint32_t const offset, uint8_t       * buffer, uint16_t const num_bytes) = 0;
-
-};
-
-/**************************************************************************************
- * CLASS DECLARATION ConfigurationInterface
- **************************************************************************************/
-
-class ConfigurationInterface
-{
-
-public:
-
-           ConfigurationInterface() { }
-  virtual ~ConfigurationInterface() { }
-
-
-  virtual void readDeviceId (uint8_t * dev_id) = 0;
-
-};
-
-/**************************************************************************************
- * CLASS DECLARATION AT45DBx
- **************************************************************************************/
-
-class AT45DBx : public Interface,
-                public ConfigurationInterface
-{
-
-public:
-
-           AT45DBx(hal::interface::SpiMasterControl & spi_master, hal::interface::DigitalOutPin & cs);
+           AT45DBx(interface::AT45DBx_Configuration & config,
+                   interface::AT45DBx_Control       & control);
   virtual ~AT45DBx();
 
 
-  /* AD45DBx Interface */
+  virtual bool    open (                                                  ) override;
+  virtual ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) override;
+  virtual ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override;
+  virtual bool    ioctl(uint32_t const   cmd,    void          * arg      ) override;
+  virtual void    close(                                                  ) override;
 
-  virtual void eraseChip   (                                                                       ) override;
-  virtual void erasePage   (uint16_t const page                                                    ) override;
-  virtual void writePage   (uint16_t const page,   uint8_t const * buffer                          ) override;
-  virtual void read        (uint32_t const offset, uint8_t       * buffer, uint16_t const num_bytes) override;
-
-
-  /* AT45DBx Configuration Interface */
-
-  virtual void readDeviceId (uint8_t * dev_id) override;
-
-
-  static uint32_t getPageShift(uint8_t  const * dev_id);
-  static uint32_t getNumPages (uint8_t  const * dev_id);
-
-  inline void     setPageShift(uint32_t const   page_shift) { _page_shift = page_shift; }
-  inline void     setNumPages (uint32_t const   num_pages ) { _num_pages  = num_pages;  }
 
 private:
 
-  hal::interface::SpiMasterControl & _spi_master;
-  hal::interface::DigitalOutPin    & _cs;
-
-  uint32_t                        _page_shift;
-  uint32_t                        _num_pages;
-
-  inline uint16_t getPageSize () const { return static_cast<uint16_t>(1 << _page_shift); }
+  interface::AT45DBx_Configuration & _config;
+  interface::AT45DBx_Control       & _control;
 
 };
 
