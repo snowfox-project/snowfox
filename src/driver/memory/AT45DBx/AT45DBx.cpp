@@ -76,7 +76,18 @@ ssize_t AT45DBx::write(uint8_t const * buffer, ssize_t const num_bytes)
 
 bool AT45DBx::ioctl(uint32_t const cmd, void * arg)
 {
-  /* TODO */ return false;
+  switch(cmd)
+  {
+  /* IOCTL_ERASE_CHIP *****************************************************************/
+  case IOCTL_ERASE_CHIP:
+  {
+    _control.erase();
+    return true;
+  }
+  break;
+  }
+
+  return false;
 }
 
 void AT45DBx::close()
