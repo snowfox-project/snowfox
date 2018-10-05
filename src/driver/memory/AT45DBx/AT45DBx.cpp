@@ -22,6 +22,8 @@
 
 #include <spectre/driver/memory/AT45DBx/AT45DBx.h>
 
+#include <spectre/driver/util/jedec/Jedec.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -61,7 +63,18 @@ AT45DBx::~AT45DBx()
 
 bool AT45DBx::open()
 {
-  /* TODO */ return false;
+  uint8_t dev_id[3] = {0};
+
+  _config.readDeviceId(dev_id[0], dev_id[1], dev_id[2]);
+
+  util::jedec::ManufacturerId const manufacturer_id = util::jedec::toManufacturerId(dev_id[0], dev_id[1], dev_id[2]);
+
+  if(manufacturer_id != util::jedec::ManufacturerId::Atmel)
+  {
+    return false;
+  }
+
+  return true;
 }
 
 ssize_t AT45DBx::read(uint8_t * buffer, ssize_t const num_bytes)
