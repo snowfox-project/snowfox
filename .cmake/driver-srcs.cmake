@@ -322,3 +322,15 @@ if(${DRIVER_TLCD_HD44780} STREQUAL "yes")
 endif()
 
 ##########################################################################
+# UTIL ###################################################################
+##########################################################################
+
+set(DRIVER_UTIL_SRC_PATH src/driver/util)
+
+set(DRIVER_UTIL_SRCS
+  ${DRIVER_UTIL_SRC_PATH}/jedec/Jedec.cpp
+)
+
+set(SPECTRE_LIBRARY_DRIVER_SRCS ${SPECTRE_LIBRARY_DRIVER_SRCS} ${DRIVER_UTIL_SRCS})
+
+##########################################################################
