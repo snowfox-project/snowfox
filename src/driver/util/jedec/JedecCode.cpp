@@ -16,17 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_UTIL_JEDEC_JEDEC_H_
-#define INCLUDE_SPECTRE_DRIVER_UTIL_JEDEC_JEDEC_H_
-
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/util/jedec/MlcCode.h>
-#include <spectre/driver/util/jedec/FamilyCode.h>
-#include <spectre/driver/util/jedec/DensityCode.h>
-#include <spectre/driver/util/jedec/ManufacturerId.h>
+#include <spectre/driver/util/jedec/JedecCode.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -45,11 +39,16 @@ namespace jedec
 {
 
 /**************************************************************************************
- * PUBLIC PROTOTYPE
+ * CTOR/DTOR
  **************************************************************************************/
 
-ManufacturerId toManufacturerId(uint8_t const dev_id_byte_0, uint8_t const dev_id_byte_1, uint8_t const dev_id_byte_2);
-DensityCode    toDensityCode   (uint8_t const dev_id_byte_0, uint8_t const dev_id_byte_1, uint8_t const dev_id_byte_2);
+JedecCode::JedecCode(uint8_t const * device_id)
+: _device_id_0(device_id[0]),
+  _device_id_1(device_id[1]),
+  _device_id_2(device_id[2])
+{
+
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -62,5 +61,3 @@ DensityCode    toDensityCode   (uint8_t const dev_id_byte_0, uint8_t const dev_i
 } /* driver */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DRIVER_UTIL_JEDEC_JEDEC_H_ */

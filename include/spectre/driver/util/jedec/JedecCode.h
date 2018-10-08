@@ -16,17 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DRIVER_UTIL_JEDEC_JEDEC_H_
-#define INCLUDE_SPECTRE_DRIVER_UTIL_JEDEC_JEDEC_H_
+#ifndef INCLUDE_SPECTRE_DRIVER_UTIL_JEDEC_JEDECCODE_H_
+#define INCLUDE_SPECTRE_DRIVER_UTIL_JEDEC_JEDECCODE_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/util/jedec/MlcCode.h>
-#include <spectre/driver/util/jedec/FamilyCode.h>
-#include <spectre/driver/util/jedec/DensityCode.h>
-#include <spectre/driver/util/jedec/ManufacturerId.h>
+#include <stdint.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -45,11 +42,29 @@ namespace jedec
 {
 
 /**************************************************************************************
- * PUBLIC PROTOTYPE
+ * CLASS DECLARATION
  **************************************************************************************/
 
-ManufacturerId toManufacturerId(uint8_t const dev_id_byte_0, uint8_t const dev_id_byte_1, uint8_t const dev_id_byte_2);
-DensityCode    toDensityCode   (uint8_t const dev_id_byte_0, uint8_t const dev_id_byte_1, uint8_t const dev_id_byte_2);
+class JedecCode
+{
+
+public:
+
+  JedecCode(uint8_t const * device_id);
+
+
+  inline uint8_t deviceId0() const { return  _device_id_0; }
+  inline uint8_t deviceId1() const { return  _device_id_1; }
+  inline uint8_t deviceId2() const { return  _device_id_2; }
+
+
+private:
+
+  uint8_t _device_id_0,
+          _device_id_1,
+          _device_id_2;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
@@ -63,4 +78,4 @@ DensityCode    toDensityCode   (uint8_t const dev_id_byte_0, uint8_t const dev_i
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DRIVER_UTIL_JEDEC_JEDEC_H_ */
+#endif /* INCLUDE_SPECTRE_DRIVER_UTIL_JEDEC_JEDECCODE_H_ */
