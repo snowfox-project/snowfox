@@ -47,7 +47,13 @@ namespace jedec
 
 enum class DensityCode : uint8_t
 {
-  D_16MBit = 0x06
+  D_1MBit  = 0x02,
+  D_2MBit  = 0x03,
+  D_4MBit  = 0x04,
+  D_8MBit  = 0x05,
+  D_16MBit = 0x06,
+  D_32MBit = 0x07,
+  D_64MBit = 0x08
 };
 
 /**************************************************************************************

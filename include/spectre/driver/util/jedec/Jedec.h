@@ -49,6 +49,7 @@ namespace jedec
  **************************************************************************************/
 
 ManufacturerId toManufacturerId(uint8_t const dev_id_byte_0, uint8_t const dev_id_byte_1, uint8_t const dev_id_byte_2);
+DensityCode    toDensityCode   (uint8_t const dev_id_byte_0, uint8_t const dev_id_byte_1, uint8_t const dev_id_byte_2);
 
 /**************************************************************************************
  * NAMESPACE

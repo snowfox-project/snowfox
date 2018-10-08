@@ -39,12 +39,23 @@ namespace jedec
 {
 
 /**************************************************************************************
+ * DEFINE
+ **************************************************************************************/
+
+#define JEDEC_DENSITY_CODE_MASK (0x1F)
+
+/**************************************************************************************
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
 ManufacturerId toManufacturerId(uint8_t const dev_id_byte_0, uint8_t const dev_id_byte_1, uint8_t const dev_id_byte_2)
 {
   return static_cast<ManufacturerId>(dev_id_byte_0);
+}
+
+DensityCode toDensityCode(uint8_t const dev_id_byte_0, uint8_t const dev_id_byte_1, uint8_t const dev_id_byte_2)
+{
+  return static_cast<DensityCode>(dev_id_byte_1 & JEDEC_DENSITY_CODE_MASK);
 }
 
 /**************************************************************************************
