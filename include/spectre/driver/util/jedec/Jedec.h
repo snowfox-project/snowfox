@@ -24,6 +24,7 @@
  **************************************************************************************/
 
 #include <spectre/driver/util/jedec/MlcCode.h>
+#include <spectre/driver/util/jedec/JedecCode.h>
 #include <spectre/driver/util/jedec/FamilyCode.h>
 #include <spectre/driver/util/jedec/DensityCode.h>
 #include <spectre/driver/util/jedec/ManufacturerId.h>
@@ -48,8 +49,8 @@ namespace jedec
  * PUBLIC PROTOTYPE
  **************************************************************************************/
 
-ManufacturerId toManufacturerId(uint8_t const dev_id_byte_0, uint8_t const dev_id_byte_1, uint8_t const dev_id_byte_2);
-DensityCode    toDensityCode   (uint8_t const dev_id_byte_0, uint8_t const dev_id_byte_1, uint8_t const dev_id_byte_2);
+ManufacturerId toManufacturerId(JedecCode const & jedec_code);
+DensityCode    toDensityCode   (JedecCode const & jedec_code);
 
 /**************************************************************************************
  * NAMESPACE

@@ -48,14 +48,14 @@ namespace jedec
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-ManufacturerId toManufacturerId(uint8_t const dev_id_byte_0, uint8_t const dev_id_byte_1, uint8_t const dev_id_byte_2)
+ManufacturerId toManufacturerId(JedecCode const & jedec_code)
 {
-  return static_cast<ManufacturerId>(dev_id_byte_0);
+  return static_cast<ManufacturerId>(jedec_code.deviceId0());
 }
 
-DensityCode toDensityCode(uint8_t const dev_id_byte_0, uint8_t const dev_id_byte_1, uint8_t const dev_id_byte_2)
+DensityCode toDensityCode(JedecCode const & jedec_code)
 {
-  return static_cast<DensityCode>(dev_id_byte_1 & JEDEC_DENSITY_CODE_MASK);
+  return static_cast<DensityCode>(jedec_code.deviceId1() & JEDEC_DENSITY_CODE_MASK);
 }
 
 /**************************************************************************************
