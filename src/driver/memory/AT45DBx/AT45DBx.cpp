@@ -63,11 +63,9 @@ AT45DBx::~AT45DBx()
 
 bool AT45DBx::open()
 {
-  uint8_t dev_id[3] = {0};
+  util::jedec::JedecCode const jedec_code = _config.readDeviceId();
 
-  _config.readDeviceId(dev_id[0], dev_id[1], dev_id[2]);
-
-  util::jedec::ManufacturerId const manufacturer_id = util::jedec::toManufacturerId(util::jedec::JedecCode(dev_id));
+  util::jedec::ManufacturerId const manufacturer_id = util::jedec::toManufacturerId(jedec_code);
 
   if(manufacturer_id != util::jedec::ManufacturerId::Atmel)
   {

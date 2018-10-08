@@ -39,6 +39,12 @@ namespace AT45DBx
 {
 
 /**************************************************************************************
+ * DEFINE
+ **************************************************************************************/
+
+#define AT45DBx_RDDEVID (0x9F)
+
+/**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
@@ -57,16 +63,16 @@ AT45DBx_Configuration::~AT45DBx_Configuration()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void AT45DBx_Configuration::readDeviceId(uint8_t & dev_id_byte_0, uint8_t & dev_id_byte_1, uint8_t & dev_id_byte_2)
+util::jedec::JedecCode AT45DBx_Configuration::readDeviceId()
 {
   uint8_t const buf_cmd_in [interface::AT45DBx_Io::COMMAND_BUFFER_SIZE] = {AT45DBx_RDDEVID, 0, 0, 0};
   uint8_t       buf_cmd_out[interface::AT45DBx_Io::COMMAND_BUFFER_SIZE] = {0,               0, 0, 0};
 
   _io.exchange(buf_cmd_in, buf_cmd_out);
 
-  dev_id_byte_0 = buf_cmd_out[1];
-  dev_id_byte_1 = buf_cmd_out[2];
-  dev_id_byte_2 = buf_cmd_out[3];
+  util::jedec::JedecCode const jedec_code(buf_cmd_out + 1);
+
+  return jedec_code;
 }
 
 /**************************************************************************************

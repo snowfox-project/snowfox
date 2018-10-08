@@ -56,7 +56,7 @@ public:
   virtual ~AT45DBx_Configuration();
 
 
-  virtual void readDeviceId(uint8_t & dev_id_byte_0, uint8_t & dev_id_byte_1, uint8_t & dev_id_byte_2) override;
+  virtual util::jedec::JedecCode readDeviceId() override;
 
 
 private:
