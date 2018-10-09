@@ -95,6 +95,14 @@ bool AT45DBx::ioctl(uint32_t const cmd, void * arg)
 {
   switch(cmd)
   {
+  /* IOCTL_GET_CHIP_SIZE_BYTE *********************************************************/
+  case IOCTL_GET_CHIP_SIZE_BYTE:
+  {
+    uint32_t * chip_size_byte = static_cast<uint32_t *>(arg);
+    *chip_size_byte = (_page_size * _num_pages);
+    return true;
+  }
+  break;
   /* IOCTL_ERASE_CHIP *****************************************************************/
   case IOCTL_ERASE_CHIP:
   {

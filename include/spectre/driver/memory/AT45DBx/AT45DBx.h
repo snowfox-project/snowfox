@@ -48,7 +48,8 @@ namespace AT45DBx
  * CONSTANTS
  **************************************************************************************/
 
-static uint32_t constexpr IOCTL_ERASE_CHIP =  0; /* Arg: None */
+static uint32_t constexpr IOCTL_GET_CHIP_SIZE_BYTE = 0; /* Arg: uint32_t * */
+static uint32_t constexpr IOCTL_ERASE_CHIP         = 1; /* Arg: None       */
 
 /**************************************************************************************
  * CLASS DECLARATION
