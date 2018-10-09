@@ -76,6 +76,8 @@ private:
   interface::AT45DBx_Configuration & _config;
   interface::AT45DBx_Control       & _control;
 
+  uint32_t                           _page_size,
+                                     _num_pages;
 };
 
 /**************************************************************************************

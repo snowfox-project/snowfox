@@ -24,6 +24,8 @@
 
 #include <spectre/driver/util/jedec/Jedec.h>
 
+#include <spectre/driver/memory/AT45DBx/AT45DBx_Util.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -46,8 +48,10 @@ namespace AT45DBx
 
 AT45DBx::AT45DBx(interface::AT45DBx_Configuration & config,
                  interface::AT45DBx_Control       & control)
-: _config (config),
-  _control(control)
+: _config   (config ),
+  _control  (control),
+  _page_size(0      ),
+  _num_pages(0      )
 {
 
 }
@@ -71,6 +75,8 @@ bool AT45DBx::open()
 
   util::jedec::DensityCode const density_code = util::jedec::toDensityCode(jedec_code);
 
+  _page_size = getPageShift(density_code);
+  _num_pages = getNumPages (density_code);
 
   return true;
 }
