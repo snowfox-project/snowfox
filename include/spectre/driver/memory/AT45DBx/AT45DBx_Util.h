@@ -47,8 +47,9 @@ namespace AT45DBx
  * PUBLIC PROTOTYPES
  **************************************************************************************/
 
-uint32_t getPageShift(util::jedec::DensityCode const density_code);
 uint32_t getNumPages (util::jedec::DensityCode const density_code);
+uint32_t getPageShift(util::jedec::DensityCode const density_code);
+uint32_t getPageSize (uint32_t                 const page_shift  );
 
 /**************************************************************************************
  * NAMESPACE

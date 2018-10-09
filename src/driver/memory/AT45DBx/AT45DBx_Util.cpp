@@ -42,6 +42,21 @@ namespace AT45DBx
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
+uint32_t getNumPages(util::jedec::DensityCode const density_code)
+{
+  switch(density_code)
+  {
+  case util::jedec::DensityCode::D_1MBit : return  512; break;
+  case util::jedec::DensityCode::D_2MBit : return 1024; break;
+  case util::jedec::DensityCode::D_4MBit : return 2048; break;
+  case util::jedec::DensityCode::D_8MBit : return 4096; break;
+  case util::jedec::DensityCode::D_16MBit: return 4096; break;
+  case util::jedec::DensityCode::D_32MBit: return 8192; break;
+  case util::jedec::DensityCode::D_64MBit: return 8192; break;
+  default                                : return    0; break;
+  }
+}
+
 uint32_t getPageShift(util::jedec::DensityCode const density_code)
 {
   switch(density_code)
@@ -57,19 +72,10 @@ uint32_t getPageShift(util::jedec::DensityCode const density_code)
   }
 }
 
-uint32_t getNumPages(util::jedec::DensityCode const density_code)
+uint32_t getPageSize(uint32_t const page_shift)
 {
-  switch(density_code)
-  {
-  case util::jedec::DensityCode::D_1MBit : return  512; break;
-  case util::jedec::DensityCode::D_2MBit : return 1024; break;
-  case util::jedec::DensityCode::D_4MBit : return 2048; break;
-  case util::jedec::DensityCode::D_8MBit : return 4096; break;
-  case util::jedec::DensityCode::D_16MBit: return 4096; break;
-  case util::jedec::DensityCode::D_32MBit: return 8192; break;
-  case util::jedec::DensityCode::D_64MBit: return 8192; break;
-  default                                : return    0; break;
-  }
+  uint32_t const page_size = (1 << page_shift);
+  return page_size;
 }
 
 /**************************************************************************************

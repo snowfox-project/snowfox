@@ -67,10 +67,10 @@ bool AT45DBx::open()
 
   util::jedec::ManufacturerId const manufacturer_id = util::jedec::toManufacturerId(jedec_code);
 
-  if(manufacturer_id != util::jedec::ManufacturerId::Atmel)
-  {
-    return false;
-  }
+  if(manufacturer_id != util::jedec::ManufacturerId::Atmel) return false;
+
+  util::jedec::DensityCode const density_code = util::jedec::toDensityCode(jedec_code);
+
 
   return true;
 }

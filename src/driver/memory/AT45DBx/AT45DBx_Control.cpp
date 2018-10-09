@@ -22,6 +22,8 @@
 
 #include <spectre/driver/memory/AT45DBx/AT45DBx_Control.h>
 
+#include <spectre/driver/memory/AT45DBx/AT45DBx_Util.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -103,7 +105,7 @@ void AT45DBx_Control::erase(uint32_t const page, uint32_t const page_shift)
 void AT45DBx_Control::write(uint32_t const page, uint32_t const page_shift, uint8_t const * buffer)
 {
   uint32_t const offset    = (page << page_shift);
-  uint32_t const page_size = (1 << page_shift);
+  uint32_t const page_size = getPageSize(page_shift);
 
   uint8_t const buf_cmd_in[interface::AT45DBx_Io::COMMAND_BUFFER_SIZE] =
   {
