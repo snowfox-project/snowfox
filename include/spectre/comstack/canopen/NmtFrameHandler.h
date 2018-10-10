@@ -19,7 +19,6 @@
 #ifndef INCLUDE_SPECTRE_COMSTACK_CANOPEN_NMTFRAMEHANDLER_H_
 #define INCLUDE_SPECTRE_COMSTACK_CANOPEN_NMTFRAMEHANDLER_H_
 
-
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
