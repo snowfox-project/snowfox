@@ -16,14 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_COMSTACK_CANOPEN_FRAMEDISPATCHER_H_
-#define INCLUDE_SPECTRE_COMSTACK_CANOPEN_FRAMEDISPATCHER_H_
-
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/comstack/canopen/interface/FrameHandler.h>
+#include <spectre/comstack/canopen/FrameDispatcher.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,30 +36,29 @@ namespace canopen
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class FrameDispatcher
+FrameDispatcher::FrameDispatcher(interface::FrameHandler & sync_frame_handler,
+                                 interface::FrameHandler & pdo_frame_handler,
+                                 interface::FrameHandler & sdo_frame_handler,
+                                 interface::FrameHandler & node_guard_frame_handler)
+: _sync_frame_handler      (sync_frame_handler      ),
+  _pdo_frame_handler       (pdo_frame_handler       ),
+  _sdo_frame_handler       (sdo_frame_handler       ),
+  _node_guard_frame_handler(node_guard_frame_handler)
 {
 
-public:
+}
 
-  FrameDispatcher(interface::FrameHandler & sync_frame_handler,
-                  interface::FrameHandler & pdo_frame_handler,
-                  interface::FrameHandler & sdo_frame_handler,
-                  interface::FrameHandler & node_guard_frame_handler);
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
-  void dispatch(CanFrame const & frame);
-
-
-private:
-
-  interface::FrameHandler & _sync_frame_handler,
-                          & _pdo_frame_handler,
-                          & _sdo_frame_handler,
-                          & _node_guard_frame_handler;
-
-};
+void FrameDispatcher::dispatch(CanFrame const & frame)
+{
+  /* TODO */
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -73,5 +69,3 @@ private:
 } /* comstack */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_COMSTACK_CANOPEN_FRAMEDISPATCHER_H_ */
