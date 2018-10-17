@@ -16,15 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_COMSTACK_CANOPEN_CANFRAME_H_
-#define INCLUDE_SPECTRE_COMSTACK_CANOPEN_CANFRAME_H_
+#ifndef INCLUDE_SPECTRE_COMSTACK_CANOPEN_UTIL_CANOPENFRAMEUTIL_H_
+#define INCLUDE_SPECTRE_COMSTACK_CANOPEN_UTIL_CANOPENFRAMEUTIL_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
-#include <stdbool.h>
+#include <spectre/comstack/canopen/CanFrame.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -40,32 +39,10 @@ namespace canopen
 {
 
 /**************************************************************************************
- * TYPEDEF
- **************************************************************************************/
-
-typedef struct
-{
-  uint32_t id;
-  uint8_t  dlc,
-           data[8];
-} __attribute((packed)) CanFrame;
-
-/**************************************************************************************
- * CONSTANTS
- **************************************************************************************/
-
-static uint32_t constexpr CAN_EFF_BITMASK       = 0x80000000;
-static uint32_t constexpr CAN_RTR_BITMASK       = 0x40000000;
-static uint32_t constexpr CAN_ERR_BITMASK       = 0x20000000;
-static uint32_t constexpr CAN_11_BIT_ID_BITMASK = 0x000007FF;
-
-/**************************************************************************************
  * PROTOTYPES
  **************************************************************************************/
 
-bool isExtendedId(CanFrame const & frame);
-bool isRTR       (CanFrame const & frame);
-bool isErrorFrame(CanFrame const & frame);
+uint16_t toCobId(CanFrame const & frame);
 
 /**************************************************************************************
  * NAMESPACE
@@ -77,4 +54,4 @@ bool isErrorFrame(CanFrame const & frame);
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_COMSTACK_CANOPEN_CANFRAME_H_ */
+#endif /* INCLUDE_SPECTRE_COMSTACK_CANOPEN_UTIL_CANOPENFRAMEUTIL_H_ */

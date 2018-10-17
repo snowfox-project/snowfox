@@ -23,6 +23,7 @@
 #include <spectre/comstack/canopen/FrameDispatcher.h>
 
 #include <spectre/comstack/canopen/CobBaseId.h>
+#include <spectre/comstack/canopen/util/CanOpenFrameUtil.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -61,7 +62,7 @@ FrameDispatcher::FrameDispatcher(interface::FrameHandler & sync_frame_handler,
 
 void FrameDispatcher::dispatch(CanFrame const & frame)
 {
-  uint16_t const frame_cob_base_id = 0; /* TODO: Write func to extract the cob id */
+  uint16_t const frame_cob_base_id = toCobId(frame);
 
   switch(frame_cob_base_id)
   {

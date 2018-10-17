@@ -16,15 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_COMSTACK_CANOPEN_CANFRAME_H_
-#define INCLUDE_SPECTRE_COMSTACK_CANOPEN_CANFRAME_H_
-
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
-#include <stdbool.h>
+#include <spectre/comstack/canopen/util/CanOpenFrameUtil.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -40,32 +36,13 @@ namespace canopen
 {
 
 /**************************************************************************************
- * TYPEDEF
+ * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-typedef struct
+uint16_t toCobId(CanFrame const & frame)
 {
-  uint32_t id;
-  uint8_t  dlc,
-           data[8];
-} __attribute((packed)) CanFrame;
-
-/**************************************************************************************
- * CONSTANTS
- **************************************************************************************/
-
-static uint32_t constexpr CAN_EFF_BITMASK       = 0x80000000;
-static uint32_t constexpr CAN_RTR_BITMASK       = 0x40000000;
-static uint32_t constexpr CAN_ERR_BITMASK       = 0x20000000;
-static uint32_t constexpr CAN_11_BIT_ID_BITMASK = 0x000007FF;
-
-/**************************************************************************************
- * PROTOTYPES
- **************************************************************************************/
-
-bool isExtendedId(CanFrame const & frame);
-bool isRTR       (CanFrame const & frame);
-bool isErrorFrame(CanFrame const & frame);
+  return static_cast<uint16_t>((frame.id & CAN_11_BIT_ID_BITMASK) >> 7);
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -76,5 +53,3 @@ bool isErrorFrame(CanFrame const & frame);
 } /* comstack */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_COMSTACK_CANOPEN_CANFRAME_H_ */
