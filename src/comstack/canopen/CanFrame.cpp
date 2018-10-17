@@ -36,6 +36,13 @@ namespace canopen
 {
 
 /**************************************************************************************
+ * CONSTANTS
+ **************************************************************************************/
+
+static uint32_t constexpr CAN_ID_BITMASK          = 0x000007FF;
+static uint32_t constexpr CAN_ID_EXTENDED_BITMASK = 0x1FFFFFFF;
+
+/**************************************************************************************
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
@@ -55,6 +62,16 @@ bool isErrorFrame(CanFrame const & frame)
 {
   bool const is_error_frame = (frame.id & CAN_ERR_BITMASK) == CAN_ERR_BITMASK;
   return is_error_frame;
+}
+
+uint32_t toCanId(CanFrame const & frame)
+{
+  return (frame.id & CAN_ID_BITMASK);
+}
+
+uint32_t toCanIdExtended(CanFrame const & frame)
+{
+  return (frame.id & CAN_ID_EXTENDED_BITMASK);
 }
 
 /**************************************************************************************

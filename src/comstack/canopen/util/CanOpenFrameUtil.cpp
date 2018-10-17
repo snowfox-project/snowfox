@@ -41,7 +41,7 @@ namespace canopen
 
 uint16_t toCobId(CanFrame const & frame)
 {
-  return static_cast<uint16_t>((frame.id & CAN_11_BIT_ID_BITMASK) >> 7);
+  return static_cast<uint16_t>(toCanId(frame) >> 7);
 }
 
 /**************************************************************************************

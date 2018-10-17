@@ -54,18 +54,19 @@ typedef struct
  * CONSTANTS
  **************************************************************************************/
 
-static uint32_t constexpr CAN_EFF_BITMASK       = 0x80000000;
-static uint32_t constexpr CAN_RTR_BITMASK       = 0x40000000;
-static uint32_t constexpr CAN_ERR_BITMASK       = 0x20000000;
-static uint32_t constexpr CAN_11_BIT_ID_BITMASK = 0x000007FF;
+static uint32_t constexpr CAN_EFF_BITMASK = 0x80000000;
+static uint32_t constexpr CAN_RTR_BITMASK = 0x40000000;
+static uint32_t constexpr CAN_ERR_BITMASK = 0x20000000;
 
 /**************************************************************************************
  * PROTOTYPES
  **************************************************************************************/
 
-bool isExtendedId(CanFrame const & frame);
-bool isRTR       (CanFrame const & frame);
-bool isErrorFrame(CanFrame const & frame);
+bool     isExtendedId   (CanFrame const & frame);
+bool     isRTR          (CanFrame const & frame);
+bool     isErrorFrame   (CanFrame const & frame);
+uint32_t toCanId        (CanFrame const & frame);
+uint32_t toCanIdExtended(CanFrame const & frame);
 
 /**************************************************************************************
  * NAMESPACE
