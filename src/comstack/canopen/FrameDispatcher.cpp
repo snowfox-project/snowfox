@@ -42,12 +42,14 @@ namespace canopen
  * CTOR/DTOR
  **************************************************************************************/
 
-FrameDispatcher::FrameDispatcher(interface::FrameHandler & sync_frame_handler,
+FrameDispatcher::FrameDispatcher(interface::FrameHandler & nmt_frame_handler,
+                                 interface::FrameHandler & sync_frame_handler,
                                  interface::FrameHandler & pdo_frame_handler,
                                  interface::FrameHandler & sdo_frame_handler,
                                  interface::FrameHandler & node_guard_frame_handler,
                                  interface::FrameHandler & unkown_frame_handler)
-: _sync_frame_handler      (sync_frame_handler      ),
+: _nmt_frame_handler       (nmt_frame_handler       ),
+  _sync_frame_handler      (sync_frame_handler      ),
   _pdo_frame_handler       (pdo_frame_handler       ),
   _sdo_frame_handler       (sdo_frame_handler       ),
   _node_guard_frame_handler(node_guard_frame_handler),
@@ -66,19 +68,20 @@ void FrameDispatcher::dispatch(CanFrame const & frame)
 
   switch(frame_cob_base_id)
   {
-  case toValue(CobBaseId::Sync_Emergency): _sync_frame_handler.onFrameReceived       (frame); break;
-  case toValue(CobBaseId::TPDO1         ):
-  case toValue(CobBaseId::RPDO1         ):
-  case toValue(CobBaseId::TPDO2         ):
-  case toValue(CobBaseId::RPDO2         ):
-  case toValue(CobBaseId::TPDO3         ):
-  case toValue(CobBaseId::RPDO3         ):
-  case toValue(CobBaseId::TPDO4         ):
-  case toValue(CobBaseId::RPDO4         ): _pdo_frame_handler.onFrameReceived       (frame); break;
-  case toValue(CobBaseId::SDO_TX        ):
-  case toValue(CobBaseId::SDO_RX        ): _sdo_frame_handler.onFrameReceived       (frame); break;
-  case toValue(CobBaseId::NodeGuard     ): _node_guard_frame_handler.onFrameReceived(frame); break;
-  default                                : _unkown_frame_handler.onFrameReceived    (frame); break;
+  case toValue(CobBaseId::NetworkManagement): _nmt_frame_handler.onFrameReceived       (frame); break;
+  case toValue(CobBaseId::Sync_Emergency   ): _sync_frame_handler.onFrameReceived      (frame); break;
+  case toValue(CobBaseId::TPDO1            ):
+  case toValue(CobBaseId::RPDO1            ):
+  case toValue(CobBaseId::TPDO2            ):
+  case toValue(CobBaseId::RPDO2            ):
+  case toValue(CobBaseId::TPDO3            ):
+  case toValue(CobBaseId::RPDO3            ):
+  case toValue(CobBaseId::TPDO4            ):
+  case toValue(CobBaseId::RPDO4            ): _pdo_frame_handler.onFrameReceived       (frame); break;
+  case toValue(CobBaseId::SDO_TX           ):
+  case toValue(CobBaseId::SDO_RX           ): _sdo_frame_handler.onFrameReceived       (frame); break;
+  case toValue(CobBaseId::NodeGuard        ): _node_guard_frame_handler.onFrameReceived(frame); break;
+  default                                   : _unkown_frame_handler.onFrameReceived    (frame); break;
   }
 }
 

@@ -44,19 +44,20 @@ namespace canopen
 
 enum class CobBaseId : uint16_t
 {
-  Sync_Emergency = 0x080,
-  TimeStamp      = 0x100,
-  TPDO1          = 0x180,
-  RPDO1          = 0x200,
-  TPDO2          = 0x280,
-  RPDO2          = 0x300,
-  TPDO3          = 0x380,
-  RPDO3          = 0x400,
-  TPDO4          = 0x480,
-  RPDO4          = 0x500,
-  SDO_TX         = 0x580,
-  SDO_RX         = 0x600,
-  NodeGuard      = 0x700
+  NetworkManagement = 0x000,
+  Sync_Emergency    = 0x080,
+  TimeStamp         = 0x100,
+  TPDO1             = 0x180,
+  RPDO1             = 0x200,
+  TPDO2             = 0x280,
+  RPDO2             = 0x300,
+  TPDO3             = 0x380,
+  RPDO3             = 0x400,
+  TPDO4             = 0x480,
+  RPDO4             = 0x500,
+  SDO_TX            = 0x580,
+  SDO_RX            = 0x600,
+  NodeGuard         = 0x700
 };
 
 /**************************************************************************************

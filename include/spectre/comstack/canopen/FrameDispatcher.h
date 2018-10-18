@@ -47,7 +47,8 @@ class FrameDispatcher
 
 public:
 
-  FrameDispatcher(interface::FrameHandler & sync_frame_handler,
+  FrameDispatcher(interface::FrameHandler & nmt_frame_handler,
+                  interface::FrameHandler & sync_frame_handler,
                   interface::FrameHandler & pdo_frame_handler,
                   interface::FrameHandler & sdo_frame_handler,
                   interface::FrameHandler & node_guard_frame_handler,
@@ -58,7 +59,8 @@ public:
 
 private:
 
-  interface::FrameHandler & _sync_frame_handler,
+  interface::FrameHandler & _nmt_frame_handler,
+                          & _sync_frame_handler,
                           & _pdo_frame_handler,
                           & _sdo_frame_handler,
                           & _node_guard_frame_handler,
