@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/comstack/canopen/SyncFrameHandler.h>
+#include <spectre/comstack/canopen/sync/SyncFrameHandler.h>
 
 /**************************************************************************************
  * NAMESPACE

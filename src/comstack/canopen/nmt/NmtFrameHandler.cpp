@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/comstack/canopen/NodeGuardFrameHandler.h>
+#include <spectre/comstack/canopen/nmt/NmtFrameHandler.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,12 +39,12 @@ namespace canopen
  * CTOR/DTOR
  **************************************************************************************/
 
-NodeGuardFrameHandler::NodeGuardFrameHandler()
+NmtFrameHandler::NmtFrameHandler()
 {
 
 }
 
-NodeGuardFrameHandler::~NodeGuardFrameHandler()
+NmtFrameHandler::~NmtFrameHandler()
 {
 
 }
@@ -53,7 +53,7 @@ NodeGuardFrameHandler::~NodeGuardFrameHandler()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void NodeGuardFrameHandler::onFrameReceived(CanFrame const & frame)
+void NmtFrameHandler::onFrameReceived(CanFrame const & frame)
 {
   /* TODO */
 }

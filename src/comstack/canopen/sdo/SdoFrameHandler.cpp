@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/comstack/canopen/SdoFrameHandler.h>
+#include <spectre/comstack/canopen/sdo/SdoFrameHandler.h>
 
 /**************************************************************************************
  * NAMESPACE

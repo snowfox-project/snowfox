@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/comstack/canopen/PdoFrameHandler.h>
+#include <spectre/comstack/canopen/nodeguard/NodeGuardFrameHandler.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,12 +39,12 @@ namespace canopen
  * CTOR/DTOR
  **************************************************************************************/
 
-PdoFrameHandler::PdoFrameHandler()
+NodeGuardFrameHandler::NodeGuardFrameHandler()
 {
 
 }
 
-PdoFrameHandler::~PdoFrameHandler()
+NodeGuardFrameHandler::~NodeGuardFrameHandler()
 {
 
 }
@@ -53,7 +53,7 @@ PdoFrameHandler::~PdoFrameHandler()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void PdoFrameHandler::onFrameReceived(CanFrame const & frame)
+void NodeGuardFrameHandler::onFrameReceived(CanFrame const & frame)
 {
   /* TODO */
 }

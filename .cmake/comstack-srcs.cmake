@@ -13,11 +13,11 @@ set(SPECTRE_LIBRARY_COMSTACK_SRCS
   ${COMSTACK_CANOPEN_SRC_PATH}/CanFrame.cpp
   ${COMSTACK_CANOPEN_SRC_PATH}/CanOpenStack.cpp
   ${COMSTACK_CANOPEN_SRC_PATH}/FrameDispatcher.cpp
-  ${COMSTACK_CANOPEN_SRC_PATH}/NmtFrameHandler.cpp
-  ${COMSTACK_CANOPEN_SRC_PATH}/NodeGuardFrameHandler.cpp
-  ${COMSTACK_CANOPEN_SRC_PATH}/PdoFrameHandler.cpp
-  ${COMSTACK_CANOPEN_SRC_PATH}/SdoFrameHandler.cpp
-  ${COMSTACK_CANOPEN_SRC_PATH}/SyncFrameHandler.cpp
+  ${COMSTACK_CANOPEN_SRC_PATH}/nmt/NmtFrameHandler.cpp
+  ${COMSTACK_CANOPEN_SRC_PATH}/nodeguard/NodeGuardFrameHandler.cpp
+  ${COMSTACK_CANOPEN_SRC_PATH}/pdo/PdoFrameHandler.cpp
+  ${COMSTACK_CANOPEN_SRC_PATH}/sdo/SdoFrameHandler.cpp
+  ${COMSTACK_CANOPEN_SRC_PATH}/sync/SyncFrameHandler.cpp
   ${COMSTACK_CANOPEN_SRC_PATH}/UnkownFrameHandler.cpp
 )
 
