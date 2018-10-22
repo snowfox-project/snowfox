@@ -45,8 +45,8 @@ namespace UART
  **************************************************************************************/
 
 UART_SerialControl::UART_SerialControl(hal::interface::CriticalSection   & crit_sec,
-                                       memory::container::Queue<uint8_t> & rx_queue,
-                                       memory::container::Queue<uint8_t> & tx_queue,
+                                       util::container::Queue<uint8_t> & rx_queue,
+                                       util::container::Queue<uint8_t> & tx_queue,
                                        hal::interface::UartControl       & uart_ctrl)
 : _crit_sec (crit_sec ),
   _rx_queue (rx_queue ),

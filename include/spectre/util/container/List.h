@@ -16,6 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_MEMORY_CONTAINER_LIST_H_
+#define INCLUDE_SPECTRE_MEMORY_CONTAINER_LIST_H_
+
+/**************************************************************************************
+ * INCLUDE
+ **************************************************************************************/
+
+#include <spectre/util/container/ListNode.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -23,24 +32,39 @@
 namespace spectre
 {
 
-namespace memory
+namespace util
 {
 
 namespace container
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * CLASS DECLARATION
  **************************************************************************************/
 
 template <class T>
-ListNode<T>::ListNode(T const & data, ListNode<T> * prev, ListNode<T> * next)
-: _data(data),
-  _prev(prev),
-  _next(next)
+class List
 {
 
-}
+public:
+
+   List();
+  ~List();
+
+
+  void          push_front(T           const & data);
+  void          push_back (T           const & data);
+  void          erase     (ListNode<T>       * node);
+
+  inline ListNode<T> * begin() { return _head; }
+  inline ListNode<T> * end  () { return _tail; }
+
+private:
+
+  ListNode<T> * _head,
+              * _tail;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
@@ -48,6 +72,14 @@ ListNode<T>::ListNode(T const & data, ListNode<T> * prev, ListNode<T> * next)
 
 } /* container*/
 
-} /* memory */
+} /* util */
 
 } /* spectre */
+
+/**************************************************************************************
+ * TEMPLATE CODE IMPLEMENTATION
+ **************************************************************************************/
+
+#include "List.ipp"
+
+#endif /* INCLUDE_SPECTRE_MEMORY_CONTAINER_LIST_H_ */

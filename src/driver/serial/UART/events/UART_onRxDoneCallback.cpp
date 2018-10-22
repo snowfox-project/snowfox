@@ -44,7 +44,7 @@ namespace UART
  * CTOR/DTOR
  **************************************************************************************/
 
-UART_onRxDoneCallback::UART_onRxDoneCallback(hal::interface::CriticalSection & crit_sec, memory::container::Queue<uint8_t> & rx_queue, hal::interface::UartControl & uart_ctrl)
+UART_onRxDoneCallback::UART_onRxDoneCallback(hal::interface::CriticalSection & crit_sec, util::container::Queue<uint8_t> & rx_queue, hal::interface::UartControl & uart_ctrl)
 : _crit_sec (crit_sec ),
   _rx_queue (rx_queue ),
   _uart_ctrl(uart_ctrl)

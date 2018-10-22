@@ -25,7 +25,7 @@
 
 #include <spectre/comstack/canopen/CanFrame.h>
 
-#include <spectre/memory/container/Queue.h>
+#include <spectre/util/container/Queue.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -47,7 +47,7 @@ namespace interface
  * TYPEDEF
  **************************************************************************************/
 
-typedef memory::container::Queue<comstack::canopen::CanFrame> CanFrameBuffer;
+typedef util::container::Queue<comstack::canopen::CanFrame> CanFrameBuffer;
 
 /**************************************************************************************
  * NAMESPACE

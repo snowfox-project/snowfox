@@ -25,7 +25,7 @@
 
 #include <spectre/os/event/interface/EventConsumer.h>
 
-#include <spectre/memory/container/List.h>
+#include <spectre/util/container/List.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -57,7 +57,7 @@ public:
 
 private:
 
-  memory::container::List<interface::EventConsumer &> _event_list;
+  util::container::List<interface::EventConsumer &> _event_list;
 
 };
 

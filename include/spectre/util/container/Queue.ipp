@@ -16,9 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_MEMORY_CONTAINER_LISTNODE_H_
-#define INCLUDE_SPECTRE_MEMORY_CONTAINER_LISTNODE_H_
-
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -26,36 +23,115 @@
 namespace spectre
 {
 
-namespace memory
+namespace util
 {
 
 namespace container
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
 template <class T>
-class ListNode
+Queue<T>::Queue(uint16_t const capacity)
+: _capacity(capacity),
+  _head    (0),
+  _tail    (0),
+  _size	   (0),
+  _data    (new T[_capacity])
 {
 
-public:
+}
 
-  ListNode(T const & data, ListNode<T> * next, ListNode<T> * prev);
+template <class T>
+Queue<T>::~Queue()
+{
+  delete []_data; _data = 0;
+}
 
-  inline T           & data   (                  ) { return _data; }
-  inline ListNode<T> * next   (                  ) { return _next; }
-  inline ListNode<T> * prev   (                  ) { return _prev; }
-  inline void          setNext(ListNode<T> * next) { _next = next; }
-  inline void          setPrev(ListNode<T> * prev) { _prev = prev; }
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
-private:
+template <class T>
+bool Queue<T>::push(T const data)
+{
+  if(isFull())  return false;
+  else
+  {
+    pushData(data);
+    return true;
+  }
+}
 
-  T             _data;
-  ListNode<T> * _prev,
-              * _next;
-};
+template <class T>
+bool Queue<T>::pop(T * data)
+{
+  if(isEmpty()) return false;
+  else
+  {
+    popData(data);
+    return true;
+  }
+}
+
+template <class T>
+uint16_t Queue<T>::size() const
+{
+  return _size;
+}
+
+template <class T>
+uint16_t Queue<T>::capacity() const
+{
+  return _capacity;
+}
+
+template <class T>
+bool Queue<T>::isFull() const
+{
+  return (_size == _capacity);
+}
+
+template <class T>
+bool Queue<T>::isEmpty() const
+{
+  return (_size == 0);
+}
+
+/**************************************************************************************
+ * PRIVATE MEMBER FUNCTIONS
+ **************************************************************************************/
+
+template <class T>
+void Queue<T>::pushData(T const data)
+{
+  _data[_head] = data;
+
+  incrementPtr(&_head);
+
+  _size++;
+}
+
+template <class T>
+void Queue<T>::popData(T * data)
+{
+  *data = _data[_tail];
+
+  incrementPtr(&_tail);
+
+  _size--;
+}
+
+template <class T>
+void Queue<T>::incrementPtr(uint16_t * ptr) const
+{
+  uint16_t const tmp_ptr = *ptr + 1;
+
+  if  (tmp_ptr == _capacity) *ptr = 0;
+  else                    	 *ptr = tmp_ptr;
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -63,14 +139,6 @@ private:
 
 } /* container*/
 
-} /* memory */
+} /* util */
 
 } /* spectre */
-
-/**************************************************************************************
- * TEMPLATE CODE IMPLEMENTATION
- **************************************************************************************/
-
-#include "ListNode.ipp"
-
-#endif /* INCLUDE_SPECTRE_MEMORY_CONTAINER_LISTNODE_H_ */

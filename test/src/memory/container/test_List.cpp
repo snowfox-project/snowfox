@@ -22,7 +22,7 @@
 
 #include <catch.hpp>
 
-#include <spectre/memory/container/List.h>
+#include <spectre/util/container/List.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -31,7 +31,7 @@
 namespace spectre
 {
 
-namespace memory
+namespace util
 {
 
 namespace container
@@ -42,7 +42,7 @@ namespace test
 
 /**************************************************************************************/
 
-SCENARIO("A List container is constructed", "[memory::container::List]")
+SCENARIO("A List container is constructed", "[util::container::List]")
 {
   List<uint8_t> list;
 
@@ -52,7 +52,7 @@ SCENARIO("A List container is constructed", "[memory::container::List]")
 
 /**************************************************************************************/
 
-SCENARIO("A ListNode is inserted via 'push_front'", "[memory::container::List]")
+SCENARIO("A ListNode is inserted via 'push_front'", "[util::container::List]")
 {
   List<uint8_t> list;
 
@@ -91,7 +91,7 @@ SCENARIO("A ListNode is inserted via 'push_front'", "[memory::container::List]")
 
 /**************************************************************************************/
 
-SCENARIO("A ListNode is inserted via 'push_back'", "[memory::container::List]")
+SCENARIO("A ListNode is inserted via 'push_back'", "[util::container::List]")
 {
   List<uint8_t> list;
 
@@ -130,7 +130,7 @@ SCENARIO("A ListNode is inserted via 'push_back'", "[memory::container::List]")
 
 /**************************************************************************************/
 
-SCENARIO("A ListNode is removed via 'erase'", "[memory::container::List]")
+SCENARIO("A ListNode is removed via 'erase'", "[util::container::List]")
 {
   List<uint8_t> list;
 
@@ -155,6 +155,6 @@ SCENARIO("A ListNode is removed via 'erase'", "[memory::container::List]")
 
 } /* container */
 
-} /* memory */
+} /* util */
 
 } /* spectre */

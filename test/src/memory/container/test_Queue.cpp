@@ -22,7 +22,7 @@
 
 #include <catch.hpp>
 
-#include <spectre/memory/container/Queue.h>
+#include <spectre/util/container/Queue.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -31,7 +31,7 @@
 namespace spectre
 {
 
-namespace memory
+namespace util
 {
 
 namespace container
@@ -42,7 +42,7 @@ namespace test
 
 /**************************************************************************************/
 
-SCENARIO("A queue is constructed with a size of 0 (queue of capacity of 0 elements -> makes no sense)", "[memory::container::Queue]")
+SCENARIO("A queue is constructed with a size of 0 (queue of capacity of 0 elements -> makes no sense)", "[util::container::Queue]")
 {
   Queue<uint8_t> queue(0);
 
@@ -83,7 +83,7 @@ SCENARIO("A queue is constructed with a size of 0 (queue of capacity of 0 elemen
 
 /**************************************************************************************/
 
-SCENARIO("A queue is constructed with a size of > 0 and no elements are inserted (empty queue)", "[memory::container::Queue]")
+SCENARIO("A queue is constructed with a size of > 0 and no elements are inserted (empty queue)", "[util::container::Queue]")
 {
   Queue<uint8_t> queue(5);
 
@@ -124,7 +124,7 @@ SCENARIO("A queue is constructed with a size of > 0 and no elements are inserted
 
 /**************************************************************************************/
 
-SCENARIO("A queue is constructed with a size of > 0 and it is filled completely with elements (full queue)", "[memory::container::Queue]")
+SCENARIO("A queue is constructed with a size of > 0 and it is filled completely with elements (full queue)", "[util::container::Queue]")
 {
   Queue<uint8_t> queue(5);
 
@@ -171,7 +171,7 @@ SCENARIO("A queue is constructed with a size of > 0 and it is filled completely 
 
 /**************************************************************************************/
 
-SCENARIO("A queue is constructed with a size of > 0 and elements are inserted and removed (normal scenario)", "[memory::container::Queue]")
+SCENARIO("A queue is constructed with a size of > 0 and elements are inserted and removed (normal scenario)", "[util::container::Queue]")
 {
   Queue<uint8_t> queue(5);
 
@@ -214,6 +214,6 @@ SCENARIO("A queue is constructed with a size of > 0 and elements are inserted an
 
 } /* container */
 
-} /* memory */
+} /* util */
 
 } /* spectre */

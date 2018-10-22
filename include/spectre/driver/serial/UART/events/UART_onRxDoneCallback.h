@@ -28,7 +28,7 @@
 #include <spectre/hal/interface/uart/UartControl.h>
 #include <spectre/hal/interface/locking/CriticalSection.h>
 
-#include <spectre/memory/container/Queue.h>
+#include <spectre/util/container/Queue.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -56,7 +56,7 @@ class UART_onRxDoneCallback : public hal::interface::UART_onRxDoneCallback
 public:
 
            UART_onRxDoneCallback(hal::interface::CriticalSection   & crit_sec,
-                                 memory::container::Queue<uint8_t> & rx_queue,
+                                 util::container::Queue<uint8_t> & rx_queue,
                                  hal::interface::UartControl       & uart_ctrl);
   virtual ~UART_onRxDoneCallback();
 
@@ -67,7 +67,7 @@ public:
 private:
 
   hal::interface::CriticalSection   & _crit_sec;
-  memory::container::Queue<uint8_t> & _rx_queue;
+  util::container::Queue<uint8_t> & _rx_queue;
   hal::interface::UartControl       & _uart_ctrl;
 
 };

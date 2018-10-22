@@ -16,6 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SPECTRE_MEMORY_RINGBUFFER_H_
+#define INCLUDE_SPECTRE_MEMORY_RINGBUFFER_H_
+
+/**************************************************************************************
+ * INCLUDE
+ **************************************************************************************/
+
+#include <stdint.h>
+#include <stdbool.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -23,83 +33,46 @@
 namespace spectre
 {
 
-namespace memory
+namespace util
 {
 
 namespace container
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * CLASS DECLARATION
  **************************************************************************************/
 
 template <class T>
-List<T>::List()
-: _head(0),
-  _tail(0)
+class Queue
 {
 
-}
+public:
 
-template <class T>
-List<T>::~List()
-{
+   Queue(uint16_t const capacity);
+  ~Queue();
 
-}
+  bool     push    (T const   data);
+  bool     pop     (T       * data);
+  uint16_t size    (              ) const;
+  uint16_t capacity(              ) const;
+  bool     isFull  (              ) const;
+  bool     isEmpty (              ) const;
 
-/**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
- **************************************************************************************/
+private:
 
-template <class T>
-void List<T>::push_front(T const & data)
-{
-  if(_head == 0)
-  {
-    ListNode<T> * node = new ListNode<T>(data, 0, 0);
-    _head = node;
-    _tail = node;
-  }
-  else
-  {
-    ListNode<T> * node = new ListNode<T>(data, 0, _head);
-    _head->setPrev(node);
-    _head = node;
-  }
-}
+  uint16_t    _capacity,
+              _head,
+              _tail,
+              _size;
 
-template <class T>
-void List<T>::push_back(T const & data)
-{
-  if(_tail == 0)
-  {
-    ListNode<T> * node = new ListNode<T>(data, 0, 0);
-    _head = node;
-    _tail = node;
-  }
-  else
-  {
-    ListNode<T> * node = new ListNode<T>(data, _tail, 0);
-    _tail->setNext(node);
-    _tail = node;
-  }
-}
+  T         * _data;
 
-template <class T>
-void List<T>::erase(ListNode<T> * node)
-{
-  if     (node == _head && node == _tail)
-  {
-    delete node;
-    _head = 0;
-    _tail = 0;
-  }
-  else if(node == _head)
-  {
-    _head = node->next();
-    /* TODO there are some complicated cases here ... */
-  }
-}
+  void pushData     (T  const   data);
+  void popData      (T        * data);
+  void incrementPtr (uint16_t * ptr ) const;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
@@ -107,6 +80,14 @@ void List<T>::erase(ListNode<T> * node)
 
 } /* container*/
 
-} /* memory */
+} /* util */
 
 } /* spectre */
+
+/**************************************************************************************
+ * TEMPLATE CODE IMPLEMENTATION
+ **************************************************************************************/
+
+#include "Queue.ipp"
+
+#endif /* INCLUDE_SPECTRE_MEMORY_RINGBUFFER_H_ */

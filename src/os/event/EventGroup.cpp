@@ -57,7 +57,7 @@ void EventGroup::addEvent(interface::EventConsumer & event)
 
 void EventGroup::clearAllEvents()
 {
-  for(memory::container::ListNode<interface::EventConsumer &> * iter = _event_list.begin();
+  for(util::container::ListNode<interface::EventConsumer &> * iter = _event_list.begin();
       iter != _event_list.end();
       iter = iter->next())
   {
@@ -67,7 +67,7 @@ void EventGroup::clearAllEvents()
 
 bool EventGroup::isEveryEventSet()
 {
-  for(memory::container::ListNode<interface::EventConsumer &> * iter = _event_list.begin();
+  for(util::container::ListNode<interface::EventConsumer &> * iter = _event_list.begin();
       iter != _event_list.end();
       iter = iter->next())
   {
@@ -79,7 +79,7 @@ bool EventGroup::isEveryEventSet()
 
 bool EventGroup::isAnyEventSet()
 {
-  for(memory::container::ListNode<interface::EventConsumer &> * iter = _event_list.begin();
+  for(util::container::ListNode<interface::EventConsumer &> * iter = _event_list.begin();
       iter != _event_list.end();
       iter = iter->next())
   {

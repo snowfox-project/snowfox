@@ -28,7 +28,7 @@
 #include <spectre/hal/interface/uart/UartControl.h>
 #include <spectre/hal/interface/locking/CriticalSection.h>
 
-#include <spectre/memory/container/Queue.h>
+#include <spectre/util/container/Queue.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -57,8 +57,8 @@ public:
 
 
            UART_SerialControl(hal::interface::CriticalSection   & crit_sec,
-                              memory::container::Queue<uint8_t> & rx_queue,
-                              memory::container::Queue<uint8_t> & tx_queue,
+                              util::container::Queue<uint8_t> & rx_queue,
+                              util::container::Queue<uint8_t> & tx_queue,
                               hal::interface::UartControl       & uart_ctrl);
   virtual ~UART_SerialControl();
 
@@ -70,7 +70,7 @@ public:
 private:
 
   hal::interface::CriticalSection   & _crit_sec;
-  memory::container::Queue<uint8_t> & _rx_queue,
+  util::container::Queue<uint8_t> & _rx_queue,
                                     & _tx_queue;
   hal::interface::UartControl       & _uart_ctrl;
 

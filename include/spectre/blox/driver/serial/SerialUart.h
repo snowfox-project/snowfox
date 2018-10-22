@@ -32,7 +32,7 @@
 #include <spectre/driver/serial/UART/events/UART_onRxDoneCallback.h>
 #include <spectre/driver/serial/UART/events/UART_onTxDoneCallback.h>
 
-#include <spectre/memory/container/Queue.h>
+#include <spectre/util/container/Queue.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -72,7 +72,7 @@ public:
 
 private:
 
-  memory::container::Queue<uint8_t>              _serial_rx_queue,
+  util::container::Queue<uint8_t>              _serial_rx_queue,
                                                  _serial_tx_queue;
   driver::serial::UART::UART_onRxDoneCallback    _serial_on_rx_done_callback;
   driver::serial::UART::UART_onTxDoneCallback    _serial_on_tx_done_callback;
