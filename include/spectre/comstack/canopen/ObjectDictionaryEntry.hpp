@@ -47,6 +47,8 @@ enum class ObjectDictionaryAccess
   ReadOnly, WriteOnly, ReadWrite
 };
 
+typedef void(*OnValueChangeCallback)(void);
+
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
@@ -60,13 +62,17 @@ public:
   ObjectDictionaryEntry(uint16_t               const   idx,
                         uint8_t                const   sub_idx,
                         T                      const & initial_value,
-                        ObjectDictionaryAccess const   access);
+                        ObjectDictionaryAccess const   access,
+                        OnValueChangeCallback          on_value_change_callback);
 
 
-  inline uint16_t idx                 () const { return _idx;     }
-  inline uint8_t  subIdx              () const { return _sub_idx; }
-  inline T        value               () const { return _value;   }
+  inline uint16_t               idx   () const { return _idx;     }
+  inline uint8_t                subIdx() const { return _sub_idx; }
+  inline T                      value () const { return _value;   }
   inline ObjectDictionaryAccess access() const { return _access;  }
+
+
+  void set(T const value);
 
 
 private:
@@ -75,6 +81,7 @@ private:
   uint8_t                const _sub_idx;
   T                      const _value;
   ObjectDictionaryAccess const _access;
+  OnValueChangeCallback        _on_value_change_callback;
 
 };
 

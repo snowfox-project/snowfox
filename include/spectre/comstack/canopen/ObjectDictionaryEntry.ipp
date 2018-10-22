@@ -40,13 +40,34 @@ template <typename T>
 ObjectDictionaryEntry<T>::ObjectDictionaryEntry(uint16_t               const   idx,
                                                 uint8_t                const   sub_idx,
                                                 T                      const & initial_value,
-                                                ObjectDictionaryAccess const   access)
-: _idx    (idx          ),
-  _sub_idx(sub_idx      ),
-  _value  (initial_value),
-  _access (access       )
+                                                ObjectDictionaryAccess const   access,
+                                                OnValueChangeCallback          on_value_change_callback)
+: _idx                     (idx                     ),
+  _sub_idx                 (sub_idx                 ),
+  _value                   (initial_value           ),
+  _access                  (access                  ),
+  _on_value_change_callback(on_value_change_callback)
 {
 
+}
+
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTION
+ **************************************************************************************/
+
+template <typename T>
+void ObjectDictionaryEntry<T>::set(T const value)
+{
+  bool const is_value_different = _value != value; 
+  
+  if(is_value_different)
+  {
+    _value = value;
+    if(_on_value_change_callback != 0)
+    {
+      _on_value_change_callback();
+    }
+  }
 }
 
 /**************************************************************************************

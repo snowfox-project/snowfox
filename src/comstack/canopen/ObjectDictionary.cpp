@@ -40,7 +40,7 @@ namespace canopen
  **************************************************************************************/
 
 ObjectDictionary::ObjectDictionary(ObjectDictionaryConfiguration const & obj_dict_config)
-: _device_type(0x1000, 0x00, obj_dict_config.device_type, ObjectDictionaryAccess::ReadOnly)
+: _device_type(0x1000, 0x00, obj_dict_config.device_type, ObjectDictionaryAccess::ReadOnly, 0)
 {
 
 }
