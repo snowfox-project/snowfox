@@ -16,15 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_COMSTACK_CANOPEN_OBJECTDICTIONARY_H_
-#define INCLUDE_SPECTRE_COMSTACK_CANOPEN_OBJECTDICTIONARY_H_
-
-/**************************************************************************************
- * INCLUDE
- **************************************************************************************/
-
-#include <spectre/comstack/canopen/ObjectDictionaryEntry.hpp>
-
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -39,43 +30,14 @@ namespace canopen
 {
 
 /**************************************************************************************
- * TYPEDEF
+ * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-typedef struct
+template <typename T>
+ObjectDictionaryEntry<T> & ObjectDictionary<T>::operator() (uint16_t const idx, uint8_t const sub_idx)
 {
-  uint32_t device_type;
-} ObjectDictionaryConfiguration;
-
-/**************************************************************************************
- * CONSTANT
- **************************************************************************************/
-
-static ObjectDictionaryConfiguration const DEFAULT_OD_CONFIG =
-{
-  0 /* device_type */
-};
-
-/**************************************************************************************
- * CLASS DECLARATION
- **************************************************************************************/
-
-class ObjectDictionary
-{
-
-public:
-
-  ObjectDictionary(ObjectDictionaryConfiguration const & obj_dict_config);
-
-
-  template <typename T>
-  ObjectDictionaryEntry<T> & operator() (uint16_t const idx, uint8_t const sub_idx);
-
-private:
-
-  ObjectDictionaryEntry<uint32_t> _device_type;
-
-};
+  /* TODO */
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -86,5 +48,3 @@ private:
 } /* comstack */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_COMSTACK_CANOPEN_OBJECTDICTIONARY_H_ */
