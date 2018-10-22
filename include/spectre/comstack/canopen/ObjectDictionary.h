@@ -44,7 +44,11 @@ namespace canopen
 
 typedef struct
 {
-  uint32_t device_type;
+  uint32_t    device_type;
+  uint8_t     error_register;
+  char        manufacturer_device_name     [32];
+  char        manufacturer_hardware_version[32];
+  char        manufacturer_software_version[32];
 } ObjectDictionaryConfiguration;
 
 /**************************************************************************************
@@ -53,7 +57,11 @@ typedef struct
 
 static ObjectDictionaryConfiguration const DEFAULT_OD_CONFIG =
 {
-  0 /* device_type */
+  0,                  /* device_type                   */
+  0,                  /* error_register                */
+  "MY DEVICE NAME",   /* manufacturer_device_name      */
+  "HARDWARE VERSION", /* manufacturer_hardware_version */
+  "SOFTWARE VERSION"  /* manufacturer_software_version */
 };
 
 /**************************************************************************************
@@ -74,7 +82,12 @@ public:
 private:
 
   ObjectDictionaryEntry<uint32_t> _device_type;
-
+  ObjectDictionaryEntry<uint8_t>  _error_register;
+  /*
+  ObjectDictionaryEntry<char *>   _manufacturer_device_name,
+                                  _manufacturer_hardware_version,
+                                  _manufacturer_software_version;
+  */
 };
 
 /**************************************************************************************
