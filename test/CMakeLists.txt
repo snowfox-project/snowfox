@@ -77,6 +77,8 @@ set(SPECTRE_TEST_UTIL_PATH src/util)
 set(SPECTRE_TEST_HOST_UTIL_SRCS
   ${SPECTRE_TEST_UTIL_PATH}/container/test_List.cpp
   ${SPECTRE_TEST_UTIL_PATH}/container/test_Queue.cpp
+  
+  ${SPECTRE_TEST_UTIL_PATH}/type/test_StaticString.cpp
 )
 
 ##########################################################################

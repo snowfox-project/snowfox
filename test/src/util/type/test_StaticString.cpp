@@ -20,7 +20,9 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <string.h>
+#include <catch.hpp>
+
+#include <spectre/util/type/StaticString.hpp>
 
 /**************************************************************************************
  * NAMESPACE
@@ -35,25 +37,25 @@ namespace util
 namespace type
 {
 
-namespace impl
+namespace test
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * TEST CODE
  **************************************************************************************/
 
-template <uint16_t MAX_STRING_LENGTH>
-StaticString<MAX_STRING_LENGTH>::StaticString()
-: _length(0)
+SCENARIO("A StaticString object is constructed with the default constructor", "[util::type::StaticString]")
 {
-  memset(_string, 0, sizeof(char)*MAX_STRING_LENGTH);
+  StaticString str;
+
+  THEN("length() should return 0"  ) { REQUIRE(str.length() == 0); }
 }
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* impl */
+} /* test */
 
 } /* type */
 

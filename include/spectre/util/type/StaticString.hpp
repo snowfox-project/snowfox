@@ -32,7 +32,7 @@
 namespace spectre
 {
 
-namespace comstack
+namespace util
 {
 
 namespace type
@@ -42,13 +42,16 @@ namespace type
  * CONSTANT
  **************************************************************************************/
 
-static uint16_t constexpr DEFAULT_MAX_STRING_LENGTH = 32;
+static uint16_t constexpr STATIC_STRING_MAX_LENGTH = 32;
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-template <uint16_t MAX_STRING_LENGTH = DEFAULT_MAX_STRING_LENGTH>
+namespace impl
+{
+
+template <uint16_t MAX_STRING_LENGTH>
 class StaticString
 {
 
@@ -57,12 +60,24 @@ public:
   StaticString();
 
 
+  inline uint16_t length() const { return _length; }
+  inline char *   c_str ()       { return _string; }
+
+
 private:
 
   char     _string[MAX_STRING_LENGTH];
   uint16_t _length;
 
 };
+
+} /* impl */
+
+/**************************************************************************************
+ * TYPEDEF
+ **************************************************************************************/
+
+typedef impl::StaticString<STATIC_STRING_MAX_LENGTH> StaticString;
 
 /**************************************************************************************
  * NAMESPACE
@@ -73,5 +88,11 @@ private:
 } /* util */
 
 } /* spectre */
+
+/**************************************************************************************
+ * TEMPLATE CODE
+ **************************************************************************************/
+
+#include "StaticString.ipp"
 
 #endif /* INCLUDE_SPECTRE_UTIL_STRING_HPP_ */
