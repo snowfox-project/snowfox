@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_COMSTACK_CANOPEN_CANFRAME_H_
-#define INCLUDE_SPECTRE_COMSTACK_CANOPEN_CANFRAME_H_
+#ifndef INCLUDE_SPECTRE_UTIL_TYPE_CANFRAME_H_
+#define INCLUDE_SPECTRE_UTIL_TYPE_CANFRAME_H_
 
 /**************************************************************************************
  * INCLUDE
@@ -78,4 +78,4 @@ uint32_t toCanIdExtended(CanFrame const & frame);
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_COMSTACK_CANOPEN_CANFRAME_H_ */
+#endif /* INCLUDE_SPECTRE_UTIL_TYPE_CANFRAME_H_ */

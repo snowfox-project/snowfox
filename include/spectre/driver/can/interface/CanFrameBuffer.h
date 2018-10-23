@@ -23,7 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/comstack/canopen/CanFrame.h>
+#include <spectre/util/type/CanFrame.h>
 
 #include <spectre/util/container/Queue.h>
 
