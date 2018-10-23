@@ -34,7 +34,7 @@ namespace type
  **************************************************************************************/
 
 template <uint16_t MAX_STRING_LENGTH>
-String<MAX_STRING_LENGTH>::String()
+StaticString<MAX_STRING_LENGTH>::StaticString()
 : _length(0)
 {
   memset(_string, 0, sizeof(char)*MAX_STRING_LENGTH);

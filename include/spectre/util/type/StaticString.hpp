@@ -49,12 +49,12 @@ static uint16_t constexpr DEFAULT_MAX_STRING_LENGTH = 32;
  **************************************************************************************/
 
 template <uint16_t MAX_STRING_LENGTH = DEFAULT_MAX_STRING_LENGTH>
-class String
+class StaticString
 {
 
 public:
 
-  String();
+  StaticString();
 
 
 private:
