@@ -67,16 +67,16 @@ set(SPECTRE_TEST_HOST_HAL_SRCS
 )
 
 ##########################################################################
-# MEMORY #################################################################
+# UTIL ###################################################################
 ##########################################################################
 
-set(SPECTRE_TEST_MEMORY_PATH src/memory)
+set(SPECTRE_TEST_UTIL_PATH src/util)
 
 ##########################################################################
 
-set(SPECTRE_TEST_HOST_MEMORY_SRCS
-  ${SPECTRE_TEST_MEMORY_PATH}/container/test_List.cpp
-  ${SPECTRE_TEST_MEMORY_PATH}/container/test_Queue.cpp
+set(SPECTRE_TEST_HOST_UTIL_SRCS
+  ${SPECTRE_TEST_UTIL_PATH}/container/test_List.cpp
+  ${SPECTRE_TEST_UTIL_PATH}/container/test_Queue.cpp
 )
 
 ##########################################################################
@@ -100,7 +100,7 @@ add_executable(
   src/test_main.cpp
   
   ${SPECTRE_TEST_HOST_HAL_AVR_SRCS}
-  ${SPECTRE_TEST_HOST_MEMORY_SRCS}
+  ${SPECTRE_TEST_HOST_UTIL_SRCS}
   ${SPECTRE_TEST_HOST_OS_SRCS}
 )
 
