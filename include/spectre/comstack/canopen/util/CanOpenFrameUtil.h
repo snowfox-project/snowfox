@@ -32,25 +32,25 @@
 namespace spectre
 {
 
-namespace comstack
+namespace util
 {
 
-namespace canopen
+namespace type
 {
 
 /**************************************************************************************
  * PROTOTYPES
  **************************************************************************************/
 
-uint16_t toCobId(CanFrame const & frame);
+uint16_t toCobId(util::type::CanFrame const & frame);
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* canopen */
+} /* type */
 
-} /* comstack */
+} /* util */
 
 } /* spectre */
 

@@ -54,8 +54,8 @@ public:
   virtual ~CanControl() { }
 
 
-  virtual bool transmit(comstack::canopen::CanFrame const & frame) = 0;
-  virtual bool receive (comstack::canopen::CanFrame       * frame) = 0;
+  virtual bool transmit(util::type::CanFrame const & frame) = 0;
+  virtual bool receive (util::type::CanFrame       * frame) = 0;
 
 };
 

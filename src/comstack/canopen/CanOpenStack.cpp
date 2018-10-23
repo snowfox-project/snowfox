@@ -54,7 +54,7 @@ CanOpenStack::~CanOpenStack()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void CanOpenStack::onFrameReceived(CanFrame const & frame)
+void CanOpenStack::onFrameReceived(util::type::CanFrame const & frame)
 {
   /* TODO */
 }

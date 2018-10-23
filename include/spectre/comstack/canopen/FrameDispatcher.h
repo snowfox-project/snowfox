@@ -54,7 +54,7 @@ public:
                   interface::FrameHandler & node_guard_frame_handler,
                   interface::FrameHandler & unkown_frame_handler);
 
-  void dispatch(CanFrame const & frame);
+  void dispatch(util::type::CanFrame const & frame);
 
 
 private:

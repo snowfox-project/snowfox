@@ -53,7 +53,7 @@ NodeGuardFrameHandler::~NodeGuardFrameHandler()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void NodeGuardFrameHandler::onFrameReceived(CanFrame const & frame)
+void NodeGuardFrameHandler::onFrameReceived(util::type::CanFrame const & frame)
 {
   /* TODO */
 }

@@ -53,7 +53,7 @@ PdoFrameHandler::~PdoFrameHandler()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void PdoFrameHandler::onFrameReceived(CanFrame const & frame)
+void PdoFrameHandler::onFrameReceived(util::type::CanFrame const & frame)
 {
   /* TODO */
 }

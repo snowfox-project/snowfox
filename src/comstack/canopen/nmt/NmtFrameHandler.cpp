@@ -53,7 +53,7 @@ NmtFrameHandler::~NmtFrameHandler()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void NmtFrameHandler::onFrameReceived(CanFrame const & frame)
+void NmtFrameHandler::onFrameReceived(util::type::CanFrame const & frame)
 {
   /* TODO */
 }

@@ -47,7 +47,7 @@ namespace interface
  * TYPEDEF
  **************************************************************************************/
 
-typedef util::container::Queue<comstack::canopen::CanFrame> CanFrameBuffer;
+typedef util::container::Queue<util::type::CanFrame> CanFrameBuffer;
 
 /**************************************************************************************
  * NAMESPACE

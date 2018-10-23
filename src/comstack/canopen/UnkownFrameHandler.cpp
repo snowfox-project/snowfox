@@ -54,7 +54,7 @@ UnkownFrameHandler::~UnkownFrameHandler()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void UnkownFrameHandler::onFrameReceived(CanFrame const & frame)
+void UnkownFrameHandler::onFrameReceived(util::type::CanFrame const & frame)
 {
   _unkown_frame_cnt++;
 }

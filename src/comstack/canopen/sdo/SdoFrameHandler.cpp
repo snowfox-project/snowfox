@@ -53,7 +53,7 @@ SdoFrameHandler::~SdoFrameHandler()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void SdoFrameHandler::onFrameReceived(CanFrame const & frame)
+void SdoFrameHandler::onFrameReceived(util::type::CanFrame const & frame)
 {
   /* TODO */
 }

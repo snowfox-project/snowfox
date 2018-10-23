@@ -29,10 +29,10 @@
 namespace spectre
 {
 
-namespace comstack
+namespace util
 {
 
-namespace canopen
+namespace type
 {
 
 /**************************************************************************************
@@ -46,30 +46,30 @@ static uint32_t constexpr CAN_ID_EXTENDED_BITMASK = 0x1FFFFFFF;
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool isExtendedId(CanFrame const & frame)
+bool isExtendedId(util::type::CanFrame const & frame)
 {
   bool const is_extended_id = (frame.id & CAN_EFF_BITMASK) == CAN_EFF_BITMASK;
   return is_extended_id;
 }
 
-bool isRTR(CanFrame const & frame)
+bool isRTR(util::type::CanFrame const & frame)
 {
   bool const is_remote_transmission_request = (frame.id & CAN_RTR_BITMASK) == CAN_RTR_BITMASK;
   return is_remote_transmission_request;
 }
 
-bool isErrorFrame(CanFrame const & frame)
+bool isErrorFrame(util::type::CanFrame const & frame)
 {
   bool const is_error_frame = (frame.id & CAN_ERR_BITMASK) == CAN_ERR_BITMASK;
   return is_error_frame;
 }
 
-uint32_t toCanId(CanFrame const & frame)
+uint32_t toCanId(util::type::CanFrame const & frame)
 {
   return (frame.id & CAN_ID_BITMASK);
 }
 
-uint32_t toCanIdExtended(CanFrame const & frame)
+uint32_t toCanIdExtended(util::type::CanFrame const & frame)
 {
   return (frame.id & CAN_ID_EXTENDED_BITMASK);
 }
@@ -78,8 +78,8 @@ uint32_t toCanIdExtended(CanFrame const & frame)
  * NAMESPACE
  **************************************************************************************/
 
-} /* canopen */
+} /* type */
 
-} /* comstack */
+} /* util */
 
 } /* spectre */

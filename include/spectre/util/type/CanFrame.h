@@ -33,10 +33,10 @@
 namespace spectre
 {
 
-namespace comstack
+namespace util
 {
 
-namespace canopen
+namespace type
 {
 
 /**************************************************************************************
@@ -62,19 +62,19 @@ static uint32_t constexpr CAN_ERR_BITMASK = 0x20000000;
  * PROTOTYPES
  **************************************************************************************/
 
-bool     isExtendedId   (CanFrame const & frame);
-bool     isRTR          (CanFrame const & frame);
-bool     isErrorFrame   (CanFrame const & frame);
-uint32_t toCanId        (CanFrame const & frame);
-uint32_t toCanIdExtended(CanFrame const & frame);
+bool     isExtendedId   (util::type::CanFrame const & frame);
+bool     isRTR          (util::type::CanFrame const & frame);
+bool     isErrorFrame   (util::type::CanFrame const & frame);
+uint32_t toCanId        (util::type::CanFrame const & frame);
+uint32_t toCanIdExtended(util::type::CanFrame const & frame);
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* canopen */
+} /* util */
 
-} /* comstack */
+} /* type*/
 
 } /* spectre */
 

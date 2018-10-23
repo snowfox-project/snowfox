@@ -53,7 +53,7 @@ SyncFrameHandler::~SyncFrameHandler()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void SyncFrameHandler::onFrameReceived(CanFrame const & frame)
+void SyncFrameHandler::onFrameReceived(util::type::CanFrame const & frame)
 {
   /* TODO */
 }

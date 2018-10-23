@@ -62,7 +62,7 @@ FrameDispatcher::FrameDispatcher(interface::FrameHandler & nmt_frame_handler,
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void FrameDispatcher::dispatch(CanFrame const & frame)
+void FrameDispatcher::dispatch(util::type::CanFrame const & frame)
 {
   uint16_t const frame_cob_base_id = toCobId(frame);
 

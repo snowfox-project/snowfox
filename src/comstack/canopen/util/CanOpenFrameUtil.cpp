@@ -39,7 +39,7 @@ namespace canopen
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-uint16_t toCobId(CanFrame const & frame)
+uint16_t toCobId(util::type::CanFrame const & frame)
 {
   return static_cast<uint16_t>(toCanId(frame) >> 7);
 }

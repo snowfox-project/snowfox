@@ -67,7 +67,7 @@ public:
   virtual ~MCP2515_ReceiveControl() { }
 
 
-  virtual void readFromReceiveBuffer(ReceiveBufferSelect const rx_buf_sel, comstack::canopen::CanFrame * frame) = 0;
+  virtual void readFromReceiveBuffer(ReceiveBufferSelect const rx_buf_sel, util::type::CanFrame * frame) = 0;
 
 };
 

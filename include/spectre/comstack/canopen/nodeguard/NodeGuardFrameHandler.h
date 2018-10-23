@@ -51,7 +51,7 @@ public:
   virtual ~NodeGuardFrameHandler();
 
 
-  virtual void onFrameReceived(CanFrame const & frame) override;
+  virtual void onFrameReceived(util::type::CanFrame const & frame) override;
 
 };
 

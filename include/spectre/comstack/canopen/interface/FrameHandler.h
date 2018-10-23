@@ -54,7 +54,7 @@ public:
   virtual ~FrameHandler() { }
 
 
-  virtual void onFrameReceived(CanFrame const & frame) = 0;
+  virtual void onFrameReceived(util::type::CanFrame const & frame) = 0;
 
 };
 

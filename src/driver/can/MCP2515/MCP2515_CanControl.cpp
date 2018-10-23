@@ -61,7 +61,7 @@ MCP2515_CanControl::~MCP2515_CanControl()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool MCP2515_CanControl::transmit(comstack::canopen::CanFrame const & frame)
+bool MCP2515_CanControl::transmit(util::type::CanFrame const & frame)
 {
   /* Check if there is a free transmit buffer to fill and if that
    * is the case fill the buffer and initiate transmission.
@@ -100,7 +100,7 @@ bool MCP2515_CanControl::transmit(comstack::canopen::CanFrame const & frame)
   return false;
 }
 
-bool MCP2515_CanControl::receive(comstack::canopen::CanFrame * frame)
+bool MCP2515_CanControl::receive(util::type::CanFrame * frame)
 {
   if(_can_rx_buf.isEmpty()) return false;
 

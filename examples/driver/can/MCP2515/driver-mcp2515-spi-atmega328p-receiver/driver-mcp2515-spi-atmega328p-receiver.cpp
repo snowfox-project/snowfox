@@ -195,7 +195,7 @@ int main()
 
   for(;;)
   {
-    comstack::canopen::CanFrame frame;
+    util::type::CanFrame frame;
 
     bool const success = can.read(reinterpret_cast<uint8_t* >(&frame), sizeof(frame)) == sizeof(frame);
     if(success)

@@ -64,7 +64,7 @@ void MCP2515_onTransmitBufferEmpty::onTransmitBufferEmpty(interface::TransmitBuf
 {
   if(!_can_tx_buf.isEmpty())
   {
-    comstack::canopen::CanFrame frame;
+    util::type::CanFrame frame;
     _can_tx_buf.pop(&frame);
 
     _ctrl.writeToTransmitBuffer(tx_buf_sel, frame);

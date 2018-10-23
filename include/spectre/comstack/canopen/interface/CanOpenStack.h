@@ -45,7 +45,7 @@ namespace interface
  * TYPEDEF
  **************************************************************************************/
 
-typedef void(*TransmitFrameFunc)(CanFrame const & frame);
+typedef void(*TransmitFrameFunc)(util::type::CanFrame const & frame);
 
 /**************************************************************************************
  * CLASS DECLARATION
@@ -60,7 +60,7 @@ public:
   virtual ~CanOpenStack() { }
 
 
-  virtual void onFrameReceived(CanFrame const & frame) = 0;
+  virtual void onFrameReceived(util::type::CanFrame const & frame) = 0;
 
 };
 

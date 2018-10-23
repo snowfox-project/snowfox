@@ -51,7 +51,7 @@ public:
   virtual ~UnkownFrameHandler();
 
 
-  virtual void onFrameReceived(CanFrame const & frame) override;
+  virtual void onFrameReceived(util::type::CanFrame const & frame) override;
 
 
   inline uint32_t unkownFrameCnt() const { return _unkown_frame_cnt; }
