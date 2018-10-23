@@ -58,10 +58,12 @@ class StaticString
 public:
 
   StaticString();
+  StaticString(char const * str);
+  StaticString(StaticString const & other);
 
 
-  inline uint16_t length() const { return _length; }
-  inline char *   c_str ()       { return _string; }
+  inline uint16_t     length() const { return _length; }
+  inline char const * c_str () const { return _string; }
 
 
 private:

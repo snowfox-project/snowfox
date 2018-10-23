@@ -49,6 +49,20 @@ StaticString<MAX_STRING_LENGTH>::StaticString()
   memset(_string, 0, sizeof(char)*MAX_STRING_LENGTH);
 }
 
+template <uint16_t MAX_STRING_LENGTH>
+StaticString<MAX_STRING_LENGTH>::StaticString(char const * str)
+: _length(strlen(str))
+{
+  strncpy(_string, str, MAX_STRING_LENGTH);
+}
+
+template <uint16_t MAX_STRING_LENGTH>
+StaticString<MAX_STRING_LENGTH>::StaticString(StaticString const & other)
+: StaticString(other.c_str())
+{
+
+}
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
