@@ -25,6 +25,8 @@
 
 #include <spectre/comstack/canopen/ObjectDictionaryEntry.hpp>
 
+#include <spectre/util/type/StaticString.hpp>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -44,11 +46,11 @@ namespace canopen
 
 typedef struct
 {
-  uint32_t    device_type;
-  uint8_t     error_register;
-  char        manufacturer_device_name     [32];
-  char        manufacturer_hardware_version[32];
-  char        manufacturer_software_version[32];
+  uint32_t                 device_type;
+  uint8_t                  error_register;
+  util::type::StaticString manufacturer_device_name;
+  util::type::StaticString manufacturer_hardware_version;
+  util::type::StaticString manufacturer_software_version;
 } ObjectDictionaryConfiguration;
 
 /**************************************************************************************
@@ -81,13 +83,11 @@ public:
 
 private:
 
-  ObjectDictionaryEntry<uint32_t> _device_type;
-  ObjectDictionaryEntry<uint8_t>  _error_register;
-  /*
-  ObjectDictionaryEntry<char *>   _manufacturer_device_name,
-                                  _manufacturer_hardware_version,
-                                  _manufacturer_software_version;
-  */
+  ObjectDictionaryEntry<uint32_t>                 _device_type;
+  ObjectDictionaryEntry<uint8_t>                  _error_register;
+  ObjectDictionaryEntry<util::type::StaticString> _manufacturer_device_name,
+                                                  _manufacturer_hardware_version,
+                                                  _manufacturer_software_version;
 };
 
 /**************************************************************************************
@@ -99,5 +99,11 @@ private:
 } /* comstack */
 
 } /* spectre */
+
+/**************************************************************************************
+ * TEMPLATE CODE
+ **************************************************************************************/
+
+#include "ObjectDictionary.ipp"
 
 #endif /* INCLUDE_SPECTRE_COMSTACK_CANOPEN_OBJECTDICTIONARY_H_ */

@@ -34,7 +34,7 @@ namespace canopen
  **************************************************************************************/
 
 template <typename T>
-ObjectDictionaryEntry<T> & ObjectDictionary<T>::operator() (uint16_t const idx, uint8_t const sub_idx)
+ObjectDictionaryEntry<T> & ObjectDictionary::operator() (uint16_t const idx, uint8_t const sub_idx)
 {
   /* TODO */
 }
