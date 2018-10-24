@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/comstack/canopen/ObjectDictionary.hpp>
+#include <spectre/comstack/canopen/objdict/ObjectDictionary.hpp>
 
 /**************************************************************************************
  * NAMESPACE

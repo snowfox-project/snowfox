@@ -23,7 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/comstack/canopen/ObjectDictionaryEntry.hpp>
+#include <spectre/comstack/canopen/objdict/ObjectDictionaryEntry.hpp>
 
 #include <stdbool.h>
 
