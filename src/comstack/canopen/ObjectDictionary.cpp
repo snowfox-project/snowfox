@@ -44,9 +44,16 @@ ObjectDictionary::ObjectDictionary(ObjectDictionaryConfiguration const & obj_dic
   _error_register               (0x1001, 0x00, obj_dict_config.error_register,                ObjectDictionaryAccess::ReadOnly, 0),
   _manufacturer_device_name     (0x1008, 0x00, obj_dict_config.manufacturer_device_name,      ObjectDictionaryAccess::ReadOnly, 0),
   _manufacturer_hardware_version(0x1009, 0x00, obj_dict_config.manufacturer_hardware_version, ObjectDictionaryAccess::ReadOnly, 0),
-  _manufacturer_software_version(0x100A, 0x00, obj_dict_config.manufacturer_software_version, ObjectDictionaryAccess::ReadOnly, 0)
+  _manufacturer_software_version(0x100A, 0x00, obj_dict_config.manufacturer_software_version, ObjectDictionaryAccess::ReadOnly, 0),
+  _od_empty_entry_uint8_t       (0,0,0,ObjectDictionaryAccess::ReadOnly, 0),
+  _od_empty_entry_uint32_t      (0,0,0,ObjectDictionaryAccess::ReadOnly, 0),
+  _od_empty_entry_string        (0,0,"",ObjectDictionaryAccess::ReadOnly, 0)
 {
-
+  push_back(_device_type                  );
+  push_back(_error_register               );
+  push_back(_manufacturer_device_name     );
+  push_back(_manufacturer_hardware_version);
+  push_back(_manufacturer_software_version);
 }
 
 /**************************************************************************************

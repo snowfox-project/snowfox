@@ -54,6 +54,10 @@ typedef struct
   util::type::StaticString manufacturer_software_version;
 } ObjectDictionaryConfiguration;
 
+typedef ObjectDictionaryEntry<uint8_t>                  ObjectDictionaryEntry_uint8_t;
+typedef ObjectDictionaryEntry<uint32_t>                 ObjectDictionaryEntry_uint32_t;
+typedef ObjectDictionaryEntry<util::type::StaticString> ObjectDictionaryEntry_String;
+
 /**************************************************************************************
  * CONSTANT
  **************************************************************************************/
@@ -84,11 +88,25 @@ public:
 
 private:
 
-  ObjectDictionaryEntry<uint32_t>                 _device_type;
-  ObjectDictionaryEntry<uint8_t>                  _error_register;
-  ObjectDictionaryEntry<util::type::StaticString> _manufacturer_device_name,
-                                                  _manufacturer_hardware_version,
-                                                  _manufacturer_software_version;
+  /* Object dictionary entries */
+  ObjectDictionaryEntry_uint32_t _device_type;
+  ObjectDictionaryEntry_uint8_t  _error_register;
+  ObjectDictionaryEntry_String   _manufacturer_device_name,
+                                 _manufacturer_hardware_version,
+                                 _manufacturer_software_version;
+
+  /* Object dictionary empty entries */
+  ObjectDictionaryEntry_uint8_t  _od_empty_entry_uint8_t;
+  ObjectDictionaryEntry_uint32_t _od_empty_entry_uint32_t;
+  ObjectDictionaryEntry_String   _od_empty_entry_string;
+
+  util::container::List<ObjectDictionaryEntry_uint8_t  &> _od_uint8_t;
+  util::container::List<ObjectDictionaryEntry_uint32_t &> _od_uint32_t;
+  util::container::List<ObjectDictionaryEntry_String   &> _od_string;
+
+  template <typename T>
+  void push_back(T & entry);
+
 };
 
 /**************************************************************************************

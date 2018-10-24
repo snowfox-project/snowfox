@@ -36,7 +36,7 @@ namespace canopen
  * CTOR/DTOR
  **************************************************************************************/
 
-template <typename T>
+template <class T>
 ObjectDictionaryEntry<T>::ObjectDictionaryEntry(uint16_t               const   idx,
                                                 uint8_t                const   sub_idx,
                                                 T                      const & initial_value,
@@ -55,7 +55,7 @@ ObjectDictionaryEntry<T>::ObjectDictionaryEntry(uint16_t               const   i
  * PUBLIC MEMBER FUNCTION
  **************************************************************************************/
 
-template <typename T>
+template <class T>
 void ObjectDictionaryEntry<T>::set(T const value)
 {
   bool const is_value_different = _value != value; 
@@ -68,6 +68,16 @@ void ObjectDictionaryEntry<T>::set(T const value)
       _on_value_change_callback();
     }
   }
+}
+
+/**************************************************************************************
+ * PUBLIC FUNCTIONS
+ **************************************************************************************/
+
+template <typename T>
+bool operator == (ObjectDictionaryEntry<T> const & lhs, ObjectDictionaryEntry<T> const & rhs)
+{
+  return (lhs.idx() == rhs.idx()) && (lhs.subIdx() == rhs.subIdx()); 
 }
 
 /**************************************************************************************

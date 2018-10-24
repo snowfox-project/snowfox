@@ -53,7 +53,7 @@ typedef void(*OnValueChangeCallback)(void);
  * CLASS DECLARATION
  **************************************************************************************/
 
-template <typename T>
+template <class T>
 class ObjectDictionaryEntry
 {
 
@@ -84,6 +84,13 @@ private:
   OnValueChangeCallback        _on_value_change_callback;
 
 };
+
+/**************************************************************************************
+ * PUBLIC PROTOTYPES
+ **************************************************************************************/
+
+template <typename T>
+bool operator == (ObjectDictionaryEntry<T> const & lhs, ObjectDictionaryEntry<T> const & rhs);
 
 /**************************************************************************************
  * NAMESPACE
