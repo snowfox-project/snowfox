@@ -16,19 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_COMSTACK_CANOPEN_OBJECTDICTIONARY_H_
-#define INCLUDE_SPECTRE_COMSTACK_CANOPEN_OBJECTDICTIONARY_H_
-
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/comstack/canopen/ObjectDictionaryEntry.hpp>
+#include <catch.hpp>
 
-#include <stdbool.h>
-
-#include <spectre/util/container/List.hpp>
-#include <spectre/util/type/StaticString.hpp>
+#include <spectre/comstack/canopen/ObjectDictionary.hpp>
 
 /**************************************************************************************
  * NAMESPACE
@@ -43,52 +37,33 @@ namespace comstack
 namespace canopen
 {
 
-/**************************************************************************************
- * CLASS DECLARATION
- **************************************************************************************/
-
-class ObjectDictionary
+namespace test
 {
 
-public:
+/**************************************************************************************
+ * TEST CODE
+ **************************************************************************************/
 
-  ObjectDictionary();
+SCENARIO("A ObjectDictionary object is constructed", "[comstack::canopen::ObjectDictionary]")
+{
+  ObjectDictionary obj_dict;
 
-  template <typename T>
-  void add(ObjectDictionaryEntry<T> & entry);
-
-  template <typename T>
-  ObjectDictionaryEntry<T> & operator() (uint16_t const idx, uint8_t const sub_idx);
-
-  template <typename T>
-  bool isEmpty(ObjectDictionaryEntry<T> & entry) const;
-
-private:
-
-  ObjectDictionaryEntry<uint8_t>                  _od_empty_entry_uint8_t;
-  ObjectDictionaryEntry<uint32_t>                 _od_empty_entry_uint32_t;
-  ObjectDictionaryEntry<util::type::StaticString> _od_empty_entry_string;
-
-  util::container::List<ObjectDictionaryEntry<uint8_t>                  &> _od_uint8_t;
-  util::container::List<ObjectDictionaryEntry<uint32_t>                 &> _od_uint32_t;
-  util::container::List<ObjectDictionaryEntry<util::type::StaticString> &> _od_string;
-
-};
+  WHEN("No entries have been added yet")
+  {
+    THEN("When requesting a UINT8 entry a empty entry object should be returned" ) { REQUIRE(obj_dict.isEmpty(obj_dict.get_UINT8 (0x0001, 0x01)) == true); }
+    THEN("When requesting a UINT32 entry a empty entry object should be returned") { REQUIRE(obj_dict.isEmpty(obj_dict.get_UINT32(0x0001, 0x01)) == true); }
+    THEN("When requesting a STRING entry a empty entry object should be returned") { REQUIRE(obj_dict.isEmpty(obj_dict.get_STRING(0x0001, 0x01)) == true); }
+  }
+}
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* test */
 
 } /* canopen */
 
 } /* comstack */
 
 } /* spectre */
-
-/**************************************************************************************
- * TEMPLATE CODE
- **************************************************************************************/
-
-#include "ObjectDictionary.ipp"
-
-#endif /* INCLUDE_SPECTRE_COMSTACK_CANOPEN_OBJECTDICTIONARY_H_ */

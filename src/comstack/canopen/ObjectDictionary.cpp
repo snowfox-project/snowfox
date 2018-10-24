@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/comstack/canopen/ObjectDictionary.h>
+#include <spectre/comstack/canopen/ObjectDictionary.hpp>
 
 /**************************************************************************************
  * NAMESPACE
@@ -40,9 +40,9 @@ namespace canopen
  **************************************************************************************/
 
 ObjectDictionary::ObjectDictionary()
-: _od_empty_entry_uint8_t       (0,0, 0, ObjectDictionaryAccess::ReadOnly, 0),
-  _od_empty_entry_uint32_t      (0,0, 0, ObjectDictionaryAccess::ReadOnly, 0),
-  _od_empty_entry_string        (0,0,"", ObjectDictionaryAccess::ReadOnly, 0)
+: _od_empty_entry_uint8_t (0,0, 0, ObjectDictionaryAccess::ReadOnly, 0),
+  _od_empty_entry_uint32_t(0,0, 0, ObjectDictionaryAccess::ReadOnly, 0),
+  _od_empty_entry_string  (0,0,"", ObjectDictionaryAccess::ReadOnly, 0)
 {
 
 }

@@ -30,77 +30,51 @@ namespace canopen
 {
 
 /**************************************************************************************
- * INTERNAL PROTOTYPES
- **************************************************************************************/
-
-template <typename T>
-ObjectDictionaryEntry<T> & find(util::container::List<ObjectDictionaryEntry<T> &> & list, ObjectDictionaryEntry<T> & od_empty_entry, uint16_t const idx, uint8_t const sub_idx);
-
-/**************************************************************************************
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
 template <>
-void ObjectDictionary::add(ObjectDictionaryEntry<uint8_t> & entry)
+inline void ObjectDictionary::add(ObjectDictionaryEntry<uint8_t> & entry)
 {
   _od_uint8_t.push_back(entry);
 }
 
 template <>
-void ObjectDictionary::add(ObjectDictionaryEntry<uint32_t> & entry)
+inline void ObjectDictionary::add(ObjectDictionaryEntry<uint32_t> & entry)
 {
   _od_uint32_t.push_back(entry);
 }
 
 template <>
-void ObjectDictionary::add(ObjectDictionaryEntry<util::type::StaticString> & entry)
+inline void ObjectDictionary::add(ObjectDictionaryEntry<util::type::StaticString> & entry)
 {
   _od_string.push_back(entry);
 }
 
-
 template <>
-ObjectDictionaryEntry<uint8_t> & ObjectDictionary::operator() (uint16_t const idx, uint8_t const sub_idx)
-{
-  return find(_od_uint8_t, _od_empty_entry_uint8_t, idx, sub_idx);
-}
-
-template <>
-ObjectDictionaryEntry<uint32_t> & ObjectDictionary::operator() (uint16_t const idx, uint8_t const sub_idx)
-{
-  return find(_od_uint32_t, _od_empty_entry_uint32_t, idx, sub_idx);
-}
-
-template <>
-ObjectDictionaryEntry<util::type::StaticString> & ObjectDictionary::operator() (uint16_t const idx, uint8_t const sub_idx)
-{
-  return find(_od_string, _od_empty_entry_string, idx, sub_idx);
-}
-
-template <>
-bool ObjectDictionary::isEmpty(ObjectDictionaryEntry<uint8_t> & entry) const
+inline bool ObjectDictionary::isEmpty(ObjectDictionaryEntry<uint8_t> & entry) const
 {
   return (entry == _od_empty_entry_uint8_t);
 }
 
 template <>
-bool ObjectDictionary::isEmpty(ObjectDictionaryEntry<uint32_t> & entry) const
+inline bool ObjectDictionary::isEmpty(ObjectDictionaryEntry<uint32_t> & entry) const
 {
   return (entry == _od_empty_entry_uint32_t);
 }
 
 template <>
-bool ObjectDictionary::isEmpty(ObjectDictionaryEntry<util::type::StaticString> & entry) const
+inline bool ObjectDictionary::isEmpty(ObjectDictionaryEntry<util::type::StaticString> & entry) const
 {
   return (entry == _od_empty_entry_string);
 }
 
 /**************************************************************************************
- * INTERNAL FUNCTIONS
+ * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
 template <typename T>
-ObjectDictionaryEntry<T> & find(util::container::List<ObjectDictionaryEntry<T> &> & list, ObjectDictionaryEntry<T> & od_empty_entry, uint16_t const idx, uint8_t const sub_idx)
+inline ObjectDictionaryEntry<T> & ObjectDictionary::find(util::container::List<ObjectDictionaryEntry<T> &> & list, ObjectDictionaryEntry<T> & od_empty_entry, uint16_t const idx, uint8_t const sub_idx)
 {
   for(util::container::ListNode<ObjectDictionaryEntry<T> &> * iter = list.begin();
       iter != list.end();

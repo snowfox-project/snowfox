@@ -12,6 +12,22 @@ include_directories(external/catch/current/include)
 set(SPECTRE_TEST_HOST_TARGET test-host)
 
 ##########################################################################
+# COMSTACK ###############################################################
+##########################################################################
+
+set(SPECTRE_TEST_COMSTACK_PATH src/comstack)
+
+##########################################################################
+# CANOPEN ################################################################
+##########################################################################
+
+set(SPECTRE_TEST_COMSTACK_CANOPEN_PATH ${SPECTRE_TEST_COMSTACK_PATH}/canopen)
+
+set(SPECTRE_TEST_HOST_COMSTACK_CANOPEN_SRCS
+  ${SPECTRE_TEST_COMSTACK_CANOPEN_PATH}/test_ObjectDictionary.cpp
+)
+
+##########################################################################
 # HAL ####################################################################
 ##########################################################################
 
@@ -101,6 +117,7 @@ add_executable(
   
   src/test_main.cpp
   
+  ${SPECTRE_TEST_HOST_COMSTACK_CANOPEN_SRCS}
   ${SPECTRE_TEST_HOST_HAL_AVR_SRCS}
   ${SPECTRE_TEST_HOST_UTIL_SRCS}
   ${SPECTRE_TEST_HOST_OS_SRCS}

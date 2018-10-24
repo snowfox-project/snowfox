@@ -16,9 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_COMSTACK_CANOPEN_OBJECTDICTIONARYENTRY_HPP_
-#define INCLUDE_SPECTRE_COMSTACK_CANOPEN_OBJECTDICTIONARYENTRY_HPP_
-
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -36,7 +33,7 @@ namespace canopen
  * CTOR/DTOR
  **************************************************************************************/
 
-template <class T>
+template <typename T>
 ObjectDictionaryEntry<T>::ObjectDictionaryEntry(uint16_t               const   idx,
                                                 uint8_t                const   sub_idx,
                                                 T                      const & initial_value,
@@ -55,7 +52,7 @@ ObjectDictionaryEntry<T>::ObjectDictionaryEntry(uint16_t               const   i
  * PUBLIC MEMBER FUNCTION
  **************************************************************************************/
 
-template <class T>
+template <typename T>
 void ObjectDictionaryEntry<T>::set(T const value)
 {
   bool const is_value_different = _value != value; 
@@ -89,5 +86,3 @@ bool operator == (ObjectDictionaryEntry<T> const & lhs, ObjectDictionaryEntry<T>
 } /* comstack */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_COMSTACK_CANOPEN_OBJECTDICTIONARYENTRY_HPP_ */
