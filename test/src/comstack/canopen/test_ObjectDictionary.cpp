@@ -48,21 +48,76 @@ SCENARIO("A ObjectDictionary object is constructed", "[comstack::canopen::Object
 {
   ObjectDictionary obj_dict;
 
-  THEN("When requesting a UINT8 entry a empty entry object should be returned" ) { REQUIRE(obj_dict.isEmpty(obj_dict.get_UINT8 (0x0001, 0x01)) == true); }
-  THEN("When requesting a UINT32 entry a empty entry object should be returned") { REQUIRE(obj_dict.isEmpty(obj_dict.get_UINT32(0x0001, 0x01)) == true); }
-  THEN("When requesting a STRING entry a empty entry object should be returned") { REQUIRE(obj_dict.isEmpty(obj_dict.get_STRING(0x0001, 0x01)) == true); }
+  /************************************************************************************/
+
+  THEN("When requesting a UINT8 entry a empty entry object should be returned")
+  {
+    REQUIRE(obj_dict.isEmpty(obj_dict.get_UINT8 (0x0001, 0x01)) == true);
+  }
+  THEN("When requesting a UINT32 entry a empty entry object should be returned")
+  {
+    REQUIRE(obj_dict.isEmpty(obj_dict.get_UINT32(0x0001, 0x01)) == true);
+  }
+  THEN("When requesting a STRING entry a empty entry object should be returned")
+  {
+    REQUIRE(obj_dict.isEmpty(obj_dict.get_STRING(0x0001, 0x01)) == true);
+  }
+
+  /************************************************************************************/
 
   WHEN("A UINT8 obj dict entry is added")
   {
-    ObjectDictionaryEntry<uint8_t> entry(0x1001, 0x01, 5, ObjectDictionaryAccess::ReadWrite, 0);
+    ObjectDictionaryEntry<uint8_t> entry(0x1001, 0x01, 0xFF, ObjectDictionaryAccess::ReadWrite, 0);
 
     obj_dict.add(entry);
 
-    THEN("When requesting the added UINT8 entry the desired reference should be returned" )
+    THEN("When requesting the added UINT8 entry the desired reference should be returned")
     {
       REQUIRE(obj_dict.get_UINT8(0x1001, 0x01) == entry);
     }
+    THEN("When requesting a not added UINT8 entry a empty entry object should be returned")
+    {
+      REQUIRE(obj_dict.isEmpty(obj_dict.get_UINT8 (0x0001, 0x01)) == true);
+    }
   }
+
+  /************************************************************************************/
+
+  WHEN("A UINT32 obj dict entry is added")
+  {
+    ObjectDictionaryEntry<uint32_t> entry(0x1001, 0x01, 0xCAFFEE, ObjectDictionaryAccess::ReadWrite, 0);
+
+    obj_dict.add(entry);
+
+    THEN("When requesting the added UINT32 entry the desired reference should be returned")
+    {
+      REQUIRE(obj_dict.get_UINT32(0x1001, 0x01) == entry);
+    }
+    THEN("When requesting a not added UINT32 entry a empty entry object should be returned")
+    {
+      REQUIRE(obj_dict.isEmpty(obj_dict.get_UINT32(0x0001, 0x01)) == true);
+    }
+  }
+
+  /************************************************************************************/
+
+  WHEN("A STRING obj dict entry is added")
+  {
+    ObjectDictionaryEntry<util::type::StaticString> entry(0x1001, 0x01, "CAFFEE", ObjectDictionaryAccess::ReadWrite, 0);
+
+    obj_dict.add(entry);
+
+    THEN("When requesting the added STRING entry the desired reference should be returned")
+    {
+      REQUIRE(obj_dict.get_STRING(0x1001, 0x01) == entry);
+    }
+    THEN("When requesting a not added STRING entry a empty entry object should be returned")
+    {
+      REQUIRE(obj_dict.isEmpty(obj_dict.get_STRING(0x0001, 0x01)) == true);
+    }
+  }
+
+  /************************************************************************************/
 }
 
 /**************************************************************************************
