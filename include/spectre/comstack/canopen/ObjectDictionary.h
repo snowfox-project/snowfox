@@ -25,6 +25,8 @@
 
 #include <spectre/comstack/canopen/ObjectDictionaryEntry.hpp>
 
+#include <stdbool.h>
+
 #include <spectre/util/container/List.hpp>
 #include <spectre/util/type/StaticString.hpp>
 
@@ -57,6 +59,9 @@ public:
 
   template <typename T>
   ObjectDictionaryEntry<T> & operator() (uint16_t const idx, uint8_t const sub_idx);
+
+  template <typename T>
+  bool isEmpty(ObjectDictionaryEntry<T> & entry) const;
 
 private:
 
