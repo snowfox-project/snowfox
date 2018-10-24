@@ -76,8 +76,8 @@ inline bool ObjectDictionary::isEmpty(ObjectDictionaryEntry<util::type::StaticSt
 template <typename T>
 inline ObjectDictionaryEntry<T> & ObjectDictionary::find(util::container::List<ObjectDictionaryEntry<T> &> & list, ObjectDictionaryEntry<T> & od_empty_entry, uint16_t const idx, uint8_t const sub_idx)
 {
-  for(util::container::ListNode<ObjectDictionaryEntry<T> &> * iter = list.begin();
-      iter != list.end();
+  for(util::container::ListNode<ObjectDictionaryEntry<T> &> * iter = list.first();
+      iter != 0;
       iter = iter->next())
   {
     if(iter->data().idx() == idx && iter->data().subIdx() == sub_idx) return iter->data();

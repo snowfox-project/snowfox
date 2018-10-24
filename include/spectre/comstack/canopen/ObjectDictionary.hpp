@@ -57,9 +57,9 @@ public:
   template <typename T>
   void add(ObjectDictionaryEntry<T> & entry);
 
-  inline ObjectDictionaryEntry<uint8_t>                  & get_UINT8 (uint16_t const idx, uint8_t const sub_idx) { return find(_od_uint8_t, _od_empty_entry_uint8_t, idx, sub_idx);   }
+  inline ObjectDictionaryEntry<uint8_t>                  & get_UINT8 (uint16_t const idx, uint8_t const sub_idx) { return find(_od_uint8_t,  _od_empty_entry_uint8_t,  idx, sub_idx);   }
   inline ObjectDictionaryEntry<uint32_t>                 & get_UINT32(uint16_t const idx, uint8_t const sub_idx) { return find(_od_uint32_t, _od_empty_entry_uint32_t, idx, sub_idx); }
-  inline ObjectDictionaryEntry<util::type::StaticString> & get_STRING(uint16_t const idx, uint8_t const sub_idx) { return find(_od_string, _od_empty_entry_string, idx, sub_idx);     }
+  inline ObjectDictionaryEntry<util::type::StaticString> & get_STRING(uint16_t const idx, uint8_t const sub_idx) { return find(_od_string,   _od_empty_entry_string,   idx, sub_idx);     }
 
   template <typename T>
   bool isEmpty(ObjectDictionaryEntry<T> & entry) const;

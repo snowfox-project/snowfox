@@ -57,8 +57,8 @@ void EventGroup::addEvent(interface::EventConsumer & event)
 
 void EventGroup::clearAllEvents()
 {
-  for(util::container::ListNode<interface::EventConsumer &> * iter = _event_list.begin();
-      iter != _event_list.end();
+  for(util::container::ListNode<interface::EventConsumer &> * iter = _event_list.first();
+      iter != 0;
       iter = iter->next())
   {
     iter->data().clear();
@@ -67,8 +67,8 @@ void EventGroup::clearAllEvents()
 
 bool EventGroup::isEveryEventSet()
 {
-  for(util::container::ListNode<interface::EventConsumer &> * iter = _event_list.begin();
-      iter != _event_list.end();
+  for(util::container::ListNode<interface::EventConsumer &> * iter = _event_list.first();
+      iter != 0;
       iter = iter->next())
   {
     if(!iter->data().isSet()) return false;
@@ -79,8 +79,8 @@ bool EventGroup::isEveryEventSet()
 
 bool EventGroup::isAnyEventSet()
 {
-  for(util::container::ListNode<interface::EventConsumer &> * iter = _event_list.begin();
-      iter != _event_list.end();
+  for(util::container::ListNode<interface::EventConsumer &> * iter = _event_list.first();
+      iter != 0;
       iter = iter->next())
   {
     if(iter->data().isSet()) return true;

@@ -56,8 +56,8 @@ public:
   void          push_back (T           const & data);
   void          erase     (ListNode<T>       * node);
 
-  inline ListNode<T> * begin() { return _head; }
-  inline ListNode<T> * end  () { return _tail; }
+  inline ListNode<T> * first() { return _head; }
+  inline ListNode<T> * last () { return _tail; }
 
 private:
 
