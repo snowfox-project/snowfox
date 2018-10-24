@@ -42,36 +42,6 @@ namespace canopen
 {
 
 /**************************************************************************************
- * TYPEDEF
- **************************************************************************************/
-
-typedef struct
-{
-  uint32_t                 device_type;
-  uint8_t                  error_register;
-  util::type::StaticString manufacturer_device_name;
-  util::type::StaticString manufacturer_hardware_version;
-  util::type::StaticString manufacturer_software_version;
-} ObjectDictionaryConfiguration;
-
-typedef ObjectDictionaryEntry<uint8_t>                  ObjectDictionaryEntry_uint8_t;
-typedef ObjectDictionaryEntry<uint32_t>                 ObjectDictionaryEntry_uint32_t;
-typedef ObjectDictionaryEntry<util::type::StaticString> ObjectDictionaryEntry_String;
-
-/**************************************************************************************
- * CONSTANT
- **************************************************************************************/
-
-static ObjectDictionaryConfiguration const DEFAULT_OD_CONFIG =
-{
-  0,                  /* device_type                   */
-  0,                  /* error_register                */
-  "MY DEVICE NAME",   /* manufacturer_device_name      */
-  "HARDWARE VERSION", /* manufacturer_hardware_version */
-  "SOFTWARE VERSION"  /* manufacturer_software_version */
-};
-
-/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
@@ -80,32 +50,23 @@ class ObjectDictionary
 
 public:
 
-  ObjectDictionary(ObjectDictionaryConfiguration const & obj_dict_config);
+  ObjectDictionary();
 
+  template <typename T>
+  void add(ObjectDictionaryEntry<T> & entry);
 
   template <typename T>
   ObjectDictionaryEntry<T> & operator() (uint16_t const idx, uint8_t const sub_idx);
 
 private:
 
-  /* Object dictionary entries */
-  ObjectDictionaryEntry_uint32_t _device_type;
-  ObjectDictionaryEntry_uint8_t  _error_register;
-  ObjectDictionaryEntry_String   _manufacturer_device_name,
-                                 _manufacturer_hardware_version,
-                                 _manufacturer_software_version;
+  ObjectDictionaryEntry<uint8_t>                  _od_empty_entry_uint8_t;
+  ObjectDictionaryEntry<uint32_t>                 _od_empty_entry_uint32_t;
+  ObjectDictionaryEntry<util::type::StaticString> _od_empty_entry_string;
 
-  /* Object dictionary empty entries */
-  ObjectDictionaryEntry_uint8_t  _od_empty_entry_uint8_t;
-  ObjectDictionaryEntry_uint32_t _od_empty_entry_uint32_t;
-  ObjectDictionaryEntry_String   _od_empty_entry_string;
-
-  util::container::List<ObjectDictionaryEntry_uint8_t  &> _od_uint8_t;
-  util::container::List<ObjectDictionaryEntry_uint32_t &> _od_uint32_t;
-  util::container::List<ObjectDictionaryEntry_String   &> _od_string;
-
-  template <typename T>
-  void push_back(T & entry);
+  util::container::List<ObjectDictionaryEntry<uint8_t>                  &> _od_uint8_t;
+  util::container::List<ObjectDictionaryEntry<uint32_t>                 &> _od_uint32_t;
+  util::container::List<ObjectDictionaryEntry<util::type::StaticString> &> _od_string;
 
 };
 

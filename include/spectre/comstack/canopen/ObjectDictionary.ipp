@@ -63,19 +63,19 @@ ObjectDictionaryEntry<util::type::StaticString> & ObjectDictionary::operator() (
  **************************************************************************************/
 
 template <>
-void ObjectDictionary::push_back(ObjectDictionaryEntry_uint8_t & entry)
+void ObjectDictionary::add(ObjectDictionaryEntry<uint8_t> & entry)
 {
   _od_uint8_t.push_back(entry);
 }
 
 template <>
-void ObjectDictionary::push_back(ObjectDictionaryEntry_uint32_t & entry)
+void ObjectDictionary::add(ObjectDictionaryEntry<uint32_t> & entry)
 {
   _od_uint32_t.push_back(entry);
 }
 
 template <>
-void ObjectDictionary::push_back(ObjectDictionaryEntry_String & entry)
+void ObjectDictionary::add(ObjectDictionaryEntry<util::type::StaticString> & entry)
 {
   _od_string.push_back(entry);
 }
