@@ -28,7 +28,7 @@
 #include <spectre/hal/interface/uart/UartControl.h>
 #include <spectre/hal/interface/locking/CriticalSection.h>
 
-#include <spectre/util/container/Queue.h>
+#include <spectre/util/container/Queue.hpp>
 
 /**************************************************************************************
  * NAMESPACE

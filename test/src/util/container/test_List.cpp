@@ -22,7 +22,7 @@
 
 #include <catch.hpp>
 
-#include <spectre/util/container/List.h>
+#include <spectre/util/container/List.hpp>
 
 /**************************************************************************************
  * NAMESPACE

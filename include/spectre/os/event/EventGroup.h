@@ -25,7 +25,7 @@
 
 #include <spectre/os/event/interface/EventConsumer.h>
 
-#include <spectre/util/container/List.h>
+#include <spectre/util/container/List.hpp>
 
 /**************************************************************************************
  * NAMESPACE

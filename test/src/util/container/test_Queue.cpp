@@ -22,7 +22,7 @@
 
 #include <catch.hpp>
 
-#include <spectre/util/container/Queue.h>
+#include <spectre/util/container/Queue.hpp>
 
 /**************************************************************************************
  * NAMESPACE

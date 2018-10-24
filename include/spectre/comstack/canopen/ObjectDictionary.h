@@ -25,6 +25,7 @@
 
 #include <spectre/comstack/canopen/ObjectDictionaryEntry.hpp>
 
+#include <spectre/util/container/List.hpp>
 #include <spectre/util/type/StaticString.hpp>
 
 /**************************************************************************************

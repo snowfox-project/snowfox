@@ -23,7 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/util/container/ListNode.h>
+#include <spectre/util/container/ListNode.hpp>
 
 /**************************************************************************************
  * NAMESPACE
