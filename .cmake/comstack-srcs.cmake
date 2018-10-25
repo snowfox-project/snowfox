@@ -16,6 +16,7 @@ set(SPECTRE_LIBRARY_COMSTACK_CANOPEN_SRCS
   ${COMSTACK_CANOPEN_SRC_PATH}/nodeguard/NodeGuardFrameHandler.cpp
   
   ${COMSTACK_CANOPEN_SRC_PATH}/objdict/ObjectDictionary.cpp
+  ${COMSTACK_CANOPEN_SRC_PATH}/objdict/ObjectDictionaryBuilder.cpp
   
   ${COMSTACK_CANOPEN_SRC_PATH}/pdo/PdoFrameHandler.cpp
   
