@@ -54,6 +54,10 @@ SCENARIO("A ObjectDictionary object is constructed", "[comstack::canopen::Object
   {
     REQUIRE(obj_dict.isEmpty(obj_dict.get_UINT8 (0x0001, 0x01)) == true);
   }
+  THEN("When requesting a UINT16 entry a empty entry object should be returned")
+  {
+    REQUIRE(obj_dict.isEmpty(obj_dict.get_UINT16(0x0001, 0x01)) == true);
+  }
   THEN("When requesting a UINT32 entry a empty entry object should be returned")
   {
     REQUIRE(obj_dict.isEmpty(obj_dict.get_UINT32(0x0001, 0x01)) == true);
@@ -78,6 +82,24 @@ SCENARIO("A ObjectDictionary object is constructed", "[comstack::canopen::Object
     THEN("When requesting a not added UINT8 entry a empty entry object should be returned")
     {
       REQUIRE(obj_dict.isEmpty(obj_dict.get_UINT8 (0x0001, 0x01)) == true);
+    }
+  }
+
+  /************************************************************************************/
+
+  WHEN("A UINT16 obj dict entry is added")
+  {
+    ObjectDictionaryEntry<uint16_t> entry(0x1001, 0x01, 0xCAFE, ObjectDictionaryAccess::ReadWrite, 0);
+
+    obj_dict.add(entry);
+
+    THEN("When requesting the added UINT16 entry the desired reference should be returned")
+    {
+      REQUIRE(obj_dict.get_UINT16(0x1001, 0x01) == entry);
+    }
+    THEN("When requesting a not added UINT16 entry a empty entry object should be returned")
+    {
+      REQUIRE(obj_dict.isEmpty(obj_dict.get_UINT16(0x0001, 0x01)) == true);
     }
   }
 
