@@ -58,6 +58,7 @@ public:
   void add(ObjectDictionaryEntry<T> & entry);
 
   inline ObjectDictionaryEntry<uint8_t>                  & get_UINT8 (uint16_t const idx, uint8_t const sub_idx) { return find(_od_uint8_t,  _od_empty_entry_uint8_t,  idx, sub_idx);   }
+  inline ObjectDictionaryEntry<uint16_t>                 & get_UINT16(uint16_t const idx, uint8_t const sub_idx) { return find(_od_uint16_t, _od_empty_entry_uint16_t, idx, sub_idx); }
   inline ObjectDictionaryEntry<uint32_t>                 & get_UINT32(uint16_t const idx, uint8_t const sub_idx) { return find(_od_uint32_t, _od_empty_entry_uint32_t, idx, sub_idx); }
   inline ObjectDictionaryEntry<util::type::StaticString> & get_STRING(uint16_t const idx, uint8_t const sub_idx) { return find(_od_string,   _od_empty_entry_string,   idx, sub_idx);     }
 
@@ -68,10 +69,12 @@ public:
 private:
 
   ObjectDictionaryEntry<uint8_t>                  _od_empty_entry_uint8_t;
+  ObjectDictionaryEntry<uint16_t>                 _od_empty_entry_uint16_t;
   ObjectDictionaryEntry<uint32_t>                 _od_empty_entry_uint32_t;
   ObjectDictionaryEntry<util::type::StaticString> _od_empty_entry_string;
 
   util::container::List<ObjectDictionaryEntry<uint8_t>                  &> _od_uint8_t;
+  util::container::List<ObjectDictionaryEntry<uint16_t>                 &> _od_uint16_t;
   util::container::List<ObjectDictionaryEntry<uint32_t>                 &> _od_uint32_t;
   util::container::List<ObjectDictionaryEntry<util::type::StaticString> &> _od_string;
 

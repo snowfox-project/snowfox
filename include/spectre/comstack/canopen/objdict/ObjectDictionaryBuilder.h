@@ -54,6 +54,17 @@ private:
 
   ObjectDictionary & _obj_dict;
 
+  ObjectDictionaryEntry<uint32_t>                 _device_type;
+  ObjectDictionaryEntry<uint8_t>                  _error_register;
+  ObjectDictionaryEntry<util::type::StaticString> _device_name,
+                                                  _device_hw_version,
+                                                  _device_sw_version;
+  ObjectDictionaryEntry<uint16_t>                 _producer_heartbeat_time;
+  ObjectDictionaryEntry<uint8_t>                  _identity_num_entries;
+  ObjectDictionaryEntry<uint32_t>                 _identity_vendor_id,
+                                                  _identity_product_code,
+                                                  _identity_revision_number,
+                                                  _identity_serial_number;
 };
 
 /**************************************************************************************

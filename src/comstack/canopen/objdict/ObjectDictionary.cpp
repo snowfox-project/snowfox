@@ -41,6 +41,7 @@ namespace canopen
 
 ObjectDictionary::ObjectDictionary()
 : _od_empty_entry_uint8_t (0,0, 0, ObjectDictionaryAccess::ReadOnly, 0),
+  _od_empty_entry_uint16_t(0,0, 0, ObjectDictionaryAccess::ReadOnly, 0),
   _od_empty_entry_uint32_t(0,0, 0, ObjectDictionaryAccess::ReadOnly, 0),
   _od_empty_entry_string  (0,0,"", ObjectDictionaryAccess::ReadOnly, 0)
 {

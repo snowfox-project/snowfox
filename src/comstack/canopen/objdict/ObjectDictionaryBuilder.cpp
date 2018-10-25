@@ -40,9 +40,33 @@ namespace canopen
  **************************************************************************************/
 
 ObjectDictionaryBuilder::ObjectDictionaryBuilder(ObjectDictionary & obj_dict)
-: _obj_dict(obj_dict)
-{
+: _obj_dict(obj_dict),
 
+  _device_type              (0x1000, 0, 0,  ObjectDictionaryAccess::ReadOnly,  0),
+  _error_register           (0x1001, 0, 0,  ObjectDictionaryAccess::ReadOnly,  0),
+  _device_name              (0x1008, 0, "", ObjectDictionaryAccess::ReadOnly,  0),
+  _device_hw_version        (0x1009, 0, "", ObjectDictionaryAccess::ReadOnly,  0),
+  _device_sw_version        (0x100A, 0, "", ObjectDictionaryAccess::ReadOnly,  0),
+  _producer_heartbeat_time  (0x1017, 0, 0,  ObjectDictionaryAccess::ReadWrite, 0),
+
+  _identity_num_entries     (0x1018, 0, 4,  ObjectDictionaryAccess::ReadOnly,  0),
+  _identity_vendor_id       (0x1018, 0, 0,  ObjectDictionaryAccess::ReadOnly,  0),
+  _identity_product_code    (0x1018, 0, 0,  ObjectDictionaryAccess::ReadOnly,  0),
+  _identity_revision_number (0x1018, 0, 0,  ObjectDictionaryAccess::ReadOnly,  0),
+  _identity_serial_number   (0x1018, 0, 0,  ObjectDictionaryAccess::ReadOnly,  0)
+{
+  _obj_dict.add(_device_type            );
+  _obj_dict.add(_error_register         );
+  _obj_dict.add(_device_name            );
+  _obj_dict.add(_device_hw_version      );
+  _obj_dict.add(_device_sw_version      );
+  _obj_dict.add(_producer_heartbeat_time);
+
+  _obj_dict.add(_identity_num_entries    );
+  _obj_dict.add(_identity_vendor_id      );
+  _obj_dict.add(_identity_product_code   );
+  _obj_dict.add(_identity_revision_number);
+  _obj_dict.add(_identity_serial_number  );
 }
 
 /**************************************************************************************

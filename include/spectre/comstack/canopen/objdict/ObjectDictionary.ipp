@@ -40,6 +40,12 @@ inline void ObjectDictionary::add(ObjectDictionaryEntry<uint8_t> & entry)
 }
 
 template <>
+inline void ObjectDictionary::add(ObjectDictionaryEntry<uint16_t> & entry)
+{
+  _od_uint16_t.push_back(entry);
+}
+
+template <>
 inline void ObjectDictionary::add(ObjectDictionaryEntry<uint32_t> & entry)
 {
   _od_uint32_t.push_back(entry);
@@ -55,6 +61,12 @@ template <>
 inline bool ObjectDictionary::isEmpty(ObjectDictionaryEntry<uint8_t> & entry) const
 {
   return (entry == _od_empty_entry_uint8_t);
+}
+
+template <>
+inline bool ObjectDictionary::isEmpty(ObjectDictionaryEntry<uint16_t> & entry) const
+{
+  return (entry == _od_empty_entry_uint16_t);
 }
 
 template <>
