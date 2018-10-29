@@ -13,7 +13,6 @@ if(${COMSTACK_CANOPEN} STREQUAL "yes")
     ${COMSTACK_CANOPEN_SRC_PATH}/util/CanOpenFrameUtil.cpp
     ${COMSTACK_CANOPEN_SRC_PATH}/nmt/NmtFrameHandler.cpp
     ${COMSTACK_CANOPEN_SRC_PATH}/nodeguard/NodeGuardFrameHandler.cpp
-    ${COMSTACK_CANOPEN_SRC_PATH}/objdict/ObjectDictionary.cpp
     ${COMSTACK_CANOPEN_SRC_PATH}/objdict/ObjectDictionaryBuilder.cpp
     ${COMSTACK_CANOPEN_SRC_PATH}/pdo/PdoFrameHandler.cpp
     ${COMSTACK_CANOPEN_SRC_PATH}/sdo/SdoFrameHandler.cpp
