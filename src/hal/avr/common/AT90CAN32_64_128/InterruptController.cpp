@@ -230,9 +230,9 @@ void InterruptController::enableInterrupt(uint8_t const int_num)
   case toIntNum(Interrupt::TIMER2_COMPARE                  ): *_TIMSK2  |= OCIE2A_bm; break;
   case toIntNum(Interrupt::TIMER2_OVERFLOW                 ): *_TIMSK2  |= TOIE2_bm;  break;
   case toIntNum(Interrupt::TIMER1_CAPTURE                  ): *_TIMSK1  |= ICIE1_bm;  break;
-  case toIntNum(Interrupt::TIMER1_COMPARE_A                ): *_TIMSK1  |= OCIE1C_bm; break;
+  case toIntNum(Interrupt::TIMER1_COMPARE_A                ): *_TIMSK1  |= OCIE1A_bm; break;
   case toIntNum(Interrupt::TIMER1_COMPARE_B                ): *_TIMSK1  |= OCIE1B_bm; break;
-  case toIntNum(Interrupt::TIMER1_COMPARE_C                ): *_TIMSK1  |= OCIE1A_bm; break;
+  case toIntNum(Interrupt::TIMER1_COMPARE_C                ): *_TIMSK1  |= OCIE1C_bm; break;
   case toIntNum(Interrupt::TIMER1_OVERFLOW                 ): *_TIMSK1  |= TOIE1_bm;  break;
   case toIntNum(Interrupt::TIMER0_COMPARE                  ): *_TIMSK0  |= OCIE0A_bm; break;
   case toIntNum(Interrupt::TIMER0_OVERFLOW                 ): *_TIMSK0  |= TOIE0_bm;  break;
@@ -251,9 +251,9 @@ void InterruptController::enableInterrupt(uint8_t const int_num)
   case toIntNum(Interrupt::ANALOG_DIGITAL_CONVERTER        ): *_ADCSRA  |= ADIE_bm;   break;
   case toIntNum(Interrupt::EEPROM_READY                    ): *_EECR    |= EERIE_bm;  break;
   case toIntNum(Interrupt::TIMER3_CAPTURE                  ): *_TIMSK3  |= ICIE3_bm;  break;
-  case toIntNum(Interrupt::TIMER3_COMPARE_A                ): *_TIMSK3  |= OCIE3C_bm; break;
+  case toIntNum(Interrupt::TIMER3_COMPARE_A                ): *_TIMSK3  |= OCIE3A_bm; break;
   case toIntNum(Interrupt::TIMER3_COMPARE_B                ): *_TIMSK3  |= OCIE3B_bm; break;
-  case toIntNum(Interrupt::TIMER3_COMPARE_C                ): *_TIMSK3  |= OCIE3A_bm; break;
+  case toIntNum(Interrupt::TIMER3_COMPARE_C                ): *_TIMSK3  |= OCIE3C_bm; break;
   case toIntNum(Interrupt::TIMER3_OVERFLOW                 ): *_TIMSK3  |= TOIE3_bm;  break;
   case toIntNum(Interrupt::USART1_RECEIVE_COMPLETE         ): *_UCSR1B  |= RXCIE1_bm; break;
   case toIntNum(Interrupt::USART1_UART_DATA_REGISTER_EMPTY ): *_UCSR1B  |= UDRIE1_bm; break;
@@ -282,9 +282,9 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
   case toIntNum(Interrupt::TIMER2_COMPARE                  ): *_TIMSK2  &= ~OCIE2A_bm; break;
   case toIntNum(Interrupt::TIMER2_OVERFLOW                 ): *_TIMSK2  &= ~TOIE2_bm;  break;
   case toIntNum(Interrupt::TIMER1_CAPTURE                  ): *_TIMSK1  &= ~ICIE1_bm;  break;
-  case toIntNum(Interrupt::TIMER1_COMPARE_A                ): *_TIMSK1  &= ~OCIE1C_bm; break;
+  case toIntNum(Interrupt::TIMER1_COMPARE_A                ): *_TIMSK1  &= ~OCIE1A_bm; break;
   case toIntNum(Interrupt::TIMER1_COMPARE_B                ): *_TIMSK1  &= ~OCIE1B_bm; break;
-  case toIntNum(Interrupt::TIMER1_COMPARE_C                ): *_TIMSK1  &= ~OCIE1A_bm; break;
+  case toIntNum(Interrupt::TIMER1_COMPARE_C                ): *_TIMSK1  &= ~OCIE1C_bm; break;
   case toIntNum(Interrupt::TIMER1_OVERFLOW                 ): *_TIMSK1  &= ~TOIE1_bm;  break;
   case toIntNum(Interrupt::TIMER0_COMPARE                  ): *_TIMSK0  &= ~OCIE0A_bm; break;
   case toIntNum(Interrupt::TIMER0_OVERFLOW                 ): *_TIMSK0  &= ~TOIE0_bm;  break;
@@ -303,9 +303,9 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
   case toIntNum(Interrupt::ANALOG_DIGITAL_CONVERTER        ): *_ADCSRA  &= ~ADIE_bm;   break;
   case toIntNum(Interrupt::EEPROM_READY                    ): *_EECR    &= ~EERIE_bm;  break;
   case toIntNum(Interrupt::TIMER3_CAPTURE                  ): *_TIMSK3  &= ~ICIE3_bm;  break;
-  case toIntNum(Interrupt::TIMER3_COMPARE_A                ): *_TIMSK3  &= ~OCIE3C_bm; break;
+  case toIntNum(Interrupt::TIMER3_COMPARE_A                ): *_TIMSK3  &= ~OCIE3A_bm; break;
   case toIntNum(Interrupt::TIMER3_COMPARE_B                ): *_TIMSK3  &= ~OCIE3B_bm; break;
-  case toIntNum(Interrupt::TIMER3_COMPARE_C                ): *_TIMSK3  &= ~OCIE3A_bm; break;
+  case toIntNum(Interrupt::TIMER3_COMPARE_C                ): *_TIMSK3  &= ~OCIE3C_bm; break;
   case toIntNum(Interrupt::TIMER3_OVERFLOW                 ): *_TIMSK3  &= ~TOIE3_bm;  break;
   case toIntNum(Interrupt::USART1_RECEIVE_COMPLETE         ): *_UCSR1B  &= ~RXCIE1_bm; break;
   case toIntNum(Interrupt::USART1_UART_DATA_REGISTER_EMPTY ): *_UCSR1B  &= ~UDRIE1_bm; break;
