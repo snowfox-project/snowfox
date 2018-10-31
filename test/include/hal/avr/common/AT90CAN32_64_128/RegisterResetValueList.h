@@ -35,7 +35,7 @@ namespace spectre
 namespace hal
 {
 
-namespace AT90CAN128
+namespace AT90CAN32_64_128
 {
 
 namespace test
@@ -117,7 +117,7 @@ static uint8_t  const SPMCSR_RESET_VALUE  = 0;
 
 } /* test */
 
-} /* AT90CAN128 */
+} /* AT90CAN32_64_128 */
 
 } /* hal */
 

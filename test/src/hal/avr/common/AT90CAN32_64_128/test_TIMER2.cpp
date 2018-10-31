@@ -26,9 +26,10 @@
 #include <catch.hpp>
 
 #include <Register.h>
-#include <hal/avr/AT90CAN128/RegisterResetValueList.h>
 
-#include <spectre/hal/avr/AT90CAN128/TIMER2.h>
+#include <hal/avr/common/AT90CAN32_64_128/RegisterResetValueList.h>
+
+#include <spectre/hal/avr/common/AT90CAN32_64_128/TIMER2.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -40,7 +41,7 @@ namespace spectre
 namespace hal
 {
 
-namespace AT90CAN128
+namespace AT90CAN32_64_128
 {
 
 namespace test
@@ -50,13 +51,13 @@ namespace test
  * TEST CODE
  **************************************************************************************/
 
-SCENARIO("AT90CAN128::TIMER2 - A valid prescaler value is set via 'setPrescaler'", "[AT90CAN128::TIMER2]")
+SCENARIO("AT90CAN32_64_128::TIMER2 - A valid prescaler value is set via 'setPrescaler'", "[AT90CAN32_64_128::TIMER2]")
 {
   Register<uint8_t> TCNT2 (TCNT2_RESET_VALUE ),
                     TCCR2A(TCCR2A_RESET_VALUE),
                     OCR2A (OCR2A_RESET_VALUE );
 
-  AT90CAN128::TIMER2 timer2(TCNT2(), TCCR2A(), OCR2A());
+  AT90CAN32_64_128::TIMER2 timer2(TCNT2(), TCCR2A(), OCR2A());
 
   std::vector<uint32_t> const VALID_PRESCALER_VECT = {0, 1, 8, 64, 256, 1024};
 
@@ -97,13 +98,13 @@ SCENARIO("AT90CAN128::TIMER2 - A valid prescaler value is set via 'setPrescaler'
 
 /**************************************************************************************/
 
-SCENARIO("AT90CAN128::TIMER2 - A invalid prescaler value is set via 'setPrescaler'", "[AT90CAN128::TIMER2]")
+SCENARIO("AT90CAN32_64_128::TIMER2 - A invalid prescaler value is set via 'setPrescaler'", "[AT90CAN32_64_128::TIMER2]")
 {
   Register<uint8_t> TCNT2 (TCNT2_RESET_VALUE ),
                     TCCR2A(TCCR2A_RESET_VALUE),
                     OCR2A (OCR2A_RESET_VALUE );
 
-  AT90CAN128::TIMER2 timer2(TCNT2(), TCCR2A(), OCR2A());
+  AT90CAN32_64_128::TIMER2 timer2(TCNT2(), TCCR2A(), OCR2A());
 
   uint32_t INVALID_PRESCALER = 2;
 
@@ -124,7 +125,7 @@ SCENARIO("AT90CAN128::TIMER2 - A invalid prescaler value is set via 'setPrescale
 
 /**************************************************************************************/
 
-SCENARIO("AT90CAN128::TIMER2 - A timer is started ('start') and stopped ('stop')", "[ATMEGA328P::TIMER2]")
+SCENARIO("AT90CAN32_64_128::TIMER2 - A timer is started ('start') and stopped ('stop')", "[ATMEGA328P::TIMER2]")
 {
   Register<uint8_t> TCNT2 (TCNT2_RESET_VALUE ),
                     TCCR2A(TCCR2A_RESET_VALUE),
@@ -132,7 +133,7 @@ SCENARIO("AT90CAN128::TIMER2 - A timer is started ('start') and stopped ('stop')
 
   uint32_t const prescaler = 8;
 
-  AT90CAN128::TIMER2 timer2(TCNT2(), TCCR2A(), OCR2A());
+  AT90CAN32_64_128::TIMER2 timer2(TCNT2(), TCCR2A(), OCR2A());
 
   timer2.setPrescaler(prescaler);
 
@@ -155,13 +156,13 @@ SCENARIO("AT90CAN128::TIMER2 - A timer is started ('start') and stopped ('stop')
 
 /**************************************************************************************/
 
-SCENARIO("AT90CAN128::TIMER2 - A timer's counter register is read ('get') and written ('set')", "[AT90CAN128::TIMER2]")
+SCENARIO("AT90CAN32_64_128::TIMER2 - A timer's counter register is read ('get') and written ('set')", "[AT90CAN32_64_128::TIMER2]")
 {
   Register<uint8_t> TCNT2 (TCNT2_RESET_VALUE ),
                     TCCR2A(TCCR2A_RESET_VALUE),
                     OCR2A (OCR2A_RESET_VALUE );
 
-  AT90CAN128::TIMER2 timer2(TCNT2(), TCCR2A(), OCR2A());
+  AT90CAN32_64_128::TIMER2 timer2(TCNT2(), TCCR2A(), OCR2A());
 
   WHEN("the counter register is read via 'get'")
   {
@@ -183,13 +184,13 @@ SCENARIO("AT90CAN128::TIMER2 - A timer's counter register is read ('get') and wr
 
 /**************************************************************************************/
 
-SCENARIO("AT90CAN128::TIMER2 - A timer's compare register are written via 'setCompareRegister'", "[AT90CAN128::TIMER2]")
+SCENARIO("AT90CAN32_64_128::TIMER2 - A timer's compare register are written via 'setCompareRegister'", "[AT90CAN32_64_128::TIMER2]")
 {
   Register<uint8_t> TCNT2 (TCNT2_RESET_VALUE ),
                     TCCR2A(TCCR2A_RESET_VALUE),
                     OCR2A (OCR2A_RESET_VALUE );
 
-  AT90CAN128::TIMER2 timer2(TCNT2(), TCCR2A(), OCR2A());
+  AT90CAN32_64_128::TIMER2 timer2(TCNT2(), TCCR2A(), OCR2A());
 
   WHEN("compare register A is written via 'setCompareRegister'")
   {
@@ -207,7 +208,7 @@ SCENARIO("AT90CAN128::TIMER2 - A timer's compare register are written via 'setCo
 
 } /* test */
 
-} /* AT90CAN128 */
+} /* AT90CAN32_64_128 */
 
 } /* hal */
 

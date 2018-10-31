@@ -26,9 +26,10 @@
 #include <catch.hpp>
 
 #include <Register.h>
-#include <hal/avr/AT90CAN128/RegisterResetValueList.h>
 
-#include <spectre/hal/avr/AT90CAN128/TIMER3.h>
+#include <hal/avr/common/AT90CAN32_64_128/RegisterResetValueList.h>
+
+#include <spectre/hal/avr/common/AT90CAN32_64_128/TIMER3.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -40,7 +41,7 @@ namespace spectre
 namespace hal
 {
 
-namespace AT90CAN128
+namespace AT90CAN32_64_128
 {
 
 namespace test
@@ -50,7 +51,7 @@ namespace test
  * TEST CODE
  **************************************************************************************/
 
-SCENARIO("AT90CAN128::TIMER3 - A valid prescaler value is set via 'setPrescaler'", "[AT90CAN128::TIMER3]")
+SCENARIO("AT90CAN32_64_128::TIMER3 - A valid prescaler value is set via 'setPrescaler'", "[AT90CAN32_64_128::TIMER3]")
 {
   Register<uint16_t> TCNT3 (TCNT3_RESET_VALUE );
   Register<uint8_t>  TCCR3B(TCCR3B_RESET_VALUE);
@@ -58,7 +59,7 @@ SCENARIO("AT90CAN128::TIMER3 - A valid prescaler value is set via 'setPrescaler'
                      OCR3B (OCR3B_RESET_VALUE ),
                      OCR3C (OCR3C_RESET_VALUE );
 
-  AT90CAN128::TIMER3 timer3(TCNT3(), TCCR3B(), OCR3A(), OCR3B(), OCR3C());
+  AT90CAN32_64_128::TIMER3 timer3(TCNT3(), TCCR3B(), OCR3A(), OCR3B(), OCR3C());
 
   std::vector<uint32_t> const VALID_PRESCALER_VECT = {0, 1, 8, 64, 256, 1024};
 
@@ -97,7 +98,7 @@ SCENARIO("AT90CAN128::TIMER3 - A valid prescaler value is set via 'setPrescaler'
 
 /**************************************************************************************/
 
-SCENARIO("AT90CAN128::TIMER3 - A invalid prescaler value is set via 'setPrescaler'", "[AT90CAN128::TIMER3]")
+SCENARIO("AT90CAN32_64_128::TIMER3 - A invalid prescaler value is set via 'setPrescaler'", "[AT90CAN32_64_128::TIMER3]")
 {
   Register<uint16_t> TCNT3 (TCNT3_RESET_VALUE );
   Register<uint8_t>  TCCR3B(TCCR3B_RESET_VALUE);
@@ -105,7 +106,7 @@ SCENARIO("AT90CAN128::TIMER3 - A invalid prescaler value is set via 'setPrescale
                      OCR3B (OCR3B_RESET_VALUE ),
                      OCR3C (OCR3C_RESET_VALUE );
 
-  AT90CAN128::TIMER3 timer3(TCNT3(), TCCR3B(), OCR3A(), OCR3B(), OCR3C());
+  AT90CAN32_64_128::TIMER3 timer3(TCNT3(), TCCR3B(), OCR3A(), OCR3B(), OCR3C());
 
   uint32_t INVALID_PRESCALER = 2;
 
@@ -126,7 +127,7 @@ SCENARIO("AT90CAN128::TIMER3 - A invalid prescaler value is set via 'setPrescale
 
 /**************************************************************************************/
 
-SCENARIO("AT90CAN128::TIMER3 - A timer is started ('start') and stopped ('stop')", "[AT90CAN128::TIMER3]")
+SCENARIO("AT90CAN32_64_128::TIMER3 - A timer is started ('start') and stopped ('stop')", "[AT90CAN32_64_128::TIMER3]")
 {
   Register<uint16_t> TCNT3 (TCNT3_RESET_VALUE );
   Register<uint8_t>  TCCR3B(TCCR3B_RESET_VALUE);
@@ -136,7 +137,7 @@ SCENARIO("AT90CAN128::TIMER3 - A timer is started ('start') and stopped ('stop')
 
   uint32_t const prescaler = 8;
 
-  AT90CAN128::TIMER3 timer3(TCNT3(), TCCR3B(), OCR3A(), OCR3B(), OCR3C());
+  AT90CAN32_64_128::TIMER3 timer3(TCNT3(), TCCR3B(), OCR3A(), OCR3B(), OCR3C());
 
   timer3.setPrescaler(prescaler);
 
@@ -159,7 +160,7 @@ SCENARIO("AT90CAN128::TIMER3 - A timer is started ('start') and stopped ('stop')
 
 /**************************************************************************************/
 
-SCENARIO("AT90CAN128::TIMER3 - A timer's counter register is read ('get') and written ('set')", "[AT90CAN128::TIMER3]")
+SCENARIO("AT90CAN32_64_128::TIMER3 - A timer's counter register is read ('get') and written ('set')", "[AT90CAN32_64_128::TIMER3]")
 {
   Register<uint16_t> TCNT3 (TCNT3_RESET_VALUE );
   Register<uint8_t>  TCCR3B(TCCR3B_RESET_VALUE);
@@ -167,7 +168,7 @@ SCENARIO("AT90CAN128::TIMER3 - A timer's counter register is read ('get') and wr
                      OCR3B (OCR3B_RESET_VALUE ),
                      OCR3C (OCR3C_RESET_VALUE );
 
-  AT90CAN128::TIMER3 timer3(TCNT3(), TCCR3B(), OCR3A(), OCR3B(), OCR3C());
+  AT90CAN32_64_128::TIMER3 timer3(TCNT3(), TCCR3B(), OCR3A(), OCR3B(), OCR3C());
 
   WHEN("the counter register is read via 'get'")
   {
@@ -189,7 +190,7 @@ SCENARIO("AT90CAN128::TIMER3 - A timer's counter register is read ('get') and wr
 
 /**************************************************************************************/
 
-SCENARIO("AT90CAN128::TIMER3 - A timer's compare register are written via 'setCompareRegister'", "[AT90CAN128::TIMER3]")
+SCENARIO("AT90CAN32_64_128::TIMER3 - A timer's compare register are written via 'setCompareRegister'", "[AT90CAN32_64_128::TIMER3]")
 {
   Register<uint16_t> TCNT3 (TCNT3_RESET_VALUE );
   Register<uint8_t>  TCCR3B(TCCR3B_RESET_VALUE);
@@ -197,7 +198,7 @@ SCENARIO("AT90CAN128::TIMER3 - A timer's compare register are written via 'setCo
                      OCR3B (OCR3B_RESET_VALUE ),
                      OCR3C (OCR3C_RESET_VALUE );
 
-  AT90CAN128::TIMER3 timer3(TCNT3(), TCCR3B(), OCR3A(), OCR3B(), OCR3C());
+  AT90CAN32_64_128::TIMER3 timer3(TCNT3(), TCCR3B(), OCR3A(), OCR3B(), OCR3C());
 
   WHEN("compare register A is written via 'setCompareRegister'")
   {
@@ -231,7 +232,7 @@ SCENARIO("AT90CAN128::TIMER3 - A timer's compare register are written via 'setCo
 
 } /* test */
 
-} /* AT90CAN128 */
+} /* AT90CAN32_64_128 */
 
 } /* hal */
 

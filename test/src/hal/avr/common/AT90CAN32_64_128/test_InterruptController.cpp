@@ -23,9 +23,10 @@
 #include <catch.hpp>
 
 #include <Register.h>
-#include <hal/avr/AT90CAN128/RegisterResetValueList.h>
 
-#include <spectre/hal/avr/AT90CAN128/InterruptController.h>
+#include <hal/avr/common/AT90CAN32_64_128/RegisterResetValueList.h>
+
+#include <spectre/hal/avr/common/AT90CAN32_64_128/InterruptController.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -37,7 +38,7 @@ namespace spectre
 namespace hal
 {
 
-namespace AT90CAN128
+namespace AT90CAN32_64_128
 {
 
 namespace test
@@ -47,7 +48,7 @@ namespace test
  * TEST CODE
  **************************************************************************************/
 
-SCENARIO("AT90CAN128::InterruptController - interrupts are enabled via 'enableInterrupt' and disabled via 'clrInterrupt'", "[AT90CAN128::InterruptController]")
+SCENARIO("AT90CAN32_64_128::InterruptController - interrupts are enabled via 'enableInterrupt' and disabled via 'clrInterrupt'", "[AT90CAN32_64_128::InterruptController]")
 {
   Register<uint8_t> EIMSK   (EIMSK_RESET_VALUE  ),
                     TIMSK2  (TIMSK2_RESET_VALUE ),
@@ -64,7 +65,7 @@ SCENARIO("AT90CAN128::InterruptController - interrupts are enabled via 'enableIn
                     TWCR    (TWCR_RESET_VALUE   ),
                     SPMCSR  (SPMCSR_RESET_VALUE );
 
-  AT90CAN128::InterruptController int_ctrl(EIMSK(), TIMSK2(), TIMSK1(), TIMSK0(), CANGIE(), SPCR(), UCSR0B(), ACSR(), ADCSRA(), EECR(), TIMSK3(), UCSR1B(), TWCR(), SPMCSR());
+  AT90CAN32_64_128::InterruptController int_ctrl(EIMSK(), TIMSK2(), TIMSK1(), TIMSK0(), CANGIE(), SPCR(), UCSR0B(), ACSR(), ADCSRA(), EECR(), TIMSK3(), UCSR1B(), TWCR(), SPMCSR());
 
   /* TODO */
 
@@ -76,7 +77,7 @@ SCENARIO("AT90CAN128::InterruptController - interrupts are enabled via 'enableIn
 
 } /* test */
 
-} /* AT90CAN128 */
+} /* AT90CAN32_64_128 */
 
 } /* hal */
 
