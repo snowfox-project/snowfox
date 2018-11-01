@@ -24,7 +24,7 @@
 
 #include <catch.hpp>
 
-#include <hal/util/Register.h>
+#include <hal/util/Register.hpp>
 
 #include <hal/avr/common/ATMEGA164P_324P_644P_1284P/RegisterResetValueList.h>
 
