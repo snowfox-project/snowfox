@@ -40,6 +40,8 @@ set(SPECTRE_TEST_HAL_PATH src/hal)
 set(SPECTRE_TEST_HAL_AVR_PATH ${SPECTRE_TEST_HAL_PATH}/avr)
 
 ##########################################################################
+# ATMEGA328P #############################################################
+##########################################################################
 
 set(SPECTRE_TEST_HOST_HAL_AVR_ATMEGA328P_SRCS
   ${SPECTRE_TEST_HAL_AVR_PATH}/ATMEGA328P/test_InterruptController.cpp
@@ -81,13 +83,21 @@ set(SPECTRE_TEST_HOST_HAL_AVR_COMMON_ATxxxx_SRCS
 )
 
 ##########################################################################
+# util ###################################################################
+##########################################################################
+
+set(SPECTRE_TEST_HOST_HAL_AVR_UTIL_SRCS
+  ${SPECTRE_TEST_HAL_AVR_PATH}/util/InterruptControllerTestUtil.cpp
+)
+
+##########################################################################
 
 set(SPECTRE_TEST_HOST_HAL_AVR_SRCS
-  ${SPECTRE_TEST_HOST_HAL_AVR_AT90CAN128_SRCS}
   ${SPECTRE_TEST_HOST_HAL_AVR_ATMEGA328P_SRCS}
   ${SPECTRE_TEST_HOST_HAL_AVR_COMMON_AT90CAN32_64_128_SRCS}
   ${SPECTRE_TEST_HOST_HAL_AVR_COMMON_ATMEGA164P_324P_644P_1284P_SRCS}
   ${SPECTRE_TEST_HOST_HAL_AVR_COMMON_ATxxxx_SRCS}
+  ${SPECTRE_TEST_HOST_HAL_AVR_UTIL_SRCS}
 )
 
 ##########################################################################
