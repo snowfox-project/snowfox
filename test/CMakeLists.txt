@@ -62,6 +62,14 @@ set(SPECTRE_TEST_HOST_HAL_AVR_COMMON_AT90CAN32_64_128_SRCS
 )
 
 ##########################################################################
+# common/ATMEGA164P_324P_644P_1284P ######################################
+##########################################################################
+
+set(SPECTRE_TEST_HOST_HAL_AVR_COMMON_ATMEGA164P_324P_644P_1284P_SRCS
+  ${SPECTRE_TEST_HAL_AVR_PATH}/common/ATMEGA164P_324P_644P_1284P/test_InterruptController.cpp
+)
+
+##########################################################################
 # common/ATxxxx ##########################################################
 ##########################################################################
 
@@ -78,6 +86,7 @@ set(SPECTRE_TEST_HOST_HAL_AVR_SRCS
   ${SPECTRE_TEST_HOST_HAL_AVR_AT90CAN128_SRCS}
   ${SPECTRE_TEST_HOST_HAL_AVR_ATMEGA328P_SRCS}
   ${SPECTRE_TEST_HOST_HAL_AVR_COMMON_AT90CAN32_64_128_SRCS}
+  ${SPECTRE_TEST_HOST_HAL_AVR_COMMON_ATMEGA164P_324P_644P_1284P_SRCS}
   ${SPECTRE_TEST_HOST_HAL_AVR_COMMON_ATxxxx_SRCS}
 )
 

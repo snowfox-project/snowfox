@@ -22,7 +22,7 @@
 
 #include <catch.hpp>
 
-#include <Register.h>
+#include <hal/util/Register.h>
 
 #include <spectre/hal/avr/common/ATxxxx/DigitalInPin.h>
 

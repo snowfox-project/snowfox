@@ -24,7 +24,7 @@
 
 #include <catch.hpp>
 
-#include <Register.h>
+#include <hal/util/Register.h>
 
 #include <hal/avr/common/AT90CAN32_64_128/RegisterResetValueList.h>
 
