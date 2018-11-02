@@ -98,10 +98,10 @@ namespace ATMEGA16U4_32U4
 #define OCIE4D_bm (1<<7)
 #define OCIE4A_bm (1<<6)
 #define OCIE4B_bm (1<<5)
-#define TOIE4_bm  (1<<3)
+#define TOIE4_bm  (1<<2)
 
 /* TCCR4D */
-#define FPEN4_bm  (1<<6)
+#define FPIE4_bm  (1<<7)
 
 /**************************************************************************************
  * GLOBAL VARIABLES
@@ -230,7 +230,7 @@ void InterruptController::enableInterrupt(uint8_t const int_num)
   case toIntNum(Interrupt::TIMER4_COMPARE_B               ): *_TIMSK4 |= OCIE4B_bm; break;
   case toIntNum(Interrupt::TIMER4_COMPARE_D               ): *_TIMSK4 |= OCIE4D_bm; break;
   case toIntNum(Interrupt::TIMER4_OVERFLOW                ): *_TIMSK4 |= TOIE4_bm;  break;
-  case toIntNum(Interrupt::TIMER4_FAULT_PROTECTION        ): *_TCCR4D |= FPEN4_bm;  break;
+  case toIntNum(Interrupt::TIMER4_FAULT_PROTECTION        ): *_TCCR4D |= FPIE4_bm;  break;
 #if defined(MCU_ARCH_avr)
   case toIntNum(Interrupt::GLOBAL                         ): asm volatile("sei");   break;
 #endif
@@ -277,7 +277,7 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
   case toIntNum(Interrupt::TIMER4_COMPARE_B               ): *_TIMSK4 &= ~OCIE4B_bm; break;
   case toIntNum(Interrupt::TIMER4_COMPARE_D               ): *_TIMSK4 &= ~OCIE4D_bm; break;
   case toIntNum(Interrupt::TIMER4_OVERFLOW                ): *_TIMSK4 &= ~TOIE4_bm;  break;
-  case toIntNum(Interrupt::TIMER4_FAULT_PROTECTION        ): *_TCCR4D &= ~FPEN4_bm;  break;
+  case toIntNum(Interrupt::TIMER4_FAULT_PROTECTION        ): *_TCCR4D &= ~FPIE4_bm;  break;
 #if defined(MCU_ARCH_avr)
   case toIntNum(Interrupt::GLOBAL                         ): asm volatile("cli");    break;
 #endif
