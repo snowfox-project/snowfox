@@ -40,14 +40,14 @@ namespace avr
 {
 
 /**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
+ * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-void InterruptControllerTestUtil::doTestEnableDisableInterrupt(interface::InterruptController       & int_ctrl,
-                                                               uint8_t                        const   int_num,                    /* AT90CAN32_64_128::toIntNum(AT90CAN32_64_128::Interrupt::EXTERNAL_INT0) */
-                                                               std::string                    const & int_num_name,               /* "EXTERNAL_INT0"                                                        */
-                                                               Register<uint8_t>                    & int_mask_reg,               /* EIMSK                                                                  */
-                                                               uint8_t                        const   int_mask_reg_affected_bit)
+void doTestEnableDisableInterrupt(interface::InterruptController       & int_ctrl,
+                                  uint8_t                        const   int_num,                    /* AT90CAN32_64_128::toIntNum(AT90CAN32_64_128::Interrupt::EXTERNAL_INT0) */
+                                  std::string                    const & int_num_name,               /* "EXTERNAL_INT0"                                                        */
+                                  Register<uint8_t>                    & int_mask_reg,               /* EIMSK                                                                  */
+                                  uint8_t                        const   int_mask_reg_affected_bit)
 {
   std::stringstream when_1_ss,
                     then_1_ss,
