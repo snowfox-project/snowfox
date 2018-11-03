@@ -23,7 +23,7 @@
 #include <catch.hpp>
 
 #include <testutil/hal/Register.hpp>
-#include <hal/avr/util/InterruptControllerTestUtil.h>
+#include <testutil/hal/avr/InterruptControllerTestUtil.h>
 
 #include <hal/avr/common/AT90CAN32_64_128/RegisterResetValueList.h>
 

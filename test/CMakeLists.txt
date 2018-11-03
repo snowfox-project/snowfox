@@ -91,14 +91,6 @@ set(SPECTRE_TEST_HOST_HAL_AVR_COMMON_ATxxxx_SRCS
 )
 
 ##########################################################################
-# util ###################################################################
-##########################################################################
-
-set(SPECTRE_TEST_HOST_HAL_AVR_UTIL_SRCS
-  ${SPECTRE_TEST_HAL_AVR_PATH}/util/InterruptControllerTestUtil.cpp
-)
-
-##########################################################################
 
 set(SPECTRE_TEST_HOST_HAL_AVR_SRCS
   ${SPECTRE_TEST_HOST_HAL_AVR_ATMEGA328P_SRCS}
@@ -106,13 +98,24 @@ set(SPECTRE_TEST_HOST_HAL_AVR_SRCS
   ${SPECTRE_TEST_HOST_HAL_AVR_COMMON_ATMEGA164P_324P_644P_1284P_SRCS}
   ${SPECTRE_TEST_HOST_HAL_AVR_COMMON_ATMEGA16U4_32U4_SRCS}
   ${SPECTRE_TEST_HOST_HAL_AVR_COMMON_ATxxxx_SRCS}
-  ${SPECTRE_TEST_HOST_HAL_AVR_UTIL_SRCS}
 )
 
 ##########################################################################
 
 set(SPECTRE_TEST_HOST_HAL_SRCS
   ${SPECTRE_TEST_HOST_HAL_AVR_SRCS}
+)
+
+##########################################################################
+# TESTUTIL ###############################################################
+##########################################################################
+
+set(SPECTRE_TEST_TESTUTIL_PATH src/testutil)
+
+##########################################################################
+
+set(SPECTRE_TEST_HOST_TESTUTIL_SRCS
+  ${SPECTRE_TEST_TESTUTIL_PATH}/hal/avr/InterruptControllerTestUtil.cpp
 )
 
 ##########################################################################
@@ -153,6 +156,7 @@ add_executable(
   ${SPECTRE_TEST_HOST_COMSTACK_CANOPEN_SRCS}
   ${SPECTRE_TEST_HOST_HAL_AVR_SRCS}
   ${SPECTRE_TEST_HOST_UTIL_SRCS}
+  ${SPECTRE_TEST_HOST_TESTUTIL_SRCS}
   ${SPECTRE_TEST_HOST_OS_SRCS}
 )
 
