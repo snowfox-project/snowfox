@@ -47,7 +47,6 @@ void InterruptControllerTestUtil::doTestEnableDisableInterrupt(interface::Interr
                                                                uint8_t                        const   int_num,                    /* AT90CAN32_64_128::toIntNum(AT90CAN32_64_128::Interrupt::EXTERNAL_INT0) */
                                                                std::string                    const & int_num_name,               /* "EXTERNAL_INT0"                                                        */
                                                                Register<uint8_t>                    & int_mask_reg,               /* EIMSK                                                                  */
-                                                               std::string                    const & int_mask_reg_name,          /* "EIMSK"                                                                */
                                                                uint8_t                        const   int_mask_reg_affected_bit)
 {
   std::stringstream when_1_ss,
@@ -58,14 +57,14 @@ void InterruptControllerTestUtil::doTestEnableDisableInterrupt(interface::Interr
   when_1_ss << "Interrupt "
             << int_num_name
             << " is enabled via 'enableInterrupt'";
-  then_1_ss << int_mask_reg_name
+  then_1_ss << int_mask_reg.name()
             << " bit #"
             << static_cast<size_t>(int_mask_reg_affected_bit)
             << " should be 'set'";
   when_2_ss << "Interrupt "
             << int_num_name
             << " is disabled via 'disableInterrupt'";
-  then_2_ss << int_mask_reg_name
+  then_2_ss << int_mask_reg.name()
             << " bit #"
             << static_cast<size_t>(int_mask_reg_affected_bit)
             << "should be 'clr'";

@@ -55,7 +55,6 @@ public:
                                            uint8_t                        const   int_num,                    /* AT90CAN32_64_128::toIntNum(AT90CAN32_64_128::Interrupt::EXTERNAL_INT0) */
                                            std::string                    const & int_num_name,               /* "EXTERNAL_INT0"                                                        */
                                            Register<uint8_t>                    & int_mask_reg,               /* EIMSK                                                                  */
-                                           std::string                    const & int_mask_reg_name,          /* "EIMSK"                                                                */
                                            uint8_t                        const   int_mask_reg_affected_bit); /* 0                                                                      */
 
 
