@@ -27,6 +27,7 @@
 #include <stdbool.h>
 
 #include <vector>
+#include <string>
 
 /**************************************************************************************
  * NAMESPACE
@@ -45,22 +46,30 @@ class Register
 
 public:
 
-  Register(T const initial_reg_val);
+  Register(T const initial_reg_val, std::string const name ="");
+
+
+  inline std::string name() const { return _name; }
 
 
   T    * operator () ();
   bool   operator == (T const val) const;
+  void   operator =  (T const val);
+
 
   void   setBit      (uint32_t       const bit_pos ) const;
   void   clrBit      (uint32_t       const bit_pos ) const;
   bool   isBitSet    (uint32_t       const bit_pos ) const;
   bool   isBitClr    (uint32_t       const bit_pos ) const;
 
+
   bool   isBitVectSet(std::vector<uint32_t> const bit_pos_vect) const;
+
 
 private:
 
-  T _reg_val;
+  T                 _reg_val;
+  std::string const _name;
 
 };
 

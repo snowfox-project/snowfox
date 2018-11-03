@@ -34,8 +34,9 @@ namespace spectre
  **************************************************************************************/
 
 template <typename T>
-Register<T>::Register(T const initial_reg_val)
-: _reg_val(initial_reg_val)
+Register<T>::Register(T const initial_reg_val, std::string const name)
+: _reg_val(initial_reg_val),
+  _name   (name           )
 {
 
 }
@@ -54,6 +55,12 @@ template <typename T>
 bool Register<T>::operator == (T const val) const
 {
   return (_reg_val == val);
+}
+
+template <typename T>
+void Register<T>::operator = (T const val)
+{
+  _reg_val = val;
 }
 
 template <typename T>
