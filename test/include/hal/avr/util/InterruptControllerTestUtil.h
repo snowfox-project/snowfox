@@ -27,7 +27,7 @@
 
 #include <spectre/hal/interface/interrupt/InterruptController.h>
 
-#include <hal/util/Register.hpp>
+#include <testutil/hal/Register.hpp>
 
 /**************************************************************************************
  * NAMESPACE

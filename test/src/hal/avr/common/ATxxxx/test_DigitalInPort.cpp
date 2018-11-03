@@ -22,7 +22,7 @@
 
 #include <catch.hpp>
 
-#include <hal/util/Register.hpp>
+#include <testutil/hal/Register.hpp>
 
 #include <spectre/hal/avr/common/ATxxxx/DigitalInPort.h>
 

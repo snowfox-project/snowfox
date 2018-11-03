@@ -24,7 +24,7 @@
 
 #include <catch.hpp>
 
-#include <hal/util/Register.hpp>
+#include <testutil/hal/Register.hpp>
 #include <hal/avr/util/InterruptControllerTestUtil.h>
 
 #include <hal/avr/common/ATMEGA164P_324P_644P_1284P/RegisterResetValueList.h>
