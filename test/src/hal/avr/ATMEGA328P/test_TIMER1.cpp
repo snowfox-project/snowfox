@@ -52,10 +52,10 @@ namespace test
 
 SCENARIO("ATMEGA328P::TIMER1 - A A valid prescaler value is set via 'setPrescaler'", "[ATMEGA328P::TIMER1]")
 {
-  Register<uint16_t> TCNT1 (TCNT1_RESET_VALUE );
-  Register<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE);
-  Register<uint16_t> OCR1A (OCR1A_RESET_VALUE ),
-                     OCR1B (OCR1B_RESET_VALUE );
+  Register<uint16_t> TCNT1 (TCNT1_RESET_VALUE,  "TCNT1" );
+  Register<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE, "TCCR1B");
+  Register<uint16_t> OCR1A (OCR1A_RESET_VALUE,  "OCR1A" ),
+                     OCR1B (OCR1B_RESET_VALUE,  "OCR1B" );
 
   ATMEGA328P::TIMER1 timer1(TCNT1(), TCCR1B(), OCR1A(), OCR1B());
 
@@ -98,10 +98,10 @@ SCENARIO("ATMEGA328P::TIMER1 - A A valid prescaler value is set via 'setPrescale
 
 SCENARIO("ATMEGA328P::TIMER1 - A invalid prescaler value is set via 'setPrescaler'", "[ATMEGA328P::TIMER1]")
 {
-  Register<uint16_t> TCNT1 (TCNT1_RESET_VALUE );
-  Register<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE);
-  Register<uint16_t> OCR1A (OCR1A_RESET_VALUE ),
-                     OCR1B (OCR1B_RESET_VALUE );
+  Register<uint16_t> TCNT1 (TCNT1_RESET_VALUE,  "TCNT1" );
+  Register<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE, "TCCR1B");
+  Register<uint16_t> OCR1A (OCR1A_RESET_VALUE,  "OCR1A" ),
+                     OCR1B (OCR1B_RESET_VALUE,  "OCR1B" );
 
   ATMEGA328P::TIMER1 timer1(TCNT1(), TCCR1B(), OCR1A(), OCR1B());
 
@@ -126,10 +126,10 @@ SCENARIO("ATMEGA328P::TIMER1 - A invalid prescaler value is set via 'setPrescale
 
 SCENARIO("ATMEGA328P::TIMER1 - A timer is started ('start') and stopped ('stop')", "[ATMEGA328P::TIMER1]")
 {
-  Register<uint16_t> TCNT1 (TCNT1_RESET_VALUE );
-  Register<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE);
-  Register<uint16_t> OCR1A (OCR1A_RESET_VALUE ),
-                     OCR1B (OCR1B_RESET_VALUE );
+  Register<uint16_t> TCNT1 (TCNT1_RESET_VALUE,  "TCNT1" );
+  Register<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE, "TCCR1B");
+  Register<uint16_t> OCR1A (OCR1A_RESET_VALUE,  "OCR1A" ),
+                     OCR1B (OCR1B_RESET_VALUE,  "OCR1B" );
 
   uint32_t const prescaler = 8;
 
@@ -158,10 +158,10 @@ SCENARIO("ATMEGA328P::TIMER1 - A timer is started ('start') and stopped ('stop')
 
 SCENARIO("ATMEGA328P::TIMER1 - A timer's counter register is read ('get') and written ('set')", "[ATMEGA328P::TIMER1]")
 {
-  Register<uint16_t> TCNT1 (TCNT1_RESET_VALUE );
-  Register<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE);
-  Register<uint16_t> OCR1A (OCR1A_RESET_VALUE ),
-                     OCR1B (OCR1B_RESET_VALUE );
+  Register<uint16_t> TCNT1 (TCNT1_RESET_VALUE,  "TCNT1" );
+  Register<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE, "TCCR1B");
+  Register<uint16_t> OCR1A (OCR1A_RESET_VALUE,  "OCR1A" ),
+                     OCR1B (OCR1B_RESET_VALUE,  "OCR1B" );
 
   ATMEGA328P::TIMER1 timer1(TCNT1(), TCCR1B(), OCR1A(), OCR1B());
 
@@ -187,10 +187,10 @@ SCENARIO("ATMEGA328P::TIMER1 - A timer's counter register is read ('get') and wr
 
 SCENARIO("ATMEGA328P::TIMER1 - A timer's compare register are written via 'setCompareRegister'", "[ATMEGA328P::TIMER1]")
 {
-  Register<uint16_t> TCNT1 (TCNT1_RESET_VALUE );
-  Register<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE);
-  Register<uint16_t> OCR1A (OCR1A_RESET_VALUE ),
-                     OCR1B (OCR1B_RESET_VALUE );
+  Register<uint16_t> TCNT1 (TCNT1_RESET_VALUE,  "TCNT1" );
+  Register<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE, "TCCR1B");
+  Register<uint16_t> OCR1A (OCR1A_RESET_VALUE,  "OCR1A" ),
+                     OCR1B (OCR1B_RESET_VALUE,  "OCR1B" );
 
   ATMEGA328P::TIMER1 timer1(TCNT1(), TCCR1B(), OCR1A(), OCR1B());
 

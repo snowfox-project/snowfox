@@ -46,9 +46,9 @@ namespace test
 
 SCENARIO("A DigitalInPin (Pin Number 0) object is constructed", "[ATxxxx::DigitalInPin]")
 {
-  Register<uint8_t> DDR(0b00000000),
-                    OUT(0b00000000),
-                    PIN(0b00000000);
+  Register<uint8_t> DDR(0b00000000, "DDR"),
+                    OUT(0b00000000, "OUT"),
+                    PIN(0b00000000, "PIN");
 
   ATxxxx::DigitalInPin in_pin(DDR(), OUT(), PIN(), 0);
 
@@ -73,9 +73,9 @@ SCENARIO("A DigitalInPin (Pin Number 0) object is constructed", "[ATxxxx::Digita
 
 SCENARIO("A DigitalInPin (Pin Number 0) interface::PullUpMode is manipulated", "[ATxxxx::DigitalInPin]")
 {
-  Register<uint8_t> DDR(0b00000000),
-                    OUT(0b00000000),
-                    PIN(0b00000000);
+  Register<uint8_t> DDR(0b00000000, "DDR"),
+                    OUT(0b00000000, "OUT"),
+                    PIN(0b00000000, "PIN");
 
   ATxxxx::DigitalInPin in_pin(DDR(), OUT(), PIN(), 0);
 
@@ -112,9 +112,9 @@ SCENARIO("A DigitalInPin (Pin Number 0) interface::PullUpMode is manipulated", "
 
 SCENARIO("A 'clr' DigitalInPin (Pin Number 0) current value is retrieved vis 'isSet' and 'isClr'", "[ATxxxx::DigitalInPin]")
 {
-  Register<uint8_t> DDR(0b00000000),
-                    OUT(0b00000000),
-                    PIN(0b00000000);
+  Register<uint8_t> DDR(0b00000000, "DDR"),
+                    OUT(0b00000000, "OUT"),
+                    PIN(0b00000000, "PIN");
 
   ATxxxx::DigitalInPin in_pin(DDR(), OUT(), PIN(), 0);
 
@@ -138,9 +138,9 @@ SCENARIO("A 'clr' DigitalInPin (Pin Number 0) current value is retrieved vis 'is
 
 SCENARIO("A 'set' DigitalInPin (Pin Number 0) current value is retrieved vis 'isSet' and 'isClr'", "[ATxxxx::DigitalInPin]")
 {
-  Register<uint8_t> DDR(0b00000000),
-                    OUT(0b00000000),
-                    PIN(0b00000001);
+  Register<uint8_t> DDR(0b00000000, "DDR"),
+                    OUT(0b00000000, "OUT"),
+                    PIN(0b00000001, "PIN");
 
   ATxxxx::DigitalInPin in_pin(DDR(), OUT(), PIN(), 0);
 

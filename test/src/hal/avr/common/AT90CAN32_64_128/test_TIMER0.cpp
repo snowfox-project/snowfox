@@ -53,9 +53,9 @@ namespace test
 
 SCENARIO("AT90CAN32_64_128::TIMER0 - A valid prescaler value is set via 'setPrescaler'", "[AT90CAN32_64_128::TIMER0]")
 {
-  Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE ),
-                    TCCR0A(TCCR0A_RESET_VALUE),
-                    OCR0A (OCR0A_RESET_VALUE );
+  Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE,  "TCNT0" ),
+                    TCCR0A(TCCR0A_RESET_VALUE, "TCCR0A"),
+                    OCR0A (OCR0A_RESET_VALUE,  "OCR0A" );
 
   AT90CAN32_64_128::TIMER0 timer0(TCNT0(), TCCR0A(), OCR0A());
 
@@ -98,9 +98,9 @@ SCENARIO("AT90CAN32_64_128::TIMER0 - A valid prescaler value is set via 'setPres
 
 SCENARIO("AT90CAN32_64_128::TIMER0 - A invalid prescaler value is set via 'setPrescaler'", "[AT90CAN32_64_128::TIMER0]")
 {
-  Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE ),
-                    TCCR0A(TCCR0A_RESET_VALUE),
-                    OCR0A (OCR0A_RESET_VALUE );
+  Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE,  "TCNT0" ),
+                    TCCR0A(TCCR0A_RESET_VALUE, "TCCR0A"),
+                    OCR0A (OCR0A_RESET_VALUE,  "OCR0A" );
 
   AT90CAN32_64_128::TIMER0 timer0(TCNT0(), TCCR0A(), OCR0A());
 
@@ -125,9 +125,9 @@ SCENARIO("AT90CAN32_64_128::TIMER0 - A invalid prescaler value is set via 'setPr
 
 SCENARIO("AT90CAN32_64_128::TIMER0 - A timer is started ('start') and stopped ('stop')", "[AT90CAN32_64_128::TIMER0]")
 {
-  Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE ),
-                    TCCR0A(TCCR0A_RESET_VALUE),
-                    OCR0A (OCR0A_RESET_VALUE );
+  Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE,  "TCNT0" ),
+                    TCCR0A(TCCR0A_RESET_VALUE, "TCCR0A"),
+                    OCR0A (OCR0A_RESET_VALUE,  "OCR0A" );
 
   uint32_t const prescaler = 8;
 
@@ -156,9 +156,9 @@ SCENARIO("AT90CAN32_64_128::TIMER0 - A timer is started ('start') and stopped ('
 
 SCENARIO("AT90CAN32_64_128::TIMER0 - A timer's counter register is read ('get') and written ('set')", "[AT90CAN32_64_128::TIMER0]")
 {
-  Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE ),
-                    TCCR0A(TCCR0A_RESET_VALUE),
-                    OCR0A (OCR0A_RESET_VALUE );
+  Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE,  "TCNT0" ),
+                    TCCR0A(TCCR0A_RESET_VALUE, "TCCR0A"),
+                    OCR0A (OCR0A_RESET_VALUE,  "OCR0A" );
 
   AT90CAN32_64_128::TIMER0 timer0(TCNT0(), TCCR0A(), OCR0A());
 
@@ -184,9 +184,9 @@ SCENARIO("AT90CAN32_64_128::TIMER0 - A timer's counter register is read ('get') 
 
 SCENARIO("AT90CAN32_64_128::TIMER0 - A timer's compare register are written via 'setCompareRegister'", "[AT90CAN32_64_128::TIMER0]")
 {
-  Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE ),
-                    TCCR0A(TCCR0A_RESET_VALUE),
-                    OCR0A (OCR0A_RESET_VALUE );
+  Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE,  "TCNT0" ),
+                    TCCR0A(TCCR0A_RESET_VALUE, "TCCR0A"),
+                    OCR0A (OCR0A_RESET_VALUE,  "OCR0A" );
 
   AT90CAN32_64_128::TIMER0 timer0(TCNT0(), TCCR0A(), OCR0A());
 

@@ -49,7 +49,7 @@ class Register
 
 public:
 
-  Register(T const initial_reg_val, std::string const name ="");
+  Register(T const initial_reg_val, std::string const name);
 
 
   inline std::string name() const { return _name; }

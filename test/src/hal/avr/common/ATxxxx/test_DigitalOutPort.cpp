@@ -46,8 +46,8 @@ namespace test
 
 SCENARIO("A DigitalOutPort object is constructed", "[ATxxxx::DigitalOutPort]")
 {
-  Register<uint8_t> DDR(0b00000000),
-                    OUT(0b00000000);
+  Register<uint8_t> DDR(0b00000000, "DDR"),
+                    OUT(0b00000000, "OUT");
 
   ATxxxx::DigitalOutPort out_port(DDR(), OUT());
 
@@ -68,8 +68,8 @@ SCENARIO("A DigitalOutPort object is constructed", "[ATxxxx::DigitalOutPort]")
 
 SCENARIO("A DigitalOutPort is manipulated via 'set'", "[ATxxxx::DigitalOutPort]")
 {
-  Register<uint8_t> DDR(0b00000000),
-                    OUT(0b00000000);
+  Register<uint8_t> DDR(0b00000000, "DDR"),
+                    OUT(0b00000000, "OUT");
 
   ATxxxx::DigitalOutPort out_port(DDR(), OUT());
 
