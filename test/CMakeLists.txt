@@ -84,6 +84,7 @@ set(SPECTRE_TEST_HOST_HAL_AVR_COMMON_ATMEGA16U4_32U4_SRCS
 ##########################################################################
 
 set(SPECTRE_TEST_HOST_HAL_AVR_COMMON_ATxxxx_SRCS
+  ${SPECTRE_TEST_HAL_AVR_PATH}/common/ATxxxx/util/test_UartUtil.cpp
   ${SPECTRE_TEST_HAL_AVR_PATH}/common/ATxxxx/test_DigitalInPin.cpp
   ${SPECTRE_TEST_HAL_AVR_PATH}/common/ATxxxx/test_DigitalInPort.cpp
   ${SPECTRE_TEST_HAL_AVR_PATH}/common/ATxxxx/test_DigitalOutPin.cpp
