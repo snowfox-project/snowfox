@@ -39,6 +39,15 @@ namespace HD44780
 {
 
 /**************************************************************************************
+ * DEFINE
+ **************************************************************************************/
+
+/* Flags for command DisplayControl ***************************************************/
+#define DISPLAY_CONTROL_DISPLAY_ON_bm (1<<2)
+#define DISPLAY_CONTROL_CURSON_ON_bm  (1<<1)
+#define DISPLAY_CONTROL_BLINK_ON_bm   (1<<0)
+
+/**************************************************************************************
  * TYPEDEF
  **************************************************************************************/
 
@@ -65,7 +74,8 @@ inline uint8_t toCmd(HD44780Command const cmd) { return static_cast<uint8_t>(cmd
  **************************************************************************************/
 
 HD44780_Control::HD44780_Control(interface::HD44780_Io & io)
-: _io(io)
+: _io             (io),
+  _display_control(0 )
 {
 
 }
@@ -79,6 +89,43 @@ HD44780_Control::~HD44780_Control()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
+void HD44780_Control::turnDisplayOn()
+{
+  _display_control |= DISPLAY_CONTROL_DISPLAY_ON_bm;
+  writeDisplayControlCommand();
+}
+
+void HD44780_Control::turnDisplayOff()
+{
+  _display_control &= ~DISPLAY_CONTROL_DISPLAY_ON_bm;
+  writeDisplayControlCommand();
+}
+
+void HD44780_Control::enableCursor()
+{
+  _display_control |= DISPLAY_CONTROL_CURSON_ON_bm;
+  writeDisplayControlCommand();
+}
+
+void HD44780_Control::disableCursor()
+{
+  _display_control &= ~DISPLAY_CONTROL_CURSON_ON_bm;
+  writeDisplayControlCommand();
+}
+
+void HD44780_Control::turnCursonBlinkingOn()
+{
+  _display_control |= DISPLAY_CONTROL_BLINK_ON_bm;
+  writeDisplayControlCommand();
+
+}
+
+void HD44780_Control::turnCursonBlinkingOff()
+{
+  _display_control &= ~DISPLAY_CONTROL_BLINK_ON_bm;
+  writeDisplayControlCommand();
+}
+
 void HD44780_Control::clear()
 {
   _io.writeCommand(toCmd(HD44780Command::ClearDisplay));
@@ -87,6 +134,15 @@ void HD44780_Control::clear()
 void HD44780_Control::home()
 {
   _io.writeCommand(toCmd(HD44780Command::ReturnHome));
+}
+
+/**************************************************************************************
+ * PRIVATE MEMBER FUNCTIONS
+ **************************************************************************************/
+
+void HD44780_Control::writeDisplayControlCommand()
+{
+  _io.writeCommand(toCmd(HD44780Command::DisplayControl) | _display_control);
 }
 
 /**************************************************************************************

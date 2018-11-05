@@ -51,8 +51,15 @@ public:
   virtual ~HD44780_Control() { }
 
 
-  virtual void clear() = 0;
-  virtual void home () = 0;
+  virtual void turnDisplayOn        () = 0;
+  virtual void turnDisplayOff       () = 0;
+  virtual void enableCursor         () = 0;
+  virtual void disableCursor        () = 0;
+  virtual void turnCursonBlinkingOn () = 0;
+  virtual void turnCursonBlinkingOff() = 0;
+
+  virtual void clear                () = 0;
+  virtual void home                 () = 0;
 
 };
 

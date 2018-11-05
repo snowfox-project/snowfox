@@ -59,7 +59,11 @@ HD44780::~HD44780()
 
 bool HD44780::open()
 {
-  /* TODO */ return false;
+  _ctrl.turnDisplayOn        ();
+  _ctrl.disableCursor        ();
+  _ctrl.turnCursonBlinkingOff();
+
+  return true;
 }
 
 ssize_t HD44780::read(uint8_t * buffer, ssize_t const num_bytes)

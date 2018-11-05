@@ -56,13 +56,24 @@ public:
   virtual ~HD44780_Control();
 
 
-  virtual void clear() override;
-  virtual void home () override;
+  virtual void turnDisplayOn        () override;
+  virtual void turnDisplayOff       () override;
+  virtual void enableCursor         () override;
+  virtual void disableCursor        () override;
+  virtual void turnCursonBlinkingOn () override;
+  virtual void turnCursonBlinkingOff() override;
+
+  virtual void clear                () override;
+  virtual void home                 () override;
 
 
 private:
 
   interface::HD44780_Io & _io;
+  uint8_t                 _display_control;
+
+
+  void writeDisplayControlCommand();
 
 };
 
