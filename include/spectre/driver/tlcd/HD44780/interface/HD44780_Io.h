@@ -56,9 +56,9 @@ public:
            HD44780_Io() { }
   virtual ~HD44780_Io() { }
 
-
-  virtual void writeData   (uint8_t const data_val) = 0;
-  virtual void writeCommand(uint8_t const cmd_val ) = 0;
+  virtual uint8_t readStatus  (                      ) = 0;
+  virtual void    writeData   (uint8_t const data_val) = 0;
+  virtual void    writeCommand(uint8_t const cmd_val ) = 0;
 
 };
 

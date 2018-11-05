@@ -69,6 +69,20 @@ HD44780_IoGpio8Bit::~HD44780_IoGpio8Bit()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
+uint8_t HD44780_IoGpio8Bit::readStatus()
+{
+  _data.setMode(hal::interface::DigitalInOutPortConfiguration::INPUT);
+
+  _enable.set    ();
+  _delay.delay_us(1);
+  uint8_t const status = _data.get();
+  _enable.clr    ();
+
+  _data.setMode(hal::interface::DigitalInOutPortConfiguration::OUTPUT);
+
+  return status;
+}
+
 void HD44780_IoGpio8Bit::writeData(uint8_t const data_val)
 {
   _rw.clr        ();
