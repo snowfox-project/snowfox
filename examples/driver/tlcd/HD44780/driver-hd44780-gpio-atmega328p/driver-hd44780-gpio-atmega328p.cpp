@@ -26,6 +26,8 @@
 #include <spectre/hal/avr/ATMEGA328P/DigitalOutPin.h>
 #include <spectre/hal/avr/ATMEGA328P/DigitalInOutPort.h>
 
+#include <spectre/driver/tlcd/HD44780/HD44780.h>
+#include <spectre/driver/tlcd/HD44780/HD44780_Control.h>
 #include <spectre/driver/tlcd/HD44780/HD44780_IoGpio8Bit.h>
 
 /**************************************************************************************
@@ -57,7 +59,12 @@ int main()
    * DRIVER
    ************************************************************************************/
 
-  tlcd::HD44780::HD44780_IoGpio8Bit hd44780_io(delay, rs, rw, enable, data);
+  tlcd::HD44780::HD44780_IoGpio8Bit hd44780_io  (delay, rs, rw, enable, data);
+  tlcd::HD44780::HD44780_Control    hd44780_ctrl(hd44780_io);
+  tlcd::HD44780::HD44780            hd44780     (hd44780_ctrl);
+
+  hd44780.open();
+  hd44780.ioctl(tlcd::HD44780::IOCTL_CLEAR_DISPLAY, 0);
 
   /************************************************************************************
    * APPLICATION
@@ -66,6 +73,8 @@ int main()
   for(;;)
   {
   }
+
+  hd44780.close();
 
   return 0;
 }
