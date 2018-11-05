@@ -25,6 +25,8 @@
 
 #include <spectre/driver/interface/Driver.h>
 
+#include <spectre/driver/tlcd/HD44780/interface/HD44780_Control.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -42,6 +44,13 @@ namespace HD44780
 {
 
 /**************************************************************************************
+ * CONSTANTS
+ **************************************************************************************/
+
+static uint32_t constexpr IOCTL_CLEAR_DISPLAY = 0; /* Arg: None */
+static uint32_t constexpr IOCTL_RETURN_HOME   = 1; /* Arg: None */
+
+/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
@@ -51,7 +60,7 @@ class HD44780 : public driver::interface::Driver
 public:
 
 
-           HD44780();
+           HD44780(interface::HD44780_Control & ctrl);
   virtual ~HD44780();
 
 
@@ -60,6 +69,11 @@ public:
   ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override;
   bool    ioctl(uint32_t const   cmd,    void          * arg      ) override;
   void    close(                                                  ) override;
+
+
+private:
+
+  interface::HD44780_Control & _ctrl;
 
 };
 

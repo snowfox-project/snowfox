@@ -42,7 +42,8 @@ namespace HD44780
  * CTOR/DTOR
  **************************************************************************************/
 
-HD44780::HD44780()
+HD44780::HD44780(interface::HD44780_Control & ctrl)
+: _ctrl(ctrl)
 {
 
 }
@@ -73,7 +74,25 @@ ssize_t HD44780::write(uint8_t const * buffer, ssize_t const num_bytes)
 
 bool HD44780::ioctl(uint32_t const cmd, void * arg)
 {
-  /* TODO */ return false;
+  switch(cmd)
+  {
+  /* IOCTL_CLEAR_DISPLAY **************************************************************/
+  case IOCTL_CLEAR_DISPLAY:
+  {
+    _ctrl.clear();
+    return true;
+  }
+  break;
+  /* IOCTL_RETURN_HOME ****************************************************************/
+  case IOCTL_RETURN_HOME:
+  {
+    _ctrl.home();
+    return true;
+  }
+  break;
+  }
+
+  return false;
 }
 
 void HD44780::close()
