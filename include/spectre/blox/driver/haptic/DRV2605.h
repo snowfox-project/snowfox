@@ -51,7 +51,14 @@ public:
 
    DRV2605(hal::interface::Delay                          & delay,
            driver::haptic::DRV2605::interface::DRV2605_Io & drv2605_io);
-  ~DRV2605();
+
+   DRV2605(hal::interface::Delay                                     & delay,
+           driver::haptic::DRV2605::interface::DRV2605_Io            & drv2605_io,
+           driver::haptic::DRV2605::interface::Mode            const   mode,
+           driver::haptic::DRV2605::interface::Actuator        const   actuator,
+           driver::haptic::DRV2605::interface::WaveformLibrary const   library);
+
+   ~DRV2605();
 
 
   driver::haptic::DRV2605::DRV2605 & operator () () { return _drv2605; }

@@ -82,20 +82,16 @@ int main()
 
   haptic::DRV2605::DRV2605_IoI2C drv2605_io_i2c(DRV2605_I2C_ADDR, i2c_master());
 
-  blox::DRV2605                  drv2605       (delay, drv2605_io_i2c);
+  blox::DRV2605                  drv2605       (delay,
+                                                drv2605_io_i2c,
+                                                haptic::DRV2605::interface::Mode::INTERNAL_TRIGGER,
+                                                haptic::DRV2605::interface::Actuator::LRA,
+                                                haptic::DRV2605::interface::WaveformLibrary::LRA);
 
 
   /************************************************************************************
    * APPLICATION
    ************************************************************************************/
-
-  uint8_t mode         = static_cast<uint8_t>(haptic::DRV2605::interface::Mode::INTERNAL_TRIGGER);
-  uint8_t actuator     = static_cast<uint8_t>(haptic::DRV2605::interface::Actuator::LRA         );
-  uint8_t waveform_lib = static_cast<uint8_t>(haptic::DRV2605::interface::WaveformLibrary::LRA  );
-
-  drv2605().ioctl(haptic::DRV2605::IOCTL_SET_MODE,             static_cast<void *>(&mode        ));
-  drv2605().ioctl(haptic::DRV2605::IOCTL_SET_ACTUATOR,         static_cast<void *>(&actuator    ));
-  drv2605().ioctl(haptic::DRV2605::IOCTL_SET_WAVEFORM_LIBRARY, static_cast<void *>(&waveform_lib));
 
   uint8_t  const DRV2605_MIN_LRA_LIB_WAVEFORM_NUM = 1;
   uint8_t  const DRV2605_MAX_LRA_LIB_WAVEFORM_NUM = 127;

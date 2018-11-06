@@ -36,11 +36,28 @@ namespace blox
  * CTOR/DTOR
  **************************************************************************************/
 
-DRV2605::DRV2605(hal::interface::Delay & delay, driver::haptic::DRV2605::interface::DRV2605_Io & drv2605_io)
+DRV2605::DRV2605(hal::interface::Delay                          & delay,
+                 driver::haptic::DRV2605::interface::DRV2605_Io & drv2605_io)
 : _drv2605_control(drv2605_io, delay),
   _drv2605        (_drv2605_control )
 {
   _drv2605.open();
+}
+
+DRV2605::DRV2605(hal::interface::Delay                                     & delay,
+                 driver::haptic::DRV2605::interface::DRV2605_Io            & drv2605_io,
+                 driver::haptic::DRV2605::interface::Mode            const   mode,
+                 driver::haptic::DRV2605::interface::Actuator        const   actuator,
+                 driver::haptic::DRV2605::interface::WaveformLibrary const   library)
+: DRV2605(delay, drv2605_io)
+{
+  uint8_t mode_arg         = static_cast<uint8_t>(mode    );
+  uint8_t actuator_arg     = static_cast<uint8_t>(actuator);
+  uint8_t waveform_lib_arg = static_cast<uint8_t>(library );
+
+  _drv2605.ioctl(driver::haptic::DRV2605::IOCTL_SET_MODE,             static_cast<void *>(&mode_arg        ));
+  _drv2605.ioctl(driver::haptic::DRV2605::IOCTL_SET_ACTUATOR,         static_cast<void *>(&actuator_arg    ));
+  _drv2605.ioctl(driver::haptic::DRV2605::IOCTL_SET_WAVEFORM_LIBRARY, static_cast<void *>(&waveform_lib_arg));
 }
 
 DRV2605::~DRV2605()
