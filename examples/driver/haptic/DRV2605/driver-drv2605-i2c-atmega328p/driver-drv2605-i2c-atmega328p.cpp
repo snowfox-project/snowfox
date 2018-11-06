@@ -28,9 +28,9 @@
 
 #include <spectre/blox/hal/avr/ATMEGA328P/I2cMaster.h>
 
-#include <spectre/driver/haptic/DRV2605/DRV2605.h>
 #include <spectre/driver/haptic/DRV2605/DRV2605_IoI2C.h>
-#include <spectre/driver/haptic/DRV2605/DRV2605_Control.h>
+
+#include <spectre/blox/driver/haptic/DRV2605.h>
 
 /**************************************************************************************
  * NAMESPACES
@@ -79,9 +79,10 @@ int main()
    ************************************************************************************/
 
   /* DRV2605 **************************************************************************/
-  haptic::DRV2605::DRV2605_IoI2C    drv2605_io_i2c(DRV2605_I2C_ADDR, i2c_master());
-  haptic::DRV2605::DRV2605_Control  drv2605_ctrl  (drv2605_io_i2c, delay         );
-  haptic::DRV2605::DRV2605          drv2605       (drv2605_ctrl                  );
+
+  haptic::DRV2605::DRV2605_IoI2C drv2605_io_i2c(DRV2605_I2C_ADDR, i2c_master());
+
+  blox::DRV2605                  drv2605       (delay, drv2605_io_i2c);
 
 
   /************************************************************************************
@@ -92,10 +93,9 @@ int main()
   uint8_t actuator     = static_cast<uint8_t>(haptic::DRV2605::interface::Actuator::LRA         );
   uint8_t waveform_lib = static_cast<uint8_t>(haptic::DRV2605::interface::WaveformLibrary::LRA  );
 
-  drv2605.open();
-  drv2605.ioctl(haptic::DRV2605::IOCTL_SET_MODE,             static_cast<void *>(&mode        ));
-  drv2605.ioctl(haptic::DRV2605::IOCTL_SET_ACTUATOR,         static_cast<void *>(&actuator    ));
-  drv2605.ioctl(haptic::DRV2605::IOCTL_SET_WAVEFORM_LIBRARY, static_cast<void *>(&waveform_lib));
+  drv2605().ioctl(haptic::DRV2605::IOCTL_SET_MODE,             static_cast<void *>(&mode        ));
+  drv2605().ioctl(haptic::DRV2605::IOCTL_SET_ACTUATOR,         static_cast<void *>(&actuator    ));
+  drv2605().ioctl(haptic::DRV2605::IOCTL_SET_WAVEFORM_LIBRARY, static_cast<void *>(&waveform_lib));
 
   uint8_t  const DRV2605_MIN_LRA_LIB_WAVEFORM_NUM = 1;
   uint8_t  const DRV2605_MAX_LRA_LIB_WAVEFORM_NUM = 127;
@@ -104,15 +104,13 @@ int main()
   {
     haptic::DRV2605::IoctlSetWaveFormArg set_waveform_arg(haptic::DRV2605::interface::WaveformSequencer::SEQ_1, w);
 
-    drv2605.ioctl(haptic::DRV2605::IOCTL_SET_WAVEFORM, static_cast<void *>(&set_waveform_arg));
-    drv2605.ioctl(haptic::DRV2605::IOCTL_SET_GO,       0                                     );
+    drv2605().ioctl(haptic::DRV2605::IOCTL_SET_WAVEFORM, static_cast<void *>(&set_waveform_arg));
+    drv2605().ioctl(haptic::DRV2605::IOCTL_SET_GO,       0                                     );
 
     if(w == DRV2605_MAX_LRA_LIB_WAVEFORM_NUM) w = DRV2605_MIN_LRA_LIB_WAVEFORM_NUM;
 
     delay.delay_ms(LOOP_DELAY_ms);
   }
-
-  drv2605.close();
 
   return 0;
 }
