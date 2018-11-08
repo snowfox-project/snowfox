@@ -6,6 +6,9 @@ set(DEBUG_SRC_PATH src/debug)
 
 ##########################################################################
 
-set(SPECTRE_LIBRARY_DEBUG_SRCS ${SPECTRE_LIBRARY_DEBUG_SRCS} ${DEBUG_SRC_PATH}/serial/DebugSerial.cpp)
+set(SPECTRE_LIBRARY_DEBUG_SRCS 
+  ${DEBUG_SRC_PATH}/serial/DebugSerial.cpp
+  ${DEBUG_SRC_PATH}/Trace.cpp
+)
 
 ##########################################################################
