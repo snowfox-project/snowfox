@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DEBUG_SERIAL_DEBUGSERIAL_H_
-#define INCLUDE_SPECTRE_DEBUG_SERIAL_DEBUGSERIAL_H_
+#ifndef INCLUDE_SPECTRE_DEBUG_SERIAL_SERIALTRACEOUTPUT_H_
+#define INCLUDE_SPECTRE_DEBUG_SERIAL_SERIALTRACEOUTPUT_H_
 
 /**************************************************************************************
  * INCLUDE
@@ -42,13 +42,13 @@ namespace trace
  * CLASS DECLARATION
  **************************************************************************************/
 
-class DebugSerial : public interface::TraceOutput
+class SerialTraceOutput : public interface::TraceOutput
 {
 
 public:
 
-           DebugSerial(driver::interface::Driver & serial);
-  virtual ~DebugSerial();
+           SerialTraceOutput(driver::interface::Driver & serial);
+  virtual ~SerialTraceOutput();
 
 
   virtual void write(uint8_t const * buf, uint16_t const length) override;
@@ -68,4 +68,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_DEBUG_SERIAL_DEBUGSERIAL_H_ */
+#endif /* INCLUDE_SPECTRE_DEBUG_SERIAL_SERIALTRACEOUTPUT_H_ */

@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/debug/serial/DebugSerial.h>
+#include <spectre/debug/serial/SerialTraceOutput.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -36,13 +36,13 @@ namespace trace
  * CTOR/DTOR
  **************************************************************************************/
 
-DebugSerial::DebugSerial(driver::interface::Driver & serial)
-: _serial  (serial)
+SerialTraceOutput::SerialTraceOutput(driver::interface::Driver & serial)
+: _serial(serial)
 {
   _serial.open();
 }
 
-DebugSerial::~DebugSerial()
+SerialTraceOutput::~SerialTraceOutput()
 {
   _serial.close();
 }
@@ -51,7 +51,7 @@ DebugSerial::~DebugSerial()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void DebugSerial::write(uint8_t const * buf, uint16_t const length)
+void SerialTraceOutput::write(uint8_t const * buf, uint16_t const length)
 {
   for(ssize_t bytes_written = 0; bytes_written != length; )
   {
