@@ -41,7 +41,7 @@ namespace trace
  * TYPEDEF
  **************************************************************************************/
 
-enum class TraceLevel : uint8_t
+enum class Level : uint8_t
 {
   None  = 0,
   Error = 1,
@@ -60,12 +60,12 @@ class Trace
 public:
 
    Trace(interface::TraceOutput       & trace_out,
-         TraceLevel             const   trace_level,
+         Level                  const   trace_level,
          uint16_t               const   trace_buf_size = DEFAULT_TRACE_BUFFER_SIZE);
   ~Trace();
 
 
-  void print(TraceLevel const trace_level, char const * fmt, ...);
+  void print(Level const trace_level, char const * fmt, ...);
 
 
   static uint16_t const DEFAULT_TRACE_BUFFER_SIZE = 128;
@@ -74,7 +74,7 @@ public:
 private:
 
   interface::TraceOutput        & _trace_out;
-  TraceLevel                      _trace_level;
+  Level                           _trace_level;
   uint16_t                const   _trace_buf_size;
   uint8_t                       * _trace_buf;
 

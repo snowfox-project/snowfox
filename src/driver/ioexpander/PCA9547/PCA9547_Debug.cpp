@@ -48,7 +48,7 @@ void PCA9547_Debug::debug_dumpAllRegs(trace::Trace & trace, interface::PCA9547_I
 
   io.readControlRegister(&control_reg_content);
 
-  trace.print(trace::TraceLevel::Debug, "CONTROL = %02X\n\r", control_reg_content);
+  trace.print(trace::Level::Debug, "CONTROL = %02X\n\r", control_reg_content);
 }
 
 /**************************************************************************************

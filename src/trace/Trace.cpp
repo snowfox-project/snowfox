@@ -39,13 +39,13 @@ namespace trace
  * PRIVATE PROTOTYPES
  **************************************************************************************/
 
-bool operator <= (TraceLevel const lhs, TraceLevel const rhs);
+bool operator <= (Trace const lhs, Trace const rhs);
 
 /**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
-Trace::Trace(interface::TraceOutput & trace_out, TraceLevel const trace_level, uint16_t const trace_buf_size)
+Trace::Trace(interface::TraceOutput & trace_out, Level const trace_level, uint16_t const trace_buf_size)
 : _trace_out     (trace_out                   ),
   _trace_level   (trace_level                 ),
   _trace_buf_size(trace_buf_size              ),
@@ -63,7 +63,7 @@ Trace::~Trace()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void Trace::print(TraceLevel const trace_level, char const * fmt, ...)
+void Trace::print(Level const trace_level, char const * fmt, ...)
 {
   if(trace_level <= _trace_level)
   {
@@ -81,7 +81,7 @@ void Trace::print(TraceLevel const trace_level, char const * fmt, ...)
  * PRIVATE FUNCTIONS
  **************************************************************************************/
 
-bool operator <= (TraceLevel const lhs, TraceLevel const rhs)
+bool operator <= (Level const lhs, Level const rhs)
 {
   return static_cast<uint8_t>(lhs) <= static_cast<uint8_t>(rhs);
 }
