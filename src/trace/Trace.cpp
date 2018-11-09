@@ -16,16 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_DEBUG_TRACE_H_
-#define INCLUDE_SPECTRE_DEBUG_TRACE_H_
-
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
+#include <spectre/trace/Trace.h>
 
-#include <spectre/debug/interface/TraceOutput.h>
+#include <stdio.h>
+#include <stdarg.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -38,46 +36,55 @@ namespace trace
 {
 
 /**************************************************************************************
- * TYPEDEF
+ * PRIVATE PROTOTYPES
  **************************************************************************************/
 
-enum class TraceLevel : uint8_t
-{
-  None  = 0,
-  Error = 1,
-  Warn  = 2,
-  Info  = 3,
-  Debug = 4
-};
+bool operator <= (TraceLevel const lhs, TraceLevel const rhs);
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class Trace
+Trace::Trace(interface::TraceOutput & trace_out, TraceLevel const trace_level, uint16_t const trace_buf_size)
+: _trace_out     (trace_out                   ),
+  _trace_level   (trace_level                 ),
+  _trace_buf_size(trace_buf_size              ),
+  _trace_buf     (new uint8_t[_trace_buf_size])
 {
 
-public:
+}
 
-   Trace(interface::TraceOutput       & trace_out,
-         TraceLevel             const   trace_level,
-         uint16_t               const   trace_buf_size = DEFAULT_TRACE_BUFFER_SIZE);
-  ~Trace();
+Trace::~Trace()
+{
+  delete[] _trace_buf; _trace_buf = 0;
+}
 
-  void print(TraceLevel const trace_level, char const * fmt, ...);
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
+void Trace::print(TraceLevel const trace_level, char const * fmt, ...)
+{
+  if(trace_level <= _trace_level)
+  {
+    va_list args;
 
-  static uint16_t const DEFAULT_TRACE_BUFFER_SIZE = 128;
+    va_start (args, fmt);
+    uint16_t const length = vsnprintf (reinterpret_cast<char *>(_trace_buf), _trace_buf_size, fmt, args);
+    va_end   (args);
 
+    _trace_out.write(_trace_buf, length);
+  }
+}
 
-private:
+/**************************************************************************************
+ * PRIVATE FUNCTIONS
+ **************************************************************************************/
 
-  interface::TraceOutput        & _trace_out;
-  TraceLevel                      _trace_level;
-  uint16_t                const   _trace_buf_size;
-  uint8_t                       * _trace_buf;
-
-};
+bool operator <= (TraceLevel const lhs, TraceLevel const rhs)
+{
+  return static_cast<uint8_t>(lhs) <= static_cast<uint8_t>(rhs);
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -86,5 +93,3 @@ private:
 } /* trace */
 
 } /* spectre */
-
-#endif /* INCLUDE_SPECTRE_DEBUG_TRACE_H_ */

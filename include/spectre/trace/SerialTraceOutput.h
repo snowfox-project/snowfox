@@ -23,7 +23,8 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/debug/interface/TraceOutput.h>
+#include <spectre/trace/interface/TraceOutput.h>
+
 #include <stdlib.h>
 
 #include <spectre/driver/interface/Driver.h>

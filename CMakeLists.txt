@@ -34,9 +34,6 @@ include(.cmake/comstack-srcs.cmake)
 set(SPECTRE_LIBRARY_CPU_SRCS "")
 include(.cmake/cpu-srcs.cmake)
 
-set(SPECTRE_LIBRARY_DEBUG_SRCS "")
-include(.cmake/debug-srcs.cmake)
-
 set(SPECTRE_LIBRARY_HAL_SRCS "")
 include(.cmake/hal-srcs.cmake)
 
@@ -46,6 +43,9 @@ include(.cmake/driver-srcs.cmake)
 set(SPECTRE_LIBRARY_OS_SRCS "")
 include(.cmake/os-srcs.cmake)
 
+set(SPECTRE_LIBRARY_TRACE_SRCS "")
+include(.cmake/trace-srcs.cmake)
+
 set(SPECTRE_LIBRARY_UTIL_SRCS "")
 include(.cmake/util-srcs.cmake)
 
@@ -53,10 +53,10 @@ set(SPECTRE_LIBRARY_SRCS
   ${SPECTRE_LIBRARY_BLOX_SRCS}
   ${SPECTRE_LIBRARY_COMSTACK_SRCS}
   ${SPECTRE_LIBRARY_CPU_SRCS}
-  ${SPECTRE_LIBRARY_DEBUG_SRCS}
   ${SPECTRE_LIBRARY_HAL_SRCS}
   ${SPECTRE_LIBRARY_DRIVER_SRCS}
   ${SPECTRE_LIBRARY_OS_SRCS}
+  ${SPECTRE_LIBRARY_TRACE_SRCS}
   ${SPECTRE_LIBRARY_UTIL_SRCS}
 )
 
