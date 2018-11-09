@@ -23,8 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/debug/interface/Debug.h>
-
+#include <spectre/debug/interface/TraceOutput.h>
 #include <stdlib.h>
 
 #include <spectre/driver/interface/Driver.h>
@@ -43,7 +42,7 @@ namespace debug
  * CLASS DECLARATION
  **************************************************************************************/
 
-class DebugSerial : public interface::Debug
+class DebugSerial : public interface::TraceOutput
 {
 
 public:
@@ -52,14 +51,12 @@ public:
   virtual ~DebugSerial();
 
 
-  virtual void print(char const * fmt, ...) override;
+  virtual void write(uint8_t const * buf, uint16_t const length) override;
 
 
 private:
 
   driver::interface::Driver & _serial;
-
-  static size_t constexpr DEBUG_SERIAL_BUFFER_SIZE = 128;
 
 };
 

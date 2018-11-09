@@ -45,8 +45,8 @@ bool operator <= (TraceLevel const lhs, TraceLevel const rhs);
  * CTOR/DTOR
  **************************************************************************************/
 
-Trace::Trace(interface::Debug & debug, TraceLevel const trace_level, uint16_t const trace_buf_size)
-: _debug         (debug                       ),
+Trace::Trace(interface::TraceOutput & trace_out, TraceLevel const trace_level, uint16_t const trace_buf_size)
+: _trace_out     (trace_out                   ),
   _trace_level   (trace_level                 ),
   _trace_buf_size(trace_buf_size              ),
   _trace_buf     (new uint8_t[_trace_buf_size])
@@ -72,6 +72,8 @@ void Trace::print(TraceLevel const trace_level, char const * fmt, ...)
     va_start (args, fmt);
     uint16_t const length = vsnprintf (reinterpret_cast<char *>(_trace_buf), _trace_buf_size, fmt, args);
     va_end   (args);
+
+    _trace_out.write(_trace_buf, length);
   }
 }
 

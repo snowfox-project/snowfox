@@ -25,7 +25,7 @@
 
 #include <stdint.h>
 
-#include <spectre/debug/interface/Debug.h>
+#include <spectre/debug/interface/TraceOutput.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -59,9 +59,9 @@ class Trace
 
 public:
 
-   Trace(interface::Debug       & debug,
-         TraceLevel       const   trace_level,
-         uint16_t         const   trace_buf_size = DEFAULT_TRACE_BUFFER_SIZE);
+   Trace(interface::TraceOutput       & trace_out,
+         TraceLevel             const   trace_level,
+         uint16_t               const   trace_buf_size = DEFAULT_TRACE_BUFFER_SIZE);
   ~Trace();
 
   void print(TraceLevel const trace_level, char const * fmt, ...);
@@ -72,10 +72,10 @@ public:
 
 private:
 
-  interface::Debug       & _debug;
-  TraceLevel               _trace_level;
-  uint16_t         const   _trace_buf_size;
-  uint8_t                * _trace_buf;
+  interface::TraceOutput        & _trace_out;
+  TraceLevel                      _trace_level;
+  uint16_t                const   _trace_buf_size;
+  uint8_t                       * _trace_buf;
 
 };
 

@@ -20,6 +20,12 @@
 #define INCLUDE_SPECTRE_DRIVER_HAPTIC_DRV2605_DEBUGINTERFACE_H_
 
 /**************************************************************************************
+ * INCLUDE
+ **************************************************************************************/
+
+#include <stdint.h>
+
+/**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
@@ -36,16 +42,16 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class Debug
+class TraceOutput
 {
 
 public:
 
-           Debug() { }
-  virtual ~Debug() { }
+           TraceOutput() { }
+  virtual ~TraceOutput() { }
 
 
-  virtual void print(char const * fmt, ...) = 0;
+  virtual void write(uint8_t const * buf, uint16_t const length) = 0;
 
 };
 

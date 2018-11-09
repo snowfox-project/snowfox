@@ -22,9 +22,6 @@
 
 #include <spectre/debug/serial/DebugSerial.h>
 
-#include <stdio.h>
-#include <stdarg.h>
-
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -54,15 +51,8 @@ DebugSerial::~DebugSerial()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void DebugSerial::print(char const * fmt, ...)
+void DebugSerial::write(uint8_t const * buf, uint16_t const length)
 {
-  uint8_t buf[DEBUG_SERIAL_BUFFER_SIZE];
-  va_list args;
-
-  va_start (args, fmt);
-  ssize_t const length = vsnprintf (reinterpret_cast<char *>(buf), DEBUG_SERIAL_BUFFER_SIZE, fmt, args);
-  va_end   (args);
-
   for(ssize_t bytes_written = 0; bytes_written != length; )
   {
     bytes_written += _serial.write(buf + bytes_written, length - bytes_written);
