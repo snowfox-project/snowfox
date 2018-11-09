@@ -45,11 +45,18 @@ bool operator <= (TraceLevel const lhs, TraceLevel const rhs);
  * CTOR/DTOR
  **************************************************************************************/
 
-Trace::Trace(interface::Debug & debug, TraceLevel const trace_level)
-: _debug      (debug      ),
-  _trace_level(trace_level)
+Trace::Trace(interface::Debug & debug, TraceLevel const trace_level, uint16_t const trace_buf_size)
+: _debug         (debug                       ),
+  _trace_level   (trace_level                 ),
+  _trace_buf_size(trace_buf_size              ),
+  _trace_buf     (new uint8_t[_trace_buf_size])
 {
 
+}
+
+Trace::~Trace()
+{
+  delete[] _trace_buf; _trace_buf = 0;
 }
 
 /**************************************************************************************
@@ -60,11 +67,11 @@ void Trace::print(TraceLevel const trace_level, char const * fmt, ...)
 {
   if(trace_level <= _trace_level)
   {
-    va_list arg;
+    va_list args;
 
-    va_start(arg, fmt);
-    //_debug.print(fmt, arg);
-    va_end(arg);
+    va_start (args, fmt);
+    uint16_t const length = vsnprintf (reinterpret_cast<char *>(_trace_buf), _trace_buf_size, fmt, args);
+    va_end   (args);
   }
 }
 
@@ -72,11 +79,10 @@ void Trace::print(TraceLevel const trace_level, char const * fmt, ...)
  * PRIVATE FUNCTIONS
  **************************************************************************************/
 
-bool operator < (TraceLevel const lhs, TraceLevel const rhs)
+bool operator <= (TraceLevel const lhs, TraceLevel const rhs)
 {
   return static_cast<uint8_t>(lhs) <= static_cast<uint8_t>(rhs);
 }
-
 
 /**************************************************************************************
  * NAMESPACE
