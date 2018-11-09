@@ -63,31 +63,31 @@ FLASH_DECLARE(static char const MAGNITUDE_LOW_BYTE [] =  "MAGNITUDE_LOW_BYTE  = 
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-void AS5600_Debug::debug_dumpAllRegs(debug::interface::Debug & debug_interface, hal::interface::Flash & flash, interface::AS5600_Io & io)
+void AS5600_Debug::debug_dumpAllRegs(trace::Trace & trace, hal::interface::Flash & flash, interface::AS5600_Io & io)
 {
-  debug_dumpSingleReg(debug_interface, flash, io, ZMCO               , interface::Register::ZMCO               );
-  debug_dumpSingleReg(debug_interface, flash, io, ZPOS_HIGH_BYTE     , interface::Register::ZPOS_HIGH_BYTE     );
-  debug_dumpSingleReg(debug_interface, flash, io, ZPOS_LOW_BYTE      , interface::Register::ZPOS_LOW_BYTE      );
-  debug_dumpSingleReg(debug_interface, flash, io, MPOS_HIGH_BYTE     , interface::Register::MPOS_HIGH_BYTE     );
-  debug_dumpSingleReg(debug_interface, flash, io, MPOS_LOW_BYTE      , interface::Register::MPOS_LOW_BYTE      );
-  debug_dumpSingleReg(debug_interface, flash, io, MANG_HIGH_BYTE     , interface::Register::MANG_HIGH_BYTE     );
-  debug_dumpSingleReg(debug_interface, flash, io, MANG_LOW_BYTE      , interface::Register::MANG_LOW_BYTE      );
-  debug_dumpSingleReg(debug_interface, flash, io, CONF_HIGH_BYTE     , interface::Register::CONF_HIGH_BYTE     );
-  debug_dumpSingleReg(debug_interface, flash, io, CONF_LOW_BYTE      , interface::Register::CONF_LOW_BYTE      );
-  debug_dumpSingleReg(debug_interface, flash, io, RAW_ANGLE_HIGH_BYTE, interface::Register::RAW_ANGLE_HIGH_BYTE);
-  debug_dumpSingleReg(debug_interface, flash, io, RAW_ANGLE_LOW_BYTE , interface::Register::RAW_ANGLE_LOW_BYTE );
-  debug_dumpSingleReg(debug_interface, flash, io, ANGLE_HIGH_BYTE    , interface::Register::ANGLE_HIGH_BYTE    );
-  debug_dumpSingleReg(debug_interface, flash, io, ANGLE_LOW_BYTE     , interface::Register::ANGLE_LOW_BYTE     );
-  debug_dumpSingleReg(debug_interface, flash, io, AGC                , interface::Register::AGC                );
-  debug_dumpSingleReg(debug_interface, flash, io, MAGNITUDE_HIGH_BYTE, interface::Register::MAGNITUDE_HIGH_BYTE);
-  debug_dumpSingleReg(debug_interface, flash, io, MAGNITUDE_LOW_BYTE , interface::Register::MAGNITUDE_LOW_BYTE );
+  debug_dumpSingleReg(trace, flash, io, ZMCO               , interface::Register::ZMCO               );
+  debug_dumpSingleReg(trace, flash, io, ZPOS_HIGH_BYTE     , interface::Register::ZPOS_HIGH_BYTE     );
+  debug_dumpSingleReg(trace, flash, io, ZPOS_LOW_BYTE      , interface::Register::ZPOS_LOW_BYTE      );
+  debug_dumpSingleReg(trace, flash, io, MPOS_HIGH_BYTE     , interface::Register::MPOS_HIGH_BYTE     );
+  debug_dumpSingleReg(trace, flash, io, MPOS_LOW_BYTE      , interface::Register::MPOS_LOW_BYTE      );
+  debug_dumpSingleReg(trace, flash, io, MANG_HIGH_BYTE     , interface::Register::MANG_HIGH_BYTE     );
+  debug_dumpSingleReg(trace, flash, io, MANG_LOW_BYTE      , interface::Register::MANG_LOW_BYTE      );
+  debug_dumpSingleReg(trace, flash, io, CONF_HIGH_BYTE     , interface::Register::CONF_HIGH_BYTE     );
+  debug_dumpSingleReg(trace, flash, io, CONF_LOW_BYTE      , interface::Register::CONF_LOW_BYTE      );
+  debug_dumpSingleReg(trace, flash, io, RAW_ANGLE_HIGH_BYTE, interface::Register::RAW_ANGLE_HIGH_BYTE);
+  debug_dumpSingleReg(trace, flash, io, RAW_ANGLE_LOW_BYTE , interface::Register::RAW_ANGLE_LOW_BYTE );
+  debug_dumpSingleReg(trace, flash, io, ANGLE_HIGH_BYTE    , interface::Register::ANGLE_HIGH_BYTE    );
+  debug_dumpSingleReg(trace, flash, io, ANGLE_LOW_BYTE     , interface::Register::ANGLE_LOW_BYTE     );
+  debug_dumpSingleReg(trace, flash, io, AGC                , interface::Register::AGC                );
+  debug_dumpSingleReg(trace, flash, io, MAGNITUDE_HIGH_BYTE, interface::Register::MAGNITUDE_HIGH_BYTE);
+  debug_dumpSingleReg(trace, flash, io, MAGNITUDE_LOW_BYTE , interface::Register::MAGNITUDE_LOW_BYTE );
 }
 
 /**************************************************************************************
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
-void AS5600_Debug::debug_dumpSingleReg(debug::interface::Debug & debug_interface, hal::interface::Flash & flash, interface::AS5600_Io & io, char const * msg, interface::Register const reg)
+void AS5600_Debug::debug_dumpSingleReg(trace::Trace & trace, hal::interface::Flash & flash, interface::AS5600_Io & io, char const * msg, interface::Register const reg)
 {
   char    msg_ram[32];
   uint8_t reg_content = 0;
@@ -95,7 +95,7 @@ void AS5600_Debug::debug_dumpSingleReg(debug::interface::Debug & debug_interface
   flash.readStringFromFlash(msg_ram, msg);
   io.readRegister(reg, &reg_content);
 
-  debug_interface.print("%s%02X\n\r", msg_ram, reg_content);
+  trace.print(trace::TraceLevel::Debug, "%s%02X\n\r", msg_ram, reg_content);
 }
 
 /**************************************************************************************

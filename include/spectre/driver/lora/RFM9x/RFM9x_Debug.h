@@ -23,11 +23,11 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/debug/interface/Debug.h>
-
 #include <spectre/hal/interface/flash/Flash.h>
 
 #include <spectre/driver/lora/RFM9x/interface/RFM9x_Io.h>
+
+#include <spectre/trace/Trace.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -54,16 +54,16 @@ class RFM9x_Debug
 
 public:
 
-  static void debug_dumpAllRegs(debug::interface::Debug & debug_interface,
-                                hal::interface::Flash   & flash,
-                                interface::RFM9x_Io     & io);
+  static void debug_dumpAllRegs(trace::Trace          & trace,
+                                hal::interface::Flash & flash,
+                                interface::RFM9x_Io   & io);
 
 private:
 
   RFM9x_Debug() { }
   RFM9x_Debug(RFM9x_Debug const & other) { }
 
-  static void debug_dumpSingleReg(debug::interface::Debug       & debug_interface,
+  static void debug_dumpSingleReg(trace::Trace                  & trace,
                                   hal::interface::Flash         & flash,
                                   interface::RFM9x_Io           & io,
                                   char                    const * msg,

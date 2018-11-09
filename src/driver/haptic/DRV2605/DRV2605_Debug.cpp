@@ -82,50 +82,50 @@ FLASH_DECLARE(static char const LRARESPERIOD    [] = "LRARESPERIOD      = ");
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void DRV2605_Debug::debug_dumpAllRegs(debug::interface::Debug & debug_interface, hal::interface::Flash & flash, interface::DRV2605_Io & io)
+void DRV2605_Debug::debug_dumpAllRegs(trace::Trace & trace, hal::interface::Flash & flash, interface::DRV2605_Io & io)
 {
-  debug_dumpSingleReg(debug_interface, flash, io, STATUS          , interface::Register::STATUS          );
-  debug_dumpSingleReg(debug_interface, flash, io, MODE            , interface::Register::MODE            );
-  debug_dumpSingleReg(debug_interface, flash, io, RTP             , interface::Register::RTP             );
-  debug_dumpSingleReg(debug_interface, flash, io, LIB             , interface::Register::LIB             );
-  debug_dumpSingleReg(debug_interface, flash, io, WAVESEQ1        , interface::Register::WAVESEQ1        );
-  debug_dumpSingleReg(debug_interface, flash, io, WAVESEQ2        , interface::Register::WAVESEQ2        );
-  debug_dumpSingleReg(debug_interface, flash, io, WAVESEQ3        , interface::Register::WAVESEQ3        );
-  debug_dumpSingleReg(debug_interface, flash, io, WAVESEQ4        , interface::Register::WAVESEQ4        );
-  debug_dumpSingleReg(debug_interface, flash, io, WAVESEQ5        , interface::Register::WAVESEQ5        );
-  debug_dumpSingleReg(debug_interface, flash, io, WAVESEQ6        , interface::Register::WAVESEQ6        );
-  debug_dumpSingleReg(debug_interface, flash, io, WAVESEQ7        , interface::Register::WAVESEQ7        );
-  debug_dumpSingleReg(debug_interface, flash, io, WAVESEQ8        , interface::Register::WAVESEQ8        );
-  debug_dumpSingleReg(debug_interface, flash, io, GO              , interface::Register::GO              );
-  debug_dumpSingleReg(debug_interface, flash, io, OVERDRIVE       , interface::Register::OVERDRIVE       );
-  debug_dumpSingleReg(debug_interface, flash, io, SUSTAINOFFSETPOS, interface::Register::SUSTAINOFFSETPOS);
-  debug_dumpSingleReg(debug_interface, flash, io, SUSTAINOFFSETNEG, interface::Register::SUSTAINOFFSETNEG);
-  debug_dumpSingleReg(debug_interface, flash, io, BREAKTIME       , interface::Register::BREAKTIME       );
-  debug_dumpSingleReg(debug_interface, flash, io, AUDIOCTRL       , interface::Register::AUDIOCTRL       );
-  debug_dumpSingleReg(debug_interface, flash, io, AUDMINLVL       , interface::Register::AUDMINLVL       );
-  debug_dumpSingleReg(debug_interface, flash, io, AUDMAXLVL       , interface::Register::AUDMAXLVL       );
-  debug_dumpSingleReg(debug_interface, flash, io, AUDMINDRIVE     , interface::Register::AUDMINDRIVE     );
-  debug_dumpSingleReg(debug_interface, flash, io, AUDMAXDRIVE     , interface::Register::AUDMAXDRIVE     );
-  debug_dumpSingleReg(debug_interface, flash, io, RATEDVOLT       , interface::Register::RATEDVOLT       );
-  debug_dumpSingleReg(debug_interface, flash, io, OVERDRIVECLAMP  , interface::Register::OVERDRIVECLAMP  );
-  debug_dumpSingleReg(debug_interface, flash, io, COMPRESULT      , interface::Register::COMPRESULT      );
-  debug_dumpSingleReg(debug_interface, flash, io, BACKEMF         , interface::Register::BACKEMF         );
-  debug_dumpSingleReg(debug_interface, flash, io, FEEDBACK        , interface::Register::FEEDBACK        );
-  debug_dumpSingleReg(debug_interface, flash, io, CONTROL1        , interface::Register::CONTROL1        );
-  debug_dumpSingleReg(debug_interface, flash, io, CONTROL2        , interface::Register::CONTROL2        );
-  debug_dumpSingleReg(debug_interface, flash, io, CONTROL3        , interface::Register::CONTROL3        );
-  debug_dumpSingleReg(debug_interface, flash, io, CONTROL4        , interface::Register::CONTROL4        );
-  debug_dumpSingleReg(debug_interface, flash, io, CONTROL5        , interface::Register::CONTROL5        );
-  debug_dumpSingleReg(debug_interface, flash, io, OLP             , interface::Register::OLP             );
-  debug_dumpSingleReg(debug_interface, flash, io, VBATMONITOR     , interface::Register::VBATMONITOR     );
-  debug_dumpSingleReg(debug_interface, flash, io, LRARESPERIOD    , interface::Register::LRARESPERIOD    );
+  debug_dumpSingleReg(trace, flash, io, STATUS          , interface::Register::STATUS          );
+  debug_dumpSingleReg(trace, flash, io, MODE            , interface::Register::MODE            );
+  debug_dumpSingleReg(trace, flash, io, RTP             , interface::Register::RTP             );
+  debug_dumpSingleReg(trace, flash, io, LIB             , interface::Register::LIB             );
+  debug_dumpSingleReg(trace, flash, io, WAVESEQ1        , interface::Register::WAVESEQ1        );
+  debug_dumpSingleReg(trace, flash, io, WAVESEQ2        , interface::Register::WAVESEQ2        );
+  debug_dumpSingleReg(trace, flash, io, WAVESEQ3        , interface::Register::WAVESEQ3        );
+  debug_dumpSingleReg(trace, flash, io, WAVESEQ4        , interface::Register::WAVESEQ4        );
+  debug_dumpSingleReg(trace, flash, io, WAVESEQ5        , interface::Register::WAVESEQ5        );
+  debug_dumpSingleReg(trace, flash, io, WAVESEQ6        , interface::Register::WAVESEQ6        );
+  debug_dumpSingleReg(trace, flash, io, WAVESEQ7        , interface::Register::WAVESEQ7        );
+  debug_dumpSingleReg(trace, flash, io, WAVESEQ8        , interface::Register::WAVESEQ8        );
+  debug_dumpSingleReg(trace, flash, io, GO              , interface::Register::GO              );
+  debug_dumpSingleReg(trace, flash, io, OVERDRIVE       , interface::Register::OVERDRIVE       );
+  debug_dumpSingleReg(trace, flash, io, SUSTAINOFFSETPOS, interface::Register::SUSTAINOFFSETPOS);
+  debug_dumpSingleReg(trace, flash, io, SUSTAINOFFSETNEG, interface::Register::SUSTAINOFFSETNEG);
+  debug_dumpSingleReg(trace, flash, io, BREAKTIME       , interface::Register::BREAKTIME       );
+  debug_dumpSingleReg(trace, flash, io, AUDIOCTRL       , interface::Register::AUDIOCTRL       );
+  debug_dumpSingleReg(trace, flash, io, AUDMINLVL       , interface::Register::AUDMINLVL       );
+  debug_dumpSingleReg(trace, flash, io, AUDMAXLVL       , interface::Register::AUDMAXLVL       );
+  debug_dumpSingleReg(trace, flash, io, AUDMINDRIVE     , interface::Register::AUDMINDRIVE     );
+  debug_dumpSingleReg(trace, flash, io, AUDMAXDRIVE     , interface::Register::AUDMAXDRIVE     );
+  debug_dumpSingleReg(trace, flash, io, RATEDVOLT       , interface::Register::RATEDVOLT       );
+  debug_dumpSingleReg(trace, flash, io, OVERDRIVECLAMP  , interface::Register::OVERDRIVECLAMP  );
+  debug_dumpSingleReg(trace, flash, io, COMPRESULT      , interface::Register::COMPRESULT      );
+  debug_dumpSingleReg(trace, flash, io, BACKEMF         , interface::Register::BACKEMF         );
+  debug_dumpSingleReg(trace, flash, io, FEEDBACK        , interface::Register::FEEDBACK        );
+  debug_dumpSingleReg(trace, flash, io, CONTROL1        , interface::Register::CONTROL1        );
+  debug_dumpSingleReg(trace, flash, io, CONTROL2        , interface::Register::CONTROL2        );
+  debug_dumpSingleReg(trace, flash, io, CONTROL3        , interface::Register::CONTROL3        );
+  debug_dumpSingleReg(trace, flash, io, CONTROL4        , interface::Register::CONTROL4        );
+  debug_dumpSingleReg(trace, flash, io, CONTROL5        , interface::Register::CONTROL5        );
+  debug_dumpSingleReg(trace, flash, io, OLP             , interface::Register::OLP             );
+  debug_dumpSingleReg(trace, flash, io, VBATMONITOR     , interface::Register::VBATMONITOR     );
+  debug_dumpSingleReg(trace, flash, io, LRARESPERIOD    , interface::Register::LRARESPERIOD    );
 }
 
 /**************************************************************************************
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
-void DRV2605_Debug::debug_dumpSingleReg(debug::interface::Debug & debug_interface, hal::interface::Flash & flash, interface::DRV2605_Io & io, char const * msg, interface::Register const reg)
+void DRV2605_Debug::debug_dumpSingleReg(trace::Trace & trace, hal::interface::Flash & flash, interface::DRV2605_Io & io, char const * msg, interface::Register const reg)
 {
   char    msg_ram[32];
   uint8_t reg_content = 0;
@@ -133,7 +133,7 @@ void DRV2605_Debug::debug_dumpSingleReg(debug::interface::Debug & debug_interfac
   flash.readStringFromFlash(msg_ram, msg);
   io.readRegister(reg, &reg_content);
 
-  debug_interface.print("%s%02X\n\r", msg_ram, reg_content);
+  trace.print(trace::TraceLevel::Debug, "%s%02X\n\r", msg_ram, reg_content);
 }
 
 /**************************************************************************************

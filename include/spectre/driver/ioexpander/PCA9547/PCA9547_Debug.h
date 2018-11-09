@@ -23,9 +23,9 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/debug/interface/Debug.h>
-
 #include <spectre/driver/ioexpander/PCA9547/interface/PCA9547_Io.h>
+
+#include <spectre/trace/Trace.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -52,7 +52,8 @@ class PCA9547_Debug
 
 public:
 
-  static void debug_dumpAllRegs(debug::interface::Debug & debug_interface, interface::PCA9547_Io & io);
+  static void debug_dumpAllRegs(trace::Trace          & trace,
+                                interface::PCA9547_Io & io);
 
 private:
 

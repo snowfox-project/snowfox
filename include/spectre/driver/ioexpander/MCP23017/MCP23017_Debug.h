@@ -23,11 +23,11 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/debug/interface/Debug.h>
-
 #include <spectre/driver/ioexpander/MCP23017/interface/MCP23017_Io.h>
 
 #include <spectre/hal/interface/flash/Flash.h>
+
+#include <spectre/trace/Trace.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -54,7 +54,7 @@ class MCP23017_Debug
 
 public:
 
-  static void debug_dumpAllRegs(debug::interface::Debug & debug_interface,
+  static void debug_dumpAllRegs(trace::Trace            & trace,
                                 hal::interface::Flash   & flash,
                                 interface::MCP23017_Io  & io);
 
@@ -64,7 +64,7 @@ private:
   MCP23017_Debug(MCP23017_Debug const & other) { }
 
 
-  static void debug_dumpSingleReg(debug::interface::Debug   & debug_interface,
+  static void debug_dumpSingleReg(trace::Trace              & trace,
                                   hal::interface::Flash     & flash,
                                   interface::MCP23017_Io    & io,
                                   char                const * msg,

@@ -23,11 +23,11 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/debug/interface/Debug.h>
-
 #include <spectre/hal/interface/flash/Flash.h>
 
 #include <spectre/driver/sensor/BMG160/interface/BMG160_Io.h>
+
+#include <spectre/trace/Trace.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -54,9 +54,9 @@ class BMG160_Debug
 
 public:
 
-  static void debug_dumpAllRegs(debug::interface::Debug & debug_interface,
-                                hal::interface::Flash   & flash,
-                                interface::BMG160_Io    & io);
+  static void debug_dumpAllRegs(trace::Trace          & trace,
+                                hal::interface::Flash & flash,
+                                interface::BMG160_Io  & io);
 
 private:
 
@@ -64,7 +64,7 @@ private:
   BMG160_Debug(BMG160_Debug const & other) { }
 
 
-  static void debug_dumpSingleReg(debug::interface::Debug   & debug_interface,
+  static void debug_dumpSingleReg(trace::Trace              & trace,
                                   hal::interface::Flash     & flash,
                                   interface::BMG160_Io      & io,
                                   char                const * msg,

@@ -62,30 +62,30 @@ FLASH_DECLARE(static char const CHIP_ID                   [] = "CHIP_ID         
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-void AD7151_Debug::debug_dumpAllRegs(debug::interface::Debug & debug_interface, hal::interface::Flash & flash, interface::AD7151_Io & io)
+void AD7151_Debug::debug_dumpAllRegs(trace::Trace & trace, hal::interface::Flash & flash, interface::AD7151_Io & io)
 {
-  debug_dumpSingleReg(debug_interface, flash, io, STATUS                    , interface::Register::STATUS                    );
-  debug_dumpSingleReg(debug_interface, flash, io, DATA_HIGH                 , interface::Register::DATA_HIGH                 );
-  debug_dumpSingleReg(debug_interface, flash, io, DATA_LOW                  , interface::Register::DATA_LOW                  );
-  debug_dumpSingleReg(debug_interface, flash, io, AVERAGE_HIGH              , interface::Register::AVERAGE_HIGH              );
-  debug_dumpSingleReg(debug_interface, flash, io, AVERAGE_LOW               , interface::Register::AVERAGE_LOW               );
-  debug_dumpSingleReg(debug_interface, flash, io, SENSITIVITY_THRESHOLD_HIGH, interface::Register::SENSITIVITY_THRESHOLD_HIGH);
-  debug_dumpSingleReg(debug_interface, flash, io, SENSITIVITY_THRESHOLD_LOW , interface::Register::SENSITIVITY_THRESHOLD_LOW );
-  debug_dumpSingleReg(debug_interface, flash, io, SETUP                     , interface::Register::SETUP                     );
-  debug_dumpSingleReg(debug_interface, flash, io, CONFIGURATION             , interface::Register::CONFIGURATION             );
-  debug_dumpSingleReg(debug_interface, flash, io, POWER_DOWN_TIMER          , interface::Register::POWER_DOWN_TIMER          );
-  debug_dumpSingleReg(debug_interface, flash, io, SERIAL_NUMBER_3           , interface::Register::SERIAL_NUMBER_3           );
-  debug_dumpSingleReg(debug_interface, flash, io, SERIAL_NUMBER_2           , interface::Register::SERIAL_NUMBER_2           );
-  debug_dumpSingleReg(debug_interface, flash, io, SERIAL_NUMBER_1           , interface::Register::SERIAL_NUMBER_1           );
-  debug_dumpSingleReg(debug_interface, flash, io, SERIAL_NUMBER_0           , interface::Register::SERIAL_NUMBER_0           );
-  debug_dumpSingleReg(debug_interface, flash, io, CHIP_ID                   , interface::Register::CHIP_ID                   );
+  debug_dumpSingleReg(trace, flash, io, STATUS                    , interface::Register::STATUS                    );
+  debug_dumpSingleReg(trace, flash, io, DATA_HIGH                 , interface::Register::DATA_HIGH                 );
+  debug_dumpSingleReg(trace, flash, io, DATA_LOW                  , interface::Register::DATA_LOW                  );
+  debug_dumpSingleReg(trace, flash, io, AVERAGE_HIGH              , interface::Register::AVERAGE_HIGH              );
+  debug_dumpSingleReg(trace, flash, io, AVERAGE_LOW               , interface::Register::AVERAGE_LOW               );
+  debug_dumpSingleReg(trace, flash, io, SENSITIVITY_THRESHOLD_HIGH, interface::Register::SENSITIVITY_THRESHOLD_HIGH);
+  debug_dumpSingleReg(trace, flash, io, SENSITIVITY_THRESHOLD_LOW , interface::Register::SENSITIVITY_THRESHOLD_LOW );
+  debug_dumpSingleReg(trace, flash, io, SETUP                     , interface::Register::SETUP                     );
+  debug_dumpSingleReg(trace, flash, io, CONFIGURATION             , interface::Register::CONFIGURATION             );
+  debug_dumpSingleReg(trace, flash, io, POWER_DOWN_TIMER          , interface::Register::POWER_DOWN_TIMER          );
+  debug_dumpSingleReg(trace, flash, io, SERIAL_NUMBER_3           , interface::Register::SERIAL_NUMBER_3           );
+  debug_dumpSingleReg(trace, flash, io, SERIAL_NUMBER_2           , interface::Register::SERIAL_NUMBER_2           );
+  debug_dumpSingleReg(trace, flash, io, SERIAL_NUMBER_1           , interface::Register::SERIAL_NUMBER_1           );
+  debug_dumpSingleReg(trace, flash, io, SERIAL_NUMBER_0           , interface::Register::SERIAL_NUMBER_0           );
+  debug_dumpSingleReg(trace, flash, io, CHIP_ID                   , interface::Register::CHIP_ID                   );
 }
 
 /**************************************************************************************
  * PRIVATE FUNCTIONS
  **************************************************************************************/
 
-void AD7151_Debug::debug_dumpSingleReg(debug::interface::Debug & debug_interface, hal::interface::Flash & flash, interface::AD7151_Io & io, char const * msg, interface::Register const reg)
+void AD7151_Debug::debug_dumpSingleReg(trace::Trace & trace, hal::interface::Flash & flash, interface::AD7151_Io & io, char const * msg, interface::Register const reg)
 {
   char    msg_ram[32];
   uint8_t reg_content = 0;
@@ -93,7 +93,7 @@ void AD7151_Debug::debug_dumpSingleReg(debug::interface::Debug & debug_interface
   flash.readStringFromFlash(msg_ram, msg);
   io.readRegister(reg, &reg_content);
 
-  debug_interface.print("%s%02X\n\r", msg_ram, reg_content);
+  trace.print(trace::TraceLevel::Debug, "%s%02X\n\r", msg_ram, reg_content);
 }
 
 /**************************************************************************************

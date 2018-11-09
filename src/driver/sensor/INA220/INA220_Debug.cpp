@@ -53,21 +53,21 @@ FLASH_DECLARE(static char const CALIBRATION[] = "CALIBRATION = ");
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-void INA220_Debug::debug_dumpAllRegs(debug::interface::Debug & debug_interface, hal::interface::Flash & flash, interface::INA220_Io & io)
+void INA220_Debug::debug_dumpAllRegs(trace::Trace & trace, hal::interface::Flash & flash, interface::INA220_Io & io)
 {
-  debug_dumpSingleReg(debug_interface, flash, io, CONFIG     , interface::Register::CONFIG     );
-  debug_dumpSingleReg(debug_interface, flash, io, V_SHUNT    , interface::Register::V_SHUNT    );
-  debug_dumpSingleReg(debug_interface, flash, io, V_BUS      , interface::Register::V_BUS      );
-  debug_dumpSingleReg(debug_interface, flash, io, POWER      , interface::Register::POWER      );
-  debug_dumpSingleReg(debug_interface, flash, io, CURRENT    , interface::Register::CURRENT    );
-  debug_dumpSingleReg(debug_interface, flash, io, CALIBRATION, interface::Register::CALIBRATION);
+  debug_dumpSingleReg(trace, flash, io, CONFIG     , interface::Register::CONFIG     );
+  debug_dumpSingleReg(trace, flash, io, V_SHUNT    , interface::Register::V_SHUNT    );
+  debug_dumpSingleReg(trace, flash, io, V_BUS      , interface::Register::V_BUS      );
+  debug_dumpSingleReg(trace, flash, io, POWER      , interface::Register::POWER      );
+  debug_dumpSingleReg(trace, flash, io, CURRENT    , interface::Register::CURRENT    );
+  debug_dumpSingleReg(trace, flash, io, CALIBRATION, interface::Register::CALIBRATION);
 }
 
 /**************************************************************************************
  * PRIVATE FUNCTIONS
  **************************************************************************************/
 
-void INA220_Debug::debug_dumpSingleReg(debug::interface::Debug & debug_interface, hal::interface::Flash & flash, interface::INA220_Io & io, char const * msg, interface::Register const reg)
+void INA220_Debug::debug_dumpSingleReg(trace::Trace & trace, hal::interface::Flash & flash, interface::INA220_Io & io, char const * msg, interface::Register const reg)
 {
   char     msg_ram[32];
   uint16_t reg_content = 0;
@@ -75,7 +75,7 @@ void INA220_Debug::debug_dumpSingleReg(debug::interface::Debug & debug_interface
   flash.readStringFromFlash(msg_ram, msg);
   io.readRegister(reg, &reg_content);
 
-  debug_interface.print("%s%04X\n\r", msg_ram, reg_content);
+  trace.print(trace::TraceLevel::Debug, "%s%04X\n\r", msg_ram, reg_content);
 }
 
 /**************************************************************************************

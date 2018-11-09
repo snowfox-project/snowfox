@@ -64,6 +64,7 @@ public:
          uint16_t               const   trace_buf_size = DEFAULT_TRACE_BUFFER_SIZE);
   ~Trace();
 
+
   void print(TraceLevel const trace_level, char const * fmt, ...);
 
 

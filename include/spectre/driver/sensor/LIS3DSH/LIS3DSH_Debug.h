@@ -23,11 +23,11 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/debug/interface/Debug.h>
-
 #include <spectre/hal/interface/flash/Flash.h>
 
 #include <spectre/driver/sensor/LIS3DSH/interface/LIS3DSH_Io.h>
+
+#include <spectre/trace/Trace.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -54,9 +54,9 @@ class LIS3DSH_Debug
 
 public:
 
-  static void debug_dumpAllRegs(debug::interface::Debug & debug_interface,
-                                hal::interface::Flash   & flash,
-                                interface::LIS3DSH_Io   & io);
+  static void debug_dumpAllRegs(trace::Trace          & trace,
+                                hal::interface::Flash & flash,
+                                interface::LIS3DSH_Io & io);
 
 private:
 
@@ -64,7 +64,7 @@ private:
   LIS3DSH_Debug(LIS3DSH_Debug const & other) { }
 
 
-  static void debug_dumpSingleReg(debug::interface::Debug   & debug_interface,
+  static void debug_dumpSingleReg(trace::Trace              & trace,
                                   hal::interface::Flash     & flash,
                                   interface::LIS3DSH_Io     & io,
                                   char                const * msg,

@@ -42,13 +42,13 @@ namespace PCA9547
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void PCA9547_Debug::debug_dumpAllRegs(debug::interface::Debug & debug_interface, interface::PCA9547_Io & io)
+void PCA9547_Debug::debug_dumpAllRegs(trace::Trace & trace, interface::PCA9547_Io & io)
 {
   uint8_t control_reg_content = 0;
 
   io.readControlRegister(&control_reg_content);
 
-  debug_interface.print("CONTROL = %02X\n\r", control_reg_content);
+  trace.print(trace::TraceLevel::Debug, "CONTROL = %02X\n\r", control_reg_content);
 }
 
 /**************************************************************************************

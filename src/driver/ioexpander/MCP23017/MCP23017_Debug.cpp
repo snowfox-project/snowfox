@@ -69,37 +69,37 @@ FLASH_DECLARE(static char const OLAT_B    [] = "OLAT_B    = ");
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void MCP23017_Debug::debug_dumpAllRegs(debug::interface::Debug & debug_interface, hal::interface::Flash & flash, interface::MCP23017_Io & io)
+void MCP23017_Debug::debug_dumpAllRegs(trace::Trace & trace, hal::interface::Flash & flash, interface::MCP23017_Io & io)
 {
-  debug_dumpSingleReg(debug_interface, flash, io, IODIR_A  , interface::Register::IODIR_A  );
-  debug_dumpSingleReg(debug_interface, flash, io, IODIR_B  , interface::Register::IODIR_B  );
-  debug_dumpSingleReg(debug_interface, flash, io, IPOL_A   , interface::Register::IPOL_A   );
-  debug_dumpSingleReg(debug_interface, flash, io, IPOL_B   , interface::Register::IPOL_B   );
-  debug_dumpSingleReg(debug_interface, flash, io, GPINTEN_A, interface::Register::GPINTEN_A);
-  debug_dumpSingleReg(debug_interface, flash, io, GPINTEN_B, interface::Register::GPINTEN_B);
-  debug_dumpSingleReg(debug_interface, flash, io, DEFVAL_A , interface::Register::DEFVAL_A );
-  debug_dumpSingleReg(debug_interface, flash, io, DEFVAL_B , interface::Register::DEFVAL_B );
-  debug_dumpSingleReg(debug_interface, flash, io, INTCON_A , interface::Register::INTCON_A );
-  debug_dumpSingleReg(debug_interface, flash, io, INTCON_B , interface::Register::INTCON_B );
-  debug_dumpSingleReg(debug_interface, flash, io, IOCON_A  , interface::Register::IOCON_A  );
-  debug_dumpSingleReg(debug_interface, flash, io, IOCON_B  , interface::Register::IOCON_B  );
-  debug_dumpSingleReg(debug_interface, flash, io, GPPU_A   , interface::Register::GPPU_A   );
-  debug_dumpSingleReg(debug_interface, flash, io, GPPU_B   , interface::Register::GPPU_B   );
-  debug_dumpSingleReg(debug_interface, flash, io, INTF_A   , interface::Register::INTF_A   );
-  debug_dumpSingleReg(debug_interface, flash, io, INTF_B   , interface::Register::INTF_B   );
-  debug_dumpSingleReg(debug_interface, flash, io, INTCAP_A , interface::Register::INTCAP_A );
-  debug_dumpSingleReg(debug_interface, flash, io, INTCAP_B , interface::Register::INTCAP_B );
-  debug_dumpSingleReg(debug_interface, flash, io, GPIO_A   , interface::Register::GPIO_A   );
-  debug_dumpSingleReg(debug_interface, flash, io, GPIO_B   , interface::Register::GPIO_B   );
-  debug_dumpSingleReg(debug_interface, flash, io, OLAT_A   , interface::Register::OLAT_A   );
-  debug_dumpSingleReg(debug_interface, flash, io, OLAT_B   , interface::Register::OLAT_B   );
+  debug_dumpSingleReg(trace, flash, io, IODIR_A  , interface::Register::IODIR_A  );
+  debug_dumpSingleReg(trace, flash, io, IODIR_B  , interface::Register::IODIR_B  );
+  debug_dumpSingleReg(trace, flash, io, IPOL_A   , interface::Register::IPOL_A   );
+  debug_dumpSingleReg(trace, flash, io, IPOL_B   , interface::Register::IPOL_B   );
+  debug_dumpSingleReg(trace, flash, io, GPINTEN_A, interface::Register::GPINTEN_A);
+  debug_dumpSingleReg(trace, flash, io, GPINTEN_B, interface::Register::GPINTEN_B);
+  debug_dumpSingleReg(trace, flash, io, DEFVAL_A , interface::Register::DEFVAL_A );
+  debug_dumpSingleReg(trace, flash, io, DEFVAL_B , interface::Register::DEFVAL_B );
+  debug_dumpSingleReg(trace, flash, io, INTCON_A , interface::Register::INTCON_A );
+  debug_dumpSingleReg(trace, flash, io, INTCON_B , interface::Register::INTCON_B );
+  debug_dumpSingleReg(trace, flash, io, IOCON_A  , interface::Register::IOCON_A  );
+  debug_dumpSingleReg(trace, flash, io, IOCON_B  , interface::Register::IOCON_B  );
+  debug_dumpSingleReg(trace, flash, io, GPPU_A   , interface::Register::GPPU_A   );
+  debug_dumpSingleReg(trace, flash, io, GPPU_B   , interface::Register::GPPU_B   );
+  debug_dumpSingleReg(trace, flash, io, INTF_A   , interface::Register::INTF_A   );
+  debug_dumpSingleReg(trace, flash, io, INTF_B   , interface::Register::INTF_B   );
+  debug_dumpSingleReg(trace, flash, io, INTCAP_A , interface::Register::INTCAP_A );
+  debug_dumpSingleReg(trace, flash, io, INTCAP_B , interface::Register::INTCAP_B );
+  debug_dumpSingleReg(trace, flash, io, GPIO_A   , interface::Register::GPIO_A   );
+  debug_dumpSingleReg(trace, flash, io, GPIO_B   , interface::Register::GPIO_B   );
+  debug_dumpSingleReg(trace, flash, io, OLAT_A   , interface::Register::OLAT_A   );
+  debug_dumpSingleReg(trace, flash, io, OLAT_B   , interface::Register::OLAT_B   );
 }
 
 /**************************************************************************************
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
-void MCP23017_Debug::debug_dumpSingleReg(debug::interface::Debug & debug_interface, hal::interface::Flash & flash, interface::MCP23017_Io & io, char const * msg, interface::Register const reg)
+void MCP23017_Debug::debug_dumpSingleReg(trace::Trace & trace, hal::interface::Flash & flash, interface::MCP23017_Io & io, char const * msg, interface::Register const reg)
 {
   char    msg_ram[32];
   uint8_t reg_content = 0;
@@ -107,7 +107,7 @@ void MCP23017_Debug::debug_dumpSingleReg(debug::interface::Debug & debug_interfa
   flash.readStringFromFlash(msg_ram, msg);
   io.readRegister(reg, &reg_content);
 
-  debug_interface.print("%s%02X\n\r", msg_ram, reg_content);
+  trace.print(trace::TraceLevel::Debug, "%s%02X\n\r", msg_ram, reg_content);
 }
 
 
