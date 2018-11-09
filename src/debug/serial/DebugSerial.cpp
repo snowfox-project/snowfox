@@ -29,7 +29,7 @@
 namespace spectre
 {
 
-namespace debug
+namespace trace
 {
 
 /**************************************************************************************
@@ -63,6 +63,6 @@ void DebugSerial::write(uint8_t const * buf, uint16_t const length)
  * NAMESPACE
  **************************************************************************************/
 
-} /* debug */
+} /* trace */
 
 } /* spectre */

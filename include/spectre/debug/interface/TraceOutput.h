@@ -32,7 +32,7 @@
 namespace spectre
 {
 
-namespace debug
+namespace trace
 {
 
 namespace interface
@@ -61,7 +61,7 @@ public:
 
 } /* interface */
 
-} /* debug */
+} /* trace */
 
 } /* spectre */
 

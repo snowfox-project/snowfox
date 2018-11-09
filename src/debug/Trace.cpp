@@ -32,7 +32,7 @@
 namespace spectre
 {
 
-namespace debug
+namespace trace
 {
 
 /**************************************************************************************
@@ -90,6 +90,6 @@ bool operator <= (TraceLevel const lhs, TraceLevel const rhs)
  * NAMESPACE
  **************************************************************************************/
 
-} /* debug */
+} /* trace */
 
 } /* spectre */
