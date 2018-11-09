@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/debug/serial/SerialTraceOutput.h>
+#include <spectre/debug/SerialTraceOutput.h>
 
 /**************************************************************************************
  * NAMESPACE
