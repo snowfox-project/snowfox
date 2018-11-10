@@ -34,7 +34,8 @@
 #include <spectre/driver/sensor/L3GD20/L3GD20_IoI2c.h>
 #include <spectre/driver/sensor/L3GD20/L3GD20_Debug.h>
 
-#include <spectre/debug/serial/DebugSerial.h>
+#include <spectre/trace/Trace.h>
+#include <spectre/trace/SerialTraceOutput.h>
 
 /**************************************************************************************
  * NAMESPACES
@@ -101,7 +102,8 @@ int main()
                             serial::interface::SerialParity::None,
                             serial::interface::SerialStopBit::_1);
 
-  debug::DebugSerial debug_serial(serial());
+  trace::SerialTraceOutput serial_trace_output(serial());
+  trace::Trace             trace              (serial_trace_output,trace::Level::Debug);
 
   /* L3GD20 ***************************************************************************/
   sensor::L3GD20::L3GD20_IoI2c l3gd20_io(L3GD20_I2C_ADDR, i2c_master());
@@ -111,7 +113,7 @@ int main()
    * APPLICATION
    ************************************************************************************/
 
-  sensor::L3GD20::L3GD20_Debug::debug_dumpAllRegs(debug_serial, flash, l3gd20_io);
+  sensor::L3GD20::L3GD20_Debug::debug_dumpAllRegs(trace, flash, l3gd20_io);
 
   for(;;)
   {

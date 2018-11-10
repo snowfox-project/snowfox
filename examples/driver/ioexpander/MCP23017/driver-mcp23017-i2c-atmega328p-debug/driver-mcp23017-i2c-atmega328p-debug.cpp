@@ -34,7 +34,8 @@
 #include <spectre/driver/ioexpander/MCP23017/MCP23017_IoI2c.h>
 #include <spectre/driver/ioexpander/MCP23017/MCP23017_Debug.h>
 
-#include <spectre/debug/serial/DebugSerial.h>
+#include <spectre/trace/Trace.h>
+#include <spectre/trace/SerialTraceOutput.h>
 
 /**************************************************************************************
  * NAMESPACES
@@ -101,7 +102,8 @@ int main()
                             serial::interface::SerialParity::None,
                             serial::interface::SerialStopBit::_1);
 
-  debug::DebugSerial debug_serial(serial());
+  trace::SerialTraceOutput serial_trace_output(serial());
+  trace::Trace             trace              (serial_trace_output,trace::Level::Debug);
 
   /* MCP2307 **************************************************************************/
   ioexpander::MCP23017::MCP23017_IoI2c mcp23017_io(MCP23017_I2C_ADDR, i2c_master());
@@ -111,7 +113,7 @@ int main()
    * APPLICATION
    ************************************************************************************/
 
-  ioexpander::MCP23017::MCP23017_Debug::debug_dumpAllRegs(debug_serial, flash, mcp23017_io);
+  ioexpander::MCP23017::MCP23017_Debug::debug_dumpAllRegs(trace, flash, mcp23017_io);
 
   for(;;)
   {

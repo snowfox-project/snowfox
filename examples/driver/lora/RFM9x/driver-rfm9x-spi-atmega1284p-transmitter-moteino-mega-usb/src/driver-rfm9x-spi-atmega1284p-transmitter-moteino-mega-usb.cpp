@@ -74,7 +74,8 @@
 
 #include <spectre/os/event/Event.h>
 
-#include <spectre/debug/serial/DebugSerial.h>
+#include <spectre/trace/Trace.h>
+#include <spectre/trace/SerialTraceOutput.h>
 
 #include <RFM9x_Dio1EventCallbackAdapter.h>
 
@@ -178,7 +179,8 @@ int main()
                           serial::interface::SerialParity::None,
                           serial::interface::SerialStopBit::_1);
 
-  debug::DebugSerial debug_serial(serial());
+  trace::SerialTraceOutput serial_trace_output(serial());
+  trace::Trace             trace              (serial_trace_output,trace::Level::Debug);
 
   /* RFM95 ****************************************************************************/
   lora::RFM9x::RFM9x_IoSpi                        rfm9x_spi                             (spi_master(), rfm9x_cs    );
@@ -237,11 +239,11 @@ int main()
 
     ssize_t const ret_code = rfm9x.write(msg, msg_len);
 
-    if     (ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::ParameterError      )) debug_serial.print("ERROR   - ParameterError\r\n");
-    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::TxFifoSizeExceeded  )) debug_serial.print("ERROR   - TxFifoSizeExceeded\r\n");
-    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::ModemBusy_NotSleep  )) debug_serial.print("ERROR   - ModemBusy_NotSleep\r\n");
-    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::ModemBusy_NotStandby)) debug_serial.print("ERROR   - ModemBusy_NotStandby\r\n");
-    else                                                                                       debug_serial.print("SUCCESS - %s", msg);
+    if     (ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::ParameterError      )) trace.print(trace::Level::Debug, "ERROR   - ParameterError\r\n");
+    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::TxFifoSizeExceeded  )) trace.print(trace::Level::Debug, "ERROR   - TxFifoSizeExceeded\r\n");
+    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::ModemBusy_NotSleep  )) trace.print(trace::Level::Debug, "ERROR   - ModemBusy_NotSleep\r\n");
+    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeWrite::ModemBusy_NotStandby)) trace.print(trace::Level::Debug, "ERROR   - ModemBusy_NotStandby\r\n");
+    else                                                                                       trace.print(trace::Level::Debug, "SUCCESS - %s", msg);
 
     delay.delay_ms(1000);
   }

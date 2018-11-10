@@ -63,7 +63,8 @@
 #include <spectre/driver/can/MCP2515/events/MCP2515_onReceiveBufferFull.h>
 #include <spectre/driver/can/MCP2515/events/MCP2515_onTransmitBufferEmpty.h>
 
-#include <spectre/debug/serial/DebugSerial.h>
+#include <spectre/trace/Trace.h>
+#include <spectre/trace/SerialTraceOutput.h>
 
 /**************************************************************************************
  * NAMESPACES
@@ -157,7 +158,8 @@ int main()
                             serial::interface::SerialParity::None,
                             serial::interface::SerialStopBit::_1);
 
-  debug::DebugSerial debug_serial(serial());
+  trace::SerialTraceOutput serial_trace_output(serial());
+  trace::Trace             trace              (serial_trace_output,trace::Level::Debug);
 
   /* MCP2515 **************************************************************************/
   can::interface::CanFrameBuffer              mcp2515_can_tx_buf                (CAN_TX_BUFFER_SIZE);
@@ -200,12 +202,12 @@ int main()
     bool const success = can.read(reinterpret_cast<uint8_t* >(&frame), sizeof(frame)) == sizeof(frame);
     if(success)
     {
-      debug_serial.print("%04X %02i ", frame.id, frame.dlc);
+      trace.print(trace::Level::Debug, "%04X %02i ", frame.id, frame.dlc);
       for(uint8_t b = 0; b < frame.dlc; b++)
       {
-        debug_serial.print("%02X ", frame.data[b]);
+        trace.print(trace::Level::Debug, "%02X ", frame.data[b]);
       }
-      debug_serial.print("\r\n");
+      trace.print(trace::Level::Debug, "\r\n");
     }
   }
 

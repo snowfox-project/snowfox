@@ -34,7 +34,8 @@
 #include <spectre/driver/sensor/AS5600/AS5600_IoI2c.h>
 #include <spectre/driver/sensor/AS5600/AS5600_Debug.h>
 
-#include <spectre/debug/serial/DebugSerial.h>
+#include <spectre/trace/Trace.h>
+#include <spectre/trace/SerialTraceOutput.h>
 
 /**************************************************************************************
  * NAMESPACES
@@ -101,7 +102,8 @@ int main()
                             serial::interface::SerialParity::None,
                             serial::interface::SerialStopBit::_1);
 
-  debug::DebugSerial debug_serial(serial());
+  trace::SerialTraceOutput serial_trace_output(serial());
+  trace::Trace             trace              (serial_trace_output,trace::Level::Debug);
 
   /* AS5600 ***************************************************************************/
   sensor::AS5600::AS5600_IoI2c as5600_io(AS5600_I2C_ADDR, i2c_master());
@@ -111,7 +113,7 @@ int main()
    * APPLICATION
    ************************************************************************************/
 
-  sensor::AS5600::AS5600_Debug::debug_dumpAllRegs(debug_serial, flash, as5600_io);
+  sensor::AS5600::AS5600_Debug::debug_dumpAllRegs(trace, flash, as5600_io);
 
   for(;;)
   {

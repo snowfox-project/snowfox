@@ -72,7 +72,8 @@
 
 #include <spectre/os/event/Event.h>
 
-#include <spectre/debug/serial/DebugSerial.h>
+#include <spectre/trace/Trace.h>
+#include <spectre/trace/SerialTraceOutput.h>
 
 /**************************************************************************************
  * NAMESPACES
@@ -179,7 +180,8 @@ int main()
                           serial::interface::SerialParity::None,
                           serial::interface::SerialStopBit::_1);
 
-  debug::DebugSerial debug_serial(serial());
+  trace::SerialTraceOutput serial_trace_output(serial());
+  trace::Trace             trace              (serial_trace_output,trace::Level::Debug);
 
   /* RFM95 ****************************************************************************/
   lora::RFM9x::RFM9x_IoSpi                        rfm9x_spi                             (spi_master(), rfm9x_cs    );
@@ -238,13 +240,13 @@ int main()
 
     ssize_t const ret_code = rfm9x.read(msg, 64);
 
-    if     (ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeRead::ParameterError      )) debug_serial.print("ERROR   - ParameterError\r\n");
-    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeRead::RxFifoSizeExceeded  )) debug_serial.print("ERROR   - RxFifoSizeExceeded\r\n");
-    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeRead::ModemBusy_NotSleep  )) debug_serial.print("ERROR   - ModemBusy_NotSleep\r\n");
-    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeRead::ModemBusy_NotStandby)) debug_serial.print("ERROR   - ModemBusy_NotStandby\r\n");
-    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeRead::RxTimeout           )) debug_serial.print("ERROR   - RxTimeout\r\n");
-    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeRead::UnkownError         )) debug_serial.print("ERROR   - UnkownError\r\n");
-    else                                                                                      debug_serial.print("SUCCESS - %s", msg);
+    if     (ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeRead::ParameterError      )) trace.print(trace::Level::Debug, "ERROR   - ParameterError\r\n");
+    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeRead::RxFifoSizeExceeded  )) trace.print(trace::Level::Debug, "ERROR   - RxFifoSizeExceeded\r\n");
+    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeRead::ModemBusy_NotSleep  )) trace.print(trace::Level::Debug, "ERROR   - ModemBusy_NotSleep\r\n");
+    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeRead::ModemBusy_NotStandby)) trace.print(trace::Level::Debug, "ERROR   - ModemBusy_NotStandby\r\n");
+    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeRead::RxTimeout           )) trace.print(trace::Level::Debug, "ERROR   - RxTimeout\r\n");
+    else if(ret_code == static_cast<ssize_t>(lora::RFM9x::RetCodeRead::UnkownError         )) trace.print(trace::Level::Debug, "ERROR   - UnkownError\r\n");
+    else                                                                                      trace.print(trace::Level::Debug, "SUCCESS - %s", msg);
   }
 
   /* CLEANUP **************************************************************************/

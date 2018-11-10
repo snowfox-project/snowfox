@@ -49,7 +49,8 @@
 #include <spectre/driver/lora/RFM9x/RFM9x_Debug.h>
 #include <spectre/driver/lora/RFM9x/RFM9x_IoSpi.h>
 
-#include <spectre/debug/serial/DebugSerial.h>
+#include <spectre/trace/Trace.h>
+#include <spectre/trace/SerialTraceOutput.h>
 
 /**************************************************************************************
  * NAMESPACES
@@ -129,7 +130,8 @@ int main()
                           serial::interface::SerialParity::None,
                           serial::interface::SerialStopBit::_1);
 
-  debug::DebugSerial debug_serial(serial());
+  trace::SerialTraceOutput serial_trace_output(serial());
+  trace::Trace             trace              (serial_trace_output,trace::Level::Debug);
 
   /* RFM95 ****************************************************************************/
   lora::RFM9x::RFM9x_IoSpi rfm9x_spi(spi_master(), rfm9x_cs);
@@ -139,7 +141,7 @@ int main()
    * APPLICATION
    ************************************************************************************/
 
-  lora::RFM9x::RFM9x_Debug::debug_dumpAllRegs(debug_serial, flash, rfm9x_spi);
+  lora::RFM9x::RFM9x_Debug::debug_dumpAllRegs(trace, flash, rfm9x_spi);
 
   for(;;)
   {

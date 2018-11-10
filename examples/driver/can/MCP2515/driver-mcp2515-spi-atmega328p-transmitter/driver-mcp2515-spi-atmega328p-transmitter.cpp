@@ -64,7 +64,8 @@
 #include <spectre/driver/can/MCP2515/events/MCP2515_onReceiveBufferFull.h>
 #include <spectre/driver/can/MCP2515/events/MCP2515_onTransmitBufferEmpty.h>
 
-#include <spectre/debug/serial/DebugSerial.h>
+#include <spectre/trace/Trace.h>
+#include <spectre/trace/SerialTraceOutput.h>
 
 /**************************************************************************************
  * NAMESPACES
@@ -160,7 +161,8 @@ int main()
                             serial::interface::SerialParity::None,
                             serial::interface::SerialStopBit::_1);
 
-  debug::DebugSerial debug_serial(serial());
+  trace::SerialTraceOutput serial_trace_output(serial());
+  trace::Trace             trace              (serial_trace_output,trace::Level::Debug);
 
   /* MCP2515 **************************************************************************/
   can::interface::CanFrameBuffer              mcp2515_can_tx_buf                (CAN_TX_BUFFER_SIZE);

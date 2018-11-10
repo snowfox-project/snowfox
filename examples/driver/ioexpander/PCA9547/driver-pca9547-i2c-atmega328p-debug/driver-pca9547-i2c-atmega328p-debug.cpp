@@ -34,7 +34,8 @@
 #include <spectre/driver/ioexpander/PCA9547/PCA9547_IoI2c.h>
 #include <spectre/driver/ioexpander/PCA9547/PCA9547_Debug.h>
 
-#include <spectre/debug/serial/DebugSerial.h>
+#include <spectre/trace/Trace.h>
+#include <spectre/trace/SerialTraceOutput.h>
 
 /**************************************************************************************
  * NAMESPACES
@@ -99,7 +100,8 @@ int main()
                             serial::interface::SerialParity::None,
                             serial::interface::SerialStopBit::_1);
 
-  debug::DebugSerial debug_serial(serial());
+  trace::SerialTraceOutput serial_trace_output(serial());
+  trace::Trace             trace              (serial_trace_output,trace::Level::Debug);
 
   /* PCA9547 **************************************************************************/
   ioexpander::PCA9547::PCA9547_IoI2c pca9547_io(PCA9547_I2C_ADDR, i2c_master());
@@ -109,7 +111,7 @@ int main()
    * APPLICATION
    ************************************************************************************/
 
-  ioexpander::PCA9547::PCA9547_Debug::debug_dumpAllRegs(debug_serial, pca9547_io);
+  ioexpander::PCA9547::PCA9547_Debug::debug_dumpAllRegs(trace, pca9547_io);
 
   for(;;)
   {

@@ -36,7 +36,8 @@
 
 #include <spectre/blox/driver/serial/SerialUart.h>
 
-#include <spectre/debug/serial/DebugSerial.h>
+#include <spectre/trace/Trace.h>
+#include <spectre/trace/SerialTraceOutput.h>
 
 /**************************************************************************************
  * NAMESPACES
@@ -85,11 +86,12 @@ int main()
 
   /* APPLICATION **********************************************************************/
 
-  debug::DebugSerial debug_serial(serial());
+  trace::SerialTraceOutput serial_trace_output(serial());
+  trace::Trace             trace              (serial_trace_output,trace::Level::Debug);
 
   for(uint32_t cnt = 0;; cnt++)
   {
-    debug_serial.print("( %08X ) Hello ATMEGA2560\r\n", cnt);
+    trace.print(trace::Level::Debug, "( %08X ) Hello ATMEGA2560\r\n", cnt);
   }
 
   return 0;

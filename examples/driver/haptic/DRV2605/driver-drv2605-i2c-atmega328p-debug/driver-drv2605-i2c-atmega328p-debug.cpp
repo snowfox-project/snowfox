@@ -34,7 +34,8 @@
 #include <spectre/driver/haptic/DRV2605/DRV2605_IoI2C.h>
 #include <spectre/driver/haptic/DRV2605/DRV2605_Debug.h>
 
-#include <spectre/debug/serial/DebugSerial.h>
+#include <spectre/trace/Trace.h>
+#include <spectre/trace/SerialTraceOutput.h>
 
 /**************************************************************************************
  * NAMESPACES
@@ -101,7 +102,8 @@ int main()
                             serial::interface::SerialParity::None,
                             serial::interface::SerialStopBit::_1);
 
-  debug::DebugSerial debug_serial(serial());
+  trace::SerialTraceOutput serial_trace_output(serial());
+  trace::Trace             trace              (serial_trace_output,trace::Level::Debug);
 
   /* DRV2605 **************************************************************************/
   haptic::DRV2605::DRV2605_IoI2C    drv2605_io_i2c(DRV2605_I2C_ADDR, i2c_master());
@@ -111,7 +113,7 @@ int main()
    * APPLICATION
    ************************************************************************************/
 
-  haptic::DRV2605::DRV2605_Debug::debug_dumpAllRegs(debug_serial, flash, drv2605_io_i2c);
+  haptic::DRV2605::DRV2605_Debug::debug_dumpAllRegs(trace, flash, drv2605_io_i2c);
 
   for(;;)
   {

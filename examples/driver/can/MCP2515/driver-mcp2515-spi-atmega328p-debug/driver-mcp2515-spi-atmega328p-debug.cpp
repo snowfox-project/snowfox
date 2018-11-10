@@ -51,7 +51,8 @@
 #include <spectre/driver/can/MCP2515/MCP2515_IoSpi.h>
 #include <spectre/driver/can/MCP2515/MCP2515_Debug.h>
 
-#include <spectre/debug/serial/DebugSerial.h>
+#include <spectre/trace/Trace.h>
+#include <spectre/trace/SerialTraceOutput.h>
 
 /**************************************************************************************
  * NAMESPACES
@@ -129,7 +130,8 @@ int main()
                             serial::interface::SerialParity::None,
                             serial::interface::SerialStopBit::_1);
 
-  debug::DebugSerial debug_serial(serial());
+  trace::SerialTraceOutput serial_trace_output(serial());
+  trace::Trace             trace              (serial_trace_output,trace::Level::Debug);
 
   /* MCP2515 **************************************************************************/
   can::MCP2515::MCP2515_IoSpi mcp2515_io_spi(spi_master(), mcp2515_cs);
@@ -139,7 +141,7 @@ int main()
    * APPLICATION
    ************************************************************************************/
 
-  can::MCP2515::MCP2515_Debug::debug_dumpAllRegs(debug_serial, flash, mcp2515_io_spi);
+  can::MCP2515::MCP2515_Debug::debug_dumpAllRegs(trace, flash, mcp2515_io_spi);
 
   for(;;)
   {

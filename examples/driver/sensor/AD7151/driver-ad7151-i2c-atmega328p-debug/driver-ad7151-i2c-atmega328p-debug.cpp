@@ -34,7 +34,8 @@
 #include <spectre/driver/sensor/AD7151/AD7151_IoI2c.h>
 #include <spectre/driver/sensor/AD7151/AD7151_Debug.h>
 
-#include <spectre/debug/serial/DebugSerial.h>
+#include <spectre/trace/Trace.h>
+#include <spectre/trace/SerialTraceOutput.h>
 
 /**************************************************************************************
  * NAMESPACES
@@ -101,7 +102,8 @@ int main()
                             serial::interface::SerialParity::None,
                             serial::interface::SerialStopBit::_1);
 
-  debug::DebugSerial debug_serial(serial());
+  trace::SerialTraceOutput serial_trace_output(serial());
+  trace::Trace             trace              (serial_trace_output,trace::Level::Debug);
 
   /* AD7151 ***************************************************************************/
   sensor::AD7151::AD7151_IoI2c      ad7151_io(AD7151_I2C_ADDR, i2c_master());
@@ -111,7 +113,7 @@ int main()
    * APPLICATION
    ************************************************************************************/
 
-  sensor::AD7151::AD7151_Debug::debug_dumpAllRegs(debug_serial, flash, ad7151_io);
+  sensor::AD7151::AD7151_Debug::debug_dumpAllRegs(trace, flash, ad7151_io);
 
   for(;;)
   {
