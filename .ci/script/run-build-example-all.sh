@@ -3,12 +3,7 @@
 cd $(dirname $(readlink -f $0))
 set -e
 ##########################################################################
-declare -a EXAMPLE_LIST=("examples/debug/debug-serial-at90can128-uart0"
-                         "examples/debug/debug-serial-atmega1284p-uart0"
-                         "examples/debug/debug-serial-atmega2560-uart0"
-                         "examples/debug/debug-serial-atmega328p-uart0"
-                         "examples/debug/debug-serial-atmega32u4-uart1"
-                         "examples/driver/can/MCP2515/driver-mcp2515-spi-atmega328p-debug"
+declare -a EXAMPLE_LIST=("examples/driver/can/MCP2515/driver-mcp2515-spi-atmega328p-debug"
                          "examples/driver/can/MCP2515/driver-mcp2515-spi-atmega328p-receiver"
                          "examples/driver/can/MCP2515/driver-mcp2515-spi-atmega328p-transmitter"
                          "examples/driver/glcd/RA6963/driver-ra6963-gpio-at90can128"
@@ -52,7 +47,11 @@ declare -a EXAMPLE_LIST=("examples/debug/debug-serial-at90can128-uart0"
                          "examples/hal/ATMEGA328P/hal-atmega328p-digital-in-port"
                          "examples/hal/ATMEGA328P/hal-atmega328p-digital-out-pin"
                          "examples/hal/ATMEGA328P/hal-atmega328p-digital-out-port"
-                        )
+                         "examples/trace/trace-serial-at90can128-uart0"
+                         "examples/trace/trace-serial-atmega1284p-uart0"
+                         "examples/trace/trace-serial-atmega2560-uart0"
+                         "examples/trace/trace-serial-atmega328p-uart0"
+                         "examples/trace/trace-serial-atmega32u4-uart1")
 
 NUM_LIST_ENTRIES=${#EXAMPLE_LIST[@]}
 
