@@ -143,7 +143,7 @@ make
 
 ## Further Reading
  
-* [Debug-Tools](README-Debug-Tools.md)
+* [In-System-Programming/Debugging](https://github.com/lxrobotics/spectre/wiki/ISP)
 
 ## Licensing
 
