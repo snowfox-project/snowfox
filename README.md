@@ -135,7 +135,7 @@ sudo make install
 
 ### Build Executable
 ```
-cd examples/debug/debug-serial-atmega328p-uart0
+cd examples/driver/lora/RFM9x/driver-rfm9x-spi-atmega328p-transmitter-dragino-lora-shield-v1.4
 mkdir build && cd build
 cmake ..
 make
