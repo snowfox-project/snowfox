@@ -237,11 +237,6 @@ void InterruptController::enableInterrupt(uint8_t const int_num)
   case toIntNum(Interrupt::TIMER0_COMPARE                  ): *_TIMSK0  |= OCIE0A_bm; break;
   case toIntNum(Interrupt::TIMER0_OVERFLOW                 ): *_TIMSK0  |= TOIE0_bm;  break;
   case toIntNum(Interrupt::CAN_ALL                         ): *_CANGIE  |= ENIT_bm;   break;
-  case toIntNum(Interrupt::CAN_BUS_OFF                     ): *_CANGIE  |= ENBOFF_bm; break;
-  case toIntNum(Interrupt::CAN_RECEIVE                     ): *_CANGIE  |= ENRX_bm;   break;
-  case toIntNum(Interrupt::CAN_TRANSMIT                    ): *_CANGIE  |= ENTX_bm;   break;
-  case toIntNum(Interrupt::CAN_FRAME_BUFFER                ): *_CANGIE  |= ENBX_bm;   break;
-  case toIntNum(Interrupt::CAN_GENERAL_ERROR               ): *_CANGIE  |= ENERG_bm;  break;
   case toIntNum(Interrupt::CAN_TIMER_OVERRUN               ): *_CANGIE  |= ENOVRT_bm; break;
   case toIntNum(Interrupt::SPI_SERIAL_TRANSFER_COMPLETE    ): *_SPCR    |= SPIE_bm;   break;
   case toIntNum(Interrupt::USART0_RECEIVE_COMPLETE         ): *_UCSR0B  |= RXCIE0_bm; break;
@@ -289,11 +284,6 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
   case toIntNum(Interrupt::TIMER0_COMPARE                  ): *_TIMSK0  &= ~OCIE0A_bm; break;
   case toIntNum(Interrupt::TIMER0_OVERFLOW                 ): *_TIMSK0  &= ~TOIE0_bm;  break;
   case toIntNum(Interrupt::CAN_ALL                         ): *_CANGIE  &= ~ENIT_bm;   break;
-  case toIntNum(Interrupt::CAN_BUS_OFF                     ): *_CANGIE  &= ~ENBOFF_bm; break;
-  case toIntNum(Interrupt::CAN_RECEIVE                     ): *_CANGIE  &= ~ENRX_bm;   break;
-  case toIntNum(Interrupt::CAN_TRANSMIT                    ): *_CANGIE  &= ~ENTX_bm;   break;
-  case toIntNum(Interrupt::CAN_FRAME_BUFFER                ): *_CANGIE  &= ~ENBX_bm;   break;
-  case toIntNum(Interrupt::CAN_GENERAL_ERROR               ): *_CANGIE  &= ~ENERG_bm;  break;
   case toIntNum(Interrupt::CAN_TIMER_OVERRUN               ): *_CANGIE  &= ~ENOVRT_bm; break;
   case toIntNum(Interrupt::SPI_SERIAL_TRANSFER_COMPLETE    ): *_SPCR    &= ~SPIE_bm;   break;
   case toIntNum(Interrupt::USART0_RECEIVE_COMPLETE         ): *_UCSR0B  &= ~RXCIE0_bm; break;

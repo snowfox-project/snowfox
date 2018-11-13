@@ -99,11 +99,6 @@ SCENARIO("AT90CAN32_64_128::InterruptController - interrupts are enabled via 'en
   avr::doTestEnableDisableInterrupt(int_ctrl, toIntNum(Interrupt::TIMER0_COMPARE                 ), "TIMER0_COMPARE",                  TIMSK0, 1);
   avr::doTestEnableDisableInterrupt(int_ctrl, toIntNum(Interrupt::TIMER0_OVERFLOW                ), "TIMER0_OVERFLOW",                 TIMSK0, 0);
   avr::doTestEnableDisableInterrupt(int_ctrl, toIntNum(Interrupt::CAN_ALL                        ), "CAN_ALL",                         CANGIE, 7);
-  avr::doTestEnableDisableInterrupt(int_ctrl, toIntNum(Interrupt::CAN_BUS_OFF                    ), "CAN_BUS_OFF",                     CANGIE, 6);
-  avr::doTestEnableDisableInterrupt(int_ctrl, toIntNum(Interrupt::CAN_RECEIVE                    ), "CAN_RECEIVE",                     CANGIE, 5);
-  avr::doTestEnableDisableInterrupt(int_ctrl, toIntNum(Interrupt::CAN_TRANSMIT                   ), "CAN_TRANSMIT",                    CANGIE, 4);
-  avr::doTestEnableDisableInterrupt(int_ctrl, toIntNum(Interrupt::CAN_FRAME_BUFFER               ), "CAN_FRAME_BUFFER",                CANGIE, 2);
-  avr::doTestEnableDisableInterrupt(int_ctrl, toIntNum(Interrupt::CAN_GENERAL_ERROR              ), "CAN_GENERAL_ERROR",               CANGIE, 1);
   avr::doTestEnableDisableInterrupt(int_ctrl, toIntNum(Interrupt::CAN_TIMER_OVERRUN              ), "CAN_TIMER_OVERRUN",               CANGIE, 0);
   avr::doTestEnableDisableInterrupt(int_ctrl, toIntNum(Interrupt::SPI_SERIAL_TRANSFER_COMPLETE   ), "SPI_SERIAL_TRANSFER_COMPLETE",    SPCR,   7);
   avr::doTestEnableDisableInterrupt(int_ctrl, toIntNum(Interrupt::USART0_RECEIVE_COMPLETE        ), "USART0_RECEIVE_COMPLETE",         UCSR0B, 7);
