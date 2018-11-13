@@ -39,7 +39,7 @@ namespace trace
  * PRIVATE PROTOTYPES
  **************************************************************************************/
 
-bool operator <= (Trace const lhs, Trace const rhs);
+bool operator <= (Level const lhs, Level const rhs);
 
 /**************************************************************************************
  * CTOR/DTOR
