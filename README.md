@@ -3,6 +3,7 @@ Spectre = RTOS + HAL + IO + COMSTACK + CI + C++
 [![GPLv3 License](.ci/badge/license-gplv3-blue.svg)](LICENSE)
 [![Build Status](https://travis-ci.org/lxrobotics/spectre.svg?branch=master)](https://travis-ci.org/lxrobotics/spectre)
 [![Coverage Status](https://coveralls.io/repos/github/lxrobotics/spectre/badge.svg?branch=master&service=github)](https://coveralls.io/github/lxrobotics/spectre?branch=master)
+[![Wiki](.ci/badge/docu-wiki-brightgreen.svg)](https://github.com/lxrobotics/spectre/wiki)
 
 ### What ?
 
@@ -98,7 +99,7 @@ sudo apt-get install cmake
 ```
 sudo apt-get install avr-libc binutils-avr gcc-avr avrdude
 ```
-
+**Tip** Get the latest version of avr-gcc by [cross compiling](https://github.com/lxrobotics/spectre/wiki/%5BCross-Compiler%5D-AVR-GCC) from source.
 ### Clone repository
 ```
 git clone https://github.com/lxrobotics/spectre.git
@@ -140,10 +141,6 @@ mkdir build && cd build
 cmake ..
 make
 ```
-
-## Further Reading
- 
-* [In-System-Programming/Debugging](https://github.com/lxrobotics/spectre/wiki/ISP)
 
 ## Licensing
 
