@@ -16,6 +16,8 @@ declare -a ARCH_LIST=("config/at90can32-default.cmake"
                       "config/atmega328p-default.cmake"
                       "config/atmega16u4-default.cmake"
                       "config/atmega32u4-default.cmake"
+#                     "config/atmega3209-default.cmake"
+#                     "config/atmega4809-default.cmake"
                      )
 
 NUM_LIST_ENTRIES=${#ARCH_LIST[@]}
