@@ -38,6 +38,8 @@ Work in progress ...
 | ATMega328P                 | ...                   | atmega328p        | [Arduino Uno](examples/board-schematics/mcu/arduino-uno.pdf)                                                                                |
 | ATMega16U4                 | ...                   | atmega16u4        |                                                                                                                                             |
 | ATMega32U4                 | ...                   | atmega32u4        | [Arduino Leonardo](examples/board-schematics/mcu/arduino-leonardo.pdf)                                                                      |
+| ATMega3209                 | ...                   | atmega3209        |                                                                                                                                             |
+| ATMega4809                 | ...                   | atmega4809        |                                                                                                                                             |
 
 ### Host (Test Build)
 | MCU                        | MCU_ARCH              | MCU_TYPE          |
