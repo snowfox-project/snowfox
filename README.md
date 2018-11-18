@@ -101,7 +101,7 @@ sudo apt-get install cmake
 ```
 sudo apt-get install avr-libc binutils-avr gcc-avr avrdude
 ```
-**Tip** Get the latest version of avr-gcc by [cross compiling](https://github.com/lxrobotics/spectre/wiki/%5BCross-Compiler%5D-AVR-GCC) from source.
+**Tip:** Get the latest version of avr-gcc by [cross compiling](https://github.com/lxrobotics/spectre/wiki/%5BCross-Compiler%5D-AVR-GCC) from source.
 ### Clone repository
 ```
 git clone https://github.com/lxrobotics/spectre.git
