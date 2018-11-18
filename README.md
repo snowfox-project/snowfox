@@ -39,7 +39,7 @@ Work in progress ...
 | ATMega16U4                 | ...                   | atmega16u4        |                                                                                                                                             |
 | ATMega32U4                 | ...                   | atmega32u4        | [Arduino Leonardo](examples/board-schematics/mcu/arduino-leonardo.pdf)                                                                      |
 | ATMega3209                 | ...                   | atmega3209        |                                                                                                                                             |
-| ATMega4809                 | ...                   | atmega4809        |                                                                                                                                             |
+| ATMega4809                 | ...                   | atmega4809        | [Arduino Uno WiFi Rev.2](examples/board-schematics/mcu/arduino-uno-wifi-rev2.pdf)                                                           |
 
 ### Host (Test Build)
 | MCU                        | MCU_ARCH              | MCU_TYPE          |
