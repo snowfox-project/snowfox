@@ -49,6 +49,14 @@ if(${MCU_ARCH} STREQUAL "avr" OR ${MCU_ARCH} STREQUAL "host")
   )
 
   ########################################################################
+  # common/ATMEGA3209_4809 ###############################################
+  ########################################################################
+
+  set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA3209_4809_SRCS
+    ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATMEGA3209_4809/TIMERA.cpp
+  )
+
+  ########################################################################
   # common/ATMEGA640_1280_2560 ###########################################
   ########################################################################
 
@@ -190,6 +198,18 @@ if(${MCU_ARCH} STREQUAL "avr" OR ${MCU_ARCH} STREQUAL "host")
   endif()
 
   ########################################################################
+  # ATMEGA3209 ###########################################################
+  ########################################################################
+
+  set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA3209_SRCS
+    ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA3209_4809_SRCS}
+  )
+  
+  if(${MCU_TYPE} STREQUAL "atmega3209" OR {MCU_TYPE} STREQUAL "host")
+    set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA3209_SRCS})
+  endif()
+
+  ########################################################################
   # ATMEGA324P ###########################################################
   ########################################################################
 
@@ -228,6 +248,18 @@ if(${MCU_ARCH} STREQUAL "avr" OR ${MCU_ARCH} STREQUAL "host")
   
   if(${MCU_TYPE} STREQUAL "atmega32u4" OR {MCU_TYPE} STREQUAL "host")
     set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA32U4_SRCS})  
+  endif()
+  
+  ########################################################################
+  # ATMEGA3209 ###########################################################
+  ########################################################################
+
+  set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA4809_SRCS
+    ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA3209_4809_SRCS}
+  )
+  
+  if(${MCU_TYPE} STREQUAL "atmega4809" OR {MCU_TYPE} STREQUAL "host")
+    set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA4809_SRCS})
   endif()
 
   ########################################################################
@@ -271,9 +303,11 @@ if(${MCU_ARCH} STREQUAL "host")
   set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA164P_SRCS})
   set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA16U4_SRCS})
   set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA2560_SRCS})
+  set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA3209_SRCS})
   set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA324P_SRCS})
   set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA328P_SRCS})
   set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA32U4_SRCS})
+  set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA4809_SRCS})
   set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA640_SRCS})
   set(SPECTRE_LIBRARY_HAL_SRCS ${SPECTRE_LIBRARY_HAL_SRCS} ${SPECTRE_LIBRARY_HAL_AVR_ATMEGA644P_SRCS})
 
