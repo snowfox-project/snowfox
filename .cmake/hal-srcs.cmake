@@ -54,6 +54,7 @@ if(${MCU_ARCH} STREQUAL "avr" OR ${MCU_ARCH} STREQUAL "host")
 
   set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA3209_4809_SRCS
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATMEGA3209_4809/TIMERA.cpp
+    ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATMEGA3209_4809/TIMERB.cpp
   )
 
   ########################################################################
