@@ -44,8 +44,47 @@ namespace ATMEGA3209_4809
 
 enum class Interrupt : uint8_t
 {
-  /* TODO */
-  INVALID = interface::InterruptController::INVALID_INT_NUM
+  CRC_NMI                         =  0,
+  VOLTAGE_LEVEL_MONITOR           =  1,
+  RTC_OVERFLOW_OR_COMPARE         =  2,
+  RTC_PERIODIC_INTERRUPT          =  3,
+  CONFIGURABLE_CUSTOM_LOGIC       =  4,
+  PORTA_EXTERNAL_INT              =  5,
+  TIMERA0_OVERFLOW                =  6,
+  TIMERA0_UNDERFLOW               =  7,
+  TIMERA0_COMPARE_0               =  8,
+  TIMERA0_COMPARE_1               =  9,
+  TIMERA0_COMPARE_2               = 10,
+  TIMERB0_CAPTURE                 = 11,
+  TIMERB1_CAPTURE                 = 12,
+  TWI0_SLAVE                      = 13,
+  TWI0_MASTER                     = 14,
+  SPI0                            = 15,
+  USART0_RECEIVE_COMPLETE         = 16,
+  USART0_UART_DATA_REGISTER_EMPTY = 17,
+  USART0_TRANSMIT_COMPLETE        = 18,
+  PORTD_EXTERNAL_INT              = 19,
+  ANALOG_COMPARATOR               = 20,
+  ADC0_RESULT_READY               = 21,
+  ADC0_WINDOW_COMPARE             = 22,
+  PORTC_EXTERNAL_INT              = 23,
+  TIMERB2_CAPTURE                 = 24,
+  USART1_RECEIVE_COMPLETE         = 25,
+  USART1_UART_DATA_REGISTER_EMPTY = 26,
+  USART1_TRANSMIT_COMPLETE        = 27,
+  PORTF_EXTERNAL_INT              = 28,
+  NON_VOLATILE_MEMORY_READY       = 29,
+  USART2_RECEIVE_COMPLETE         = 30,
+  USART2_UART_DATA_REGISTER_EMPTY = 31,
+  USART2_TRANSMIT_COMPLETE        = 32,
+  PORTB_EXTERNAL_INT              = 33,
+  PORTE_EXTERNAL_INT              = 34,
+  TIMERB3_CAPTURE                 = 35,
+  USART3_RECEIVE_COMPLETE         = 36,
+  USART3_UART_DATA_REGISTER_EMPTY = 37,
+  USART3_TRANSMIT_COMPLETE        = 38,
+  GLOBAL                          = 39,
+  INVALID                         = interface::InterruptController::INVALID_INT_NUM
 };
 
 /**************************************************************************************
