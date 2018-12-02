@@ -50,6 +50,7 @@ static interface::InterruptCallback * isr_crc_nmi                         = 0,
                                     * isr_configurable_custom_logic       = 0,
                                     * isr_porta_external_int              = 0,
                                     * isr_timera0_overflow                = 0,
+                                    * isr_timera0_underflow               = 0, /* For Timer A0 "Split Mode" */
                                     * isr_timera0_compare_0               = 0,
                                     * isr_timera0_compare_1               = 0,
                                     * isr_timera0_compare_2               = 0,
@@ -187,6 +188,11 @@ ISR(PORTA_PORT_vect)
 ISR(TCA0_OVF_vect)
 {
   if(isr_timera0_overflow) isr_timera0_overflow->interruptServiceRoutine();
+}
+
+ISR(TCA0_HUNF_vect)
+{
+  if(isr_timera0_underflow) isr_timera0_underflow->interruptServiceRoutine();
 }
 
 ISR(TCA0_CMP0_vect)
