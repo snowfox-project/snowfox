@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_ATMEGA3209_TIMERB_H_
-#define INCLUDE_SPECTRE_HAL_AVR_ATMEGA3209_TIMERB_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_ATMEGA3209_TIMERB0_H_
+#define INCLUDE_SPECTRE_HAL_AVR_ATMEGA3209_TIMERB0_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/ATMEGA3209_4809/TIMERB.h>
+#include <spectre/hal/avr/common/ATMEGA3209_4809/TIMERBx.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,7 +42,7 @@ namespace ATMEGA3209
  * TYPEDEF
  **************************************************************************************/
 
-typedef ATMEGA3209_4809::TIMERB TIMERB;
+typedef ATMEGA3209_4809::TIMERBx TIMERB0;
 
 /**************************************************************************************
  * NAMESPACE
@@ -54,4 +54,4 @@ typedef ATMEGA3209_4809::TIMERB TIMERB;
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_ATMEGA3209_TIMERB_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_ATMEGA3209_TIMERB0_H_ */
