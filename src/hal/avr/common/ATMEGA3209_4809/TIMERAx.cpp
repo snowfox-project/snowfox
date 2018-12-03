@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/ATMEGA3209_4809/TIMERA0.h>
+#include <spectre/hal/avr/common/ATMEGA3209_4809/TIMERAx.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -65,21 +65,21 @@ enum class Prescaler : uint8_t
  * CTOR/DTOR
  **************************************************************************************/
 
-TIMERA0::TIMERA0(volatile uint8_t  * tca_ctrla,
-                 volatile uint16_t * tca_cnt,
-                 volatile uint16_t * tca_cmp0,
-                 volatile uint16_t * tca_cmp1,
-                 volatile uint16_t * tca_cmp2)
-: _TCA_CTRLA(tca_ctrla),
-  _TCA_CNT  (tca_cnt  ),
-  _TCA_CMP0 (tca_cmp0 ),
-  _TCA_CMP1 (tca_cmp1 ),
-  _TCA_CMP2 (tca_cmp2 )
+TIMERAx::TIMERAx(volatile uint8_t  * tcax_ctrla,
+                 volatile uint16_t * tcax_cnt,
+                 volatile uint16_t * tcax_cmp0,
+                 volatile uint16_t * tcax_cmp1,
+                 volatile uint16_t * tcax_cmp2)
+: _TCAx_CTRLA(tcax_ctrla),
+  _TCAx_CNT  (tcax_cnt  ),
+  _TCAx_CMP0 (tcax_cmp0 ),
+  _TCAx_CMP1 (tcax_cmp1 ),
+  _TCAx_CMP2 (tcax_cmp2 )
 {
 
 }
 
-TIMERA0::~TIMERA0()
+TIMERAx::~TIMERAx()
 {
 
 }
@@ -88,50 +88,50 @@ TIMERA0::~TIMERA0()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void TIMERA0::start()
+void TIMERAx::start()
 {
-  *_TCA_CTRLA |= TCA_ENABLE_bm;
+  *_TCAx_CTRLA |= TCA_ENABLE_bm;
 }
 
-void TIMERA0::stop()
+void TIMERAx::stop()
 {
-  *_TCA_CTRLA &= ~TCA_ENABLE_bm;
+  *_TCAx_CTRLA &= ~TCA_ENABLE_bm;
 }
 
-void TIMERA0::set(uint16_t const val)
+void TIMERAx::set(uint16_t const val)
 {
-  *_TCA_CNT = val;
+  *_TCAx_CNT = val;
 }
 
-uint16_t TIMERA0::get()
+uint16_t TIMERAx::get()
 {
-  return *_TCA_CNT;
+  return *_TCAx_CNT;
 }
 
-void TIMERA0::setCompareRegister(uint8_t const reg_sel, uint16_t const reg_val)
+void TIMERAx::setCompareRegister(uint8_t const reg_sel, uint16_t const reg_val)
 {
   switch(reg_sel)
   {
-  case COMPARE_CHANNEL_0: *_TCA_CMP0 = reg_val; break;
-  case COMPARE_CHANNEL_1: *_TCA_CMP1 = reg_val; break;
-  case COMPARE_CHANNEL_2: *_TCA_CMP2 = reg_val; break;
+  case COMPARE_CHANNEL_0: *_TCAx_CMP0 = reg_val; break;
+  case COMPARE_CHANNEL_1: *_TCAx_CMP1 = reg_val; break;
+  case COMPARE_CHANNEL_2: *_TCAx_CMP2 = reg_val; break;
   }
 }
 
-void TIMERA0::setPrescaler(uint32_t const prescaler)
+void TIMERAx::setPrescaler(uint32_t const prescaler)
 {
-  *_TCA_CTRLA &= ~(TCA_CLKSEL2_bm | TCA_CLKSEL1_bm | TCA_CLKSEL0_bm);
+  *_TCAx_CTRLA &= ~(TCA_CLKSEL2_bm | TCA_CLKSEL1_bm | TCA_CLKSEL0_bm);
 
   switch(prescaler)
   {
-  case 1   : *_TCA_CTRLA |= static_cast<uint8_t>(Prescaler::P1   ); break;
-  case 2   : *_TCA_CTRLA |= static_cast<uint8_t>(Prescaler::P2   ); break;
-  case 4   : *_TCA_CTRLA |= static_cast<uint8_t>(Prescaler::P4   ); break;
-  case 8   : *_TCA_CTRLA |= static_cast<uint8_t>(Prescaler::P8   ); break;
-  case 16  : *_TCA_CTRLA |= static_cast<uint8_t>(Prescaler::P16  ); break;
-  case 64  : *_TCA_CTRLA |= static_cast<uint8_t>(Prescaler::P64  ); break;
-  case 256 : *_TCA_CTRLA |= static_cast<uint8_t>(Prescaler::P256 ); break;
-  case 1024: *_TCA_CTRLA |= static_cast<uint8_t>(Prescaler::P1024); break;
+  case 1   : *_TCAx_CTRLA |= static_cast<uint8_t>(Prescaler::P1   ); break;
+  case 2   : *_TCAx_CTRLA |= static_cast<uint8_t>(Prescaler::P2   ); break;
+  case 4   : *_TCAx_CTRLA |= static_cast<uint8_t>(Prescaler::P4   ); break;
+  case 8   : *_TCAx_CTRLA |= static_cast<uint8_t>(Prescaler::P8   ); break;
+  case 16  : *_TCAx_CTRLA |= static_cast<uint8_t>(Prescaler::P16  ); break;
+  case 64  : *_TCAx_CTRLA |= static_cast<uint8_t>(Prescaler::P64  ); break;
+  case 256 : *_TCAx_CTRLA |= static_cast<uint8_t>(Prescaler::P256 ); break;
+  case 1024: *_TCAx_CTRLA |= static_cast<uint8_t>(Prescaler::P1024); break;
   }
 }
 
