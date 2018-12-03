@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/ATMEGA3209_4809/TIMERB.h>
+#include <spectre/hal/avr/common/ATMEGA3209_4809/TIMERBx.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -59,15 +59,15 @@ enum class Prescaler : uint8_t
  * CTOR/DTOR
  **************************************************************************************/
 
-TIMERB::TIMERB(volatile uint8_t  * tcb_ctrla,
-               volatile uint16_t * tcb_cnt)
-: _TCB_CTRLA(tcb_ctrla),
-  _TCB_CNT  (tcb_cnt  )
+TIMERBx::TIMERBx(volatile uint8_t  * tcb_ctrla,
+                 volatile uint16_t * tcb_cnt)
+: _TCBx_CTRLA(tcb_ctrla),
+  _TCBx_CNT  (tcb_cnt  )
 {
 
 }
 
-TIMERB::~TIMERB()
+TIMERBx::~TIMERBx()
 {
 
 }
@@ -76,40 +76,40 @@ TIMERB::~TIMERB()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void TIMERB::start()
+void TIMERBx::start()
 {
-  *_TCB_CTRLA |= TCB_ENABLE_bm;
+  *_TCBx_CTRLA |= TCB_ENABLE_bm;
 }
 
-void TIMERB::stop()
+void TIMERBx::stop()
 {
-  *_TCB_CTRLA &= ~TCB_ENABLE_bm;
+  *_TCBx_CTRLA &= ~TCB_ENABLE_bm;
 }
 
-void TIMERB::set(uint16_t const val)
+void TIMERBx::set(uint16_t const val)
 {
-  *_TCB_CNT = val;
+  *_TCBx_CNT = val;
 }
 
-uint16_t TIMERB::get()
+uint16_t TIMERBx::get()
 {
-  return *_TCB_CNT;
+  return *_TCBx_CNT;
 }
 
-void TIMERB::setCompareRegister(uint8_t const reg_sel, uint16_t const reg_val)
+void TIMERBx::setCompareRegister(uint8_t const reg_sel, uint16_t const reg_val)
 {
   /* TIMERB has no compare register */
 }
 
-void TIMERB::setPrescaler(uint32_t const prescaler)
+void TIMERBx::setPrescaler(uint32_t const prescaler)
 {
-  *_TCB_CTRLA &= ~(TCB_CLKSEL1_bm | TCB_CLKSEL0_bm);
+  *_TCBx_CTRLA &= ~(TCB_CLKSEL1_bm | TCB_CLKSEL0_bm);
 
   switch(prescaler)
   {
-  case 1   : *_TCB_CTRLA |= static_cast<uint8_t>(Prescaler::P1     ); break;
-  case 2   : *_TCB_CTRLA |= static_cast<uint8_t>(Prescaler::P2     ); break;
-  case 3   : *_TCB_CTRLA |= static_cast<uint8_t>(Prescaler::CLK_TCA); break;
+  case 1   : *_TCBx_CTRLA |= static_cast<uint8_t>(Prescaler::P1     ); break;
+  case 2   : *_TCBx_CTRLA |= static_cast<uint8_t>(Prescaler::P2     ); break;
+  case 3   : *_TCBx_CTRLA |= static_cast<uint8_t>(Prescaler::CLK_TCA); break;
   }
 }
 

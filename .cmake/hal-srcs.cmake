@@ -55,7 +55,7 @@ if(${MCU_ARCH} STREQUAL "avr" OR ${MCU_ARCH} STREQUAL "host")
   set(SPECTRE_LIBRARY_HAL_AVR_ATMEGA3209_4809_SRCS
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATMEGA3209_4809/InterruptController.cpp
     ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATMEGA3209_4809/TIMERAx.cpp
-    ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATMEGA3209_4809/TIMERB.cpp
+    ${SPECTRE_LIBRARY_HAL_AVR_PATH}/common/ATMEGA3209_4809/TIMERBx.cpp
   )
 
   ########################################################################

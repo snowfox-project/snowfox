@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_COMMON_ATMEGA3209_4809_TIMERB_H_
-#define INCLUDE_SPECTRE_HAL_AVR_COMMON_ATMEGA3209_4809_TIMERB_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_COMMON_ATMEGA3209_4809_TIMERBX_H_
+#define INCLUDE_SPECTRE_HAL_AVR_COMMON_ATMEGA3209_4809_TIMERBX_H_
 
 /**************************************************************************************
  * INCLUDE
@@ -44,14 +44,14 @@ namespace ATMEGA3209_4809
  * CLASS DECLARATION
  **************************************************************************************/
 
-class TIMERB : public interface::Timer<uint16_t>
+class TIMERBx : public interface::Timer<uint16_t>
 {
 
 public:
 
-           TIMERB(volatile uint8_t  * tcb_ctrla,
-                  volatile uint16_t * tcb_cnt);
-  virtual ~TIMERB();
+           TIMERBx(volatile uint8_t  * tcbx_ctrla,
+                   volatile uint16_t * tcbx_cnt);
+  virtual ~TIMERBx();
 
 
   /* Timer Interface */
@@ -71,8 +71,8 @@ public:
 
 private:
 
-  volatile uint8_t  * _TCB_CTRLA;
-  volatile uint16_t * _TCB_CNT;
+  volatile uint8_t  * _TCBx_CTRLA;
+  volatile uint16_t * _TCBx_CNT;
 
 };
 
@@ -86,4 +86,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_COMMON_ATMEGA3209_4809_TIMERB_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_COMMON_ATMEGA3209_4809_TIMERBX_H_ */
