@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_COMMON_ATMEGA3209_4809_TIMERA_H_
-#define INCLUDE_SPECTRE_HAL_AVR_COMMON_ATMEGA3209_4809_TIMERA_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_COMMON_ATMEGA3209_4809_TIMERA0_H_
+#define INCLUDE_SPECTRE_HAL_AVR_COMMON_ATMEGA3209_4809_TIMERA0_H_
 
 /**************************************************************************************
  * INCLUDE
@@ -44,17 +44,17 @@ namespace ATMEGA3209_4809
  * CLASS DECLARATION
  **************************************************************************************/
 
-class TIMERA : public interface::Timer<uint16_t>
+class TIMERA0 : public interface::Timer<uint16_t>
 {
 
 public:
 
-           TIMERA(volatile uint8_t  * tca_ctrla,
-                  volatile uint16_t * tca_cnt,
-                  volatile uint16_t * tca_cmp0,
-                  volatile uint16_t * tca_cmp1,
-                  volatile uint16_t * tca_cmp2);
-  virtual ~TIMERA();
+           TIMERA0(volatile uint8_t  * tca_ctrla,
+                   volatile uint16_t * tca_cnt,
+                   volatile uint16_t * tca_cmp0,
+                   volatile uint16_t * tca_cmp1,
+                   volatile uint16_t * tca_cmp2);
+  virtual ~TIMERA0();
 
 
   static uint8_t const COMPARE_CHANNEL_0 = 0;
@@ -97,4 +97,4 @@ private:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_COMMON_ATMEGA3209_4809_TIMERA_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_COMMON_ATMEGA3209_4809_TIMERA0_H_ */

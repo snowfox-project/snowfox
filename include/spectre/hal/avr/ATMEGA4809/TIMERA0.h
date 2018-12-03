@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_AVR_ATMEGA4809_TIMERA_H_
-#define INCLUDE_SPECTRE_HAL_AVR_ATMEGA4809_TIMERA_H_
+#ifndef INCLUDE_SPECTRE_HAL_AVR_ATMEGA4809_TIMERA0_H_
+#define INCLUDE_SPECTRE_HAL_AVR_ATMEGA4809_TIMERA0_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/ATMEGA3209_4809/TIMERA.h>
+#include <spectre/hal/avr/common/ATMEGA3209_4809/TIMERA0.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,7 +42,7 @@ namespace ATMEGA4809
  * TYPEDEF
  **************************************************************************************/
 
-typedef ATMEGA3209_4809::TIMERA TIMERA;
+typedef ATMEGA3209_4809::TIMERA0 TIMERA0;
 
 /**************************************************************************************
  * NAMESPACE
@@ -54,4 +54,4 @@ typedef ATMEGA3209_4809::TIMERA TIMERA;
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_AVR_ATMEGA4809_TIMERA_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_AVR_ATMEGA4809_TIMERA0_H_ */

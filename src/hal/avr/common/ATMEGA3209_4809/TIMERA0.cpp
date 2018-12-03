@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/ATMEGA3209_4809/TIMERA.h>
+#include <spectre/hal/avr/common/ATMEGA3209_4809/TIMERA0.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -65,11 +65,11 @@ enum class Prescaler : uint8_t
  * CTOR/DTOR
  **************************************************************************************/
 
-TIMERA::TIMERA(volatile uint8_t  * tca_ctrla,
-               volatile uint16_t * tca_cnt,
-               volatile uint16_t * tca_cmp0,
-               volatile uint16_t * tca_cmp1,
-               volatile uint16_t * tca_cmp2)
+TIMERA0::TIMERA0(volatile uint8_t  * tca_ctrla,
+                 volatile uint16_t * tca_cnt,
+                 volatile uint16_t * tca_cmp0,
+                 volatile uint16_t * tca_cmp1,
+                 volatile uint16_t * tca_cmp2)
 : _TCA_CTRLA(tca_ctrla),
   _TCA_CNT  (tca_cnt  ),
   _TCA_CMP0 (tca_cmp0 ),
@@ -79,7 +79,7 @@ TIMERA::TIMERA(volatile uint8_t  * tca_ctrla,
 
 }
 
-TIMERA::~TIMERA()
+TIMERA0::~TIMERA0()
 {
 
 }
@@ -88,27 +88,27 @@ TIMERA::~TIMERA()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void TIMERA::start()
+void TIMERA0::start()
 {
   *_TCA_CTRLA |= TCA_ENABLE_bm;
 }
 
-void TIMERA::stop()
+void TIMERA0::stop()
 {
   *_TCA_CTRLA &= ~TCA_ENABLE_bm;
 }
 
-void TIMERA::set(uint16_t const val)
+void TIMERA0::set(uint16_t const val)
 {
   *_TCA_CNT = val;
 }
 
-uint16_t TIMERA::get()
+uint16_t TIMERA0::get()
 {
   return *_TCA_CNT;
 }
 
-void TIMERA::setCompareRegister(uint8_t const reg_sel, uint16_t const reg_val)
+void TIMERA0::setCompareRegister(uint8_t const reg_sel, uint16_t const reg_val)
 {
   switch(reg_sel)
   {
@@ -118,7 +118,7 @@ void TIMERA::setCompareRegister(uint8_t const reg_sel, uint16_t const reg_val)
   }
 }
 
-void TIMERA::setPrescaler(uint32_t const prescaler)
+void TIMERA0::setPrescaler(uint32_t const prescaler)
 {
   *_TCA_CTRLA &= ~(TCA_CLKSEL2_bm | TCA_CLKSEL1_bm | TCA_CLKSEL0_bm);
 
