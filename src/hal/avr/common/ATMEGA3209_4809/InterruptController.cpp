@@ -119,6 +119,45 @@ void InterruptController::registerInterruptCallback(uint8_t const int_num, inter
 {
   switch(int_num)
   {
+  case toIntNum(Interrupt::CRC_NMI                        ): isr_crc_nmi                         = interrupt_callback; break;
+  case toIntNum(Interrupt::VOLTAGE_LEVEL_MONITOR          ): isr_voltage_level_monitor           = interrupt_callback; break;
+  case toIntNum(Interrupt::RTC_OVERFLOW_OR_COMPARE        ): isr_rtc_overflow_or_compare         = interrupt_callback; break;
+  case toIntNum(Interrupt::RTC_PERIODIC_INTERRUPT         ): isr_rtc_periodic_interrupt          = interrupt_callback; break;
+  case toIntNum(Interrupt::CONFIGURABLE_CUSTOM_LOGIC      ): isr_configurable_custom_logic       = interrupt_callback; break;
+  case toIntNum(Interrupt::PORTA_EXTERNAL_INT             ): isr_porta_external_int              = interrupt_callback; break;
+  case toIntNum(Interrupt::TIMERA0_OVERFLOW               ): isr_timera0_overflow                = interrupt_callback; break;
+  case toIntNum(Interrupt::TIMERA0_UNDERFLOW              ): isr_timera0_underflow               = interrupt_callback; break;
+  case toIntNum(Interrupt::TIMERA0_COMPARE_0              ): isr_timera0_compare_0               = interrupt_callback; break;
+  case toIntNum(Interrupt::TIMERA0_COMPARE_1              ): isr_timera0_compare_1               = interrupt_callback; break;
+  case toIntNum(Interrupt::TIMERA0_COMPARE_2              ): isr_timera0_compare_2               = interrupt_callback; break;
+  case toIntNum(Interrupt::TIMERB0_CAPTURE                ): isr_timerb0_capture                 = interrupt_callback; break;
+  case toIntNum(Interrupt::TIMERB1_CAPTURE                ): isr_timerb1_capture                 = interrupt_callback; break;
+  case toIntNum(Interrupt::TWI0_SLAVE                     ): isr_twi0_slave                      = interrupt_callback; break;
+  case toIntNum(Interrupt::TWI0_MASTER                    ): isr_twi0_master                     = interrupt_callback; break;
+  case toIntNum(Interrupt::SPI0                           ): isr_spi0                            = interrupt_callback; break;
+  case toIntNum(Interrupt::USART0_RECEIVE_COMPLETE        ): isr_usart0_receive_complete         = interrupt_callback; break;
+  case toIntNum(Interrupt::USART0_UART_DATA_REGISTER_EMPTY): isr_usart0_uart_data_register_empty = interrupt_callback; break;
+  case toIntNum(Interrupt::USART0_TRANSMIT_COMPLETE       ): isr_usart0_transmit_complete        = interrupt_callback; break;
+  case toIntNum(Interrupt::PORTD_EXTERNAL_INT             ): isr_portd_external_int              = interrupt_callback; break;
+  case toIntNum(Interrupt::ANALOG_COMPARATOR              ): isr_analog_comparator               = interrupt_callback; break;
+  case toIntNum(Interrupt::ADC0_RESULT_READY              ): isr_adc0_result_ready               = interrupt_callback; break;
+  case toIntNum(Interrupt::ADC0_WINDOW_COMPARE            ): isr_adc0_window_compare             = interrupt_callback; break;
+  case toIntNum(Interrupt::PORTC_EXTERNAL_INT             ): isr_portc_external_int              = interrupt_callback; break;
+  case toIntNum(Interrupt::TIMERB2_CAPTURE                ): isr_timerb2_capture                 = interrupt_callback; break;
+  case toIntNum(Interrupt::USART1_RECEIVE_COMPLETE        ): isr_usart1_receive_complete         = interrupt_callback; break;
+  case toIntNum(Interrupt::USART1_UART_DATA_REGISTER_EMPTY): isr_usart1_uart_data_register_empty = interrupt_callback; break;
+  case toIntNum(Interrupt::USART1_TRANSMIT_COMPLETE       ): isr_usart1_transmit_complete        = interrupt_callback; break;
+  case toIntNum(Interrupt::PORTF_EXTERNAL_INT             ): isr_portf_external_int              = interrupt_callback; break;
+  case toIntNum(Interrupt::NON_VOLATILE_MEMORY_READY      ): isr_non_volatile_memory_ready       = interrupt_callback; break;
+  case toIntNum(Interrupt::USART2_RECEIVE_COMPLETE        ): isr_usart2_receive_complete         = interrupt_callback; break;
+  case toIntNum(Interrupt::USART2_UART_DATA_REGISTER_EMPTY): isr_usart2_uart_data_register_empty = interrupt_callback; break;
+  case toIntNum(Interrupt::USART2_TRANSMIT_COMPLETE       ): isr_usart2_transmit_complete        = interrupt_callback; break;
+  case toIntNum(Interrupt::PORTB_EXTERNAL_INT             ): isr_portb_external_int              = interrupt_callback; break;
+  case toIntNum(Interrupt::PORTE_EXTERNAL_INT             ): isr_porte_external_int              = interrupt_callback; break;
+  case toIntNum(Interrupt::TIMERB3_CAPTURE                ): isr_timerb3_capture                 = interrupt_callback; break;
+  case toIntNum(Interrupt::USART3_RECEIVE_COMPLETE        ): isr_usart3_receive_complete         = interrupt_callback; break;
+  case toIntNum(Interrupt::USART3_UART_DATA_REGISTER_EMPTY): isr_usart3_uart_data_register_empty = interrupt_callback; break;
+  case toIntNum(Interrupt::USART3_TRANSMIT_COMPLETE       ): isr_usart3_transmit_complete        = interrupt_callback; break;
   }
 }
 
