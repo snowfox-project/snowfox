@@ -196,197 +196,197 @@ using namespace spectre::hal::ATMEGA3209_4809;
 
 ISR(CRCSCAN_NMI_vect)
 {
-  if(isr_crc_nmi) isr_crc_nmi->interruptServiceRoutine();
+  executeCallbackIfValid(isr_crc_nmi);
 }
 
 ISR(BOD_VLM_vect)
 {
-  if(isr_voltage_level_monitor) isr_voltage_level_monitor->interruptServiceRoutine();
+  executeCallbackIfValid(isr_voltage_level_monitor);
 }
 
 ISR(RTC_CNT_vect)
 {
-  if(isr_rtc_overflow_or_compare) isr_rtc_overflow_or_compare->interruptServiceRoutine();
+  executeCallbackIfValid(isr_rtc_overflow_or_compare);
 }
 
 ISR(RTC_PIT_vect)
 {
-  if(isr_rtc_periodic_interrupt) isr_rtc_periodic_interrupt->interruptServiceRoutine();
+  executeCallbackIfValid(isr_rtc_periodic_interrupt);
 }
 
 ISR(CCL_CCL_vect)
 {
-  if(isr_configurable_custom_logic) isr_configurable_custom_logic->interruptServiceRoutine();
+  executeCallbackIfValid(isr_configurable_custom_logic);
 }
 
 ISR(PORTA_PORT_vect)
 {
-  if(isr_porta_external_int) isr_porta_external_int->interruptServiceRoutine();
+  executeCallbackIfValid(isr_porta_external_int);
 }
 
 ISR(TCA0_OVF_vect)
 {
-  if(isr_timera0_overflow) isr_timera0_overflow->interruptServiceRoutine();
+  executeCallbackIfValid(isr_timera0_overflow);
 }
 
 ISR(TCA0_HUNF_vect)
 {
-  if(isr_timera0_underflow) isr_timera0_underflow->interruptServiceRoutine();
+  executeCallbackIfValid(isr_timera0_underflow);
 }
 
 ISR(TCA0_CMP0_vect)
 {
-  if(isr_timera0_compare_0) isr_timera0_compare_0->interruptServiceRoutine();
+  executeCallbackIfValid(isr_timera0_compare_0);
 }
 
 ISR(TCA0_CMP1_vect)
 {
-  if(isr_timera0_compare_1) isr_timera0_compare_1->interruptServiceRoutine();
+  executeCallbackIfValid(isr_timera0_compare_1);
 }
 
 ISR(TCA0_CMP2_vect)
 {
-  if(isr_timera0_compare_2) isr_timera0_compare_2->interruptServiceRoutine();
+  executeCallbackIfValid(isr_timera0_compare_2);
 }
 
 ISR(TCB0_INT_vect)
 {
-  if(isr_timerb0_capture) isr_timerb0_capture->interruptServiceRoutine();
+  executeCallbackIfValid(isr_timerb0_capture);
 }
 
 ISR(TCB1_INT_vect)
 {
-  if(isr_timerb1_capture) isr_timerb1_capture->interruptServiceRoutine();
+  executeCallbackIfValid(isr_timerb1_capture);
 }
 
 ISR(TWI0_TWIS_vect)
 {
-  if(isr_twi0_slave) isr_twi0_slave->interruptServiceRoutine();
+  executeCallbackIfValid(isr_twi0_slave);
 }
 
 ISR(TWI0_TWIM_vect)
 {
-  if(isr_twi0_master) isr_twi0_master->interruptServiceRoutine();
+  executeCallbackIfValid(isr_twi0_master);
 }
 
 ISR(SPI0_INT_vect)
 {
-  if(isr_spi0) isr_spi0->interruptServiceRoutine();
+  executeCallbackIfValid(isr_spi0);
 }
 
 ISR(USART0_RXC_vect)
 {
-  if(isr_usart0_receive_complete) isr_usart0_receive_complete->interruptServiceRoutine();
+  executeCallbackIfValid(isr_usart0_receive_complete);
 }
 
 ISR(USART0_DRE_vect)
 {
-  if(isr_usart0_uart_data_register_empty) isr_usart0_uart_data_register_empty->interruptServiceRoutine();
+  executeCallbackIfValid(isr_usart0_uart_data_register_empty);
 }
 
 ISR(USART0_TXC_vect)
 {
-  if(isr_usart0_transmit_complete) isr_usart0_transmit_complete->interruptServiceRoutine();
+  executeCallbackIfValid(isr_usart0_transmit_complete);
 }
 
 ISR(PORTD_PORT_vect)
 {
-  if(isr_portd_external_int) isr_portd_external_int->interruptServiceRoutine();
+  executeCallbackIfValid(isr_portd_external_int);
 }
 
 ISR(AC0_AC_vect)
 {
-  if(isr_analog_comparator) isr_analog_comparator->interruptServiceRoutine();
+  executeCallbackIfValid(isr_analog_comparator);
 }
 
 ISR(ADC0_RESRDY_vect)
 {
-  if(isr_adc0_result_ready) isr_adc0_result_ready->interruptServiceRoutine();
+  executeCallbackIfValid(isr_adc0_result_ready);
 }
 
 ISR(ADC0_WCOMP_vect)
 {
-  if(isr_adc0_window_compare) isr_adc0_window_compare->interruptServiceRoutine();
+  executeCallbackIfValid(isr_adc0_window_compare);
 }
 
 ISR(PORTC_PORT_vect)
 {
-  if(isr_portc_external_int) isr_portc_external_int->interruptServiceRoutine();
+  executeCallbackIfValid(isr_portc_external_int);
 }
 
 ISR(TCB2_INT_vect)
 {
-  if(isr_timerb2_capture) isr_timerb2_capture->interruptServiceRoutine();
+  executeCallbackIfValid(isr_timerb2_capture);
 }
 
 ISR(USART1_RXC_vect)
 {
-  if(isr_usart1_receive_complete) isr_usart1_receive_complete->interruptServiceRoutine();
+  executeCallbackIfValid(isr_usart1_receive_complete);
 }
 
 ISR(USART1_DRE_vect)
 {
-  if(isr_usart1_uart_data_register_empty) isr_usart1_uart_data_register_empty->interruptServiceRoutine();
+  executeCallbackIfValid(isr_usart1_uart_data_register_empty);
 }
 
 ISR(USART1_TXC_vect)
 {
-  if(isr_usart1_transmit_complete) isr_usart1_transmit_complete->interruptServiceRoutine();
+  executeCallbackIfValid(isr_usart1_transmit_complete);
 }
 
 ISR(PORTF_PORT_vect)
 {
-  if(isr_portf_external_int) isr_portf_external_int->interruptServiceRoutine();
+  executeCallbackIfValid(isr_portf_external_int);
 }
 
 ISR(NVMCTRL_EE_vect)
 {
-  if(isr_non_volatile_memory_ready) isr_non_volatile_memory_ready->interruptServiceRoutine();
+  executeCallbackIfValid(isr_non_volatile_memory_ready);
 }
 
 ISR(USART2_RXC_vect)
 {
-  if(isr_usart2_receive_complete) isr_usart2_receive_complete->interruptServiceRoutine();
+  executeCallbackIfValid(isr_usart2_receive_complete);
 }
 
 ISR(USART2_DRE_vect)
 {
-  if(isr_usart2_uart_data_register_empty) isr_usart2_uart_data_register_empty->interruptServiceRoutine();
+  executeCallbackIfValid(isr_usart2_uart_data_register_empty);
 }
 
 ISR(USART2_TXC_vect)
 {
-  if(isr_usart2_transmit_complete) isr_usart2_transmit_complete->interruptServiceRoutine();
+  executeCallbackIfValid(isr_usart2_transmit_complete);
 }
 
 ISR(PORTB_PORT_vect)
 {
-  if(isr_portb_external_int) isr_portb_external_int->interruptServiceRoutine();
+  executeCallbackIfValid(isr_portb_external_int);
 }
 
 ISR(PORTE_PORT_vect)
 {
-  if(isr_porte_external_int) isr_porte_external_int->interruptServiceRoutine();
+  executeCallbackIfValid(isr_porte_external_int);
 }
 
 ISR(TCB3_INT_vect)
 {
-  if(isr_timerb3_capture) isr_timerb3_capture->interruptServiceRoutine();
+  executeCallbackIfValid(isr_timerb3_capture);
 }
 
 ISR(USART3_RXC_vect)
 {
-  if(isr_usart3_receive_complete) isr_usart3_receive_complete->interruptServiceRoutine();
+  executeCallbackIfValid(isr_usart3_receive_complete);
 }
 
 ISR(USART3_DRE_vect)
 {
-  if(isr_usart3_uart_data_register_empty) isr_usart3_uart_data_register_empty->interruptServiceRoutine();
+  executeCallbackIfValid(isr_usart3_uart_data_register_empty);
 }
 
 ISR(USART3_TXC_vect)
 {
-  if(isr_usart3_transmit_complete) isr_usart3_transmit_complete->interruptServiceRoutine();
+  executeCallbackIfValid(isr_usart3_transmit_complete);
 }
 
 #endif /* defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega3209) || defined(MCU_TYPE_atmega4809) ) */

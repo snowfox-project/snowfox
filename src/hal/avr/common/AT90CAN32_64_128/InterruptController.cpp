@@ -388,182 +388,182 @@ using namespace spectre::hal::AT90CAN32_64_128;
 
 ISR(INT0_vect)
 {
-  if(isr_external_int0) isr_external_int0->interruptServiceRoutine();
+  executeCallbackIfValid(isr_external_int0);
 }
 
 ISR(INT1_vect)
 {
-  if(isr_external_int1) isr_external_int1->interruptServiceRoutine();
+  executeCallbackIfValid(isr_external_int1);
 }
 
 ISR(INT2_vect)
 {
-  if(isr_external_int2) isr_external_int2->interruptServiceRoutine();
+  executeCallbackIfValid(isr_external_int2);
 }
 
 ISR(INT3_vect)
 {
-  if(isr_external_int3) isr_external_int3->interruptServiceRoutine();
+  executeCallbackIfValid(isr_external_int3);
 }
 
 ISR(INT4_vect)
 {
-  if(isr_external_int4) isr_external_int4->interruptServiceRoutine();
+  executeCallbackIfValid(isr_external_int4);
 }
 
 ISR(INT5_vect)
 {
-  if(isr_external_int5) isr_external_int5->interruptServiceRoutine();
+  executeCallbackIfValid(isr_external_int5);
 }
 
 ISR(INT6_vect)
 {
-  if(isr_external_int6) isr_external_int6->interruptServiceRoutine();
+  executeCallbackIfValid(isr_external_int6);
 }
 
 ISR(INT7_vect)
 {
-  if(isr_external_int7) isr_external_int7->interruptServiceRoutine();
+  executeCallbackIfValid(isr_external_int7);
 }
 
 ISR(TIMER2_COMP_vect)
 {
-  if(isr_timer2_compare) isr_timer2_compare->interruptServiceRoutine();
+  executeCallbackIfValid(isr_timer2_compare);
 }
 
 ISR(TIMER2_OVF_vect)
 {
-  if(isr_timer2_overflow) isr_timer2_overflow->interruptServiceRoutine();
+  executeCallbackIfValid(isr_timer2_overflow);
 }
 
 ISR(TIMER1_CAPT_vect)
 {
-  if(isr_timer1_capture) isr_timer1_capture->interruptServiceRoutine();
+  executeCallbackIfValid(isr_timer1_capture);
 }
 
 ISR(TIMER1_COMPA_vect)
 {
-  if(isr_timer1_compare_a) isr_timer1_compare_a->interruptServiceRoutine();
+  executeCallbackIfValid(isr_timer1_compare_a);
 }
 
 ISR(TIMER1_COMPB_vect)
 {
-  if(isr_timer1_compare_b) isr_timer1_compare_b->interruptServiceRoutine();
+  executeCallbackIfValid(isr_timer1_compare_b);
 }
 
 ISR(TIMER1_COMPC_vect)
 {
-  if(isr_timer1_compare_c) isr_timer1_compare_c->interruptServiceRoutine();
+  executeCallbackIfValid(isr_timer1_compare_c);
 }
 
 ISR(TIMER1_OVF_vect)
 {
-  if(isr_timer1_overflow) isr_timer1_overflow->interruptServiceRoutine();
+  executeCallbackIfValid(isr_timer1_overflow);
 }
 
 ISR(TIMER0_COMP_vect)
 {
-  if(isr_timer0_compare) isr_timer0_compare->interruptServiceRoutine();
+  executeCallbackIfValid(isr_timer0_compare);
 }
 
 ISR(TIMER0_OVF_vect)
 {
-  if(isr_timer0_overflow) isr_timer0_overflow->interruptServiceRoutine();
+  executeCallbackIfValid(isr_timer0_overflow);
 }
 
 ISR(CANIT_vect)
 {
-  if(isr_can_all) isr_can_all->interruptServiceRoutine();
+  executeCallbackIfValid(isr_can_all);
 }
 
 ISR(OVRIT_vect)
 {
-  if(isr_can_timer_overrun) isr_can_timer_overrun->interruptServiceRoutine();
+  executeCallbackIfValid(isr_can_timer_overrun);
 }
 
 ISR(SPI_STC_vect)
 {
-  if(isr_spi_serial_transfer_complete) isr_spi_serial_transfer_complete->interruptServiceRoutine();
+  executeCallbackIfValid(isr_spi_serial_transfer_complete);
 }
 
 ISR(USART0_RX_vect)
 {
-  if(isr_usart0_receive_complete) isr_usart0_receive_complete->interruptServiceRoutine();
+  executeCallbackIfValid(isr_usart0_receive_complete);
 }
 
 ISR(USART0_UDRE_vect)
 {
-  if(isr_usart0_uart_data_register_empty) isr_usart0_uart_data_register_empty->interruptServiceRoutine();
+  executeCallbackIfValid(isr_usart0_uart_data_register_empty);
 }
 
 ISR(USART0_TX_vect)
 {
-  if(isr_usart0_transmit_complete) isr_usart0_transmit_complete->interruptServiceRoutine();
+  executeCallbackIfValid(isr_usart0_transmit_complete);
 }
 
 ISR(ANALOG_COMP_vect)
 {
-  if(isr_analog_comparator) isr_analog_comparator->interruptServiceRoutine();
+  executeCallbackIfValid(isr_analog_comparator);
 }
 
 ISR(ADC_vect)
 {
-  if(isr_analog_digital_converter) isr_analog_digital_converter->interruptServiceRoutine();
+  executeCallbackIfValid(isr_analog_digital_converter);
 }
 
 ISR(EE_READY_vect)
 {
-  if(isr_eeprom_ready) isr_eeprom_ready->interruptServiceRoutine();
+  executeCallbackIfValid(isr_eeprom_ready);
 }
 
 ISR(TIMER3_CAPT_vect)
 {
-  if(isr_timer3_capture) isr_timer3_capture->interruptServiceRoutine();
+  executeCallbackIfValid(isr_timer3_capture);
 }
 
 ISR(TIMER3_COMPA_vect)
 {
-  if(isr_timer3_compare_a) isr_timer3_compare_a->interruptServiceRoutine();
+  executeCallbackIfValid(isr_timer3_compare_a);
 }
 
 ISR(TIMER3_COMPB_vect)
 {
-  if(isr_timer3_compare_b) isr_timer3_compare_b->interruptServiceRoutine();
+  executeCallbackIfValid(isr_timer3_compare_b);
 }
 
 ISR(TIMER3_COMPC_vect)
 {
-  if(isr_timer3_compare_c) isr_timer3_compare_c->interruptServiceRoutine();
+  executeCallbackIfValid(isr_timer3_compare_c);
 }
 
 ISR(TIMER3_OVF_vect)
 {
-  if(isr_timer3_overflow) isr_timer3_overflow->interruptServiceRoutine();
+  executeCallbackIfValid(isr_timer3_overflow);
 }
 
 ISR(USART1_RX_vect)
 {
-  if(isr_usart1_receive_complete) isr_usart1_receive_complete->interruptServiceRoutine();
+  executeCallbackIfValid(isr_usart1_receive_complete);
 }
 
 ISR(USART1_UDRE_vect)
 {
-  if(isr_usart1_uart_data_register_empty) isr_usart1_uart_data_register_empty->interruptServiceRoutine();
+  executeCallbackIfValid(isr_usart1_uart_data_register_empty);
 }
 
 ISR(USART1_TX_vect)
 {
-  if(isr_usart1_transmit_complete) isr_usart1_transmit_complete->interruptServiceRoutine();
+  executeCallbackIfValid(isr_usart1_transmit_complete);
 }
 
 ISR(TWI_vect)
 {
-  if(isr_two_wire_int) isr_two_wire_int->interruptServiceRoutine();
+  executeCallbackIfValid(isr_two_wire_int);
 }
 
 ISR(SPM_READY_vect)
 {
-  if(isr_spm_ready) isr_spm_ready->interruptServiceRoutine();
+  executeCallbackIfValid(isr_spm_ready);
 }
 
 #endif /* defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_at90can32) || defined(MCU_TYPE_at90can64) || defined(MCU_TYPE_at90can128) ) */
