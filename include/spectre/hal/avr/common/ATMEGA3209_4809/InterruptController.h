@@ -44,6 +44,11 @@ namespace ATMEGA3209_4809
 
 enum class Interrupt : uint8_t
 {
+  CRC_NMI                         = 0
+};
+
+enum class Isr : uint8_t
+{
   CRC_NMI                         =  0,
   VOLTAGE_LEVEL_MONITOR           =  1,
   RTC_OVERFLOW_OR_COMPARE         =  2,
@@ -96,6 +101,11 @@ constexpr uint8_t toIntNum(Interrupt const interrupt)
   return static_cast<uint8_t>(interrupt);
 }
 
+constexpr uint8_t toIsrNum(Isr const isr)
+{
+  return static_cast<uint8_t>(isr);
+}
+
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
@@ -105,7 +115,7 @@ class InterruptController : public interface::InterruptController
 
 public:
 
-           InterruptController();
+           InterruptController(volatile uint8_t * crcscan_ctrla);
   virtual ~InterruptController();
 
 
@@ -117,7 +127,12 @@ public:
 
   /* Interrupt Controller Assembly Interface */
 
-  virtual void registerInterruptCallback(uint8_t const int_num, interface::InterruptCallback * interrupt_callback) override;
+  virtual void registerInterruptCallback(uint8_t const isr_num, interface::InterruptCallback * interrupt_callback) override;
+
+
+private:
+
+  volatile uint8_t * _CRCSCAN_CTRLA;
 
 };
 

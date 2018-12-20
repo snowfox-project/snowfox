@@ -53,7 +53,7 @@ public:
   virtual ~InterruptAssembly() { }
 
 
-  virtual void registerInterruptCallback(uint8_t const int_num, InterruptCallback * interrupt_callback) = 0;
+  virtual void registerInterruptCallback(uint8_t const isr_num, InterruptCallback * interrupt_callback) = 0;
 
 };
 
