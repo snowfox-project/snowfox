@@ -42,6 +42,9 @@ namespace ATMEGA3209_4809
 /* CRCSCAN_CTRLA */
 #define CRCSCAN_NMIEN_bm (1<<1)
 
+/* BOD_INTCTRL */
+#define BOD_VLMIE_bm (1<<0)
+
 /**************************************************************************************
  * GLOBAL VARIABLES
  **************************************************************************************/
@@ -90,8 +93,10 @@ static interface::InterruptCallback * isr_crc_nmi                         = 0,
  * CTOR/DTOR
  **************************************************************************************/
 
-InterruptController::InterruptController(volatile uint8_t * crcscan_ctrla)
-: _CRCSCAN_CTRLA(crcscan_ctrla)
+InterruptController::InterruptController(volatile uint8_t * crcscan_ctrla,
+                                         volatile uint8_t * bod_intctrl)
+: _CRCSCAN_CTRLA(crcscan_ctrla),
+  _BOD_INTCTRL  (bod_intctrl  )
 {
 
 }
@@ -109,7 +114,8 @@ void InterruptController::enableInterrupt(uint8_t const int_num)
 {
   switch(int_num)
   {
-  case toIntNum(Interrupt::CRC_NMI): *_CRCSCAN_CTRLA |= CRCSCAN_NMIEN_bm; break;
+  case toIntNum(Interrupt::CRC_NMI              ): *_CRCSCAN_CTRLA |= CRCSCAN_NMIEN_bm; break;
+  case toIntNum(Interrupt::VOLTAGE_LEVEL_MONITOR): *_BOD_INTCTRL   |= BOD_VLMIE_bm;     break;
   }
 }
 
@@ -117,7 +123,8 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
 {
   switch(int_num)
   {
-  case toIntNum(Interrupt::CRC_NMI): *_CRCSCAN_CTRLA &= ~CRCSCAN_NMIEN_bm; break;
+  case toIntNum(Interrupt::CRC_NMI              ): *_CRCSCAN_CTRLA &= ~CRCSCAN_NMIEN_bm; break;
+  case toIntNum(Interrupt::VOLTAGE_LEVEL_MONITOR): *_BOD_INTCTRL   &= ~BOD_VLMIE_bm;     break;
   }
 }
 
