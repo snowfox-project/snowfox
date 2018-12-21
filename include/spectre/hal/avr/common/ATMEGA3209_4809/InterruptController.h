@@ -44,10 +44,11 @@ namespace ATMEGA3209_4809
 
 enum class Interrupt : uint8_t
 {
-  CRC_NMI                         = 0,
-  VOLTAGE_LEVEL_MONITOR           = 1,
-  RTC_OVERFLOW                    = 2,
-  RTC_COMPARE                     = 3
+  CRC_NMI,
+  VOLTAGE_LEVEL_MONITOR,
+  RTC_OVERFLOW,
+  RTC_COMPARE,
+  RTC_PERIODIC_INTERRUPT
 };
 
 enum class Isr : uint8_t
@@ -120,7 +121,8 @@ public:
 
            InterruptController(volatile uint8_t * crcscan_ctrla,
                                volatile uint8_t * bod_intctrl,
-                               volatile uint8_t * rtc_intctrl);
+                               volatile uint8_t * rtc_intctrl,
+                               volatile uint8_t * rtc_pitintctrl);
   virtual ~InterruptController();
 
 
@@ -139,7 +141,8 @@ private:
 
   volatile uint8_t * _CRCSCAN_CTRLA,
                    * _BOD_INTCTRL,
-                   * _RTC_INTCTRL;
+                   * _RTC_INTCTRL,
+                   * _RTC_PITINTCTRL;
 
 };
 
