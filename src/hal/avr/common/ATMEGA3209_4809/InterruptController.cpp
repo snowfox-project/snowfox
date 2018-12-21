@@ -43,7 +43,11 @@ namespace ATMEGA3209_4809
 #define CRCSCAN_NMIEN_bm (1<<1)
 
 /* BOD_INTCTRL */
-#define BOD_VLMIE_bm (1<<0)
+#define BOD_VLMIE_bm     (1<<0)
+
+/* RTC_INTCTRL */
+#define RTC_CMP_bm       (1<<1)
+#define RTC_OVF_bm       (1<<0)
 
 /**************************************************************************************
  * GLOBAL VARIABLES
@@ -94,9 +98,11 @@ static interface::InterruptCallback * isr_crc_nmi                         = 0,
  **************************************************************************************/
 
 InterruptController::InterruptController(volatile uint8_t * crcscan_ctrla,
-                                         volatile uint8_t * bod_intctrl)
+                                         volatile uint8_t * bod_intctrl,
+                                         volatile uint8_t * rtc_intctrl)
 : _CRCSCAN_CTRLA(crcscan_ctrla),
-  _BOD_INTCTRL  (bod_intctrl  )
+  _BOD_INTCTRL  (bod_intctrl  ),
+  _RTC_INTCTRL  (rtc_intctrl  )
 {
 
 }
@@ -116,6 +122,8 @@ void InterruptController::enableInterrupt(uint8_t const int_num)
   {
   case toIntNum(Interrupt::CRC_NMI              ): *_CRCSCAN_CTRLA |= CRCSCAN_NMIEN_bm; break;
   case toIntNum(Interrupt::VOLTAGE_LEVEL_MONITOR): *_BOD_INTCTRL   |= BOD_VLMIE_bm;     break;
+  case toIntNum(Interrupt::RTC_OVERFLOW         ): *_RTC_INTCTRL   |= RTC_OVF_bm;       break;
+  case toIntNum(Interrupt::RTC_COMPARE          ): *_RTC_INTCTRL   |= RTC_CMP_bm;       break;
   }
 }
 
@@ -125,6 +133,8 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
   {
   case toIntNum(Interrupt::CRC_NMI              ): *_CRCSCAN_CTRLA &= ~CRCSCAN_NMIEN_bm; break;
   case toIntNum(Interrupt::VOLTAGE_LEVEL_MONITOR): *_BOD_INTCTRL   &= ~BOD_VLMIE_bm;     break;
+  case toIntNum(Interrupt::RTC_OVERFLOW         ): *_RTC_INTCTRL   &= ~RTC_OVF_bm;       break;
+  case toIntNum(Interrupt::RTC_COMPARE          ): *_RTC_INTCTRL   &= ~RTC_CMP_bm;       break;
   }
 }
 
