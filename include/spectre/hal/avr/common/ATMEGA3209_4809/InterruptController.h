@@ -52,7 +52,11 @@ enum class Interrupt : uint8_t
   TIMERA0_OVER_UNDERFLOW,
   TIMERA0_COMPARE_0,
   TIMERA0_COMPARE_1,
-  TIMERA0_COMPARE_2
+  TIMERA0_COMPARE_2,
+  TIMERB0_CAPTURE,
+  TIMERB1_CAPTURE,
+  TIMERB2_CAPTURE,
+  TIMERB3_CAPTURE
 };
 
 enum class Isr : uint8_t
@@ -127,7 +131,11 @@ public:
                                volatile uint8_t * bod_intctrl,
                                volatile uint8_t * rtc_intctrl,
                                volatile uint8_t * rtc_pitintctrl,
-                               volatile uint8_t * tca0_intctrl);
+                               volatile uint8_t * tca0_intctrl,
+                               volatile uint8_t * tcb0_intctrl,
+                               volatile uint8_t * tcb1_intctrl,
+                               volatile uint8_t * tcb2_intctrl,
+                               volatile uint8_t * tcb3_intctrl);
   virtual ~InterruptController();
 
 
@@ -148,7 +156,11 @@ private:
                    * _BOD_INTCTRL,
                    * _RTC_INTCTRL,
                    * _RTC_PITINTCTRL,
-                   * _TCA0_INTCTRL;
+                   * _TCA0_INTCTRL,
+                   * _TCB0_INTCTRL,
+                   * _TCB1_INTCTRL,
+                   * _TCB2_INTCTRL,
+                   * _TCB3_INTCTRL;
 
 };
 
