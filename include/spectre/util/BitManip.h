@@ -39,17 +39,17 @@ namespace util
  * FUNCTIONS
  **************************************************************************************/
 
-constexpr void setBit(volatile uint8_t * reg, uint8_t const bit_pos)
+inline void setBit(volatile uint8_t * reg, uint8_t const bit_pos)
 {
   *reg |= (1<<bit_pos);
 }
 
-constexpr void clrBit(volatile uint8_t * reg, uint8_t const bit_pos)
+inline void clrBit(volatile uint8_t * reg, uint8_t const bit_pos)
 {
   *reg &= ~(1<<bit_pos);
 }
 
-constexpr void toogleBit(volatile uint8_t * reg, uint8_t const bit_pos)
+inline void toogleBit(volatile uint8_t * reg, uint8_t const bit_pos)
 {
   *reg ^= (1<<bit_pos);
 }
