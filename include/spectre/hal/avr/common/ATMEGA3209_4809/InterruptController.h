@@ -48,7 +48,11 @@ enum class Interrupt : uint8_t
   VOLTAGE_LEVEL_MONITOR,
   RTC_OVERFLOW,
   RTC_COMPARE,
-  RTC_PERIODIC_INTERRUPT
+  RTC_PERIODIC_INTERRUPT,
+  TIMERA0_OVER_UNDERFLOW,
+  TIMERA0_COMPARE_0,
+  TIMERA0_COMPARE_1,
+  TIMERA0_COMPARE_2
 };
 
 enum class Isr : uint8_t
@@ -122,7 +126,8 @@ public:
            InterruptController(volatile uint8_t * crcscan_ctrla,
                                volatile uint8_t * bod_intctrl,
                                volatile uint8_t * rtc_intctrl,
-                               volatile uint8_t * rtc_pitintctrl);
+                               volatile uint8_t * rtc_pitintctrl,
+                               volatile uint8_t * tcax_intctrl);
   virtual ~InterruptController();
 
 
@@ -142,7 +147,8 @@ private:
   volatile uint8_t * _CRCSCAN_CTRLA,
                    * _BOD_INTCTRL,
                    * _RTC_INTCTRL,
-                   * _RTC_PITINTCTRL;
+                   * _RTC_PITINTCTRL,
+                   * _TCAx_INTCTRL;
 
 };
 
