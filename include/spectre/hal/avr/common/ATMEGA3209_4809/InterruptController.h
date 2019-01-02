@@ -127,7 +127,7 @@ public:
                                volatile uint8_t * bod_intctrl,
                                volatile uint8_t * rtc_intctrl,
                                volatile uint8_t * rtc_pitintctrl,
-                               volatile uint8_t * tcax_intctrl);
+                               volatile uint8_t * tca0_intctrl);
   virtual ~InterruptController();
 
 
@@ -148,7 +148,7 @@ private:
                    * _BOD_INTCTRL,
                    * _RTC_INTCTRL,
                    * _RTC_PITINTCTRL,
-                   * _TCAx_INTCTRL;
+                   * _TCA0_INTCTRL;
 
 };
 

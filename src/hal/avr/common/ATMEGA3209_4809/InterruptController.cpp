@@ -54,11 +54,11 @@ namespace ATMEGA3209_4809
 /* RTC_PITINTCTRL */
 #define RTC_PI_bp        0
 
-/* TCA_INTCTRL */
-#define TCA_CMP2_bp      6
-#define TCA_CMP1_bp      5
-#define TCA_CMP0_bp      4
-#define TCA_OVF_bp       0
+/* TCAx_INTCTRL */
+#define TCAx_CMP2_bp     6
+#define TCAx_CMP1_bp     5
+#define TCAx_CMP0_bp     4
+#define TCAx_OVF_bp      0
 
 /**************************************************************************************
  * GLOBAL VARIABLES
@@ -112,12 +112,12 @@ InterruptController::InterruptController(volatile uint8_t * crcscan_ctrla,
                                          volatile uint8_t * bod_intctrl,
                                          volatile uint8_t * rtc_intctrl,
                                          volatile uint8_t * rtc_pitintctrl,
-                                         volatile uint8_t * tcax_intctrl)
+                                         volatile uint8_t * tca0_intctrl)
 : _CRCSCAN_CTRLA (crcscan_ctrla ),
   _BOD_INTCTRL   (bod_intctrl   ),
   _RTC_INTCTRL   (rtc_intctrl   ),
   _RTC_PITINTCTRL(rtc_pitintctrl),
-  _TCAx_INTCTRL  (tcax_intctrl  )
+  _TCA0_INTCTRL  (tca0_intctrl  )
 {
 
 }
@@ -140,10 +140,10 @@ void InterruptController::enableInterrupt(uint8_t const int_num)
   case toIntNum(Interrupt::RTC_OVERFLOW          ): util::setBit(_RTC_INTCTRL,    RTC_OVF_bp      ); break;
   case toIntNum(Interrupt::RTC_COMPARE           ): util::setBit(_RTC_INTCTRL,    RTC_CMP_bp      ); break;
   case toIntNum(Interrupt::RTC_PERIODIC_INTERRUPT): util::setBit(_RTC_PITINTCTRL, RTC_PI_bp       ); break;
-  case toIntNum(Interrupt::TIMERA0_OVER_UNDERFLOW): util::setBit(_TCAx_INTCTRL,   TCA_OVF_bp      ); break;
-  case toIntNum(Interrupt::TIMERA0_COMPARE_0     ): util::setBit(_TCAx_INTCTRL,   TCA_CMP0_bp     ); break;
-  case toIntNum(Interrupt::TIMERA0_COMPARE_1     ): util::setBit(_TCAx_INTCTRL,   TCA_CMP1_bp     ); break;
-  case toIntNum(Interrupt::TIMERA0_COMPARE_2     ): util::setBit(_TCAx_INTCTRL,   TCA_CMP2_bp     ); break;
+  case toIntNum(Interrupt::TIMERA0_OVER_UNDERFLOW): util::setBit(_TCA0_INTCTRL,   TCAx_OVF_bp     ); break;
+  case toIntNum(Interrupt::TIMERA0_COMPARE_0     ): util::setBit(_TCA0_INTCTRL,   TCAx_CMP0_bp    ); break;
+  case toIntNum(Interrupt::TIMERA0_COMPARE_1     ): util::setBit(_TCA0_INTCTRL,   TCAx_CMP1_bp    ); break;
+  case toIntNum(Interrupt::TIMERA0_COMPARE_2     ): util::setBit(_TCA0_INTCTRL,   TCAx_CMP2_bp    ); break;
   }
 }
 
@@ -156,9 +156,9 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
   case toIntNum(Interrupt::RTC_OVERFLOW          ): util::clrBit(_RTC_INTCTRL,    RTC_OVF_bp      ); break;
   case toIntNum(Interrupt::RTC_COMPARE           ): util::clrBit(_RTC_INTCTRL,    RTC_CMP_bp      ); break;
   case toIntNum(Interrupt::RTC_PERIODIC_INTERRUPT): util::clrBit(_RTC_PITINTCTRL, RTC_PI_bp       ); break;
-  case toIntNum(Interrupt::TIMERA0_OVER_UNDERFLOW): util::clrBit(_TCAx_INTCTRL,   TCA_OVF_bp      ); break;
-  case toIntNum(Interrupt::TIMERA0_COMPARE_0     ): util::clrBit(_TCAx_INTCTRL,   TCA_CMP0_bp     ); break;
-  case toIntNum(Interrupt::TIMERA0_COMPARE_1     ): util::clrBit(_TCAx_INTCTRL,   TCA_CMP1_bp     ); break;
+  case toIntNum(Interrupt::TIMERA0_OVER_UNDERFLOW): util::clrBit(_TCA0_INTCTRL,   TCAx_OVF_bp     ); break;
+  case toIntNum(Interrupt::TIMERA0_COMPARE_0     ): util::clrBit(_TCA0_INTCTRL,   TCAx_CMP0_bp    ); break;
+  case toIntNum(Interrupt::TIMERA0_COMPARE_1     ): util::clrBit(_TCA0_INTCTRL,   TCAx_CMP1_bp    ); break;
   }
 }
 
