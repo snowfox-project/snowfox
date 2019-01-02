@@ -46,17 +46,40 @@ enum class Interrupt : uint8_t
 {
   CRC_NMI,
   VOLTAGE_LEVEL_MONITOR,
+  /* RTC */
   RTC_OVERFLOW,
   RTC_COMPARE,
   RTC_PERIODIC_INTERRUPT,
+  /* TIMER A0 */
   TIMERA0_OVER_UNDERFLOW,
   TIMERA0_COMPARE_0,
   TIMERA0_COMPARE_1,
   TIMERA0_COMPARE_2,
+  /* TIMER B0/1/2/3 */
   TIMERB0_CAPTURE,
   TIMERB1_CAPTURE,
   TIMERB2_CAPTURE,
-  TIMERB3_CAPTURE
+  TIMERB3_CAPTURE,
+  /* USART0 */
+  USART0_RECEIVE_COMPLETE,
+  USART0_TRANSMIT_COMPLETE,
+  USART0_UART_DATA_REGISTER_EMPTY,
+  USART0_RECEIVER_START_OF_FRAME,
+  /* USART1 */
+  USART1_RECEIVE_COMPLETE,
+  USART1_TRANSMIT_COMPLETE,
+  USART1_UART_DATA_REGISTER_EMPTY,
+  USART1_RECEIVER_START_OF_FRAME,
+  /* USART2 */
+  USART2_RECEIVE_COMPLETE,
+  USART2_TRANSMIT_COMPLETE,
+  USART2_UART_DATA_REGISTER_EMPTY,
+  USART2_RECEIVER_START_OF_FRAME,
+  /* USART3 */
+  USART3_RECEIVE_COMPLETE,
+  USART3_TRANSMIT_COMPLETE,
+  USART3_UART_DATA_REGISTER_EMPTY,
+  USART3_RECEIVER_START_OF_FRAME
 };
 
 enum class Isr : uint8_t
@@ -135,7 +158,11 @@ public:
                                volatile uint8_t * tcb0_intctrl,
                                volatile uint8_t * tcb1_intctrl,
                                volatile uint8_t * tcb2_intctrl,
-                               volatile uint8_t * tcb3_intctrl);
+                               volatile uint8_t * tcb3_intctrl,
+                               volatile uint8_t * usart0_ctrla,
+                               volatile uint8_t * usart1_ctrla,
+                               volatile uint8_t * usart2_ctrla,
+                               volatile uint8_t * usart3_ctrla);
   virtual ~InterruptController();
 
 
@@ -160,7 +187,11 @@ private:
                    * _TCB0_INTCTRL,
                    * _TCB1_INTCTRL,
                    * _TCB2_INTCTRL,
-                   * _TCB3_INTCTRL;
+                   * _TCB3_INTCTRL,
+                   * _USART0_CTRLA,
+                   * _USART1_CTRLA,
+                   * _USART2_CTRLA,
+                   * _USART3_CTRLA;
 
 };
 

@@ -63,6 +63,12 @@ namespace ATMEGA3209_4809
 /* TCBx_INTCTRL */
 #define TCBx_CAPT_bp     0
 
+/* USARTx_CTRLA */
+#define USARTx_RXCIE_bp  7
+#define USARTx_TXCIE_bp  6
+#define USARTx_DREIE_bp  5
+#define USARTx_RXSIE_bp  4
+
 /**************************************************************************************
  * GLOBAL VARIABLES
  **************************************************************************************/
@@ -119,7 +125,11 @@ InterruptController::InterruptController(volatile uint8_t * crcscan_ctrla,
                                          volatile uint8_t * tcb0_intctrl,
                                          volatile uint8_t * tcb1_intctrl,
                                          volatile uint8_t * tcb2_intctrl,
-                                         volatile uint8_t * tcb3_intctrl)
+                                         volatile uint8_t * tcb3_intctrl,
+                                         volatile uint8_t * usart0_ctrla,
+                                         volatile uint8_t * usart1_ctrla,
+                                         volatile uint8_t * usart2_ctrla,
+                                         volatile uint8_t * usart3_ctrla)
 : _CRCSCAN_CTRLA (crcscan_ctrla ),
   _BOD_INTCTRL   (bod_intctrl   ),
   _RTC_INTCTRL   (rtc_intctrl   ),
@@ -128,7 +138,11 @@ InterruptController::InterruptController(volatile uint8_t * crcscan_ctrla,
   _TCB0_INTCTRL  (tcb0_intctrl  ),
   _TCB1_INTCTRL  (tcb1_intctrl  ),
   _TCB2_INTCTRL  (tcb2_intctrl  ),
-  _TCB3_INTCTRL  (tcb3_intctrl  )
+  _TCB3_INTCTRL  (tcb3_intctrl  ),
+  _USART0_CTRLA  (usart0_ctrla  ),
+  _USART1_CTRLA  (usart1_ctrla  ),
+  _USART2_CTRLA  (usart2_ctrla  ),
+  _USART3_CTRLA  (usart3_ctrla  )
 {
 
 }
@@ -146,19 +160,42 @@ void InterruptController::enableInterrupt(uint8_t const int_num)
 {
   switch(int_num)
   {
-  case toIntNum(Interrupt::CRC_NMI               ): util::setBit(_CRCSCAN_CTRLA,  CRCSCAN_NMIEN_bp); break;
-  case toIntNum(Interrupt::VOLTAGE_LEVEL_MONITOR ): util::setBit(_BOD_INTCTRL,    BOD_VLMIE_bp    ); break;
-  case toIntNum(Interrupt::RTC_OVERFLOW          ): util::setBit(_RTC_INTCTRL,    RTC_OVF_bp      ); break;
-  case toIntNum(Interrupt::RTC_COMPARE           ): util::setBit(_RTC_INTCTRL,    RTC_CMP_bp      ); break;
-  case toIntNum(Interrupt::RTC_PERIODIC_INTERRUPT): util::setBit(_RTC_PITINTCTRL, RTC_PI_bp       ); break;
-  case toIntNum(Interrupt::TIMERA0_OVER_UNDERFLOW): util::setBit(_TCA0_INTCTRL,   TCAx_OVF_bp     ); break;
-  case toIntNum(Interrupt::TIMERA0_COMPARE_0     ): util::setBit(_TCA0_INTCTRL,   TCAx_CMP0_bp    ); break;
-  case toIntNum(Interrupt::TIMERA0_COMPARE_1     ): util::setBit(_TCA0_INTCTRL,   TCAx_CMP1_bp    ); break;
-  case toIntNum(Interrupt::TIMERA0_COMPARE_2     ): util::setBit(_TCA0_INTCTRL,   TCAx_CMP2_bp    ); break;
-  case toIntNum(Interrupt::TIMERB0_CAPTURE       ): util::setBit(_TCB0_INTCTRL,   TCBx_CAPT_bp    ); break;
-  case toIntNum(Interrupt::TIMERB1_CAPTURE       ): util::setBit(_TCB1_INTCTRL,   TCBx_CAPT_bp    ); break;
-  case toIntNum(Interrupt::TIMERB2_CAPTURE       ): util::setBit(_TCB2_INTCTRL,   TCBx_CAPT_bp    ); break;
-  case toIntNum(Interrupt::TIMERB3_CAPTURE       ): util::setBit(_TCB3_INTCTRL,   TCBx_CAPT_bp    ); break;
+  case toIntNum(Interrupt::CRC_NMI                        ): util::setBit(_CRCSCAN_CTRLA,  CRCSCAN_NMIEN_bp); break;
+  case toIntNum(Interrupt::VOLTAGE_LEVEL_MONITOR          ): util::setBit(_BOD_INTCTRL,    BOD_VLMIE_bp    ); break;
+  /* RTC */
+  case toIntNum(Interrupt::RTC_OVERFLOW                   ): util::setBit(_RTC_INTCTRL,    RTC_OVF_bp      ); break;
+  case toIntNum(Interrupt::RTC_COMPARE                    ): util::setBit(_RTC_INTCTRL,    RTC_CMP_bp      ); break;
+  case toIntNum(Interrupt::RTC_PERIODIC_INTERRUPT         ): util::setBit(_RTC_PITINTCTRL, RTC_PI_bp       ); break;
+  /* TIMER A0 */
+  case toIntNum(Interrupt::TIMERA0_OVER_UNDERFLOW         ): util::setBit(_TCA0_INTCTRL,   TCAx_OVF_bp     ); break;
+  case toIntNum(Interrupt::TIMERA0_COMPARE_0              ): util::setBit(_TCA0_INTCTRL,   TCAx_CMP0_bp    ); break;
+  case toIntNum(Interrupt::TIMERA0_COMPARE_1              ): util::setBit(_TCA0_INTCTRL,   TCAx_CMP1_bp    ); break;
+  case toIntNum(Interrupt::TIMERA0_COMPARE_2              ): util::setBit(_TCA0_INTCTRL,   TCAx_CMP2_bp    ); break;
+  /* TIMER B0/1/2/3 */
+  case toIntNum(Interrupt::TIMERB0_CAPTURE                ): util::setBit(_TCB0_INTCTRL,   TCBx_CAPT_bp    ); break;
+  case toIntNum(Interrupt::TIMERB1_CAPTURE                ): util::setBit(_TCB1_INTCTRL,   TCBx_CAPT_bp    ); break;
+  case toIntNum(Interrupt::TIMERB2_CAPTURE                ): util::setBit(_TCB2_INTCTRL,   TCBx_CAPT_bp    ); break;
+  case toIntNum(Interrupt::TIMERB3_CAPTURE                ): util::setBit(_TCB3_INTCTRL,   TCBx_CAPT_bp    ); break;
+  /* USART0 */
+  case toIntNum(Interrupt::USART0_RECEIVE_COMPLETE        ): util::setBit(_USART0_CTRLA,   USARTx_RXCIE_bp ); break;
+  case toIntNum(Interrupt::USART0_TRANSMIT_COMPLETE       ): util::setBit(_USART0_CTRLA,   USARTx_TXCIE_bp ); break;
+  case toIntNum(Interrupt::USART0_UART_DATA_REGISTER_EMPTY): util::setBit(_USART0_CTRLA,   USARTx_DREIE_bp ); break;
+  case toIntNum(Interrupt::USART0_RECEIVER_START_OF_FRAME ): util::setBit(_USART0_CTRLA,   USARTx_RXSIE_bp ); break;
+  /* USART1 */
+  case toIntNum(Interrupt::USART1_RECEIVE_COMPLETE        ): util::setBit(_USART1_CTRLA,   USARTx_RXCIE_bp ); break;
+  case toIntNum(Interrupt::USART1_TRANSMIT_COMPLETE       ): util::setBit(_USART1_CTRLA,   USARTx_TXCIE_bp ); break;
+  case toIntNum(Interrupt::USART1_UART_DATA_REGISTER_EMPTY): util::setBit(_USART1_CTRLA,   USARTx_DREIE_bp ); break;
+  case toIntNum(Interrupt::USART1_RECEIVER_START_OF_FRAME ): util::setBit(_USART1_CTRLA,   USARTx_RXSIE_bp ); break;
+  /* USART2 */
+  case toIntNum(Interrupt::USART2_RECEIVE_COMPLETE        ): util::setBit(_USART2_CTRLA,   USARTx_RXCIE_bp ); break;
+  case toIntNum(Interrupt::USART2_TRANSMIT_COMPLETE       ): util::setBit(_USART2_CTRLA,   USARTx_TXCIE_bp ); break;
+  case toIntNum(Interrupt::USART2_UART_DATA_REGISTER_EMPTY): util::setBit(_USART2_CTRLA,   USARTx_DREIE_bp ); break;
+  case toIntNum(Interrupt::USART2_RECEIVER_START_OF_FRAME ): util::setBit(_USART2_CTRLA,   USARTx_RXSIE_bp ); break;
+  /* USART3 */
+  case toIntNum(Interrupt::USART3_RECEIVE_COMPLETE        ): util::setBit(_USART3_CTRLA,   USARTx_RXCIE_bp ); break;
+  case toIntNum(Interrupt::USART3_TRANSMIT_COMPLETE       ): util::setBit(_USART3_CTRLA,   USARTx_TXCIE_bp ); break;
+  case toIntNum(Interrupt::USART3_UART_DATA_REGISTER_EMPTY): util::setBit(_USART3_CTRLA,   USARTx_DREIE_bp ); break;
+  case toIntNum(Interrupt::USART3_RECEIVER_START_OF_FRAME ): util::setBit(_USART3_CTRLA,   USARTx_RXSIE_bp ); break;
   }
 }
 
@@ -166,18 +203,41 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
 {
   switch(int_num)
   {
-  case toIntNum(Interrupt::CRC_NMI               ): util::clrBit(_CRCSCAN_CTRLA,  CRCSCAN_NMIEN_bp); break;
-  case toIntNum(Interrupt::VOLTAGE_LEVEL_MONITOR ): util::clrBit(_BOD_INTCTRL,    BOD_VLMIE_bp    ); break;
-  case toIntNum(Interrupt::RTC_OVERFLOW          ): util::clrBit(_RTC_INTCTRL,    RTC_OVF_bp      ); break;
-  case toIntNum(Interrupt::RTC_COMPARE           ): util::clrBit(_RTC_INTCTRL,    RTC_CMP_bp      ); break;
-  case toIntNum(Interrupt::RTC_PERIODIC_INTERRUPT): util::clrBit(_RTC_PITINTCTRL, RTC_PI_bp       ); break;
-  case toIntNum(Interrupt::TIMERA0_OVER_UNDERFLOW): util::clrBit(_TCA0_INTCTRL,   TCAx_OVF_bp     ); break;
-  case toIntNum(Interrupt::TIMERA0_COMPARE_0     ): util::clrBit(_TCA0_INTCTRL,   TCAx_CMP0_bp    ); break;
-  case toIntNum(Interrupt::TIMERA0_COMPARE_1     ): util::clrBit(_TCA0_INTCTRL,   TCAx_CMP1_bp    ); break;
-  case toIntNum(Interrupt::TIMERB0_CAPTURE       ): util::clrBit(_TCB0_INTCTRL,   TCBx_CAPT_bp    ); break;
-  case toIntNum(Interrupt::TIMERB1_CAPTURE       ): util::clrBit(_TCB1_INTCTRL,   TCBx_CAPT_bp    ); break;
-  case toIntNum(Interrupt::TIMERB2_CAPTURE       ): util::clrBit(_TCB2_INTCTRL,   TCBx_CAPT_bp    ); break;
-  case toIntNum(Interrupt::TIMERB3_CAPTURE       ): util::clrBit(_TCB3_INTCTRL,   TCBx_CAPT_bp    ); break;
+  case toIntNum(Interrupt::CRC_NMI                        ): util::clrBit(_CRCSCAN_CTRLA,  CRCSCAN_NMIEN_bp); break;
+  case toIntNum(Interrupt::VOLTAGE_LEVEL_MONITOR          ): util::clrBit(_BOD_INTCTRL,    BOD_VLMIE_bp    ); break;
+  /* RTC */
+  case toIntNum(Interrupt::RTC_OVERFLOW                   ): util::clrBit(_RTC_INTCTRL,    RTC_OVF_bp      ); break;
+  case toIntNum(Interrupt::RTC_COMPARE                    ): util::clrBit(_RTC_INTCTRL,    RTC_CMP_bp      ); break;
+  case toIntNum(Interrupt::RTC_PERIODIC_INTERRUPT         ): util::clrBit(_RTC_PITINTCTRL, RTC_PI_bp       ); break;
+  /* TIMER A0 */
+  case toIntNum(Interrupt::TIMERA0_OVER_UNDERFLOW         ): util::clrBit(_TCA0_INTCTRL,   TCAx_OVF_bp     ); break;
+  case toIntNum(Interrupt::TIMERA0_COMPARE_0              ): util::clrBit(_TCA0_INTCTRL,   TCAx_CMP0_bp    ); break;
+  case toIntNum(Interrupt::TIMERA0_COMPARE_1              ): util::clrBit(_TCA0_INTCTRL,   TCAx_CMP1_bp    ); break;
+  /* TIMER B0/1/2/3 */
+  case toIntNum(Interrupt::TIMERB0_CAPTURE                ): util::clrBit(_TCB0_INTCTRL,   TCBx_CAPT_bp    ); break;
+  case toIntNum(Interrupt::TIMERB1_CAPTURE                ): util::clrBit(_TCB1_INTCTRL,   TCBx_CAPT_bp    ); break;
+  case toIntNum(Interrupt::TIMERB2_CAPTURE                ): util::clrBit(_TCB2_INTCTRL,   TCBx_CAPT_bp    ); break;
+  case toIntNum(Interrupt::TIMERB3_CAPTURE                ): util::clrBit(_TCB3_INTCTRL,   TCBx_CAPT_bp    ); break;
+  /* USART0 */
+  case toIntNum(Interrupt::USART0_RECEIVE_COMPLETE        ): util::clrBit(_USART0_CTRLA,   USARTx_RXCIE_bp ); break;
+  case toIntNum(Interrupt::USART0_TRANSMIT_COMPLETE       ): util::clrBit(_USART0_CTRLA,   USARTx_TXCIE_bp ); break;
+  case toIntNum(Interrupt::USART0_UART_DATA_REGISTER_EMPTY): util::clrBit(_USART0_CTRLA,   USARTx_DREIE_bp ); break;
+  case toIntNum(Interrupt::USART0_RECEIVER_START_OF_FRAME ): util::clrBit(_USART0_CTRLA,   USARTx_RXSIE_bp ); break;
+  /* USART1 */
+  case toIntNum(Interrupt::USART1_RECEIVE_COMPLETE        ): util::clrBit(_USART1_CTRLA,   USARTx_RXCIE_bp ); break;
+  case toIntNum(Interrupt::USART1_TRANSMIT_COMPLETE       ): util::clrBit(_USART1_CTRLA,   USARTx_TXCIE_bp ); break;
+  case toIntNum(Interrupt::USART1_UART_DATA_REGISTER_EMPTY): util::clrBit(_USART1_CTRLA,   USARTx_DREIE_bp ); break;
+  case toIntNum(Interrupt::USART1_RECEIVER_START_OF_FRAME ): util::clrBit(_USART1_CTRLA,   USARTx_RXSIE_bp ); break;
+  /* USART2 */
+  case toIntNum(Interrupt::USART2_RECEIVE_COMPLETE        ): util::clrBit(_USART2_CTRLA,   USARTx_RXCIE_bp ); break;
+  case toIntNum(Interrupt::USART2_TRANSMIT_COMPLETE       ): util::clrBit(_USART2_CTRLA,   USARTx_TXCIE_bp ); break;
+  case toIntNum(Interrupt::USART2_UART_DATA_REGISTER_EMPTY): util::clrBit(_USART2_CTRLA,   USARTx_DREIE_bp ); break;
+  case toIntNum(Interrupt::USART2_RECEIVER_START_OF_FRAME ): util::clrBit(_USART2_CTRLA,   USARTx_RXSIE_bp ); break;
+  /* USART3 */
+  case toIntNum(Interrupt::USART3_RECEIVE_COMPLETE        ): util::clrBit(_USART3_CTRLA,   USARTx_RXCIE_bp ); break;
+  case toIntNum(Interrupt::USART3_TRANSMIT_COMPLETE       ): util::clrBit(_USART3_CTRLA,   USARTx_TXCIE_bp ); break;
+  case toIntNum(Interrupt::USART3_UART_DATA_REGISTER_EMPTY): util::clrBit(_USART3_CTRLA,   USARTx_DREIE_bp ); break;
+  case toIntNum(Interrupt::USART3_RECEIVER_START_OF_FRAME ): util::clrBit(_USART3_CTRLA,   USARTx_RXSIE_bp ); break;
   }
 }
 
