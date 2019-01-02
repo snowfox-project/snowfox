@@ -41,17 +41,17 @@ namespace util
 
 inline void setBit(volatile uint8_t * reg, uint8_t const bit_pos)
 {
-  *reg |= (1<<bit_pos);
+  *reg |= static_cast<uint8_t>(1<<bit_pos);
 }
 
 inline void clrBit(volatile uint8_t * reg, uint8_t const bit_pos)
 {
-  *reg &= ~(1<<bit_pos);
+  *reg &= ~(static_cast<uint8_t>(1<<bit_pos));
 }
 
 inline void toogleBit(volatile uint8_t * reg, uint8_t const bit_pos)
 {
-  *reg ^= (1<<bit_pos);
+  *reg ^= static_cast<uint8_t>(1<<bit_pos);
 }
 
 /**************************************************************************************
