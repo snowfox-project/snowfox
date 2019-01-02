@@ -42,32 +42,32 @@ namespace ATMEGA3209_4809
  **************************************************************************************/
 
 /* CRCSCAN_CTRLA */
-#define CRCSCAN_NMIEN_bp 1
+#define CRCSCAN_NMIEN_bp (1)
 
 /* BOD_INTCTRL */
-#define BOD_VLMIE_bp     0
+#define BOD_VLMIE_bp     (0)
 
 /* RTC_INTCTRL */
-#define RTC_CMP_bp       1
-#define RTC_OVF_bp       0
+#define RTC_CMP_bp       (1)
+#define RTC_OVF_bp       (0)
 
 /* RTC_PITINTCTRL */
-#define RTC_PI_bp        0
+#define RTC_PI_bp        (0)
 
 /* TCAx_INTCTRL */
-#define TCAx_CMP2_bp     6
-#define TCAx_CMP1_bp     5
-#define TCAx_CMP0_bp     4
-#define TCAx_OVF_bp      0
+#define TCAx_CMP2_bp     (6)
+#define TCAx_CMP1_bp     (5)
+#define TCAx_CMP0_bp     (4)
+#define TCAx_OVF_bp      (0)
 
 /* TCBx_INTCTRL */
-#define TCBx_CAPT_bp     0
+#define TCBx_CAPT_bp     (0)
 
 /* USARTx_CTRLA */
-#define USARTx_RXCIE_bp  7
-#define USARTx_TXCIE_bp  6
-#define USARTx_DREIE_bp  5
-#define USARTx_RXSIE_bp  4
+#define USARTx_RXCIE_bp  (7)
+#define USARTx_TXCIE_bp  (6)
+#define USARTx_DREIE_bp  (5)
+#define USARTx_RXSIE_bp  (4)
 
 /**************************************************************************************
  * GLOBAL VARIABLES
