@@ -23,6 +23,7 @@
 #include <spectre/hal/avr/common/ATMEGA3209_4809/InterruptController.h>
 
 #include <spectre/util/BitManip.h>
+#include <spectre/cpu/avr/io/common/ATMEGA3209_4809.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -36,47 +37,6 @@ namespace hal
 
 namespace ATMEGA3209_4809
 {
-
-/**************************************************************************************
- * DEFINES
- **************************************************************************************/
-
-/* CRCSCAN_CTRLA */
-#define CRCSCAN_NMIEN_bp (1)
-
-/* BOD_INTCTRL */
-#define BOD_VLMIE_bp     (0)
-
-/* RTC_INTCTRL */
-#define RTC_CMP_bp       (1)
-#define RTC_OVF_bp       (0)
-
-/* RTC_PITINTCTRL */
-#define RTC_PI_bp        (0)
-
-/* TCAx_INTCTRL */
-#define TCAx_CMP2_bp     (6)
-#define TCAx_CMP1_bp     (5)
-#define TCAx_CMP0_bp     (4)
-#define TCAx_OVF_bp      (0)
-
-/* TCBx_INTCTRL */
-#define TCBx_CAPT_bp     (0)
-
-/* USARTx_CTRLA */
-#define USARTx_RXCIE_bp  (7)
-#define USARTx_TXCIE_bp  (6)
-#define USARTx_DREIE_bp  (5)
-#define USARTx_RXSIE_bp  (4)
-
-/* TWI_MLCTRA */
-#define TWI_WIEN_bp      (6)
-#define TWI_RIEN_bp      (7)
-
-/* TWI_SLCTRA */
-#define TWI_DIEN_bp      (7)
-#define TWI_APIEN_bp     (6)
-#define TWI_PIEN_bp      (5)
 
 /**************************************************************************************
  * GLOBAL VARIABLES
