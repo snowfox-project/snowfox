@@ -24,6 +24,7 @@
  **************************************************************************************/
 
 #include <stdint.h>
+#include <assert.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,17 +40,59 @@ namespace util
  * FUNCTIONS
  **************************************************************************************/
 
-inline void setBit    (volatile uint8_t  * reg, uint8_t const bit_pos) { *reg |=  (static_cast<uint8_t> (1<<bit_pos)); }
-inline void setBit    (volatile uint16_t * reg, uint8_t const bit_pos) { *reg |=  (static_cast<uint16_t>(1<<bit_pos)); }
-inline void setBit    (volatile uint32_t * reg, uint8_t const bit_pos) { *reg |=  (static_cast<uint32_t>(1<<bit_pos)); }
+inline void setBit(volatile uint8_t * reg, uint8_t const bit_pos)
+{
+  assert(bit_pos < 8);
+  *reg |= (1<<bit_pos);
+}
 
-inline void clrBit    (volatile uint8_t  * reg, uint8_t const bit_pos) { *reg &= ~(static_cast<uint8_t> (1<<bit_pos)); }
-inline void clrBit    (volatile uint16_t * reg, uint8_t const bit_pos) { *reg &= ~(static_cast<uint16_t>(1<<bit_pos)); }
-inline void clrBit    (volatile uint32_t * reg, uint8_t const bit_pos) { *reg &= ~(static_cast<uint32_t>(1<<bit_pos)); }
+inline void setBit(volatile uint16_t * reg, uint8_t const bit_pos)
+{
+  assert(bit_pos < 16);
+  *reg |= (1<<bit_pos);
+}
 
-inline void toogleBit (volatile uint8_t  * reg, uint8_t const bit_pos) { *reg ^=  (static_cast<uint8_t> (1<<bit_pos)); }
-inline void toogleBit (volatile uint16_t * reg, uint8_t const bit_pos) { *reg ^=  (static_cast<uint16_t>(1<<bit_pos)); }
-inline void toogleBit (volatile uint32_t * reg, uint8_t const bit_pos) { *reg ^=  (static_cast<uint32_t>(1<<bit_pos)); }
+inline void setBit (volatile uint32_t * reg, uint8_t const bit_pos)
+{
+  assert(bit_pos < 32);
+  *reg |= (1<<bit_pos);
+}
+
+inline void clrBit(volatile uint8_t * reg, uint8_t const bit_pos)
+{
+  assert(bit_pos < 8);
+  *reg &= ~(1<<bit_pos);
+}
+
+inline void clrBit(volatile uint16_t * reg, uint8_t const bit_pos)
+{
+  assert(bit_pos < 16);
+  *reg &= ~(1<<bit_pos);
+}
+
+inline void clrBit(volatile uint32_t * reg, uint8_t const bit_pos)
+{
+  assert(bit_pos < 32);
+  *reg &= ~(1<<bit_pos);
+}
+
+inline void toogleBit(volatile uint8_t * reg, uint8_t const bit_pos)
+{
+  assert(bit_pos < 8);
+  *reg ^= (1<<bit_pos);
+}
+
+inline void toogleBit(volatile uint16_t * reg, uint8_t const bit_pos)
+{
+  assert(bit_pos < 16);
+  *reg ^= (1<<bit_pos);
+}
+
+inline void toogleBit(volatile uint32_t * reg, uint8_t const bit_pos)
+{
+  assert(bit_pos < 32);
+  *reg ^= (1<<bit_pos);
+}
 
 /**************************************************************************************
  * NAMESPACE
