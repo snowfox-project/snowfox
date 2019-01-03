@@ -69,6 +69,15 @@ namespace ATMEGA3209_4809
 #define USARTx_DREIE_bp  (5)
 #define USARTx_RXSIE_bp  (4)
 
+/* TWI_MLCTRA */
+#define TWI_WIEN_bp      (6)
+#define TWI_RIEN_bp      (7)
+
+/* TWI_SLCTRA */
+#define TWI_DIEN_bp      (7)
+#define TWI_APIEN_bp     (6)
+#define TWI_PIEN_bp      (5)
+
 /**************************************************************************************
  * GLOBAL VARIABLES
  **************************************************************************************/
@@ -129,7 +138,9 @@ InterruptController::InterruptController(volatile uint8_t * crcscan_ctrla,
                                          volatile uint8_t * usart0_ctrla,
                                          volatile uint8_t * usart1_ctrla,
                                          volatile uint8_t * usart2_ctrla,
-                                         volatile uint8_t * usart3_ctrla)
+                                         volatile uint8_t * usart3_ctrla,
+                                         volatile uint8_t * twi_mctrla,
+                                         volatile uint8_t * twi_sctrla)
 : _CRCSCAN_CTRLA (crcscan_ctrla ),
   _BOD_INTCTRL   (bod_intctrl   ),
   _RTC_INTCTRL   (rtc_intctrl   ),
@@ -142,7 +153,9 @@ InterruptController::InterruptController(volatile uint8_t * crcscan_ctrla,
   _USART0_CTRLA  (usart0_ctrla  ),
   _USART1_CTRLA  (usart1_ctrla  ),
   _USART2_CTRLA  (usart2_ctrla  ),
-  _USART3_CTRLA  (usart3_ctrla  )
+  _USART3_CTRLA  (usart3_ctrla  ),
+  _TWI_MCTRLA    (twi_mctrla    ),
+  _TWI_SCTRLA    (twi_sctrla    )
 {
 
 }
@@ -196,6 +209,12 @@ void InterruptController::enableInterrupt(uint8_t const int_num)
   case toIntNum(Interrupt::USART3_TRANSMIT_COMPLETE       ): util::setBit(_USART3_CTRLA,   USARTx_TXCIE_bp ); break;
   case toIntNum(Interrupt::USART3_UART_DATA_REGISTER_EMPTY): util::setBit(_USART3_CTRLA,   USARTx_DREIE_bp ); break;
   case toIntNum(Interrupt::USART3_RECEIVER_START_OF_FRAME ): util::setBit(_USART3_CTRLA,   USARTx_RXSIE_bp ); break;
+  /* TWI0_MASTER/SLAVE */
+  case toIntNum(Interrupt::TWI0_MASTER_READ               ): util::setBit(_TWI_MCTRLA,     TWI_RIEN_bp     ); break;
+  case toIntNum(Interrupt::TWI0_MASTER_WRITE              ): util::setBit(_TWI_MCTRLA,     TWI_WIEN_bp     ); break;
+  case toIntNum(Interrupt::TWI0_SLAVE_DATA                ): util::setBit(_TWI_SCTRLA,     TWI_DIEN_bp     ); break;
+  case toIntNum(Interrupt::TWI0_SLAVE_ADDRESS_OR_STOP     ): util::setBit(_TWI_SCTRLA,     TWI_APIEN_bp    ); break;
+  case toIntNum(Interrupt::TWI0_SLAVE_STOP                ): util::setBit(_TWI_SCTRLA,     TWI_PIEN_bp     ); break;
   }
 }
 
@@ -238,6 +257,12 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
   case toIntNum(Interrupt::USART3_TRANSMIT_COMPLETE       ): util::clrBit(_USART3_CTRLA,   USARTx_TXCIE_bp ); break;
   case toIntNum(Interrupt::USART3_UART_DATA_REGISTER_EMPTY): util::clrBit(_USART3_CTRLA,   USARTx_DREIE_bp ); break;
   case toIntNum(Interrupt::USART3_RECEIVER_START_OF_FRAME ): util::clrBit(_USART3_CTRLA,   USARTx_RXSIE_bp ); break;
+  /* TWI0_MASTER/SLAVE */
+  case toIntNum(Interrupt::TWI0_MASTER_READ               ): util::clrBit(_TWI_MCTRLA,     TWI_RIEN_bp     ); break;
+  case toIntNum(Interrupt::TWI0_MASTER_WRITE              ): util::clrBit(_TWI_MCTRLA,     TWI_WIEN_bp     ); break;
+  case toIntNum(Interrupt::TWI0_SLAVE_DATA                ): util::clrBit(_TWI_SCTRLA,     TWI_DIEN_bp     ); break;
+  case toIntNum(Interrupt::TWI0_SLAVE_ADDRESS_OR_STOP     ): util::clrBit(_TWI_SCTRLA,     TWI_APIEN_bp    ); break;
+  case toIntNum(Interrupt::TWI0_SLAVE_STOP                ): util::clrBit(_TWI_SCTRLA,     TWI_PIEN_bp     ); break;
   }
 }
 

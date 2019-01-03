@@ -79,7 +79,13 @@ enum class Interrupt : uint8_t
   USART3_RECEIVE_COMPLETE,
   USART3_TRANSMIT_COMPLETE,
   USART3_UART_DATA_REGISTER_EMPTY,
-  USART3_RECEIVER_START_OF_FRAME
+  USART3_RECEIVER_START_OF_FRAME,
+  /* TWI0_MASTER/SLAVE */
+  TWI0_MASTER_READ,
+  TWI0_MASTER_WRITE,
+  TWI0_SLAVE_DATA,
+  TWI0_SLAVE_ADDRESS_OR_STOP,
+  TWI0_SLAVE_STOP
 };
 
 enum class Isr : uint8_t
@@ -162,7 +168,9 @@ public:
                                volatile uint8_t * usart0_ctrla,
                                volatile uint8_t * usart1_ctrla,
                                volatile uint8_t * usart2_ctrla,
-                               volatile uint8_t * usart3_ctrla);
+                               volatile uint8_t * usart3_ctrla,
+                               volatile uint8_t * twi_mctrla,
+                               volatile uint8_t * twi_sctrla);
   virtual ~InterruptController();
 
 
@@ -191,7 +199,9 @@ private:
                    * _USART0_CTRLA,
                    * _USART1_CTRLA,
                    * _USART2_CTRLA,
-                   * _USART3_CTRLA;
+                   * _USART3_CTRLA,
+                   * _TWI_MCTRLA,
+                   * _TWI_SCTRLA;
 
 };
 
