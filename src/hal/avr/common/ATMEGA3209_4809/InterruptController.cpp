@@ -23,6 +23,7 @@
 #include <spectre/hal/avr/common/ATMEGA3209_4809/InterruptController.h>
 
 #include <spectre/util/BitManip.h>
+
 #include <spectre/cpu/avr/io/common/ATMEGA3209_4809.h>
 
 /**************************************************************************************
