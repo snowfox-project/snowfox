@@ -146,7 +146,7 @@ InterruptController::InterruptController(volatile uint8_t * eimsk,
 
 }
 
-InterruptController::InterruptController()
+InterruptController::~InterruptController()
 {
 
 }

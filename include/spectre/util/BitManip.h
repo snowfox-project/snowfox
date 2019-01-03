@@ -98,7 +98,7 @@ inline void toogleBit(volatile uint32_t * reg, uint8_t const bit_pos)
  * NAMESPACE
  **************************************************************************************/
 
-} /* type*/
+} /* util*/
 
 } /* spectre */
 
