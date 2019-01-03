@@ -50,6 +50,8 @@ typedef struct
            data[8];
 } __attribute((packed)) CanFrame;
 
+static_assert(sizeof(CanFrame) == 13, "struct CanFrame must be byte aligned");
+
 /**************************************************************************************
  * CONSTANTS
  **************************************************************************************/
