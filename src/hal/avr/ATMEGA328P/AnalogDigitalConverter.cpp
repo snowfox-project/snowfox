@@ -102,21 +102,21 @@ void AnalogDigitalConverter::setAnalogChannel(uint8_t const adc_channel)
 
   switch(adc_channel)
   {
-  case 0 : { *_ADMUX |= static_cast<uint8_t>(AdcChannel::CH_0); *_DIDR0 |= ADC0D_bm; } break;
-  case 1 : { *_ADMUX |= static_cast<uint8_t>(AdcChannel::CH_1); *_DIDR0 |= ADC1D_bm; } break;
-  case 2 : { *_ADMUX |= static_cast<uint8_t>(AdcChannel::CH_2); *_DIDR0 |= ADC2D_bm; } break;
-  case 3 : { *_ADMUX |= static_cast<uint8_t>(AdcChannel::CH_3); *_DIDR0 |= ADC3D_bm; } break;
-  case 4 : { *_ADMUX |= static_cast<uint8_t>(AdcChannel::CH_4); *_DIDR0 |= ADC4D_bm; } break;
-  case 5 : { *_ADMUX |= static_cast<uint8_t>(AdcChannel::CH_5); *_DIDR0 |= ADC5D_bm; } break;
-  case 6 : { *_ADMUX |= static_cast<uint8_t>(AdcChannel::CH_6);                      } break;
-  case 7 : { *_ADMUX |= static_cast<uint8_t>(AdcChannel::CH_7);                      } break;
-  default:                                                                             break;
+  case 0 : { *_ADMUX |= static_cast<uint8_t>(AdcChannel::CH_0); util::setBit(_DIDR0, ADC0D_bp); } break;
+  case 1 : { *_ADMUX |= static_cast<uint8_t>(AdcChannel::CH_1); util::setBit(_DIDR0, ADC1D_bp); } break;
+  case 2 : { *_ADMUX |= static_cast<uint8_t>(AdcChannel::CH_2); util::setBit(_DIDR0, ADC2D_bp); } break;
+  case 3 : { *_ADMUX |= static_cast<uint8_t>(AdcChannel::CH_3); util::setBit(_DIDR0, ADC3D_bp); } break;
+  case 4 : { *_ADMUX |= static_cast<uint8_t>(AdcChannel::CH_4); util::setBit(_DIDR0, ADC4D_bp); } break;
+  case 5 : { *_ADMUX |= static_cast<uint8_t>(AdcChannel::CH_5); util::setBit(_DIDR0, ADC5D_bp); } break;
+  case 6 : { *_ADMUX |= static_cast<uint8_t>(AdcChannel::CH_6);                                 } break;
+  case 7 : { *_ADMUX |= static_cast<uint8_t>(AdcChannel::CH_7);                                 } break;
+  default:                                                                                        break;
   }
 }
 
 void AnalogDigitalConverter::startConversion()
 {
-  *_ADCSRA |= ADSC_bm;
+  util::setBit(_ADCSRA, ADSC_bp);
 }
 
 bool AnalogDigitalConverter::isConversionComplete()
@@ -165,12 +165,12 @@ void AnalogDigitalConverter::setReferenceVoltage(uint8_t const v_ref_num)
 
 void AnalogDigitalConverter::enableAdc()
 {
-  *_ADCSRA |= ADEN_bm;
+  util::setBit(_ADCSRA, ADEN_bp);
 }
 
 void AnalogDigitalConverter::disableAdc()
 {
-  *_ADCSRA &= ~ADEN_bm;
+  util::clrBit(_ADCSRA, ADEN_bp);
 }
 
 /**************************************************************************************
