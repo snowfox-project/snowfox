@@ -37,7 +37,7 @@ using namespace spectre::hal;
  **************************************************************************************/
 
 static uint8_t const ADC_PRESCALER = 128;
-static uint8_t const ADC_VREF      = ATMEGA328P::AnalogDigitalConverter::toVRefNum(ATMEGA328P::VRef::AVCC);
+static uint8_t const ADC_VREF      = ATMEGA328P::toVRefNum(ATMEGA328P::VRef::AVCC);
 static uint8_t const ADC_CHANNEL   = 0;
 
 static float   const V_REF         = 5.0; /* = AVCC */
