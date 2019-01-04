@@ -102,8 +102,8 @@ int main()
 
     ad7151.read(reinterpret_cast<uint8_t *>(&capacity_raw), sizeof(capacity_raw));
 
-    char msg[16];
-    sprintf(msg, "Capacity / RAW = %04X\n", capacity_raw);
+    char msg[32];
+    snprintf(msg, 32, "Capacity / RAW = %04X\n", capacity_raw);
 
     delay.delay_ms(LOOP_DELAY_ms);
   }

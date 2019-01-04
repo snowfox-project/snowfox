@@ -69,8 +69,8 @@ int main()
     uint16_t const avr_conversion_result_raw = adc.getConversionResult();
     double   const avr_conversion_result     = static_cast<double>(avr_conversion_result_raw) * V_REF / 1024.0;
 
-    char msg[16];
-    sprintf(msg, "ADC = %04X ( %1.3f )\n", avr_conversion_result_raw, avr_conversion_result);
+    char msg[32];
+    snprintf(msg, 32, "ADC = %04X ( %1.3f )\n", avr_conversion_result_raw, avr_conversion_result);
   }
 
   return 0;

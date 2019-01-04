@@ -50,8 +50,8 @@ int main()
   {
     uint8_t const in_port_val = in_port.get();
 
-    char msg[16];
-    sprintf(msg, "PORTB = %02X\n", in_port_val);
+    char msg[32];
+    snprintf(msg, 32, "PORTB = %02X\n", in_port_val);
   }
 
   return 0;

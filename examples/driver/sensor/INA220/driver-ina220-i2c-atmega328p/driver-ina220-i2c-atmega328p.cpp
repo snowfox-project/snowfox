@@ -115,9 +115,9 @@ int main()
     shunt_voltage = ina220_data[0];
     bus_voltage   = ina220_data[1];
 
-    char msg[16];
-    sprintf(msg, "V_SHUNT / RAW = %04X\n", shunt_voltage);
-    sprintf(msg, "V_BUS   / RAW = %04X\n", bus_voltage  );
+    char msg[32];
+    snprintf(msg, 32, "V_SHUNT / RAW = %04X\n", shunt_voltage);
+    snprintf(msg, 32, "V_BUS   / RAW = %04X\n", bus_voltage  );
 
     delay.delay_ms(LOOP_DELAY_ms);
   }
