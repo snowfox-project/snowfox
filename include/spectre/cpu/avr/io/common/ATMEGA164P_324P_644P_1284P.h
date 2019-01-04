@@ -93,6 +93,22 @@
 #define OCIE0A_bp  (1)
 #define TOIE0_bp   (0)
 
+/* TCCR0B */
+#define CS02_bp    (2)
+#define CS02_bm    (1<<CS02_bp)
+#define CS01_bp    (1)
+#define CS01_bm    (1<<CS01_bp)
+#define CS00_bp    (0)
+#define CS00_bm    (1<<CS00_bp)
+
+/* TCCR2A */
+#define CS22_bp    (2)
+#define CS22_bm    (1<<CS22_bp)
+#define CS21_bp    (1)
+#define CS21_bm    (1<<CS21_bp)
+#define CS20_bp    (0)
+#define CS20_bm    (1<<CS20_bp)
+
 /* SPCR */
 #define SPIE_bp    (7)
 
