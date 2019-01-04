@@ -35,7 +35,7 @@ Work in progress ...
 | ATMega324P                 | ...                   | atmega324p        |                                                                                                                                             |
 | ATMega644P                 | ...                   | atmega644p        |                                                                                                                                             |
 | ATMega1284P                | ...                   | atmega1284p       | [Moteino Mega USB](examples/board-schematics/io/low-power-lab-moteino-mega-lora-usb.png)                                                    |
-| ATMega328P                 | ...                   | atmega328p        | [Arduino Uno](examples/board-schematics/mcu/arduino-uno.pdf)                                                                                |
+| ATMega328P                 | ...                   | atmega328p        | [Arduino Uno](examples/board-schematics/mcu/arduino-uno.pdf), [Controllino Mini](examples/board-schematics/mcu/controllino-mini.pdf)        |
 | ATMega16U4                 | ...                   | atmega16u4        |                                                                                                                                             |
 | ATMega32U4                 | ...                   | atmega32u4        | [Arduino Leonardo](examples/board-schematics/mcu/arduino-leonardo.pdf)                                                                      |
 | ATMega3209                 | ...                   | atmega3209        |                                                                                                                                             |
