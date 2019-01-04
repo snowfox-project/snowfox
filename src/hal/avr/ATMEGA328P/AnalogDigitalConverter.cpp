@@ -22,6 +22,10 @@
 
 #include <spectre/hal/avr/ATMEGA328P/AnalogDigitalConverter.h>
 
+#include <spectre/util/BitManip.h>
+
+#include <spectre/cpu/avr/io/ATMEGA328P.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -36,48 +40,10 @@ namespace ATMEGA328P
 {
 
 /**************************************************************************************
- * DEFINES
- **************************************************************************************/
-
-/* ADCSRA */
-#define ADPS0_bm  (1<<0)
-#define ADPS1_bm  (1<<1)
-#define ADPS2_bm  (1<<2)
-#define ADIE_bm   (1<<3)
-#define ADIF_bm   (1<<4)
-#define ADATE_bm  (1<<5)
-#define ADSC_bm   (1<<6)
-#define ADEN_bm   (1<<7)
-
-/* ADMUX */
-#define MUX0_bm   (1<<0)
-#define MUX1_bm   (1<<1)
-#define MUX2_bm   (1<<2)
-#define MUX3_bm   (1<<3)
-#define ADLAR_bm  (1<<5)
-#define REFS0_bm  (1<<6)
-#define REFS1_bm  (1<<7)
-
-/* DIDR0 */
-#define ADC0D_bm  (1<<0)
-#define ADC1D_bm  (1<<1)
-#define ADC2D_bm  (1<<2)
-#define ADC3D_bm  (1<<3)
-#define ADC4D_bm  (1<<4)
-#define ADC5D_bm  (1<<5)
-
-/* VREF NUMBERS */
-
-#define VREF_AREF           0
-#define VREF_AVCC           1
-#define VREF_BANDGAP_1_1V   2
-#define VREF_INVALID      255
-
-/**************************************************************************************
  * TYPEDEF
  **************************************************************************************/
 
-typedef enum
+enum class AdcPrescaler : uint8_t
 {
   Prescaler_2   =                       ADPS0_bm,
   Prescaler_4   =            ADPS1_bm,
@@ -86,27 +52,26 @@ typedef enum
   Prescaler_32  = ADPS2_bm |            ADPS0_bm,
   Prescaler_64  = ADPS2_bm | ADPS1_bm,
   Prescaler_128 = ADPS2_bm | ADPS1_bm | ADPS0_bm
-} AdcPrescalerSelect;
+};
 
-typedef enum
+enum class AdcReferenceVoltage : uint8_t
 {
   AREF          = 0,
   AVCC          =            REFS0_bm,
   BANDGAP_1_1V  = REFS1_bm | REFS0_bm
-} AdcReferenceVoltageSelect;
+};
 
-typedef enum
+enum class AdcChannel : uint8_t
 {
-  ADC_CH_0  = 0,
-  ADC_CH_1 =                     MUX0_bm,
-  ADC_CH_2 =           MUX1_bm,
-  ADC_CH_3 =           MUX1_bm | MUX0_bm,
-  ADC_CH_4 = MUX2_bm,
-  ADC_CH_5 = MUX2_bm |           MUX0_bm,
-  ADC_CH_6 = MUX2_bm | MUX1_bm,
-  ADC_CH_7 = MUX2_bm | MUX1_bm | MUX0_bm
-} AdcChannelSelect;
-
+  CH_0  = 0,
+  CH_1 =                     MUX0_bm,
+  CH_2 =           MUX1_bm,
+  CH_3 =           MUX1_bm | MUX0_bm,
+  CH_4 = MUX2_bm,
+  CH_5 = MUX2_bm |           MUX0_bm,
+  CH_6 = MUX2_bm | MUX1_bm,
+  CH_7 = MUX2_bm | MUX1_bm | MUX0_bm
+};
 
 /**************************************************************************************
  * CTOR/DTOR
@@ -137,15 +102,15 @@ void AnalogDigitalConverter::setAnalogChannel(uint8_t const adc_channel)
 
   switch(adc_channel)
   {
-  case 0 : { *_ADMUX |= static_cast<uint8_t>(ADC_CH_0); *_DIDR0 |= ADC0D_bm; } break;
-  case 1 : { *_ADMUX |= static_cast<uint8_t>(ADC_CH_1); *_DIDR0 |= ADC1D_bm; } break;
-  case 2 : { *_ADMUX |= static_cast<uint8_t>(ADC_CH_2); *_DIDR0 |= ADC2D_bm; } break;
-  case 3 : { *_ADMUX |= static_cast<uint8_t>(ADC_CH_3); *_DIDR0 |= ADC3D_bm; } break;
-  case 4 : { *_ADMUX |= static_cast<uint8_t>(ADC_CH_4); *_DIDR0 |= ADC4D_bm; } break;
-  case 5 : { *_ADMUX |= static_cast<uint8_t>(ADC_CH_5); *_DIDR0 |= ADC5D_bm; } break;
-  case 6 : { *_ADMUX |= static_cast<uint8_t>(ADC_CH_6);                      } break;
-  case 7 : { *_ADMUX |= static_cast<uint8_t>(ADC_CH_7);                      } break;
-  default:                                                                     break;
+  case 0 : { *_ADMUX |= static_cast<uint8_t>(AdcChannel::CH_0); *_DIDR0 |= ADC0D_bm; } break;
+  case 1 : { *_ADMUX |= static_cast<uint8_t>(AdcChannel::CH_1); *_DIDR0 |= ADC1D_bm; } break;
+  case 2 : { *_ADMUX |= static_cast<uint8_t>(AdcChannel::CH_2); *_DIDR0 |= ADC2D_bm; } break;
+  case 3 : { *_ADMUX |= static_cast<uint8_t>(AdcChannel::CH_3); *_DIDR0 |= ADC3D_bm; } break;
+  case 4 : { *_ADMUX |= static_cast<uint8_t>(AdcChannel::CH_4); *_DIDR0 |= ADC4D_bm; } break;
+  case 5 : { *_ADMUX |= static_cast<uint8_t>(AdcChannel::CH_5); *_DIDR0 |= ADC5D_bm; } break;
+  case 6 : { *_ADMUX |= static_cast<uint8_t>(AdcChannel::CH_6);                      } break;
+  case 7 : { *_ADMUX |= static_cast<uint8_t>(AdcChannel::CH_7);                      } break;
+  default:                                                                             break;
   }
 }
 
@@ -170,38 +135,27 @@ void AnalogDigitalConverter::setPrescaler(uint32_t const prescaler)
 
   switch(prescaler)
   {
-  case 2  : *_ADCSRA |= static_cast<uint8_t>(Prescaler_2  ); break;
-  case 4  : *_ADCSRA |= static_cast<uint8_t>(Prescaler_4  ); break;
-  case 8  : *_ADCSRA |= static_cast<uint8_t>(Prescaler_8  ); break;
-  case 16 : *_ADCSRA |= static_cast<uint8_t>(Prescaler_16 ); break;
-  case 32 : *_ADCSRA |= static_cast<uint8_t>(Prescaler_32 ); break;
-  case 64 : *_ADCSRA |= static_cast<uint8_t>(Prescaler_64 ); break;
-  case 128: *_ADCSRA |= static_cast<uint8_t>(Prescaler_128); break;
-  default :                                                  break;
+  case 2  : *_ADCSRA |= static_cast<uint8_t>(AdcPrescaler::Prescaler_2  ); break;
+  case 4  : *_ADCSRA |= static_cast<uint8_t>(AdcPrescaler::Prescaler_4  ); break;
+  case 8  : *_ADCSRA |= static_cast<uint8_t>(AdcPrescaler::Prescaler_8  ); break;
+  case 16 : *_ADCSRA |= static_cast<uint8_t>(AdcPrescaler::Prescaler_16 ); break;
+  case 32 : *_ADCSRA |= static_cast<uint8_t>(AdcPrescaler::Prescaler_32 ); break;
+  case 64 : *_ADCSRA |= static_cast<uint8_t>(AdcPrescaler::Prescaler_64 ); break;
+  case 128: *_ADCSRA |= static_cast<uint8_t>(AdcPrescaler::Prescaler_128); break;
+  default :                                                                break;
   }
 }
 
-void AnalogDigitalConverter::setReferenceVoltage(uint8_t const v_ref)
+void AnalogDigitalConverter::setReferenceVoltage(uint8_t const v_ref_num)
 {
   *_ADMUX &= ~(REFS1_bm | REFS0_bm);
 
-  switch(v_ref)
+  switch(v_ref_num)
   {
-  case VREF_AREF        : *_ADMUX |= static_cast<uint8_t>(AREF);         break;
-  case VREF_AVCC        : *_ADMUX |= static_cast<uint8_t>(AVCC);         break;
-  case VREF_BANDGAP_1_1V: *_ADMUX |= static_cast<uint8_t>(BANDGAP_1_1V); break;
-  default               :                                                break;
-  }
-}
-
-uint8_t AnalogDigitalConverter::toVRefNum(VRef const vref)
-{
-  switch(vref)
-  {
-  case VRef::AREF        : return VREF_AREF;         break;
-  case VRef::AVCC        : return VREF_AVCC;         break;
-  case VRef::BANDGAP_1_1V: return VREF_BANDGAP_1_1V; break;
-  default                : return VREF_INVALID;      break;
+  case toVRefNum(VRef::AREF        ): *_ADMUX |= static_cast<uint8_t>(AdcReferenceVoltage::AREF        ); break;
+  case toVRefNum(VRef::AVCC        ): *_ADMUX |= static_cast<uint8_t>(AdcReferenceVoltage::AVCC        ); break;
+  case toVRefNum(VRef::BANDGAP_1_1V): *_ADMUX |= static_cast<uint8_t>(AdcReferenceVoltage::BANDGAP_1_1V); break;
+  default                           :                                                                     break;
   }
 }
 

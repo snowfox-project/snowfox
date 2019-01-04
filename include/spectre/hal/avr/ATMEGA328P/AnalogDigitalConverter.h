@@ -44,10 +44,19 @@ namespace ATMEGA328P
 
 enum class VRef : uint8_t
 {
-  AREF,
-  AVCC,
-  BANDGAP_1_1V
+  AREF         = 0,
+  AVCC         = 1,
+  BANDGAP_1_1V = 2
 };
+
+/**************************************************************************************
+ * CONSTEXPR FUNCTIONS
+ **************************************************************************************/
+
+constexpr uint8_t toVRefNum(VRef const vref)
+{
+  return static_cast<uint8_t>(vref);
+}
 
 /**************************************************************************************
  * CLASS DECLARATION
@@ -73,10 +82,8 @@ public:
   /* Analog Digital Converter Configuration Interface */
 
   virtual void setPrescaler       (uint32_t const prescaler) override;
-  virtual void setReferenceVoltage(uint8_t  const v_ref    ) override;
+  virtual void setReferenceVoltage(uint8_t  const v_ref_num) override;
 
-
-  static uint8_t toVRefNum(VRef const vref);
 
 private:
 

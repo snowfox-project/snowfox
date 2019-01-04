@@ -53,7 +53,7 @@ public:
 
 
   virtual void setPrescaler       (uint32_t const prescaler) = 0;
-  virtual void setReferenceVoltage(uint8_t  const v_ref    ) = 0;
+  virtual void setReferenceVoltage(uint8_t  const v_ref_num) = 0;
 
 };
 

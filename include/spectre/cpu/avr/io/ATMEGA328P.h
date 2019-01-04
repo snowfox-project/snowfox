@@ -23,6 +23,54 @@
  * DEFINES
  **************************************************************************************/
 
+/* ADCSRA */
+#define ADEN_bp   (7)
+#define ADEN_bm   (1<<ADEN_bp)
+#define ADSC_bp   (6)
+#define ADSC_bm   (1<<ADSC_bp)
+#define ADATE_bp  (5)
+#define ADATE_bm  (1<<ADATE_bp)
+#define ADIF_bp   (4)
+#define ADIF_bm   (1<<ADIF_bp)
+#define ADIE_bp   (3)
+#define ADIE_bm   (1<<ADIE_bp)
+#define ADPS2_bp  (2)
+#define ADPS2_bm  (1<<ADPS2_bp)
+#define ADPS1_bp  (1)
+#define ADPS1_bm  (1<<ADPS1_bp)
+#define ADPS0_bp  (0)
+#define ADPS0_bm  (1<<ADPS0_bp)
+
+/* ADMUX */
+#define REFS1_bp  (7)
+#define REFS1_bm  (1<<REFS1_bp)
+#define REFS0_bp  (6)
+#define REFS0_bm  (1<<REFS0_bp)
+#define ADLAR_bp  (5)
+#define ADLAR_bm  (1<<ADLAR_bp)
+#define MUX3_bp   (3)
+#define MUX3_bm   (1<<MUX3_bp)
+#define MUX2_bp   (2)
+#define MUX2_bm   (1<<MUX2_bp)
+#define MUX1_bp   (1)
+#define MUX1_bm   (1<<MUX1_bp)
+#define MUX0_bp   (0)
+#define MUX0_bm   (1<<MUX0_bp)
+
+/* DIDR0 */
+#define ADC5D_bp  (5)
+#define ADC5D_bm  (1<<ADC5D_bp)
+#define ADC4D_bp  (4)
+#define ADC4D_bm  (1<<ADC4D_bp)
+#define ADC3D_bp  (3)
+#define ADC3D_bm  (1<<ADC3D_bp)
+#define ADC2D_bp  (2)
+#define ADC2D_bm  (1<<ADC2D_bp)
+#define ADC1D_bp  (1)
+#define ADC1D_bm  (1<<ADC1D_bp)
+#define ADC0D_bp  (0)
+#define ADC0D_bm  (1<<ADC0D_bp)
+
 /* EIMSK */
 #define INT0_bp   (0)
 #define INT1_bp   (1)
@@ -111,9 +159,6 @@
 #define UDRIE0_bp (5)
 #define TXCIE0_bp (6)
 #define RXCIE0_bp (7)
-
-/* ADCSRA */
-#define ADIE_bp   (3)
 
 /* EECR */
 #define EERIE_bp  (3)
