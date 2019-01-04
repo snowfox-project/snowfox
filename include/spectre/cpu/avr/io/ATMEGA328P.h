@@ -32,6 +32,35 @@
 #define PCIE1_bp  (1)
 #define PCIE2_bp  (2)
 
+/* PCMSK0 */
+#define PCINT7_bp  (7)
+#define PCINT6_bp  (6)
+#define PCINT5_bp  (5)
+#define PCINT4_bp  (4)
+#define PCINT3_bp  (3)
+#define PCINT2_bp  (2)
+#define PCINT1_bp  (1)
+#define PCINT0_bp  (0)
+
+/* PCMSK1 */
+#define PCINT14_bp (6)
+#define PCINT13_bp (5)
+#define PCINT12_bp (4)
+#define PCINT11_bp (3)
+#define PCINT10_bp (2)
+#define PCINT9_bp  (1)
+#define PCINT8_bp  (0)
+
+/* PCMSK2 */
+#define PCINT23_bp (7)
+#define PCINT22_bp (6)
+#define PCINT21_bp (5)
+#define PCINT20_bp (4)
+#define PCINT19_bp (3)
+#define PCINT18_bp (2)
+#define PCINT17_bp (1)
+#define PCINT16_bp (0)
+
 /* WDTCSR */
 #define WDIE_bp   (6)
 
