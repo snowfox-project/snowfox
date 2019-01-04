@@ -51,6 +51,30 @@
 #define OCIE0A_bp (1)
 #define OCIE0B_bp (2)
 
+/* TCCR0B */
+#define CS02_bp   (2)
+#define CS02_bm   (1<<CS02_bp)
+#define CS01_bp   (1)
+#define CS01_bm   (1<<CS01_bp)
+#define CS00_bp   (0)
+#define CS00_bm   (1<<CS00_bp)
+
+/* TCCR1B */
+#define CS12_bp   (2)
+#define CS12_bm   (1<<CS12_bp)
+#define CS11_bp   (1)
+#define CS11_bm   (1<<CS11_bp)
+#define CS10_bp   (0)
+#define CS10_bm   (1<<CS10_bp)
+
+/* TCCR2B */
+#define CS22_bp    (2)
+#define CS22_bm    (1<<CS22_bp)
+#define CS21_bp    (1)
+#define CS21_bm    (1<<CS21_bp)
+#define CS20_bp    (0)
+#define CS20_bm    (1<<CS20_bp)
+
 /* SPCR */
 #define SPIE_bp   (7)
 
