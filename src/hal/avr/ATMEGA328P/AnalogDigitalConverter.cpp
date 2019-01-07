@@ -45,13 +45,13 @@ namespace ATMEGA328P
 
 enum class AdcPrescaler : uint8_t
 {
-  Prescaler_2   =                       ADPS0_bm,
-  Prescaler_4   =            ADPS1_bm,
-  Prescaler_8   =            ADPS1_bm | ADPS0_bm,
-  Prescaler_16  = ADPS2_bm,
-  Prescaler_32  = ADPS2_bm |            ADPS0_bm,
-  Prescaler_64  = ADPS2_bm | ADPS1_bm,
-  Prescaler_128 = ADPS2_bm | ADPS1_bm | ADPS0_bm
+  P_2   =                       ADPS0_bm,
+  P_4   =            ADPS1_bm,
+  P_8   =            ADPS1_bm | ADPS0_bm,
+  P_16  = ADPS2_bm,
+  P_32  = ADPS2_bm |            ADPS0_bm,
+  P_64  = ADPS2_bm | ADPS1_bm,
+  P_128 = ADPS2_bm | ADPS1_bm | ADPS0_bm
 };
 
 enum class AdcReferenceVoltage : uint8_t
@@ -135,13 +135,13 @@ void AnalogDigitalConverter::setPrescaler(uint32_t const prescaler)
 
   switch(prescaler)
   {
-  case 2  : *_ADCSRA |= static_cast<uint8_t>(AdcPrescaler::Prescaler_2  ); break;
-  case 4  : *_ADCSRA |= static_cast<uint8_t>(AdcPrescaler::Prescaler_4  ); break;
-  case 8  : *_ADCSRA |= static_cast<uint8_t>(AdcPrescaler::Prescaler_8  ); break;
-  case 16 : *_ADCSRA |= static_cast<uint8_t>(AdcPrescaler::Prescaler_16 ); break;
-  case 32 : *_ADCSRA |= static_cast<uint8_t>(AdcPrescaler::Prescaler_32 ); break;
-  case 64 : *_ADCSRA |= static_cast<uint8_t>(AdcPrescaler::Prescaler_64 ); break;
-  case 128: *_ADCSRA |= static_cast<uint8_t>(AdcPrescaler::Prescaler_128); break;
+  case 2  : *_ADCSRA |= static_cast<uint8_t>(AdcPrescaler::P_2  ); break;
+  case 4  : *_ADCSRA |= static_cast<uint8_t>(AdcPrescaler::P_4  ); break;
+  case 8  : *_ADCSRA |= static_cast<uint8_t>(AdcPrescaler::P_8  ); break;
+  case 16 : *_ADCSRA |= static_cast<uint8_t>(AdcPrescaler::P_16 ); break;
+  case 32 : *_ADCSRA |= static_cast<uint8_t>(AdcPrescaler::P_32 ); break;
+  case 64 : *_ADCSRA |= static_cast<uint8_t>(AdcPrescaler::P_64 ); break;
+  case 128: *_ADCSRA |= static_cast<uint8_t>(AdcPrescaler::P_128); break;
   default :                                                                break;
   }
 }
