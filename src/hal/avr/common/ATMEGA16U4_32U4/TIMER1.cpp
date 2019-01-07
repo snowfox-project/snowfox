@@ -48,15 +48,15 @@ namespace ATMEGA16U4_32U4
  * TYPEDEF
  **************************************************************************************/
 
-typedef enum
+enum class Timer1Prescaler : uint8_t
 {
-  TIMER1_Prescaler_0     = 0,
-  TIMER1_Prescaler_1     =                     CS10_bm,
-  TIMER1_Prescaler_8     =           CS11_bm,
-  TIMER1_Prescaler_64    =           CS11_bm | CS10_bm,
-  TIMER1_Prescaler_256   = CS12_bm,
-  TIMER1_Prescaler_1024  = CS12_bm |           CS10_bm
-} Timer1PrescalerSelect;
+  P_0    = 0,
+  P_1    =                     CS10_bm,
+  P_8    =           CS11_bm,
+  P_64   =           CS11_bm | CS10_bm,
+  P_256  = CS12_bm,
+  P_1024 = CS12_bm |           CS10_bm
+};
 
 /**************************************************************************************
  * CTOR/DTOR
@@ -131,12 +131,12 @@ void TIMER1::setPrescaler_TCCR1B(uint32_t const prescaler)
 
   switch(prescaler)
   {
-  case 0    : *_TCCR1B |= static_cast<uint8_t>(TIMER1_Prescaler_0   ); break;
-  case 1    : *_TCCR1B |= static_cast<uint8_t>(TIMER1_Prescaler_1   ); break;
-  case 8    : *_TCCR1B |= static_cast<uint8_t>(TIMER1_Prescaler_8   ); break;
-  case 64   : *_TCCR1B |= static_cast<uint8_t>(TIMER1_Prescaler_64  ); break;
-  case 256  : *_TCCR1B |= static_cast<uint8_t>(TIMER1_Prescaler_256 ); break;
-  case 1024 : *_TCCR1B |= static_cast<uint8_t>(TIMER1_Prescaler_1024); break;
+  case 0    : *_TCCR1B |= static_cast<uint8_t>(Timer1Prescaler::P_0   ); break;
+  case 1    : *_TCCR1B |= static_cast<uint8_t>(Timer1Prescaler::P_1   ); break;
+  case 8    : *_TCCR1B |= static_cast<uint8_t>(Timer1Prescaler::P_8   ); break;
+  case 64   : *_TCCR1B |= static_cast<uint8_t>(Timer1Prescaler::P_64  ); break;
+  case 256  : *_TCCR1B |= static_cast<uint8_t>(Timer1Prescaler::P_256 ); break;
+  case 1024 : *_TCCR1B |= static_cast<uint8_t>(Timer1Prescaler::P_1024); break;
   }
 }
 

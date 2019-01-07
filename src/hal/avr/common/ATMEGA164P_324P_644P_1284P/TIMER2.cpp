@@ -41,17 +41,17 @@ namespace ATMEGA164P_324P_644P_1284P
  * TYPEDEF
  **************************************************************************************/
 
-typedef enum
+enum class Timer2Prescaler : uint8_t
 {
-  TIMER2_Prescaler_0     = 0,
-  TIMER2_Prescaler_1     =                     CS20_bm,
-  TIMER2_Prescaler_8     =           CS21_bm,
-  TIMER2_Prescaler_32    =           CS21_bm | CS20_bm,
-  TIMER2_Prescaler_64    = CS22_bm,
-  TIMER2_Prescaler_128   = CS22_bm |           CS20_bm,
-  TIMER2_Prescaler_256   = CS22_bm | CS21_bm,
-  TIMER2_Prescaler_1024  = CS22_bm | CS21_bm | CS20_bm
-} TIMER2PrescalerSelect;
+  P_0    = 0,
+  P_1    =                     CS20_bm,
+  P_8    =           CS21_bm,
+  P_32   =           CS21_bm | CS20_bm,
+  P_64   = CS22_bm,
+  P_128  = CS22_bm |           CS20_bm,
+  P_256  = CS22_bm | CS21_bm,
+  P_1024 = CS22_bm | CS21_bm | CS20_bm
+};
 
 /**************************************************************************************
  * CTOR/DTOR
@@ -123,14 +123,14 @@ void TIMER2::setPrescaler_TCCR2A(uint32_t const prescaler)
 
   switch(prescaler)
   {
-  case 0    : *_TCCR2A |= static_cast<uint8_t>(TIMER2_Prescaler_0   ); break;
-  case 1    : *_TCCR2A |= static_cast<uint8_t>(TIMER2_Prescaler_1   ); break;
-  case 8    : *_TCCR2A |= static_cast<uint8_t>(TIMER2_Prescaler_8   ); break;
-  case 32   : *_TCCR2A |= static_cast<uint8_t>(TIMER2_Prescaler_32  ); break;
-  case 64   : *_TCCR2A |= static_cast<uint8_t>(TIMER2_Prescaler_64  ); break;
-  case 128  : *_TCCR2A |= static_cast<uint8_t>(TIMER2_Prescaler_128 ); break;
-  case 256  : *_TCCR2A |= static_cast<uint8_t>(TIMER2_Prescaler_256 ); break;
-  case 1024 : *_TCCR2A |= static_cast<uint8_t>(TIMER2_Prescaler_1024); break;
+  case 0    : *_TCCR2A |= static_cast<uint8_t>(Timer2Prescaler::P_0   ); break;
+  case 1    : *_TCCR2A |= static_cast<uint8_t>(Timer2Prescaler::P_1   ); break;
+  case 8    : *_TCCR2A |= static_cast<uint8_t>(Timer2Prescaler::P_8   ); break;
+  case 32   : *_TCCR2A |= static_cast<uint8_t>(Timer2Prescaler::P_32  ); break;
+  case 64   : *_TCCR2A |= static_cast<uint8_t>(Timer2Prescaler::P_64  ); break;
+  case 128  : *_TCCR2A |= static_cast<uint8_t>(Timer2Prescaler::P_128 ); break;
+  case 256  : *_TCCR2A |= static_cast<uint8_t>(Timer2Prescaler::P_256 ); break;
+  case 1024 : *_TCCR2A |= static_cast<uint8_t>(Timer2Prescaler::P_1024); break;
   }
 }
 
