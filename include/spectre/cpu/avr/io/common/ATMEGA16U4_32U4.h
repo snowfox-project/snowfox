@@ -65,6 +65,16 @@
 /* EECR */
 #define EERIE_bp  (3)
 
+/* PCMSK0 */
+#define PCINT7_bp  (7)
+#define PCINT6_bp  (6)
+#define PCINT5_bp  (5)
+#define PCINT4_bp  (4)
+#define PCINT3_bp  (3)
+#define PCINT2_bp  (2)
+#define PCINT1_bp  (1)
+#define PCINT0_bp  (0)
+
 /* TIMSK3 */
 #define ICIE3_bp  (5)
 #define OCIE3C_bp (3)
