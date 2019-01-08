@@ -101,6 +101,54 @@
 #define OCIE5A_bp (1)
 #define TOIE5_bp  (0)
 
+/* TCCR0B */
+#define CS02_bp   (2)
+#define CS02_bm   (1<<CS02_bp)
+#define CS01_bp   (1)
+#define CS01_bm   (1<<CS01_bp)
+#define CS00_bp   (0)
+#define CS00_bm   (1<<CS00_bp)
+
+/* TCCR1B */
+#define CS12_bp   (2)
+#define CS12_bm   (1<<CS12_bp)
+#define CS11_bp   (1)
+#define CS11_bm   (1<<CS11_bp)
+#define CS10_bp   (0)
+#define CS10_bm   (1<<CS10_bp)
+
+/* TCCR2A */
+#define CS22_bp   (2)
+#define CS22_bm   (1<<CS22_bp)
+#define CS21_bp   (1)
+#define CS21_bm   (1<<CS21_bp)
+#define CS20_bp   (0)
+#define CS20_bm   (1<<CS20_bp)
+
+/* TCCR3B */
+#define CS32_bp   (2)
+#define CS32_bm   (1<<CS32_bp)
+#define CS31_bp   (1)
+#define CS31_bm   (1<<CS31_bp)
+#define CS30_bp   (0)
+#define CS30_bm   (1<<CS30_bp)
+
+/* TCCR4B */
+#define CS42_bp   (2)
+#define CS42_bm   (1<<CS42_bp)
+#define CS41_bp   (1)
+#define CS41_bm   (1<<CS41_bp)
+#define CS40_bp   (0)
+#define CS40_bm   (1<<CS40_bp)
+
+/* TCCR5B */
+#define CS52_bp   (2)
+#define CS52_bm   (1<<CS52_bp)
+#define CS51_bp   (1)
+#define CS51_bm   (1<<CS51_bp)
+#define CS50_bp   (0)
+#define CS50_bm   (1<<CS50_bp)
+
 /* UCSR2B */
 #define RXCIE2_bp (7)
 #define TXCIE2_bp (6)

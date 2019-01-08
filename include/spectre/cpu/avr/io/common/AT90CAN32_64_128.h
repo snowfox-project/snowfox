@@ -102,7 +102,7 @@
 #define OCIE3A_bp (1)
 #define TOIE3_bp  (0)
 
-/* TCCR0A */
+/* TCCR0B */
 #define CS02_bp   (2)
 #define CS02_bm   (1<<CS02_bp)
 #define CS01_bp   (1)
