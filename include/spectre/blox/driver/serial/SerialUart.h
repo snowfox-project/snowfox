@@ -59,12 +59,12 @@ public:
              uint16_t                        const   uart_tx_buffer_size);
 
   SerialUart(hal::interface::CriticalSection                  & crit_sec,
-              hal::interface::Uart                            & uart,
-              uint16_t                                  const   uart_rx_buffer_size,
-              uint16_t                                  const   uart_tx_buffer_size,
-              driver::serial::interface::SerialBaudRate const   baud_rate,
-              driver::serial::interface::SerialParity   const   parity,
-              driver::serial::interface::SerialStopBit  const   stop_bit);
+             hal::interface::Uart                            & uart,
+             uint16_t                                  const   uart_rx_buffer_size,
+             uint16_t                                  const   uart_tx_buffer_size,
+             driver::serial::interface::SerialBaudRate const   baud_rate,
+             driver::serial::interface::SerialParity   const   parity,
+             driver::serial::interface::SerialStopBit  const   stop_bit);
 
 
   driver::serial::Serial & operator () () { return _serial; }
@@ -72,7 +72,7 @@ public:
 
 private:
 
-  util::container::Queue<uint8_t>              _serial_rx_queue,
+  util::container::Queue<uint8_t>                _serial_rx_queue,
                                                  _serial_tx_queue;
   driver::serial::UART::UART_onRxDoneCallback    _serial_on_rx_done_callback;
   driver::serial::UART::UART_onTxDoneCallback    _serial_on_tx_done_callback;
