@@ -22,6 +22,10 @@
 
 #include <spectre/hal/avr/common/ATMEGA3209_4809/TIMERAx.h>
 
+#include <spectre/util/BitManip.h>
+
+#include <spectre/cpu/avr/io/common/ATMEGA3209_4809.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -36,29 +40,19 @@ namespace ATMEGA3209_4809
 {
 
 /**************************************************************************************
- * DEFINES
- **************************************************************************************/
-
-/* TCA_CTRLA */
-#define TCA_CLKSEL2_bm  (1<<3)
-#define TCA_CLKSEL1_bm  (1<<2)
-#define TCA_CLKSEL0_bm  (1<<1)
-#define TCA_ENABLE_bm   (1<<0)
-
-/**************************************************************************************
  * TYPEDEF
  **************************************************************************************/
 
 enum class Prescaler : uint8_t
 {
   P1    = 0,
-  P2    =                                   TCA_CLKSEL0_bm,
-  P4    =                  TCA_CLKSEL1_bm,
-  P8    =                  TCA_CLKSEL1_bm | TCA_CLKSEL0_bm,
-  P16   = TCA_CLKSEL2_bm,
-  P64   = TCA_CLKSEL2_bm |                  TCA_CLKSEL0_bm,
-  P256  = TCA_CLKSEL2_bm | TCA_CLKSEL1_bm,
-  P1024 = TCA_CLKSEL2_bm | TCA_CLKSEL1_bm | TCA_CLKSEL0_bm
+  P2    =                                     TCAx_CLKSEL0_bm,
+  P4    =                   TCAx_CLKSEL1_bm,
+  P8    =                   TCAx_CLKSEL1_bm | TCAx_CLKSEL0_bm,
+  P16   = TCAx_CLKSEL2_bm,
+  P64   = TCAx_CLKSEL2_bm |                   TCAx_CLKSEL0_bm,
+  P256  = TCAx_CLKSEL2_bm | TCAx_CLKSEL1_bm,
+  P1024 = TCAx_CLKSEL2_bm | TCAx_CLKSEL1_bm | TCAx_CLKSEL0_bm
 };
 
 /**************************************************************************************
@@ -90,12 +84,12 @@ TIMERAx::~TIMERAx()
 
 void TIMERAx::start()
 {
-  *_TCAx_CTRLA |= TCA_ENABLE_bm;
+  util::setBit(_TCAx_CTRLA, TCAx_ENABLE_bp);
 }
 
 void TIMERAx::stop()
 {
-  *_TCAx_CTRLA &= ~TCA_ENABLE_bm;
+  util::clrBit(_TCAx_CTRLA, TCAx_ENABLE_bp);
 }
 
 void TIMERAx::set(uint16_t const val)
@@ -120,7 +114,7 @@ void TIMERAx::setCompareRegister(uint8_t const reg_sel, uint16_t const reg_val)
 
 void TIMERAx::setPrescaler(uint32_t const prescaler)
 {
-  *_TCAx_CTRLA &= ~(TCA_CLKSEL2_bm | TCA_CLKSEL1_bm | TCA_CLKSEL0_bm);
+  *_TCAx_CTRLA &= ~(TCAx_CLKSEL2_bm | TCAx_CLKSEL1_bm | TCAx_CLKSEL0_bm);
 
   switch(prescaler)
   {

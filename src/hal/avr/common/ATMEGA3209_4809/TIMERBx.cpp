@@ -22,6 +22,10 @@
 
 #include <spectre/hal/avr/common/ATMEGA3209_4809/TIMERBx.h>
 
+#include <spectre/util/BitManip.h>
+
+#include <spectre/cpu/avr/io/common/ATMEGA3209_4809.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -36,23 +40,14 @@ namespace ATMEGA3209_4809
 {
 
 /**************************************************************************************
- * DEFINES
- **************************************************************************************/
-
-/* TCB_CTRLA */
-#define TCB_CLKSEL1_bm  (1<<2)
-#define TCB_CLKSEL0_bm  (1<<1)
-#define TCB_ENABLE_bm   (1<<0)
-
-/**************************************************************************************
  * TYPEDEF
  **************************************************************************************/
 
 enum class Prescaler : uint8_t
 {
   P1      = 0,
-  P2      =                 TCB_CLKSEL0_bm,
-  CLK_TCA = TCB_CLKSEL1_bm,
+  P2      =                 TCBx_CLKSEL0_bm,
+  CLK_TCA = TCBx_CLKSEL1_bm,
 };
 
 /**************************************************************************************
@@ -78,12 +73,12 @@ TIMERBx::~TIMERBx()
 
 void TIMERBx::start()
 {
-  *_TCBx_CTRLA |= TCB_ENABLE_bm;
+  util::setBit(_TCBx_CTRLA, TCBx_ENABLE_bp);
 }
 
 void TIMERBx::stop()
 {
-  *_TCBx_CTRLA &= ~TCB_ENABLE_bm;
+  util::clrBit(_TCBx_CTRLA, TCBx_ENABLE_bp);
 }
 
 void TIMERBx::set(uint16_t const val)
@@ -103,7 +98,7 @@ void TIMERBx::setCompareRegister(uint8_t const reg_sel, uint16_t const reg_val)
 
 void TIMERBx::setPrescaler(uint32_t const prescaler)
 {
-  *_TCBx_CTRLA &= ~(TCB_CLKSEL1_bm | TCB_CLKSEL0_bm);
+  *_TCBx_CTRLA &= ~(TCBx_CLKSEL1_bm | TCBx_CLKSEL0_bm);
 
   switch(prescaler)
   {

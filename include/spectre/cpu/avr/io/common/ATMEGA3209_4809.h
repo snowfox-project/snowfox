@@ -36,11 +36,29 @@
 /* RTC_PITINTCTRL */
 #define RTC_PI_bp        (0)
 
+/* TCAx_CTRLA */
+#define TCAx_CLKSEL2_bp  (3)
+#define TCAx_CLKSEL2_bm  (1<<TCAx_CLKSEL2_bp)
+#define TCAx_CLKSEL1_bp  (2)
+#define TCAx_CLKSEL1_bm  (1<<TCAx_CLKSEL1_bp)
+#define TCAx_CLKSEL0_bp  (1)
+#define TCAx_CLKSEL0_bm  (1<<TCAx_CLKSEL0_bp)
+#define TCAx_ENABLE_bp   (0)
+#define TCAx_ENABLE_bm   (1<<TCAx_ENABLE_bp)
+
 /* TCAx_INTCTRL */
 #define TCAx_CMP2_bp     (6)
 #define TCAx_CMP1_bp     (5)
 #define TCAx_CMP0_bp     (4)
 #define TCAx_OVF_bp      (0)
+
+/* TCBx_CTRLA */
+#define TCBx_CLKSEL1_bp  (2)
+#define TCBx_CLKSEL1_bm  (1<<TCBx_CLKSEL1_bp)
+#define TCBx_CLKSEL0_bp  (1)
+#define TCBx_CLKSEL0_bm  (1<<TCBx_CLKSEL0_bp)
+#define TCBx_ENABLE_bp   (0)
+#define TCBx_ENABLE_bm   (1<<TCBx_ENABLE_bp)
 
 /* TCBx_INTCTRL */
 #define TCBx_CAPT_bp     (0)
