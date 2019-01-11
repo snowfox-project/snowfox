@@ -24,11 +24,9 @@
  **************************************************************************************/
 
 #include <spectre/hal/interface/extint/ExternalInterruptAssembly.h>
-#include <spectre/hal/interface/extint/ExternalInterruptCallback.h>
 #include <spectre/hal/interface/extint/ExternalInterruptConfiguration.h>
 
-#include <spectre/hal/interface/interrupt/InterruptControl.h>
-#include <spectre/hal/interface/interrupt/InterruptCallback.h>
+#include <spectre/hal/interface/interrupt/InterruptController.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -49,38 +47,38 @@ namespace ATMEGA640_1280_2560
 
 enum class ExternalInterrupt : uint8_t
 {
-  EXTERNAL_INT0    =  0,
-  EXTERNAL_INT1    =  1,
-  EXTERNAL_INT2    =  2,
-  EXTERNAL_INT3    =  3,
-  EXTERNAL_INT4    =  4,
-  EXTERNAL_INT5    =  5,
-  EXTERNAL_INT6    =  6,
-  EXTERNAL_INT7    =  7,
-  PIN_CHANGE_INT0  =  8,
-  PIN_CHANGE_INT1  =  9,
-  PIN_CHANGE_INT2  = 10,
-  PIN_CHANGE_INT3  = 11,
-  PIN_CHANGE_INT4  = 12,
-  PIN_CHANGE_INT5  = 13,
-  PIN_CHANGE_INT6  = 14,
-  PIN_CHANGE_INT7  = 15,
-  PIN_CHANGE_INT8  = 16,
-  PIN_CHANGE_INT9  = 17,
-  PIN_CHANGE_INT10 = 18,
-  PIN_CHANGE_INT11 = 19,
-  PIN_CHANGE_INT12 = 20,
-  PIN_CHANGE_INT13 = 21,
-  PIN_CHANGE_INT14 = 22,
-  PIN_CHANGE_INT15 = 23,
-  PIN_CHANGE_INT16 = 24,
-  PIN_CHANGE_INT17 = 25,
-  PIN_CHANGE_INT18 = 26,
-  PIN_CHANGE_INT19 = 27,
-  PIN_CHANGE_INT20 = 28,
-  PIN_CHANGE_INT21 = 29,
-  PIN_CHANGE_INT22 = 30,
-  PIN_CHANGE_INT23 = 31
+  EXTERNAL_INT0,
+  EXTERNAL_INT1,
+  EXTERNAL_INT2,
+  EXTERNAL_INT3,
+  EXTERNAL_INT4,
+  EXTERNAL_INT5,
+  EXTERNAL_INT6,
+  EXTERNAL_INT7,
+  PIN_CHANGE_INT0,
+  PIN_CHANGE_INT1,
+  PIN_CHANGE_INT2,
+  PIN_CHANGE_INT3,
+  PIN_CHANGE_INT4,
+  PIN_CHANGE_INT5,
+  PIN_CHANGE_INT6,
+  PIN_CHANGE_INT7,
+  PIN_CHANGE_INT8,
+  PIN_CHANGE_INT9,
+  PIN_CHANGE_INT10,
+  PIN_CHANGE_INT11,
+  PIN_CHANGE_INT12,
+  PIN_CHANGE_INT13,
+  PIN_CHANGE_INT14,
+  PIN_CHANGE_INT15,
+  PIN_CHANGE_INT16,
+  PIN_CHANGE_INT17,
+  PIN_CHANGE_INT18,
+  PIN_CHANGE_INT19,
+  PIN_CHANGE_INT20,
+  PIN_CHANGE_INT21,
+  PIN_CHANGE_INT22,
+  PIN_CHANGE_INT23
 };
 
 /**************************************************************************************
@@ -102,12 +100,9 @@ class ExternalInterruptController : public interface::ExternalInterruptConfigura
 
 public:
 
-           ExternalInterruptController(volatile uint8_t            * eicra,
-                                       volatile uint8_t            * eicrb,
-                                       volatile uint8_t            * pcmsk0,
-                                       volatile uint8_t            * pcmsk1,
-                                       volatile uint8_t            * pcmsk2,
-                                       interface::InterruptControl & int_ctrl);
+           ExternalInterruptController(volatile uint8_t               * eicra,
+                                       volatile uint8_t               * eicrb,
+                                       interface::InterruptController & int_ctrl);
   virtual ~ExternalInterruptController();
 
 
@@ -120,181 +115,15 @@ public:
 
   /* External Interrupt Assembly */
 
-  virtual void registerExternalInterruptCallback(uint8_t const ext_int_num, interface::ExternalInterruptCallback * external_interrupt_callback) override;
-
-
-  /* Functions to be called upon execution of a interrupt service routine */
-
-  void ISR_onEint0Event     ();
-  void ISR_onEint1Event     ();
-  void ISR_onEint2Event     ();
-  void ISR_onEint3Event     ();
-  void ISR_onEint4Event     ();
-  void ISR_onEint5Event     ();
-  void ISR_onEint6Event     ();
-  void ISR_onEint7Event     ();
-  void ISR_onPinChange0Event();
-  void ISR_onPinChange1Event();
-  void ISR_onPinChange2Event();
+  virtual void registerInterruptCallback(uint8_t const ext_int_num, interface::InterruptCallback * interrupt_callback) override;
 
 
 private:
 
-  static uint8_t constexpr NUM_EXTERNAL_INTERRUPTS = 32;
+  volatile uint8_t               * _EICRA,
+                                 * _EICRB;
+  interface::InterruptController & _int_ctrl;
 
-
-  volatile uint8_t                     * _EICRA,
-                                       * _EICRB,
-                                       * _PCMSK0,
-                                       * _PCMSK1,
-                                       * _PCMSK2;
-  interface::InterruptControl          & _int_ctrl;
-  interface::ExternalInterruptCallback * _external_interrupt_callback[NUM_EXTERNAL_INTERRUPTS];
-
-};
-
-/**************************************************************************************/
-
-class EINT0_ExternalInterruptEventCallback : public interface::InterruptCallback
-{
-public:
-           EINT0_ExternalInterruptEventCallback(ExternalInterruptController & ext_int_ctrl) : _ext_int_ctrl(ext_int_ctrl) { }
-  virtual ~EINT0_ExternalInterruptEventCallback() { }
-  virtual void interruptServiceRoutine() override { _ext_int_ctrl.ISR_onEint0Event(); }
-
-private:
-  ExternalInterruptController & _ext_int_ctrl;
-};
-
-/**************************************************************************************/
-
-class EINT1_ExternalInterruptEventCallback : public interface::InterruptCallback
-{
-public:
-           EINT1_ExternalInterruptEventCallback(ExternalInterruptController & ext_int_ctrl) : _ext_int_ctrl(ext_int_ctrl) { }
-  virtual ~EINT1_ExternalInterruptEventCallback() { }
-  virtual void interruptServiceRoutine() override { _ext_int_ctrl.ISR_onEint1Event(); }
-
-private:
-  ExternalInterruptController & _ext_int_ctrl;
-};
-
-/**************************************************************************************/
-
-class EINT2_ExternalInterruptEventCallback : public interface::InterruptCallback
-{
-public:
-           EINT2_ExternalInterruptEventCallback(ExternalInterruptController & ext_int_ctrl) : _ext_int_ctrl(ext_int_ctrl) { }
-  virtual ~EINT2_ExternalInterruptEventCallback() { }
-  virtual void interruptServiceRoutine() override { _ext_int_ctrl.ISR_onEint2Event(); }
-
-private:
-  ExternalInterruptController & _ext_int_ctrl;
-};
-
-/**************************************************************************************/
-
-class EINT3_ExternalInterruptEventCallback : public interface::InterruptCallback
-{
-public:
-           EINT3_ExternalInterruptEventCallback(ExternalInterruptController & ext_int_ctrl) : _ext_int_ctrl(ext_int_ctrl) { }
-  virtual ~EINT3_ExternalInterruptEventCallback() { }
-  virtual void interruptServiceRoutine() override { _ext_int_ctrl.ISR_onEint3Event(); }
-
-private:
-  ExternalInterruptController & _ext_int_ctrl;
-};
-
-/**************************************************************************************/
-
-class EINT4_ExternalInterruptEventCallback : public interface::InterruptCallback
-{
-public:
-           EINT4_ExternalInterruptEventCallback(ExternalInterruptController & ext_int_ctrl) : _ext_int_ctrl(ext_int_ctrl) { }
-  virtual ~EINT4_ExternalInterruptEventCallback() { }
-  virtual void interruptServiceRoutine() override { _ext_int_ctrl.ISR_onEint4Event(); }
-
-private:
-  ExternalInterruptController & _ext_int_ctrl;
-};
-
-/**************************************************************************************/
-
-class EINT5_ExternalInterruptEventCallback : public interface::InterruptCallback
-{
-public:
-           EINT5_ExternalInterruptEventCallback(ExternalInterruptController & ext_int_ctrl) : _ext_int_ctrl(ext_int_ctrl) { }
-  virtual ~EINT5_ExternalInterruptEventCallback() { }
-  virtual void interruptServiceRoutine() override { _ext_int_ctrl.ISR_onEint5Event(); }
-
-private:
-  ExternalInterruptController & _ext_int_ctrl;
-};
-
-/**************************************************************************************/
-
-class EINT6_ExternalInterruptEventCallback : public interface::InterruptCallback
-{
-public:
-           EINT6_ExternalInterruptEventCallback(ExternalInterruptController & ext_int_ctrl) : _ext_int_ctrl(ext_int_ctrl) { }
-  virtual ~EINT6_ExternalInterruptEventCallback() { }
-  virtual void interruptServiceRoutine() override { _ext_int_ctrl.ISR_onEint6Event(); }
-
-private:
-  ExternalInterruptController & _ext_int_ctrl;
-};
-
-/**************************************************************************************/
-
-class EINT7_ExternalInterruptEventCallback : public interface::InterruptCallback
-{
-public:
-
-           EINT7_ExternalInterruptEventCallback(ExternalInterruptController & ext_int_ctrl) : _ext_int_ctrl(ext_int_ctrl) { }
-  virtual ~EINT7_ExternalInterruptEventCallback() { }
-  virtual void interruptServiceRoutine() override { _ext_int_ctrl.ISR_onEint7Event(); }
-
-private:
-  ExternalInterruptController & _ext_int_ctrl;
-};
-
-/**************************************************************************************/
-
-class PinChange0_ExternalInterruptEventCallback : public interface::InterruptCallback
-{
-public:
-           PinChange0_ExternalInterruptEventCallback(ExternalInterruptController & ext_int_ctrl) : _ext_int_ctrl(ext_int_ctrl) { }
-  virtual ~PinChange0_ExternalInterruptEventCallback() { }
-  virtual void interruptServiceRoutine() override { _ext_int_ctrl.ISR_onPinChange0Event(); }
-
-private:
-  ExternalInterruptController & _ext_int_ctrl;
-};
-
-/**************************************************************************************/
-
-class PinChange1_ExternalInterruptEventCallback : public interface::InterruptCallback
-{
-public:
-           PinChange1_ExternalInterruptEventCallback(ExternalInterruptController & ext_int_ctrl) : _ext_int_ctrl(ext_int_ctrl) { }
-  virtual ~PinChange1_ExternalInterruptEventCallback() { }
-  virtual void interruptServiceRoutine() override { _ext_int_ctrl.ISR_onPinChange1Event(); }
-
-private:
-  ExternalInterruptController & _ext_int_ctrl;
-};
-
-/**************************************************************************************/
-
-class PinChange2_ExternalInterruptEventCallback : public interface::InterruptCallback
-{
-public:
-           PinChange2_ExternalInterruptEventCallback(ExternalInterruptController & ext_int_ctrl) : _ext_int_ctrl(ext_int_ctrl) { }
-  virtual ~PinChange2_ExternalInterruptEventCallback() { }
-  virtual void interruptServiceRoutine() override { _ext_int_ctrl.ISR_onPinChange2Event(); }
-
-private:
-  ExternalInterruptController & _ext_int_ctrl;
 };
 
 /**************************************************************************************

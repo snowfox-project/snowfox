@@ -46,13 +46,11 @@ namespace ATMEGA16U4_32U4
  * CTOR/DTOR
  **************************************************************************************/
 
-ExternalInterruptController::ExternalInterruptController(volatile uint8_t            * eicra,
-                                                         volatile uint8_t            * eicrb,
-                                                         volatile uint8_t            * pcmsk0,
-                                                         interface::InterruptControl & int_ctrl)
+ExternalInterruptController::ExternalInterruptController(volatile uint8_t               * eicra,
+                                                         volatile uint8_t               * eicrb,
+                                                         interface::InterruptController & int_ctrl)
 : _EICRA   (eicra   ),
   _EICRB   (eicrb   ),
-  _PCMSK0  (pcmsk0  ),
   _int_ctrl(int_ctrl)
 {
 
@@ -120,65 +118,9 @@ void ExternalInterruptController::disable(uint8_t const ext_int_num)
   }
 }
 
-void ExternalInterruptController::registerExternalInterruptCallback(uint8_t const ext_int_num, interface::ExternalInterruptCallback * external_interrupt_callback)
+void ExternalInterruptController::registerInterruptCallback(uint8_t const ext_int_num, interface::InterruptCallback * interrupt_callback)
 {
-  if(ext_int_num < NUM_EXTERNAL_INTERRUPTS)
-  {
-    _external_interrupt_callback[ext_int_num] = external_interrupt_callback;
-  }
-}
-
-void ExternalInterruptController::ISR_onEint0Event()
-{
-  if(_external_interrupt_callback[toExtIntNum(ExternalInterrupt::EXTERNAL_INT0)])
-  {
-    _external_interrupt_callback[toExtIntNum(ExternalInterrupt::EXTERNAL_INT0)]->onExternalEventCallback();
-  }
-}
-
-void ExternalInterruptController::ISR_onEint1Event()
-{
-  if(_external_interrupt_callback[toExtIntNum(ExternalInterrupt::EXTERNAL_INT1)])
-  {
-    _external_interrupt_callback[toExtIntNum(ExternalInterrupt::EXTERNAL_INT1)]->onExternalEventCallback();
-  }
-}
-
-void ExternalInterruptController::ISR_onEint2Event()
-{
-  if(_external_interrupt_callback[toExtIntNum(ExternalInterrupt::EXTERNAL_INT2)])
-  {
-    _external_interrupt_callback[toExtIntNum(ExternalInterrupt::EXTERNAL_INT2)]->onExternalEventCallback();
-  }
-}
-
-void ExternalInterruptController::ISR_onEint3Event()
-{
-  if(_external_interrupt_callback[toExtIntNum(ExternalInterrupt::EXTERNAL_INT3)])
-  {
-    _external_interrupt_callback[toExtIntNum(ExternalInterrupt::EXTERNAL_INT3)]->onExternalEventCallback();
-  }
-}
-
-void ExternalInterruptController::ISR_onEint6Event()
-{
-  if(_external_interrupt_callback[toExtIntNum(ExternalInterrupt::EXTERNAL_INT6)])
-  {
-    _external_interrupt_callback[toExtIntNum(ExternalInterrupt::EXTERNAL_INT6)]->onExternalEventCallback();
-  }
-}
-
-void ExternalInterruptController::ISR_onPinChange0Event()
-{
-  for(uint8_t ext_int_num = toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT0);
-      ext_int_num <= toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT7);
-      ext_int_num++)
-  {
-    if(_external_interrupt_callback[ext_int_num])
-    {
-      _external_interrupt_callback[ext_int_num]->onExternalEventCallback();
-    }
-  }
+  /* TODO */
 }
 
 /**************************************************************************************
