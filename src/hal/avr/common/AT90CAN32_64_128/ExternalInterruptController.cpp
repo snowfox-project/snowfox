@@ -42,9 +42,9 @@ namespace AT90CAN32_64_128
  * CTOR/DTOR
  **************************************************************************************/
 
-ExternalInterruptController::ExternalInterruptController(volatile uint8_t            * eicra,
-                                                         volatile uint8_t            * eicrb,
-                                                         interface::InterruptControl & int_ctrl)
+ExternalInterruptController::ExternalInterruptController(volatile uint8_t               * eicra,
+                                                         volatile uint8_t               * eicrb,
+                                                         interface::InterruptController & int_ctrl)
 : _EICRA   (eicra   ),
   _EICRB   (eicrb   ),
   _int_ctrl(int_ctrl)
@@ -107,75 +107,18 @@ void ExternalInterruptController::disable(uint8_t const ext_int_num)
   }
 }
 
-void ExternalInterruptController::registerExternalInterruptCallback(uint8_t const ext_int_num, interface::ExternalInterruptCallback * external_interrupt_callback)
+void ExternalInterruptController::registerInterruptCallback(uint8_t const ext_int_num, interface::InterruptCallback * interrupt_callback)
 {
-  if(ext_int_num < NUM_EXTERNAL_INTERRUPTS)
+  switch(ext_int_num)
   {
-    _external_interrupt_callback[ext_int_num] = external_interrupt_callback;
-  }
-}
-
-void ExternalInterruptController::ISR_onEint0Event()
-{
-  if(_external_interrupt_callback[toExtIntNum(ExternalInterrupt::EXTERNAL_INT0)])
-  {
-    _external_interrupt_callback[toExtIntNum(ExternalInterrupt::EXTERNAL_INT0)]->onExternalEventCallback();
-  }
-}
-
-void ExternalInterruptController::ISR_onEint1Event()
-{
-  if(_external_interrupt_callback[toExtIntNum(ExternalInterrupt::EXTERNAL_INT1)])
-  {
-    _external_interrupt_callback[toExtIntNum(ExternalInterrupt::EXTERNAL_INT1)]->onExternalEventCallback();
-  }
-}
-
-void ExternalInterruptController::ISR_onEint2Event()
-{
-  if(_external_interrupt_callback[toExtIntNum(ExternalInterrupt::EXTERNAL_INT2)])
-  {
-    _external_interrupt_callback[toExtIntNum(ExternalInterrupt::EXTERNAL_INT2)]->onExternalEventCallback();
-  }
-}
-
-void ExternalInterruptController::ISR_onEint3Event()
-{
-  if(_external_interrupt_callback[toExtIntNum(ExternalInterrupt::EXTERNAL_INT3)])
-  {
-    _external_interrupt_callback[toExtIntNum(ExternalInterrupt::EXTERNAL_INT3)]->onExternalEventCallback();
-  }
-}
-
-void ExternalInterruptController::ISR_onEint4Event()
-{
-  if(_external_interrupt_callback[toExtIntNum(ExternalInterrupt::EXTERNAL_INT4)])
-  {
-    _external_interrupt_callback[toExtIntNum(ExternalInterrupt::EXTERNAL_INT4)]->onExternalEventCallback();
-  }
-}
-
-void ExternalInterruptController::ISR_onEint5Event()
-{
-  if(_external_interrupt_callback[toExtIntNum(ExternalInterrupt::EXTERNAL_INT5)])
-  {
-    _external_interrupt_callback[toExtIntNum(ExternalInterrupt::EXTERNAL_INT5)]->onExternalEventCallback();
-  }
-}
-
-void ExternalInterruptController::ISR_onEint6Event()
-{
-  if(_external_interrupt_callback[toExtIntNum(ExternalInterrupt::EXTERNAL_INT6)])
-  {
-    _external_interrupt_callback[toExtIntNum(ExternalInterrupt::EXTERNAL_INT6)]->onExternalEventCallback();
-  }
-}
-
-void ExternalInterruptController::ISR_onEint7Event()
-{
-  if(_external_interrupt_callback[toExtIntNum(ExternalInterrupt::EXTERNAL_INT7)])
-  {
-    _external_interrupt_callback[toExtIntNum(ExternalInterrupt::EXTERNAL_INT7)]->onExternalEventCallback();
+  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT0): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::EXTERNAL_INT0), interrupt_callback); break;
+  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT1): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::EXTERNAL_INT1), interrupt_callback); break;
+  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT2): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::EXTERNAL_INT2), interrupt_callback); break;
+  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT3): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::EXTERNAL_INT3), interrupt_callback); break;
+  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT4): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::EXTERNAL_INT4), interrupt_callback); break;
+  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT5): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::EXTERNAL_INT5), interrupt_callback); break;
+  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT6): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::EXTERNAL_INT6), interrupt_callback); break;
+  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT7): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::EXTERNAL_INT7), interrupt_callback); break;
   }
 }
 
