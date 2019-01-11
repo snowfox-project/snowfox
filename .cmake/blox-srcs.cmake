@@ -191,7 +191,6 @@ if(${MCU_ARCH} STREQUAL "avr")
   # ATMEGA328P ###########################################################
 
   set(SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA328P_SRCS 
-    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/ATMEGA328P/ExternalInterruptController.cpp
   )
   
   if(${MCU_TYPE} STREQUAL "atmega328p")

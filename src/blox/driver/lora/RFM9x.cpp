@@ -62,8 +62,8 @@ RFM9x::RFM9x(hal::interface::CriticalSection                & crit_sec,
 
   _rfm9x                                 (_rfm9x_config, _rfm9x_control, _rfm9x_status, _rfm9x_rx_done_event, _rfm9x_rx_timeout_event, _rfm9x_tx_done_event)
 {
-  ext_int_ctrl.registerExternalInterruptCallback(dio0_ext_int_num, &_rfm9x_dio0_event_callback);
-  ext_int_ctrl.registerExternalInterruptCallback(dio1_ext_int_num, &_rfm9x_dio1_event_callback);
+  ext_int_ctrl.registerInterruptCallback(dio0_ext_int_num, &_rfm9x_dio0_event_callback);
+  ext_int_ctrl.registerInterruptCallback(dio1_ext_int_num, &_rfm9x_dio1_event_callback);
 
   _rfm9x.open();
 }

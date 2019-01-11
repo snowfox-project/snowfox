@@ -23,7 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/interface/extint/ExternalInterruptCallback.h>
+#include <spectre/hal/interface/interrupt/InterruptCallback.h>
 
 #include <spectre/driver/lora/RFM9x/interface/events/DIO0/RFM9x_onTxDoneCallback.h>
 #include <spectre/driver/lora/RFM9x/interface/events/DIO0/RFM9x_onRxDoneCallback.h>
@@ -56,7 +56,7 @@ namespace RFM9x
  * on DIO0: RxDone, TxDone, CadDone
  */
 
-class RFM9x_Dio0EventCallback :  public hal::interface::ExternalInterruptCallback
+class RFM9x_Dio0EventCallback : public hal::interface::InterruptCallback
 {
 
 public:
@@ -68,7 +68,7 @@ public:
   virtual ~RFM9x_Dio0EventCallback();
 
 
-  virtual void onExternalEventCallback() override;
+  virtual void interruptServiceRoutine() override;
 
 
 private:

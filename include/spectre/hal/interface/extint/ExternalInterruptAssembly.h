@@ -25,7 +25,7 @@
 
 #include <stdint.h>
 
-#include <spectre/hal/interface/extint/ExternalInterruptCallback.h>
+#include <spectre/hal/interface/interrupt/InterruptCallback.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -53,7 +53,7 @@ public:
   virtual ~ExternalInterruptAssembly() { }
 
 
-  virtual void registerExternalInterruptCallback(uint8_t const ext_int_num, ExternalInterruptCallback * external_interrupt_callback) = 0;
+  virtual void registerInterruptCallback(uint8_t const ext_int_num, InterruptCallback * interrupt_callback) = 0;
 
 };
 
