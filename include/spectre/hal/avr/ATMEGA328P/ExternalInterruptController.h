@@ -115,6 +115,9 @@ private:
   volatile uint8_t               * _EICRA;
   interface::InterruptController & _int_ctrl;
 
+
+  static uint8_t converToIntNum(uint8_t const ext_int_num);
+
 };
 
 /**************************************************************************************

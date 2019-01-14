@@ -71,97 +71,65 @@ void ExternalInterruptController::setTriggerMode(uint8_t const ext_int_num, inte
 
 void ExternalInterruptController::enable(uint8_t const ext_int_num)
 {
-  switch(ext_int_num)
+  uint8_t const int_num = converToIntNum(ext_int_num);
+  if(int_num != interface::InterruptController::INVALID_INT_NUM)
   {
-  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT0   ): _int_ctrl.enableInterrupt(toIntNum(Interrupt::EXTERNAL_INT0   )); break;
-  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT1   ): _int_ctrl.enableInterrupt(toIntNum(Interrupt::EXTERNAL_INT1   )); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT0 ): _int_ctrl.enableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT0 )); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT1 ): _int_ctrl.enableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT1 )); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT2 ): _int_ctrl.enableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT2 )); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT3 ): _int_ctrl.enableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT3 )); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT4 ): _int_ctrl.enableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT4 )); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT5 ): _int_ctrl.enableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT5 )); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT6 ): _int_ctrl.enableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT6 )); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT7 ): _int_ctrl.enableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT7 )); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT8 ): _int_ctrl.enableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT8 )); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT9 ): _int_ctrl.enableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT9 )); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT10): _int_ctrl.enableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT10)); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT11): _int_ctrl.enableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT11)); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT12): _int_ctrl.enableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT12)); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT13): _int_ctrl.enableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT13)); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT14): _int_ctrl.enableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT14)); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT16): _int_ctrl.enableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT16)); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT17): _int_ctrl.enableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT17)); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT18): _int_ctrl.enableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT18)); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT19): _int_ctrl.enableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT19)); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT20): _int_ctrl.enableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT20)); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT21): _int_ctrl.enableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT21)); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT22): _int_ctrl.enableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT22)); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT23): _int_ctrl.enableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT23)); break;
+    _int_ctrl.enableInterrupt(int_num);
   }
 }
 
 void ExternalInterruptController::disable(uint8_t const ext_int_num)
 {
-  switch(ext_int_num)
+  uint8_t const int_num = converToIntNum(ext_int_num);
+  if(int_num != interface::InterruptController::INVALID_INT_NUM)
   {
-  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT0   ): _int_ctrl.disableInterrupt(toIntNum(Interrupt::EXTERNAL_INT0   )); break;
-  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT1   ): _int_ctrl.disableInterrupt(toIntNum(Interrupt::EXTERNAL_INT1   )); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT0 ): _int_ctrl.disableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT0 )); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT1 ): _int_ctrl.disableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT1 )); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT2 ): _int_ctrl.disableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT2 )); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT3 ): _int_ctrl.disableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT3 )); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT4 ): _int_ctrl.disableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT4 )); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT5 ): _int_ctrl.disableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT5 )); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT6 ): _int_ctrl.disableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT6 )); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT7 ): _int_ctrl.disableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT7 )); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT8 ): _int_ctrl.disableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT8 )); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT9 ): _int_ctrl.disableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT9 )); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT10): _int_ctrl.disableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT10)); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT11): _int_ctrl.disableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT11)); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT12): _int_ctrl.disableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT12)); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT13): _int_ctrl.disableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT13)); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT14): _int_ctrl.disableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT14)); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT16): _int_ctrl.disableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT16)); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT17): _int_ctrl.disableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT17)); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT18): _int_ctrl.disableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT18)); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT19): _int_ctrl.disableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT19)); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT20): _int_ctrl.disableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT20)); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT21): _int_ctrl.disableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT21)); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT22): _int_ctrl.disableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT22)); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT23): _int_ctrl.disableInterrupt(toIntNum(Interrupt::PIN_CHANGE_INT23)); break;
+    _int_ctrl.disableInterrupt(int_num);
   }
 }
 
 void ExternalInterruptController::registerInterruptCallback(uint8_t const ext_int_num, interface::InterruptCallback * interrupt_callback)
 {
+  uint8_t const int_num = converToIntNum(ext_int_num);
+  if(int_num != interface::InterruptController::INVALID_INT_NUM)
+  {
+    _int_ctrl.registerInterruptCallback(int_num, interrupt_callback);
+  }
+}
+
+/**************************************************************************************
+ * PRIVATE MEMBER FUNCTIONS
+ **************************************************************************************/
+
+uint8_t ExternalInterruptController::converToIntNum(uint8_t const ext_int_num)
+{
   switch(ext_int_num)
   {
-  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT0   ): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::EXTERNAL_INT0   ), interrupt_callback); break;
-  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT1   ): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::EXTERNAL_INT1   ), interrupt_callback); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT0 ): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::PIN_CHANGE_INT0 ), interrupt_callback); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT1 ): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::PIN_CHANGE_INT1 ), interrupt_callback); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT2 ): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::PIN_CHANGE_INT2 ), interrupt_callback); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT3 ): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::PIN_CHANGE_INT3 ), interrupt_callback); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT4 ): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::PIN_CHANGE_INT4 ), interrupt_callback); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT5 ): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::PIN_CHANGE_INT5 ), interrupt_callback); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT6 ): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::PIN_CHANGE_INT6 ), interrupt_callback); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT7 ): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::PIN_CHANGE_INT7 ), interrupt_callback); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT8 ): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::PIN_CHANGE_INT8 ), interrupt_callback); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT9 ): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::PIN_CHANGE_INT9 ), interrupt_callback); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT10): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::PIN_CHANGE_INT10), interrupt_callback); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT11): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::PIN_CHANGE_INT11), interrupt_callback); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT12): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::PIN_CHANGE_INT12), interrupt_callback); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT13): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::PIN_CHANGE_INT13), interrupt_callback); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT14): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::PIN_CHANGE_INT14), interrupt_callback); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT16): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::PIN_CHANGE_INT16), interrupt_callback); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT17): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::PIN_CHANGE_INT17), interrupt_callback); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT18): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::PIN_CHANGE_INT18), interrupt_callback); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT19): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::PIN_CHANGE_INT19), interrupt_callback); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT20): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::PIN_CHANGE_INT20), interrupt_callback); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT21): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::PIN_CHANGE_INT21), interrupt_callback); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT22): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::PIN_CHANGE_INT22), interrupt_callback); break;
-  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT23): _int_ctrl.registerInterruptCallback(toIntNum(Interrupt::PIN_CHANGE_INT23), interrupt_callback); break;
+  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT0   ): return toIntNum(Interrupt::EXTERNAL_INT0   );           break;
+  case toExtIntNum(ExternalInterrupt::EXTERNAL_INT1   ): return toIntNum(Interrupt::EXTERNAL_INT1   );           break;
+  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT0 ): return toIntNum(Interrupt::PIN_CHANGE_INT0 );           break;
+  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT1 ): return toIntNum(Interrupt::PIN_CHANGE_INT1 );           break;
+  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT2 ): return toIntNum(Interrupt::PIN_CHANGE_INT2 );           break;
+  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT3 ): return toIntNum(Interrupt::PIN_CHANGE_INT3 );           break;
+  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT4 ): return toIntNum(Interrupt::PIN_CHANGE_INT4 );           break;
+  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT5 ): return toIntNum(Interrupt::PIN_CHANGE_INT5 );           break;
+  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT6 ): return toIntNum(Interrupt::PIN_CHANGE_INT6 );           break;
+  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT7 ): return toIntNum(Interrupt::PIN_CHANGE_INT7 );           break;
+  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT8 ): return toIntNum(Interrupt::PIN_CHANGE_INT8 );           break;
+  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT9 ): return toIntNum(Interrupt::PIN_CHANGE_INT9 );           break;
+  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT10): return toIntNum(Interrupt::PIN_CHANGE_INT10);           break;
+  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT11): return toIntNum(Interrupt::PIN_CHANGE_INT11);           break;
+  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT12): return toIntNum(Interrupt::PIN_CHANGE_INT12);           break;
+  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT13): return toIntNum(Interrupt::PIN_CHANGE_INT13);           break;
+  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT14): return toIntNum(Interrupt::PIN_CHANGE_INT14);           break;
+  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT16): return toIntNum(Interrupt::PIN_CHANGE_INT16);           break;
+  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT17): return toIntNum(Interrupt::PIN_CHANGE_INT17);           break;
+  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT18): return toIntNum(Interrupt::PIN_CHANGE_INT18);           break;
+  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT19): return toIntNum(Interrupt::PIN_CHANGE_INT19);           break;
+  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT20): return toIntNum(Interrupt::PIN_CHANGE_INT20);           break;
+  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT21): return toIntNum(Interrupt::PIN_CHANGE_INT21);           break;
+  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT22): return toIntNum(Interrupt::PIN_CHANGE_INT22);           break;
+  case toExtIntNum(ExternalInterrupt::PIN_CHANGE_INT23): return toIntNum(Interrupt::PIN_CHANGE_INT23);           break;
+  default                                              : return interface::InterruptController::INVALID_INT_NUM; break;
   }
 }
 
