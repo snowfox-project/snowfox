@@ -85,7 +85,9 @@ enum class Interrupt : uint8_t
   TWI0_MASTER_WRITE,
   TWI0_SLAVE_DATA,
   TWI0_SLAVE_ADDRESS_OR_STOP,
-  TWI0_SLAVE_STOP
+  TWI0_SLAVE_STOP,
+
+  GLOBAL = interface::InterruptController::GLOBAL_INT_NUM,
 };
 
 enum class Isr : uint8_t

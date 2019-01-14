@@ -176,6 +176,10 @@ void InterruptController::enableInterrupt(uint8_t const int_num)
   case toIntNum(Interrupt::TWI0_SLAVE_DATA                ): util::setBit(_TWI_SCTRLA,     TWI_DIEN_bp     ); break;
   case toIntNum(Interrupt::TWI0_SLAVE_ADDRESS_OR_STOP     ): util::setBit(_TWI_SCTRLA,     TWI_APIEN_bp    ); break;
   case toIntNum(Interrupt::TWI0_SLAVE_STOP                ): util::setBit(_TWI_SCTRLA,     TWI_PIEN_bp     ); break;
+  /* GLOBAL */
+#if defined(MCU_ARCH_avr)
+  case toIntNum(Interrupt::GLOBAL                         ): asm volatile("sei");                             break;
+#endif
   }
 }
 
@@ -224,6 +228,10 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
   case toIntNum(Interrupt::TWI0_SLAVE_DATA                ): util::clrBit(_TWI_SCTRLA,     TWI_DIEN_bp     ); break;
   case toIntNum(Interrupt::TWI0_SLAVE_ADDRESS_OR_STOP     ): util::clrBit(_TWI_SCTRLA,     TWI_APIEN_bp    ); break;
   case toIntNum(Interrupt::TWI0_SLAVE_STOP                ): util::clrBit(_TWI_SCTRLA,     TWI_PIEN_bp     ); break;
+  /* GLOBAL */
+#if defined(MCU_ARCH_avr)
+  case toIntNum(Interrupt::GLOBAL                         ): asm volatile("cli");                             break;
+#endif
   }
 }
 

@@ -89,8 +89,7 @@ enum class Interrupt : uint8_t
   ANALOG_COMPARATOR              = 42,
   TWO_WIRE_INT                   = 43,
   SPM_READY                      = 44,
-  /* General */
-  GLOBAL                         = 45,
+  GLOBAL                         = interface::InterruptController::GLOBAL_INT_NUM,
   INVALID                        = interface::InterruptController::INVALID_INT_NUM
 };
 

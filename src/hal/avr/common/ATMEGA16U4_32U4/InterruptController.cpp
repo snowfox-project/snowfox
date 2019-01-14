@@ -422,8 +422,8 @@ ISR(TIMER4_COMPB_vect)
 }
 
 ISR(TIMER4_COMPD_vect)
-{  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMER4_COMPARE_D)]);
-
+{
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMER4_COMPARE_D)]);
 }
 
 ISR(TIMER4_OVF_vect)

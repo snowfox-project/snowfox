@@ -87,7 +87,7 @@ enum class Interrupt : uint8_t
   TIMER4_COMPARE_D                = 40,
   TIMER4_OVERFLOW                 = 41,
   TIMER4_FAULT_PROTECTION         = 42,
-  GLOBAL                          = 43,
+  GLOBAL                          = interface::InterruptController::GLOBAL_INT_NUM,
   INVALID                         = interface::InterruptController::INVALID_INT_NUM
 };
 

@@ -52,6 +52,7 @@ public:
   virtual ~InterruptControl() { }
 
 
+  static uint8_t constexpr GLOBAL_INT_NUM  = UCHAR_MAX - 1;
   static uint8_t constexpr INVALID_INT_NUM = UCHAR_MAX;
 
 
