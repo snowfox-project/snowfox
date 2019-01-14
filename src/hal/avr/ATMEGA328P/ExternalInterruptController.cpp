@@ -87,12 +87,12 @@ void ExternalInterruptController::disable(uint8_t const ext_int_num)
   }
 }
 
-void ExternalInterruptController::registerInterruptCallback(uint8_t const ext_int_num, interface::InterruptCallback * interrupt_callback)
+void ExternalInterruptController::registerInterruptCallback(uint8_t const ext_int_num, interface::ExternalInterruptCallback * external_interrupt_callback)
 {
   uint8_t const int_num = converToIntNum(ext_int_num);
   if(int_num != interface::InterruptController::INVALID_INT_NUM)
   {
-    _int_ctrl.registerInterruptCallback(int_num, interrupt_callback);
+    _int_ctrl.registerInterruptCallback(int_num, external_interrupt_callback);
   }
 }
 

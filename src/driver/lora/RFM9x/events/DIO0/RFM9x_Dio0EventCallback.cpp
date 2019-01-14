@@ -63,7 +63,7 @@ RFM9x_Dio0EventCallback::~RFM9x_Dio0EventCallback()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void RFM9x_Dio0EventCallback::interruptServiceRoutine()
+void RFM9x_Dio0EventCallback::onExternalEvent()
 {
   uint8_t const event_flags = _event_ctrl.getEventFlags();
 

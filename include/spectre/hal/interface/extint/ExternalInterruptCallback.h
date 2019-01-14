@@ -16,16 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_EXTINT_EXTERNALINTERRUPTASSEMBLY_H_
-#define INCLUDE_SPECTRE_HAL_INTERFACE_EXTINT_EXTERNALINTERRUPTASSEMBLY_H_
+#ifndef INCLUDE_SPECTRE_HAL_INTERFACE_EXTINT_EXTERNALINTERRUPTCALLBACK_H_
+#define INCLUDE_SPECTRE_HAL_INTERFACE_EXTINT_EXTERNALINTERRUPTCALLBACK_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
-
-#include <spectre/hal/interface/extint/ExternalInterruptCallback.h>
+#include <spectre/hal/interface/interrupt/InterruptCallback.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -44,16 +42,18 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class ExternalInterruptAssembly
+class ExternalInterruptCallback : public InterruptCallback
 {
 
 public:
 
-           ExternalInterruptAssembly() { }
-  virtual ~ExternalInterruptAssembly() { }
+           ExternalInterruptCallback() { }
+  virtual ~ExternalInterruptCallback() { }
 
 
-  virtual void registerInterruptCallback(uint8_t const ext_int_num, ExternalInterruptCallback * external_interrupt_callback) = 0;
+  virtual void onExternalEvent() = 0;
+
+  virtual void interruptServiceRoutine() override { onExternalEvent(); }
 
 };
 
@@ -67,4 +67,4 @@ public:
 
 } /* spectre */
 
-#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_EXTINT_EXTERNALINTERRUPTASSEMBLY_H_ */
+#endif /* INCLUDE_SPECTRE_HAL_INTERFACE_EXTINT_EXTERNALINTERRUPTCALLBACK_H_ */

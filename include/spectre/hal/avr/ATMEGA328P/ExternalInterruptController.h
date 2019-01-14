@@ -107,7 +107,7 @@ public:
 
   /* External Interrupt Assembly */
 
-  virtual void registerInterruptCallback(uint8_t const ext_int_num, interface::InterruptCallback * interrupt_callback) override;
+  virtual void registerInterruptCallback(uint8_t const ext_int_num, interface::ExternalInterruptCallback * external_interrupt_callback) override;
 
 
 private:

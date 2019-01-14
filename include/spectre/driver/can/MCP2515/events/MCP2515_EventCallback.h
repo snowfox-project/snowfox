@@ -23,7 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/interface/interrupt/InterruptCallback.h>
+#include <spectre/hal/interface/extint/ExternalInterruptCallback.h>
 
 #include <spectre/driver/can/MCP2515/interface/events/MCP2515_onWakeup.h>
 #include <spectre/driver/can/MCP2515/interface/events/MCP2515_onMessageError.h>
@@ -52,7 +52,7 @@ namespace MCP2515
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MCP2515_EventCallback : public hal::interface::InterruptCallback
+class MCP2515_EventCallback : public hal::interface::ExternalInterruptCallback
 {
 
 public:
@@ -68,7 +68,7 @@ public:
   virtual ~MCP2515_EventCallback();
 
 
-  virtual void interruptServiceRoutine() override;
+  virtual void onExternalEvent() override;
 
 
 private:
