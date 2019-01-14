@@ -100,6 +100,9 @@ private:
                                  * _EICRB;
   interface::InterruptController & _int_ctrl;
 
+
+  static uint8_t converToIntNum(uint8_t const ext_int_num);
+
 };
 
 /**************************************************************************************
