@@ -25,10 +25,6 @@
 #include <spectre/hal/avr/common/ATMEGA164P_324P_644P_1284P/InterruptController.h>
 #include <spectre/hal/avr/common/ATxxxx/util/ExternalInterruptUtil.h>
 
-#include <spectre/util/BitManip.h>
-
-#include <spectre/cpu/avr/io/common/ATMEGA164P_324P_644P_1284P.h>
-
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
