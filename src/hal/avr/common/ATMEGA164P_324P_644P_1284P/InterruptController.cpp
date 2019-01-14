@@ -40,39 +40,16 @@ namespace ATMEGA164P_324P_644P_1284P
 {
 
 /**************************************************************************************
+ * GLOBAL CONSTANTS
+ **************************************************************************************/
+
+static uint8_t constexpr NUM_INTERRUPT_CALLBACKS = 58;
+
+/**************************************************************************************
  * GLOBAL VARIABLES
  **************************************************************************************/
 
-static interface::InterruptCallback * isr_external_int0                   = 0,
-                                    * isr_external_int1                   = 0,
-                                    * isr_external_int2                   = 0,
-                                    * isr_pin_change_int0                 = 0,
-                                    * isr_pin_change_int1                 = 0,
-                                    * isr_pin_change_int2                 = 0,
-                                    * isr_pin_change_int3                 = 0,
-                                    * isr_watchdog_timer                  = 0,
-                                    * isr_timer2_compare_a                = 0,
-                                    * isr_timer2_compare_b                = 0,
-                                    * isr_timer2_overflow                 = 0,
-                                    * isr_timer1_capture                  = 0,
-                                    * isr_timer1_compare_a                = 0,
-                                    * isr_timer1_compare_b                = 0,
-                                    * isr_timer1_overflow                 = 0,
-                                    * isr_timer0_compare_a                = 0,
-                                    * isr_timer0_compare_b                = 0,
-                                    * isr_timer0_overflow                 = 0,
-                                    * isr_spi_serial_transfer_complete    = 0,
-                                    * isr_usart0_receive_complete         = 0,
-                                    * isr_usart0_uart_data_register_empty = 0,
-                                    * isr_usart0_transmit_complete        = 0,
-                                    * isr_analog_comparator               = 0,
-                                    * isr_analog_digital_converter        = 0,
-                                    * isr_eeprom_ready                    = 0,
-                                    * isr_two_wire_int                    = 0,
-                                    * isr_spm_ready                       = 0,
-                                    * isr_usart1_receive_complete         = 0,
-                                    * isr_usart1_uart_data_register_empty = 0,
-                                    * isr_usart1_transmit_complete        = 0;
+static interface::InterruptCallback * isr[NUM_INTERRUPT_CALLBACKS] = {0};
 
 /**************************************************************************************
  * CTOR/DTOR
@@ -80,6 +57,10 @@ static interface::InterruptCallback * isr_external_int0                   = 0,
 
 InterruptController::InterruptController(volatile uint8_t * eimsk,
                                          volatile uint8_t * pcicr,
+                                         volatile uint8_t * pcmsk0,
+                                         volatile uint8_t * pcmsk1,
+                                         volatile uint8_t * pcmsk2,
+                                         volatile uint8_t * pcmsk3,
                                          volatile uint8_t * wdtcsr,
                                          volatile uint8_t * timsk0,
                                          volatile uint8_t * timsk1,
@@ -94,6 +75,10 @@ InterruptController::InterruptController(volatile uint8_t * eimsk,
                                          volatile uint8_t * adcsra)
 : _EIMSK (eimsk ),
   _PCICR (pcicr ),
+  _PCMSK0(pcmsk0),
+  _PCMSK1(pcmsk1),
+  _PCMSK2(pcmsk2),
+  _PCMSK3(pcmsk3),
   _WDTCSR(wdtcsr),
   _TIMSK0(timsk0),
   _TIMSK1(timsk1),
@@ -123,40 +108,68 @@ void InterruptController::enableInterrupt(uint8_t const int_num)
 {
   switch(int_num)
   {
-  case toIntNum(Interrupt::EXTERNAL_INT0                  ): util::setBit(_EIMSK , INT0_bp  ); break;
-  case toIntNum(Interrupt::EXTERNAL_INT1                  ): util::setBit(_EIMSK , INT1_bp  ); break;
-  case toIntNum(Interrupt::EXTERNAL_INT2                  ): util::setBit(_EIMSK , INT2_bp  ); break;
-  case toIntNum(Interrupt::PIN_CHANGE_INT0                ): util::setBit(_PCICR , PCIE0_bp ); break;
-  case toIntNum(Interrupt::PIN_CHANGE_INT1                ): util::setBit(_PCICR , PCIE1_bp ); break;
-  case toIntNum(Interrupt::PIN_CHANGE_INT2                ): util::setBit(_PCICR , PCIE2_bp ); break;
-  case toIntNum(Interrupt::PIN_CHANGE_INT3                ): util::setBit(_PCICR , PCIE3_bp ); break;
-  case toIntNum(Interrupt::WATCHDOG_TIMER                 ): util::setBit(_WDTCSR, WDIE_bp  ); break;
-  case toIntNum(Interrupt::TIMER2_COMPARE_A               ): util::setBit(_TIMSK2, OCIE2A_bp); break;
-  case toIntNum(Interrupt::TIMER2_COMPARE_B               ): util::setBit(_TIMSK2, OCIE2B_bp); break;
-  case toIntNum(Interrupt::TIMER2_OVERFLOW                ): util::setBit(_TIMSK2, TOIE2_bp ); break;
-  case toIntNum(Interrupt::TIMER1_CAPTURE                 ): util::setBit(_TIMSK1, ICIE1_bp ); break;
-  case toIntNum(Interrupt::TIMER1_COMPARE_A               ): util::setBit(_TIMSK1, OCIE1A_bp); break;
-  case toIntNum(Interrupt::TIMER1_COMPARE_B               ): util::setBit(_TIMSK1, OCIE1B_bp); break;
-  case toIntNum(Interrupt::TIMER1_OVERFLOW                ): util::setBit(_TIMSK1, TOIE1_bp ); break;
-  case toIntNum(Interrupt::TIMER0_COMPARE_A               ): util::setBit(_TIMSK0, OCIE0A_bp); break;
-  case toIntNum(Interrupt::TIMER0_COMPARE_B               ): util::setBit(_TIMSK0, OCIE0B_bp); break;
-  case toIntNum(Interrupt::TIMER0_OVERFLOW                ): util::setBit(_TIMSK0, TOIE0_bp ); break;
-  case toIntNum(Interrupt::SPI_SERIAL_TRANSFER_COMPLETE   ): util::setBit(_SPCR  , SPIE_bp  ); break;
-  case toIntNum(Interrupt::USART0_RECEIVE_COMPLETE        ): util::setBit(_UCSR0B, RXCIE0_bp); break;
-  case toIntNum(Interrupt::USART0_UART_DATA_REGISTER_EMPTY): util::setBit(_UCSR0B, UDRIE0_bp); break;
-  case toIntNum(Interrupt::USART0_TRANSMIT_COMPLETE       ): util::setBit(_UCSR0B, TXCIE0_bp); break;
-  case toIntNum(Interrupt::ANALOG_COMPARATOR              ): util::setBit(_ACSR  , ACIE_bp  ); break;
-  case toIntNum(Interrupt::ANALOG_DIGITAL_CONVERTER       ): util::setBit(_ADCSRA, ADIE_bp  ); break;
-  case toIntNum(Interrupt::EEPROM_READY                   ): util::setBit(_EECR  , EERIE_bp ); break;
-  case toIntNum(Interrupt::TWO_WIRE_INT                   ): util::setBit(_TWCR  , TWIE_bp  ); break;
-  case toIntNum(Interrupt::SPM_READY                      ): util::setBit(_SPMCSR, SPMIE_bp ); break;
-  case toIntNum(Interrupt::USART1_RECEIVE_COMPLETE        ): util::setBit(_UCSR1B, RXCIE1_bp); break;
-  case toIntNum(Interrupt::USART1_UART_DATA_REGISTER_EMPTY): util::setBit(_UCSR1B, UDRIE1_bp); break;
-  case toIntNum(Interrupt::USART1_TRANSMIT_COMPLETE       ): util::setBit(_UCSR1B, TXCIE1_bp); break;
+  case toIntNum(Interrupt::EXTERNAL_INT0                  ): { util::setBit(_EIMSK , INT0_bp  );                                    } break;
+  case toIntNum(Interrupt::EXTERNAL_INT1                  ): { util::setBit(_EIMSK , INT1_bp  );                                    } break;
+  case toIntNum(Interrupt::EXTERNAL_INT2                  ): { util::setBit(_EIMSK , INT2_bp  );                                    } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT0                ): { util::setBit(_PCICR , PCIE0_bp ); util::setBit(_PCMSK0, PCINT0_bp ); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT1                ): { util::setBit(_PCICR , PCIE0_bp ); util::setBit(_PCMSK0, PCINT1_bp ); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT2                ): { util::setBit(_PCICR , PCIE0_bp ); util::setBit(_PCMSK0, PCINT2_bp ); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT3                ): { util::setBit(_PCICR , PCIE0_bp ); util::setBit(_PCMSK0, PCINT3_bp ); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT4                ): { util::setBit(_PCICR , PCIE0_bp ); util::setBit(_PCMSK0, PCINT4_bp ); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT5                ): { util::setBit(_PCICR , PCIE0_bp ); util::setBit(_PCMSK0, PCINT5_bp ); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT6                ): { util::setBit(_PCICR , PCIE0_bp ); util::setBit(_PCMSK0, PCINT6_bp ); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT7                ): { util::setBit(_PCICR , PCIE0_bp ); util::setBit(_PCMSK0, PCINT7_bp ); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT8                ): { util::setBit(_PCICR , PCIE1_bp ); util::setBit(_PCMSK1, PCINT8_bp ); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT9                ): { util::setBit(_PCICR , PCIE1_bp ); util::setBit(_PCMSK1, PCINT9_bp ); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT10               ): { util::setBit(_PCICR , PCIE1_bp ); util::setBit(_PCMSK1, PCINT10_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT11               ): { util::setBit(_PCICR , PCIE1_bp ); util::setBit(_PCMSK1, PCINT11_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT12               ): { util::setBit(_PCICR , PCIE1_bp ); util::setBit(_PCMSK1, PCINT12_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT13               ): { util::setBit(_PCICR , PCIE1_bp ); util::setBit(_PCMSK1, PCINT13_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT14               ): { util::setBit(_PCICR , PCIE1_bp ); util::setBit(_PCMSK1, PCINT14_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT15               ): { util::setBit(_PCICR , PCIE1_bp ); util::setBit(_PCMSK1, PCINT15_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT16               ): { util::setBit(_PCICR , PCIE2_bp ); util::setBit(_PCMSK2, PCINT16_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT17               ): { util::setBit(_PCICR , PCIE2_bp ); util::setBit(_PCMSK2, PCINT17_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT18               ): { util::setBit(_PCICR , PCIE2_bp ); util::setBit(_PCMSK2, PCINT18_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT19               ): { util::setBit(_PCICR , PCIE2_bp ); util::setBit(_PCMSK2, PCINT19_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT20               ): { util::setBit(_PCICR , PCIE2_bp ); util::setBit(_PCMSK2, PCINT20_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT21               ): { util::setBit(_PCICR , PCIE2_bp ); util::setBit(_PCMSK2, PCINT21_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT22               ): { util::setBit(_PCICR , PCIE2_bp ); util::setBit(_PCMSK2, PCINT22_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT23               ): { util::setBit(_PCICR , PCIE2_bp ); util::setBit(_PCMSK2, PCINT23_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT24               ): { util::setBit(_PCICR , PCIE3_bp ); util::setBit(_PCMSK3, PCINT24_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT25               ): { util::setBit(_PCICR , PCIE3_bp ); util::setBit(_PCMSK3, PCINT25_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT26               ): { util::setBit(_PCICR , PCIE3_bp ); util::setBit(_PCMSK3, PCINT26_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT27               ): { util::setBit(_PCICR , PCIE3_bp ); util::setBit(_PCMSK3, PCINT27_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT28               ): { util::setBit(_PCICR , PCIE3_bp ); util::setBit(_PCMSK3, PCINT28_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT29               ): { util::setBit(_PCICR , PCIE3_bp ); util::setBit(_PCMSK3, PCINT29_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT30               ): { util::setBit(_PCICR , PCIE3_bp ); util::setBit(_PCMSK3, PCINT30_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT31               ): { util::setBit(_PCICR , PCIE3_bp ); util::setBit(_PCMSK3, PCINT31_bp); } break;
+  case toIntNum(Interrupt::WATCHDOG_TIMER                 ): { util::setBit(_WDTCSR, WDIE_bp  );                                    } break;
+  case toIntNum(Interrupt::TIMER2_COMPARE_A               ): { util::setBit(_TIMSK2, OCIE2A_bp);                                    } break;
+  case toIntNum(Interrupt::TIMER2_COMPARE_B               ): { util::setBit(_TIMSK2, OCIE2B_bp);                                    } break;
+  case toIntNum(Interrupt::TIMER2_OVERFLOW                ): { util::setBit(_TIMSK2, TOIE2_bp );                                    } break;
+  case toIntNum(Interrupt::TIMER1_CAPTURE                 ): { util::setBit(_TIMSK1, ICIE1_bp );                                    } break;
+  case toIntNum(Interrupt::TIMER1_COMPARE_A               ): { util::setBit(_TIMSK1, OCIE1A_bp);                                    } break;
+  case toIntNum(Interrupt::TIMER1_COMPARE_B               ): { util::setBit(_TIMSK1, OCIE1B_bp);                                    } break;
+  case toIntNum(Interrupt::TIMER1_OVERFLOW                ): { util::setBit(_TIMSK1, TOIE1_bp );                                    } break;
+  case toIntNum(Interrupt::TIMER0_COMPARE_A               ): { util::setBit(_TIMSK0, OCIE0A_bp);                                    } break;
+  case toIntNum(Interrupt::TIMER0_COMPARE_B               ): { util::setBit(_TIMSK0, OCIE0B_bp);                                    } break;
+  case toIntNum(Interrupt::TIMER0_OVERFLOW                ): { util::setBit(_TIMSK0, TOIE0_bp );                                    } break;
+  case toIntNum(Interrupt::SPI_SERIAL_TRANSFER_COMPLETE   ): { util::setBit(_SPCR  , SPIE_bp  );                                    } break;
+  case toIntNum(Interrupt::USART0_RECEIVE_COMPLETE        ): { util::setBit(_UCSR0B, RXCIE0_bp);                                    } break;
+  case toIntNum(Interrupt::USART0_UART_DATA_REGISTER_EMPTY): { util::setBit(_UCSR0B, UDRIE0_bp);                                    } break;
+  case toIntNum(Interrupt::USART0_TRANSMIT_COMPLETE       ): { util::setBit(_UCSR0B, TXCIE0_bp);                                    } break;
+  case toIntNum(Interrupt::ANALOG_COMPARATOR              ): { util::setBit(_ACSR  , ACIE_bp  );                                    } break;
+  case toIntNum(Interrupt::ANALOG_DIGITAL_CONVERTER       ): { util::setBit(_ADCSRA, ADIE_bp  );                                    } break;
+  case toIntNum(Interrupt::EEPROM_READY                   ): { util::setBit(_EECR  , EERIE_bp );                                    } break;
+  case toIntNum(Interrupt::TWO_WIRE_INT                   ): { util::setBit(_TWCR  , TWIE_bp  );                                    } break;
+  case toIntNum(Interrupt::SPM_READY                      ): { util::setBit(_SPMCSR, SPMIE_bp );                                    } break;
+  case toIntNum(Interrupt::USART1_RECEIVE_COMPLETE        ): { util::setBit(_UCSR1B, RXCIE1_bp);                                    } break;
+  case toIntNum(Interrupt::USART1_UART_DATA_REGISTER_EMPTY): { util::setBit(_UCSR1B, UDRIE1_bp);                                    } break;
+  case toIntNum(Interrupt::USART1_TRANSMIT_COMPLETE       ): { util::setBit(_UCSR1B, TXCIE1_bp);                                    } break;
 #if defined(MCU_ARCH_avr)
-  case toIntNum(Interrupt::GLOBAL                         ): asm volatile("sei");    break;
+  case toIntNum(Interrupt::GLOBAL                         ): asm volatile("sei");                                                     break;
 #endif
-  default                                                  : /* DO NOTHING */        break;
+  default                                                  : /* DO NOTHING */                                                         break;
   }
 }
 
@@ -164,78 +177,76 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
 {
   switch(int_num)
   {
-  case toIntNum(Interrupt::EXTERNAL_INT0                  ): util::clrBit(_EIMSK , INT0_bp  ); break;
-  case toIntNum(Interrupt::EXTERNAL_INT1                  ): util::clrBit(_EIMSK , INT1_bp  ); break;
-  case toIntNum(Interrupt::EXTERNAL_INT2                  ): util::clrBit(_EIMSK , INT2_bp  ); break;
-  case toIntNum(Interrupt::PIN_CHANGE_INT0                ): util::clrBit(_PCICR , PCIE0_bp ); break;
-  case toIntNum(Interrupt::PIN_CHANGE_INT1                ): util::clrBit(_PCICR , PCIE1_bp ); break;
-  case toIntNum(Interrupt::PIN_CHANGE_INT2                ): util::clrBit(_PCICR , PCIE2_bp ); break;
-  case toIntNum(Interrupt::PIN_CHANGE_INT3                ): util::clrBit(_PCICR , PCIE3_bp ); break;
-  case toIntNum(Interrupt::WATCHDOG_TIMER                 ): util::clrBit(_WDTCSR, WDIE_bp  ); break;
-  case toIntNum(Interrupt::TIMER2_COMPARE_A               ): util::clrBit(_TIMSK2, OCIE2A_bp); break;
-  case toIntNum(Interrupt::TIMER2_COMPARE_B               ): util::clrBit(_TIMSK2, OCIE2B_bp); break;
-  case toIntNum(Interrupt::TIMER2_OVERFLOW                ): util::clrBit(_TIMSK2, TOIE2_bp ); break;
-  case toIntNum(Interrupt::TIMER1_CAPTURE                 ): util::clrBit(_TIMSK1, ICIE1_bp ); break;
-  case toIntNum(Interrupt::TIMER1_COMPARE_A               ): util::clrBit(_TIMSK1, OCIE1A_bp); break;
-  case toIntNum(Interrupt::TIMER1_COMPARE_B               ): util::clrBit(_TIMSK1, OCIE1B_bp); break;
-  case toIntNum(Interrupt::TIMER1_OVERFLOW                ): util::clrBit(_TIMSK1, TOIE1_bp ); break;
-  case toIntNum(Interrupt::TIMER0_COMPARE_A               ): util::clrBit(_TIMSK0, OCIE0A_bp); break;
-  case toIntNum(Interrupt::TIMER0_COMPARE_B               ): util::clrBit(_TIMSK0, OCIE0B_bp); break;
-  case toIntNum(Interrupt::TIMER0_OVERFLOW                ): util::clrBit(_TIMSK0, TOIE0_bp ); break;
-  case toIntNum(Interrupt::SPI_SERIAL_TRANSFER_COMPLETE   ): util::clrBit(_SPCR  , SPIE_bp  ); break;
-  case toIntNum(Interrupt::USART0_RECEIVE_COMPLETE        ): util::clrBit(_UCSR0B, RXCIE0_bp); break;
-  case toIntNum(Interrupt::USART0_UART_DATA_REGISTER_EMPTY): util::clrBit(_UCSR0B, UDRIE0_bp); break;
-  case toIntNum(Interrupt::USART0_TRANSMIT_COMPLETE       ): util::clrBit(_UCSR0B, TXCIE0_bp); break;
-  case toIntNum(Interrupt::ANALOG_COMPARATOR              ): util::clrBit(_ACSR  , ACIE_bp  ); break;
-  case toIntNum(Interrupt::ANALOG_DIGITAL_CONVERTER       ): util::clrBit(_ADCSRA, ADIE_bp  ); break;
-  case toIntNum(Interrupt::EEPROM_READY                   ): util::clrBit(_EECR  , EERIE_bp ); break;
-  case toIntNum(Interrupt::TWO_WIRE_INT                   ): util::clrBit(_TWCR  , TWIE_bp  ); break;
-  case toIntNum(Interrupt::SPM_READY                      ): util::clrBit(_SPMCSR, SPMIE_bp ); break;
-  case toIntNum(Interrupt::USART1_RECEIVE_COMPLETE        ): util::clrBit(_UCSR1B, RXCIE1_bp); break;
-  case toIntNum(Interrupt::USART1_UART_DATA_REGISTER_EMPTY): util::clrBit(_UCSR1B, UDRIE1_bp); break;
-  case toIntNum(Interrupt::USART1_TRANSMIT_COMPLETE       ): util::clrBit(_UCSR1B, TXCIE1_bp); break;
+  case toIntNum(Interrupt::EXTERNAL_INT0                  ): { util::clrBit(_EIMSK , INT0_bp  );                                    } break;
+  case toIntNum(Interrupt::EXTERNAL_INT1                  ): { util::clrBit(_EIMSK , INT1_bp  );                                    } break;
+  case toIntNum(Interrupt::EXTERNAL_INT2                  ): { util::clrBit(_EIMSK , INT2_bp  );                                    } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT0                ): {                                   util::setBit(_PCMSK0, PCINT0_bp ); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT1                ): {                                   util::setBit(_PCMSK0, PCINT1_bp ); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT2                ): {                                   util::setBit(_PCMSK0, PCINT2_bp ); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT3                ): {                                   util::setBit(_PCMSK0, PCINT3_bp ); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT4                ): {                                   util::setBit(_PCMSK0, PCINT4_bp ); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT5                ): {                                   util::setBit(_PCMSK0, PCINT5_bp ); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT6                ): {                                   util::setBit(_PCMSK0, PCINT6_bp ); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT7                ): {                                   util::setBit(_PCMSK0, PCINT7_bp ); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT8                ): {                                   util::setBit(_PCMSK1, PCINT8_bp ); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT9                ): {                                   util::setBit(_PCMSK1, PCINT9_bp ); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT10               ): {                                   util::setBit(_PCMSK1, PCINT10_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT11               ): {                                   util::setBit(_PCMSK1, PCINT11_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT12               ): {                                   util::setBit(_PCMSK1, PCINT12_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT13               ): {                                   util::setBit(_PCMSK1, PCINT13_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT14               ): {                                   util::setBit(_PCMSK1, PCINT14_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT15               ): {                                   util::setBit(_PCMSK1, PCINT15_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT16               ): {                                   util::setBit(_PCMSK2, PCINT16_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT17               ): {                                   util::setBit(_PCMSK2, PCINT17_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT18               ): {                                   util::setBit(_PCMSK2, PCINT18_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT19               ): {                                   util::setBit(_PCMSK2, PCINT19_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT20               ): {                                   util::setBit(_PCMSK2, PCINT20_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT21               ): {                                   util::setBit(_PCMSK2, PCINT21_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT22               ): {                                   util::setBit(_PCMSK2, PCINT22_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT23               ): {                                   util::setBit(_PCMSK2, PCINT23_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT24               ): {                                   util::setBit(_PCMSK3, PCINT24_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT25               ): {                                   util::setBit(_PCMSK3, PCINT25_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT26               ): {                                   util::setBit(_PCMSK3, PCINT26_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT27               ): {                                   util::setBit(_PCMSK3, PCINT27_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT28               ): {                                   util::setBit(_PCMSK3, PCINT28_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT29               ): {                                   util::setBit(_PCMSK3, PCINT29_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT30               ): {                                   util::setBit(_PCMSK3, PCINT30_bp); } break;
+  case toIntNum(Interrupt::PIN_CHANGE_INT31               ): {                                   util::setBit(_PCMSK3, PCINT31_bp); } break;
+  case toIntNum(Interrupt::WATCHDOG_TIMER                 ): { util::clrBit(_WDTCSR, WDIE_bp  );                                    } break;
+  case toIntNum(Interrupt::TIMER2_COMPARE_A               ): { util::clrBit(_TIMSK2, OCIE2A_bp);                                    } break;
+  case toIntNum(Interrupt::TIMER2_COMPARE_B               ): { util::clrBit(_TIMSK2, OCIE2B_bp);                                    } break;
+  case toIntNum(Interrupt::TIMER2_OVERFLOW                ): { util::clrBit(_TIMSK2, TOIE2_bp );                                    } break;
+  case toIntNum(Interrupt::TIMER1_CAPTURE                 ): { util::clrBit(_TIMSK1, ICIE1_bp );                                    } break;
+  case toIntNum(Interrupt::TIMER1_COMPARE_A               ): { util::clrBit(_TIMSK1, OCIE1A_bp);                                    } break;
+  case toIntNum(Interrupt::TIMER1_COMPARE_B               ): { util::clrBit(_TIMSK1, OCIE1B_bp);                                    } break;
+  case toIntNum(Interrupt::TIMER1_OVERFLOW                ): { util::clrBit(_TIMSK1, TOIE1_bp );                                    } break;
+  case toIntNum(Interrupt::TIMER0_COMPARE_A               ): { util::clrBit(_TIMSK0, OCIE0A_bp);                                    } break;
+  case toIntNum(Interrupt::TIMER0_COMPARE_B               ): { util::clrBit(_TIMSK0, OCIE0B_bp);                                    } break;
+  case toIntNum(Interrupt::TIMER0_OVERFLOW                ): { util::clrBit(_TIMSK0, TOIE0_bp );                                    } break;
+  case toIntNum(Interrupt::SPI_SERIAL_TRANSFER_COMPLETE   ): { util::clrBit(_SPCR  , SPIE_bp  );                                    } break;
+  case toIntNum(Interrupt::USART0_RECEIVE_COMPLETE        ): { util::clrBit(_UCSR0B, RXCIE0_bp);                                    } break;
+  case toIntNum(Interrupt::USART0_UART_DATA_REGISTER_EMPTY): { util::clrBit(_UCSR0B, UDRIE0_bp);                                    } break;
+  case toIntNum(Interrupt::USART0_TRANSMIT_COMPLETE       ): { util::clrBit(_UCSR0B, TXCIE0_bp);                                    } break;
+  case toIntNum(Interrupt::ANALOG_COMPARATOR              ): { util::clrBit(_ACSR  , ACIE_bp  );                                    } break;
+  case toIntNum(Interrupt::ANALOG_DIGITAL_CONVERTER       ): { util::clrBit(_ADCSRA, ADIE_bp  );                                    } break;
+  case toIntNum(Interrupt::EEPROM_READY                   ): { util::clrBit(_EECR  , EERIE_bp );                                    } break;
+  case toIntNum(Interrupt::TWO_WIRE_INT                   ): { util::clrBit(_TWCR  , TWIE_bp  );                                    } break;
+  case toIntNum(Interrupt::SPM_READY                      ): { util::clrBit(_SPMCSR, SPMIE_bp );                                    } break;
+  case toIntNum(Interrupt::USART1_RECEIVE_COMPLETE        ): { util::clrBit(_UCSR1B, RXCIE1_bp);                                    } break;
+  case toIntNum(Interrupt::USART1_UART_DATA_REGISTER_EMPTY): { util::clrBit(_UCSR1B, UDRIE1_bp);                                    } break;
+  case toIntNum(Interrupt::USART1_TRANSMIT_COMPLETE       ): { util::clrBit(_UCSR1B, TXCIE1_bp);                                    } break;
 #if defined(MCU_ARCH_avr)
-  case toIntNum(Interrupt::GLOBAL                         ): asm volatile("cli");     break;
+  case toIntNum(Interrupt::GLOBAL                         ): asm volatile("cli");                                                     break;
 #endif
-  default                                                  : /* DO NOTHING */         break;
+  default                                                  : /* DO NOTHING */                                                         break;
   }
 }
 
 void InterruptController::registerInterruptCallback(uint8_t const int_num, interface::InterruptCallback * interrupt_callback)
 {
-  switch(int_num)
+  if(int_num < NUM_INTERRUPT_CALLBACKS)
   {
-  case toIntNum(Interrupt::EXTERNAL_INT0                   ): isr_external_int0                   = interrupt_callback; break;
-  case toIntNum(Interrupt::EXTERNAL_INT1                   ): isr_external_int1                   = interrupt_callback; break;
-  case toIntNum(Interrupt::EXTERNAL_INT2                   ): isr_external_int2                   = interrupt_callback; break;
-  case toIntNum(Interrupt::PIN_CHANGE_INT0                 ): isr_pin_change_int0                 = interrupt_callback; break;
-  case toIntNum(Interrupt::PIN_CHANGE_INT1                 ): isr_pin_change_int1                 = interrupt_callback; break;
-  case toIntNum(Interrupt::PIN_CHANGE_INT2                 ): isr_pin_change_int2                 = interrupt_callback; break;
-  case toIntNum(Interrupt::PIN_CHANGE_INT3                 ): isr_pin_change_int3                 = interrupt_callback; break;
-  case toIntNum(Interrupt::WATCHDOG_TIMER                  ): isr_watchdog_timer                  = interrupt_callback; break;
-  case toIntNum(Interrupt::TIMER2_COMPARE_A                ): isr_timer2_compare_a                = interrupt_callback; break;
-  case toIntNum(Interrupt::TIMER2_COMPARE_B                ): isr_timer2_compare_b                = interrupt_callback; break;
-  case toIntNum(Interrupt::TIMER2_OVERFLOW                 ): isr_timer2_overflow                 = interrupt_callback; break;
-  case toIntNum(Interrupt::TIMER1_CAPTURE                  ): isr_timer1_capture                  = interrupt_callback; break;
-  case toIntNum(Interrupt::TIMER1_COMPARE_A                ): isr_timer1_compare_a                = interrupt_callback; break;
-  case toIntNum(Interrupt::TIMER1_COMPARE_B                ): isr_timer1_compare_b                = interrupt_callback; break;
-  case toIntNum(Interrupt::TIMER1_OVERFLOW                 ): isr_timer1_overflow                 = interrupt_callback; break;
-  case toIntNum(Interrupt::TIMER0_COMPARE_A                ): isr_timer0_compare_a                = interrupt_callback; break;
-  case toIntNum(Interrupt::TIMER0_COMPARE_B                ): isr_timer0_compare_b                = interrupt_callback; break;
-  case toIntNum(Interrupt::TIMER0_OVERFLOW                 ): isr_timer0_overflow                 = interrupt_callback; break;
-  case toIntNum(Interrupt::SPI_SERIAL_TRANSFER_COMPLETE    ): isr_spi_serial_transfer_complete    = interrupt_callback; break;
-  case toIntNum(Interrupt::USART0_RECEIVE_COMPLETE         ): isr_usart0_receive_complete         = interrupt_callback; break;
-  case toIntNum(Interrupt::USART0_UART_DATA_REGISTER_EMPTY ): isr_usart0_uart_data_register_empty = interrupt_callback; break;
-  case toIntNum(Interrupt::USART0_TRANSMIT_COMPLETE        ): isr_usart0_transmit_complete        = interrupt_callback; break;
-  case toIntNum(Interrupt::ANALOG_COMPARATOR               ): isr_analog_comparator               = interrupt_callback; break;
-  case toIntNum(Interrupt::ANALOG_DIGITAL_CONVERTER        ): isr_analog_digital_converter        = interrupt_callback; break;
-  case toIntNum(Interrupt::EEPROM_READY                    ): isr_eeprom_ready                    = interrupt_callback; break;
-  case toIntNum(Interrupt::TWO_WIRE_INT                    ): isr_two_wire_int                    = interrupt_callback; break;
-  case toIntNum(Interrupt::SPM_READY                       ): isr_spm_ready                       = interrupt_callback; break;
-  case toIntNum(Interrupt::USART1_RECEIVE_COMPLETE         ): isr_usart1_receive_complete         = interrupt_callback; break;
-  case toIntNum(Interrupt::USART1_UART_DATA_REGISTER_EMPTY ): isr_usart1_uart_data_register_empty = interrupt_callback; break;
-  case toIntNum(Interrupt::USART1_TRANSMIT_COMPLETE        ): isr_usart1_transmit_complete        = interrupt_callback; break;
-  default                                                   : /* DO NOTHING */                                          break;
+    isr[int_num] = interrupt_callback;
   }
 }
 
@@ -274,152 +285,180 @@ using namespace spectre::hal::ATMEGA164P_324P_644P_1284P;
 
 ISR(INT0_vect)
 {
-  executeCallbackIfValid(isr_external_int0);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::EXTERNAL_INT0)]);
 }
 
 ISR(INT1_vect)
 {
-  executeCallbackIfValid(isr_external_int1);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::EXTERNAL_INT1)]);
 }
 
 ISR(INT2_vect)
 {
-  executeCallbackIfValid(isr_external_int2);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::EXTERNAL_INT2)]);
 }
 
 ISR(PCINT0_vect)
 {
-  executeCallbackIfValid(isr_pin_change_int0);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT0)]);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT1)]);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT2)]);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT3)]);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT4)]);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT5)]);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT6)]);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT7)]);
 }
 
 ISR(PCINT1_vect)
 {
-  executeCallbackIfValid(isr_pin_change_int1);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT8 )]);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT9 )]);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT10)]);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT11)]);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT12)]);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT13)]);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT14)]);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT15)]);
 }
 
 ISR(PCINT2_vect)
 {
-  executeCallbackIfValid(isr_pin_change_int2);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT16)]);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT17)]);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT18)]);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT19)]);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT20)]);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT21)]);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT22)]);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT23)]);
 }
 
 ISR(PCINT3_vect)
 {
-  executeCallbackIfValid(isr_pin_change_int3);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT24)]);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT25)]);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT26)]);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT27)]);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT28)]);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT29)]);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT30)]);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::PIN_CHANGE_INT31)]);
 }
 
 ISR(WDT_vect)
 {
-  executeCallbackIfValid(isr_watchdog_timer);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::WATCHDOG_TIMER)]);
 }
 
 ISR(TIMER2_COMPA_vect)
 {
-  executeCallbackIfValid(isr_timer2_compare_a);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMER2_COMPARE_A)]);
 }
 
 ISR(TIMER2_COMPB_vect)
 {
-  executeCallbackIfValid(isr_timer2_compare_b);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMER2_COMPARE_B)]);
 }
 
 ISR(TIMER2_OVF_vect)
 {
-  executeCallbackIfValid(isr_timer2_overflow);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMER2_OVERFLOW)]);
 }
 
 ISR(TIMER1_CAPT_vect)
 {
-  executeCallbackIfValid(isr_timer1_capture);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMER1_CAPTURE)]);
 }
 
 ISR(TIMER1_COMPA_vect)
 {
-  executeCallbackIfValid(isr_timer1_compare_a);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMER1_COMPARE_A)]);
 }
 
 ISR(TIMER1_COMPB_vect)
 {
-  executeCallbackIfValid(isr_timer1_compare_b);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMER1_COMPARE_B)]);
 }
 
 ISR(TIMER1_OVF_vect)
 {
-  executeCallbackIfValid(isr_timer1_overflow);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMER1_OVERFLOW)]);
 }
 
 ISR(TIMER0_COMPA_vect)
 {
-  executeCallbackIfValid(isr_timer0_compare_a);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMER0_COMPARE_A)]);
 }
 
 ISR(TIMER0_COMPB_vect)
 {
-  executeCallbackIfValid(isr_timer0_compare_b);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMER0_COMPARE_B)]);
 }
 
 ISR(TIMER0_OVF_vect)
 {
-  executeCallbackIfValid(isr_timer0_overflow);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMER0_OVERFLOW)]);
 }
 
 ISR(SPI_STC_vect)
 {
-  executeCallbackIfValid(isr_spi_serial_transfer_complete);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::SPI_SERIAL_TRANSFER_COMPLETE)]);
 }
 
 ISR(USART0_RX_vect)
 {
-  executeCallbackIfValid(isr_usart0_receive_complete);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::USART0_RECEIVE_COMPLETE)]);
 }
 
 ISR(USART0_UDRE_vect)
 {
-  executeCallbackIfValid(isr_usart0_uart_data_register_empty);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::USART0_UART_DATA_REGISTER_EMPTY)]);
 }
 
 ISR(USART0_TX_vect)
 {
-  executeCallbackIfValid(isr_usart0_transmit_complete);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::USART0_TRANSMIT_COMPLETE)]);
 }
 
 ISR(ANALOG_COMP_vect)
 {
-  executeCallbackIfValid(isr_analog_comparator);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::ANALOG_COMPARATOR)]);
 }
 
 ISR(ADC_vect)
 {
-  executeCallbackIfValid(isr_analog_digital_converter);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::ANALOG_DIGITAL_CONVERTER)]);
 }
 
 ISR(EE_READY_vect)
 {
-  executeCallbackIfValid(isr_eeprom_ready);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::EEPROM_READY)]);
 }
 
 ISR(TWI_vect)
 {
-  executeCallbackIfValid(isr_two_wire_int);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TWO_WIRE_INT)]);
 }
 
 ISR(SPM_READY_vect)
 {
-  executeCallbackIfValid(isr_spm_ready);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::SPM_READY)]);
 }
 
 ISR(USART1_RX_vect)
 {
-  executeCallbackIfValid(isr_usart1_receive_complete);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::USART1_RECEIVE_COMPLETE)]);
 }
 
 ISR(USART1_UDRE_vect)
 {
-  executeCallbackIfValid(isr_usart1_uart_data_register_empty);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::USART1_UART_DATA_REGISTER_EMPTY)]);
 }
 
 ISR(USART1_TX_vect)
 {
-  executeCallbackIfValid(isr_usart1_transmit_complete);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::USART1_TRANSMIT_COMPLETE)]);
 }
 
 #endif /* defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega164p) || defined(MCU_TYPE_atmega324p) || defined(MCU_TYPE_atmega644p) || defined(MCU_TYPE_atmega1284p) ) ) */
