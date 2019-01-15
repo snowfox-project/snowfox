@@ -53,7 +53,7 @@ public:
 
   virtual void onExternalEvent() = 0;
 
-  virtual void interruptServiceRoutine() override { onExternalEvent(); }
+  virtual void onInterrupt() override { onExternalEvent(); }
 
 };
 

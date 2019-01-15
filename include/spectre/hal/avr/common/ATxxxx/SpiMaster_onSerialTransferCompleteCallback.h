@@ -55,7 +55,7 @@ public:
   virtual ~SpiMaster_onSerialTransferCompleteCallback();
 
 
-  virtual void interruptServiceRoutine() override;
+  virtual void onInterrupt() override;
 
 private:
 

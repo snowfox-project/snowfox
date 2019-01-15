@@ -45,7 +45,7 @@ public:
   virtual ~InterruptCallback() { }
 
 
-  virtual void interruptServiceRoutine() = 0;
+  virtual void onInterrupt() = 0;
 
 };
 
@@ -55,7 +55,7 @@ public:
 
 inline void executeCallbackIfValid(InterruptCallback * callback)
 {
-  if(callback) callback->interruptServiceRoutine();
+  if(callback) callback->onInterrupt();
 }
 
 /**************************************************************************************
