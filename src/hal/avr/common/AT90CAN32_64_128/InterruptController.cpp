@@ -291,6 +291,7 @@ void InterruptController::registerInterruptCallback(uint8_t const int_num, inter
  * NAMESPACES
  **************************************************************************************/
 
+using namespace spectre::hal::interface;
 using namespace spectre::hal::AT90CAN32_64_128;
 
 /**************************************************************************************
@@ -299,7 +300,7 @@ using namespace spectre::hal::AT90CAN32_64_128;
 
 ISR(INT0_vect)
 {
-  executeCallbackIfValid(isr_external_int0);
+  executeCallbackIfValid(isr_external_int0); /*FIXME */
 }
 
 ISR(INT1_vect)

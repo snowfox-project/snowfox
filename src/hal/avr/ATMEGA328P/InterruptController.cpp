@@ -45,6 +45,8 @@ namespace ATMEGA328P
 
 static uint8_t constexpr NUM_INTERRUPT_CALLBACKS = 45;
 
+static_assert(NUM_INTERRUPT_CALLBACKS == toIntNum(Interrupt::SPM_READY) + 1, "Error: number of interrupt callbacks is not equal with number of interrupts");
+
 /**************************************************************************************
  * GLOBAL VARIABLES
  **************************************************************************************/
@@ -247,6 +249,7 @@ void InterruptController::registerInterruptCallback(uint8_t const int_num, inter
  * NAMESPACES
  **************************************************************************************/
 
+using namespace spectre::hal::interface;
 using namespace spectre::hal::ATMEGA328P;
 
 /**************************************************************************************

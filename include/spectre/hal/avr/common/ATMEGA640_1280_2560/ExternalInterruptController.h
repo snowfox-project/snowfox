@@ -115,7 +115,7 @@ public:
 
   /* External Interrupt Assembly */
 
-  virtual void registerInterruptCallback(uint8_t const ext_int_num, interface::InterruptCallback * interrupt_callback) override;
+  virtual void registerInterruptCallback(uint8_t const ext_int_num, interface::ExternalInterruptCallback * external_interrupt_callback) override;
 
 
 private:
@@ -123,6 +123,9 @@ private:
   volatile uint8_t               * _EICRA,
                                  * _EICRB;
   interface::InterruptController & _int_ctrl;
+
+
+  static uint8_t converToIntNum(uint8_t const ext_int_num);
 
 };
 
