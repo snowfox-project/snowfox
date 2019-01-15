@@ -51,9 +51,9 @@ public:
   virtual ~ExternalInterruptCallback() { }
 
 
-  virtual void onExternalEvent() = 0;
+  virtual void onExternalInterrupt() = 0;
 
-  virtual void onInterrupt() override { onExternalEvent(); }
+  virtual void onInterrupt() override { onExternalInterrupt(); }
 
 };
 
