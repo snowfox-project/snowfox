@@ -42,16 +42,8 @@ namespace AT90CAN64
  * TYPEDEF
  **************************************************************************************/
 
-typedef AT90CAN32_64_128::ExternalInterrupt                    ExternalInterrupt;
-typedef AT90CAN32_64_128::ExternalInterruptController          ExternalInterruptController;
-typedef AT90CAN32_64_128::EINT0_ExternalInterruptEventCallback EINT0_ExternalInterruptEventCallback;
-typedef AT90CAN32_64_128::EINT1_ExternalInterruptEventCallback EINT1_ExternalInterruptEventCallback;
-typedef AT90CAN32_64_128::EINT2_ExternalInterruptEventCallback EINT2_ExternalInterruptEventCallback;
-typedef AT90CAN32_64_128::EINT3_ExternalInterruptEventCallback EINT3_ExternalInterruptEventCallback;
-typedef AT90CAN32_64_128::EINT4_ExternalInterruptEventCallback EINT4_ExternalInterruptEventCallback;
-typedef AT90CAN32_64_128::EINT5_ExternalInterruptEventCallback EINT5_ExternalInterruptEventCallback;
-typedef AT90CAN32_64_128::EINT6_ExternalInterruptEventCallback EINT6_ExternalInterruptEventCallback;
-typedef AT90CAN32_64_128::EINT7_ExternalInterruptEventCallback EINT7_ExternalInterruptEventCallback;
+typedef AT90CAN32_64_128::ExternalInterrupt           ExternalInterrupt;
+typedef AT90CAN32_64_128::ExternalInterruptController ExternalInterruptController;
 
 /**************************************************************************************
  * NAMESPACE
