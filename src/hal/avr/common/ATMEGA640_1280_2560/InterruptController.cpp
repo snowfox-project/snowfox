@@ -292,7 +292,10 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
 
 void InterruptController::registerInterruptCallback(uint8_t const int_num, interface::InterruptCallback * interrupt_callback)
 {
-  /* TODO */
+  if(int_num < NUM_INTERRUPT_CALLBACKS)
+  {
+    isr[int_num] = interrupt_callback;
+  }
 }
 
 /**************************************************************************************
