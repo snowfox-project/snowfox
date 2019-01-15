@@ -50,6 +50,7 @@ static uint8_t  const EIMSK_RESET_VALUE   = 0;
 
 /* PIN CHANGE */
 static uint8_t  const PCICR_RESET_VALUE   = 0;
+static uint8_t  const PCMSK0_RESET_VALUE  = 0;
 
 /* WATCHDOG */
 static uint8_t  const WDTCSR_RESET_VALUE  = 0;
