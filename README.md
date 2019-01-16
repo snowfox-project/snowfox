@@ -45,11 +45,11 @@ If you need a **commercial license** the following pricing options are available
 | -------------------------- |:-------------:|:-------------:|:----------------:|
 | Number of deployed devices | Unlimited     | Unlimited     | Unlimited        |
 | Support (Public)           | Yes           | Yes           | Yes              |
-| Priority Support           |               | Yes           | Yes              |
-| Onboarding consultation    |               |               | Yes              |
+| Onboarding consultation    |               | Yes           | Yes              |
+| Priority Support           |               |               | Yes              |
 |                            | **1000,00 €** | **2500,00 €** | **5000,00 €**    |
 
-Contact us ([consulting@lxrobotics.com](mailto:consulting@lxrobotics.com)) to request additional information, customisation  or a quote for a commercial license.
+Contact us ([consulting@lxrobotics.com](mailto:consulting@lxrobotics.com)) to request additional information, customisation  or a extended support contract.
 
 ## RTOS
 
