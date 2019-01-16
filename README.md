@@ -42,7 +42,7 @@ As an alternative, Spectre can be made available under a commercial license. Und
 If you need a **commercial license** the following pricing options are available:
 
 |                            | **Basic**     | **Standard**  | **Professional** |
-|:--------------------------:|:-------------:|:-------------:|:----------------:|
+| -------------------------- |:-------------:|:-------------:|:----------------:|
 | Number of deployed devices | Unlimited     | Unlimited     | Unlimited        |
 | Support (Public)           | Yes           | Yes           | Yes              |
 | Priority Support           |               | Yes           | Yes              |
