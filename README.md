@@ -176,4 +176,4 @@ If you need a **commercial license** the following pricing options are available
 | Priority Support           |               |               | Yes              |
 |                            | **1000,00 €** | **2500,00 €** | **5000,00 €**    |
 
-Contact us ([consulting@lxrobotics.com](mailto:consulting@lxrobotics.com)) to request additional information, customisation  or a extended support contract.
+For requesting a quote, purchasing a commerical license or simply if you need additional information contact us at [consulting@lxrobotics.com](mailto:consulting@lxrobotics.com).
