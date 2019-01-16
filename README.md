@@ -17,6 +17,28 @@ The application of OO principles such as SOLID leads to a clean code base and mi
 
 In his book "Refactoring: Improving the Design of Existing Code" Martin Fowler frankly states that *“Any fool can write code that a computer can understand. Good programmers write code that humans can understand.”* **This project aims to do just that for the embedded domain.** You are kindly invited to browse the code and form your own opinion about how well the code is adhering to our claim.
 
+## Licensing
+
+Spectre is open source and licensed under version 3 of the GNU GPL. Spectre is free under this license and can be freely used and distributed under its terms.
+
+The freedom that this GNU GPL license offers, comes with responsibilities and side effects that are not always desirable. This is especially the case if you want to integrate Spectre in your closed source product and/or don’t want your customers to know that your product contains Spectre.
+
+As an alternative, Spectre can be made available under a commercial license. Under the commercial license, Spectre does not contain any references to the GNU GPL. Refer to the following license comparison matrix to determine the Spectre license your product requires.
+
+| Question                                                            | GNU GPL version 3 | Commercial License |
+| ------------------------------------------------------------------- |:-----------------:|:------------------:|
+| Is Spectre free?                                                    | yes               | no                 |
+| Do I have the right to change the Spectre source code?              | yes               | yes                |
+| Can I use Spectre in my closed source product?                      | no                | yes                |
+| Do I have to open my source code?                                   | yes               | no                 |
+| Do I have to open source my changes to Spectre?                     | yes               | no                 |
+| Do I have to offer the Spectre source code to users of my product?  | yes               | no                 |
+| Do I have to document that my product uses Spectre?	              | yes               | no                 |
+| Can I redistribute Spectre in source code format?                   | yes               | no                 |
+| Can I receive professional technical support on a commercial basis? | no                | yes                |
+
+Contact Alexander Entinger / LXRobotics GmbH ([consulting@lxrobotics.com](mailto:consulting@lxrobotics.com)) to request additional information, customisation and/or a quote for a commercial license for the whole library or parts of it.
+
 ## RTOS
 
 Work in progress ...
@@ -143,25 +165,3 @@ mkdir build && cd build
 cmake ..
 make
 ```
-
-## Licensing
-
-Spectre is open source and licensed under version 3 of the GNU GPL. Spectre is free under this license and can be freely used and distributed under its terms.
-
-The freedom that this GNU GPL license offers, comes with responsibilities and side effects that are not always desirable. This is especially the case if you want to integrate Spectre in your closed source product and/or don’t want your customers to know that your product contains Spectre.
-
-As an alternative, Spectre can be made available under a commercial license. Under the commercial license, Spectre does not contain any references to the GNU GPL. Refer to the following license comparison matrix to determine the Spectre license your product requires.
-
-| Question                                                            | GNU GPL version 3 | Commercial License |
-| ------------------------------------------------------------------- |:-----------------:|:------------------:|
-| Is Spectre free?                                                    | yes               | no                 |
-| Do I have the right to change the Spectre source code?              | yes               | yes                |
-| Can I use Spectre in my closed source product?                      | no                | yes                |
-| Do I have to open my source code?                                   | yes               | no                 |
-| Do I have to open source my changes to Spectre?                     | yes               | no                 |
-| Do I have to offer the Spectre source code to users of my product?  | yes               | no                 |
-| Do I have to document that my product uses Spectre?	              | yes               | no                 |
-| Can I redistribute Spectre in source code format?                   | yes               | no                 |
-| Can I receive professional technical support on a commercial basis? | no                | yes                |
-
-Contact Alexander Entinger / LXRobotics GmbH ([consulting@lxrobotics.com](mailto:consulting@lxrobotics.com)) to request additional information, customisation and/or a quote for a commercial license for the whole library or parts of it.
