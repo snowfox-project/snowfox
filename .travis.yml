@@ -12,6 +12,6 @@ script:
   - .ci/script/run-build-libsnowfox-all.sh
   - .ci/script/run-build-example-all.sh
   - .ci/script/run-pre-test-prepare-coverage-report.sh
-  - .ci/script/run-build-libspectre.sh config/host-default.cmake
+  - .ci/script/run-build-libsnowfox.sh config/host-default.cmake
   - .ci/script/run-test.sh
   - .ci/script/run-post-test-create-coverage-report.sh
