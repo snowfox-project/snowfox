@@ -22,7 +22,7 @@
 
 #include <catch2/catch.hpp>
 
-#include <testutil/hal/Register.hpp>
+#include <testutil/Register.hpp>
 
 #include <snowfox/hal/avr/common/ATxxxx/DigitalOutPin.h>
 

@@ -27,7 +27,7 @@
 
 #include <snowfox/hal/interface/interrupt/InterruptController.h>
 
-#include <testutil/hal/Register.hpp>
+#include <testutil/Register.hpp>
 
 /**************************************************************************************
  * NAMESPACE

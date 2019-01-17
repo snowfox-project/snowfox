@@ -25,7 +25,7 @@
 
 #include <catch2/catch.hpp>
 
-#include <testutil/hal/Register.hpp>
+#include <testutil/Register.hpp>
 #include <hal/avr/ATMEGA328P/RegisterResetValueList.h>
 
 #include <snowfox/hal/avr/ATMEGA328P/TIMER1.h>
