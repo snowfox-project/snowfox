@@ -1,9 +1,9 @@
 Snowfox = RTOS + HAL + IO + COMSTACK + CI + C++
 ===============================================
 [![GPLv3 License](.ci/badge/license-gplv3-blue.svg)](LICENSE)
-[![Build Status](https://travis-ci.org/lxrobotics/spectre.svg?branch=master)](https://travis-ci.org/lxrobotics/spectre)
-[![Coverage Status](https://coveralls.io/repos/github/lxrobotics/spectre/badge.svg?branch=master&service=github)](https://coveralls.io/github/lxrobotics/spectre?branch=master)
-[![Wiki](.ci/badge/docu-wiki-brightgreen.svg)](https://github.com/lxrobotics/spectre/wiki)
+[![Build Status](https://travis-ci.org/lxrobotics/snowfox.svg?branch=master)](https://travis-ci.org/lxrobotics/snowfox)
+[![Coverage Status](https://coveralls.io/repos/github/lxrobotics/snowfox/badge.svg?branch=master&service=github)](https://coveralls.io/github/lxrobotics/snowfox?branch=master)
+[![Wiki](.ci/badge/docu-wiki-brightgreen.svg)](https://github.com/lxrobotics/snowfox/wiki)
 
 ### What ?
 
