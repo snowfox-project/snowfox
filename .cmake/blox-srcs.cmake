@@ -71,7 +71,7 @@ if(${MCU_ARCH} STREQUAL "avr")
   ########################################################################
 
   set(SPECTRE_LIBRARY_BLOX_HAL_AVR_AT90CAN32_64_128_SRCS
-    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/AT90CAN32_64_128/ExternalInterruptController.cpp
+    # ... 
   )
   
   ########################################################################
@@ -79,7 +79,7 @@ if(${MCU_ARCH} STREQUAL "avr")
   ########################################################################
 
   set(SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA164P_324P_644P_1284P_SRCS
-    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATMEGA164P_324P_644P_1284P/ExternalInterruptController.cpp
+    # ...
   )
 
   ########################################################################
@@ -87,7 +87,7 @@ if(${MCU_ARCH} STREQUAL "avr")
   ########################################################################
 
   set(SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA16U4_32U4_SRCS
-    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATMEGA16U4_32U4/ExternalInterruptController.cpp
+    # ...
   )
   
   ########################################################################
@@ -95,7 +95,7 @@ if(${MCU_ARCH} STREQUAL "avr")
   ########################################################################
 
   set(SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA640_1280_2560_SRCS
-    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/common/ATMEGA640_1280_2560/ExternalInterruptController.cpp
+    # ...
   )
   
   # AT90CAN128 ###########################################################
@@ -190,8 +190,8 @@ if(${MCU_ARCH} STREQUAL "avr")
 
   # ATMEGA328P ###########################################################
 
-  set(SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA328P_SRCS 
-    ${SPECTRE_LIBRARY_BLOX_HAL_AVR_PATH}/ATMEGA328P/ExternalInterruptController.cpp
+  set(SPECTRE_LIBRARY_BLOX_HAL_AVR_ATMEGA328P_SRCS
+    # ...
   )
   
   if(${MCU_TYPE} STREQUAL "atmega328p")

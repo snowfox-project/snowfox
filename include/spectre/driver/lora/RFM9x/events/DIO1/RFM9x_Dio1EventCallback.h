@@ -56,7 +56,7 @@ namespace RFM9x
  * on DIO1: RxTimeout, FhssChangeChannel, CadDetected
  */
 
-class RFM9x_Dio1EventCallback :  public hal::interface::ExternalInterruptCallback
+class RFM9x_Dio1EventCallback : public hal::interface::ExternalInterruptCallback
 {
 
 public:
@@ -68,7 +68,7 @@ public:
   virtual ~RFM9x_Dio1EventCallback();
 
 
-  virtual void onExternalEventCallback() override;
+  virtual void onExternalInterrupt() override;
 
 
 private:

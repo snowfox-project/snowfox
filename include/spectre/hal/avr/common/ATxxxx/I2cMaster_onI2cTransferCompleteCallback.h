@@ -53,7 +53,7 @@ public:
   virtual ~I2cMaster_onI2cTransferCompleteCallback();
 
 
-  virtual void interruptServiceRoutine() override;
+  virtual void onInterrupt() override;
 
 private:
 

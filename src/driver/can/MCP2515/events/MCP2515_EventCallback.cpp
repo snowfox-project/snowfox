@@ -71,7 +71,7 @@ MCP2515_EventCallback::~MCP2515_EventCallback()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void MCP2515_EventCallback::onExternalEventCallback()
+void MCP2515_EventCallback::onExternalInterrupt()
 {
   uint8_t const event_flags = _event_ctrl.getEventFlags();
 

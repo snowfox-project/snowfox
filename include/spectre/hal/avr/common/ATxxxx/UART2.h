@@ -115,7 +115,7 @@ public:
   virtual ~UART2_TransmitRegisterEmptyCallback() { }
 
 
-  virtual void interruptServiceRoutine() override
+  virtual void onInterrupt() override
   {
     _uart2.ISR_onTransmitRegisterEmpty();
   }
@@ -137,7 +137,7 @@ public:
   virtual ~UART2_ReceiveCompleteCallback() { }
 
 
-  virtual void interruptServiceRoutine() override
+  virtual void onInterrupt() override
   {
     _uart2.ISR_onReceiveComplete();
   }

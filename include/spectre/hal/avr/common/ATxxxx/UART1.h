@@ -115,7 +115,7 @@ public:
   virtual ~UART1_TransmitRegisterEmptyCallback() { }
 
 
-  virtual void interruptServiceRoutine() override
+  virtual void onInterrupt() override
   {
     _uart1.ISR_onTransmitRegisterEmpty();
   }
@@ -137,7 +137,7 @@ public:
   virtual ~UART1_ReceiveCompleteCallback() { }
 
 
-  virtual void interruptServiceRoutine() override
+  virtual void onInterrupt() override
   {
     _uart1.ISR_onReceiveComplete();
   }

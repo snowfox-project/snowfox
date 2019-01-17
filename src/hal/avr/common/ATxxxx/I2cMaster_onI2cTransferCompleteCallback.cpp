@@ -54,7 +54,7 @@ I2cMaster_onI2cTransferCompleteCallback::~I2cMaster_onI2cTransferCompleteCallbac
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void I2cMaster_onI2cTransferCompleteCallback::interruptServiceRoutine()
+void I2cMaster_onI2cTransferCompleteCallback::onInterrupt()
 {
   _i2c_transfer_complete_event.set();
 }

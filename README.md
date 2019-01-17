@@ -164,4 +164,16 @@ As an alternative, Spectre can be made available under a commercial license. Und
 | Can I redistribute Spectre in source code format?                   | yes               | no                 |
 | Can I receive professional technical support on a commercial basis? | no                | yes                |
 
-Contact Alexander Entinger / LXRobotics GmbH ([consulting@lxrobotics.com](mailto:consulting@lxrobotics.com)) to request additional information, customisation and/or a quote for a commercial license for the whole library or parts of it.
+## Pricing
+
+If you need a **commercial license** the following pricing options are available:
+
+|                            | **Basic**     | **Standard**  | **Professional** |
+| -------------------------- |:-------------:|:-------------:|:----------------:|
+| Number of deployed devices | Unlimited     | Unlimited     | Unlimited        |
+| Support (Public)           | Yes           | Yes           | Yes              |
+| Onboarding consultation    |               | Yes           | Yes              |
+| Priority Support           |               |               | Yes              |
+|                            | **1000,00 €** | **2500,00 €** | **5000,00 €**    |
+
+For requesting a quote, purchasing a commerical license or simply if you need additional information contact us at [consulting@lxrobotics.com](mailto:consulting@lxrobotics.com).

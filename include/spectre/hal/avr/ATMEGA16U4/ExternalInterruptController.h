@@ -42,6 +42,7 @@ namespace ATMEGA16U4
  * TYPEDEF
  **************************************************************************************/
 
+typedef ATMEGA16U4_32U4::ExternalInterrupt           ExternalInterrupt;
 typedef ATMEGA16U4_32U4::ExternalInterruptController ExternalInterruptController;
 
 /**************************************************************************************

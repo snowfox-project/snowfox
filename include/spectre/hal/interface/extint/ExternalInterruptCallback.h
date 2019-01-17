@@ -20,6 +20,12 @@
 #define INCLUDE_SPECTRE_HAL_INTERFACE_EXTINT_EXTERNALINTERRUPTCALLBACK_H_
 
 /**************************************************************************************
+ * INCLUDE
+ **************************************************************************************/
+
+#include <spectre/hal/interface/interrupt/InterruptCallback.h>
+
+/**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
@@ -36,7 +42,7 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class ExternalInterruptCallback
+class ExternalInterruptCallback : public InterruptCallback
 {
 
 public:
@@ -45,7 +51,9 @@ public:
   virtual ~ExternalInterruptCallback() { }
 
 
-  virtual void onExternalEventCallback() = 0;
+  virtual void onExternalInterrupt() = 0;
+
+  virtual void onInterrupt() override { onExternalInterrupt(); }
 
 };
 

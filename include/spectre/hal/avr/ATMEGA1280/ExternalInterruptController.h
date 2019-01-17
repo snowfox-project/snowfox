@@ -42,19 +42,8 @@ namespace ATMEGA1280
  * TYPEDEF
  **************************************************************************************/
 
-typedef ATMEGA640_1280_2560::ExternalInterrupt                         ExternalInterrupt;
-typedef ATMEGA640_1280_2560::ExternalInterruptController               ExternalInterruptController;
-typedef ATMEGA640_1280_2560::EINT0_ExternalInterruptEventCallback      EINT0_ExternalInterruptEventCallback;
-typedef ATMEGA640_1280_2560::EINT1_ExternalInterruptEventCallback      EINT1_ExternalInterruptEventCallback;
-typedef ATMEGA640_1280_2560::EINT2_ExternalInterruptEventCallback      EINT2_ExternalInterruptEventCallback;
-typedef ATMEGA640_1280_2560::EINT3_ExternalInterruptEventCallback      EINT3_ExternalInterruptEventCallback;
-typedef ATMEGA640_1280_2560::EINT4_ExternalInterruptEventCallback      EINT4_ExternalInterruptEventCallback;
-typedef ATMEGA640_1280_2560::EINT5_ExternalInterruptEventCallback      EINT5_ExternalInterruptEventCallback;
-typedef ATMEGA640_1280_2560::EINT6_ExternalInterruptEventCallback      EINT6_ExternalInterruptEventCallback;
-typedef ATMEGA640_1280_2560::EINT7_ExternalInterruptEventCallback      EINT7_ExternalInterruptEventCallback;
-typedef ATMEGA640_1280_2560::PinChange0_ExternalInterruptEventCallback PinChange0_ExternalInterruptEventCallback;
-typedef ATMEGA640_1280_2560::PinChange1_ExternalInterruptEventCallback PinChange1_ExternalInterruptEventCallback;
-typedef ATMEGA640_1280_2560::PinChange2_ExternalInterruptEventCallback PinChange2_ExternalInterruptEventCallback;
+typedef ATMEGA640_1280_2560::ExternalInterrupt           ExternalInterrupt;
+typedef ATMEGA640_1280_2560::ExternalInterruptController ExternalInterruptController;
 
 /**************************************************************************************
  * NAMESPACE

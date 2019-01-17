@@ -53,7 +53,7 @@ public:
   virtual ~ExternalInterruptAssembly() { }
 
 
-  virtual void registerExternalInterruptCallback(uint8_t const ext_int_num, ExternalInterruptCallback * external_interrupt_callback) = 0;
+  virtual void registerInterruptCallback(uint8_t const ext_int_num, ExternalInterruptCallback * external_interrupt_callback) = 0;
 
 };
 

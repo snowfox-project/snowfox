@@ -80,7 +80,7 @@ enum class Interrupt : uint8_t
   USART1_TRANSMIT_COMPLETE        = 33,
   TWO_WIRE_INT                    = 34,
   SPM_READY                       = 35,
-  GLOBAL                          = 36,
+  GLOBAL                          = interface::InterruptController::GLOBAL_INT_NUM,
   INVALID                         = interface::InterruptController::INVALID_INT_NUM
 };
 

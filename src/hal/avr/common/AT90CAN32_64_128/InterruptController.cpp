@@ -40,45 +40,18 @@ namespace AT90CAN32_64_128
 {
 
 /**************************************************************************************
+ * GLOBAL CONSTANTS
+ **************************************************************************************/
+
+static uint8_t constexpr NUM_INTERRUPT_CALLBACKS = 36;
+
+static_assert(NUM_INTERRUPT_CALLBACKS == toIntNum(Interrupt::SPM_READY) + 1, "Error: number of interrupt callbacks is not equal with number of interrupts");
+
+/**************************************************************************************
  * GLOBAL VARIABLES
  **************************************************************************************/
 
-static interface::InterruptCallback * isr_external_int0                   = 0,
-                                    * isr_external_int1                   = 0,
-                                    * isr_external_int2                   = 0,
-                                    * isr_external_int3                   = 0,
-                                    * isr_external_int4                   = 0,
-                                    * isr_external_int5                   = 0,
-                                    * isr_external_int6                   = 0,
-                                    * isr_external_int7                   = 0,
-                                    * isr_timer2_compare                  = 0,
-                                    * isr_timer2_overflow                 = 0,
-                                    * isr_timer1_capture                  = 0,
-                                    * isr_timer1_compare_a                = 0,
-                                    * isr_timer1_compare_b                = 0,
-                                    * isr_timer1_compare_c                = 0,
-                                    * isr_timer1_overflow                 = 0,
-                                    * isr_timer0_compare                  = 0,
-                                    * isr_timer0_overflow                 = 0,
-                                    * isr_can_all                         = 0,
-                                    * isr_can_timer_overrun               = 0,
-                                    * isr_spi_serial_transfer_complete    = 0,
-                                    * isr_usart0_receive_complete         = 0,
-                                    * isr_usart0_uart_data_register_empty = 0,
-                                    * isr_usart0_transmit_complete        = 0,
-                                    * isr_analog_comparator               = 0,
-                                    * isr_analog_digital_converter        = 0,
-                                    * isr_eeprom_ready                    = 0,
-                                    * isr_timer3_capture                  = 0,
-                                    * isr_timer3_compare_a                = 0,
-                                    * isr_timer3_compare_b                = 0,
-                                    * isr_timer3_compare_c                = 0,
-                                    * isr_timer3_overflow                 = 0,
-                                    * isr_usart1_receive_complete         = 0,
-                                    * isr_usart1_uart_data_register_empty = 0,
-                                    * isr_usart1_transmit_complete        = 0,
-                                    * isr_two_wire_int                    = 0,
-                                    * isr_spm_ready                       = 0;
+static interface::InterruptCallback * isr[NUM_INTERRUPT_CALLBACKS] = {0};
 
 /**************************************************************************************
  * CTOR/DTOR
@@ -222,45 +195,9 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
 
 void InterruptController::registerInterruptCallback(uint8_t const int_num, interface::InterruptCallback * interrupt_callback)
 {
-  switch(int_num)
+  if(int_num < NUM_INTERRUPT_CALLBACKS)
   {
-  case toIntNum(Interrupt::EXTERNAL_INT0                  ): isr_external_int0                   = interrupt_callback; break;
-  case toIntNum(Interrupt::EXTERNAL_INT1                  ): isr_external_int1                   = interrupt_callback; break;
-  case toIntNum(Interrupt::EXTERNAL_INT2                  ): isr_external_int2                   = interrupt_callback; break;
-  case toIntNum(Interrupt::EXTERNAL_INT3                  ): isr_external_int3                   = interrupt_callback; break;
-  case toIntNum(Interrupt::EXTERNAL_INT4                  ): isr_external_int4                   = interrupt_callback; break;
-  case toIntNum(Interrupt::EXTERNAL_INT5                  ): isr_external_int5                   = interrupt_callback; break;
-  case toIntNum(Interrupt::EXTERNAL_INT6                  ): isr_external_int6                   = interrupt_callback; break;
-  case toIntNum(Interrupt::EXTERNAL_INT7                  ): isr_external_int7                   = interrupt_callback; break;
-  case toIntNum(Interrupt::TIMER2_COMPARE                 ): isr_timer2_compare                  = interrupt_callback; break;
-  case toIntNum(Interrupt::TIMER2_OVERFLOW                ): isr_timer2_overflow                 = interrupt_callback; break;
-  case toIntNum(Interrupt::TIMER1_CAPTURE                 ): isr_timer1_capture                  = interrupt_callback; break;
-  case toIntNum(Interrupt::TIMER1_COMPARE_A               ): isr_timer1_compare_a                = interrupt_callback; break;
-  case toIntNum(Interrupt::TIMER1_COMPARE_B               ): isr_timer1_compare_b                = interrupt_callback; break;
-  case toIntNum(Interrupt::TIMER1_COMPARE_C               ): isr_timer1_compare_c                = interrupt_callback; break;
-  case toIntNum(Interrupt::TIMER1_OVERFLOW                ): isr_timer1_overflow                 = interrupt_callback; break;
-  case toIntNum(Interrupt::TIMER0_COMPARE                 ): isr_timer0_compare                  = interrupt_callback; break;
-  case toIntNum(Interrupt::TIMER0_OVERFLOW                ): isr_timer0_overflow                 = interrupt_callback; break;
-  case toIntNum(Interrupt::CAN_ALL                        ): isr_can_all                         = interrupt_callback; break;
-  case toIntNum(Interrupt::CAN_TIMER_OVERRUN              ): isr_can_timer_overrun               = interrupt_callback; break;
-  case toIntNum(Interrupt::SPI_SERIAL_TRANSFER_COMPLETE   ): isr_spi_serial_transfer_complete    = interrupt_callback; break;
-  case toIntNum(Interrupt::USART0_RECEIVE_COMPLETE        ): isr_usart0_receive_complete         = interrupt_callback; break;
-  case toIntNum(Interrupt::USART0_UART_DATA_REGISTER_EMPTY): isr_usart0_uart_data_register_empty = interrupt_callback; break;
-  case toIntNum(Interrupt::USART0_TRANSMIT_COMPLETE       ): isr_usart0_transmit_complete        = interrupt_callback; break;
-  case toIntNum(Interrupt::ANALOG_COMPARATOR              ): isr_analog_comparator               = interrupt_callback; break;
-  case toIntNum(Interrupt::ANALOG_DIGITAL_CONVERTER       ): isr_analog_digital_converter        = interrupt_callback; break;
-  case toIntNum(Interrupt::EEPROM_READY                   ): isr_eeprom_ready                    = interrupt_callback; break;
-  case toIntNum(Interrupt::TIMER3_CAPTURE                 ): isr_timer3_capture                  = interrupt_callback; break;
-  case toIntNum(Interrupt::TIMER3_COMPARE_A               ): isr_timer3_compare_a                = interrupt_callback; break;
-  case toIntNum(Interrupt::TIMER3_COMPARE_B               ): isr_timer3_compare_b                = interrupt_callback; break;
-  case toIntNum(Interrupt::TIMER3_COMPARE_C               ): isr_timer3_compare_c                = interrupt_callback; break;
-  case toIntNum(Interrupt::TIMER3_OVERFLOW                ): isr_timer3_overflow                 = interrupt_callback; break;
-  case toIntNum(Interrupt::USART1_RECEIVE_COMPLETE        ): isr_usart1_receive_complete         = interrupt_callback; break;
-  case toIntNum(Interrupt::USART1_UART_DATA_REGISTER_EMPTY): isr_usart1_uart_data_register_empty = interrupt_callback; break;
-  case toIntNum(Interrupt::USART1_TRANSMIT_COMPLETE       ): isr_usart1_transmit_complete        = interrupt_callback; break;
-  case toIntNum(Interrupt::TWO_WIRE_INT                   ): isr_two_wire_int                    = interrupt_callback; break;
-  case toIntNum(Interrupt::SPM_READY                      ): isr_spm_ready                       = interrupt_callback; break;
-  default                                                  : /* DO NOTHING */                                          break;
+    isr[int_num] = interrupt_callback;
   }
 }
 
@@ -291,6 +228,7 @@ void InterruptController::registerInterruptCallback(uint8_t const int_num, inter
  * NAMESPACES
  **************************************************************************************/
 
+using namespace spectre::hal::interface;
 using namespace spectre::hal::AT90CAN32_64_128;
 
 /**************************************************************************************
@@ -299,182 +237,182 @@ using namespace spectre::hal::AT90CAN32_64_128;
 
 ISR(INT0_vect)
 {
-  executeCallbackIfValid(isr_external_int0);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::EXTERNAL_INT0)]);
 }
 
 ISR(INT1_vect)
 {
-  executeCallbackIfValid(isr_external_int1);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::EXTERNAL_INT1)]);
 }
 
 ISR(INT2_vect)
 {
-  executeCallbackIfValid(isr_external_int2);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::EXTERNAL_INT2)]);
 }
 
 ISR(INT3_vect)
 {
-  executeCallbackIfValid(isr_external_int3);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::EXTERNAL_INT3)]);
 }
 
 ISR(INT4_vect)
 {
-  executeCallbackIfValid(isr_external_int4);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::EXTERNAL_INT4)]);
 }
 
 ISR(INT5_vect)
 {
-  executeCallbackIfValid(isr_external_int5);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::EXTERNAL_INT5)]);
 }
 
 ISR(INT6_vect)
 {
-  executeCallbackIfValid(isr_external_int6);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::EXTERNAL_INT6)]);
 }
 
 ISR(INT7_vect)
 {
-  executeCallbackIfValid(isr_external_int7);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::EXTERNAL_INT7)]);
 }
 
 ISR(TIMER2_COMP_vect)
 {
-  executeCallbackIfValid(isr_timer2_compare);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMER2_COMPARE)]);
 }
 
 ISR(TIMER2_OVF_vect)
 {
-  executeCallbackIfValid(isr_timer2_overflow);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMER2_OVERFLOW)]);
 }
 
 ISR(TIMER1_CAPT_vect)
 {
-  executeCallbackIfValid(isr_timer1_capture);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMER1_CAPTURE)]);
 }
 
 ISR(TIMER1_COMPA_vect)
 {
-  executeCallbackIfValid(isr_timer1_compare_a);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMER1_COMPARE_A)]);
 }
 
 ISR(TIMER1_COMPB_vect)
 {
-  executeCallbackIfValid(isr_timer1_compare_b);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMER1_COMPARE_B)]);
 }
 
 ISR(TIMER1_COMPC_vect)
 {
-  executeCallbackIfValid(isr_timer1_compare_c);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMER1_COMPARE_C)]);
 }
 
 ISR(TIMER1_OVF_vect)
 {
-  executeCallbackIfValid(isr_timer1_overflow);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMER1_OVERFLOW)]);
 }
 
 ISR(TIMER0_COMP_vect)
 {
-  executeCallbackIfValid(isr_timer0_compare);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMER0_COMPARE)]);
 }
 
 ISR(TIMER0_OVF_vect)
 {
-  executeCallbackIfValid(isr_timer0_overflow);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMER0_OVERFLOW)]);
 }
 
 ISR(CANIT_vect)
 {
-  executeCallbackIfValid(isr_can_all);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::CAN_ALL)]);
 }
 
 ISR(OVRIT_vect)
 {
-  executeCallbackIfValid(isr_can_timer_overrun);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::CAN_TIMER_OVERRUN)]);
 }
 
 ISR(SPI_STC_vect)
 {
-  executeCallbackIfValid(isr_spi_serial_transfer_complete);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::SPI_SERIAL_TRANSFER_COMPLETE)]);
 }
 
 ISR(USART0_RX_vect)
 {
-  executeCallbackIfValid(isr_usart0_receive_complete);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::USART0_RECEIVE_COMPLETE)]);
 }
 
 ISR(USART0_UDRE_vect)
 {
-  executeCallbackIfValid(isr_usart0_uart_data_register_empty);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::USART0_UART_DATA_REGISTER_EMPTY)]);
 }
 
 ISR(USART0_TX_vect)
 {
-  executeCallbackIfValid(isr_usart0_transmit_complete);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::USART0_TRANSMIT_COMPLETE)]);
 }
 
 ISR(ANALOG_COMP_vect)
 {
-  executeCallbackIfValid(isr_analog_comparator);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::ANALOG_COMPARATOR)]);
 }
 
 ISR(ADC_vect)
 {
-  executeCallbackIfValid(isr_analog_digital_converter);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::ANALOG_DIGITAL_CONVERTER)]);
 }
 
 ISR(EE_READY_vect)
 {
-  executeCallbackIfValid(isr_eeprom_ready);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::EEPROM_READY)]);
 }
 
 ISR(TIMER3_CAPT_vect)
 {
-  executeCallbackIfValid(isr_timer3_capture);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMER3_CAPTURE)]);
 }
 
 ISR(TIMER3_COMPA_vect)
 {
-  executeCallbackIfValid(isr_timer3_compare_a);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMER3_COMPARE_A)]);
 }
 
 ISR(TIMER3_COMPB_vect)
 {
-  executeCallbackIfValid(isr_timer3_compare_b);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMER3_COMPARE_B)]);
 }
 
 ISR(TIMER3_COMPC_vect)
 {
-  executeCallbackIfValid(isr_timer3_compare_c);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMER3_COMPARE_C)]);
 }
 
 ISR(TIMER3_OVF_vect)
 {
-  executeCallbackIfValid(isr_timer3_overflow);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMER3_OVERFLOW)]);
 }
 
 ISR(USART1_RX_vect)
 {
-  executeCallbackIfValid(isr_usart1_receive_complete);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::USART1_RECEIVE_COMPLETE)]);
 }
 
 ISR(USART1_UDRE_vect)
 {
-  executeCallbackIfValid(isr_usart1_uart_data_register_empty);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::USART1_UART_DATA_REGISTER_EMPTY)]);
 }
 
 ISR(USART1_TX_vect)
 {
-  executeCallbackIfValid(isr_usart1_transmit_complete);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::USART1_TRANSMIT_COMPLETE)]);
 }
 
 ISR(TWI_vect)
 {
-  executeCallbackIfValid(isr_two_wire_int);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TWO_WIRE_INT)]);
 }
 
 ISR(SPM_READY_vect)
 {
-  executeCallbackIfValid(isr_spm_ready);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::SPM_READY)]);
 }
 
 #endif /* defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_at90can32) || defined(MCU_TYPE_at90can64) || defined(MCU_TYPE_at90can128) ) */
