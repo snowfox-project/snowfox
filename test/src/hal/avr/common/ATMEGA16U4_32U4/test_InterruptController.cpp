@@ -24,12 +24,12 @@
 
 #include <catch2/catch.hpp>
 
-#include <testutil/Register.hpp>
 #include <testutil/hal/avr/InterruptControllerTestUtil.h>
 
 #include <hal/avr/common/ATMEGA16U4_32U4/RegisterResetValueList.h>
 
 #include <snowfox/hal/avr/common/ATMEGA16U4_32U4/InterruptController.h>
+#include "../../../../../vireg/include/vireg/VirtualRegister.hpp"
 
 /**************************************************************************************
  * NAMESPACE
@@ -53,7 +53,7 @@ namespace test
 
 SCENARIO("ATMEGA16U4_32U4::InterruptController - interrupts are enabled via 'enableInterrupt' and disabled via 'disableInterrupt'", "[ATMEGA16U4_32U4::InterruptController]")
 {
-  Register<uint8_t> EIMSK   (EIMSK_RESET_VALUE , "EIMSK" ),
+  vireg::VirtualRegister<uint8_t> EIMSK   (EIMSK_RESET_VALUE , "EIMSK" ),
                     PCICR   (PCICR_RESET_VALUE , "PCICR" ),
                     PCMSK0  (PCMSK0_RESET_VALUE, "PCMSK0"),
                     WDTCSR  (WDTCSR_RESET_VALUE, "WDTCSR"),

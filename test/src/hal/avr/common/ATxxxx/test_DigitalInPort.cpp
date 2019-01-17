@@ -22,9 +22,8 @@
 
 #include <catch2/catch.hpp>
 
-#include <testutil/Register.hpp>
-
 #include <snowfox/hal/avr/common/ATxxxx/DigitalInPort.h>
+#include "../../../../../vireg/include/vireg/VirtualRegister.hpp"
 
 /**************************************************************************************
  * NAMESPACE
@@ -46,7 +45,7 @@ namespace test
 
 SCENARIO("A DigitalInPort object is constructed", "[ATxxxx::DigitalInPort]")
 {
-  Register<uint8_t> DDR(0b00000000, "DDR"),
+  vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
                     OUT(0b00000000, "OUT"),
                     PIN(0b00000000, "PIN");
 
@@ -74,7 +73,7 @@ SCENARIO("A DigitalInPort object is constructed", "[ATxxxx::DigitalInPort]")
 
 SCENARIO("A DigitalInPort interface::PullUpMode is manipulated", "[ATxxxx::DigitalInPort]")
 {
-  Register<uint8_t> DDR(0b00000000, "DDR"),
+  vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
                     OUT(0b00000000, "OUT"),
                     PIN(0b00000000, "PIN");
 
@@ -114,7 +113,7 @@ SCENARIO("A DigitalInPort interface::PullUpMode is manipulated", "[ATxxxx::Digit
 
 SCENARIO("A DigitalInPort value is read", "[ATxxxx::DigitalInPort]")
 {
-  Register<uint8_t> DDR(0b00000000, "DDR"),
+  vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
                     OUT(0b00000000, "OUT"),
                     PIN(0b10110011, "PIN");
 

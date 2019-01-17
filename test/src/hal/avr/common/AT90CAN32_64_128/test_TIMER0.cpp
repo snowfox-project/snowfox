@@ -25,11 +25,10 @@
 
 #include <catch2/catch.hpp>
 
-#include <testutil/Register.hpp>
-
 #include <hal/avr/common/AT90CAN32_64_128/RegisterResetValueList.h>
 
 #include <snowfox/hal/avr/common/AT90CAN32_64_128/TIMER0.h>
+#include "../../../../../vireg/include/vireg/VirtualRegister.hpp"
 
 /**************************************************************************************
  * NAMESPACE
@@ -53,7 +52,7 @@ namespace test
 
 SCENARIO("AT90CAN32_64_128::TIMER0 - A valid prescaler value is set via 'setPrescaler'", "[AT90CAN32_64_128::TIMER0]")
 {
-  Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE,  "TCNT0" ),
+  vireg::VirtualRegister<uint8_t> TCNT0 (TCNT0_RESET_VALUE,  "TCNT0" ),
                     TCCR0A(TCCR0A_RESET_VALUE, "TCCR0A"),
                     OCR0A (OCR0A_RESET_VALUE,  "OCR0A" );
 
@@ -98,7 +97,7 @@ SCENARIO("AT90CAN32_64_128::TIMER0 - A valid prescaler value is set via 'setPres
 
 SCENARIO("AT90CAN32_64_128::TIMER0 - A invalid prescaler value is set via 'setPrescaler'", "[AT90CAN32_64_128::TIMER0]")
 {
-  Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE,  "TCNT0" ),
+  vireg::VirtualRegister<uint8_t> TCNT0 (TCNT0_RESET_VALUE,  "TCNT0" ),
                     TCCR0A(TCCR0A_RESET_VALUE, "TCCR0A"),
                     OCR0A (OCR0A_RESET_VALUE,  "OCR0A" );
 
@@ -125,7 +124,7 @@ SCENARIO("AT90CAN32_64_128::TIMER0 - A invalid prescaler value is set via 'setPr
 
 SCENARIO("AT90CAN32_64_128::TIMER0 - A timer is started ('start') and stopped ('stop')", "[AT90CAN32_64_128::TIMER0]")
 {
-  Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE,  "TCNT0" ),
+  vireg::VirtualRegister<uint8_t> TCNT0 (TCNT0_RESET_VALUE,  "TCNT0" ),
                     TCCR0A(TCCR0A_RESET_VALUE, "TCCR0A"),
                     OCR0A (OCR0A_RESET_VALUE,  "OCR0A" );
 
@@ -156,7 +155,7 @@ SCENARIO("AT90CAN32_64_128::TIMER0 - A timer is started ('start') and stopped ('
 
 SCENARIO("AT90CAN32_64_128::TIMER0 - A timer's counter register is read ('get') and written ('set')", "[AT90CAN32_64_128::TIMER0]")
 {
-  Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE,  "TCNT0" ),
+  vireg::VirtualRegister<uint8_t> TCNT0 (TCNT0_RESET_VALUE,  "TCNT0" ),
                     TCCR0A(TCCR0A_RESET_VALUE, "TCCR0A"),
                     OCR0A (OCR0A_RESET_VALUE,  "OCR0A" );
 
@@ -184,7 +183,7 @@ SCENARIO("AT90CAN32_64_128::TIMER0 - A timer's counter register is read ('get') 
 
 SCENARIO("AT90CAN32_64_128::TIMER0 - A timer's compare register are written via 'setCompareRegister'", "[AT90CAN32_64_128::TIMER0]")
 {
-  Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE,  "TCNT0" ),
+  vireg::VirtualRegister<uint8_t> TCNT0 (TCNT0_RESET_VALUE,  "TCNT0" ),
                     TCCR0A(TCCR0A_RESET_VALUE, "TCCR0A"),
                     OCR0A (OCR0A_RESET_VALUE,  "OCR0A" );
 

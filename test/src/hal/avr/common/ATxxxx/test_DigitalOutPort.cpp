@@ -22,9 +22,8 @@
 
 #include <catch2/catch.hpp>
 
-#include <testutil/Register.hpp>
-
 #include <snowfox/hal/avr/common/ATxxxx/DigitalOutPort.h>
+#include "../../../../../vireg/include/vireg/VirtualRegister.hpp"
 
 /**************************************************************************************
  * NAMESPACE
@@ -46,7 +45,7 @@ namespace test
 
 SCENARIO("A DigitalOutPort object is constructed", "[ATxxxx::DigitalOutPort]")
 {
-  Register<uint8_t> DDR(0b00000000, "DDR"),
+  vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
                     OUT(0b00000000, "OUT");
 
   ATxxxx::DigitalOutPort out_port(DDR(), OUT());
@@ -68,7 +67,7 @@ SCENARIO("A DigitalOutPort object is constructed", "[ATxxxx::DigitalOutPort]")
 
 SCENARIO("A DigitalOutPort is manipulated via 'set'", "[ATxxxx::DigitalOutPort]")
 {
-  Register<uint8_t> DDR(0b00000000, "DDR"),
+  vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
                     OUT(0b00000000, "OUT");
 
   ATxxxx::DigitalOutPort out_port(DDR(), OUT());

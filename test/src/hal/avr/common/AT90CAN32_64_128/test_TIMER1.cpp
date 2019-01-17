@@ -25,11 +25,10 @@
 
 #include <catch2/catch.hpp>
 
-#include <testutil/Register.hpp>
-
 #include <hal/avr/common/AT90CAN32_64_128/RegisterResetValueList.h>
 
 #include <snowfox/hal/avr/common/AT90CAN32_64_128/TIMER1.h>
+#include "../../../../../vireg/include/vireg/VirtualRegister.hpp"
 
 /**************************************************************************************
  * NAMESPACE
@@ -53,9 +52,9 @@ namespace test
 
 SCENARIO("AT90CAN32_64_128::TIMER1 - A valid prescaler value is set via 'setPrescaler'", "[AT90CAN32_64_128::TIMER1]")
 {
-  Register<uint16_t> TCNT1 (TCNT1_RESET_VALUE,  "TCNT1" );
-  Register<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE, "TCCR1B");
-  Register<uint16_t> OCR1A (OCR1A_RESET_VALUE,  "OCR1A" ),
+  vireg::VirtualRegister<uint16_t> TCNT1 (TCNT1_RESET_VALUE,  "TCNT1" );
+  vireg::VirtualRegister<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE, "TCCR1B");
+  vireg::VirtualRegister<uint16_t> OCR1A (OCR1A_RESET_VALUE,  "OCR1A" ),
                      OCR1B (OCR1B_RESET_VALUE,  "OCR1B" ),
                      OCR1C (OCR1C_RESET_VALUE,  "OCR1C" );
 
@@ -100,9 +99,9 @@ SCENARIO("AT90CAN32_64_128::TIMER1 - A valid prescaler value is set via 'setPres
 
 SCENARIO("AT90CAN32_64_128::TIMER1 - A invalid prescaler value is set via 'setPrescaler'", "[AT90CAN32_64_128::TIMER1]")
 {
-  Register<uint16_t> TCNT1 (TCNT1_RESET_VALUE,  "TCNT1" );
-  Register<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE, "TCCR1B");
-  Register<uint16_t> OCR1A (OCR1A_RESET_VALUE,  "OCR1A" ),
+  vireg::VirtualRegister<uint16_t> TCNT1 (TCNT1_RESET_VALUE,  "TCNT1" );
+  vireg::VirtualRegister<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE, "TCCR1B");
+  vireg::VirtualRegister<uint16_t> OCR1A (OCR1A_RESET_VALUE,  "OCR1A" ),
                      OCR1B (OCR1B_RESET_VALUE,  "OCR1B" ),
                      OCR1C (OCR1C_RESET_VALUE,  "OCR1C" );
 
@@ -129,9 +128,9 @@ SCENARIO("AT90CAN32_64_128::TIMER1 - A invalid prescaler value is set via 'setPr
 
 SCENARIO("AT90CAN32_64_128::TIMER1 - A timer is started ('start') and stopped ('stop')", "[AT90CAN32_64_128::TIMER1]")
 {
-  Register<uint16_t> TCNT1 (TCNT1_RESET_VALUE,  "TCNT1" );
-  Register<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE, "TCCR1B");
-  Register<uint16_t> OCR1A (OCR1A_RESET_VALUE,  "OCR1A" ),
+  vireg::VirtualRegister<uint16_t> TCNT1 (TCNT1_RESET_VALUE,  "TCNT1" );
+  vireg::VirtualRegister<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE, "TCCR1B");
+  vireg::VirtualRegister<uint16_t> OCR1A (OCR1A_RESET_VALUE,  "OCR1A" ),
                      OCR1B (OCR1B_RESET_VALUE,  "OCR1B" ),
                      OCR1C (OCR1C_RESET_VALUE,  "OCR1C" );
 
@@ -162,9 +161,9 @@ SCENARIO("AT90CAN32_64_128::TIMER1 - A timer is started ('start') and stopped ('
 
 SCENARIO("AT90CAN32_64_128::TIMER1 - A timer's counter register is read ('get') and written ('set')", "[AT90CAN32_64_128::TIMER1]")
 {
-  Register<uint16_t> TCNT1 (TCNT1_RESET_VALUE,  "TCNT1" );
-  Register<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE, "TCCR1B");
-  Register<uint16_t> OCR1A (OCR1A_RESET_VALUE,  "OCR1A" ),
+  vireg::VirtualRegister<uint16_t> TCNT1 (TCNT1_RESET_VALUE,  "TCNT1" );
+  vireg::VirtualRegister<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE, "TCCR1B");
+  vireg::VirtualRegister<uint16_t> OCR1A (OCR1A_RESET_VALUE,  "OCR1A" ),
                      OCR1B (OCR1B_RESET_VALUE,  "OCR1B" ),
                      OCR1C (OCR1C_RESET_VALUE,  "OCR1C" );
 
@@ -192,9 +191,9 @@ SCENARIO("AT90CAN32_64_128::TIMER1 - A timer's counter register is read ('get') 
 
 SCENARIO("AT90CAN32_64_128::TIMER1 - A timer's compare register are written via 'setCompareRegister'", "[AT90CAN32_64_128::TIMER1]")
 {
-  Register<uint16_t> TCNT1 (TCNT1_RESET_VALUE,  "TCNT1" );
-  Register<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE, "TCCR1B");
-  Register<uint16_t> OCR1A (OCR1A_RESET_VALUE,  "OCR1A" ),
+  vireg::VirtualRegister<uint16_t> TCNT1 (TCNT1_RESET_VALUE,  "TCNT1" );
+  vireg::VirtualRegister<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE, "TCCR1B");
+  vireg::VirtualRegister<uint16_t> OCR1A (OCR1A_RESET_VALUE,  "OCR1A" ),
                      OCR1B (OCR1B_RESET_VALUE,  "OCR1B" ),
                      OCR1C (OCR1C_RESET_VALUE,  "OCR1C" );
 

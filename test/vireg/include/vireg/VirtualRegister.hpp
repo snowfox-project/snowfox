@@ -36,7 +36,7 @@
 namespace snowfox
 {
 
-namespace hal
+namespace vireg
 {
 
 /**************************************************************************************
@@ -44,12 +44,12 @@ namespace hal
  **************************************************************************************/
 
 template <typename T>
-class Register
+class VirtualRegister
 {
 
 public:
 
-  Register(T const initial_reg_val, std::string const name);
+  VirtualRegister(T const initial_reg_val, std::string const name);
 
 
   inline std::string name() const { return _name; }
@@ -80,7 +80,7 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* hal */
+} /* vireg */
 
 } /* snowfox */
 
@@ -88,6 +88,6 @@ private:
  * TEMPLATE IMPLEMENTATION
  **************************************************************************************/
 
-#include "Register.ipp"
+#include "VirtualRegister.ipp"
 
 #endif /* TEST_INCLUDE_REGISTER_H_ */

@@ -22,12 +22,12 @@
 
 #include <catch2/catch.hpp>
 
-#include <testutil/Register.hpp>
 #include <testutil/hal/avr/InterruptControllerTestUtil.h>
 
 #include <hal/avr/common/AT90CAN32_64_128/RegisterResetValueList.h>
 
 #include <snowfox/hal/avr/common/AT90CAN32_64_128/InterruptController.h>
+#include "../../../../../vireg/include/vireg/VirtualRegister.hpp"
 
 /**************************************************************************************
  * NAMESPACE
@@ -51,7 +51,7 @@ namespace test
 
 SCENARIO("AT90CAN32_64_128::InterruptController - interrupts are enabled via 'enableInterrupt' and disabled via 'disableInterrupt'", "[AT90CAN32_64_128::InterruptController]")
 {
-  Register<uint8_t> EIMSK   (EIMSK_RESET_VALUE , "EIMSK" ),
+  vireg::VirtualRegister<uint8_t> EIMSK   (EIMSK_RESET_VALUE , "EIMSK" ),
                     TIMSK2  (TIMSK2_RESET_VALUE, "TIMSK2"),
                     TIMSK1  (TIMSK1_RESET_VALUE, "TIMSK1"),
                     TIMSK0  (TIMSK0_RESET_VALUE, "TIMSK0"),

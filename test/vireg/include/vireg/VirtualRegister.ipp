@@ -29,7 +29,7 @@
 namespace snowfox
 {
 
-namespace hal
+namespace vireg
 {
 
 /**************************************************************************************
@@ -37,7 +37,7 @@ namespace hal
  **************************************************************************************/
 
 template <typename T>
-Register<T>::Register(T const initial_reg_val, std::string const name)
+VirtualRegister<T>::VirtualRegister(T const initial_reg_val, std::string const name)
 : _reg_val(initial_reg_val),
   _name   (name           )
 {
@@ -49,37 +49,37 @@ Register<T>::Register(T const initial_reg_val, std::string const name)
  **************************************************************************************/
 
 template <typename T>
-T * Register<T>::operator()()
+T * VirtualRegister<T>::operator()()
 {
   return &_reg_val;
 }
 
 template <typename T>
-bool Register<T>::operator == (T const val) const
+bool VirtualRegister<T>::operator == (T const val) const
 {
   return (_reg_val == val);
 }
 
 template <typename T>
-void Register<T>::operator = (T const val)
+void VirtualRegister<T>::operator = (T const val)
 {
   _reg_val = val;
 }
 
 template <typename T>
-void Register<T>::setBit(uint32_t const bit_pos) const
+void VirtualRegister<T>::setBit(uint32_t const bit_pos) const
 {
   _reg_val |= (1<<bit_pos);
 }
 
 template <typename T>
-void Register<T>::clrBit(uint32_t const bit_pos) const
+void VirtualRegister<T>::clrBit(uint32_t const bit_pos) const
 {
   _reg_val &= ~(1<<bit_pos);
 }
 
 template <typename T>
-bool Register<T>::isBitSet(uint32_t const bit_pos) const
+bool VirtualRegister<T>::isBitSet(uint32_t const bit_pos) const
 {
   T const bit_mask = (1<<bit_pos);
   bool const is_bit_set = (_reg_val & bit_mask) == bit_mask;
@@ -87,7 +87,7 @@ bool Register<T>::isBitSet(uint32_t const bit_pos) const
 }
 
 template <typename T>
-bool Register<T>::isBitClr(uint32_t const bit_pos) const
+bool VirtualRegister<T>::isBitClr(uint32_t const bit_pos) const
 {
   T const bit_mask = (1<<bit_pos);
   bool const is_bit_clr = (_reg_val & bit_mask) == 0;
@@ -95,7 +95,7 @@ bool Register<T>::isBitClr(uint32_t const bit_pos) const
 }
 
 template <typename T>
-bool Register<T>::isBitVectSet(std::vector<uint32_t> const bit_pos_vect) const
+bool VirtualRegister<T>::isBitVectSet(std::vector<uint32_t> const bit_pos_vect) const
 {
   T bit_mask = 0;
   std::for_each(std::begin(bit_pos_vect),
@@ -112,6 +112,6 @@ bool Register<T>::isBitVectSet(std::vector<uint32_t> const bit_pos_vect) const
  * NAMESPACE
  **************************************************************************************/
 
-} /* hal */
+} /* vireg */
 
 } /* snowfox */

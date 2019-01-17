@@ -25,10 +25,10 @@
 
 #include <catch2/catch.hpp>
 
-#include <testutil/Register.hpp>
 #include <hal/avr/ATMEGA328P/RegisterResetValueList.h>
 
 #include <snowfox/hal/avr/ATMEGA328P/TIMER0.h>
+#include <vireg/VirtualRegister.hpp>
 
 /**************************************************************************************
  * NAMESPACE
@@ -52,7 +52,7 @@ namespace test
 
 SCENARIO("ATMEGA328P::TIMER0 - A valid prescaler value is set via 'setPrescaler'", "[ATMEGA328P::TIMER0]")
 {
-  Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE,  "TCNT0" ),
+  vireg::VirtualRegister<uint8_t> TCNT0 (TCNT0_RESET_VALUE,  "TCNT0" ),
                     TCCR0B(TCCR0B_RESET_VALUE, "TCCR0B"),
                     OCR0A (OCR0A_RESET_VALUE,  "OCR0A" ),
                     OCR0B (OCR0B_RESET_VALUE,  "OCR0B" );
@@ -98,7 +98,7 @@ SCENARIO("ATMEGA328P::TIMER0 - A valid prescaler value is set via 'setPrescaler'
 
 SCENARIO("ATMEGA328P::TIMER0 - A invalid prescaler value is set via 'setPrescaler'", "[ATMEGA328P::TIMER0]")
 {
-  Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE,  "TCNT0" ),
+  vireg::VirtualRegister<uint8_t> TCNT0 (TCNT0_RESET_VALUE,  "TCNT0" ),
                     TCCR0B(TCCR0B_RESET_VALUE, "TCCR0B"),
                     OCR0A (OCR0A_RESET_VALUE,  "OCR0A" ),
                     OCR0B (OCR0B_RESET_VALUE,  "OCR0B" );
@@ -126,7 +126,7 @@ SCENARIO("ATMEGA328P::TIMER0 - A invalid prescaler value is set via 'setPrescale
 
 SCENARIO("ATMEGA328P::TIMER0 - A timer is started ('start') and stopped ('stop')", "[ATMEGA328P::TIMER0]")
 {
-  Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE,  "TCNT0" ),
+  vireg::VirtualRegister<uint8_t> TCNT0 (TCNT0_RESET_VALUE,  "TCNT0" ),
                     TCCR0B(TCCR0B_RESET_VALUE, "TCCR0B"),
                     OCR0A (OCR0A_RESET_VALUE,  "OCR0A" ),
                     OCR0B (OCR0B_RESET_VALUE,  "OCR0B" );
@@ -158,7 +158,7 @@ SCENARIO("ATMEGA328P::TIMER0 - A timer is started ('start') and stopped ('stop')
 
 SCENARIO("ATMEGA328P::TIMER0 - A timer's counter register is read ('get') and written ('set')", "[ATMEGA328P::TIMER0]")
 {
-  Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE,  "TCNT0" ),
+  vireg::VirtualRegister<uint8_t> TCNT0 (TCNT0_RESET_VALUE,  "TCNT0" ),
                     TCCR0B(TCCR0B_RESET_VALUE, "TCCR0B"),
                     OCR0A (OCR0A_RESET_VALUE,  "OCR0A" ),
                     OCR0B (OCR0B_RESET_VALUE,  "OCR0B" );
@@ -187,7 +187,7 @@ SCENARIO("ATMEGA328P::TIMER0 - A timer's counter register is read ('get') and wr
 
 SCENARIO("ATMEGA328P::TIMER0 - A timer's compare register are written via 'setCompareRegister'", "[ATMEGA328P::TIMER0]")
 {
-  Register<uint8_t> TCNT0 (TCNT0_RESET_VALUE,  "TCNT0" ),
+  vireg::VirtualRegister<uint8_t> TCNT0 (TCNT0_RESET_VALUE,  "TCNT0" ),
                     TCCR0B(TCCR0B_RESET_VALUE, "TCCR0B"),
                     OCR0A (OCR0A_RESET_VALUE,  "OCR0A" ),
                     OCR0B (OCR0B_RESET_VALUE,  "OCR0B" );
