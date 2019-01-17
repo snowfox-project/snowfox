@@ -30,7 +30,7 @@ do
   $RED
   echo "[ " $(($i+1)) " / " ${NUM_LIST_ENTRIES} " ] " ${ARCH_LIST[$i]}
   $RESET
-  ./run-build-libspectre.sh ${ARCH_LIST[$i]}
+  ./run-build-libsnowfox.sh ${ARCH_LIST[$i]}
 done
 
 ##########################################################################
