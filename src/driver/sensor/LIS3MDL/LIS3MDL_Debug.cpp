@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,13 +20,13 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/sensor/LIS3MDL/LIS3MDL_Debug.h>
+#include <snowfox/driver/sensor/LIS3MDL/LIS3MDL_Debug.h>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace driver
@@ -114,4 +114,4 @@ void LIS3MDL_Debug::debug_dumpSingleReg(trace::Trace & trace, hal::interface::Fl
 
 } /* driver */
 
-} /* spectre */
+} /* snowfox */

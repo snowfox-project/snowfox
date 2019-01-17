@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -22,13 +22,13 @@
 
 #include <catch.hpp>
 
-#include <spectre/util/type/StaticString.hpp>
+#include <snowfox/util/type/StaticString.hpp>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace util
@@ -98,4 +98,4 @@ SCENARIO("A StaticString object is constructed via copy constructor", "[util::ty
 
 } /* util */
 
-} /* spectre */
+} /* snowfox */

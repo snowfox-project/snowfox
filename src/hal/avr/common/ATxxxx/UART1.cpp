@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,45 +20,45 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/ATxxxx/UART1.h>
+#include <snowfox/hal/avr/common/ATxxxx/UART1.h>
 
-#include <spectre/hal/avr/common/ATxxxx/util/UartUtil.h>
+#include <snowfox/hal/avr/common/ATxxxx/util/UartUtil.h>
 
 #if   defined(MCU_TYPE_atmega328p)
-  #include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
+  #include <snowfox/hal/avr/ATMEGA328P/InterruptController.h>
 #elif defined(MCU_TYPE_at90can32)
-  #include <spectre/hal/avr/AT90CAN32/InterruptController.h>
+  #include <snowfox/hal/avr/AT90CAN32/InterruptController.h>
 #elif defined(MCU_TYPE_at90can64)
-  #include <spectre/hal/avr/AT90CAN64/InterruptController.h>
+  #include <snowfox/hal/avr/AT90CAN64/InterruptController.h>
 #elif defined(MCU_TYPE_at90can128)
-  #include <spectre/hal/avr/AT90CAN128/InterruptController.h>
+  #include <snowfox/hal/avr/AT90CAN128/InterruptController.h>
 #elif defined(MCU_TYPE_atmega164p)
-  #include <spectre/hal/avr/ATMEGA164P/InterruptController.h>
+  #include <snowfox/hal/avr/ATMEGA164P/InterruptController.h>
 #elif defined(MCU_TYPE_atmega324p)
-  #include <spectre/hal/avr/ATMEGA324P/InterruptController.h>
+  #include <snowfox/hal/avr/ATMEGA324P/InterruptController.h>
 #elif defined(MCU_TYPE_atmega644p)
-  #include <spectre/hal/avr/ATMEGA644P/InterruptController.h>
+  #include <snowfox/hal/avr/ATMEGA644P/InterruptController.h>
 #elif defined(MCU_TYPE_atmega1284p)
-  #include <spectre/hal/avr/ATMEGA1284P/InterruptController.h>
+  #include <snowfox/hal/avr/ATMEGA1284P/InterruptController.h>
 #elif defined(MCU_TYPE_atmega640)
-  #include <spectre/hal/avr/ATMEGA640/InterruptController.h>
+  #include <snowfox/hal/avr/ATMEGA640/InterruptController.h>
 #elif defined(MCU_TYPE_atmega1280)
-  #include <spectre/hal/avr/ATMEGA1280/InterruptController.h>
+  #include <snowfox/hal/avr/ATMEGA1280/InterruptController.h>
 #elif defined(MCU_TYPE_atmega2560)
-  #include <spectre/hal/avr/ATMEGA2560/InterruptController.h>
+  #include <snowfox/hal/avr/ATMEGA2560/InterruptController.h>
 #elif defined(MCU_TYPE_atmega16u4)
-  #include <spectre/hal/avr/ATMEGA16U4/InterruptController.h>
+  #include <snowfox/hal/avr/ATMEGA16U4/InterruptController.h>
 #elif defined(MCU_TYPE_atmega32u4)
-  #include <spectre/hal/avr/ATMEGA32U4/InterruptController.h>
+  #include <snowfox/hal/avr/ATMEGA32U4/InterruptController.h>
 #else
-  #include <spectre/hal/interface/interrupt/InterruptController.h>
+  #include <snowfox/hal/interface/interrupt/InterruptController.h>
 #endif
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace hal
@@ -265,4 +265,4 @@ void UART1::ISR_onReceiveComplete()
 
 } /* hal */
 
-} /* spectre */
+} /* snowfox */

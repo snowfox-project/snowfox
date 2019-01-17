@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,17 +20,17 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/ATMEGA328P/AnalogDigitalConverter.h>
+#include <snowfox/hal/avr/ATMEGA328P/AnalogDigitalConverter.h>
 
-#include <spectre/util/BitManip.h>
+#include <snowfox/util/BitManip.h>
 
-#include <spectre/cpu/avr/io/ATMEGA328P.h>
+#include <snowfox/cpu/avr/io/ATMEGA328P.h>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace hal
@@ -181,4 +181,4 @@ void AnalogDigitalConverter::disableAdc()
 
 } /* hal */
 
-} /* spectre */
+} /* snowfox */

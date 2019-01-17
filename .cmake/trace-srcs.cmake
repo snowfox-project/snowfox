@@ -6,7 +6,7 @@ set(TRACE_SRC_PATH src/trace)
 
 ##########################################################################
 
-set(SPECTRE_LIBRARY_TRACE_SRCS 
+set(SNOWFOX_LIBRARY_TRACE_SRCS 
   ${TRACE_SRC_PATH}/SerialTraceOutput.cpp
   ${TRACE_SRC_PATH}/Trace.cpp
 )

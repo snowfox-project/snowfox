@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,16 +20,16 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/comstack/canopen/FrameDispatcher.h>
+#include <snowfox/comstack/canopen/FrameDispatcher.h>
 
-#include <spectre/comstack/canopen/CobBaseId.h>
-#include <spectre/comstack/canopen/util/CanOpenFrameUtil.h>
+#include <snowfox/comstack/canopen/CobBaseId.h>
+#include <snowfox/comstack/canopen/util/CanOpenFrameUtil.h>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace comstack
@@ -93,4 +93,4 @@ void FrameDispatcher::dispatch(util::type::CanFrame const & frame)
 
 } /* comstack */
 
-} /* spectre */
+} /* snowfox */

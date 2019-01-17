@@ -6,13 +6,13 @@ add_definitions(-DF_CPU=${MCU_SPEED})
 
 ##########################################################################
 
-set(SPECTRE_ALL_GCC_CMAKE_C_FLAGS     "")
-set(SPECTRE_ALL_GCC_CMAKE_CXX_FLAGS   "-std=c++11")
-set(SPECTRE_ALL_GCC_CMAKE_C_CXX_FLAGS "")
+set(SNOWFOX_ALL_GCC_CMAKE_C_FLAGS     "")
+set(SNOWFOX_ALL_GCC_CMAKE_CXX_FLAGS   "-std=c++11")
+set(SNOWFOX_ALL_GCC_CMAKE_C_CXX_FLAGS "")
 
 ##########################################################################
 
-set(SPECTRE_CMAKE_C_FLAGS   "${SPECTRE_CMAKE_C_FLAGS}   ${SPECTRE_ALL_GCC_CMAKE_C_FLAGS}   ${SPECTRE_ALL_GCC_CMAKE_C_CXX_FLAGS}")
-set(SPECTRE_CMAKE_CXX_FLAGS "${SPECTRE_CMAKE_CXX_FLAGS} ${SPECTRE_ALL_GCC_CMAKE_CXX_FLAGS} ${SPECTRE_ALL_GCC_CMAKE_C_CXX_FLAGS}")
+set(SNOWFOX_CMAKE_C_FLAGS   "${SNOWFOX_CMAKE_C_FLAGS}   ${SNOWFOX_ALL_GCC_CMAKE_C_FLAGS}   ${SNOWFOX_ALL_GCC_CMAKE_C_CXX_FLAGS}")
+set(SNOWFOX_CMAKE_CXX_FLAGS "${SNOWFOX_CMAKE_CXX_FLAGS} ${SNOWFOX_ALL_GCC_CMAKE_CXX_FLAGS} ${SNOWFOX_ALL_GCC_CMAKE_C_CXX_FLAGS}")
  
 ##########################################################################

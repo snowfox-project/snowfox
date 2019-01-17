@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,13 +20,13 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/can/MCP2515/interface/control/MCP2515_EventControl.h>
+#include <snowfox/driver/can/MCP2515/interface/control/MCP2515_EventControl.h>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace driver
@@ -97,4 +97,4 @@ bool MCP2515_EventControl::isRxBuf0FullEvent(uint8_t const event_flags)
 
 } /* driver */
 
-} /* spectre */
+} /* snowfox */

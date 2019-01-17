@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,13 +20,13 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/memory/PCF8570/PCF8570.h>
+#include <snowfox/driver/memory/PCF8570/PCF8570.h>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace driver
@@ -114,4 +114,4 @@ bool PCF8570::write(uint8_t const address, uint8_t const * buffer, uint32_t cons
 
 } /* driver */
 
-} /* spectre */
+} /* snowfox */

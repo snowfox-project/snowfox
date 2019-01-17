@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/ATxxxx/CriticalSection.h>
+#include <snowfox/hal/avr/common/ATxxxx/CriticalSection.h>
 
 #ifdef MCU_ARCH_avr
 #include <avr/interrupt.h>
@@ -30,7 +30,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace hal
@@ -88,4 +88,4 @@ void CriticalSection::unlock()
 
 } /* hal */
 
-} /* spectre */
+} /* snowfox */

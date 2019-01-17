@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -25,7 +25,7 @@
 
 #include <string>
 
-#include <spectre/hal/interface/interrupt/InterruptController.h>
+#include <snowfox/hal/interface/interrupt/InterruptController.h>
 
 #include <testutil/hal/Register.hpp>
 
@@ -33,7 +33,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace hal
@@ -60,6 +60,6 @@ void doTestEnableDisableInterrupt(interface::InterruptController       & int_ctr
 
 } /* hal */
 
-} /* spectre */
+} /* snowfox */
 
 #endif /* TEST_INCLUDE_HAL_AVR_UTIL_INTERRUPTCONTROLLERTESTUTIL_H_ */

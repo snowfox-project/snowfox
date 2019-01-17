@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/ATxxxx/EEPROM.h>
+#include <snowfox/hal/avr/common/ATxxxx/EEPROM.h>
 
 #if defined(MCU_ARCH_avr)
 #include <avr/eeprom.h>
@@ -30,7 +30,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace hal
@@ -173,4 +173,4 @@ void EEPROM::write(float * to_eeprom, float const from_ram)
 
 } /* hal */
 
-} /* spectre */
+} /* snowfox */

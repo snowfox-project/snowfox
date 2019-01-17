@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,13 +20,13 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/haptic/DRV2605/DRV2605_Control.h>
+#include <snowfox/driver/haptic/DRV2605/DRV2605_Control.h>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace driver
@@ -180,4 +180,4 @@ bool DRV2605_Control::clrGo()
 
 } /* driver */
 
-} /* spectre */
+} /* snowfox */
