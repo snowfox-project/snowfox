@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 
 #include <snowfox/comstack/canopen/objdict/ObjectDictionary.hpp>
 

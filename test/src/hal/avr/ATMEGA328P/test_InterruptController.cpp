@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 
 #include <testutil/hal/Register.hpp>
 #include <testutil/hal/avr/InterruptControllerTestUtil.h>

@@ -24,7 +24,7 @@
 #include <vector>
 #include <sstream>
 
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 
 #include <snowfox/hal/avr/common/ATxxxx/util/UartUtil.h>
 
