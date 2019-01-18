@@ -5,6 +5,10 @@ Snowfox = RTOS + HAL + IO + COMSTACK + CI + C++
 [![Coverage Status](https://coveralls.io/repos/github/lxrobotics/snowfox/badge.svg?branch=master&service=github)](https://coveralls.io/github/lxrobotics/snowfox?branch=master)
 [![Wiki](.ci/badge/docu-wiki-brightgreen.svg)](https://github.com/lxrobotics/snowfox/wiki)
 
+<p align="center"> 
+<img src="./snowfox-os-logo.jpg">
+</p>
+
 ### What ?
 
 Snowfox consists of a Real Time Operating System + a Hardware Abstraction Layer + IO driver support for various sensors, actuators and communication controllers + industrial communication stacks written mostly in C++. **The codebase can be simultaneously compiled for both host and desired target platform which enables the user to run and verify the complete firmware within the host pc without the need for target hardware.** Furthermore unit tests are run and code quality metrics are gathered automatically upon commit in order to ensure code quality and functionality.
