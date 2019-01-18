@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,17 +20,16 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 
-#include <testutil/hal/Register.hpp>
-
-#include <spectre/hal/avr/common/ATxxxx/DigitalOutPort.h>
+#include <snowfox/hal/avr/common/ATxxxx/DigitalOutPort.h>
+#include "../../../../../vireg/include/vireg/VirtualRegister.hpp"
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace hal
@@ -46,7 +45,7 @@ namespace test
 
 SCENARIO("A DigitalOutPort object is constructed", "[ATxxxx::DigitalOutPort]")
 {
-  Register<uint8_t> DDR(0b00000000, "DDR"),
+  vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
                     OUT(0b00000000, "OUT");
 
   ATxxxx::DigitalOutPort out_port(DDR(), OUT());
@@ -68,7 +67,7 @@ SCENARIO("A DigitalOutPort object is constructed", "[ATxxxx::DigitalOutPort]")
 
 SCENARIO("A DigitalOutPort is manipulated via 'set'", "[ATxxxx::DigitalOutPort]")
 {
-  Register<uint8_t> DDR(0b00000000, "DDR"),
+  vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
                     OUT(0b00000000, "OUT");
 
   ATxxxx::DigitalOutPort out_port(DDR(), OUT());
@@ -94,4 +93,4 @@ SCENARIO("A DigitalOutPort is manipulated via 'set'", "[ATxxxx::DigitalOutPort]"
 
 } /* hal */
 
-} /* spectre */
+} /* snowfox */

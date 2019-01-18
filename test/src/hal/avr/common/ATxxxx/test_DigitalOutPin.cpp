@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,17 +20,16 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 
-#include <testutil/hal/Register.hpp>
-
-#include <spectre/hal/avr/common/ATxxxx/DigitalOutPin.h>
+#include <snowfox/hal/avr/common/ATxxxx/DigitalOutPin.h>
+#include "../../../../../vireg/include/vireg/VirtualRegister.hpp"
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace hal
@@ -46,7 +45,7 @@ namespace test
 
 SCENARIO("A DigitalOutPin (Pin number #0) object is constructed for pin number #0", "[ATxxxx::DigitalOutPin]")
 {
-  Register<uint8_t> DDR(0b00000000, "DDR"),
+  vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
                     OUT(0b00000000, "OUT");
 
   ATxxxx::DigitalOutPin out_pin(DDR(), OUT(), 0);
@@ -94,7 +93,7 @@ SCENARIO("A DigitalOutPin (Pin number #0) object is constructed for pin number #
 
 SCENARIO("A 'clr' DigitalOutPin (Pin number #0) is manipulated via 'set' and 'clr'", "[ATxxxx::DigitalOutPin]")
 {
-  Register<uint8_t> DDR(0b00000000, "DDR"),
+  vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
                     OUT(0b00000000, "OUT");
 
   ATxxxx::DigitalOutPin out_pin(DDR(), OUT(), 0);
@@ -126,7 +125,7 @@ SCENARIO("A 'clr' DigitalOutPin (Pin number #0) is manipulated via 'set' and 'cl
 
 SCENARIO("A 'set' DigitalOutPin (Pin number #0) is manipulated via 'set' and 'clr'", "[ATxxxx::DigitalOutPin]")
 {
-  Register<uint8_t> DDR(0b00000000, "DDR"),
+  vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
                     OUT(0b00000000, "OUT");
 
   ATxxxx::DigitalOutPin out_pin(DDR(), OUT(), 0);
@@ -164,4 +163,4 @@ SCENARIO("A 'set' DigitalOutPin (Pin number #0) is manipulated via 'set' and 'cl
 
 } /* hal */
 
-} /* spectre */
+} /* snowfox */

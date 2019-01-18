@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,16 +20,16 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/ATMEGA640_1280_2560/ExternalInterruptController.h>
+#include <snowfox/hal/avr/common/ATMEGA640_1280_2560/ExternalInterruptController.h>
 
-#include <spectre/hal/avr/common/ATMEGA640_1280_2560/InterruptController.h>
-#include <spectre/hal/avr/common/ATxxxx/util/ExternalInterruptUtil.h>
+#include <snowfox/hal/avr/common/ATMEGA640_1280_2560/InterruptController.h>
+#include <snowfox/hal/avr/common/ATxxxx/util/ExternalInterruptUtil.h>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace hal
@@ -151,4 +151,4 @@ uint8_t ExternalInterruptController::converToIntNum(uint8_t const ext_int_num)
 
 } /* hal */
 
-} /* spectre */
+} /* snowfox */

@@ -7,6 +7,6 @@
 ##########################################################################
 
 if(${MCU_ARCH} STREQUAL "avr")
-  set(SPECTRE_LIBRARY_CPU_SRCS ${SPECTRE_LIBRARY_CPU_SRCS} src/cpu/avr/cxx.cpp)
+  set(SNOWFOX_LIBRARY_CPU_SRCS ${SNOWFOX_LIBRARY_CPU_SRCS} src/cpu/avr/cxx.cpp)
 endif()
 

@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,13 +20,13 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/util/type/CanFrame.h>
+#include <snowfox/util/type/CanFrame.h>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace util
@@ -82,4 +82,4 @@ uint32_t toCanIdExtended(util::type::CanFrame const & frame)
 
 } /* util */
 
-} /* spectre */
+} /* snowfox */

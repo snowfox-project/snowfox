@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,15 +20,15 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/ATxxxx/SpiMaster.h>
+#include <snowfox/hal/avr/common/ATxxxx/SpiMaster.h>
 
-#include <spectre/os/event/EventWaiter.h>
+#include <snowfox/os/event/EventWaiter.h>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace hal
@@ -160,4 +160,4 @@ void SpiMaster::enableSpiMaster()
 
 } /* hal */
 
-} /* spectre */
+} /* snowfox */

@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -22,20 +22,20 @@
 
 #include <sstream>
 
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 
-#include <testutil/hal/Register.hpp>
 #include <testutil/hal/avr/InterruptControllerTestUtil.h>
 
 #include <hal/avr/common/ATMEGA164P_324P_644P_1284P/RegisterResetValueList.h>
 
-#include <spectre/hal/avr/common/ATMEGA164P_324P_644P_1284P/InterruptController.h>
+#include <snowfox/hal/avr/common/ATMEGA164P_324P_644P_1284P/InterruptController.h>
+#include "../../../../../vireg/include/vireg/VirtualRegister.hpp"
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace hal
@@ -53,7 +53,7 @@ namespace test
 
 SCENARIO("ATMEGA164P_324P_644P_1284P::InterruptController - interrupts are enabled via 'enableInterrupt' and disabled via 'disableInterrupt'", "[ATMEGA164P_324P_644P_1284P::InterruptController]")
 {
-  Register<uint8_t> EIMSK   (EIMSK_RESET_VALUE , "EIMSK" ),
+  vireg::VirtualRegister<uint8_t> EIMSK   (EIMSK_RESET_VALUE , "EIMSK" ),
                     PCICR   (PCICR_RESET_VALUE , "PCICR" ),
                     PCMSK0  (PCMSK0_RESET_VALUE, "PCMSK0"),
                     PCMSK1  (PCMSK1_RESET_VALUE, "PCMSK1"),
@@ -134,4 +134,4 @@ SCENARIO("ATMEGA164P_324P_644P_1284P::InterruptController - interrupts are enabl
 
 } /* hal */
 
-} /* spectre */
+} /* snowfox */

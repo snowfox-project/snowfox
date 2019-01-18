@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,13 +20,13 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/sensor/LIS2DSH/LIS2DSH.h>
+#include <snowfox/driver/sensor/LIS2DSH/LIS2DSH.h>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace driver
@@ -155,4 +155,4 @@ void LIS2DSH::close()
 
 } /* driver */
 
-} /* spectre */
+} /* snowfox */

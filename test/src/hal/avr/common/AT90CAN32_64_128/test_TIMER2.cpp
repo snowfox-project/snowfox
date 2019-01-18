@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -23,19 +23,18 @@
 #include <sstream>
 #include <algorithm>
 
-#include <catch.hpp>
-
-#include <testutil/hal/Register.hpp>
+#include <catch2/catch.hpp>
 
 #include <hal/avr/common/AT90CAN32_64_128/RegisterResetValueList.h>
 
-#include <spectre/hal/avr/common/AT90CAN32_64_128/TIMER2.h>
+#include <snowfox/hal/avr/common/AT90CAN32_64_128/TIMER2.h>
+#include "../../../../../vireg/include/vireg/VirtualRegister.hpp"
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace hal
@@ -53,7 +52,7 @@ namespace test
 
 SCENARIO("AT90CAN32_64_128::TIMER2 - A valid prescaler value is set via 'setPrescaler'", "[AT90CAN32_64_128::TIMER2]")
 {
-  Register<uint8_t> TCNT2 (TCNT2_RESET_VALUE,  "TCNT2" ),
+  vireg::VirtualRegister<uint8_t> TCNT2 (TCNT2_RESET_VALUE,  "TCNT2" ),
                     TCCR2A(TCCR2A_RESET_VALUE, "TCCR2A"),
                     OCR2A (OCR2A_RESET_VALUE,  "OCR2A" );
 
@@ -100,7 +99,7 @@ SCENARIO("AT90CAN32_64_128::TIMER2 - A valid prescaler value is set via 'setPres
 
 SCENARIO("AT90CAN32_64_128::TIMER2 - A invalid prescaler value is set via 'setPrescaler'", "[AT90CAN32_64_128::TIMER2]")
 {
-  Register<uint8_t> TCNT2 (TCNT2_RESET_VALUE,  "TCNT2" ),
+  vireg::VirtualRegister<uint8_t> TCNT2 (TCNT2_RESET_VALUE,  "TCNT2" ),
                     TCCR2A(TCCR2A_RESET_VALUE, "TCCR2A"),
                     OCR2A (OCR2A_RESET_VALUE,  "OCR2A" );
 
@@ -127,7 +126,7 @@ SCENARIO("AT90CAN32_64_128::TIMER2 - A invalid prescaler value is set via 'setPr
 
 SCENARIO("AT90CAN32_64_128::TIMER2 - A timer is started ('start') and stopped ('stop')", "[ATMEGA328P::TIMER2]")
 {
-  Register<uint8_t> TCNT2 (TCNT2_RESET_VALUE,  "TCNT2" ),
+  vireg::VirtualRegister<uint8_t> TCNT2 (TCNT2_RESET_VALUE,  "TCNT2" ),
                     TCCR2A(TCCR2A_RESET_VALUE, "TCCR2A"),
                     OCR2A (OCR2A_RESET_VALUE,  "OCR2A" );
 
@@ -158,7 +157,7 @@ SCENARIO("AT90CAN32_64_128::TIMER2 - A timer is started ('start') and stopped ('
 
 SCENARIO("AT90CAN32_64_128::TIMER2 - A timer's counter register is read ('get') and written ('set')", "[AT90CAN32_64_128::TIMER2]")
 {
-  Register<uint8_t> TCNT2 (TCNT2_RESET_VALUE,  "TCNT2" ),
+  vireg::VirtualRegister<uint8_t> TCNT2 (TCNT2_RESET_VALUE,  "TCNT2" ),
                     TCCR2A(TCCR2A_RESET_VALUE, "TCCR2A"),
                     OCR2A (OCR2A_RESET_VALUE,  "OCR2A" );
 
@@ -186,7 +185,7 @@ SCENARIO("AT90CAN32_64_128::TIMER2 - A timer's counter register is read ('get') 
 
 SCENARIO("AT90CAN32_64_128::TIMER2 - A timer's compare register are written via 'setCompareRegister'", "[AT90CAN32_64_128::TIMER2]")
 {
-  Register<uint8_t> TCNT2 (TCNT2_RESET_VALUE,  "TCNT2" ),
+  vireg::VirtualRegister<uint8_t> TCNT2 (TCNT2_RESET_VALUE,  "TCNT2" ),
                     TCCR2A(TCCR2A_RESET_VALUE, "TCCR2A"),
                     OCR2A (OCR2A_RESET_VALUE,  "OCR2A" );
 
@@ -212,4 +211,4 @@ SCENARIO("AT90CAN32_64_128::TIMER2 - A timer's compare register are written via 
 
 } /* hal */
 
-} /* spectre */
+} /* snowfox */

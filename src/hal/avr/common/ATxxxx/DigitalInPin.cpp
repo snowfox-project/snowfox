@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,13 +20,13 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/ATxxxx/DigitalInPin.h>
+#include <snowfox/hal/avr/common/ATxxxx/DigitalInPin.h>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace hal
@@ -91,4 +91,4 @@ void DigitalInPin::setGpioPinAsInput()
 
 } /* hal */
 
-} /* spectre */
+} /* snowfox */

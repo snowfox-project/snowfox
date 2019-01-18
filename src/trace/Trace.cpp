@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/trace/Trace.h>
+#include <snowfox/trace/Trace.h>
 
 #include <stdio.h>
 #include <stdarg.h>
@@ -29,7 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace trace
@@ -92,4 +92,4 @@ bool operator <= (Level const lhs, Level const rhs)
 
 } /* trace */
 
-} /* spectre */
+} /* snowfox */

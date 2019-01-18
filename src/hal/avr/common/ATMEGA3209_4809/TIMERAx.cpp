@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,17 +20,17 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/hal/avr/common/ATMEGA3209_4809/TIMERAx.h>
+#include <snowfox/hal/avr/common/ATMEGA3209_4809/TIMERAx.h>
 
-#include <spectre/util/BitManip.h>
+#include <snowfox/util/BitManip.h>
 
-#include <spectre/cpu/avr/io/common/ATMEGA3209_4809.h>
+#include <snowfox/cpu/avr/io/common/ATMEGA3209_4809.h>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace hal
@@ -137,4 +137,4 @@ void TIMERAx::setPrescaler(uint32_t const prescaler)
 
 } /* hal */
 
-} /* spectre */
+} /* snowfox */

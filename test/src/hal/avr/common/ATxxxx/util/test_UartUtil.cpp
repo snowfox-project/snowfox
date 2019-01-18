@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -24,15 +24,15 @@
 #include <vector>
 #include <sstream>
 
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 
-#include <spectre/hal/avr/common/ATxxxx/util/UartUtil.h>
+#include <snowfox/hal/avr/common/ATxxxx/util/UartUtil.h>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace hal
@@ -124,4 +124,4 @@ TestVector createTestVector_16_MHz()
 
 } /* hal */
 
-} /* spectre */
+} /* snowfox */

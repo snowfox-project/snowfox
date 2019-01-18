@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,13 +20,13 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/os/event/EventGroupWaiter.h>
+#include <snowfox/os/event/EventGroupWaiter.h>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace os
@@ -48,6 +48,6 @@ void EventGroupWaiter::waitAny(EventGroup & event_group)
  * NAMESPACE
  **************************************************************************************/
 
-} /* spectre */
+} /* snowfox */
 
 } /* os */

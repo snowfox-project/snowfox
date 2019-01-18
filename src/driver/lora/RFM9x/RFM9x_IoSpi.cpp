@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,13 +20,13 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/lora/RFM9x/RFM9x_IoSpi.h>
+#include <snowfox/driver/lora/RFM9x/RFM9x_IoSpi.h>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace driver
@@ -109,4 +109,4 @@ void RFM9x_IoSpi::writeRegister(interface::Register const reg, uint8_t const * d
 
 } /* driver */
 
-} /* spectre */
+} /* snowfox */

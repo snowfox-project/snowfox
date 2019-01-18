@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,13 +20,13 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/memory/AT45DBx/AT45DBx_Configuration.h>
+#include <snowfox/driver/memory/AT45DBx/AT45DBx_Configuration.h>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace driver
@@ -85,4 +85,4 @@ util::jedec::JedecCode AT45DBx_Configuration::readDeviceId()
 
 } /* driver */
 
-} /* spectre */
+} /* snowfox */

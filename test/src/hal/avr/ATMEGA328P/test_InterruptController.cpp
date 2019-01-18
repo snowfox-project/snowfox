@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,20 +20,20 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 
-#include <testutil/hal/Register.hpp>
 #include <testutil/hal/avr/InterruptControllerTestUtil.h>
 
 #include <hal/avr/ATMEGA328P/RegisterResetValueList.h>
 
-#include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
+#include <snowfox/hal/avr/ATMEGA328P/InterruptController.h>
+#include <vireg/VirtualRegister.hpp>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace hal
@@ -51,7 +51,7 @@ namespace test
 
 SCENARIO("ATMEGA328P::InterruptController - interrupts are enabled via 'enableInterrupt' and disabled via 'clrInterrupt'", "[ATMEGA328P::InterruptController]")
 {
-  Register<uint8_t> EIMSK   (EIMSK_RESET_VALUE , "EIMSK" ),
+  vireg::VirtualRegister<uint8_t> EIMSK   (EIMSK_RESET_VALUE , "EIMSK" ),
                     PCICR   (PCICR_RESET_VALUE , "PCICR" ),
                     PCMSK0  (PCMSK0_RESET_VALUE, "PCMSK0"),
                     PCMSK1  (PCMSK1_RESET_VALUE, "PCMSK1"),
@@ -124,4 +124,4 @@ SCENARIO("ATMEGA328P::InterruptController - interrupts are enabled via 'enableIn
 
 } /* hal */
 
-} /* spectre */
+} /* snowfox */

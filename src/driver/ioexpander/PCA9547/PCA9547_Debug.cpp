@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,13 +20,13 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/ioexpander/PCA9547/PCA9547_Debug.h>
+#include <snowfox/driver/ioexpander/PCA9547/PCA9547_Debug.h>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace driver
@@ -61,4 +61,4 @@ void PCA9547_Debug::debug_dumpAllRegs(trace::Trace & trace, interface::PCA9547_I
 
 } /* driver */
 
-} /* spectre */
+} /* snowfox */

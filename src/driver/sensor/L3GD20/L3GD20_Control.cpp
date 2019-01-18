@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,13 +20,13 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/sensor/L3GD20/L3GD20_Control.h>
+#include <snowfox/driver/sensor/L3GD20/L3GD20_Control.h>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace driver
@@ -342,4 +342,4 @@ bool L3GD20_Control::enableBlockDataUpdate()
 
 } /* driver */
 
-} /* spectre */
+} /* snowfox */

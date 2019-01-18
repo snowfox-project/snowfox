@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,19 +20,19 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 
-#include <testutil/hal/Register.hpp>
 #include <hal/avr/ATMEGA328P/RegisterResetValueList.h>
 
-#include <spectre/hal/avr/ATMEGA328P/UART0.h>
-#include <spectre/hal/avr/ATMEGA328P/InterruptController.h>
+#include <snowfox/hal/avr/ATMEGA328P/UART0.h>
+#include <snowfox/hal/avr/ATMEGA328P/InterruptController.h>
+#include <vireg/VirtualRegister.hpp>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace hal
@@ -56,7 +56,7 @@ static uint32_t const F_CPU_Hz = F_CPU;
 
 SCENARIO("ATMEGA328P::UART0 - TODO", "[ATMEGA328P::UART0]")
 {
-  Register<uint8_t>  EIMSK  (EIMSK_RESET_VALUE , "EIMSK" ),
+  vireg::VirtualRegister<uint8_t>  EIMSK  (EIMSK_RESET_VALUE , "EIMSK" ),
                      PCICR  (PCICR_RESET_VALUE , "PCICR" ),
                      PCMSK0  (PCMSK0_RESET_VALUE, "PCMSK0"),
                      PCMSK1  (PCMSK1_RESET_VALUE, "PCMSK1"),
@@ -75,7 +75,7 @@ SCENARIO("ATMEGA328P::UART0 - TODO", "[ATMEGA328P::UART0]")
                      UCSR0C (UCSR0C_RESET_VALUE, "UCSR0C"),
                      ACSR   (ACSR_RESET_VALUE  , "ACSR"  ),
                      ADCSRA (ADCSRA_RESET_VALUE, "ADCSRA");
-  Register<uint16_t> UBRR0  (UBRR0_RESET_VALUE , "UBRR0" );
+  vireg::VirtualRegister<uint16_t> UBRR0  (UBRR0_RESET_VALUE , "UBRR0" );
 
   ATMEGA328P::InterruptController int_ctrl(EIMSK(), PCICR(), PCMSK0(), PCMSK1(), PCMSK2(), WDTCSR(), TIMSK0(), TIMSK1(), TIMSK2(), UCSR0B(), SPCR(), TWCR(), EECR(), SPMCSR(), ACSR(), ADCSRA());
   ATMEGA328P::UART0               uart0   (UDR0(), UCSR0A(), UCSR0B(), UCSR0C(), UBRR0(), int_ctrl, F_CPU_Hz);
@@ -93,4 +93,4 @@ SCENARIO("ATMEGA328P::UART0 - TODO", "[ATMEGA328P::UART0]")
 
 } /* hal */
 
-} /* spectre */
+} /* snowfox */

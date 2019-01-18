@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,13 +20,13 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/sensor/AS5600/AS5600_Control.h>
+#include <snowfox/driver/sensor/AS5600/AS5600_Control.h>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace driver
@@ -271,4 +271,4 @@ bool AS5600_Control::isMagnetDetected(uint8_t const status)
 
 } /* driver */
 
-} /* spectre */
+} /* snowfox */

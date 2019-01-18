@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,15 +20,15 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 
-#include <spectre/util/container/List.hpp>
+#include <snowfox/util/container/List.hpp>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace util
@@ -157,4 +157,4 @@ SCENARIO("A ListNode is removed via 'erase'", "[util::container::List]")
 
 } /* util */
 
-} /* spectre */
+} /* snowfox */

@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -29,7 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace hal
@@ -121,6 +121,6 @@ static uint8_t  const SPMCSR_RESET_VALUE  = 0;
 
 } /* hal */
 
-} /* spectre */
+} /* snowfox */
 
 #endif /* TEST_INCLUDE_HAL_AVR_AT90CAN128_REGISTERRESETVALUELIST_H_ */

@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -23,18 +23,18 @@
 #include <sstream>
 #include <algorithm>
 
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 
-#include <testutil/hal/Register.hpp>
 #include <hal/avr/ATMEGA328P/RegisterResetValueList.h>
 
-#include <spectre/hal/avr/ATMEGA328P/TIMER2.h>
+#include <snowfox/hal/avr/ATMEGA328P/TIMER2.h>
+#include <vireg/VirtualRegister.hpp>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace hal
@@ -52,7 +52,7 @@ namespace test
 
 SCENARIO("ATMEGA328P::TIMER2 - A A valid prescaler value is set via 'setPrescaler'", "[ATMEGA328P::TIMER2]")
 {
-  Register<uint8_t> TCNT2 (TCNT2_RESET_VALUE,  "TCNT2" ),
+  vireg::VirtualRegister<uint8_t> TCNT2 (TCNT2_RESET_VALUE,  "TCNT2" ),
                     TCCR2B(TCCR2B_RESET_VALUE, "TCCR2B"),
                     OCR2A (OCR2A_RESET_VALUE,  "OCR2A" ),
                     OCR2B (OCR2B_RESET_VALUE,  "OCR2B" );
@@ -98,7 +98,7 @@ SCENARIO("ATMEGA328P::TIMER2 - A A valid prescaler value is set via 'setPrescale
 
 SCENARIO("ATMEGA328P::TIMER2 - A invalid prescaler value is set via 'setPrescaler'", "[ATMEGA328P::TIMER2]")
 {
-  Register<uint8_t> TCNT2 (TCNT2_RESET_VALUE,  "TCNT2" ),
+  vireg::VirtualRegister<uint8_t> TCNT2 (TCNT2_RESET_VALUE,  "TCNT2" ),
                     TCCR2B(TCCR2B_RESET_VALUE, "TCCR2B"),
                     OCR2A (OCR2A_RESET_VALUE,  "OCR2A" ),
                     OCR2B (OCR2B_RESET_VALUE,  "OCR2B" );
@@ -126,7 +126,7 @@ SCENARIO("ATMEGA328P::TIMER2 - A invalid prescaler value is set via 'setPrescale
 
 SCENARIO("ATMEGA328P::TIMER2 - A timer is started ('start') and stopped ('stop')", "[ATMEGA328P::TIMER2]")
 {
-  Register<uint8_t> TCNT2 (TCNT2_RESET_VALUE,  "TCNT2" ),
+  vireg::VirtualRegister<uint8_t> TCNT2 (TCNT2_RESET_VALUE,  "TCNT2" ),
                     TCCR2B(TCCR2B_RESET_VALUE, "TCCR2B"),
                     OCR2A (OCR2A_RESET_VALUE,  "OCR2A" ),
                     OCR2B (OCR2B_RESET_VALUE,  "OCR2B" );
@@ -158,7 +158,7 @@ SCENARIO("ATMEGA328P::TIMER2 - A timer is started ('start') and stopped ('stop')
 
 SCENARIO("ATMEGA328P::TIMER2 - A timer's counter register is read ('get') and written ('set')", "[ATMEGA328P::TIMER2]")
 {
-  Register<uint8_t> TCNT2 (TCNT2_RESET_VALUE,  "TCNT2" ),
+  vireg::VirtualRegister<uint8_t> TCNT2 (TCNT2_RESET_VALUE,  "TCNT2" ),
                     TCCR2B(TCCR2B_RESET_VALUE, "TCCR2B"),
                     OCR2A (OCR2A_RESET_VALUE,  "OCR2A" ),
                     OCR2B (OCR2B_RESET_VALUE,  "OCR2B" );
@@ -187,7 +187,7 @@ SCENARIO("ATMEGA328P::TIMER2 - A timer's counter register is read ('get') and wr
 
 SCENARIO("ATMEGA328P::TIMER2 - A timer's compare register are written via 'setCompareRegister'", "[ATMEGA328P::TIMER]")
 {
-  Register<uint8_t> TCNT2 (TCNT2_RESET_VALUE,  "TCNT2" ),
+  vireg::VirtualRegister<uint8_t> TCNT2 (TCNT2_RESET_VALUE,  "TCNT2" ),
                     TCCR2B(TCCR2B_RESET_VALUE, "TCCR2B"),
                     OCR2A (OCR2A_RESET_VALUE,  "OCR2A" ),
                     OCR2B (OCR2B_RESET_VALUE,  "OCR2B" );
@@ -222,4 +222,4 @@ SCENARIO("ATMEGA328P::TIMER2 - A timer's compare register are written via 'setCo
 
 } /* hal */
 
-} /* spectre */
+} /* snowfox */

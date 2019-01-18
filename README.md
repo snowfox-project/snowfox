@@ -1,13 +1,13 @@
-Spectre = RTOS + HAL + IO + COMSTACK + CI + C++
+Snowfox = RTOS + HAL + IO + COMSTACK + CI + C++
 ===============================================
 [![GPLv3 License](.ci/badge/license-gplv3-blue.svg)](LICENSE)
-[![Build Status](https://travis-ci.org/lxrobotics/spectre.svg?branch=master)](https://travis-ci.org/lxrobotics/spectre)
-[![Coverage Status](https://coveralls.io/repos/github/lxrobotics/spectre/badge.svg?branch=master&service=github)](https://coveralls.io/github/lxrobotics/spectre?branch=master)
-[![Wiki](.ci/badge/docu-wiki-brightgreen.svg)](https://github.com/lxrobotics/spectre/wiki)
+[![Build Status](https://travis-ci.org/lxrobotics/snowfox.svg?branch=master)](https://travis-ci.org/lxrobotics/snowfox)
+[![Coverage Status](https://coveralls.io/repos/github/lxrobotics/snowfox/badge.svg?branch=master&service=github)](https://coveralls.io/github/lxrobotics/snowfox?branch=master)
+[![Wiki](.ci/badge/docu-wiki-brightgreen.svg)](https://github.com/lxrobotics/snowfox/wiki)
 
 ### What ?
 
-Spectre consists of a Real Time Operating System + a Hardware Abstraction Layer + IO driver support for various sensors, actuators and communication controllers + industrial communication stacks written mostly in C++. **The codebase can be simultaneously compiled for both host and desired target platform which enables the user to run and verify the complete firmware within the host pc without the need for target hardware.** Furthermore unit tests are run and code quality metrics are gathered automatically upon commit in order to ensure code quality and functionality.
+Snowfox consists of a Real Time Operating System + a Hardware Abstraction Layer + IO driver support for various sensors, actuators and communication controllers + industrial communication stacks written mostly in C++. **The codebase can be simultaneously compiled for both host and desired target platform which enables the user to run and verify the complete firmware within the host pc without the need for target hardware.** Furthermore unit tests are run and code quality metrics are gathered automatically upon commit in order to ensure code quality and functionality.
 
 ### Why #1?
 
@@ -146,34 +146,34 @@ make
 
 ## Licensing
 
-Spectre is open source and licensed under version 3 of the GNU GPL. Spectre is free under this license and can be freely used and distributed under its terms.
+Snowfox is open source and licensed under version 3 of the GNU GPL. Snowfox is free under this license and can be freely used and distributed under its terms.
 
-The freedom that this GNU GPL license offers, comes with responsibilities and side effects that are not always desirable. This is especially the case if you want to integrate Spectre in your closed source product and/or don’t want your customers to know that your product contains Spectre.
+The freedom that this GNU GPL license offers, comes with responsibilities and side effects that are not always desirable. This is especially the case if you want to integrate Snowfox in your closed source product and/or don’t want your customers to know that your product contains Snowfox.
 
-As an alternative, Spectre can be made available under a commercial license. Under the commercial license, Spectre does not contain any references to the GNU GPL. Refer to the following license comparison matrix to determine the Spectre license your product requires.
+As an alternative, Snowfox can be made available under a commercial license. Under the commercial license, Snowfox does not contain any references to the GNU GPL. Refer to the following license comparison matrix to determine the Snowfox license your product requires.
 
 | Question                                                            | GNU GPL version 3 | Commercial License |
 | ------------------------------------------------------------------- |:-----------------:|:------------------:|
-| Is Spectre free?                                                    | yes               | no                 |
-| Do I have the right to change the Spectre source code?              | yes               | yes                |
-| Can I use Spectre in my closed source product?                      | no                | yes                |
+| Is Snowfox free?                                                    | yes               | no                 |
+| Do I have the right to change the Snowfox source code?              | yes               | yes                |
+| Can I use Snowfox in my closed source product?                      | no                | yes                |
 | Do I have to open my source code?                                   | yes               | no                 |
-| Do I have to open source my changes to Spectre?                     | yes               | no                 |
-| Do I have to offer the Spectre source code to users of my product?  | yes               | no                 |
-| Do I have to document that my product uses Spectre?	              | yes               | no                 |
-| Can I redistribute Spectre in source code format?                   | yes               | no                 |
+| Do I have to open source my changes to Snowfox?                     | yes               | no                 |
+| Do I have to offer the Snowfox source code to users of my product?  | yes               | no                 |
+| Do I have to document that my product uses Snowfox?	              | yes               | no                 |
+| Can I redistribute Snowfox in source code format?                   | yes               | no                 |
 | Can I receive professional technical support on a commercial basis? | no                | yes                |
 
 ## Pricing
 
 If you need a **commercial license** the following pricing options are available:
 
-|                            | **Basic**     | **Standard**  | **Professional** |
-| -------------------------- |:-------------:|:-------------:|:----------------:|
-| Number of deployed devices | Unlimited     | Unlimited     | Unlimited        |
-| Support (Public)           | Yes           | Yes           | Yes              |
-| Onboarding consultation    |               | Yes           | Yes              |
-| Priority Support           |               |               | Yes              |
-|                            | **1000,00 €** | **2500,00 €** | **5000,00 €**    |
+|                            | **Standard**  | **Professional** | **Enterprise**  |
+| -------------------------- |:-------------:|:----------------:|:---------------:|
+| Number of deployed devices | Unlimited     | Unlimited        | Unlimited       |
+| Support (Public)           | Yes           | Yes              | Yes             |
+| Onboarding consultation    |               | Yes              | Yes             |
+| Priority Support           |               |                  | Yes             |
+|                            | **1000,00 €** | **2500,00 €**    | **10.000,00 €** |
 
-For requesting a quote, purchasing a commerical license or simply if you need additional information contact us at [consulting@lxrobotics.com](mailto:consulting@lxrobotics.com).
+For purchasing a commerical license, requesting a quote tailored for you or simply if you need additional information contact us at [consulting@lxrobotics.com](mailto:consulting@lxrobotics.com).

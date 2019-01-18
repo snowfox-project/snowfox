@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,13 +20,13 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/comstack/canopen/objdict/ObjectDictionaryBuilder.h>
+#include <snowfox/comstack/canopen/objdict/ObjectDictionaryBuilder.h>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace comstack
@@ -63,4 +63,4 @@ void ObjectDictionaryBuilder::build(ObjectDictionary & obj_dict)
 
 } /* comstack */
 
-} /* spectre */
+} /* snowfox */

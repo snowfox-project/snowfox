@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,17 +20,16 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 
-#include <testutil/hal/Register.hpp>
-
-#include <spectre/hal/avr/common/ATxxxx/DigitalInPin.h>
+#include <snowfox/hal/avr/common/ATxxxx/DigitalInPin.h>
+#include "../../../../../vireg/include/vireg/VirtualRegister.hpp"
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace hal
@@ -46,7 +45,7 @@ namespace test
 
 SCENARIO("A DigitalInPin (Pin Number 0) object is constructed", "[ATxxxx::DigitalInPin]")
 {
-  Register<uint8_t> DDR(0b00000000, "DDR"),
+  vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
                     OUT(0b00000000, "OUT"),
                     PIN(0b00000000, "PIN");
 
@@ -73,7 +72,7 @@ SCENARIO("A DigitalInPin (Pin Number 0) object is constructed", "[ATxxxx::Digita
 
 SCENARIO("A DigitalInPin (Pin Number 0) interface::PullUpMode is manipulated", "[ATxxxx::DigitalInPin]")
 {
-  Register<uint8_t> DDR(0b00000000, "DDR"),
+  vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
                     OUT(0b00000000, "OUT"),
                     PIN(0b00000000, "PIN");
 
@@ -112,7 +111,7 @@ SCENARIO("A DigitalInPin (Pin Number 0) interface::PullUpMode is manipulated", "
 
 SCENARIO("A 'clr' DigitalInPin (Pin Number 0) current value is retrieved vis 'isSet' and 'isClr'", "[ATxxxx::DigitalInPin]")
 {
-  Register<uint8_t> DDR(0b00000000, "DDR"),
+  vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
                     OUT(0b00000000, "OUT"),
                     PIN(0b00000000, "PIN");
 
@@ -138,7 +137,7 @@ SCENARIO("A 'clr' DigitalInPin (Pin Number 0) current value is retrieved vis 'is
 
 SCENARIO("A 'set' DigitalInPin (Pin Number 0) current value is retrieved vis 'isSet' and 'isClr'", "[ATxxxx::DigitalInPin]")
 {
-  Register<uint8_t> DDR(0b00000000, "DDR"),
+  vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
                     OUT(0b00000000, "OUT"),
                     PIN(0b00000001, "PIN");
 
@@ -170,4 +169,4 @@ SCENARIO("A 'set' DigitalInPin (Pin Number 0) current value is retrieved vis 'is
 
 } /* hal */
 
-} /* spectre */
+} /* snowfox */

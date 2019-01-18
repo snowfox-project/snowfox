@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/glcd/RA6963/RA6963_Control.h>
+#include <snowfox/driver/glcd/RA6963/RA6963_Control.h>
 
 /**************************************************************************************
  * CONSTANTS
@@ -36,7 +36,7 @@ static uint8_t const RA6963_CMD_RESET_AUTO_READ_WRITE = 0xB1;
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace driver
@@ -136,4 +136,4 @@ void RA6963_Control::writeCommand(uint8_t const cmd_val)
 
 } /* driver */
 
-} /* spectre */
+} /* snowfox */

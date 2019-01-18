@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -21,4 +21,4 @@
  **************************************************************************************/
 
 #define CATCH_CONFIG_MAIN
-#include <catch.hpp>
+#include <catch2/catch.hpp>

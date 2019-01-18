@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,15 +20,15 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/serial/UART/events/UART_onTxDoneCallback.h>
+#include <snowfox/driver/serial/UART/events/UART_onTxDoneCallback.h>
 
-#include <spectre/hal/interface/locking/LockGuard.hpp>
+#include <snowfox/hal/interface/locking/LockGuard.hpp>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace driver
@@ -87,4 +87,4 @@ void UART_onTxDoneCallback::onTxDone()
 
 } /* driver */
 
-} /* spectre */
+} /* snowfox */

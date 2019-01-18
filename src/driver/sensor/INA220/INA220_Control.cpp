@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,13 +20,13 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/sensor/INA220/INA220_Control.h>
+#include <snowfox/driver/sensor/INA220/INA220_Control.h>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace driver
@@ -161,4 +161,4 @@ bool INA220_Control::readBusVoltage(int16_t * bus_voltage)
 
 } /* driver */
 
-} /* spectre */
+} /* snowfox */

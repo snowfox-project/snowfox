@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,13 +20,13 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <spectre/driver/ioexpander/MCP23017/MCP23017_IoI2c.h>
+#include <snowfox/driver/ioexpander/MCP23017/MCP23017_IoI2c.h>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace driver
@@ -91,4 +91,4 @@ bool MCP23017_IoI2c::writeRegister(interface::Register const reg, uint8_t const 
 
 } /* driver */
 
-} /* spectre */
+} /* snowfox */

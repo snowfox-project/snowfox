@@ -1,5 +1,5 @@
 /**
- * Spectre is a modular RTOS with extensive IO support.
+ * Snowfox is a modular RTOS with extensive IO support.
  * Copyright (C) 2017 - 2019 Alexander Entinger / LXRobotics GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,20 +20,20 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 
-#include <testutil/hal/Register.hpp>
 #include <testutil/hal/avr/InterruptControllerTestUtil.h>
 
 #include <hal/avr/common/AT90CAN32_64_128/RegisterResetValueList.h>
 
-#include <spectre/hal/avr/common/AT90CAN32_64_128/InterruptController.h>
+#include <snowfox/hal/avr/common/AT90CAN32_64_128/InterruptController.h>
+#include "../../../../../vireg/include/vireg/VirtualRegister.hpp"
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace spectre
+namespace snowfox
 {
 
 namespace hal
@@ -51,7 +51,7 @@ namespace test
 
 SCENARIO("AT90CAN32_64_128::InterruptController - interrupts are enabled via 'enableInterrupt' and disabled via 'disableInterrupt'", "[AT90CAN32_64_128::InterruptController]")
 {
-  Register<uint8_t> EIMSK   (EIMSK_RESET_VALUE , "EIMSK" ),
+  vireg::VirtualRegister<uint8_t> EIMSK   (EIMSK_RESET_VALUE , "EIMSK" ),
                     TIMSK2  (TIMSK2_RESET_VALUE, "TIMSK2"),
                     TIMSK1  (TIMSK1_RESET_VALUE, "TIMSK1"),
                     TIMSK0  (TIMSK0_RESET_VALUE, "TIMSK0"),
@@ -129,4 +129,4 @@ SCENARIO("AT90CAN32_64_128::InterruptController - interrupts are enabled via 'en
 
 } /* hal */
 
-} /* spectre */
+} /* snowfox */
