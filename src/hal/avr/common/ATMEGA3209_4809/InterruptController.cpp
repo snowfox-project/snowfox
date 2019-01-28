@@ -40,48 +40,16 @@ namespace ATMEGA3209_4809
 {
 
 /**************************************************************************************
+ * GLOBAL CONSTANTS
+ **************************************************************************************/
+
+static uint8_t constexpr NUM_INTERRUPT_CALLBACKS = 48;
+
+/**************************************************************************************
  * GLOBAL VARIABLES
  **************************************************************************************/
 
-static interface::InterruptCallback * isr_crc_nmi                         = 0,
-                                    * isr_voltage_level_monitor           = 0,
-                                    * isr_rtc_overflow_or_compare         = 0,
-                                    * isr_rtc_periodic_interrupt          = 0,
-                                    * isr_configurable_custom_logic       = 0,
-                                    * isr_porta_external_int              = 0,
-                                    * isr_timera0_overflow                = 0,
-                                    * isr_timera0_underflow               = 0, /* For Timer A0 "Split Mode" */
-                                    * isr_timera0_compare_0               = 0,
-                                    * isr_timera0_compare_1               = 0,
-                                    * isr_timera0_compare_2               = 0,
-                                    * isr_timerb0_capture                 = 0,
-                                    * isr_timerb1_capture                 = 0,
-                                    * isr_twi0_slave                      = 0,
-                                    * isr_twi0_master                     = 0,
-                                    * isr_spi0                            = 0,
-                                    * isr_usart0_receive_complete         = 0,
-                                    * isr_usart0_uart_data_register_empty = 0,
-                                    * isr_usart0_transmit_complete        = 0,
-                                    * isr_portd_external_int              = 0,
-                                    * isr_analog_comparator               = 0,
-                                    * isr_adc0_result_ready               = 0,
-                                    * isr_adc0_window_compare             = 0,
-                                    * isr_portc_external_int              = 0,
-                                    * isr_timerb2_capture                 = 0,
-                                    * isr_usart1_receive_complete         = 0,
-                                    * isr_usart1_uart_data_register_empty = 0,
-                                    * isr_usart1_transmit_complete        = 0,
-                                    * isr_portf_external_int              = 0,
-                                    * isr_non_volatile_memory_ready       = 0,
-                                    * isr_usart2_receive_complete         = 0,
-                                    * isr_usart2_uart_data_register_empty = 0,
-                                    * isr_usart2_transmit_complete        = 0,
-                                    * isr_portb_external_int              = 0, /* Only for 48 pin package */
-                                    * isr_porte_external_int              = 0, /* Only for 48 pin package */
-                                    * isr_timerb3_capture                 = 0, /* Only for 48 pin package */
-                                    * isr_usart3_receive_complete         = 0, /* Only for 48 pin package */
-                                    * isr_usart3_uart_data_register_empty = 0, /* Only for 48 pin package */
-                                    * isr_usart3_transmit_complete        = 0; /* Only for 48 pin package */
+static interface::InterruptCallback * isr[NUM_INTERRUPT_CALLBACKS] = {0};
 
 /**************************************************************************************
  * CTOR/DTOR
@@ -101,7 +69,8 @@ InterruptController::InterruptController(volatile uint8_t * crcscan_ctrla,
                                          volatile uint8_t * usart2_ctrla,
                                          volatile uint8_t * usart3_ctrla,
                                          volatile uint8_t * twi_mctrla,
-                                         volatile uint8_t * twi_sctrla)
+                                         volatile uint8_t * twi_sctrla,
+                                         volatile uint8_t * spi_intctrl)
 : _CRCSCAN_CTRLA (crcscan_ctrla ),
   _BOD_INTCTRL   (bod_intctrl   ),
   _RTC_INTCTRL   (rtc_intctrl   ),
@@ -116,7 +85,8 @@ InterruptController::InterruptController(volatile uint8_t * crcscan_ctrla,
   _USART2_CTRLA  (usart2_ctrla  ),
   _USART3_CTRLA  (usart3_ctrla  ),
   _TWI_MCTRLA    (twi_mctrla    ),
-  _TWI_SCTRLA    (twi_sctrla    )
+  _TWI_SCTRLA    (twi_sctrla    ),
+  _SPI_INTCTRL   (spi_intctrl   )
 {
 
 }
@@ -141,7 +111,7 @@ void InterruptController::enableInterrupt(uint8_t const int_num)
   case toIntNum(Interrupt::RTC_COMPARE                    ): util::setBit(_RTC_INTCTRL,    RTC_CMP_bp      ); break;
   case toIntNum(Interrupt::RTC_PERIODIC_INTERRUPT         ): util::setBit(_RTC_PITINTCTRL, RTC_PI_bp       ); break;
   /* TIMER A0 */
-  case toIntNum(Interrupt::TIMERA0_OVER_UNDERFLOW         ): util::setBit(_TCA0_INTCTRL,   TCAx_OVF_bp     ); break;
+  case toIntNum(Interrupt::TIMERA0_OVERFLOW               ): util::setBit(_TCA0_INTCTRL,   TCAx_OVF_bp     ); break;
   case toIntNum(Interrupt::TIMERA0_COMPARE_0              ): util::setBit(_TCA0_INTCTRL,   TCAx_CMP0_bp    ); break;
   case toIntNum(Interrupt::TIMERA0_COMPARE_1              ): util::setBit(_TCA0_INTCTRL,   TCAx_CMP1_bp    ); break;
   case toIntNum(Interrupt::TIMERA0_COMPARE_2              ): util::setBit(_TCA0_INTCTRL,   TCAx_CMP2_bp    ); break;
@@ -174,8 +144,11 @@ void InterruptController::enableInterrupt(uint8_t const int_num)
   case toIntNum(Interrupt::TWI0_MASTER_READ               ): util::setBit(_TWI_MCTRLA,     TWI_RIEN_bp     ); break;
   case toIntNum(Interrupt::TWI0_MASTER_WRITE              ): util::setBit(_TWI_MCTRLA,     TWI_WIEN_bp     ); break;
   case toIntNum(Interrupt::TWI0_SLAVE_DATA                ): util::setBit(_TWI_SCTRLA,     TWI_DIEN_bp     ); break;
-  case toIntNum(Interrupt::TWI0_SLAVE_ADDRESS_OR_STOP     ): util::setBit(_TWI_SCTRLA,     TWI_APIEN_bp    ); break;
-  case toIntNum(Interrupt::TWI0_SLAVE_STOP                ): util::setBit(_TWI_SCTRLA,     TWI_PIEN_bp     ); break;
+  case toIntNum(Interrupt::TWI0_SLAVE_ADDRESS             ): util::setBit(_TWI_SCTRLA,     TWI_APIEN_bp    ); break;
+  case toIntNum(Interrupt::TWI0_SLAVE_STOP                ): { util::setBit(_TWI_SCTRLA,     TWI_APIEN_bp    ); util::setBit(_TWI_SCTRLA,     TWI_PIEN_bp     ); } break;
+  /* SPI */
+  case toIntNum(Interrupt::SPI0_TRANFER_COMPLETE          ): { util::setBit(_SPI_INTCTRL,     SPIx_IE_bp     ); util::setBit(_SPI_INTCTRL,     SPIx_TXCIE_bp  ); } break;
+  case toIntNum(Interrupt::SPI0_WRITE_COLLISION           ): { util::setBit(_SPI_INTCTRL,     SPIx_IE_bp     );                                                  } break;
   /* GLOBAL */
 #if defined(MCU_ARCH_avr)
   case toIntNum(Interrupt::GLOBAL                         ): asm volatile("sei");                             break;
@@ -194,7 +167,7 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
   case toIntNum(Interrupt::RTC_COMPARE                    ): util::clrBit(_RTC_INTCTRL,    RTC_CMP_bp      ); break;
   case toIntNum(Interrupt::RTC_PERIODIC_INTERRUPT         ): util::clrBit(_RTC_PITINTCTRL, RTC_PI_bp       ); break;
   /* TIMER A0 */
-  case toIntNum(Interrupt::TIMERA0_OVER_UNDERFLOW         ): util::clrBit(_TCA0_INTCTRL,   TCAx_OVF_bp     ); break;
+  case toIntNum(Interrupt::TIMERA0_OVERFLOW               ): util::clrBit(_TCA0_INTCTRL,   TCAx_OVF_bp     ); break;
   case toIntNum(Interrupt::TIMERA0_COMPARE_0              ): util::clrBit(_TCA0_INTCTRL,   TCAx_CMP0_bp    ); break;
   case toIntNum(Interrupt::TIMERA0_COMPARE_1              ): util::clrBit(_TCA0_INTCTRL,   TCAx_CMP1_bp    ); break;
   /* TIMER B0/1/2/3 */
@@ -226,8 +199,11 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
   case toIntNum(Interrupt::TWI0_MASTER_READ               ): util::clrBit(_TWI_MCTRLA,     TWI_RIEN_bp     ); break;
   case toIntNum(Interrupt::TWI0_MASTER_WRITE              ): util::clrBit(_TWI_MCTRLA,     TWI_WIEN_bp     ); break;
   case toIntNum(Interrupt::TWI0_SLAVE_DATA                ): util::clrBit(_TWI_SCTRLA,     TWI_DIEN_bp     ); break;
-  case toIntNum(Interrupt::TWI0_SLAVE_ADDRESS_OR_STOP     ): util::clrBit(_TWI_SCTRLA,     TWI_APIEN_bp    ); break;
-  case toIntNum(Interrupt::TWI0_SLAVE_STOP                ): util::clrBit(_TWI_SCTRLA,     TWI_PIEN_bp     ); break;
+  case toIntNum(Interrupt::TWI0_SLAVE_ADDRESS             ): util::clrBit(_TWI_SCTRLA,     TWI_APIEN_bp    ); break;
+  case toIntNum(Interrupt::TWI0_SLAVE_STOP                ): { util::clrBit(_TWI_SCTRLA,     TWI_PIEN_bp     ); } break;
+  /* SPI */
+  case toIntNum(Interrupt::SPI0_TRANFER_COMPLETE          ): { util::clrBit(_SPI_INTCTRL,     SPIx_TXCIE_bp  ); } break;
+  case toIntNum(Interrupt::SPI0_WRITE_COLLISION           ): { util::clrBit(_SPI_INTCTRL,     SPIx_IE_bp     ); } break;
   /* GLOBAL */
 #if defined(MCU_ARCH_avr)
   case toIntNum(Interrupt::GLOBAL                         ): asm volatile("cli");                             break;
@@ -235,49 +211,11 @@ void InterruptController::disableInterrupt(uint8_t const int_num)
   }
 }
 
-void InterruptController::registerInterruptCallback(uint8_t const isr_num, interface::InterruptCallback * interrupt_callback)
+void InterruptController::registerInterruptCallback(uint8_t const int_num, interface::InterruptCallback * interrupt_callback)
 {
-  switch(isr_num)
+  if(int_num < NUM_INTERRUPT_CALLBACKS)
   {
-  case toIsrNum(Isr::CRC_NMI                        ): isr_crc_nmi                         = interrupt_callback; break;
-  case toIsrNum(Isr::VOLTAGE_LEVEL_MONITOR          ): isr_voltage_level_monitor           = interrupt_callback; break;
-  case toIsrNum(Isr::RTC_OVERFLOW_OR_COMPARE        ): isr_rtc_overflow_or_compare         = interrupt_callback; break;
-  case toIsrNum(Isr::RTC_PERIODIC_INTERRUPT         ): isr_rtc_periodic_interrupt          = interrupt_callback; break;
-  case toIsrNum(Isr::CONFIGURABLE_CUSTOM_LOGIC      ): isr_configurable_custom_logic       = interrupt_callback; break;
-  case toIsrNum(Isr::PORTA_EXTERNAL_INT             ): isr_porta_external_int              = interrupt_callback; break;
-  case toIsrNum(Isr::TIMERA0_OVERFLOW               ): isr_timera0_overflow                = interrupt_callback; break;
-  case toIsrNum(Isr::TIMERA0_UNDERFLOW              ): isr_timera0_underflow               = interrupt_callback; break;
-  case toIsrNum(Isr::TIMERA0_COMPARE_0              ): isr_timera0_compare_0               = interrupt_callback; break;
-  case toIsrNum(Isr::TIMERA0_COMPARE_1              ): isr_timera0_compare_1               = interrupt_callback; break;
-  case toIsrNum(Isr::TIMERA0_COMPARE_2              ): isr_timera0_compare_2               = interrupt_callback; break;
-  case toIsrNum(Isr::TIMERB0_CAPTURE                ): isr_timerb0_capture                 = interrupt_callback; break;
-  case toIsrNum(Isr::TIMERB1_CAPTURE                ): isr_timerb1_capture                 = interrupt_callback; break;
-  case toIsrNum(Isr::TWI0_SLAVE                     ): isr_twi0_slave                      = interrupt_callback; break;
-  case toIsrNum(Isr::TWI0_MASTER                    ): isr_twi0_master                     = interrupt_callback; break;
-  case toIsrNum(Isr::SPI0                           ): isr_spi0                            = interrupt_callback; break;
-  case toIsrNum(Isr::USART0_RECEIVE_COMPLETE        ): isr_usart0_receive_complete         = interrupt_callback; break;
-  case toIsrNum(Isr::USART0_UART_DATA_REGISTER_EMPTY): isr_usart0_uart_data_register_empty = interrupt_callback; break;
-  case toIsrNum(Isr::USART0_TRANSMIT_COMPLETE       ): isr_usart0_transmit_complete        = interrupt_callback; break;
-  case toIsrNum(Isr::PORTD_EXTERNAL_INT             ): isr_portd_external_int              = interrupt_callback; break;
-  case toIsrNum(Isr::ANALOG_COMPARATOR              ): isr_analog_comparator               = interrupt_callback; break;
-  case toIsrNum(Isr::ADC0_RESULT_READY              ): isr_adc0_result_ready               = interrupt_callback; break;
-  case toIsrNum(Isr::ADC0_WINDOW_COMPARE            ): isr_adc0_window_compare             = interrupt_callback; break;
-  case toIsrNum(Isr::PORTC_EXTERNAL_INT             ): isr_portc_external_int              = interrupt_callback; break;
-  case toIsrNum(Isr::TIMERB2_CAPTURE                ): isr_timerb2_capture                 = interrupt_callback; break;
-  case toIsrNum(Isr::USART1_RECEIVE_COMPLETE        ): isr_usart1_receive_complete         = interrupt_callback; break;
-  case toIsrNum(Isr::USART1_UART_DATA_REGISTER_EMPTY): isr_usart1_uart_data_register_empty = interrupt_callback; break;
-  case toIsrNum(Isr::USART1_TRANSMIT_COMPLETE       ): isr_usart1_transmit_complete        = interrupt_callback; break;
-  case toIsrNum(Isr::PORTF_EXTERNAL_INT             ): isr_portf_external_int              = interrupt_callback; break;
-  case toIsrNum(Isr::NON_VOLATILE_MEMORY_READY      ): isr_non_volatile_memory_ready       = interrupt_callback; break;
-  case toIsrNum(Isr::USART2_RECEIVE_COMPLETE        ): isr_usart2_receive_complete         = interrupt_callback; break;
-  case toIsrNum(Isr::USART2_UART_DATA_REGISTER_EMPTY): isr_usart2_uart_data_register_empty = interrupt_callback; break;
-  case toIsrNum(Isr::USART2_TRANSMIT_COMPLETE       ): isr_usart2_transmit_complete        = interrupt_callback; break;
-  case toIsrNum(Isr::PORTB_EXTERNAL_INT             ): isr_portb_external_int              = interrupt_callback; break;
-  case toIsrNum(Isr::PORTE_EXTERNAL_INT             ): isr_porte_external_int              = interrupt_callback; break;
-  case toIsrNum(Isr::TIMERB3_CAPTURE                ): isr_timerb3_capture                 = interrupt_callback; break;
-  case toIsrNum(Isr::USART3_RECEIVE_COMPLETE        ): isr_usart3_receive_complete         = interrupt_callback; break;
-  case toIsrNum(Isr::USART3_UART_DATA_REGISTER_EMPTY): isr_usart3_uart_data_register_empty = interrupt_callback; break;
-  case toIsrNum(Isr::USART3_TRANSMIT_COMPLETE       ): isr_usart3_transmit_complete        = interrupt_callback; break;
+    isr[int_num] = interrupt_callback;
   }
 }
 
@@ -316,197 +254,309 @@ using namespace snowfox::hal::ATMEGA3209_4809;
 
 ISR(CRCSCAN_NMI_vect)
 {
-  executeCallbackIfValid(isr_crc_nmi);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::CRC_NMI)]);
 }
 
 ISR(BOD_VLM_vect)
 {
-  executeCallbackIfValid(isr_voltage_level_monitor);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::VOLTAGE_LEVEL_MONITOR)]);
 }
 
 ISR(RTC_CNT_vect)
 {
-  executeCallbackIfValid(isr_rtc_overflow_or_compare);
+  bool const is_overflow      = (RTC_INTFLAGS & RTC_OVF_bm) == RTC_OVF_bm;
+  bool const is_compare_match = (RTC_INTFLAGS & RTC_CMP_bm) == RTC_CMP_bm;
+
+  if(is_overflow)
+  {
+    executeCallbackIfValid(isr[toIntNum(Interrupt::RTC_OVERFLOW)]);
+    RTC_INTFLAGS |= RTC_OVF_bm;
+  }
+
+  if(is_compare_match)
+  {
+    executeCallbackIfValid(isr[toIntNum(Interrupt::RTC_COMPARE)]);
+    RTC_INTFLAGS |= RTC_CMP_bm;
+  }
 }
 
 ISR(RTC_PIT_vect)
 {
-  executeCallbackIfValid(isr_rtc_periodic_interrupt);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::RTC_PERIODIC_INTERRUPT)]);
 }
 
 ISR(CCL_CCL_vect)
 {
-  executeCallbackIfValid(isr_configurable_custom_logic);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::CONFIGURABLE_CUSTOM_LOGIC)]);
 }
 
 ISR(PORTA_PORT_vect)
 {
-  executeCallbackIfValid(isr_porta_external_int);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::EXTERNAL_INTERRUPT_PORT_A)]);
 }
 
 ISR(TCA0_OVF_vect)
 {
-  executeCallbackIfValid(isr_timera0_overflow);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMERA0_OVERFLOW)]);
 }
 
 ISR(TCA0_HUNF_vect)
 {
-  executeCallbackIfValid(isr_timera0_underflow);
+  /* Not implemented */
 }
 
 ISR(TCA0_CMP0_vect)
 {
-  executeCallbackIfValid(isr_timera0_compare_0);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMERA0_COMPARE_0)]);
 }
 
 ISR(TCA0_CMP1_vect)
 {
-  executeCallbackIfValid(isr_timera0_compare_1);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMERA0_COMPARE_1)]);
 }
 
 ISR(TCA0_CMP2_vect)
 {
-  executeCallbackIfValid(isr_timera0_compare_2);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMERA0_COMPARE_2)]);
 }
 
 ISR(TCB0_INT_vect)
 {
-  executeCallbackIfValid(isr_timerb0_capture);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMERB0_CAPTURE)]);
 }
 
 ISR(TCB1_INT_vect)
 {
-  executeCallbackIfValid(isr_timerb1_capture);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMERB1_CAPTURE)]);
 }
 
 ISR(TWI0_TWIS_vect)
 {
-  executeCallbackIfValid(isr_twi0_slave);
+  bool const is_slave_data    = (TWI0_SSTATUS & TWI_DIF_bm) == TWI_DIF_bm;
+  /* TWI.SSTATUS
+   *   Bit 0 – AP Address or Stop
+   *
+   *   When the TWI slave address or Stop Interrupt Flag (APIF) is set, this bit
+   *   determines whether the interrupt is due to address detection or a Stop condition.
+   *
+   *   Value | Name | Description
+   *   0     | STOP | A Stop condition generated the interrupt on APIF
+   *   1     | ADR  | Address detection generated the interrupt on APIF
+   */
+  bool const is_slave_address = (TWI0_SSTATUS & TWI_AP_bm ) == TWI_AP_bm;
+  bool const is_slave_stop    = (TWI0_SSTATUS & TWI_AP_bm ) == 0;
+
+  if(is_slave_data)
+  {
+    executeCallbackIfValid(isr[toIntNum(Interrupt::TWI0_SLAVE_DATA)]);
+  }
+
+  if(is_slave_address)
+  {
+    executeCallbackIfValid(isr[toIntNum(Interrupt::TWI0_SLAVE_ADDRESS)]);
+  }
+
+  if(is_slave_stop)
+  {
+    executeCallbackIfValid(isr[toIntNum(Interrupt::TWI0_SLAVE_STOP)]);
+  }
 }
 
 ISR(TWI0_TWIM_vect)
 {
-  executeCallbackIfValid(isr_twi0_master);
+  bool const is_master_read  = (TWI0_MSTATUS & TWI_RIF_bm) == TWI_RIF_bm;
+  bool const is_master_write = (TWI0_MSTATUS & TWI_WIF_bm) == TWI_WIF_bm;
+
+  if(is_master_read)
+  {
+    executeCallbackIfValid(isr[toIntNum(Interrupt::TWI0_MASTER_READ)]);
+    TWI0_MSTATUS |= TWI_RIF_bm; /* Clearing interrupt flag - TODO: is this necessary? */
+  }
+
+  if(is_master_write)
+  {
+    executeCallbackIfValid(isr[toIntNum(Interrupt::TWI0_MASTER_WRITE)]);
+    TWI0_MSTATUS |= TWI_WIF_bm; /* Clearing interrupt flag - TODO: is this necessary? */
+  }
 }
 
 ISR(SPI0_INT_vect)
 {
-  executeCallbackIfValid(isr_spi0);
+  bool const is_transfer_complete = (SPI0_INTFLAGS & SPI_IF_bm   ) == SPI_IF_bm;
+  bool const is_write_collision   = (SPI0_INTFLAGS & SPI_WRCOL_bm) == SPI_WRCOL_bm;
+
+  if(is_transfer_complete)
+  {
+    executeCallbackIfValid(isr[toIntNum(Interrupt::SPI0_TRANFER_COMPLETE)]);
+  }
+
+  if(is_write_collision)
+  {
+    executeCallbackIfValid(isr[toIntNum(Interrupt::SPI0_WRITE_COLLISION)]);
+  }
 }
 
 ISR(USART0_RXC_vect)
 {
-  executeCallbackIfValid(isr_usart0_receive_complete);
+  bool const is_usart0_receive_start    = (USART0_STATUS & USART_RXSIF_bm) == USART_RXSIF_bm;
+  bool const is_usart0_receive_complete = (USART0_STATUS & USART_RXCIF_bm) == USART_RXCIF_bm;
+
+  if(is_usart0_receive_start)
+  {
+    executeCallbackIfValid(isr[toIntNum(Interrupt::USART0_RECEIVER_START_OF_FRAME)]);
+  }
+
+  if(is_usart0_receive_complete)
+  {
+    executeCallbackIfValid(isr[toIntNum(Interrupt::USART0_RECEIVE_COMPLETE)]);
+    USART0_STATUS |= USART_RXSIF_bm; /* Clearing flag by writing a '1' to it */
+  }
 }
 
 ISR(USART0_DRE_vect)
 {
-  executeCallbackIfValid(isr_usart0_uart_data_register_empty);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::USART0_UART_DATA_REGISTER_EMPTY)]);
 }
 
 ISR(USART0_TXC_vect)
 {
-  executeCallbackIfValid(isr_usart0_transmit_complete);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::USART0_TRANSMIT_COMPLETE)]);
 }
 
 ISR(PORTD_PORT_vect)
 {
-  executeCallbackIfValid(isr_portd_external_int);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::EXTERNAL_INTERRUPT_PORT_D)]);
 }
 
 ISR(AC0_AC_vect)
 {
-  executeCallbackIfValid(isr_analog_comparator);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::ANALOG_COMPARATOR)]);
 }
 
 ISR(ADC0_RESRDY_vect)
 {
-  executeCallbackIfValid(isr_adc0_result_ready);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::ADC_RESULT_READY)]);
 }
 
 ISR(ADC0_WCOMP_vect)
 {
-  executeCallbackIfValid(isr_adc0_window_compare);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::ADC_WINDOW_COMPARE)]);
 }
 
 ISR(PORTC_PORT_vect)
 {
-  executeCallbackIfValid(isr_portc_external_int);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::EXTERNAL_INTERRUPT_PORT_C)]);
 }
 
 ISR(TCB2_INT_vect)
 {
-  executeCallbackIfValid(isr_timerb2_capture);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMERB2_CAPTURE)]);
 }
 
 ISR(USART1_RXC_vect)
 {
-  executeCallbackIfValid(isr_usart1_receive_complete);
+  bool const is_usart1_receive_start    = (USART1_STATUS & USART_RXSIF_bm) == USART_RXSIF_bm;
+  bool const is_usart1_receive_complete = (USART1_STATUS & USART_RXCIF_bm) == USART_RXCIF_bm;
+
+  if(is_usart1_receive_start)
+  {
+    executeCallbackIfValid(isr[toIntNum(Interrupt::USART1_RECEIVER_START_OF_FRAME)]);
+  }
+
+  if(is_usart1_receive_complete)
+  {
+    executeCallbackIfValid(isr[toIntNum(Interrupt::USART1_RECEIVE_COMPLETE)]);
+    USART1_STATUS |= USART_RXSIF_bm; /* Clearing flag by writing a '1' to it */
+  }
 }
 
 ISR(USART1_DRE_vect)
 {
-  executeCallbackIfValid(isr_usart1_uart_data_register_empty);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::USART1_UART_DATA_REGISTER_EMPTY)]);
 }
 
 ISR(USART1_TXC_vect)
 {
-  executeCallbackIfValid(isr_usart1_transmit_complete);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::USART1_TRANSMIT_COMPLETE)]);
 }
 
 ISR(PORTF_PORT_vect)
 {
-  executeCallbackIfValid(isr_portf_external_int);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::EXTERNAL_INTERRUPT_PORT_F)]);
 }
 
 ISR(NVMCTRL_EE_vect)
 {
-  executeCallbackIfValid(isr_non_volatile_memory_ready);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::EEPROM_READY)]);
 }
 
 ISR(USART2_RXC_vect)
 {
-  executeCallbackIfValid(isr_usart2_receive_complete);
+  bool const is_usart2_receive_start    = (USART2_STATUS & USART_RXSIF_bm) == USART_RXSIF_bm;
+  bool const is_usart2_receive_complete = (USART2_STATUS & USART_RXCIF_bm) == USART_RXCIF_bm;
+
+  if(is_usart2_receive_start)
+  {
+    executeCallbackIfValid(isr[toIntNum(Interrupt::USART2_RECEIVER_START_OF_FRAME)]);
+  }
+
+  if(is_usart2_receive_complete)
+  {
+    executeCallbackIfValid(isr[toIntNum(Interrupt::USART2_RECEIVE_COMPLETE)]);
+    USART2_STATUS |= USART_RXSIF_bm; /* Clearing flag by writing a '1' to it */
+  }
 }
 
 ISR(USART2_DRE_vect)
 {
-  executeCallbackIfValid(isr_usart2_uart_data_register_empty);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::USART2_UART_DATA_REGISTER_EMPTY)]);
 }
 
 ISR(USART2_TXC_vect)
 {
-  executeCallbackIfValid(isr_usart2_transmit_complete);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::USART2_TRANSMIT_COMPLETE)]);
 }
 
 ISR(PORTB_PORT_vect)
 {
-  executeCallbackIfValid(isr_portb_external_int);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::EXTERNAL_INTERRUPT_PORT_B)]);
 }
 
 ISR(PORTE_PORT_vect)
 {
-  executeCallbackIfValid(isr_porte_external_int);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::EXTERNAL_INTERRUPT_PORT_E)]);
 }
 
 ISR(TCB3_INT_vect)
 {
-  executeCallbackIfValid(isr_timerb3_capture);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::TIMERB3_CAPTURE)]);
 }
 
 ISR(USART3_RXC_vect)
 {
-  executeCallbackIfValid(isr_usart3_receive_complete);
+  bool const is_usart3_receive_start    = (USART3_STATUS & USART_RXSIF_bm) == USART_RXSIF_bm;
+  bool const is_usart3_receive_complete = (USART3_STATUS & USART_RXCIF_bm) == USART_RXCIF_bm;
+
+  if(is_usart3_receive_start)
+  {
+    executeCallbackIfValid(isr[toIntNum(Interrupt::USART3_RECEIVER_START_OF_FRAME)]);
+  }
+
+  if(is_usart3_receive_complete)
+  {
+    executeCallbackIfValid(isr[toIntNum(Interrupt::USART3_RECEIVE_COMPLETE)]);
+    USART3_STATUS |= USART_RXSIF_bm; /* Clearing flag by writing a '1' to it */
+  }
 }
 
 ISR(USART3_DRE_vect)
 {
-  executeCallbackIfValid(isr_usart3_uart_data_register_empty);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::USART3_UART_DATA_REGISTER_EMPTY)]);
 }
 
 ISR(USART3_TXC_vect)
 {
-  executeCallbackIfValid(isr_usart3_transmit_complete);
+  executeCallbackIfValid(isr[toIntNum(Interrupt::USART3_TRANSMIT_COMPLETE)]);
 }
 
 #endif /* defined(MCU_ARCH_avr) && ( defined(MCU_TYPE_atmega3209) || defined(MCU_TYPE_atmega4809) ) */

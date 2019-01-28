@@ -44,94 +44,68 @@ namespace ATMEGA3209_4809
 
 enum class Interrupt : uint8_t
 {
-  CRC_NMI,
-  VOLTAGE_LEVEL_MONITOR,
-  /* RTC */
-  RTC_OVERFLOW,
-  RTC_COMPARE,
-  RTC_PERIODIC_INTERRUPT,
-  /* TIMER A0 */
-  TIMERA0_OVER_UNDERFLOW,
-  TIMERA0_COMPARE_0,
-  TIMERA0_COMPARE_1,
-  TIMERA0_COMPARE_2,
-  /* TIMER B0/1/2/3 */
-  TIMERB0_CAPTURE,
-  TIMERB1_CAPTURE,
-  TIMERB2_CAPTURE,
-  TIMERB3_CAPTURE,
-  /* USART0 */
-  USART0_RECEIVE_COMPLETE,
-  USART0_TRANSMIT_COMPLETE,
-  USART0_UART_DATA_REGISTER_EMPTY,
-  USART0_RECEIVER_START_OF_FRAME,
-  /* USART1 */
-  USART1_RECEIVE_COMPLETE,
-  USART1_TRANSMIT_COMPLETE,
-  USART1_UART_DATA_REGISTER_EMPTY,
-  USART1_RECEIVER_START_OF_FRAME,
-  /* USART2 */
-  USART2_RECEIVE_COMPLETE,
-  USART2_TRANSMIT_COMPLETE,
-  USART2_UART_DATA_REGISTER_EMPTY,
-  USART2_RECEIVER_START_OF_FRAME,
-  /* USART3 */
-  USART3_RECEIVE_COMPLETE,
-  USART3_TRANSMIT_COMPLETE,
-  USART3_UART_DATA_REGISTER_EMPTY,
-  USART3_RECEIVER_START_OF_FRAME,
-  /* TWI0_MASTER/SLAVE */
-  TWI0_MASTER_READ,
-  TWI0_MASTER_WRITE,
-  TWI0_SLAVE_DATA,
-  TWI0_SLAVE_ADDRESS_OR_STOP,
-  TWI0_SLAVE_STOP,
-
-  GLOBAL = interface::InterruptController::GLOBAL_INT_NUM,
-};
-
-enum class Isr : uint8_t
-{
   CRC_NMI                         =  0,
   VOLTAGE_LEVEL_MONITOR           =  1,
-  RTC_OVERFLOW_OR_COMPARE         =  2,
-  RTC_PERIODIC_INTERRUPT          =  3,
-  CONFIGURABLE_CUSTOM_LOGIC       =  4,
-  PORTA_EXTERNAL_INT              =  5,
-  TIMERA0_OVERFLOW                =  6,
-  TIMERA0_UNDERFLOW               =  7,
-  TIMERA0_COMPARE_0               =  8,
-  TIMERA0_COMPARE_1               =  9,
-  TIMERA0_COMPARE_2               = 10,
-  TIMERB0_CAPTURE                 = 11,
-  TIMERB1_CAPTURE                 = 12,
-  TWI0_SLAVE                      = 13,
-  TWI0_MASTER                     = 14,
-  SPI0                            = 15,
-  USART0_RECEIVE_COMPLETE         = 16,
-  USART0_UART_DATA_REGISTER_EMPTY = 17,
-  USART0_TRANSMIT_COMPLETE        = 18,
-  PORTD_EXTERNAL_INT              = 19,
-  ANALOG_COMPARATOR               = 20,
-  ADC0_RESULT_READY               = 21,
-  ADC0_WINDOW_COMPARE             = 22,
-  PORTC_EXTERNAL_INT              = 23,
-  TIMERB2_CAPTURE                 = 24,
-  USART1_RECEIVE_COMPLETE         = 25,
-  USART1_UART_DATA_REGISTER_EMPTY = 26,
-  USART1_TRANSMIT_COMPLETE        = 27,
-  PORTF_EXTERNAL_INT              = 28,
-  NON_VOLATILE_MEMORY_READY       = 29,
-  USART2_RECEIVE_COMPLETE         = 30,
-  USART2_UART_DATA_REGISTER_EMPTY = 31,
-  USART2_TRANSMIT_COMPLETE        = 32,
-  PORTB_EXTERNAL_INT              = 33,
-  PORTE_EXTERNAL_INT              = 34,
-  TIMERB3_CAPTURE                 = 35,
-  USART3_RECEIVE_COMPLETE         = 36,
-  USART3_UART_DATA_REGISTER_EMPTY = 37,
-  USART3_TRANSMIT_COMPLETE        = 38,
-  GLOBAL                          = 39,
+  /* RTC */
+  RTC_OVERFLOW                    =  2,
+  RTC_COMPARE                     =  3,
+  RTC_PERIODIC_INTERRUPT          =  4,
+  /* TIMER A0 */
+  TIMERA0_OVERFLOW                =  5,
+  TIMERA0_COMPARE_0               =  6,
+  TIMERA0_COMPARE_1               =  7,
+  TIMERA0_COMPARE_2               =  8,
+  /* TIMER B0/1/2/3 */
+  TIMERB0_CAPTURE                 =  9,
+  TIMERB1_CAPTURE                 = 10,
+  TIMERB2_CAPTURE                 = 11,
+  TIMERB3_CAPTURE                 = 12,
+  /* USART0 */
+  USART0_RECEIVE_COMPLETE         = 13,
+  USART0_TRANSMIT_COMPLETE        = 14,
+  USART0_UART_DATA_REGISTER_EMPTY = 15,
+  USART0_RECEIVER_START_OF_FRAME  = 16,
+  /* USART1 */
+  USART1_RECEIVE_COMPLETE         = 17,
+  USART1_TRANSMIT_COMPLETE        = 18,
+  USART1_UART_DATA_REGISTER_EMPTY = 19,
+  USART1_RECEIVER_START_OF_FRAME  = 20,
+  /* USART2 */
+  USART2_RECEIVE_COMPLETE         = 21,
+  USART2_TRANSMIT_COMPLETE        = 22,
+  USART2_UART_DATA_REGISTER_EMPTY = 23,
+  USART2_RECEIVER_START_OF_FRAME  = 24,
+  /* USART3 */
+  USART3_RECEIVE_COMPLETE         = 25,
+  USART3_TRANSMIT_COMPLETE        = 26,
+  USART3_UART_DATA_REGISTER_EMPTY = 28,
+  USART3_RECEIVER_START_OF_FRAME  = 29,
+  /* TWI0_MASTER/SLAVE */
+  TWI0_MASTER_READ                = 30,
+  TWI0_MASTER_WRITE               = 31,
+  TWI0_SLAVE_DATA                 = 32,
+  TWI0_SLAVE_ADDRESS              = 33,
+  TWI0_SLAVE_STOP                 = 34,
+  /* CCL */
+  CONFIGURABLE_CUSTOM_LOGIC       = 35,
+  /* EXTERNAL INT / PORT */
+  EXTERNAL_INTERRUPT_PORT_A       = 36,
+  EXTERNAL_INTERRUPT_PORT_B       = 37,
+  EXTERNAL_INTERRUPT_PORT_C       = 38,
+  EXTERNAL_INTERRUPT_PORT_D       = 39,
+  EXTERNAL_INTERRUPT_PORT_E       = 40,
+  EXTERNAL_INTERRUPT_PORT_F       = 41,
+  /* ADC / AC */
+  ANALOG_COMPARATOR               = 42,
+  ADC_RESULT_READY                = 43,
+  ADC_WINDOW_COMPARE              = 44,
+  /* EEPROM */
+  EEPROM_READY                    = 45,
+  /* SPI */
+  SPI0_TRANFER_COMPLETE           = 46,
+  SPI0_WRITE_COLLISION            = 47,
+  /* MISC */
+  GLOBAL                          = interface::InterruptController::GLOBAL_INT_NUM,
   INVALID                         = interface::InterruptController::INVALID_INT_NUM
 };
 
@@ -142,11 +116,6 @@ enum class Isr : uint8_t
 constexpr uint8_t toIntNum(Interrupt const interrupt)
 {
   return static_cast<uint8_t>(interrupt);
-}
-
-constexpr uint8_t toIsrNum(Isr const isr)
-{
-  return static_cast<uint8_t>(isr);
 }
 
 /**************************************************************************************
@@ -172,7 +141,8 @@ public:
                                volatile uint8_t * usart2_ctrla,
                                volatile uint8_t * usart3_ctrla,
                                volatile uint8_t * twi_mctrla,
-                               volatile uint8_t * twi_sctrla);
+                               volatile uint8_t * twi_sctrla,
+                               volatile uint8_t * spi_intctrl);
   virtual ~InterruptController();
 
 
@@ -184,7 +154,7 @@ public:
 
   /* Interrupt Controller Assembly Interface */
 
-  virtual void registerInterruptCallback(uint8_t const isr_num, interface::InterruptCallback * interrupt_callback) override;
+  virtual void registerInterruptCallback(uint8_t const int_num, interface::InterruptCallback * interrupt_callback) override;
 
 
 private:
@@ -203,7 +173,8 @@ private:
                    * _USART2_CTRLA,
                    * _USART3_CTRLA,
                    * _TWI_MCTRLA,
-                   * _TWI_SCTRLA;
+                   * _TWI_SCTRLA,
+                   * _SPI_INTCTRL;
 
 };
 

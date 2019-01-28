@@ -78,4 +78,11 @@
 #define TWI_APIEN_bp     (6)
 #define TWI_PIEN_bp      (5)
 
+/* SPI */
+#define SPIx_RXCIE_bp    (7)
+#define SPIx_TXCIE_bp    (6)
+#define SPIx_DREIE_bp    (5)
+#define SPIx_SSIE_bp     (4)
+#define SPIx_IE_bp       (0)
+
 #endif /* INCLUDE_SNOWFOX_CPU_AVR_IO_ATMEGA3209_4809_H_ */
