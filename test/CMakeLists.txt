@@ -171,6 +171,7 @@ target_link_libraries(
   ${SNOWFOX_TEST_HOST_TARGET}
   
   snowfox-host
+  vireg
   gcov
 )
 

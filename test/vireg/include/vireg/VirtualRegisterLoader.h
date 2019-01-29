@@ -16,14 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TEST_VIREG_INCLUDE_VIREG_VIRTUALREGISTERLOADER_HPP_
-#define TEST_VIREG_INCLUDE_VIREG_VIRTUALREGISTERLOADER_HPP_
+#ifndef TEST_VIREG_INCLUDE_VIREG_VIRTUALREGISTERLOADER_H_
+#define TEST_VIREG_INCLUDE_VIREG_VIRTUALREGISTERLOADER_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
 #include <map>
+
+#include <boost/variant.hpp>
 
 #include <vireg/VirtualRegister.hpp>
 
@@ -38,6 +40,16 @@ namespace vireg
 {
 
 /**************************************************************************************
+ * TYPEDEF
+ **************************************************************************************/
+
+typedef boost::variant<VirtualRegister<uint8_t >,
+                       VirtualRegister<uint16_t>,
+                       VirtualRegister<uint32_t>,
+                       VirtualRegister<uint64_t>> VirtualRegisterVariant;
+
+
+/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
@@ -46,8 +58,7 @@ class VirtualRegisterLoader
 
 public:
 
-  template <typename T>
-  static std::map<std::string, VirtualRegister<T>> load(char const * json_file_name);
+  static std::map<std::string, VirtualRegisterVariant> load(char const * json_file_name);
 
 
 private:
@@ -65,10 +76,4 @@ private:
 
 } /* snowfox */
 
-/**************************************************************************************
- * TEMPLATE IMPLEMENTATION
- **************************************************************************************/
-
-#include "VirtualRegisterLoader.ipp"
-
-#endif /* TEST_VIREG_INCLUDE_VIREG_VIRTUALREGISTERLOADER_HPP_ */
+#endif /* TEST_VIREG_INCLUDE_VIREG_VIRTUALREGISTERLOADER_H_ */

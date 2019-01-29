@@ -20,6 +20,8 @@
  * INCLUDE
  **************************************************************************************/
 
+#include <vireg/VirtualRegisterLoader.h>
+
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
@@ -40,8 +42,7 @@ namespace vireg
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-template <typename T>
-std::map<std::string, VirtualRegister<T>> VirtualRegisterLoader::load(char const * json_file_name)
+std::map<std::string, VirtualRegisterVariant> VirtualRegisterLoader::load(char const * json_file_name)
 {
   std::ifstream in(json_file_name);
   if(!in.good()) throw std::runtime_error("'VirtualRegisterLoader::load' could not load json virtual register configuration file");

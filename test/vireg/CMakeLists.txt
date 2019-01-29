@@ -4,6 +4,26 @@ cmake_minimum_required(VERSION 2.8)
 
 ##########################################################################
 
+set(VIREG_LIBRARY_TARGET vireg)
+
+##########################################################################
+
 include_directories(include)
+
+##########################################################################
+
+set(VIREG_LIBRARY_SRC_PATH src)
+
+set(VIREG_LIBRARY_SRCS
+  ${VIREG_LIBRARY_SRC_PATH}/VirtualRegisterLoader.cpp
+)
+
+##########################################################################
+
+add_library(
+  ${VIREG_LIBRARY_TARGET}
+  STATIC
+  ${VIREG_LIBRARY_SRCS}
+)
 
 ##########################################################################
