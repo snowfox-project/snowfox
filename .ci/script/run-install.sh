@@ -13,3 +13,5 @@ sudo apt-get install avr-libc binutils-avr gcc-avr avrdude
 
 avr-gcc --version
 avr-g++ --version
+
+sudo apt-get install libboost-all-dev
