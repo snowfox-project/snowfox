@@ -47,7 +47,7 @@ class VirtualRegisterLoader
 public:
 
   template <typename T>
-  static std::map<std::string, VirtualRegister<T>> load(std::string const & json_file_name);
+  static std::map<std::string, VirtualRegister<T>> load(char const * json_file_name);
 
 
 private:

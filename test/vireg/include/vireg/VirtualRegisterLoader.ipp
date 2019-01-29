@@ -21,6 +21,7 @@
  **************************************************************************************/
 
 #include <fstream>
+#include <iostream>
 #include <stdexcept>
 
 #include <nlohmann/json.hpp>
@@ -40,9 +41,9 @@ namespace vireg
  **************************************************************************************/
 
 template <typename T>
-std::map<std::string, VirtualRegister<T>> VirtualRegisterLoader::load(std::string const & json_file_name)
+std::map<std::string, VirtualRegister<T>> VirtualRegisterLoader::load(char const * json_file_name)
 {
-  std::ifstream in(file_name.c_str());
+  std::ifstream in(json_file_name);
   if(!in.good()) throw std::runtime_error("'VirtualRegisterLoader::load' could not load json virtual register configuration file");
   nlohmann::json json;
   in >> json;
@@ -58,7 +59,7 @@ std::map<std::string, VirtualRegister<T>> VirtualRegisterLoader::load(std::strin
 
   for (nlohmann::json::iterator it = json.begin(); it != json.end(); it++)
   {
-    std::cout << it.key() << " : " << it.value() << "\n";
+    std::cout << it.key() << " : " << it.value() << std::endl;
   }
 }
 
