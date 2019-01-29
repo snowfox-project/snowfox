@@ -60,10 +60,10 @@ public:
   void   operator =  (T const val);
 
 
-  void   setBit      (uint32_t       const bit_pos ) const;
-  void   clrBit      (uint32_t       const bit_pos ) const;
-  bool   isBitSet    (uint32_t       const bit_pos ) const;
-  bool   isBitClr    (uint32_t       const bit_pos ) const;
+  void   setBit      (uint32_t const bit_pos ) const;
+  void   clrBit      (uint32_t const bit_pos ) const;
+  bool   isBitSet    (uint32_t const bit_pos ) const;
+  bool   isBitClr    (uint32_t const bit_pos ) const;
 
 
   bool   isBitVectSet(std::vector<uint32_t> const bit_pos_vect) const;
