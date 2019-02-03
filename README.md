@@ -168,16 +168,4 @@ As an alternative, Snowfox can be made available under a commercial license. Und
 | Can I redistribute Snowfox in source code format?                   | yes               | no                 |
 | Can I receive professional technical support on a commercial basis? | no                | yes                |
 
-## Pricing
-
-If you need a **commercial license** the following pricing options are available:
-
-|                            | **Standard**   | **Professional** | **Enterprise**  |
-| -------------------------- |:--------------:|:----------------:|:---------------:|
-| Number of deployed devices | Unlimited      | Unlimited        | Unlimited       |
-| Support (Public)           | Yes            | Yes              | Yes             |
-| Onboarding consultation    |                | Yes              | Yes             |
-| Priority Support           |                |                  | Yes             |
-|                            | **1.000,00 €** | **5.000,00 €**   | **10.000,00 €** |
-
 For purchasing a commerical license, requesting a quote tailored for you or simply if you need additional information contact us at [consulting@lxrobotics.com](mailto:consulting@lxrobotics.com).
