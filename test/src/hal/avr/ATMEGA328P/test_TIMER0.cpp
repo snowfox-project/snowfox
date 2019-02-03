@@ -28,7 +28,9 @@
 #include <hal/avr/ATMEGA328P/RegisterResetValueList.h>
 
 #include <snowfox/hal/avr/ATMEGA328P/TIMER0.h>
+
 #include <vireg/VirtualRegister.hpp>
+#include <vireg/VirtualRegisterLoader.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -52,6 +54,8 @@ namespace test
 
 SCENARIO("ATMEGA328P::TIMER0 - A valid prescaler value is set via 'setPrescaler'", "[ATMEGA328P::TIMER0]")
 {
+  //vireg::VirtualRegisterLoader::load("/home/alex/tmp/snowfox/test/json/hal/avr/ATMEGA328P.json");
+
   vireg::VirtualRegister<uint8_t> TCNT0 (TCNT0_RESET_VALUE,  "TCNT0" ),
                     TCCR0B(TCCR0B_RESET_VALUE, "TCCR0B"),
                     OCR0A (OCR0A_RESET_VALUE,  "OCR0A" ),

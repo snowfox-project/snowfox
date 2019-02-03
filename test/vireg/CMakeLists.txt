@@ -16,6 +16,7 @@ set(VIREG_LIBRARY_SRC_PATH src)
 
 set(VIREG_LIBRARY_SRCS
   ${VIREG_LIBRARY_SRC_PATH}/VirtualRegisterLoader.cpp
+  ${VIREG_LIBRARY_SRC_PATH}/VirtualRegisterMap.cpp
 )
 
 ##########################################################################

@@ -20,15 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <vireg/VirtualRegisterLoader.h>
-
-#include <fstream>
-#include <iostream>
 #include <stdexcept>
-
-#include <boost/lexical_cast.hpp>
-
-#include <nlohmann/json.hpp>
 
 /**************************************************************************************
  * NAMESPACE
@@ -44,53 +36,20 @@ namespace vireg
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-VirtualRegisterMap VirtualRegisterLoader::load(char const * json_file_name)
+template<typename T>
+void VirtualRegisterMap::set(std::string const & key, T const & value)
 {
-  std::ifstream in(json_file_name);
-  if(!in.good()) throw std::runtime_error("'VirtualRegisterLoader::load' could not load json virtual register configuration file");
-  nlohmann::json json;
-  in >> json;
-  in.close();
-  
-  /* JSON Virtual Register Example
-   * {
-   *   "TCNT0": {
-   *     "Type": "UNSIGNED16",
-   *     "Initial": "0x0000"
-   *   },
-   *   "TCCR0B": {
-   *     "Type": "UNSIGNED8",
-   *     "Initial": "0x00"
-   *   }
-   * }
-   */
+  if(exists(key)) throw std::runtime_error("VirtualRegisterMap::set - duplicate key");
+      
+  _map[key] = value;
+}
 
-  VirtualRegisterMap virtual_reg_map;
+template<typename T>
+T const & VirtualRegisterMap::get(std::string const & key)
+{
+  if(exists(key)) throw std::runtime_error("VirtualRegisterMap::set - can't find key");
 
-  for(nlohmann::json::iterator reg_it = json.begin(); reg_it != json.end(); reg_it++)
-  {
-    std::string const register_name        = reg_it.key();
-    std::string const register_type        = json[register_name];
-    std::string const register_initial_val = json[register_name];
-
-    if(register_type == "UNSIGNED8")
-    {
-      uint8_t const initial_val = boost::lexical_cast<uint8_t>(register_initial_val);
-      VirtualRegister<uint8_t> virt_reg(initial_val, register_name);
-      virtual_reg_map.set(register_name, virt_reg);
-    }
-  }
-
-  return virtual_reg_map;
-
-//  for(nlohmann::json::iterator reg_it = json.begin(); reg_it != json.end(); reg_it++)
-//  {
-//    std::cout << reg_it.key() << std::endl;
-//    for(nlohmann::json::iterator reg_data_it = reg_it->begin(); reg_data_it != reg_it->end(); reg_data_it++)
-//    {
-//      std::cout << reg_data_it.key() << " : " << reg_data_it.value() << std::endl;
-//    }
-//  }
+  return boost::get<T>(_map.find(key)->second);
 }
 
 /**************************************************************************************

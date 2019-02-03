@@ -23,11 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <map>
-
-#include <boost/variant.hpp>
-
-#include <vireg/VirtualRegister.hpp>
+#include <vireg/VirtualRegisterMap.hpp>
 
 /**************************************************************************************
  * NAMESPACE
@@ -40,16 +36,6 @@ namespace vireg
 {
 
 /**************************************************************************************
- * TYPEDEF
- **************************************************************************************/
-
-typedef boost::variant<VirtualRegister<uint8_t >,
-                       VirtualRegister<uint16_t>,
-                       VirtualRegister<uint32_t>,
-                       VirtualRegister<uint64_t>> VirtualRegisterVariant;
-
-
-/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
@@ -58,7 +44,7 @@ class VirtualRegisterLoader
 
 public:
 
-  static std::map<std::string, VirtualRegisterVariant> load(char const * json_file_name);
+  static VirtualRegisterMap load(char const * json_file_name);
 
 
 private:

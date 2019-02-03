@@ -16,18 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TEST_INCLUDE_REGISTER_H_
-#define TEST_INCLUDE_REGISTER_H_
+#ifndef TEST_VIREG_INCLUDE_VIREG_VIRTUALREGISTERMAP_HPP_
+#define TEST_VIREG_INCLUDE_VIREG_VIRTUALREGISTERMAP_HPP_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
-#include <stdbool.h>
-
-#include <vector>
+#include <map>
 #include <string>
+
+#include <boost/variant.hpp>
+
+#include <vireg/VirtualRegister.hpp>
 
 /**************************************************************************************
  * NAMESPACE
@@ -40,41 +41,35 @@ namespace vireg
 {
 
 /**************************************************************************************
+ * TYPEDEF
+ **************************************************************************************/
+
+typedef boost::variant<VirtualRegister<uint8_t >,
+                       VirtualRegister<uint16_t>,
+                       VirtualRegister<uint32_t>,
+                       VirtualRegister<uint64_t>> VirtualRegisterVariant;
+
+/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-template <typename T>
-class VirtualRegister
+class VirtualRegisterMap
 {
 
 public:
 
-  VirtualRegister();
-  VirtualRegister(T const initial_reg_val, std::string const & name);
+  template<typename T>
+  void set(std::string const & key, T const & value);
 
-  VirtualRegister & operator = (VirtualRegister const & other);
-
-  inline std::string name() const { return _name; }
-
-
-  T    * operator () ();
-  bool   operator == (T const val) const;
-  void   operator =  (T const val);
-
-
-  void   setBit      (uint32_t const bit_pos ) const;
-  void   clrBit      (uint32_t const bit_pos ) const;
-  bool   isBitSet    (uint32_t const bit_pos ) const;
-  bool   isBitClr    (uint32_t const bit_pos ) const;
-
-
-  bool   isBitVectSet(std::vector<uint32_t> const bit_pos_vect) const;
+  template<typename T>
+  T const & get(std::string const & key);
 
 
 private:
 
-  T                 _reg_val;
-  std::string const _name;
+  std::map<std::string, VirtualRegisterVariant> _map;
+
+  bool exists(std::string const & key) const;
 
 };
 
@@ -90,6 +85,6 @@ private:
  * TEMPLATE IMPLEMENTATION
  **************************************************************************************/
 
-#include "VirtualRegister.ipp"
+#include "VirtualRegisterMap.ipp"
 
-#endif /* TEST_INCLUDE_REGISTER_H_ */
+#endif /* TEST_VIREG_INCLUDE_VIREG_VIRTUALREGISTERMAP_HPP_ */

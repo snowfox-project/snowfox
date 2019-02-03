@@ -16,18 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TEST_INCLUDE_REGISTER_H_
-#define TEST_INCLUDE_REGISTER_H_
-
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
-#include <stdbool.h>
-
-#include <vector>
-#include <string>
+#include <vireg/VirtualRegisterMap.hpp>
 
 /**************************************************************************************
  * NAMESPACE
@@ -40,43 +33,14 @@ namespace vireg
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
-template <typename T>
-class VirtualRegister
+bool VirtualRegisterMap::exists(std::string const & key) const
 {
-
-public:
-
-  VirtualRegister();
-  VirtualRegister(T const initial_reg_val, std::string const & name);
-
-  VirtualRegister & operator = (VirtualRegister const & other);
-
-  inline std::string name() const { return _name; }
-
-
-  T    * operator () ();
-  bool   operator == (T const val) const;
-  void   operator =  (T const val);
-
-
-  void   setBit      (uint32_t const bit_pos ) const;
-  void   clrBit      (uint32_t const bit_pos ) const;
-  bool   isBitSet    (uint32_t const bit_pos ) const;
-  bool   isBitClr    (uint32_t const bit_pos ) const;
-
-
-  bool   isBitVectSet(std::vector<uint32_t> const bit_pos_vect) const;
-
-
-private:
-
-  T                 _reg_val;
-  std::string const _name;
-
-};
+  if(_map.find(key) == _map.end()) return false;
+  else                             return true;
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -85,11 +49,3 @@ private:
 } /* vireg */
 
 } /* snowfox */
-
-/**************************************************************************************
- * TEMPLATE IMPLEMENTATION
- **************************************************************************************/
-
-#include "VirtualRegister.ipp"
-
-#endif /* TEST_INCLUDE_REGISTER_H_ */
