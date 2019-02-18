@@ -25,8 +25,6 @@
 
 #include <catch2/catch.hpp>
 
-#include <hal/avr/ATMEGA328P/RegisterResetValueList.h>
-
 #include <snowfox/hal/avr/ATMEGA328P/TIMER0.h>
 
 #include <vireg/VirtualRegister.hpp>
@@ -94,7 +92,7 @@ SCENARIO("ATMEGA328P::TIMER0 - A valid prescaler value is set via 'setPrescaler'
           }
           WHEN("'start' is not called")
           {
-            THEN("TCCR0B bits 2-0 == 0b000") REQUIRE(TCCR0B == TCCR0B_RESET_VALUE);
+            THEN("TCCR0B bits 2-0 == 0b000") REQUIRE(TCCR0B == 0x00);
           }
         }
       });
@@ -123,11 +121,11 @@ SCENARIO("ATMEGA328P::TIMER0 - A invalid prescaler value is set via 'setPrescale
     WHEN("'start' is called")
     {
       timer0.start();
-      THEN("TCCR0B bits 2-0 == 0b000 (Reset Value)") REQUIRE(TCCR0B == TCCR0B_RESET_VALUE);
+      THEN("TCCR0B bits 2-0 == 0b000 (Reset Value)") REQUIRE(TCCR0B == 0x00);
     }
     WHEN("'start' is not called")
     {
-      THEN("TCCR0B bits 2-0 == 0b000 (Reset Value)") REQUIRE(TCCR0B == TCCR0B_RESET_VALUE);
+      THEN("TCCR0B bits 2-0 == 0b000 (Reset Value)") REQUIRE(TCCR0B == 0x00);
     }
   }
 }
@@ -158,7 +156,7 @@ SCENARIO("ATMEGA328P::TIMER0 - A timer is started ('start') and stopped ('stop')
     WHEN("'stop' is called")
     {
       timer0.stop();
-      THEN("TCCR0B contains the RESET prescaler bit pattern") REQUIRE(TCCR0B == TCCR0B_RESET_VALUE);
+      THEN("TCCR0B contains the RESET prescaler bit pattern") REQUIRE(TCCR0B == 0x00);
       WHEN("'start' is called (again)")
       {
         timer0.start();
