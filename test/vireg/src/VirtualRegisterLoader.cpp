@@ -23,10 +23,8 @@
 #include <vireg/VirtualRegisterLoader.h>
 
 #include <fstream>
-#include <iostream>
-#include <stdexcept>
-
-#include <boost/lexical_cast.hpp>
+#include <sstream>
+#include <iomanip>
 
 #include <nlohmann/json.hpp>
 
@@ -39,6 +37,15 @@ namespace snowfox
 
 namespace vireg
 {
+
+/**************************************************************************************
+ * PRIVATE FUNCTION PROTOTYPES
+ **************************************************************************************/
+
+uint8_t  hexStrToUint8 (std::string const & str);
+uint16_t hexStrToUint16(std::string const & str);
+uint32_t hexStrToUint32(std::string const & str);
+uint64_t hexStrToUint64(std::string const & str);
 
 /**************************************************************************************
  * PUBLIC MEMBER FUNCTIONS
@@ -69,28 +76,81 @@ VirtualRegisterMap VirtualRegisterLoader::load(char const * json_file_name)
 
   for(nlohmann::json::iterator reg_it = json.begin(); reg_it != json.end(); reg_it++)
   {
-    std::string const register_name        = reg_it.key();
-    std::string const register_type        = json[register_name];
-    std::string const register_initial_val = json[register_name];
+    std::string const register_name        = reg_it.key();                   /* TCNT0      */
+    std::string const register_type        = json[register_name]["Type"];    /* UNSIGNED16 */
+    std::string const register_initial_val = json[register_name]["Initial"]; /* 0x0000     */
 
-    if(register_type == "UNSIGNED8")
+    if     (register_type == "UNSIGNED8")
     {
-      uint8_t const initial_val = boost::lexical_cast<uint8_t>(register_initial_val);
-      VirtualRegister<uint8_t> virt_reg(initial_val, register_name);
+      VirtualRegister<uint8_t> virt_reg(hexStrToUint8(register_initial_val), register_name);
+      virtual_reg_map.set(register_name, virt_reg);
+    }
+    else if(register_type == "UNSIGNED16")
+    {
+      VirtualRegister<uint16_t> virt_reg(hexStrToUint16(register_initial_val), register_name);
+      virtual_reg_map.set(register_name, virt_reg);
+    }
+    else if(register_type == "UNSIGNED32")
+    {
+      VirtualRegister<uint32_t> virt_reg(hexStrToUint32(register_initial_val), register_name);
+      virtual_reg_map.set(register_name, virt_reg);
+    }
+    else if(register_type == "UNSIGNED64")
+    {
+      VirtualRegister<uint64_t> virt_reg(hexStrToUint64(register_initial_val), register_name);
       virtual_reg_map.set(register_name, virt_reg);
     }
   }
 
   return virtual_reg_map;
+}
 
-//  for(nlohmann::json::iterator reg_it = json.begin(); reg_it != json.end(); reg_it++)
-//  {
-//    std::cout << reg_it.key() << std::endl;
-//    for(nlohmann::json::iterator reg_data_it = reg_it->begin(); reg_data_it != reg_it->end(); reg_data_it++)
-//    {
-//      std::cout << reg_data_it.key() << " : " << reg_data_it.value() << std::endl;
-//    }
-//  }
+/**************************************************************************************
+ * PRIVATE FUNCTION
+ **************************************************************************************/
+
+uint8_t hexStrToUint8(std::string const & str)
+{
+  uint8_t hex_val = 0;
+  std::stringstream ss;
+
+  ss << std::hex << str;
+  ss >> hex_val;
+
+  return hex_val;
+}
+
+uint16_t hexStrToUint16(std::string const & str)
+{
+  uint16_t hex_val = 0;
+  std::stringstream ss;
+
+  ss << std::hex << str;
+  ss >> hex_val;
+
+  return hex_val;
+}
+
+uint32_t hexStrToUint32(std::string const & str)
+{
+  uint32_t hex_val = 0;
+  std::stringstream ss;
+
+  ss << std::hex << str;
+  ss >> hex_val;
+
+  return hex_val;
+}
+
+uint64_t hexStrToUint64(std::string const & str)
+{
+  uint64_t hex_val = 0;
+  std::stringstream ss;
+
+  ss << std::hex << str;
+  ss >> hex_val;
+
+  return hex_val;
 }
 
 /**************************************************************************************
