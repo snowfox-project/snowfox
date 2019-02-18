@@ -177,6 +177,7 @@ target_link_libraries(
 ##########################################################################
 
 add_custom_command(TARGET ${SNOWFOX_TEST_HOST_TARGET} POST_BUILD
+  COMMENT "Copying JSON register files to test binary directory"
   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
   COMMAND cp -R test/json ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
 )
