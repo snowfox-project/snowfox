@@ -44,10 +44,15 @@ namespace vireg
  * TYPEDEF
  **************************************************************************************/
 
-typedef boost::variant<VirtualRegister<uint8_t >,
-                       VirtualRegister<uint16_t>,
-                       VirtualRegister<uint32_t>,
-                       VirtualRegister<uint64_t>> VirtualRegisterVariant;
+typedef VirtualRegister<uint8_t>  VirtReg8;
+typedef VirtualRegister<uint16_t> VirtReg16;
+typedef VirtualRegister<uint32_t> VirtReg32;
+typedef VirtualRegister<uint64_t> VirtReg64;
+
+typedef boost::variant<VirtReg8,
+                       VirtReg16,
+                       VirtReg32,
+                       VirtReg64> VirtualRegisterVariant;
 
 /**************************************************************************************
  * CLASS DECLARATION
@@ -62,7 +67,7 @@ public:
   void set(std::string const & key, T const & value);
 
   template<typename T>
-  T const & get(std::string const & key);
+  T & get(std::string const & key);
 
 
 private:

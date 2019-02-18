@@ -38,16 +38,18 @@ namespace vireg
 
 template <typename T>
 VirtualRegister<T>::VirtualRegister()
-: _reg_val(0 ),
-  _name   ("")
+: _reg_val     (0 ),
+  _init_reg_val(0 ),
+  _name        ("")
 {
 
 }
 
 template <typename T>
 VirtualRegister<T>::VirtualRegister(T const initial_reg_val, std::string const & name)
-: _reg_val(initial_reg_val),
-  _name   (name           )
+: _reg_val     (initial_reg_val),
+  _init_reg_val(initial_reg_val),
+  _name        (name           )
 {
 
 }
@@ -55,7 +57,13 @@ VirtualRegister<T>::VirtualRegister(T const initial_reg_val, std::string const &
 template <typename T>
 VirtualRegister<T> & VirtualRegister<T>::operator = (VirtualRegister const & other)
 {
-  /* TODO */
+  if(this != &other)
+  {
+    _reg_val      = other.regVal    ();
+    _init_reg_val = other.initRegVal();
+    _name         = other.name      ();
+  }
+  return *this;
 }
 
 /**************************************************************************************

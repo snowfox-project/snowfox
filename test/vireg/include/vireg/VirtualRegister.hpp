@@ -54,7 +54,9 @@ public:
 
   VirtualRegister & operator = (VirtualRegister const & other);
 
-  inline std::string name() const { return _name; }
+  inline T           regVal    () const { return _reg_val;      }
+  inline T           initRegVal() const { return _init_reg_val; }
+  inline std::string name      () const { return _name;         }
 
 
   T    * operator () ();
@@ -72,8 +74,9 @@ public:
 
 private:
 
-  T                 _reg_val;
-  std::string const _name;
+  T           _reg_val;
+  T           _init_reg_val;
+  std::string _name;
 
 };
 
