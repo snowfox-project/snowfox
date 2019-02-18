@@ -56,10 +56,10 @@ SCENARIO("ATMEGA328P::TIMER0 - A valid prescaler value is set via 'setPrescaler'
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/ATMEGA328P.json");
 
-  vireg::VirtReg8 TCNT0  = vregmap.get<vireg::VirtReg8>("TCNT0" );
-  vireg::VirtReg8 TCCR0B = vregmap.get<vireg::VirtReg8>("TCCR0B");
-  vireg::VirtReg8 OCR0A  = vregmap.get<vireg::VirtReg8>("OCR0A" );
-  vireg::VirtReg8 OCR0B  = vregmap.get<vireg::VirtReg8>("OCR0B" );
+  vireg::VirtReg8 & TCNT0  = vregmap.get<vireg::VirtReg8>("TCNT0" );
+  vireg::VirtReg8 & TCCR0B = vregmap.get<vireg::VirtReg8>("TCCR0B");
+  vireg::VirtReg8 & OCR0A  = vregmap.get<vireg::VirtReg8>("OCR0A" );
+  vireg::VirtReg8 & OCR0B  = vregmap.get<vireg::VirtReg8>("OCR0B" );
 
   ATMEGA328P::TIMER0 timer0(TCNT0(), TCCR0B(), OCR0A(), OCR0B());
 

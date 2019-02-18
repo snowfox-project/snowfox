@@ -50,7 +50,7 @@ class VirtualRegister
 public:
 
   VirtualRegister();
-  VirtualRegister(T const initial_reg_val, std::string const & name);
+  VirtualRegister(T const init_reg_val, std::string const & name);
 
   VirtualRegister & operator = (VirtualRegister const & other);
 

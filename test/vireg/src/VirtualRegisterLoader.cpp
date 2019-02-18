@@ -111,35 +111,17 @@ VirtualRegisterMap VirtualRegisterLoader::load(char const * json_file_name)
 
 uint8_t hexStrToUint8(std::string const & str)
 {
-  uint8_t hex_val = 0;
-  std::stringstream ss;
-
-  ss << std::hex << str;
-  ss >> hex_val;
-
-  return hex_val;
+  return static_cast<uint8_t>(hexStrToUint64(str));
 }
 
 uint16_t hexStrToUint16(std::string const & str)
 {
-  uint16_t hex_val = 0;
-  std::stringstream ss;
-
-  ss << std::hex << str;
-  ss >> hex_val;
-
-  return hex_val;
+  return static_cast<uint16_t>(hexStrToUint64(str));
 }
 
 uint32_t hexStrToUint32(std::string const & str)
 {
-  uint32_t hex_val = 0;
-  std::stringstream ss;
-
-  ss << std::hex << str;
-  ss >> hex_val;
-
-  return hex_val;
+  return static_cast<uint32_t>(hexStrToUint64(str));
 }
 
 uint64_t hexStrToUint64(std::string const & str)

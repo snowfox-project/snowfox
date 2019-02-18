@@ -46,10 +46,10 @@ VirtualRegister<T>::VirtualRegister()
 }
 
 template <typename T>
-VirtualRegister<T>::VirtualRegister(T const initial_reg_val, std::string const & name)
-: _reg_val     (initial_reg_val),
-  _init_reg_val(initial_reg_val),
-  _name        (name           )
+VirtualRegister<T>::VirtualRegister(T const init_reg_val, std::string const & name)
+: _reg_val     (init_reg_val),
+  _init_reg_val(init_reg_val),
+  _name        (name        )
 {
 
 }

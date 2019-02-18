@@ -25,6 +25,7 @@
 
 #include <map>
 #include <string>
+#include <iostream>
 
 #include <boost/variant.hpp>
 
@@ -69,6 +70,7 @@ public:
   template<typename T>
   T & get(std::string const & key);
 
+  friend std::ostream & operator << (std::ostream & os, VirtualRegisterMap & virt_reg_map);
 
 private:
 
