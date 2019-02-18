@@ -27,7 +27,9 @@
 #include <hal/avr/ATMEGA328P/RegisterResetValueList.h>
 
 #include <snowfox/hal/avr/ATMEGA328P/InterruptController.h>
+
 #include <vireg/VirtualRegister.hpp>
+#include <vireg/VirtualRegisterLoader.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -51,22 +53,24 @@ namespace test
 
 SCENARIO("ATMEGA328P::InterruptController - interrupts are enabled via 'enableInterrupt' and disabled via 'clrInterrupt'", "[ATMEGA328P::InterruptController]")
 {
-  vireg::VirtualRegister<uint8_t> EIMSK   (EIMSK_RESET_VALUE , "EIMSK" ),
-                    PCICR   (PCICR_RESET_VALUE , "PCICR" ),
-                    PCMSK0  (PCMSK0_RESET_VALUE, "PCMSK0"),
-                    PCMSK1  (PCMSK1_RESET_VALUE, "PCMSK1"),
-                    PCMSK2  (PCMSK2_RESET_VALUE, "PCMSK2"),
-                    WDTCSR  (WDTCSR_RESET_VALUE, "WDTCSR"),
-                    TIMSK0  (TIMSK0_RESET_VALUE, "TIMSK0"),
-                    TIMSK1  (TIMSK1_RESET_VALUE, "TIMSK1"),
-                    TIMSK2  (TIMSK2_RESET_VALUE, "TIMSK2"),
-                    UCSR0B  (UCSR0B_RESET_VALUE, "UCSR0B"),
-                    SPCR    (SPCR_RESET_VALUE  , "SPCR"  ),
-                    TWCR    (TWCR_RESET_VALUE  , "TWCR"  ),
-                    EECR    (EECR_RESET_VALUE  , "EECR"  ),
-                    SPMCSR  (SPMCSR_RESET_VALUE, "SPMCSR"),
-                    ACSR    (ACSR_RESET_VALUE  , "ACSR"  ),
-                    ADCSRA  (ADCSRA_RESET_VALUE, "ADCSRA");
+  vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/ATMEGA328P.json");
+
+  vireg::VirtReg8 & EIMSK  = vregmap.get<vireg::VirtReg8>("EIMSK" );
+  vireg::VirtReg8 & PCICR  = vregmap.get<vireg::VirtReg8>("PCICR" );
+  vireg::VirtReg8 & PCMSK0 = vregmap.get<vireg::VirtReg8>("PCMSK0");
+  vireg::VirtReg8 & PCMSK1 = vregmap.get<vireg::VirtReg8>("PCMSK1");
+  vireg::VirtReg8 & PCMSK2 = vregmap.get<vireg::VirtReg8>("PCMSK2");
+  vireg::VirtReg8 & WDTCSR = vregmap.get<vireg::VirtReg8>("WDTCSR");
+  vireg::VirtReg8 & TIMSK0 = vregmap.get<vireg::VirtReg8>("TIMSK0");
+  vireg::VirtReg8 & TIMSK1 = vregmap.get<vireg::VirtReg8>("TIMSK1");
+  vireg::VirtReg8 & TIMSK2 = vregmap.get<vireg::VirtReg8>("TIMSK2");
+  vireg::VirtReg8 & UCSR0B = vregmap.get<vireg::VirtReg8>("UCSR0B");
+  vireg::VirtReg8 & SPCR   = vregmap.get<vireg::VirtReg8>("SPCR"  );
+  vireg::VirtReg8 & TWCR   = vregmap.get<vireg::VirtReg8>("TWCR"  );
+  vireg::VirtReg8 & EECR   = vregmap.get<vireg::VirtReg8>("EECR"  );
+  vireg::VirtReg8 & SPMCSR = vregmap.get<vireg::VirtReg8>("SPMCSR");
+  vireg::VirtReg8 & ACSR   = vregmap.get<vireg::VirtReg8>("ACSR"  );
+  vireg::VirtReg8 & ADCSRA = vregmap.get<vireg::VirtReg8>("ADCSRA");
 
   ATMEGA328P::InterruptController int_ctrl(EIMSK (),
                                            PCICR (),

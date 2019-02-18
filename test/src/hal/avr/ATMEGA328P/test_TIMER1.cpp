@@ -28,7 +28,9 @@
 #include <hal/avr/ATMEGA328P/RegisterResetValueList.h>
 
 #include <snowfox/hal/avr/ATMEGA328P/TIMER1.h>
+
 #include <vireg/VirtualRegister.hpp>
+#include <vireg/VirtualRegisterLoader.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -52,12 +54,16 @@ namespace test
 
 SCENARIO("ATMEGA328P::TIMER1 - A A valid prescaler value is set via 'setPrescaler'", "[ATMEGA328P::TIMER1]")
 {
-  vireg::VirtualRegister<uint16_t> TCNT1 (TCNT1_RESET_VALUE,  "TCNT1" );
-  vireg::VirtualRegister<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE, "TCCR1B");
-  vireg::VirtualRegister<uint16_t> OCR1A (OCR1A_RESET_VALUE,  "OCR1A" ),
-                     OCR1B (OCR1B_RESET_VALUE,  "OCR1B" );
+  vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/ATMEGA328P.json");
+
+  vireg::VirtReg16 & TCNT1  = vregmap.get<vireg::VirtReg16>("TCNT1" );
+  vireg::VirtReg8  & TCCR1B = vregmap.get<vireg::VirtReg8 >("TCCR0B");
+  vireg::VirtReg16 & OCR1A  = vregmap.get<vireg::VirtReg16>("OCR1A" );
+  vireg::VirtReg16 & OCR1B  = vregmap.get<vireg::VirtReg16>("OCR1B" );
+
 
   ATMEGA328P::TIMER1 timer1(TCNT1(), TCCR1B(), OCR1A(), OCR1B());
+
 
   std::vector<uint32_t> const VALID_PRESCALER_VECT = {0, 1, 8, 64, 256, 1024};
 
@@ -98,12 +104,16 @@ SCENARIO("ATMEGA328P::TIMER1 - A A valid prescaler value is set via 'setPrescale
 
 SCENARIO("ATMEGA328P::TIMER1 - A invalid prescaler value is set via 'setPrescaler'", "[ATMEGA328P::TIMER1]")
 {
-  vireg::VirtualRegister<uint16_t> TCNT1 (TCNT1_RESET_VALUE,  "TCNT1" );
-  vireg::VirtualRegister<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE, "TCCR1B");
-  vireg::VirtualRegister<uint16_t> OCR1A (OCR1A_RESET_VALUE,  "OCR1A" ),
-                     OCR1B (OCR1B_RESET_VALUE,  "OCR1B" );
+  vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/ATMEGA328P.json");
+
+  vireg::VirtReg16 & TCNT1  = vregmap.get<vireg::VirtReg16>("TCNT1" );
+  vireg::VirtReg8  & TCCR1B = vregmap.get<vireg::VirtReg8 >("TCCR0B");
+  vireg::VirtReg16 & OCR1A  = vregmap.get<vireg::VirtReg16>("OCR1A" );
+  vireg::VirtReg16 & OCR1B  = vregmap.get<vireg::VirtReg16>("OCR1B" );
+
 
   ATMEGA328P::TIMER1 timer1(TCNT1(), TCCR1B(), OCR1A(), OCR1B());
+
 
   uint32_t INVALID_PRESCALER = 2;
 
@@ -126,14 +136,18 @@ SCENARIO("ATMEGA328P::TIMER1 - A invalid prescaler value is set via 'setPrescale
 
 SCENARIO("ATMEGA328P::TIMER1 - A timer is started ('start') and stopped ('stop')", "[ATMEGA328P::TIMER1]")
 {
-  vireg::VirtualRegister<uint16_t> TCNT1 (TCNT1_RESET_VALUE,  "TCNT1" );
-  vireg::VirtualRegister<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE, "TCCR1B");
-  vireg::VirtualRegister<uint16_t> OCR1A (OCR1A_RESET_VALUE,  "OCR1A" ),
-                     OCR1B (OCR1B_RESET_VALUE,  "OCR1B" );
+  vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/ATMEGA328P.json");
 
-  uint32_t const prescaler = 8;
+  vireg::VirtReg16 & TCNT1  = vregmap.get<vireg::VirtReg16>("TCNT1" );
+  vireg::VirtReg8  & TCCR1B = vregmap.get<vireg::VirtReg8 >("TCCR0B");
+  vireg::VirtReg16 & OCR1A  = vregmap.get<vireg::VirtReg16>("OCR1A" );
+  vireg::VirtReg16 & OCR1B  = vregmap.get<vireg::VirtReg16>("OCR1B" );
+
 
   ATMEGA328P::TIMER1 timer1(TCNT1(), TCCR1B(), OCR1A(), OCR1B());
+
+
+  uint32_t const prescaler = 8;
 
   timer1.setPrescaler(prescaler);
 
@@ -158,12 +172,16 @@ SCENARIO("ATMEGA328P::TIMER1 - A timer is started ('start') and stopped ('stop')
 
 SCENARIO("ATMEGA328P::TIMER1 - A timer's counter register is read ('get') and written ('set')", "[ATMEGA328P::TIMER1]")
 {
-  vireg::VirtualRegister<uint16_t> TCNT1 (TCNT1_RESET_VALUE,  "TCNT1" );
-  vireg::VirtualRegister<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE, "TCCR1B");
-  vireg::VirtualRegister<uint16_t> OCR1A (OCR1A_RESET_VALUE,  "OCR1A" ),
-                     OCR1B (OCR1B_RESET_VALUE,  "OCR1B" );
+  vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/ATMEGA328P.json");
+
+  vireg::VirtReg16 & TCNT1  = vregmap.get<vireg::VirtReg16>("TCNT1" );
+  vireg::VirtReg8  & TCCR1B = vregmap.get<vireg::VirtReg8 >("TCCR0B");
+  vireg::VirtReg16 & OCR1A  = vregmap.get<vireg::VirtReg16>("OCR1A" );
+  vireg::VirtReg16 & OCR1B  = vregmap.get<vireg::VirtReg16>("OCR1B" );
+
 
   ATMEGA328P::TIMER1 timer1(TCNT1(), TCCR1B(), OCR1A(), OCR1B());
+
 
   WHEN("the counter register is read via 'get'")
   {
@@ -187,12 +205,16 @@ SCENARIO("ATMEGA328P::TIMER1 - A timer's counter register is read ('get') and wr
 
 SCENARIO("ATMEGA328P::TIMER1 - A timer's compare register are written via 'setCompareRegister'", "[ATMEGA328P::TIMER1]")
 {
-  vireg::VirtualRegister<uint16_t> TCNT1 (TCNT1_RESET_VALUE,  "TCNT1" );
-  vireg::VirtualRegister<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE, "TCCR1B");
-  vireg::VirtualRegister<uint16_t> OCR1A (OCR1A_RESET_VALUE,  "OCR1A" ),
-                     OCR1B (OCR1B_RESET_VALUE,  "OCR1B" );
+  vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/ATMEGA328P.json");
+
+  vireg::VirtReg16 & TCNT1  = vregmap.get<vireg::VirtReg16>("TCNT1" );
+  vireg::VirtReg8  & TCCR1B = vregmap.get<vireg::VirtReg8 >("TCCR0B");
+  vireg::VirtReg16 & OCR1A  = vregmap.get<vireg::VirtReg16>("OCR1A" );
+  vireg::VirtReg16 & OCR1B  = vregmap.get<vireg::VirtReg16>("OCR1B" );
+
 
   ATMEGA328P::TIMER1 timer1(TCNT1(), TCCR1B(), OCR1A(), OCR1B());
+
 
   WHEN("compare register A is written via 'setCompareRegister'")
   {

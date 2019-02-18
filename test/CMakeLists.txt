@@ -54,7 +54,6 @@ set(SNOWFOX_TEST_HOST_HAL_AVR_ATMEGA328P_SRCS
   ${SNOWFOX_TEST_HAL_AVR_PATH}/ATMEGA328P/test_TIMER0.cpp
   ${SNOWFOX_TEST_HAL_AVR_PATH}/ATMEGA328P/test_TIMER1.cpp
   ${SNOWFOX_TEST_HAL_AVR_PATH}/ATMEGA328P/test_TIMER2.cpp
-  ${SNOWFOX_TEST_HAL_AVR_PATH}/ATMEGA328P/test_UART0.cpp
 )
 
 ##########################################################################
