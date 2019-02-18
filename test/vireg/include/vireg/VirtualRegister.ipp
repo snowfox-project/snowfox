@@ -81,13 +81,13 @@ void VirtualRegister<T>::operator = (T const val)
 }
 
 template <typename T>
-void VirtualRegister<T>::setBit(uint32_t const bit_pos) const
+void VirtualRegister<T>::setBit(uint32_t const bit_pos)
 {
   _reg_val |= (1<<bit_pos);
 }
 
 template <typename T>
-void VirtualRegister<T>::clrBit(uint32_t const bit_pos) const
+void VirtualRegister<T>::clrBit(uint32_t const bit_pos)
 {
   _reg_val &= ~(1<<bit_pos);
 }
