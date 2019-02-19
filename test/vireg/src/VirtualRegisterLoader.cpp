@@ -82,22 +82,22 @@ VirtualRegisterMap VirtualRegisterLoader::load(char const * json_file_name)
 
     if     (register_type == "UNSIGNED8")
     {
-      VirtualRegister<uint8_t> virt_reg(hexStrToUint8(register_initial_val), register_name);
+      VirtReg8 virt_reg = std::make_shared<VirtualRegister<uint8_t>>(hexStrToUint8(register_initial_val), register_name);
       virtual_reg_map.set(register_name, virt_reg);
     }
     else if(register_type == "UNSIGNED16")
     {
-      VirtualRegister<uint16_t> virt_reg(hexStrToUint16(register_initial_val), register_name);
+      VirtReg16 virt_reg = std::make_shared<VirtualRegister<uint16_t>>(hexStrToUint16(register_initial_val), register_name);
       virtual_reg_map.set(register_name, virt_reg);
     }
     else if(register_type == "UNSIGNED32")
     {
-      VirtualRegister<uint32_t> virt_reg(hexStrToUint32(register_initial_val), register_name);
+      VirtReg32 virt_reg = std::make_shared<VirtualRegister<uint32_t>>(hexStrToUint32(register_initial_val), register_name);
       virtual_reg_map.set(register_name, virt_reg);
     }
     else if(register_type == "UNSIGNED64")
     {
-      VirtualRegister<uint64_t> virt_reg(hexStrToUint64(register_initial_val), register_name);
+      VirtReg64 virt_reg = std::make_shared<VirtualRegister<uint64_t>>(hexStrToUint64(register_initial_val), register_name);
       virtual_reg_map.set(register_name, virt_reg);
     }
   }

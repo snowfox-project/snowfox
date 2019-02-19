@@ -25,6 +25,7 @@
 
 #include <map>
 #include <string>
+#include <memory>
 #include <iostream>
 
 #include <boost/variant.hpp>
@@ -45,10 +46,10 @@ namespace vireg
  * TYPEDEF
  **************************************************************************************/
 
-typedef VirtualRegister<uint8_t>  VirtReg8;
-typedef VirtualRegister<uint16_t> VirtReg16;
-typedef VirtualRegister<uint32_t> VirtReg32;
-typedef VirtualRegister<uint64_t> VirtReg64;
+typedef std::shared_ptr<VirtualRegister<uint8_t>>  VirtReg8;
+typedef std::shared_ptr<VirtualRegister<uint16_t>> VirtReg16;
+typedef std::shared_ptr<VirtualRegister<uint32_t>> VirtReg32;
+typedef std::shared_ptr<VirtualRegister<uint64_t>> VirtReg64;
 
 typedef boost::variant<VirtReg8,
                        VirtReg16,
@@ -68,7 +69,7 @@ public:
   void set(std::string const & key, T const & value);
 
   template<typename T>
-  T & get(std::string const & key);
+  T get(std::string const & key);
 
   friend std::ostream & operator << (std::ostream & os, VirtualRegisterMap & virt_reg_map);
 

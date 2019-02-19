@@ -45,7 +45,7 @@ void VirtualRegisterMap::set(std::string const & key, T const & value)
 }
 
 template<typename T>
-T & VirtualRegisterMap::get(std::string const & key)
+T VirtualRegisterMap::get(std::string const & key)
 {
   if(!exists(key)) throw std::runtime_error("VirtualRegisterMap::get - can't find key: " + key);
 

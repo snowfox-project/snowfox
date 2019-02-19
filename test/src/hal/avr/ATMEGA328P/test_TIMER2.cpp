@@ -54,13 +54,13 @@ SCENARIO("ATMEGA328P::TIMER2 - A A valid prescaler value is set via 'setPrescale
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/ATMEGA328P.json");
 
-  vireg::VirtReg8 & TCNT2  = vregmap.get<vireg::VirtReg8>("TCNT2" );
-  vireg::VirtReg8 & TCCR2B = vregmap.get<vireg::VirtReg8>("TCCR2B");
-  vireg::VirtReg8 & OCR2A  = vregmap.get<vireg::VirtReg8>("OCR2A" );
-  vireg::VirtReg8 & OCR2B  = vregmap.get<vireg::VirtReg8>("OCR2B" );
+  vireg::VirtReg8 TCNT2  = vregmap.get<vireg::VirtReg8>("TCNT2" );
+  vireg::VirtReg8 TCCR2B = vregmap.get<vireg::VirtReg8>("TCCR2B");
+  vireg::VirtReg8 OCR2A  = vregmap.get<vireg::VirtReg8>("OCR2A" );
+  vireg::VirtReg8 OCR2B  = vregmap.get<vireg::VirtReg8>("OCR2B" );
 
 
-  ATMEGA328P::TIMER2 timer2(TCNT2(), TCCR2B(), OCR2A(), OCR2B());
+  ATMEGA328P::TIMER2 timer2((*TCNT2)(), (*TCCR2B)(), (*OCR2A)(), (*OCR2B)());
 
 
   std::vector<uint32_t> const VALID_PRESCALER_VECT = {0, 1, 8, 64, 256, 1024};
@@ -82,17 +82,17 @@ SCENARIO("ATMEGA328P::TIMER2 - A A valid prescaler value is set via 'setPrescale
 
             switch(prescaler)
             {
-            case 0    : THEN("TCCR2B bits 2-0 == 0b000") REQUIRE(TCCR2B.isBitVectSet({     })); break;
-            case 1    : THEN("TCCR2B bits 2-0 == 0b001") REQUIRE(TCCR2B.isBitVectSet({    0})); break;
-            case 8    : THEN("TCCR2B bits 2-0 == 0b010") REQUIRE(TCCR2B.isBitVectSet({  1  })); break;
-            case 64   : THEN("TCCR2B bits 2-0 == 0b011") REQUIRE(TCCR2B.isBitVectSet({  1,0})); break;
-            case 256  : THEN("TCCR2B bits 2-0 == 0b100") REQUIRE(TCCR2B.isBitVectSet({2    })); break;
-            case 1024 : THEN("TCCR2B bits 2-0 == 0b101") REQUIRE(TCCR2B.isBitVectSet({2,  0})); break;
+            case 0    : THEN("TCCR2B bits 2-0 == 0b000") REQUIRE(TCCR2B->isBitVectSet({     })); break;
+            case 1    : THEN("TCCR2B bits 2-0 == 0b001") REQUIRE(TCCR2B->isBitVectSet({    0})); break;
+            case 8    : THEN("TCCR2B bits 2-0 == 0b010") REQUIRE(TCCR2B->isBitVectSet({  1  })); break;
+            case 64   : THEN("TCCR2B bits 2-0 == 0b011") REQUIRE(TCCR2B->isBitVectSet({  1,0})); break;
+            case 256  : THEN("TCCR2B bits 2-0 == 0b100") REQUIRE(TCCR2B->isBitVectSet({2    })); break;
+            case 1024 : THEN("TCCR2B bits 2-0 == 0b101") REQUIRE(TCCR2B->isBitVectSet({2,  0})); break;
             }
           }
           WHEN("'start' is not called")
           {
-            THEN("TCCR2B bits 2-0 == 0b000") REQUIRE(TCCR2B == 0x00);
+            THEN("TCCR2B bits 2-0 == 0b000") REQUIRE(*TCCR2B == 0x00);
           }
         }
       });
@@ -104,13 +104,13 @@ SCENARIO("ATMEGA328P::TIMER2 - A invalid prescaler value is set via 'setPrescale
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/ATMEGA328P.json");
 
-  vireg::VirtReg8 & TCNT2  = vregmap.get<vireg::VirtReg8>("TCNT2" );
-  vireg::VirtReg8 & TCCR2B = vregmap.get<vireg::VirtReg8>("TCCR2B");
-  vireg::VirtReg8 & OCR2A  = vregmap.get<vireg::VirtReg8>("OCR2A" );
-  vireg::VirtReg8 & OCR2B  = vregmap.get<vireg::VirtReg8>("OCR2B" );
+  vireg::VirtReg8 TCNT2  = vregmap.get<vireg::VirtReg8>("TCNT2" );
+  vireg::VirtReg8 TCCR2B = vregmap.get<vireg::VirtReg8>("TCCR2B");
+  vireg::VirtReg8 OCR2A  = vregmap.get<vireg::VirtReg8>("OCR2A" );
+  vireg::VirtReg8 OCR2B  = vregmap.get<vireg::VirtReg8>("OCR2B" );
 
 
-  ATMEGA328P::TIMER2 timer2(TCNT2(), TCCR2B(), OCR2A(), OCR2B());
+  ATMEGA328P::TIMER2 timer2((*TCNT2)(), (*TCCR2B)(), (*OCR2A)(), (*OCR2B)());
 
 
   uint32_t INVALID_PRESCALER = 2;
@@ -121,11 +121,11 @@ SCENARIO("ATMEGA328P::TIMER2 - A invalid prescaler value is set via 'setPrescale
     WHEN("'start' is called")
     {
       timer2.start();
-      THEN("TCCR2B bits 2-0 == 0b000 (Reset Value)") REQUIRE(TCCR2B == 0x00);
+      THEN("TCCR2B bits 2-0 == 0b000 (Reset Value)") REQUIRE(*TCCR2B == 0x00);
     }
     WHEN("'start' is not called")
     {
-      THEN("TCCR2B bits 2-0 == 0b000 (Reset Value)") REQUIRE(TCCR2B == 0x00);
+      THEN("TCCR2B bits 2-0 == 0b000 (Reset Value)") REQUIRE(*TCCR2B == 0x00);
     }
   }
 }
@@ -136,13 +136,13 @@ SCENARIO("ATMEGA328P::TIMER2 - A timer is started ('start') and stopped ('stop')
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/ATMEGA328P.json");
 
-  vireg::VirtReg8 & TCNT2  = vregmap.get<vireg::VirtReg8>("TCNT2" );
-  vireg::VirtReg8 & TCCR2B = vregmap.get<vireg::VirtReg8>("TCCR2B");
-  vireg::VirtReg8 & OCR2A  = vregmap.get<vireg::VirtReg8>("OCR2A" );
-  vireg::VirtReg8 & OCR2B  = vregmap.get<vireg::VirtReg8>("OCR2B" );
+  vireg::VirtReg8 TCNT2  = vregmap.get<vireg::VirtReg8>("TCNT2" );
+  vireg::VirtReg8 TCCR2B = vregmap.get<vireg::VirtReg8>("TCCR2B");
+  vireg::VirtReg8 OCR2A  = vregmap.get<vireg::VirtReg8>("OCR2A" );
+  vireg::VirtReg8 OCR2B  = vregmap.get<vireg::VirtReg8>("OCR2B" );
 
 
-  ATMEGA328P::TIMER2 timer2(TCNT2(), TCCR2B(), OCR2A(), OCR2B());
+  ATMEGA328P::TIMER2 timer2((*TCNT2)(), (*TCCR2B)(), (*OCR2A)(), (*OCR2B)());
 
 
   uint32_t const prescaler = 8;
@@ -152,15 +152,15 @@ SCENARIO("ATMEGA328P::TIMER2 - A timer is started ('start') and stopped ('stop')
   WHEN("'start' is called")
   {
     timer2.start();
-    THEN("TCCR2B contains the expected prescaler bit pattern") REQUIRE(TCCR2B.isBitVectSet({1}));
+    THEN("TCCR2B contains the expected prescaler bit pattern") REQUIRE(TCCR2B->isBitVectSet({1}));
     WHEN("'stop' is called")
     {
       timer2.stop();
-      THEN("TCCR2B contains the RESET prescaler bit pattern") REQUIRE(TCCR2B == 0x00);
+      THEN("TCCR2B contains the RESET prescaler bit pattern") REQUIRE(*TCCR2B == 0x00);
       WHEN("'start' is called (again)")
       {
         timer2.start();
-        THEN("TCCR2B contains the expected prescaler bit pattern (again)") REQUIRE(TCCR2B.isBitVectSet({1}));
+        THEN("TCCR2B contains the expected prescaler bit pattern (again)") REQUIRE(TCCR2B->isBitVectSet({1}));
       }
     }
   }
@@ -172,18 +172,18 @@ SCENARIO("ATMEGA328P::TIMER2 - A timer's counter register is read ('get') and wr
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/ATMEGA328P.json");
 
-  vireg::VirtReg8 & TCNT2  = vregmap.get<vireg::VirtReg8>("TCNT2" );
-  vireg::VirtReg8 & TCCR2B = vregmap.get<vireg::VirtReg8>("TCCR2B");
-  vireg::VirtReg8 & OCR2A  = vregmap.get<vireg::VirtReg8>("OCR2A" );
-  vireg::VirtReg8 & OCR2B  = vregmap.get<vireg::VirtReg8>("OCR2B" );
+  vireg::VirtReg8 TCNT2  = vregmap.get<vireg::VirtReg8>("TCNT2" );
+  vireg::VirtReg8 TCCR2B = vregmap.get<vireg::VirtReg8>("TCCR2B");
+  vireg::VirtReg8 OCR2A  = vregmap.get<vireg::VirtReg8>("OCR2A" );
+  vireg::VirtReg8 OCR2B  = vregmap.get<vireg::VirtReg8>("OCR2B" );
 
 
-  ATMEGA328P::TIMER2 timer2(TCNT2(), TCCR2B(), OCR2A(), OCR2B());
+  ATMEGA328P::TIMER2 timer2((*TCNT2)(), (*TCCR2B)(), (*OCR2A)(), (*OCR2B)());
 
 
   WHEN("the counter register is read via 'get'")
   {
-    TCNT2 = 0xCA;
+    *TCNT2 = 0xCA;
     THEN("the current value should be returned")
     {
       REQUIRE(timer2.get() == 0xCA);
@@ -194,7 +194,7 @@ SCENARIO("ATMEGA328P::TIMER2 - A timer's counter register is read ('get') and wr
     timer2.set(0xFF);
     THEN("TCNT2 should contain the written value")
     {
-      REQUIRE(TCNT2 == 0xFF);
+      REQUIRE(*TCNT2 == 0xFF);
     }
   }
 }
@@ -205,13 +205,13 @@ SCENARIO("ATMEGA328P::TIMER2 - A timer's compare register are written via 'setCo
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/ATMEGA328P.json");
 
-  vireg::VirtReg8 & TCNT2  = vregmap.get<vireg::VirtReg8>("TCNT2" );
-  vireg::VirtReg8 & TCCR2B = vregmap.get<vireg::VirtReg8>("TCCR2B");
-  vireg::VirtReg8 & OCR2A  = vregmap.get<vireg::VirtReg8>("OCR2A" );
-  vireg::VirtReg8 & OCR2B  = vregmap.get<vireg::VirtReg8>("OCR2B" );
+  vireg::VirtReg8 TCNT2  = vregmap.get<vireg::VirtReg8>("TCNT2" );
+  vireg::VirtReg8 TCCR2B = vregmap.get<vireg::VirtReg8>("TCCR2B");
+  vireg::VirtReg8 OCR2A  = vregmap.get<vireg::VirtReg8>("OCR2A" );
+  vireg::VirtReg8 OCR2B  = vregmap.get<vireg::VirtReg8>("OCR2B" );
 
 
-  ATMEGA328P::TIMER2 timer2(TCNT2(), TCCR2B(), OCR2A(), OCR2B());
+  ATMEGA328P::TIMER2 timer2((*TCNT2)(), (*TCCR2B)(), (*OCR2A)(), (*OCR2B)());
 
 
   WHEN("compare register A is written via 'setCompareRegister'")
@@ -219,7 +219,7 @@ SCENARIO("ATMEGA328P::TIMER2 - A timer's compare register are written via 'setCo
     timer2.setCompareRegister(TIMER2::COMPARE_A, 0xCA);
     THEN("OCR0A should contain the written value")
     {
-      REQUIRE(OCR2A == 0xCA);
+      REQUIRE(*OCR2A == 0xCA);
     }
   }
   WHEN("compare register B is written via 'setCompareRegister'")
@@ -227,7 +227,7 @@ SCENARIO("ATMEGA328P::TIMER2 - A timer's compare register are written via 'setCo
     timer2.setCompareRegister(TIMER2::COMPARE_B, 0xFE);
     THEN("OCR0B should contain the written value")
     {
-      REQUIRE(OCR2B == 0xFE);
+      REQUIRE(*OCR2B == 0xFE);
     }
   }
 }
