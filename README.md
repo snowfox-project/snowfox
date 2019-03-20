@@ -6,7 +6,7 @@ Snowfox = OS + HAL + IO + COMSTACK + CI + C++
 [![Wiki](.ci/badge/docu-wiki-brightgreen.svg)](https://github.com/lxrobotics/snowfox/wiki)
 
 <p align="center"> 
-<img src="./snowfox-os-logo.jpg">
+<img src=".ci/logo/snowfox-os-logo.jpg">
 </p>
 
 ### What ?
