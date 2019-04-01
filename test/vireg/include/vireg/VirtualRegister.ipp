@@ -49,12 +49,6 @@ VirtualRegister<T>::VirtualRegister(T const init_reg_val, std::string const & na
  **************************************************************************************/
 
 template <typename T>
-T * VirtualRegister<T>::operator()()
-{
-  return &_reg_val;
-}
-
-template <typename T>
 bool VirtualRegister<T>::operator == (T const val) const
 {
   return (_reg_val == val);

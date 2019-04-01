@@ -51,11 +51,10 @@ public:
 
   VirtualRegister(T const init_reg_val, std::string const & name);
 
+  inline T *         ptr ()       { return &_reg_val; }
+  inline T           val () const { return  _reg_val; }
+  inline std::string name() const { return  _name;    }
 
-  inline std::string name() const { return _name; }
-
-
-  T    * operator () ();
   bool   operator == (T const val) const;
   void   operator =  (T const val);
 
