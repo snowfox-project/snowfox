@@ -1,0 +1,22 @@
+{
+  "EIMSK":  { "Type": "UNSIGNED8",  "Initial": "0x00"   },
+  "PCICR":  { "Type": "UNSIGNED8",  "Initial": "0x00"   },
+  "PCMSK0": { "Type": "UNSIGNED8",  "Initial": "0x00"   },
+  "WDTCSR": { "Type": "UNSIGNED8",  "Initial": "0x00"   },
+  "TIMSK0": { "Type": "UNSIGNED8",  "Initial": "0x00"   },
+  "TIMSK1": { "Type": "UNSIGNED8",  "Initial": "0x00"   },
+  "TIMSK3": { "Type": "UNSIGNED8",  "Initial": "0x00"   },
+  "TIMSK4": { "Type": "UNSIGNED8",  "Initial": "0x00"   },
+  "TCCR4D": { "Type": "UNSIGNED8",  "Initial": "0x00"   },
+  "SPCR":   { "Type": "UNSIGNED8",  "Initial": "0x00"   },
+  "ACSR":   { "Type": "UNSIGNED8",  "Initial": "0x00"   },
+  "ADCSRA": { "Type": "UNSIGNED8",  "Initial": "0x00"   },
+  "EECR":   { "Type": "UNSIGNED8",  "Initial": "0x00"   },
+  "UDR1":   { "Type": "UNSIGNED8",  "Initial": "0x00"   },
+  "UCSR1A": { "Type": "UNSIGNED8",  "Initial": "0x00"   },
+  "UCSR1B": { "Type": "UNSIGNED8",  "Initial": "0x00"   },
+  "UCSR1C": { "Type": "UNSIGNED8",  "Initial": "0x00"   },
+  "UBRR1":  { "Type": "UNSIGNED16", "Initial": "0x0000" },
+  "TWCR":   { "Type": "UNSIGNED8",  "Initial": "0x00"   },
+  "SPMCSR": { "Type": "UNSIGNED8",  "Initial": "0x00"   }
+}
