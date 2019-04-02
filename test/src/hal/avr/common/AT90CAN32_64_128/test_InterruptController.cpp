@@ -66,20 +66,20 @@ SCENARIO("AT90CAN32_64_128::InterruptController - interrupts are enabled via 'en
                     TWCR    (TWCR_RESET_VALUE  , "TWCR"  ),
                     SPMCSR  (SPMCSR_RESET_VALUE, "SPMCSR");
 
-  AT90CAN32_64_128::InterruptController int_ctrl(EIMSK (),
-                                                 TIMSK0(),
-                                                 TIMSK1(),
-                                                 TIMSK2(),
-                                                 TIMSK3(),
-                                                 UCSR0B(),
-                                                 UCSR1B(),
-                                                 CANGIE(),
-                                                 SPCR  (),
-                                                 TWCR  (),
-                                                 EECR  (),
-                                                 SPMCSR(),
-                                                 ACSR  (),
-                                                 ADCSRA());
+  AT90CAN32_64_128::InterruptController int_ctrl(EIMSK.ptr (),
+                                                 TIMSK0.ptr(),
+                                                 TIMSK1.ptr(),
+                                                 TIMSK2.ptr(),
+                                                 TIMSK3.ptr(),
+                                                 UCSR0B.ptr(),
+                                                 UCSR1B.ptr(),
+                                                 CANGIE.ptr(),
+                                                 SPCR.ptr  (),
+                                                 TWCR.ptr  (),
+                                                 EECR.ptr  (),
+                                                 SPMCSR.ptr(),
+                                                 ACSR.ptr  (),
+                                                 ADCSRA.ptr());
 
   avr::doTestEnableDisableInterrupt(int_ctrl, toIntNum(Interrupt::EXTERNAL_INT0                  ), "EXTERNAL_INT0",                   EIMSK,  0);
   avr::doTestEnableDisableInterrupt(int_ctrl, toIntNum(Interrupt::EXTERNAL_INT1                  ), "EXTERNAL_INT1",                   EIMSK,  1);

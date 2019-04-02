@@ -58,7 +58,7 @@ SCENARIO("AT90CAN32_64_128::TIMER3 - A valid prescaler value is set via 'setPres
                      OCR3B (OCR3B_RESET_VALUE,  "OCR3B" ),
                      OCR3C (OCR3C_RESET_VALUE,  "OCR3C" );
 
-  AT90CAN32_64_128::TIMER3 timer3(TCNT3(), TCCR3B(), OCR3A(), OCR3B(), OCR3C());
+  AT90CAN32_64_128::TIMER3 timer3(TCNT3.ptr(), TCCR3B.ptr(), OCR3A.ptr(), OCR3B.ptr(), OCR3C.ptr());
 
   std::vector<uint32_t> const VALID_PRESCALER_VECT = {0, 1, 8, 64, 256, 1024};
 
@@ -105,7 +105,7 @@ SCENARIO("AT90CAN32_64_128::TIMER3 - A invalid prescaler value is set via 'setPr
                      OCR3B (OCR3B_RESET_VALUE,  "OCR3B" ),
                      OCR3C (OCR3C_RESET_VALUE,  "OCR3C" );
 
-  AT90CAN32_64_128::TIMER3 timer3(TCNT3(), TCCR3B(), OCR3A(), OCR3B(), OCR3C());
+  AT90CAN32_64_128::TIMER3 timer3(TCNT3.ptr(), TCCR3B.ptr(), OCR3A.ptr(), OCR3B.ptr(), OCR3C.ptr());
 
   uint32_t INVALID_PRESCALER = 2;
 
@@ -136,7 +136,7 @@ SCENARIO("AT90CAN32_64_128::TIMER3 - A timer is started ('start') and stopped ('
 
   uint32_t const prescaler = 8;
 
-  AT90CAN32_64_128::TIMER3 timer3(TCNT3(), TCCR3B(), OCR3A(), OCR3B(), OCR3C());
+  AT90CAN32_64_128::TIMER3 timer3(TCNT3.ptr(), TCCR3B.ptr(), OCR3A.ptr(), OCR3B.ptr(), OCR3C.ptr());
 
   timer3.setPrescaler(prescaler);
 
@@ -167,7 +167,7 @@ SCENARIO("AT90CAN32_64_128::TIMER3 - A timer's counter register is read ('get') 
                      OCR3B (OCR3B_RESET_VALUE,  "OCR3B" ),
                      OCR3C (OCR3C_RESET_VALUE,  "OCR3C" );
 
-  AT90CAN32_64_128::TIMER3 timer3(TCNT3(), TCCR3B(), OCR3A(), OCR3B(), OCR3C());
+  AT90CAN32_64_128::TIMER3 timer3(TCNT3.ptr(), TCCR3B.ptr(), OCR3A.ptr(), OCR3B.ptr(), OCR3C.ptr());
 
   WHEN("the counter register is read via 'get'")
   {
@@ -197,7 +197,7 @@ SCENARIO("AT90CAN32_64_128::TIMER3 - A timer's compare register are written via 
                      OCR3B (OCR3B_RESET_VALUE,  "OCR3B" ),
                      OCR3C (OCR3C_RESET_VALUE,  "OCR3C" );
 
-  AT90CAN32_64_128::TIMER3 timer3(TCNT3(), TCCR3B(), OCR3A(), OCR3B(), OCR3C());
+  AT90CAN32_64_128::TIMER3 timer3(TCNT3.ptr(), TCCR3B.ptr(), OCR3A.ptr(), OCR3B.ptr(), OCR3C.ptr());
 
   WHEN("compare register A is written via 'setCompareRegister'")
   {

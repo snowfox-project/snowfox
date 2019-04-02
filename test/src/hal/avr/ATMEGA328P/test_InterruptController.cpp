@@ -70,22 +70,22 @@ SCENARIO("ATMEGA328P::InterruptController - interrupts are enabled via 'enableIn
   vireg::VirtReg8 ACSR   = vregmap.get<vireg::VirtReg8>("ACSR"  );
   vireg::VirtReg8 ADCSRA = vregmap.get<vireg::VirtReg8>("ADCSRA");
 
-  ATMEGA328P::InterruptController int_ctrl((*EIMSK) (),
-                                           (*PCICR) (),
-                                           (*PCMSK0)(),
-                                           (*PCMSK1)(),
-                                           (*PCMSK2)(),
-                                           (*WDTCSR)(),
-                                           (*TIMSK0)(),
-                                           (*TIMSK1)(),
-                                           (*TIMSK2)(),
-                                           (*UCSR0B)(),
-                                           (*SPCR)  (),
-                                           (*TWCR)  (),
-                                           (*EECR)  (),
-                                           (*SPMCSR)(),
-                                           (*ACSR)  (),
-                                           (*ADCSRA)());
+  ATMEGA328P::InterruptController int_ctrl(EIMSK->ptr (),
+                                           PCICR->ptr (),
+                                           PCMSK0->ptr(),
+                                           PCMSK1->ptr(),
+                                           PCMSK2->ptr(),
+                                           WDTCSR->ptr(),
+                                           TIMSK0->ptr(),
+                                           TIMSK1->ptr(),
+                                           TIMSK2->ptr(),
+                                           UCSR0B->ptr(),
+                                           SPCR->ptr  (),
+                                           TWCR->ptr  (),
+                                           EECR->ptr  (),
+                                           SPMCSR->ptr(),
+                                           ACSR->ptr  (),
+                                           ADCSRA->ptr());
 
   avr::doTestEnableDisableInterrupt(int_ctrl, toIntNum(Interrupt::EXTERNAL_INT0                 ), "EXTERNAL_INT0",                  *EIMSK,  0);
   avr::doTestEnableDisableInterrupt(int_ctrl, toIntNum(Interrupt::EXTERNAL_INT1                 ), "EXTERNAL_INT1",                  *EIMSK,  1);

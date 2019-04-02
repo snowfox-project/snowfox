@@ -50,7 +50,7 @@ SCENARIO("A DigitalInPort object is constructed", "[ATxxxx::DigitalInPort]")
                     PIN(0b00000000, "PIN");
 
 
-  ATxxxx::DigitalInPort in_port(DDR(), OUT(), PIN());
+  ATxxxx::DigitalInPort in_port(DDR.ptr(), OUT.ptr(), PIN.ptr());
 
   WHEN("the object is newly constructed")
   {
@@ -78,7 +78,7 @@ SCENARIO("A DigitalInPort interface::PullUpMode is manipulated", "[ATxxxx::Digit
                     PIN(0b00000000, "PIN");
 
 
-  ATxxxx::DigitalInPort in_port(DDR(), OUT(), PIN());
+  ATxxxx::DigitalInPort in_port(DDR.ptr(), OUT.ptr(), PIN.ptr());
 
   WHEN("interface::PullUpMode 'NONE' is selected")
   {
@@ -118,7 +118,7 @@ SCENARIO("A DigitalInPort value is read", "[ATxxxx::DigitalInPort]")
                     PIN(0b10110011, "PIN");
 
 
-  ATxxxx::DigitalInPort in_port(DDR(), OUT(), PIN());
+  ATxxxx::DigitalInPort in_port(DDR.ptr(), OUT.ptr(), PIN.ptr());
 
   WHEN("the current value of the PIN register is read via 'get'")
   {

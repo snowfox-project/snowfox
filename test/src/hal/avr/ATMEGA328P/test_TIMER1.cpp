@@ -60,7 +60,7 @@ SCENARIO("ATMEGA328P::TIMER1 - A A valid prescaler value is set via 'setPrescale
   vireg::VirtReg16 OCR1B  = vregmap.get<vireg::VirtReg16>("OCR1B" );
 
 
-  ATMEGA328P::TIMER1 timer1((*TCNT1)(), (*TCCR1B)(), (*OCR1A)(), (*OCR1B)());
+  ATMEGA328P::TIMER1 timer1(TCNT1->ptr(), TCCR1B->ptr(), OCR1A->ptr(), OCR1B->ptr());
 
 
   std::vector<uint32_t> const VALID_PRESCALER_VECT = {0, 1, 8, 64, 256, 1024};
@@ -110,7 +110,7 @@ SCENARIO("ATMEGA328P::TIMER1 - A invalid prescaler value is set via 'setPrescale
   vireg::VirtReg16 OCR1B  = vregmap.get<vireg::VirtReg16>("OCR1B" );
 
 
-  ATMEGA328P::TIMER1 timer1((*TCNT1)(), (*TCCR1B)(), (*OCR1A)(), (*OCR1B)());
+  ATMEGA328P::TIMER1 timer1(TCNT1->ptr(), TCCR1B->ptr(), OCR1A->ptr(), OCR1B->ptr());
 
 
   uint32_t INVALID_PRESCALER = 2;
@@ -142,7 +142,7 @@ SCENARIO("ATMEGA328P::TIMER1 - A timer is started ('start') and stopped ('stop')
   vireg::VirtReg16 OCR1B  = vregmap.get<vireg::VirtReg16>("OCR1B" );
 
 
-  ATMEGA328P::TIMER1 timer1((*TCNT1)(), (*TCCR1B)(), (*OCR1A)(), (*OCR1B)());
+  ATMEGA328P::TIMER1 timer1(TCNT1->ptr(), TCCR1B->ptr(), OCR1A->ptr(), OCR1B->ptr());
 
 
   uint32_t const prescaler = 8;
@@ -178,7 +178,7 @@ SCENARIO("ATMEGA328P::TIMER1 - A timer's counter register is read ('get') and wr
   vireg::VirtReg16 OCR1B  = vregmap.get<vireg::VirtReg16>("OCR1B" );
 
 
-  ATMEGA328P::TIMER1 timer1((*TCNT1)(), (*TCCR1B)(), (*OCR1A)(), (*OCR1B)());
+  ATMEGA328P::TIMER1 timer1(TCNT1->ptr(), TCCR1B->ptr(), OCR1A->ptr(), OCR1B->ptr());
 
 
   WHEN("the counter register is read via 'get'")
@@ -211,7 +211,7 @@ SCENARIO("ATMEGA328P::TIMER1 - A timer's compare register are written via 'setCo
   vireg::VirtReg16 OCR1B  = vregmap.get<vireg::VirtReg16>("OCR1B" );
 
 
-  ATMEGA328P::TIMER1 timer1((*TCNT1)(), (*TCCR1B)(), (*OCR1A)(), (*OCR1B)());
+  ATMEGA328P::TIMER1 timer1(TCNT1->ptr(), TCCR1B->ptr(), OCR1A->ptr(), OCR1B->ptr());
 
 
   WHEN("compare register A is written via 'setCompareRegister'")

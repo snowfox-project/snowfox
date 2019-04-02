@@ -70,22 +70,22 @@ SCENARIO("ATMEGA16U4_32U4::InterruptController - interrupts are enabled via 'ena
                     ACSR    (ACSR_RESET_VALUE  , "ACSR"  ),
                     ADCSRA  (ADCSRA_RESET_VALUE, "ADCSRA");
 
-  ATMEGA16U4_32U4::InterruptController int_ctrl(EIMSK (),
-                                                PCICR (),
-                                                PCMSK0(),
-                                                WDTCSR(),
-                                                TIMSK0(),
-                                                TIMSK1(),
-                                                TIMSK3(),
-                                                TIMSK4(),
-                                                TCCR4D(),
-                                                UCSR1B(),
-                                                SPCR  (),
-                                                TWCR  (),
-                                                EECR  (),
-                                                SPMCSR(),
-                                                ACSR  (),
-                                                ADCSRA());
+  ATMEGA16U4_32U4::InterruptController int_ctrl(EIMSK.ptr (),
+                                                PCICR.ptr (),
+                                                PCMSK0.ptr(),
+                                                WDTCSR.ptr(),
+                                                TIMSK0.ptr(),
+                                                TIMSK1.ptr(),
+                                                TIMSK3.ptr(),
+                                                TIMSK4.ptr(),
+                                                TCCR4D.ptr(),
+                                                UCSR1B.ptr(),
+                                                SPCR.ptr  (),
+                                                TWCR.ptr  (),
+                                                EECR.ptr  (),
+                                                SPMCSR.ptr(),
+                                                ACSR.ptr  (),
+                                                ADCSRA.ptr());
 
   avr::doTestEnableDisableInterrupt(int_ctrl, toIntNum(Interrupt::EXTERNAL_INT0                  ), "EXTERNAL_INT0",                   EIMSK,  0);
   avr::doTestEnableDisableInterrupt(int_ctrl, toIntNum(Interrupt::EXTERNAL_INT1                  ), "EXTERNAL_INT1",                   EIMSK,  1);

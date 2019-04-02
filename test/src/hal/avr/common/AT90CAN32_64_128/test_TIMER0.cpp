@@ -56,7 +56,7 @@ SCENARIO("AT90CAN32_64_128::TIMER0 - A valid prescaler value is set via 'setPres
                     TCCR0A(TCCR0A_RESET_VALUE, "TCCR0A"),
                     OCR0A (OCR0A_RESET_VALUE,  "OCR0A" );
 
-  AT90CAN32_64_128::TIMER0 timer0(TCNT0(), TCCR0A(), OCR0A());
+  AT90CAN32_64_128::TIMER0 timer0(TCNT0.ptr(), TCCR0A.ptr(), OCR0A.ptr());
 
   std::vector<uint32_t> const VALID_PRESCALER_VECT = {0, 1, 8, 64, 256, 1024};
 
@@ -101,7 +101,7 @@ SCENARIO("AT90CAN32_64_128::TIMER0 - A invalid prescaler value is set via 'setPr
                     TCCR0A(TCCR0A_RESET_VALUE, "TCCR0A"),
                     OCR0A (OCR0A_RESET_VALUE,  "OCR0A" );
 
-  AT90CAN32_64_128::TIMER0 timer0(TCNT0(), TCCR0A(), OCR0A());
+  AT90CAN32_64_128::TIMER0 timer0(TCNT0.ptr(), TCCR0A.ptr(), OCR0A.ptr());
 
   uint32_t INVALID_PRESCALER = 2;
 
@@ -130,7 +130,7 @@ SCENARIO("AT90CAN32_64_128::TIMER0 - A timer is started ('start') and stopped ('
 
   uint32_t const prescaler = 8;
 
-  AT90CAN32_64_128::TIMER0 timer0(TCNT0(), TCCR0A(), OCR0A());
+  AT90CAN32_64_128::TIMER0 timer0(TCNT0.ptr(), TCCR0A.ptr(), OCR0A.ptr());
 
   timer0.setPrescaler(prescaler);
 
@@ -159,7 +159,7 @@ SCENARIO("AT90CAN32_64_128::TIMER0 - A timer's counter register is read ('get') 
                     TCCR0A(TCCR0A_RESET_VALUE, "TCCR0A"),
                     OCR0A (OCR0A_RESET_VALUE,  "OCR0A" );
 
-  AT90CAN32_64_128::TIMER0 timer0(TCNT0(), TCCR0A(), OCR0A());
+  AT90CAN32_64_128::TIMER0 timer0(TCNT0.ptr(), TCCR0A.ptr(), OCR0A.ptr());
 
   WHEN("the counter register is read via 'get'")
   {
@@ -187,7 +187,7 @@ SCENARIO("AT90CAN32_64_128::TIMER0 - A timer's compare register are written via 
                     TCCR0A(TCCR0A_RESET_VALUE, "TCCR0A"),
                     OCR0A (OCR0A_RESET_VALUE,  "OCR0A" );
 
-  AT90CAN32_64_128::TIMER0 timer0(TCNT0(), TCCR0A(), OCR0A());
+  AT90CAN32_64_128::TIMER0 timer0(TCNT0.ptr(), TCCR0A.ptr(), OCR0A.ptr());
 
   WHEN("compare register A is written via 'setCompareRegister'")
   {

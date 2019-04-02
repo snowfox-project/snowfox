@@ -49,7 +49,7 @@ SCENARIO("A DigitalInPin (Pin Number 0) object is constructed", "[ATxxxx::Digita
                     OUT(0b00000000, "OUT"),
                     PIN(0b00000000, "PIN");
 
-  ATxxxx::DigitalInPin in_pin(DDR(), OUT(), PIN(), 0);
+  ATxxxx::DigitalInPin in_pin(DDR.ptr(), OUT.ptr(), PIN.ptr(), 0);
 
   WHEN("the object is newly constructed")
   {
@@ -76,7 +76,7 @@ SCENARIO("A DigitalInPin (Pin Number 0) interface::PullUpMode is manipulated", "
                     OUT(0b00000000, "OUT"),
                     PIN(0b00000000, "PIN");
 
-  ATxxxx::DigitalInPin in_pin(DDR(), OUT(), PIN(), 0);
+  ATxxxx::DigitalInPin in_pin(DDR.ptr(), OUT.ptr(), PIN.ptr(), 0);
 
   WHEN("interface::PullUpMode 'NONE' is selected")
   {
@@ -115,7 +115,7 @@ SCENARIO("A 'clr' DigitalInPin (Pin Number 0) current value is retrieved vis 'is
                     OUT(0b00000000, "OUT"),
                     PIN(0b00000000, "PIN");
 
-  ATxxxx::DigitalInPin in_pin(DDR(), OUT(), PIN(), 0);
+  ATxxxx::DigitalInPin in_pin(DDR.ptr(), OUT.ptr(), PIN.ptr(), 0);
 
   WHEN("'isSet' is called")
   {
@@ -141,7 +141,7 @@ SCENARIO("A 'set' DigitalInPin (Pin Number 0) current value is retrieved vis 'is
                     OUT(0b00000000, "OUT"),
                     PIN(0b00000001, "PIN");
 
-  ATxxxx::DigitalInPin in_pin(DDR(), OUT(), PIN(), 0);
+  ATxxxx::DigitalInPin in_pin(DDR.ptr(), OUT.ptr(), PIN.ptr(), 0);
 
   WHEN("'isSet' is called")
   {

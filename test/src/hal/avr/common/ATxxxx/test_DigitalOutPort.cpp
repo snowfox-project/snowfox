@@ -48,7 +48,7 @@ SCENARIO("A DigitalOutPort object is constructed", "[ATxxxx::DigitalOutPort]")
   vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
                     OUT(0b00000000, "OUT");
 
-  ATxxxx::DigitalOutPort out_port(DDR(), OUT());
+  ATxxxx::DigitalOutPort out_port(DDR.ptr(), OUT.ptr());
 
   WHEN("the object is newly constructed")
   {
@@ -70,7 +70,7 @@ SCENARIO("A DigitalOutPort is manipulated via 'set'", "[ATxxxx::DigitalOutPort]"
   vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
                     OUT(0b00000000, "OUT");
 
-  ATxxxx::DigitalOutPort out_port(DDR(), OUT());
+  ATxxxx::DigitalOutPort out_port(DDR.ptr(), OUT.ptr());
 
   WHEN("'set' is called with a specific parameter")
   {

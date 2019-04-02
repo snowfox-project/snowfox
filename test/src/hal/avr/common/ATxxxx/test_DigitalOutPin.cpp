@@ -48,7 +48,7 @@ SCENARIO("A DigitalOutPin (Pin number #0) object is constructed for pin number #
   vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
                     OUT(0b00000000, "OUT");
 
-  ATxxxx::DigitalOutPin out_pin(DDR(), OUT(), 0);
+  ATxxxx::DigitalOutPin out_pin(DDR.ptr(), OUT.ptr(), 0);
 
   WHEN("the object is newly constructed")
   {
@@ -96,7 +96,7 @@ SCENARIO("A 'clr' DigitalOutPin (Pin number #0) is manipulated via 'set' and 'cl
   vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
                     OUT(0b00000000, "OUT");
 
-  ATxxxx::DigitalOutPin out_pin(DDR(), OUT(), 0);
+  ATxxxx::DigitalOutPin out_pin(DDR.ptr(), OUT.ptr(), 0);
 
   out_pin.clr();
 
@@ -128,7 +128,7 @@ SCENARIO("A 'set' DigitalOutPin (Pin number #0) is manipulated via 'set' and 'cl
   vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
                     OUT(0b00000000, "OUT");
 
-  ATxxxx::DigitalOutPin out_pin(DDR(), OUT(), 0);
+  ATxxxx::DigitalOutPin out_pin(DDR.ptr(), OUT.ptr(), 0);
 
   out_pin.set();
 
