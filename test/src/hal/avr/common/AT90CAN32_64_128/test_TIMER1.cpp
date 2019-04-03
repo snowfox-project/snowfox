@@ -54,13 +54,16 @@ namespace test
 
 SCENARIO("AT90CAN32_64_128::TIMER1 - A valid prescaler value is set via 'setPrescaler'", "[AT90CAN32_64_128::TIMER1]")
 {
-  vireg::VirtualRegister<uint16_t> TCNT1 (TCNT1_RESET_VALUE,  "TCNT1" );
-  vireg::VirtualRegister<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE, "TCCR1B");
-  vireg::VirtualRegister<uint16_t> OCR1A (OCR1A_RESET_VALUE,  "OCR1A" ),
-                     OCR1B (OCR1B_RESET_VALUE,  "OCR1B" ),
-                     OCR1C (OCR1C_RESET_VALUE,  "OCR1C" );
+  vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/AT90CAN32_64_128.json");
 
-  AT90CAN32_64_128::TIMER1 timer1(TCNT1.ptr(), TCCR1B.ptr(), OCR1A.ptr(), OCR1B.ptr(), OCR1C.ptr());
+  vireg::VirtReg16 TCNT1  = vregmap.get<vireg::VirtReg16>("TCNT1");
+  vireg::VirtReg8  TCCR1B = vregmap.get<vireg::VirtReg8> ("TCCR1B");
+  vireg::VirtReg16 OCR1A  = vregmap.get<vireg::VirtReg16>("OCR1A" );
+  vireg::VirtReg16 OCR1B  = vregmap.get<vireg::VirtReg16>("OCR1B" );
+  vireg::VirtReg16 OCR1C  = vregmap.get<vireg::VirtReg16>("OCR1C" );
+
+  AT90CAN32_64_128::TIMER1 timer1(TCNT1->ptr(), TCCR1B->ptr(), OCR1A->ptr(), OCR1B->ptr(), OCR1C->ptr());
+
 
   std::vector<uint32_t> const VALID_PRESCALER_VECT = {0, 1, 8, 64, 256, 1024};
 
@@ -81,17 +84,17 @@ SCENARIO("AT90CAN32_64_128::TIMER1 - A valid prescaler value is set via 'setPres
 
             switch(prescaler)
             {
-            case 0    : THEN("TCCR1B bits 2-0 == 0b000") REQUIRE(TCCR1B.isBitVectSet({     })); break;
-            case 1    : THEN("TCCR1B bits 2-0 == 0b001") REQUIRE(TCCR1B.isBitVectSet({    0})); break;
-            case 8    : THEN("TCCR1B bits 2-0 == 0b010") REQUIRE(TCCR1B.isBitVectSet({  1  })); break;
-            case 64   : THEN("TCCR1B bits 2-0 == 0b011") REQUIRE(TCCR1B.isBitVectSet({  1,0})); break;
-            case 256  : THEN("TCCR1B bits 2-0 == 0b100") REQUIRE(TCCR1B.isBitVectSet({2    })); break;
-            case 1024 : THEN("TCCR1B bits 2-0 == 0b101") REQUIRE(TCCR1B.isBitVectSet({2,  0})); break;
+            case 0    : THEN("TCCR1B bits 2-0 == 0b000") REQUIRE(TCCR1B->isBitVectSet({     })); break;
+            case 1    : THEN("TCCR1B bits 2-0 == 0b001") REQUIRE(TCCR1B->isBitVectSet({    0})); break;
+            case 8    : THEN("TCCR1B bits 2-0 == 0b010") REQUIRE(TCCR1B->isBitVectSet({  1  })); break;
+            case 64   : THEN("TCCR1B bits 2-0 == 0b011") REQUIRE(TCCR1B->isBitVectSet({  1,0})); break;
+            case 256  : THEN("TCCR1B bits 2-0 == 0b100") REQUIRE(TCCR1B->isBitVectSet({2    })); break;
+            case 1024 : THEN("TCCR1B bits 2-0 == 0b101") REQUIRE(TCCR1B->isBitVectSet({2,  0})); break;
             }
           }
           WHEN("'start' is not called")
           {
-            THEN("TCCR1B bits 2-0 == 0b000") REQUIRE(TCCR1B == TCCR1B_RESET_VALUE);
+            THEN("TCCR1B bits 2-0 == 0b000") REQUIRE(*TCCR1B == TCCR1B_RESET_VALUE);
           }
         }
       });
@@ -101,13 +104,16 @@ SCENARIO("AT90CAN32_64_128::TIMER1 - A valid prescaler value is set via 'setPres
 
 SCENARIO("AT90CAN32_64_128::TIMER1 - A invalid prescaler value is set via 'setPrescaler'", "[AT90CAN32_64_128::TIMER1]")
 {
-  vireg::VirtualRegister<uint16_t> TCNT1 (TCNT1_RESET_VALUE,  "TCNT1" );
-  vireg::VirtualRegister<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE, "TCCR1B");
-  vireg::VirtualRegister<uint16_t> OCR1A (OCR1A_RESET_VALUE,  "OCR1A" ),
-                     OCR1B (OCR1B_RESET_VALUE,  "OCR1B" ),
-                     OCR1C (OCR1C_RESET_VALUE,  "OCR1C" );
+  vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/AT90CAN32_64_128.json");
 
-  AT90CAN32_64_128::TIMER1 timer1(TCNT1.ptr(), TCCR1B.ptr(), OCR1A.ptr(), OCR1B.ptr(), OCR1C.ptr());
+  vireg::VirtReg16 TCNT1  = vregmap.get<vireg::VirtReg16>("TCNT1");
+  vireg::VirtReg8  TCCR1B = vregmap.get<vireg::VirtReg8> ("TCCR1B");
+  vireg::VirtReg16 OCR1A  = vregmap.get<vireg::VirtReg16>("OCR1A" );
+  vireg::VirtReg16 OCR1B  = vregmap.get<vireg::VirtReg16>("OCR1B" );
+  vireg::VirtReg16 OCR1C  = vregmap.get<vireg::VirtReg16>("OCR1C" );
+
+  AT90CAN32_64_128::TIMER1 timer1(TCNT1->ptr(), TCCR1B->ptr(), OCR1A->ptr(), OCR1B->ptr(), OCR1C->ptr());
+
 
   uint32_t INVALID_PRESCALER = 2;
 
@@ -117,11 +123,11 @@ SCENARIO("AT90CAN32_64_128::TIMER1 - A invalid prescaler value is set via 'setPr
     WHEN("'start' is called")
     {
       timer1.start();
-      THEN("TCCR1B bits 2-0 == 0b000 (Reset Value)") REQUIRE(TCCR1B == TCCR1B_RESET_VALUE);
+      THEN("TCCR1B bits 2-0 == 0b000 (Reset Value)") REQUIRE(*TCCR1B == TCCR1B_RESET_VALUE);
     }
     WHEN("'start' is not called")
     {
-      THEN("TCCR1B bits 2-0 == 0b000 (Reset Value)") REQUIRE(TCCR1B == TCCR1B_RESET_VALUE);
+      THEN("TCCR1B bits 2-0 == 0b000 (Reset Value)") REQUIRE(*TCCR1B == TCCR1B_RESET_VALUE);
     }
   }
 }
@@ -130,30 +136,33 @@ SCENARIO("AT90CAN32_64_128::TIMER1 - A invalid prescaler value is set via 'setPr
 
 SCENARIO("AT90CAN32_64_128::TIMER1 - A timer is started ('start') and stopped ('stop')", "[AT90CAN32_64_128::TIMER1]")
 {
-  vireg::VirtualRegister<uint16_t> TCNT1 (TCNT1_RESET_VALUE,  "TCNT1" );
-  vireg::VirtualRegister<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE, "TCCR1B");
-  vireg::VirtualRegister<uint16_t> OCR1A (OCR1A_RESET_VALUE,  "OCR1A" ),
-                     OCR1B (OCR1B_RESET_VALUE,  "OCR1B" ),
-                     OCR1C (OCR1C_RESET_VALUE,  "OCR1C" );
+  vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/AT90CAN32_64_128.json");
+
+  vireg::VirtReg16 TCNT1  = vregmap.get<vireg::VirtReg16>("TCNT1");
+  vireg::VirtReg8  TCCR1B = vregmap.get<vireg::VirtReg8> ("TCCR1B");
+  vireg::VirtReg16 OCR1A  = vregmap.get<vireg::VirtReg16>("OCR1A" );
+  vireg::VirtReg16 OCR1B  = vregmap.get<vireg::VirtReg16>("OCR1B" );
+  vireg::VirtReg16 OCR1C  = vregmap.get<vireg::VirtReg16>("OCR1C" );
+
+  AT90CAN32_64_128::TIMER1 timer1(TCNT1->ptr(), TCCR1B->ptr(), OCR1A->ptr(), OCR1B->ptr(), OCR1C->ptr());
+
 
   uint32_t const prescaler = 8;
-
-  AT90CAN32_64_128::TIMER1 timer1(TCNT1.ptr(), TCCR1B.ptr(), OCR1A.ptr(), OCR1B.ptr(), OCR1C.ptr());
 
   timer1.setPrescaler(prescaler);
 
   WHEN("'start' is called")
   {
     timer1.start();
-    THEN("TCCR1B contains the expected prescaler bit pattern") REQUIRE(TCCR1B.isBitVectSet({1}));
+    THEN("TCCR1B contains the expected prescaler bit pattern") REQUIRE(TCCR1B->isBitVectSet({1}));
     WHEN("'stop' is called")
     {
       timer1.stop();
-      THEN("TCCR1B contains the RESET prescaler bit pattern") REQUIRE(TCCR1B == TCCR1B_RESET_VALUE);
+      THEN("TCCR1B contains the RESET prescaler bit pattern") REQUIRE(*TCCR1B == TCCR1B_RESET_VALUE);
       WHEN("'start' is called (again)")
       {
         timer1.start();
-        THEN("TCCR1B contains the expected prescaler bit pattern (again)") REQUIRE(TCCR1B.isBitVectSet({1}));
+        THEN("TCCR1B contains the expected prescaler bit pattern (again)") REQUIRE(TCCR1B->isBitVectSet({1}));
       }
     }
   }
@@ -163,17 +172,20 @@ SCENARIO("AT90CAN32_64_128::TIMER1 - A timer is started ('start') and stopped ('
 
 SCENARIO("AT90CAN32_64_128::TIMER1 - A timer's counter register is read ('get') and written ('set')", "[AT90CAN32_64_128::TIMER1]")
 {
-  vireg::VirtualRegister<uint16_t> TCNT1 (TCNT1_RESET_VALUE,  "TCNT1" );
-  vireg::VirtualRegister<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE, "TCCR1B");
-  vireg::VirtualRegister<uint16_t> OCR1A (OCR1A_RESET_VALUE,  "OCR1A" ),
-                     OCR1B (OCR1B_RESET_VALUE,  "OCR1B" ),
-                     OCR1C (OCR1C_RESET_VALUE,  "OCR1C" );
+  vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/AT90CAN32_64_128.json");
 
-  AT90CAN32_64_128::TIMER1 timer1(TCNT1.ptr(), TCCR1B.ptr(), OCR1A.ptr(), OCR1B.ptr(), OCR1C.ptr());
+  vireg::VirtReg16 TCNT1  = vregmap.get<vireg::VirtReg16>("TCNT1");
+  vireg::VirtReg8  TCCR1B = vregmap.get<vireg::VirtReg8> ("TCCR1B");
+  vireg::VirtReg16 OCR1A  = vregmap.get<vireg::VirtReg16>("OCR1A" );
+  vireg::VirtReg16 OCR1B  = vregmap.get<vireg::VirtReg16>("OCR1B" );
+  vireg::VirtReg16 OCR1C  = vregmap.get<vireg::VirtReg16>("OCR1C" );
+
+  AT90CAN32_64_128::TIMER1 timer1(TCNT1->ptr(), TCCR1B->ptr(), OCR1A->ptr(), OCR1B->ptr(), OCR1C->ptr());
+
 
   WHEN("the counter register is read via 'get'")
   {
-    TCNT1 = 0xCAFF;
+    *TCNT1 = 0xCAFF;
     THEN("the current value should be returned")
     {
       REQUIRE(timer1.get() == 0xCAFF);
@@ -184,7 +196,7 @@ SCENARIO("AT90CAN32_64_128::TIMER1 - A timer's counter register is read ('get') 
     timer1.set(0xFFEE);
     THEN("TCNT1 should contain the written value")
     {
-      REQUIRE(TCNT1 == 0xFFEE);
+      REQUIRE(*TCNT1 == 0xFFEE);
     }
   }
 }

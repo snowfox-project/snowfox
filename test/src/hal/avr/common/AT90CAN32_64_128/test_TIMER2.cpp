@@ -54,11 +54,14 @@ namespace test
 
 SCENARIO("AT90CAN32_64_128::TIMER2 - A valid prescaler value is set via 'setPrescaler'", "[AT90CAN32_64_128::TIMER2]")
 {
-  vireg::VirtualRegister<uint8_t> TCNT2 (TCNT2_RESET_VALUE,  "TCNT2" ),
-                    TCCR2A(TCCR2A_RESET_VALUE, "TCCR2A"),
-                    OCR2A (OCR2A_RESET_VALUE,  "OCR2A" );
+  vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/AT90CAN32_64_128.json");
 
-  AT90CAN32_64_128::TIMER2 timer2(TCNT2.ptr(), TCCR2A.ptr(), OCR2A.ptr());
+  vireg::VirtReg8 TCNT2  = vregmap.get<vireg::VirtReg8>("TCNT2" );
+  vireg::VirtReg8 TCCR2A = vregmap.get<vireg::VirtReg8>("TCCR2A");
+  vireg::VirtReg8 OCR2A  = vregmap.get<vireg::VirtReg8>("OCR2A" );
+
+  AT90CAN32_64_128::TIMER2 timer2(TCNT2->ptr(), TCCR2A->ptr(), OCR2A->ptr());
+
 
   std::vector<uint32_t> const VALID_PRESCALER_VECT = {0, 1, 8, 64, 256, 1024};
 
@@ -79,19 +82,19 @@ SCENARIO("AT90CAN32_64_128::TIMER2 - A valid prescaler value is set via 'setPres
 
             switch(prescaler)
             {
-            case 0    : THEN("TCCR2A bits 2-0 == 0b000") REQUIRE(TCCR2A.isBitVectSet({     })); break;
-            case 1    : THEN("TCCR2A bits 2-0 == 0b001") REQUIRE(TCCR2A.isBitVectSet({    0})); break;
-            case 8    : THEN("TCCR2A bits 2-0 == 0b010") REQUIRE(TCCR2A.isBitVectSet({  1  })); break;
-            case 32   : THEN("TCCR2A bits 2-0 == 0b011") REQUIRE(TCCR2A.isBitVectSet({  1,0})); break;
-            case 64   : THEN("TCCR2A bits 2-0 == 0b100") REQUIRE(TCCR2A.isBitVectSet({2    })); break;
-            case 128  : THEN("TCCR2A bits 2-0 == 0b101") REQUIRE(TCCR2A.isBitVectSet({2,  0})); break;
-            case 256  : THEN("TCCR2A bits 2-0 == 0b110") REQUIRE(TCCR2A.isBitVectSet({2,1  })); break;
-            case 1024 : THEN("TCCR2A bits 2-0 == 0b1!1") REQUIRE(TCCR2A.isBitVectSet({2,1,0})); break;
+            case 0    : THEN("TCCR2A bits 2-0 == 0b000") REQUIRE(TCCR2A->isBitVectSet({     })); break;
+            case 1    : THEN("TCCR2A bits 2-0 == 0b001") REQUIRE(TCCR2A->isBitVectSet({    0})); break;
+            case 8    : THEN("TCCR2A bits 2-0 == 0b010") REQUIRE(TCCR2A->isBitVectSet({  1  })); break;
+            case 32   : THEN("TCCR2A bits 2-0 == 0b011") REQUIRE(TCCR2A->isBitVectSet({  1,0})); break;
+            case 64   : THEN("TCCR2A bits 2-0 == 0b100") REQUIRE(TCCR2A->isBitVectSet({2    })); break;
+            case 128  : THEN("TCCR2A bits 2-0 == 0b101") REQUIRE(TCCR2A->isBitVectSet({2,  0})); break;
+            case 256  : THEN("TCCR2A bits 2-0 == 0b110") REQUIRE(TCCR2A->isBitVectSet({2,1  })); break;
+            case 1024 : THEN("TCCR2A bits 2-0 == 0b1!1") REQUIRE(TCCR2A->isBitVectSet({2,1,0})); break;
             }
           }
           WHEN("'start' is not called")
           {
-            THEN("TCCR2A bits 2-0 == 0b000") REQUIRE(TCCR2A == TCCR2A_RESET_VALUE);
+            THEN("TCCR2A bits 2-0 == 0b000") REQUIRE(*TCCR2A == TCCR2A_RESET_VALUE);
           }
         }
       });
@@ -101,11 +104,14 @@ SCENARIO("AT90CAN32_64_128::TIMER2 - A valid prescaler value is set via 'setPres
 
 SCENARIO("AT90CAN32_64_128::TIMER2 - A invalid prescaler value is set via 'setPrescaler'", "[AT90CAN32_64_128::TIMER2]")
 {
-  vireg::VirtualRegister<uint8_t> TCNT2 (TCNT2_RESET_VALUE,  "TCNT2" ),
-                    TCCR2A(TCCR2A_RESET_VALUE, "TCCR2A"),
-                    OCR2A (OCR2A_RESET_VALUE,  "OCR2A" );
+  vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/AT90CAN32_64_128.json");
 
-  AT90CAN32_64_128::TIMER2 timer2(TCNT2.ptr(), TCCR2A.ptr(), OCR2A.ptr());
+  vireg::VirtReg8 TCNT2  = vregmap.get<vireg::VirtReg8>("TCNT2" );
+  vireg::VirtReg8 TCCR2A = vregmap.get<vireg::VirtReg8>("TCCR2A");
+  vireg::VirtReg8 OCR2A  = vregmap.get<vireg::VirtReg8>("OCR2A" );
+
+  AT90CAN32_64_128::TIMER2 timer2(TCNT2->ptr(), TCCR2A->ptr(), OCR2A->ptr());
+
 
   uint32_t INVALID_PRESCALER = 2;
 
@@ -115,11 +121,11 @@ SCENARIO("AT90CAN32_64_128::TIMER2 - A invalid prescaler value is set via 'setPr
     WHEN("'start' is called")
     {
       timer2.start();
-      THEN("TCCR2A bits 2-0 == 0b000 (Reset Value)") REQUIRE(TCCR2A == TCCR2A_RESET_VALUE);
+      THEN("TCCR2A bits 2-0 == 0b000 (Reset Value)") REQUIRE(*TCCR2A == TCCR2A_RESET_VALUE);
     }
     WHEN("'start' is not called")
     {
-      THEN("TCCR2A bits 2-0 == 0b000 (Reset Value)") REQUIRE(TCCR2A == TCCR2A_RESET_VALUE);
+      THEN("TCCR2A bits 2-0 == 0b000 (Reset Value)") REQUIRE(*TCCR2A == TCCR2A_RESET_VALUE);
     }
   }
 }
@@ -128,28 +134,31 @@ SCENARIO("AT90CAN32_64_128::TIMER2 - A invalid prescaler value is set via 'setPr
 
 SCENARIO("AT90CAN32_64_128::TIMER2 - A timer is started ('start') and stopped ('stop')", "[ATMEGA328P::TIMER2]")
 {
-  vireg::VirtualRegister<uint8_t> TCNT2 (TCNT2_RESET_VALUE,  "TCNT2" ),
-                    TCCR2A(TCCR2A_RESET_VALUE, "TCCR2A"),
-                    OCR2A (OCR2A_RESET_VALUE,  "OCR2A" );
+  vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/AT90CAN32_64_128.json");
+
+  vireg::VirtReg8 TCNT2  = vregmap.get<vireg::VirtReg8>("TCNT2" );
+  vireg::VirtReg8 TCCR2A = vregmap.get<vireg::VirtReg8>("TCCR2A");
+  vireg::VirtReg8 OCR2A  = vregmap.get<vireg::VirtReg8>("OCR2A" );
+
+  AT90CAN32_64_128::TIMER2 timer2(TCNT2->ptr(), TCCR2A->ptr(), OCR2A->ptr());
+
 
   uint32_t const prescaler = 8;
-
-  AT90CAN32_64_128::TIMER2 timer2(TCNT2.ptr(), TCCR2A.ptr(), OCR2A.ptr());
 
   timer2.setPrescaler(prescaler);
 
   WHEN("'start' is called")
   {
     timer2.start();
-    THEN("TCCR2A contains the expected prescaler bit pattern") REQUIRE(TCCR2A.isBitVectSet({1}));
+    THEN("TCCR2A contains the expected prescaler bit pattern") REQUIRE(TCCR2A->isBitVectSet({1}));
     WHEN("'stop' is called")
     {
       timer2.stop();
-      THEN("TCCR2A contains the RESET prescaler bit pattern") REQUIRE(TCCR2A == TCCR2A_RESET_VALUE);
+      THEN("TCCR2A contains the RESET prescaler bit pattern") REQUIRE(*TCCR2A == TCCR2A_RESET_VALUE);
       WHEN("'start' is called (again)")
       {
         timer2.start();
-        THEN("TCCR2A contains the expected prescaler bit pattern (again)") REQUIRE(TCCR2A.isBitVectSet({1}));
+        THEN("TCCR2A contains the expected prescaler bit pattern (again)") REQUIRE(TCCR2A->isBitVectSet({1}));
       }
     }
   }
