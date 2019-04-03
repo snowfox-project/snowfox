@@ -26,8 +26,6 @@
 
 #include <testutil/hal/avr/InterruptControllerTestUtil.h>
 
-#include <hal/avr/common/ATMEGA16U4_32U4/RegisterResetValueList.h>
-
 #include <snowfox/hal/avr/common/ATMEGA16U4_32U4/InterruptController.h>
 
 #include <vireg/VirtualRegister.hpp>

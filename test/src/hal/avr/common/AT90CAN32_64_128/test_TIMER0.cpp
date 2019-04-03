@@ -25,8 +25,6 @@
 
 #include <catch2/catch.hpp>
 
-#include <hal/avr/common/AT90CAN32_64_128/RegisterResetValueList.h>
-
 #include <snowfox/hal/avr/common/AT90CAN32_64_128/TIMER0.h>
 
 #include <vireg/VirtualRegister.hpp>
@@ -91,7 +89,7 @@ SCENARIO("AT90CAN32_64_128::TIMER0 - A valid prescaler value is set via 'setPres
           }
           WHEN("'start' is not called")
           {
-            THEN("TCCR0A bits 2-0 == 0b000") REQUIRE(*TCCR0A == TCCR0A_RESET_VALUE);
+            THEN("TCCR0A bits 2-0 == 0b000") REQUIRE(*TCCR0A == 0x00);
           }
         }
       });
@@ -117,11 +115,11 @@ SCENARIO("AT90CAN32_64_128::TIMER0 - A invalid prescaler value is set via 'setPr
     WHEN("'start' is called")
     {
       timer0.start();
-      THEN("TCCR0A bits 2-0 == 0b000 (Reset Value)") REQUIRE(*TCCR0A == TCCR0A_RESET_VALUE);
+      THEN("TCCR0A bits 2-0 == 0b000 (Reset Value)") REQUIRE(*TCCR0A == 0x00);
     }
     WHEN("'start' is not called")
     {
-      THEN("TCCR0A bits 2-0 == 0b000 (Reset Value)") REQUIRE(*TCCR0A == TCCR0A_RESET_VALUE);
+      THEN("TCCR0A bits 2-0 == 0b000 (Reset Value)") REQUIRE(*TCCR0A == 0x00);
     }
   }
 }
@@ -149,7 +147,7 @@ SCENARIO("AT90CAN32_64_128::TIMER0 - A timer is started ('start') and stopped ('
     WHEN("'stop' is called")
     {
       timer0.stop();
-      THEN("TCCR0A contains the RESET prescaler bit pattern") REQUIRE(*TCCR0A == TCCR0A_RESET_VALUE);
+      THEN("TCCR0A contains the RESET prescaler bit pattern") REQUIRE(*TCCR0A == 0x00);
       WHEN("'start' is called (again)")
       {
         timer0.start();

@@ -25,8 +25,6 @@
 
 #include <catch2/catch.hpp>
 
-#include <hal/avr/common/AT90CAN32_64_128/RegisterResetValueList.h>
-
 #include <snowfox/hal/avr/common/AT90CAN32_64_128/TIMER2.h>
 
 #include <vireg/VirtualRegister.hpp>
@@ -94,7 +92,7 @@ SCENARIO("AT90CAN32_64_128::TIMER2 - A valid prescaler value is set via 'setPres
           }
           WHEN("'start' is not called")
           {
-            THEN("TCCR2A bits 2-0 == 0b000") REQUIRE(*TCCR2A == TCCR2A_RESET_VALUE);
+            THEN("TCCR2A bits 2-0 == 0b000") REQUIRE(*TCCR2A == 0x00);
           }
         }
       });
@@ -121,11 +119,11 @@ SCENARIO("AT90CAN32_64_128::TIMER2 - A invalid prescaler value is set via 'setPr
     WHEN("'start' is called")
     {
       timer2.start();
-      THEN("TCCR2A bits 2-0 == 0b000 (Reset Value)") REQUIRE(*TCCR2A == TCCR2A_RESET_VALUE);
+      THEN("TCCR2A bits 2-0 == 0b000 (Reset Value)") REQUIRE(*TCCR2A == 0x00);
     }
     WHEN("'start' is not called")
     {
-      THEN("TCCR2A bits 2-0 == 0b000 (Reset Value)") REQUIRE(*TCCR2A == TCCR2A_RESET_VALUE);
+      THEN("TCCR2A bits 2-0 == 0b000 (Reset Value)") REQUIRE(*TCCR2A == 0x00);
     }
   }
 }
@@ -154,7 +152,7 @@ SCENARIO("AT90CAN32_64_128::TIMER2 - A timer is started ('start') and stopped ('
     WHEN("'stop' is called")
     {
       timer2.stop();
-      THEN("TCCR2A contains the RESET prescaler bit pattern") REQUIRE(*TCCR2A == TCCR2A_RESET_VALUE);
+      THEN("TCCR2A contains the RESET prescaler bit pattern") REQUIRE(*TCCR2A == 0x00);
       WHEN("'start' is called (again)")
       {
         timer2.start();
@@ -168,15 +166,18 @@ SCENARIO("AT90CAN32_64_128::TIMER2 - A timer is started ('start') and stopped ('
 
 SCENARIO("AT90CAN32_64_128::TIMER2 - A timer's counter register is read ('get') and written ('set')", "[AT90CAN32_64_128::TIMER2]")
 {
-  vireg::VirtualRegister<uint8_t> TCNT2 (TCNT2_RESET_VALUE,  "TCNT2" ),
-                    TCCR2A(TCCR2A_RESET_VALUE, "TCCR2A"),
-                    OCR2A (OCR2A_RESET_VALUE,  "OCR2A" );
+  vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/AT90CAN32_64_128.json");
 
-  AT90CAN32_64_128::TIMER2 timer2(TCNT2.ptr(), TCCR2A.ptr(), OCR2A.ptr());
+  vireg::VirtReg8 TCNT2  = vregmap.get<vireg::VirtReg8>("TCNT2" );
+  vireg::VirtReg8 TCCR2A = vregmap.get<vireg::VirtReg8>("TCCR2A");
+  vireg::VirtReg8 OCR2A  = vregmap.get<vireg::VirtReg8>("OCR2A" );
+
+  AT90CAN32_64_128::TIMER2 timer2(TCNT2->ptr(), TCCR2A->ptr(), OCR2A->ptr());
+
 
   WHEN("the counter register is read via 'get'")
   {
-    TCNT2 = 0xCA;
+    *TCNT2 = 0xCA;
     THEN("the current value should be returned")
     {
       REQUIRE(timer2.get() == 0xCA);
@@ -187,7 +188,7 @@ SCENARIO("AT90CAN32_64_128::TIMER2 - A timer's counter register is read ('get') 
     timer2.set(0xFF);
     THEN("TCNT2 should contain the written value")
     {
-      REQUIRE(TCNT2 == 0xFF);
+      REQUIRE(*TCNT2 == 0xFF);
     }
   }
 }
@@ -196,18 +197,21 @@ SCENARIO("AT90CAN32_64_128::TIMER2 - A timer's counter register is read ('get') 
 
 SCENARIO("AT90CAN32_64_128::TIMER2 - A timer's compare register are written via 'setCompareRegister'", "[AT90CAN32_64_128::TIMER2]")
 {
-  vireg::VirtualRegister<uint8_t> TCNT2 (TCNT2_RESET_VALUE,  "TCNT2" ),
-                    TCCR2A(TCCR2A_RESET_VALUE, "TCCR2A"),
-                    OCR2A (OCR2A_RESET_VALUE,  "OCR2A" );
+  vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/AT90CAN32_64_128.json");
 
-  AT90CAN32_64_128::TIMER2 timer2(TCNT2.ptr(), TCCR2A.ptr(), OCR2A.ptr());
+  vireg::VirtReg8 TCNT2  = vregmap.get<vireg::VirtReg8>("TCNT2" );
+  vireg::VirtReg8 TCCR2A = vregmap.get<vireg::VirtReg8>("TCCR2A");
+  vireg::VirtReg8 OCR2A  = vregmap.get<vireg::VirtReg8>("OCR2A" );
+
+  AT90CAN32_64_128::TIMER2 timer2(TCNT2->ptr(), TCCR2A->ptr(), OCR2A->ptr());
+
 
   WHEN("compare register A is written via 'setCompareRegister'")
   {
     timer2.setCompareRegister(TIMER2::COMPARE_A, 0xCA);
     THEN("OCR2A should contain the written value")
     {
-      REQUIRE(OCR2A == 0xCA);
+      REQUIRE(*OCR2A == 0xCA);
     }
   }
 }

@@ -25,8 +25,6 @@
 
 #include <catch2/catch.hpp>
 
-#include <hal/avr/common/AT90CAN32_64_128/RegisterResetValueList.h>
-
 #include <snowfox/hal/avr/common/AT90CAN32_64_128/TIMER1.h>
 
 #include <vireg/VirtualRegister.hpp>
@@ -94,7 +92,7 @@ SCENARIO("AT90CAN32_64_128::TIMER1 - A valid prescaler value is set via 'setPres
           }
           WHEN("'start' is not called")
           {
-            THEN("TCCR1B bits 2-0 == 0b000") REQUIRE(*TCCR1B == TCCR1B_RESET_VALUE);
+            THEN("TCCR1B bits 2-0 == 0b000") REQUIRE(*TCCR1B == 0x00);
           }
         }
       });
@@ -123,11 +121,11 @@ SCENARIO("AT90CAN32_64_128::TIMER1 - A invalid prescaler value is set via 'setPr
     WHEN("'start' is called")
     {
       timer1.start();
-      THEN("TCCR1B bits 2-0 == 0b000 (Reset Value)") REQUIRE(*TCCR1B == TCCR1B_RESET_VALUE);
+      THEN("TCCR1B bits 2-0 == 0b000 (Reset Value)") REQUIRE(*TCCR1B == 0x00);
     }
     WHEN("'start' is not called")
     {
-      THEN("TCCR1B bits 2-0 == 0b000 (Reset Value)") REQUIRE(*TCCR1B == TCCR1B_RESET_VALUE);
+      THEN("TCCR1B bits 2-0 == 0b000 (Reset Value)") REQUIRE(*TCCR1B == 0x00);
     }
   }
 }
@@ -158,7 +156,7 @@ SCENARIO("AT90CAN32_64_128::TIMER1 - A timer is started ('start') and stopped ('
     WHEN("'stop' is called")
     {
       timer1.stop();
-      THEN("TCCR1B contains the RESET prescaler bit pattern") REQUIRE(*TCCR1B == TCCR1B_RESET_VALUE);
+      THEN("TCCR1B contains the RESET prescaler bit pattern") REQUIRE(*TCCR1B == 0x00);
       WHEN("'start' is called (again)")
       {
         timer1.start();
@@ -205,20 +203,23 @@ SCENARIO("AT90CAN32_64_128::TIMER1 - A timer's counter register is read ('get') 
 
 SCENARIO("AT90CAN32_64_128::TIMER1 - A timer's compare register are written via 'setCompareRegister'", "[AT90CAN32_64_128::TIMER1]")
 {
-  vireg::VirtualRegister<uint16_t> TCNT1 (TCNT1_RESET_VALUE,  "TCNT1" );
-  vireg::VirtualRegister<uint8_t>  TCCR1B(TCCR1B_RESET_VALUE, "TCCR1B");
-  vireg::VirtualRegister<uint16_t> OCR1A (OCR1A_RESET_VALUE,  "OCR1A" ),
-                     OCR1B (OCR1B_RESET_VALUE,  "OCR1B" ),
-                     OCR1C (OCR1C_RESET_VALUE,  "OCR1C" );
+  vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/AT90CAN32_64_128.json");
 
-  AT90CAN32_64_128::TIMER1 timer1(TCNT1.ptr(), TCCR1B.ptr(), OCR1A.ptr(), OCR1B.ptr(), OCR1C.ptr());
+  vireg::VirtReg16 TCNT1  = vregmap.get<vireg::VirtReg16>("TCNT1");
+  vireg::VirtReg8  TCCR1B = vregmap.get<vireg::VirtReg8> ("TCCR1B");
+  vireg::VirtReg16 OCR1A  = vregmap.get<vireg::VirtReg16>("OCR1A" );
+  vireg::VirtReg16 OCR1B  = vregmap.get<vireg::VirtReg16>("OCR1B" );
+  vireg::VirtReg16 OCR1C  = vregmap.get<vireg::VirtReg16>("OCR1C" );
+
+  AT90CAN32_64_128::TIMER1 timer1(TCNT1->ptr(), TCCR1B->ptr(), OCR1A->ptr(), OCR1B->ptr(), OCR1C->ptr());
+
 
   WHEN("compare register A is written via 'setCompareRegister'")
   {
     timer1.setCompareRegister(TIMER1::COMPARE_A, 0xCA);
     THEN("OCR0A should contain the written value")
     {
-      REQUIRE(OCR1A == 0xCA);
+      REQUIRE(*OCR1A == 0xCA);
     }
   }
   WHEN("compare register B is written via 'setCompareRegister'")
@@ -226,7 +227,7 @@ SCENARIO("AT90CAN32_64_128::TIMER1 - A timer's compare register are written via 
     timer1.setCompareRegister(TIMER1::COMPARE_B, 0xFF);
     THEN("OCR0B should contain the written value")
     {
-      REQUIRE(OCR1B == 0xFF);
+      REQUIRE(*OCR1B == 0xFF);
     }
   }
   WHEN("compare register C is written via 'setCompareRegister'")
@@ -234,7 +235,7 @@ SCENARIO("AT90CAN32_64_128::TIMER1 - A timer's compare register are written via 
     timer1.setCompareRegister(TIMER1::COMPARE_C, 0xEE);
     THEN("OCR0C should contain the written value")
     {
-      REQUIRE(OCR1C == 0xEE);
+      REQUIRE(*OCR1C == 0xEE);
     }
   }
 }

@@ -24,8 +24,6 @@
 
 #include <testutil/hal/avr/InterruptControllerTestUtil.h>
 
-#include <hal/avr/common/AT90CAN32_64_128/RegisterResetValueList.h>
-
 #include <snowfox/hal/avr/common/AT90CAN32_64_128/InterruptController.h>
 
 #include <vireg/VirtualRegister.hpp>
