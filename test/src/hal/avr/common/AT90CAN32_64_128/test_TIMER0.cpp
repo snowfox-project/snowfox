@@ -28,7 +28,9 @@
 #include <hal/avr/common/AT90CAN32_64_128/RegisterResetValueList.h>
 
 #include <snowfox/hal/avr/common/AT90CAN32_64_128/TIMER0.h>
-#include "../../../../../vireg/include/vireg/VirtualRegister.hpp"
+
+#include <vireg/VirtualRegister.hpp>
+#include <vireg/VirtualRegisterLoader.h>
 
 /**************************************************************************************
  * NAMESPACE

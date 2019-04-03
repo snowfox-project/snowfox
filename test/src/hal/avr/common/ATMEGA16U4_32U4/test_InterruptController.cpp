@@ -29,7 +29,9 @@
 #include <hal/avr/common/ATMEGA16U4_32U4/RegisterResetValueList.h>
 
 #include <snowfox/hal/avr/common/ATMEGA16U4_32U4/InterruptController.h>
-#include "../../../../../vireg/include/vireg/VirtualRegister.hpp"
+
+#include <vireg/VirtualRegister.hpp>
+#include <vireg/VirtualRegisterLoader.h>
 
 /**************************************************************************************
  * NAMESPACE

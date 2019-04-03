@@ -23,7 +23,8 @@
 #include <catch2/catch.hpp>
 
 #include <snowfox/hal/avr/common/ATxxxx/DigitalInPin.h>
-#include "../../../../../vireg/include/vireg/VirtualRegister.hpp"
+
+#include <vireg/VirtualRegister.hpp>
 
 /**************************************************************************************
  * NAMESPACE
@@ -46,8 +47,8 @@ namespace test
 SCENARIO("A DigitalInPin (Pin Number 0) object is constructed", "[ATxxxx::DigitalInPin]")
 {
   vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
-                    OUT(0b00000000, "OUT"),
-                    PIN(0b00000000, "PIN");
+                                  OUT(0b00000000, "OUT"),
+                                  PIN(0b00000000, "PIN");
 
   ATxxxx::DigitalInPin in_pin(DDR.ptr(), OUT.ptr(), PIN.ptr(), 0);
 
@@ -73,8 +74,8 @@ SCENARIO("A DigitalInPin (Pin Number 0) object is constructed", "[ATxxxx::Digita
 SCENARIO("A DigitalInPin (Pin Number 0) interface::PullUpMode is manipulated", "[ATxxxx::DigitalInPin]")
 {
   vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
-                    OUT(0b00000000, "OUT"),
-                    PIN(0b00000000, "PIN");
+                                  OUT(0b00000000, "OUT"),
+                                  PIN(0b00000000, "PIN");
 
   ATxxxx::DigitalInPin in_pin(DDR.ptr(), OUT.ptr(), PIN.ptr(), 0);
 
@@ -112,8 +113,8 @@ SCENARIO("A DigitalInPin (Pin Number 0) interface::PullUpMode is manipulated", "
 SCENARIO("A 'clr' DigitalInPin (Pin Number 0) current value is retrieved vis 'isSet' and 'isClr'", "[ATxxxx::DigitalInPin]")
 {
   vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
-                    OUT(0b00000000, "OUT"),
-                    PIN(0b00000000, "PIN");
+                                  OUT(0b00000000, "OUT"),
+                                  PIN(0b00000000, "PIN");
 
   ATxxxx::DigitalInPin in_pin(DDR.ptr(), OUT.ptr(), PIN.ptr(), 0);
 
@@ -138,8 +139,8 @@ SCENARIO("A 'clr' DigitalInPin (Pin Number 0) current value is retrieved vis 'is
 SCENARIO("A 'set' DigitalInPin (Pin Number 0) current value is retrieved vis 'isSet' and 'isClr'", "[ATxxxx::DigitalInPin]")
 {
   vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
-                    OUT(0b00000000, "OUT"),
-                    PIN(0b00000001, "PIN");
+                                  OUT(0b00000000, "OUT"),
+                                  PIN(0b00000001, "PIN");
 
   ATxxxx::DigitalInPin in_pin(DDR.ptr(), OUT.ptr(), PIN.ptr(), 0);
 
