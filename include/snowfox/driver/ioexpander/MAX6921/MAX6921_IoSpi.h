@@ -25,6 +25,7 @@
 
 #include <snowfox/driver/ioexpander/MAX6921/interface/MAX6921_Io.h>
 
+#include <snowfox/hal/interface/delay/Delay.h>
 #include <snowfox/hal/interface/gpio/DigitalOutPin.h>
 #include <snowfox/hal/interface/spi/SpiMasterControl.h>
 
@@ -53,7 +54,8 @@ class MAX6921_IoSpi : public interface::MAX6921_Io
 
 public:
 
-           MAX6921_IoSpi(hal::interface::SpiMasterControl & spi_master, 
+           MAX6921_IoSpi(hal::interface::Delay            & delay,
+                         hal::interface::SpiMasterControl & spi_master, 
                          hal::interface::DigitalOutPin    & load,
                          hal::interface::DigitalOutPin    & blank);
   virtual ~MAX6921_IoSpi();
@@ -67,6 +69,7 @@ public:
 
 private:
 
+  hal::interface::Delay            & _delay;
   hal::interface::SpiMasterControl & _spi_master;
   hal::interface::DigitalOutPin    & _load;
   hal::interface::DigitalOutPin    & _blank;

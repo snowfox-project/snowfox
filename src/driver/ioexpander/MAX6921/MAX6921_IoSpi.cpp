@@ -39,13 +39,20 @@ namespace MAX6921
 {
 
 /**************************************************************************************
+ * CONSTANTS
+ **************************************************************************************/
+
+
+/**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
-MAX6921_IoSpi::MAX6921_IoSpi(hal::interface::SpiMasterControl & spi_master, 
+MAX6921_IoSpi::MAX6921_IoSpi(hal::interface::Delay            & delay,
+                             hal::interface::SpiMasterControl & spi_master, 
                              hal::interface::DigitalOutPin    & load,
                              hal::interface::DigitalOutPin    & blank)
-: _spi_master(spi_master),
+: _delay     (delay     ),
+  _spi_master(spi_master),
   _load      (load      ),
   _blank     (blank     )
 {
@@ -78,7 +85,7 @@ void MAX6921_IoSpi::write(interface::SegmentControlBuffer const & seg_ctrl_buf)
 void MAX6921_IoSpi::load()
 {
   _load.set();
-  /* TODO delay 1 ms */
+  _delay.delay_ms(1);
   _load.clr();
 }
 void MAX6921_IoSpi::blankOn()
