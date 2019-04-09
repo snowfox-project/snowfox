@@ -16,17 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SNOWFOX_DRIVER_IOEXPANDER_MAX6921_MAX6921_IOSPI_H_
-#define INCLUDE_SNOWFOX_DRIVER_IOEXPANDER_MAX6921_MAX6921_IOSPI_H_
+#ifndef INCLUDE_SNOWFOX_DRIVER_IOEXPANDER_MAX6921_MAX6921_CONTROL_H_
+#define INCLUDE_SNOWFOX_DRIVER_IOEXPANDER_MAX6921_MAX6921_CONTROL_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
+#include <snowfox/driver/ioexpander/MAX6921/interface/MAX6921_Control.h>
+
 #include <snowfox/driver/ioexpander/MAX6921/interface/MAX6921_Io.h>
 
-#include <snowfox/hal/interface/gpio/DigitalOutPin.h>
-#include <snowfox/hal/interface/spi/SpiMasterControl.h>
+#include <snowfox/hal/interface/delay/Delay.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -48,29 +49,29 @@ namespace MAX6921
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MAX6921_IoSpi : public interface::MAX6921_Io
+class MAX6921_Control : public interface::MAX6921_Control
 {
 
 public:
 
-           MAX6921_IoSpi(hal::interface::SpiMasterControl & spi_master, 
-                         hal::interface::DigitalOutPin    & load,
-                         hal::interface::DigitalOutPin    & blank);
-  virtual ~MAX6921_IoSpi();
+           MAX6921_Control(interface::MAX6921_Io & io,
+                           hal::interface::Delay & delay);
+  virtual ~MAX6921_Control();
 
-
-  virtual void write   (interface::SegmentControlBuffer const & seg_ctrl_buf) override;
-  virtual void setLoad () override;
-  virtual void clrLoad () override;
-  virtual void setBlank() override;
-  virtual void clrBlank() override;
-
+  virtual void setSegment       (uint8_t const seg_number) override;
+  virtual void clrSegment       (uint8_t const seg_number) override;
+  virtual void loadSegCtrlBuffer() override;
+  virtual void blankOn          () override;
+  virtual void blankOff         () override;
 
 private:
 
-  hal::interface::SpiMasterControl & _spi_master;
-  hal::interface::DigitalOutPin    & _load;
-  hal::interface::DigitalOutPin    & _blank;
+  interface::MAX6921_Io           & _io;
+  hal::interface::Delay           & _delay;
+  interface::SegmentControlBuffer   _seg_ctrl_buf;
+
+  void writeToSegCtrlBuffer();
+  void loadToLatchBuffer   ();
 
 };
 
@@ -86,4 +87,4 @@ private:
 
 } /* snowfox */
 
-#endif /* INCLUDE_SNOWFOX_DRIVER_IOEXPANDER_MAX6921_MAX6921_IOSPI_H_ */
+#endif /* INCLUDE_SNOWFOX_DRIVER_IOEXPANDER_MAX6921_MAX6921_CONTROL_H_ */

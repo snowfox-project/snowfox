@@ -85,9 +85,10 @@ public:
 
 
   virtual void write   (SegmentControlBuffer const & seg_ctrl_buf) = 0;
-  virtual void load    () = 0;
-  virtual void blankOn () = 0;
-  virtual void blankOff() = 0;
+  virtual void setLoad () = 0;
+  virtual void clrLoad () = 0;
+  virtual void setBlank() = 0;
+  virtual void clrBlank() = 0;
 
 };
 

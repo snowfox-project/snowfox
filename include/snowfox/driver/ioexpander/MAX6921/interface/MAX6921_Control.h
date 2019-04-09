@@ -16,17 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SNOWFOX_DRIVER_IOEXPANDER_MAX6921_MAX6921_IOSPI_H_
-#define INCLUDE_SNOWFOX_DRIVER_IOEXPANDER_MAX6921_MAX6921_IOSPI_H_
+#ifndef INCLUDE_SNOWFOX_DRIVER_IOEXPANDER_MAX6921_INTERFACE_MAX6921_CONTROL_H_
+#define INCLUDE_SNOWFOX_DRIVER_IOEXPANDER_MAX6921_INTERFACE_MAX6921_CONTROL_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/driver/ioexpander/MAX6921/interface/MAX6921_Io.h>
-
-#include <snowfox/hal/interface/gpio/DigitalOutPin.h>
-#include <snowfox/hal/interface/spi/SpiMasterControl.h>
+#include <stdint.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -44,39 +41,34 @@ namespace ioexpander
 namespace MAX6921
 {
 
+namespace interface
+{
+
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MAX6921_IoSpi : public interface::MAX6921_Io
+class MAX6921_Control
 {
 
 public:
 
-           MAX6921_IoSpi(hal::interface::SpiMasterControl & spi_master, 
-                         hal::interface::DigitalOutPin    & load,
-                         hal::interface::DigitalOutPin    & blank);
-  virtual ~MAX6921_IoSpi();
+           MAX6921_Control() { }
+  virtual ~MAX6921_Control() { }
 
-
-  virtual void write   (interface::SegmentControlBuffer const & seg_ctrl_buf) override;
-  virtual void setLoad () override;
-  virtual void clrLoad () override;
-  virtual void setBlank() override;
-  virtual void clrBlank() override;
-
-
-private:
-
-  hal::interface::SpiMasterControl & _spi_master;
-  hal::interface::DigitalOutPin    & _load;
-  hal::interface::DigitalOutPin    & _blank;
+  virtual void setSegment       (uint8_t const seg_number) = 0;
+  virtual void clrSegment       (uint8_t const seg_number) = 0;
+  virtual void loadSegCtrlBuffer() = 0;
+  virtual void blankOn          () = 0;
+  virtual void blankOff         () = 0;
 
 };
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* MAX6921 */
 
@@ -86,4 +78,4 @@ private:
 
 } /* snowfox */
 
-#endif /* INCLUDE_SNOWFOX_DRIVER_IOEXPANDER_MAX6921_MAX6921_IOSPI_H_ */
+#endif /* INCLUDE_SNOWFOX_DRIVER_IOEXPANDER_MAX6921_INTERFACE_MAX6921_CONTROL_H_ */

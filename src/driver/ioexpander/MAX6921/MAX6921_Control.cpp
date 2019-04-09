@@ -16,17 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SNOWFOX_DRIVER_IOEXPANDER_MAX6921_MAX6921_IOSPI_H_
-#define INCLUDE_SNOWFOX_DRIVER_IOEXPANDER_MAX6921_MAX6921_IOSPI_H_
-
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/driver/ioexpander/MAX6921/interface/MAX6921_Io.h>
-
-#include <snowfox/hal/interface/gpio/DigitalOutPin.h>
-#include <snowfox/hal/interface/spi/SpiMasterControl.h>
+#include <snowfox/driver/ioexpander/MAX6921/MAX6921_Control.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -45,34 +39,68 @@ namespace MAX6921
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class MAX6921_IoSpi : public interface::MAX6921_Io
+MAX6921_Control::MAX6921_Control(interface::MAX6921_Io & io,
+                                 hal::interface::Delay & delay)
+: _io   (io   ),
+  _delay(delay)
+{
+  _io.clrLoad ();
+  _io.clrBlank();
+}
+
+MAX6921_Control::~MAX6921_Control()
 {
 
-public:
+}
 
-           MAX6921_IoSpi(hal::interface::SpiMasterControl & spi_master, 
-                         hal::interface::DigitalOutPin    & load,
-                         hal::interface::DigitalOutPin    & blank);
-  virtual ~MAX6921_IoSpi();
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
+void MAX6921_Control::setSegment(uint8_t const seg_number)
+{
+  /* TODO */
+}
 
-  virtual void write   (interface::SegmentControlBuffer const & seg_ctrl_buf) override;
-  virtual void setLoad () override;
-  virtual void clrLoad () override;
-  virtual void setBlank() override;
-  virtual void clrBlank() override;
+void MAX6921_Control::clrSegment(uint8_t const seg_number)
+{
+  /* TODO */
+}
 
+void MAX6921_Control::loadSegCtrlBuffer()
+{
+  writeToSegCtrlBuffer();
+  loadToLatchBuffer   ();
+}
 
-private:
+void MAX6921_Control::blankOn()
+{
+  _io.setBlank();
+}
 
-  hal::interface::SpiMasterControl & _spi_master;
-  hal::interface::DigitalOutPin    & _load;
-  hal::interface::DigitalOutPin    & _blank;
+void MAX6921_Control::blankOff()
+{
+  _io.clrBlank();
+}
 
-};
+/**************************************************************************************
+ * PRIVATE MEMBER FUNCTIONS
+ **************************************************************************************/
+
+void MAX6921_Control::writeToSegCtrlBuffer()
+{
+  _io.write(_seg_ctrl_buf);
+}
+
+void MAX6921_Control::loadToLatchBuffer()
+{
+  _io.setLoad();
+  _delay.delay_ms(1);
+  _io.clrLoad();
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -85,5 +113,3 @@ private:
 } /* driver */
 
 } /* snowfox */
-
-#endif /* INCLUDE_SNOWFOX_DRIVER_IOEXPANDER_MAX6921_MAX6921_IOSPI_H_ */
