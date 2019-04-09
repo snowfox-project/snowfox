@@ -16,14 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SNOWFOX_DRIVER_IOEXPANDER_MAX6921_INTERFACE_MAX6921_IO_H_
-#define INCLUDE_SNOWFOX_DRIVER_IOEXPANDER_MAX6921_INTERFACE_MAX6921_IO_H_
+#ifndef INCLUDE_SNOWFOX_DRIVER_IOEXPANDER_MAX6921_MAX6921_IOSPI_H_
+#define INCLUDE_SNOWFOX_DRIVER_IOEXPANDER_MAX6921_MAX6921_IOSPI_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
+#include <snowfox/driver/ioexpander/MAX6921/interface/MAX6921_Io.h>
+
+#include <snowfox/hal/interface/gpio/DigitalOutPin.h>
+#include <snowfox/hal/interface/spi/SpiMasterControl.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -41,61 +44,38 @@ namespace ioexpander
 namespace MAX6921
 {
 
-namespace interface
-{
-
-/**************************************************************************************
- * TYPEDEF
- **************************************************************************************/
-
-typedef struct {
-  uint8_t OUT0  : 1;
-  uint8_t OUT1  : 1;
-  uint8_t OUT2  : 1;
-  uint8_t OUT3  : 1;
-  uint8_t OUT4  : 1;
-  uint8_t OUT5  : 1;
-  uint8_t OUT6  : 1;
-  uint8_t OUT7  : 1;
-  uint8_t OUT8  : 1;
-  uint8_t OUT9  : 1;
-  uint8_t OUT10 : 1;
-  uint8_t OUT11 : 1;
-  uint8_t OUT12 : 1;
-  uint8_t OUT13 : 1;
-  uint8_t OUT14 : 1;
-  uint8_t OUT15 : 1;
-  uint8_t OUT16 : 1;
-  uint8_t OUT17 : 1;
-  uint8_t OUT18 : 1;
-  uint8_t OUT19 : 1;
-} SegmentControlBuffer;
-
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MAX6921_Io
+class MAX6921_IoSpi : public interface::MAX6921_Io
 {
 
 public:
 
-           MAX6921_Io() { }
-  virtual ~MAX6921_Io() { }
+           MAX6921_IoSpi(hal::interface::SpiMasterControl & spi_master, 
+                         hal::interface::DigitalOutPin    & load,
+                         hal::interface::DigitalOutPin    & blank);
+  virtual ~MAX6921_IoSpi();
 
 
-  virtual void write   (SegmentControlBuffer const & seg_ctrl_buf) = 0;
-  virtual void load    () = 0;
-  virtual void blankOn () = 0;
-  virtual void blankOff() = 0;
+  virtual void write   (interface::SegmentControlBuffer const & seg_ctrl_buf) override;
+  virtual void load    () override;
+  virtual void blankOn () override;
+  virtual void blankOff() override;
+
+
+private:
+
+  hal::interface::SpiMasterControl & _spi_master;
+  hal::interface::DigitalOutPin    & _load;
+  hal::interface::DigitalOutPin    & _blank;
 
 };
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
-
-} /* interface */
 
 } /* MAX6921 */
 
@@ -105,4 +85,4 @@ public:
 
 } /* snowfox */
 
-#endif /* INCLUDE_SNOWFOX_DRIVER_IOEXPANDER_MAX6921_INTERFACE_MAX6921_IO_H_ */
+#endif /* INCLUDE_SNOWFOX_DRIVER_IOEXPANDER_MAX6921_MAX6921_IOSPI_H_ */

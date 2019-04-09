@@ -80,6 +80,15 @@ endif()
 
 set(DRIVER_IOEXPANDER_SRC_PATH src/driver/ioexpander)
 
+# MAX6921 ###############################################################
+
+if(${DRIVER_IOEXPANDER_MAX6921} STREQUAL "yes")
+  set(DRIVER_IOEXPANDER_MAX6921_SRCS
+    ${DRIVER_IOEXPANDER_SRC_PATH}/MAX6921/MAX6921_IoSpi.cpp
+  )
+  set(SNOWFOX_LIBRARY_DRIVER_SRCS ${SNOWFOX_LIBRARY_DRIVER_SRCS} ${DRIVER_IOEXPANDER_MAX6921_SRCS})
+endif()
+
 # MCP23017 ###############################################################
 
 if(${DRIVER_IOEXPANDER_MCP23017} STREQUAL "yes")
