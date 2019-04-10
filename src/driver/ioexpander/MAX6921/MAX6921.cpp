@@ -42,7 +42,8 @@ namespace MAX6921
  * CTOR/DTOR
  **************************************************************************************/
 
-MAX6921::MAX6921()
+MAX6921::MAX6921(interface::MAX6921_Control & control)
+: _control(control)
 {
 
 }
@@ -58,27 +59,78 @@ MAX6921::~MAX6921()
 
 bool MAX6921::open()
 {
-  return false;  
+  /* Nothing to do */
+  return true;
 }
 
 ssize_t MAX6921::read(uint8_t * buffer, ssize_t const num_bytes)
 {
+  /* Not supported */
   return -1;
 }
 
 ssize_t MAX6921::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
+  /* Not supported */
   return -1;
 }
 
 bool MAX6921::ioctl(uint32_t const cmd, void * arg)
 {
+  switch(cmd)
+  {
+  /* IOCTL_SET_SEGMENT ****************************************************************/
+  case IOCTL_SET_SEGMENT:
+  {
+    uint8_t const * seg_num = static_cast<uint8_t *>(arg);
+    _control.setSegment(*seg_num);
+    return true;
+  }
+  break;
+  /* IOCTL_CLR_SEGMENT ****************************************************************/
+  case IOCTL_CLR_SEGMENT:
+  {
+    uint8_t const * seg_num = static_cast<uint8_t *>(arg);
+    _control.clrSegment(*seg_num);
+    return true;
+  }
+  break;
+  /* IOCTL_WRITE **********************************************************************/
+  case IOCTL_WRITE:
+  {
+    _control.write();
+    return true;
+  }
+  break;
+  /* IOCTL_LOAD ***********************************************************************/
+  case IOCTL_LOAD:
+  {
+    _control.load();
+    return true;
+  }
+  break;
+  /* IOCTL_BLANK **********************************************************************/
+  case IOCTL_BLANK:
+  {
+    _control.blank();
+    return true;
+  }
+  break;
+  /* IOCTL_NO_BLANK *******************************************************************/
+  case IOCTL_NO_BLANK:
+  {
+    _control.noBlank();
+    return true;
+  }
+  break;
+  }
+
   return false;
 }
 
 void MAX6921::close()
 {
-
+  /* Nothing to do */
 }
 
 /**************************************************************************************

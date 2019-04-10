@@ -70,36 +70,26 @@ void MAX6921_Control::clrSegment(uint8_t const seg_number)
   /* TODO */
 }
 
-void MAX6921_Control::loadSegCtrlBuffer()
-{
-  writeToSegCtrlBuffer();
-  loadToLatchBuffer   ();
-}
-
-void MAX6921_Control::blankOn()
-{
-  _io.setBlank();
-}
-
-void MAX6921_Control::blankOff()
-{
-  _io.clrBlank();
-}
-
-/**************************************************************************************
- * PRIVATE MEMBER FUNCTIONS
- **************************************************************************************/
-
-void MAX6921_Control::writeToSegCtrlBuffer()
+void MAX6921_Control::write()
 {
   _io.write(_seg_ctrl_buf);
 }
 
-void MAX6921_Control::loadToLatchBuffer()
+void MAX6921_Control::load()
 {
   _io.setLoad();
   _delay.delay_ms(1);
   _io.clrLoad();
+}
+
+void MAX6921_Control::blank()
+{
+  _io.setBlank();
+}
+
+void MAX6921_Control::noBlank()
+{
+  _io.clrBlank();
 }
 
 /**************************************************************************************

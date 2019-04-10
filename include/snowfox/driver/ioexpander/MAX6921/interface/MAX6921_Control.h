@@ -56,11 +56,12 @@ public:
            MAX6921_Control() { }
   virtual ~MAX6921_Control() { }
 
-  virtual void setSegment       (uint8_t const seg_number) = 0;
-  virtual void clrSegment       (uint8_t const seg_number) = 0;
-  virtual void loadSegCtrlBuffer() = 0;
-  virtual void blankOn          () = 0;
-  virtual void blankOff         () = 0;
+  virtual void setSegment(uint8_t const seg_number) = 0;
+  virtual void clrSegment(uint8_t const seg_number) = 0;
+  virtual void write     () = 0;
+  virtual void load      () = 0;
+  virtual void blank     () = 0;
+  virtual void noBlank   () = 0;
 
 };
 

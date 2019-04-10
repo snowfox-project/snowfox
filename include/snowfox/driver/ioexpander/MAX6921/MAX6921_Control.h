@@ -58,20 +58,18 @@ public:
                            hal::interface::Delay & delay);
   virtual ~MAX6921_Control();
 
-  virtual void setSegment       (uint8_t const seg_number) override;
-  virtual void clrSegment       (uint8_t const seg_number) override;
-  virtual void loadSegCtrlBuffer() override;
-  virtual void blankOn          () override;
-  virtual void blankOff         () override;
+  virtual void setSegment(uint8_t const seg_number) override;
+  virtual void clrSegment(uint8_t const seg_number) override;
+  virtual void write     () override;
+  virtual void load      () override;
+  virtual void blank     () override;
+  virtual void noBlank   () override;
 
 private:
 
   interface::MAX6921_Io           & _io;
   hal::interface::Delay           & _delay;
   interface::SegmentControlBuffer   _seg_ctrl_buf;
-
-  void writeToSegCtrlBuffer();
-  void loadToLatchBuffer   ();
 
 };
 

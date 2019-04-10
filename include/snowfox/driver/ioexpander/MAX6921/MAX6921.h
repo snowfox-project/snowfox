@@ -25,6 +25,8 @@
 
 #include <snowfox/driver/interface/Driver.h>
 
+#include <snowfox/driver/ioexpander/MAX6921/interface/MAX6921_Control.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -42,6 +44,17 @@ namespace MAX6921
 {
 
 /**************************************************************************************
+ * CONSTANTS
+ **************************************************************************************/
+
+static uint32_t constexpr IOCTL_SET_SEGMENT = 0; /* Arg: uint8_t * */
+static uint32_t constexpr IOCTL_CLR_SEGMENT = 1; /* Arg: uint8_t * */
+static uint32_t constexpr IOCTL_WRITE       = 2; /* Arg: none      */
+static uint32_t constexpr IOCTL_LOAD        = 3; /* Arg: none      */
+static uint32_t constexpr IOCTL_BLANK       = 4; /* Arg: none      */
+static uint32_t constexpr IOCTL_NO_BLANK    = 5; /* Arg: none      */
+
+/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
@@ -50,7 +63,7 @@ class MAX6921 : public driver::interface::Driver
 
 public:
 
-           MAX6921();
+           MAX6921(interface::MAX6921_Control & control);
   virtual ~MAX6921();
 
 
@@ -59,6 +72,10 @@ public:
   virtual ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override;
   virtual bool    ioctl(uint32_t const   cmd,    void          * arg      ) override;
   virtual void    close(                                                  ) override;
+
+private:
+
+  interface::MAX6921_Control & _control;
 
 };
 
