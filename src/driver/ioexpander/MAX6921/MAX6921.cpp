@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/driver/ioexpander/MAX6921/MAX6921_IoSpi.h>
+#include <snowfox/driver/ioexpander/MAX6921/MAX6921.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,17 +42,12 @@ namespace MAX6921
  * CTOR/DTOR
  **************************************************************************************/
 
-MAX6921_IoSpi::MAX6921_IoSpi(hal::interface::SpiMasterControl & spi_master, 
-                             hal::interface::DigitalOutPin    & load,
-                             hal::interface::DigitalOutPin    & blank)
-: _spi_master(spi_master),
-  _load      (load      ),
-  _blank     (blank     )
+MAX6921::MAX6921()
 {
 
 }
-  
-MAX6921_IoSpi::~MAX6921_IoSpi()
+
+MAX6921::~MAX6921()
 {
 
 }
@@ -61,38 +56,29 @@ MAX6921_IoSpi::~MAX6921_IoSpi()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void MAX6921_IoSpi::write(interface::SegmentControlBuffer const & seg_ctrl_buf) 
+bool MAX6921::open()
 {
-  uint8_t const byte[3] = 
-  {
-    static_cast<uint8_t>(                                                                                                                (seg_ctrl_buf.OUT19 << 3) | (seg_ctrl_buf.OUT18 << 2) | (seg_ctrl_buf.OUT17 << 1) | (seg_ctrl_buf.OUT16 << 0)),
-    static_cast<uint8_t>((seg_ctrl_buf.OUT15 << 7) | (seg_ctrl_buf.OUT14 << 6) | (seg_ctrl_buf.OUT13 << 5) | (seg_ctrl_buf.OUT12 << 4) | (seg_ctrl_buf.OUT11 << 3) | (seg_ctrl_buf.OUT10 << 2) | (seg_ctrl_buf.OUT9  << 1) | (seg_ctrl_buf.OUT8  << 0)),
-    static_cast<uint8_t>((seg_ctrl_buf.OUT7  << 7) | (seg_ctrl_buf.OUT6  << 6) | (seg_ctrl_buf.OUT5  << 5) | (seg_ctrl_buf.OUT4  << 4) | (seg_ctrl_buf.OUT3  << 3) | (seg_ctrl_buf.OUT2  << 2) | (seg_ctrl_buf.OUT1  << 1) | (seg_ctrl_buf.OUT0  << 0))
-  };
-  
-  _spi_master.exchange(byte[0]);
-  _spi_master.exchange(byte[1]);
-  _spi_master.exchange(byte[2]);
+  return false;  
 }
 
-void MAX6921_IoSpi::setLoad()
+ssize_t MAX6921::read(uint8_t * buffer, ssize_t const num_bytes)
 {
-  _load.set();
+  return -1;
 }
 
-void MAX6921_IoSpi::clrLoad()
+ssize_t MAX6921::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
-  _load.clr();
+  return -1;
 }
 
-void MAX6921_IoSpi::setBlank()
+bool MAX6921::ioctl(uint32_t const cmd, void * arg)
 {
-  _blank.set();
+  return false;
 }
 
-void MAX6921_IoSpi::clrBlank()
+void MAX6921::close()
 {
-  _blank.clr();
+
 }
 
 /**************************************************************************************
