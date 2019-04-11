@@ -9,6 +9,7 @@ declare -a EXAMPLE_LIST=("examples/driver/can/MCP2515/driver-mcp2515-spi-atmega3
                          "examples/driver/glcd/RA6963/driver-ra6963-gpio-at90can128"
                          "examples/driver/haptic/DRV2605/driver-drv2605-i2c-atmega328p"
                          "examples/driver/haptic/DRV2605/driver-drv2605-i2c-atmega328p-debug"
+                         "examples/driver/ioexpander/MAX6921/driver-max6921-spi-atmega328p"
                          "examples/driver/ioexpander/PCA9547/driver-pca9547-i2c-atmega328p"
                          "examples/driver/ioexpander/PCA9547/driver-pca9547-i2c-atmega328p-debug"
                          "examples/driver/ioexpander/MCP23017/driver-mcp23017-i2c-atmega328p"
