@@ -65,9 +65,9 @@ void MAX6921_IoSpi::write(interface::SegmentControlBuffer const & seg_ctrl_buf)
 {
   uint8_t const byte[3] = 
   {
-    static_cast<uint8_t>(                                                                                                                (seg_ctrl_buf.OUT19 << 3) | (seg_ctrl_buf.OUT18 << 2) | (seg_ctrl_buf.OUT17 << 1) | (seg_ctrl_buf.OUT16 << 0)),
-    static_cast<uint8_t>((seg_ctrl_buf.OUT15 << 7) | (seg_ctrl_buf.OUT14 << 6) | (seg_ctrl_buf.OUT13 << 5) | (seg_ctrl_buf.OUT12 << 4) | (seg_ctrl_buf.OUT11 << 3) | (seg_ctrl_buf.OUT10 << 2) | (seg_ctrl_buf.OUT9  << 1) | (seg_ctrl_buf.OUT8  << 0)),
-    static_cast<uint8_t>((seg_ctrl_buf.OUT7  << 7) | (seg_ctrl_buf.OUT6  << 6) | (seg_ctrl_buf.OUT5  << 5) | (seg_ctrl_buf.OUT4  << 4) | (seg_ctrl_buf.OUT3  << 3) | (seg_ctrl_buf.OUT2  << 2) | (seg_ctrl_buf.OUT1  << 1) | (seg_ctrl_buf.OUT0  << 0))
+    static_cast<uint8_t>(                                                                                                                                (seg_ctrl_buf.seg.OUT19 << 3) | (seg_ctrl_buf.seg.OUT18 << 2) | (seg_ctrl_buf.seg.OUT17 << 1) | (seg_ctrl_buf.seg.OUT16 << 0)),
+    static_cast<uint8_t>((seg_ctrl_buf.seg.OUT15 << 7) | (seg_ctrl_buf.seg.OUT14 << 6) | (seg_ctrl_buf.seg.OUT13 << 5) | (seg_ctrl_buf.seg.OUT12 << 4) | (seg_ctrl_buf.seg.OUT11 << 3) | (seg_ctrl_buf.seg.OUT10 << 2) | (seg_ctrl_buf.seg.OUT9  << 1) | (seg_ctrl_buf.seg.OUT8  << 0)),
+    static_cast<uint8_t>((seg_ctrl_buf.seg.OUT7  << 7) | (seg_ctrl_buf.seg.OUT6  << 6) | (seg_ctrl_buf.seg.OUT5  << 5) | (seg_ctrl_buf.seg.OUT4  << 4) | (seg_ctrl_buf.seg.OUT3  << 3) | (seg_ctrl_buf.seg.OUT2  << 2) | (seg_ctrl_buf.seg.OUT1  << 1) | (seg_ctrl_buf.seg.OUT0  << 0))
   };
   
   _spi_master.exchange(byte[0]);

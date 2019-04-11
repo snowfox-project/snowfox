@@ -71,6 +71,8 @@ private:
   hal::interface::Delay           & _delay;
   interface::SegmentControlBuffer   _seg_ctrl_buf;
 
+  void initSegCtrlBuf();
+
 };
 
 /**************************************************************************************

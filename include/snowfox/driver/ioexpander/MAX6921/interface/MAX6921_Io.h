@@ -48,27 +48,32 @@ namespace interface
  * TYPEDEF
  **************************************************************************************/
 
-typedef struct {
-  uint8_t OUT0  : 1;
-  uint8_t OUT1  : 1;
-  uint8_t OUT2  : 1;
-  uint8_t OUT3  : 1;
-  uint8_t OUT4  : 1;
-  uint8_t OUT5  : 1;
-  uint8_t OUT6  : 1;
-  uint8_t OUT7  : 1;
-  uint8_t OUT8  : 1;
-  uint8_t OUT9  : 1;
-  uint8_t OUT10 : 1;
-  uint8_t OUT11 : 1;
-  uint8_t OUT12 : 1;
-  uint8_t OUT13 : 1;
-  uint8_t OUT14 : 1;
-  uint8_t OUT15 : 1;
-  uint8_t OUT16 : 1;
-  uint8_t OUT17 : 1;
-  uint8_t OUT18 : 1;
-  uint8_t OUT19 : 1;
+typedef union 
+{
+  struct
+  {
+    uint8_t OUT0  : 1;
+    uint8_t OUT1  : 1;
+    uint8_t OUT2  : 1;
+    uint8_t OUT3  : 1;
+    uint8_t OUT4  : 1;
+    uint8_t OUT5  : 1;
+    uint8_t OUT6  : 1;
+    uint8_t OUT7  : 1;
+    uint8_t OUT8  : 1;
+    uint8_t OUT9  : 1;
+    uint8_t OUT10 : 1;
+    uint8_t OUT11 : 1;
+    uint8_t OUT12 : 1;
+    uint8_t OUT13 : 1;
+    uint8_t OUT14 : 1;
+    uint8_t OUT15 : 1;
+    uint8_t OUT16 : 1;
+    uint8_t OUT17 : 1;
+    uint8_t OUT18 : 1;
+    uint8_t OUT19 : 1;
+  } seg;
+  uint32_t all;
 } SegmentControlBuffer;
 
 /**************************************************************************************
