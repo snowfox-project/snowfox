@@ -283,6 +283,15 @@ if(${DRIVER_SENSOR_LIS3MDL} STREQUAL "yes")
   set(SNOWFOX_LIBRARY_DRIVER_SRCS ${SNOWFOX_LIBRARY_DRIVER_SRCS} ${DRIVER_SENSOR_LIS3MDL_SRCS})
 endif()
 
+# LSM6DSM ################################################################
+
+if(${DRIVER_SENSOR_LSM6DSM} STREQUAL "yes")
+  set(DRIVER_SENSOR_LSM6DSM_SRCS
+    ${DRIVER_SENSOR_SRC_PATH}/LSM6DSM/LSM6DSM_IoSpi.cpp
+  )
+  set(SNOWFOX_LIBRARY_DRIVER_SRCS ${SNOWFOX_LIBRARY_DRIVER_SRCS} ${DRIVER_SENSOR_LSM6DSM_SRCS})
+endif()
+
 ##########################################################################
 # SERIAL #################################################################
 ##########################################################################
