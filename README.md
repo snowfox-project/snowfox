@@ -62,6 +62,7 @@ Run-To-Completion event based scheduler in progress ...
 * **DRV2605L** (Haptic Driver for LRA and ERM)
 
 #### [/driver/ioexpander](include/spectre/driver/ioexpander) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/ioexpander)
+* **MAX6921** (20-Output VFD tube driver)
 * **MCP23017** (16-Bit I/O Expander)
 * **PCA9547** (8-channel I2C-Bus multiplexer)
 
