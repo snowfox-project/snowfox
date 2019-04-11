@@ -59,8 +59,7 @@ MAX6921::~MAX6921()
 
 bool MAX6921::open()
 {
-  /* Nothing to do */
-  return true;
+  return ioctl(IOCTL_BLANK, 0);
 }
 
 ssize_t MAX6921::read(uint8_t * buffer, ssize_t const num_bytes)
