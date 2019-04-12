@@ -163,10 +163,10 @@ public:
   virtual ~LSM6DSM_Io() { }
 
 
-  virtual void readRegister (Register const reg, uint8_t       * data                          ) = 0;
-  virtual void readRegister (Register const reg, uint8_t       * data, uint16_t const num_bytes) = 0;
-  virtual void writeRegister(Register const reg, uint8_t const   data                          ) = 0;
-  virtual void writeRegister(Register const reg, uint8_t const * data, uint16_t const num_bytes) = 0;
+  virtual bool readRegister (Register const reg, uint8_t       * data                          ) = 0;
+  virtual bool readRegister (Register const reg, uint8_t       * data, uint16_t const num_bytes) = 0;
+  virtual bool writeRegister(Register const reg, uint8_t const   data                          ) = 0;
+  virtual bool writeRegister(Register const reg, uint8_t const * data, uint16_t const num_bytes) = 0;
 
 };
 

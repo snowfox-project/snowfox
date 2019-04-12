@@ -16,11 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SNOWFOX_DRIVER_SENSOR_LSM6DSM_LSM6DSM_IO_SPI_H_
+#define INCLUDE_SNOWFOX_DRIVER_SENSOR_LSM6DSM_LSM6DSM_IO_SPI_H_
+
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/driver/sensor/LSM6DSM/LSM6DSM_IoSpi.h>
+#include <snowfox/driver/sensor/LSM6DSM/interface/LSM6DSM_Io.h>
+
+#include <snowfox/hal/interface/i2c/I2cMaster.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,72 +44,29 @@ namespace LSM6DSM
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * CLASS DECLARATION
  **************************************************************************************/
 
-LSM6DSM_IoSpi::LSM6DSM_IoSpi(hal::interface::SpiMasterControl & spi_master, hal::interface::DigitalOutPin & cs)
-: _spi_master(spi_master),
-  _cs        (cs        )
-{
-  _cs.set();
-}
-
-LSM6DSM_IoSpi::~LSM6DSM_IoSpi()
+class LSM6DSM_IoI2c : public interface::LSM6DSM_Io
 {
 
-}
+public:
 
-/**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
- **************************************************************************************/
+           LSM6DSM_IoI2c(uint8_t const i2c_address, hal::interface::I2cMaster & i2c_master);
+  virtual ~LSM6DSM_IoI2c();
 
-bool LSM6DSM_IoSpi::readRegister(interface::Register const reg, uint8_t * data)
-{
-  uint8_t const reg_addr = (0x80 | static_cast<uint8_t>(reg));
 
-  _cs.clr();
-          _spi_master.exchange(reg_addr);
-  *data = _spi_master.exchange(0       );
-  _cs.set();
+  virtual bool readRegister (interface::Register const reg, uint8_t       * data                          ) override;
+  virtual bool readRegister (interface::Register const reg, uint8_t       * data, uint16_t const num_bytes) override;
+  virtual bool writeRegister(interface::Register const reg, uint8_t const   data                          ) override;
+  virtual bool writeRegister(interface::Register const reg, uint8_t const * data, uint16_t const num_bytes) override;
 
-  return true;
-}
+private:
 
-bool LSM6DSM_IoSpi::readRegister(interface::Register const reg, uint8_t * data, uint16_t const num_bytes)
-{
-  uint8_t const reg_addr = (0x80 | static_cast<uint8_t>(reg));
+  uint8_t                     _i2c_address;
+  hal::interface::I2cMaster & _i2c_master;
 
-  _cs.clr();
-  _spi_master.exchange(reg_addr);
-  for(uint16_t b = 0; b < num_bytes; b++) data[b] = _spi_master.exchange(0);
-  _cs.set();
-
-  return true;
-}
-
-bool LSM6DSM_IoSpi::writeRegister(interface::Register const reg, uint8_t const data)
-{
-  uint8_t const reg_addr = static_cast<uint8_t>(reg);
-
-  _cs.clr();
-  _spi_master.exchange(reg_addr);
-  _spi_master.exchange(data    );
-  _cs.set();
-
-  return true;
-}
-
-bool LSM6DSM_IoSpi::writeRegister(interface::Register const reg, uint8_t const * data, uint16_t const num_bytes)
-{
-  uint8_t const reg_addr = static_cast<uint8_t>(reg);
-
-  _cs.clr();
-  _spi_master.exchange(reg_addr);
-  for(uint16_t b = 0; b < num_bytes; b++) _spi_master.exchange(data[b]);
-  _cs.set();
-
-  return true;
-}
+};
 
 /**************************************************************************************
  * NAMESPACE
@@ -117,3 +79,5 @@ bool LSM6DSM_IoSpi::writeRegister(interface::Register const reg, uint8_t const *
 } /* driver */
 
 } /* snowfox */
+
+#endif /* INCLUDE_SNOWFOX_DRIVER_SENSOR_LSM6DSM_LSM6DSM_IO_SPI_H_ */

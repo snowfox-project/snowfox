@@ -57,10 +57,10 @@ public:
   virtual ~LSM6DSM_IoSpi();
 
 
-  virtual void readRegister (interface::Register const reg, uint8_t       * data                          ) override;
-  virtual void readRegister (interface::Register const reg, uint8_t       * data, uint16_t const num_bytes) override;
-  virtual void writeRegister(interface::Register const reg, uint8_t const   data                          ) override;
-  virtual void writeRegister(interface::Register const reg, uint8_t const * data, uint16_t const num_bytes) override;
+  virtual bool readRegister (interface::Register const reg, uint8_t       * data                          ) override;
+  virtual bool readRegister (interface::Register const reg, uint8_t       * data, uint16_t const num_bytes) override;
+  virtual bool writeRegister(interface::Register const reg, uint8_t const   data                          ) override;
+  virtual bool writeRegister(interface::Register const reg, uint8_t const * data, uint16_t const num_bytes) override;
 
 private:
 

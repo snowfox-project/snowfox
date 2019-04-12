@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/driver/sensor/LSM6DSM/LSM6DSM_IoSpi.h>
+#include <snowfox/driver/sensor/LSM6DSM/LSM6DSM_IoI2c.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,14 +42,14 @@ namespace LSM6DSM
  * CTOR/DTOR
  **************************************************************************************/
 
-LSM6DSM_IoSpi::LSM6DSM_IoSpi(hal::interface::SpiMasterControl & spi_master, hal::interface::DigitalOutPin & cs)
-: _spi_master(spi_master),
-  _cs        (cs        )
+LSM6DSM_IoI2c::LSM6DSM_IoI2c(uint8_t const i2c_address, hal::interface::I2cMaster & i2c_master)
+: _i2c_address(i2c_address),
+  _i2c_master (i2c_master )
 {
-  _cs.set();
+
 }
 
-LSM6DSM_IoSpi::~LSM6DSM_IoSpi()
+LSM6DSM_IoI2c::~LSM6DSM_IoI2c()
 {
 
 }
@@ -58,50 +58,52 @@ LSM6DSM_IoSpi::~LSM6DSM_IoSpi()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool LSM6DSM_IoSpi::readRegister(interface::Register const reg, uint8_t * data)
-{
-  uint8_t const reg_addr = (0x80 | static_cast<uint8_t>(reg));
-
-  _cs.clr();
-          _spi_master.exchange(reg_addr);
-  *data = _spi_master.exchange(0       );
-  _cs.set();
-
-  return true;
-}
-
-bool LSM6DSM_IoSpi::readRegister(interface::Register const reg, uint8_t * data, uint16_t const num_bytes)
-{
-  uint8_t const reg_addr = (0x80 | static_cast<uint8_t>(reg));
-
-  _cs.clr();
-  _spi_master.exchange(reg_addr);
-  for(uint16_t b = 0; b < num_bytes; b++) data[b] = _spi_master.exchange(0);
-  _cs.set();
-
-  return true;
-}
-
-bool LSM6DSM_IoSpi::writeRegister(interface::Register const reg, uint8_t const data)
+bool LSM6DSM_IoI2c::readRegister(interface::Register const reg, uint8_t * data)
 {
   uint8_t const reg_addr = static_cast<uint8_t>(reg);
 
-  _cs.clr();
-  _spi_master.exchange(reg_addr);
-  _spi_master.exchange(data    );
-  _cs.set();
+  if(!_i2c_master.begin      (_i2c_address, false  )) return false;
+  if(!_i2c_master.write      (reg_addr             )) return false;
+  if(!_i2c_master.requestFrom(_i2c_address, data, 1)) return false;
 
   return true;
 }
 
-bool LSM6DSM_IoSpi::writeRegister(interface::Register const reg, uint8_t const * data, uint16_t const num_bytes)
+bool LSM6DSM_IoI2c::readRegister(interface::Register const reg, uint8_t * data, uint16_t const num_bytes)
 {
   uint8_t const reg_addr = static_cast<uint8_t>(reg);
 
-  _cs.clr();
-  _spi_master.exchange(reg_addr);
-  for(uint16_t b = 0; b < num_bytes; b++) _spi_master.exchange(data[b]);
-  _cs.set();
+  if(!_i2c_master.begin      (_i2c_address, false          )) return false;
+  if(!_i2c_master.write      (reg_addr                     )) return false;
+  if(!_i2c_master.requestFrom(_i2c_address, data, num_bytes)) return false;
+
+  return true;
+}
+
+bool LSM6DSM_IoI2c::writeRegister(interface::Register const reg, uint8_t const data)
+{
+  uint8_t const reg_addr = static_cast<uint8_t>(reg);
+  
+  if(!_i2c_master.begin(_i2c_address, false)) return false;
+  if(!_i2c_master.write(reg_addr           )) return false;
+  if(!_i2c_master.write(data               )) return false;
+      _i2c_master.end  (                   );
+
+  return true;
+}
+
+bool LSM6DSM_IoI2c::writeRegister(interface::Register const reg, uint8_t const * data, uint16_t const num_bytes)
+{
+  uint8_t const reg_addr = static_cast<uint8_t>(reg);
+
+  if(!_i2c_master.begin(_i2c_address, false)) return false;
+  if(!_i2c_master.write(reg_addr           )) return false;
+
+  for(uint16_t i = 0; i < num_bytes; i++)
+  {
+    if(!_i2c_master.write(data[i]          )) return false;
+  }
+      _i2c_master.end  (                   );
 
   return true;
 }
