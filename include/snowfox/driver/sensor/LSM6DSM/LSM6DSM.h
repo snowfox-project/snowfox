@@ -25,6 +25,8 @@
 
 #include <snowfox/driver/interface/Driver.h>
 
+#include <snowfox/driver/sensor/LSM6DSM/interface/LSM6DSM_Configuration.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -54,7 +56,7 @@ class LSM6DSM : public driver::interface::Driver
 
 public:
 
-           LSM6DSM();
+           LSM6DSM(interface::LSM6DSM_Configuration & config);
   virtual ~LSM6DSM();
 
 
@@ -63,6 +65,10 @@ public:
   virtual ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override;
   virtual bool    ioctl(uint32_t const   cmd,    void          * arg      ) override;
   virtual void    close(                                                  ) override;
+
+private:
+
+  interface::LSM6DSM_Configuration & _config;
 
 };
 

@@ -42,7 +42,8 @@ namespace LSM6DSM
  * CTOR/DTOR
  **************************************************************************************/
 
-LSM6DSM::LSM6DSM()
+LSM6DSM::LSM6DSM(interface::LSM6DSM_Configuration & config)
+: _config(config)
 {
 
 }
@@ -58,7 +59,9 @@ LSM6DSM::~LSM6DSM()
 
 bool LSM6DSM::open()
 {
-  /* TODO */ return false;
+  if(!_config.enableRegAddrAutoIncrement()) return false;
+  if(!_config.enableBlockDataUpdate     ()) return false;
+  return true;
 }
 
 ssize_t LSM6DSM::read(uint8_t * buffer, ssize_t const num_bytes)

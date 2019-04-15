@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/driver/sensor/LSM6DSM/LSM6DSM_Configuration.h>
+#include <snowfox/driver/sensor/LSM6DSM/LSM6DSM_IoSpi.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,13 +42,14 @@ namespace LSM6DSM
  * CTOR/DTOR
  **************************************************************************************/
 
-LSM6DSM_Configuration::LSM6DSM_Configuration(interface::LSM6DSM_Io & io)
-: _io(io)
+LSM6DSM_IoSpi::LSM6DSM_IoSpi(hal::interface::SpiMasterControl & spi_master, hal::interface::DigitalOutPin & cs)
+: _spi_master(spi_master),
+  _cs        (cs        )
 {
-
+  _cs.set();
 }
 
-LSM6DSM_Configuration::~LSM6DSM_Configuration()
+LSM6DSM_IoSpi::~LSM6DSM_IoSpi()
 {
 
 }
@@ -57,14 +58,52 @@ LSM6DSM_Configuration::~LSM6DSM_Configuration()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool LSM6DSM_Configuration::enableRegAddrAutoIncrement()
+bool LSM6DSM_IoSpi::readRegister(interface::Register const reg, uint8_t * data)
 {
-  return false; /* TODO */
+  uint8_t const reg_addr = (0x80 | static_cast<uint8_t>(reg));
+
+  _cs.clr();
+          _spi_master.exchange(reg_addr);
+  *data = _spi_master.exchange(0       );
+  _cs.set();
+
+  return true;
 }
 
-bool LSM6DSM_Configuration::enableBlockDataUpdate()
+bool LSM6DSM_IoSpi::readRegister(interface::Register const reg, uint8_t * data, uint16_t const num_bytes)
 {
-  return false; /* TODO */
+  uint8_t const reg_addr = (0x80 | static_cast<uint8_t>(reg));
+
+  _cs.clr();
+  _spi_master.exchange(reg_addr);
+  for(uint16_t b = 0; b < num_bytes; b++) data[b] = _spi_master.exchange(0);
+  _cs.set();
+
+  return true;
+}
+
+bool LSM6DSM_IoSpi::writeRegister(interface::Register const reg, uint8_t const data)
+{
+  uint8_t const reg_addr = static_cast<uint8_t>(reg);
+
+  _cs.clr();
+  _spi_master.exchange(reg_addr);
+  _spi_master.exchange(data    );
+  _cs.set();
+
+  return true;
+}
+
+bool LSM6DSM_IoSpi::writeRegister(interface::Register const reg, uint8_t const * data, uint16_t const num_bytes)
+{
+  uint8_t const reg_addr = static_cast<uint8_t>(reg);
+
+  _cs.clr();
+  _spi_master.exchange(reg_addr);
+  for(uint16_t b = 0; b < num_bytes; b++) _spi_master.exchange(data[b]);
+  _cs.set();
+
+  return true;
 }
 
 /**************************************************************************************
