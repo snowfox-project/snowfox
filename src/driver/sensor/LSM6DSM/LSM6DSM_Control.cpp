@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/driver/sensor/LSM6DSM/LSM6DSM.h>
+#include <snowfox/driver/sensor/LSM6DSM/LSM6DSM_Control.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,18 +39,24 @@ namespace LSM6DSM
 {
 
 /**************************************************************************************
+ * CONSTANTS
+ **************************************************************************************/
+
+static uint32_t constexpr DEVICE_RESET_DURATION_ms = 100;
+
+/**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
-LSM6DSM::LSM6DSM(interface::LSM6DSM_Configuration & config,
-                 interface::LSM6DSM_Control       & control)
-: _config (config) ,
-  _control(control)
+LSM6DSM_Control::LSM6DSM_Control(interface::LSM6DSM_Io & io,
+                                 hal::interface::Delay & delay)
+: _io   (io   ),
+  _delay(delay)
 {
 
 }
 
-LSM6DSM::~LSM6DSM()
+LSM6DSM_Control::~LSM6DSM_Control()
 {
 
 }
@@ -59,32 +65,13 @@ LSM6DSM::~LSM6DSM()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool LSM6DSM::open()
+bool LSM6DSM_Control::reset() 
 {
-  if(!_control.reset                    ()) return false;
-  if(!_config.enableRegAddrAutoIncrement()) return false;
-  if(!_config.enableBlockDataUpdate     ()) return false;
+  if(!_io.writeRegister(interface::Register::CTRL3_C, LSM6DSM_CTRL3_C_REG_SW_RESET_bm)) return false;
+
+  _delay.delay_ms(DEVICE_RESET_DURATION_ms);
+  
   return true;
-}
-
-ssize_t LSM6DSM::read(uint8_t * buffer, ssize_t const num_bytes)
-{
-  /* TODO */ return -1;
-}
-
-ssize_t LSM6DSM::write(uint8_t const * buffer, ssize_t const num_bytes)
-{
-  /* TODO */ return -1;
-}
-
-bool LSM6DSM::ioctl(uint32_t const cmd, void * arg)
-{
-  /* TODO */ return false;
-}
-
-void LSM6DSM::close()
-{
-  /* TODO */
 }
 
 /**************************************************************************************

@@ -20,6 +20,12 @@
 #define INCLUDE_SNOWFOX_DRIVER_SENSOR_LSM6DSM_INTERFACE_LSM6DSM_CONFIGURATION_H_
 
 /**************************************************************************************
+ * INCLUDE
+ **************************************************************************************/
+
+#include <snowfox/driver/sensor/LSM6DSM/interface/LSM6DSM_RegisterBits.h>
+
+/**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
@@ -37,14 +43,6 @@ namespace LSM6DSM
 
 namespace interface
 {
-
-/**************************************************************************************
- * DEFINES
- **************************************************************************************/
-
-/* LSM6DSM_CTRL3_C_REG Bit Definitions ************************************************/
-#define LSM6DSM_CTRL3_C_REG_BDU_bm         (1<<6)   /* Block data update                                        */
-#define LSM6DSM_CTRL3_C_REG_IF_INC_bm      (1<<2)   /* Register address auto-increment during multi-byte-access */
 
 /**************************************************************************************
  * CLASS DECLARATION

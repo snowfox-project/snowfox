@@ -16,11 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SNOWFOX_DRIVER_SENSOR_LSM6DSM_LSM6DSM_CONTROL_H_
+#define INCLUDE_SNOWFOX_DRIVER_SENSOR_LSM6DSM_LSM6DSM_CONTROL_H_
+
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/driver/sensor/LSM6DSM/LSM6DSM.h>
+#include <snowfox/driver/sensor/LSM6DSM/interface/LSM6DSM_Control.h>
+
+#include <snowfox/hal/interface/delay/Delay.h>
+
+#include <snowfox/driver/sensor/LSM6DSM/interface/LSM6DSM_Io.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,53 +46,27 @@ namespace LSM6DSM
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * CLASS DECLARATION
  **************************************************************************************/
 
-LSM6DSM::LSM6DSM(interface::LSM6DSM_Configuration & config,
-                 interface::LSM6DSM_Control       & control)
-: _config (config) ,
-  _control(control)
+class LSM6DSM_Control : public interface::LSM6DSM_Control
 {
 
-}
+public:
 
-LSM6DSM::~LSM6DSM()
-{
+           LSM6DSM_Control(interface::LSM6DSM_Io & io,
+                           hal::interface::Delay & delay);
+  virtual ~LSM6DSM_Control();
 
-}
 
-/**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
- **************************************************************************************/
+  virtual bool reset() override;
 
-bool LSM6DSM::open()
-{
-  if(!_control.reset                    ()) return false;
-  if(!_config.enableRegAddrAutoIncrement()) return false;
-  if(!_config.enableBlockDataUpdate     ()) return false;
-  return true;
-}
+private:
 
-ssize_t LSM6DSM::read(uint8_t * buffer, ssize_t const num_bytes)
-{
-  /* TODO */ return -1;
-}
+  interface::LSM6DSM_Io & _io;
+  hal::interface::Delay & _delay;
 
-ssize_t LSM6DSM::write(uint8_t const * buffer, ssize_t const num_bytes)
-{
-  /* TODO */ return -1;
-}
-
-bool LSM6DSM::ioctl(uint32_t const cmd, void * arg)
-{
-  /* TODO */ return false;
-}
-
-void LSM6DSM::close()
-{
-  /* TODO */
-}
+};
 
 /**************************************************************************************
  * NAMESPACE
@@ -98,3 +79,5 @@ void LSM6DSM::close()
 } /* driver */
 
 } /* snowfox */
+
+#endif /* INCLUDE_SNOWFOX_DRIVER_SENSOR_LSM6DSM_LSM6DSM_CONTROL_H_ */

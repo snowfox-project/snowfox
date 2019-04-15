@@ -25,6 +25,7 @@
 
 #include <snowfox/driver/interface/Driver.h>
 
+#include <snowfox/driver/sensor/LSM6DSM/interface/LSM6DSM_Control.h>
 #include <snowfox/driver/sensor/LSM6DSM/interface/LSM6DSM_Configuration.h>
 
 /**************************************************************************************
@@ -56,7 +57,8 @@ class LSM6DSM : public driver::interface::Driver
 
 public:
 
-           LSM6DSM(interface::LSM6DSM_Configuration & config);
+           LSM6DSM(interface::LSM6DSM_Configuration & config,
+                   interface::LSM6DSM_Control       & control);
   virtual ~LSM6DSM();
 
 
@@ -69,6 +71,7 @@ public:
 private:
 
   interface::LSM6DSM_Configuration & _config;
+  interface::LSM6DSM_Control       & _control;
 
 };
 

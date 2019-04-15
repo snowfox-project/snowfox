@@ -16,11 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SNOWFOX_DRIVER_SENSOR_LSM6DSM_INTERFACE_LSM6DSM_CONTROL_H_
+#define INCLUDE_SNOWFOX_DRIVER_SENSOR_LSM6DSM_INTERFACE_LSM6DSM_CONTROL_H_
+
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/driver/sensor/LSM6DSM/LSM6DSM.h>
+#include <snowfox/driver/sensor/LSM6DSM/interface/LSM6DSM_RegisterBits.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -38,58 +41,31 @@ namespace sensor
 namespace LSM6DSM
 {
 
-/**************************************************************************************
- * CTOR/DTOR
- **************************************************************************************/
-
-LSM6DSM::LSM6DSM(interface::LSM6DSM_Configuration & config,
-                 interface::LSM6DSM_Control       & control)
-: _config (config) ,
-  _control(control)
+namespace interface
 {
-
-}
-
-LSM6DSM::~LSM6DSM()
-{
-
-}
 
 /**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
+ * CLASS DECLARATION
  **************************************************************************************/
 
-bool LSM6DSM::open()
+class LSM6DSM_Control
 {
-  if(!_control.reset                    ()) return false;
-  if(!_config.enableRegAddrAutoIncrement()) return false;
-  if(!_config.enableBlockDataUpdate     ()) return false;
-  return true;
-}
 
-ssize_t LSM6DSM::read(uint8_t * buffer, ssize_t const num_bytes)
-{
-  /* TODO */ return -1;
-}
+public:
 
-ssize_t LSM6DSM::write(uint8_t const * buffer, ssize_t const num_bytes)
-{
-  /* TODO */ return -1;
-}
+           LSM6DSM_Control() { }
+  virtual ~LSM6DSM_Control() { }
 
-bool LSM6DSM::ioctl(uint32_t const cmd, void * arg)
-{
-  /* TODO */ return false;
-}
 
-void LSM6DSM::close()
-{
-  /* TODO */
-}
+  virtual bool reset() = 0;
+  
+};
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* LSM6DSM */
 
@@ -98,3 +74,5 @@ void LSM6DSM::close()
 } /* driver */
 
 } /* snowfox */
+
+#endif /* INCLUDE_SNOWFOX_DRIVER_SENSOR_LSM6DSM_INTERFACE_LSM6DSM_CONTROL_H_ */

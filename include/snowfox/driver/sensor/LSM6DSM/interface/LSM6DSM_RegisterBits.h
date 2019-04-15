@@ -16,11 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**************************************************************************************
- * INCLUDE
- **************************************************************************************/
-
-#include <snowfox/driver/sensor/LSM6DSM/LSM6DSM.h>
+#ifndef INCLUDE_SNOWFOX_DRIVER_SENSOR_LSM6DSM_INTERFACE_LSM6DSM_REGISTER_BITS_H_
+#define INCLUDE_SNOWFOX_DRIVER_SENSOR_LSM6DSM_INTERFACE_LSM6DSM_REGISTER_BITS_H_
 
 /**************************************************************************************
  * NAMESPACE
@@ -38,58 +35,23 @@ namespace sensor
 namespace LSM6DSM
 {
 
-/**************************************************************************************
- * CTOR/DTOR
- **************************************************************************************/
-
-LSM6DSM::LSM6DSM(interface::LSM6DSM_Configuration & config,
-                 interface::LSM6DSM_Control       & control)
-: _config (config) ,
-  _control(control)
+namespace interface
 {
-
-}
-
-LSM6DSM::~LSM6DSM()
-{
-
-}
 
 /**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
+ * DEFINES
  **************************************************************************************/
 
-bool LSM6DSM::open()
-{
-  if(!_control.reset                    ()) return false;
-  if(!_config.enableRegAddrAutoIncrement()) return false;
-  if(!_config.enableBlockDataUpdate     ()) return false;
-  return true;
-}
-
-ssize_t LSM6DSM::read(uint8_t * buffer, ssize_t const num_bytes)
-{
-  /* TODO */ return -1;
-}
-
-ssize_t LSM6DSM::write(uint8_t const * buffer, ssize_t const num_bytes)
-{
-  /* TODO */ return -1;
-}
-
-bool LSM6DSM::ioctl(uint32_t const cmd, void * arg)
-{
-  /* TODO */ return false;
-}
-
-void LSM6DSM::close()
-{
-  /* TODO */
-}
+/* LSM6DSM_CTRL3_C_REG Bit Definitions ************************************************/
+#define LSM6DSM_CTRL3_C_REG_BDU_bm         (1<<6)   /* Block data update                                        */
+#define LSM6DSM_CTRL3_C_REG_IF_INC_bm      (1<<2)   /* Register address auto-increment during multi-byte-access */
+#define LSM6DSM_CTRL3_C_REG_SW_RESET_bm    (1<<0)   /* Perform a software reset                                 */
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* LSM6DSM */
 
@@ -98,3 +60,5 @@ void LSM6DSM::close()
 } /* driver */
 
 } /* snowfox */
+
+#endif /* INCLUDE_SNOWFOX_DRIVER_SENSOR_LSM6DSM_INTERFACE_LSM6DSM_REGISTER_BITS_H_ */
