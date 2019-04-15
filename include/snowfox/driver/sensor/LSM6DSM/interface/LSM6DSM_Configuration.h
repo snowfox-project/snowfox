@@ -16,11 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**************************************************************************************
- * INCLUDE
- **************************************************************************************/
-
-#include <snowfox/driver/sensor/LSM6DSM/LSM6DSM_Configuration.h>
+#ifndef INCLUDE_SNOWFOX_DRIVER_SENSOR_LSM6DSM_INTERFACE_LSM6DSM_CONFIGURATION_H_
+#define INCLUDE_SNOWFOX_DRIVER_SENSOR_LSM6DSM_INTERFACE_LSM6DSM_CONFIGURATION_H_
 
 /**************************************************************************************
  * NAMESPACE
@@ -38,38 +35,40 @@ namespace sensor
 namespace LSM6DSM
 {
 
-/**************************************************************************************
- * CTOR/DTOR
- **************************************************************************************/
-
-LSM6DSM_Configuration::LSM6DSM_Configuration(interface::LSM6DSM_Io & io)
-: _io(io)
+namespace interface
 {
-
-}
-
-LSM6DSM_Configuration::~LSM6DSM_Configuration()
-{
-
-}
 
 /**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
+ * DEFINES
  **************************************************************************************/
 
-bool LSM6DSM_Configuration::enableRegAddrAutoIncrement()
-{
-  return false; /* TODO */
-}
+/* LSM6DSM_CTRL3_C_REG Bit Definitions ************************************************/
+#define LSM6DSM_CTRL3_C_REG_BDU_bm         (1<<6)   /* Block data update                                        */
+#define LSM6DSM_CTRL3_C_REG_IF_INC_bm      (1<<2)   /* Register address auto-increment during multi-byte-access */
 
-bool LSM6DSM_Configuration::enableBlockDataUpdate()
+/**************************************************************************************
+ * CLASS DECLARATION
+ **************************************************************************************/
+
+class LSM6DSM_Configuration
 {
-  return false; /* TODO */
-}
+
+public:
+
+           LSM6DSM_Configuration() { }
+  virtual ~LSM6DSM_Configuration() { }
+
+
+  virtual bool enableRegAddrAutoIncrement() = 0;
+  virtual bool enableBlockDataUpdate     () = 0;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* LSM6DSM */
 
@@ -78,3 +77,5 @@ bool LSM6DSM_Configuration::enableBlockDataUpdate()
 } /* driver */
 
 } /* snowfox */
+
+#endif /* INCLUDE_SNOWFOX_DRIVER_SENSOR_LSM6DSM_INTERFACE_LSM6DSM_CONFIGURATION_H_ */

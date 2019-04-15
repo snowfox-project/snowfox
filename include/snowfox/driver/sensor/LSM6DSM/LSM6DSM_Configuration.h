@@ -16,11 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SNOWFOX_DRIVER_SENSOR_LSM6DSM_LSM6DSM_CONFIGURATION_H_
+#define INCLUDE_SNOWFOX_DRIVER_SENSOR_LSM6DSM_LSM6DSM_CONFIGURATION_H_
+
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/driver/sensor/LSM6DSM/LSM6DSM_Configuration.h>
+#include <snowfox/driver/sensor/LSM6DSM/interface/LSM6DSM_Configuration.h>
+
+#include <snowfox/driver/sensor/LSM6DSM/interface/LSM6DSM_Io.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,33 +44,26 @@ namespace LSM6DSM
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * CLASS DECLARATION
  **************************************************************************************/
 
-LSM6DSM_Configuration::LSM6DSM_Configuration(interface::LSM6DSM_Io & io)
-: _io(io)
+class LSM6DSM_Configuration : public interface::LSM6DSM_Configuration
 {
 
-}
+public:
 
-LSM6DSM_Configuration::~LSM6DSM_Configuration()
-{
+           LSM6DSM_Configuration(interface::LSM6DSM_Io & io);
+  virtual ~LSM6DSM_Configuration();
 
-}
 
-/**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
- **************************************************************************************/
+  virtual bool enableRegAddrAutoIncrement() override;
+  virtual bool enableBlockDataUpdate     () override;
 
-bool LSM6DSM_Configuration::enableRegAddrAutoIncrement()
-{
-  return false; /* TODO */
-}
+private:
 
-bool LSM6DSM_Configuration::enableBlockDataUpdate()
-{
-  return false; /* TODO */
-}
+  interface::LSM6DSM_Io & _io;
+
+};
 
 /**************************************************************************************
  * NAMESPACE
@@ -78,3 +76,5 @@ bool LSM6DSM_Configuration::enableBlockDataUpdate()
 } /* driver */
 
 } /* snowfox */
+
+#endif /* INCLUDE_SNOWFOX_DRIVER_SENSOR_LSM6DSM_LSM6DSM_CONFIGURATION_H_ */
