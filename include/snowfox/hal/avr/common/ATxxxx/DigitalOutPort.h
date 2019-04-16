@@ -58,10 +58,9 @@ public:
 
 private:
 
-  volatile uint8_t * _ddr,
-                   * _port;
+  volatile uint8_t * _port;
 
-  void setGpioPortAsOutput();
+  static void setGpioPortAsOutput(volatile uint8_t * ddr);
 
 };
 

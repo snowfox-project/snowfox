@@ -40,10 +40,9 @@ namespace ATxxxx
  **************************************************************************************/
 
 DigitalOutPort::DigitalOutPort(volatile uint8_t * ddr, volatile uint8_t * port)
-: _ddr (ddr ),
-  _port(port)
+: _port(port)
 {
-  setGpioPortAsOutput();
+  setGpioPortAsOutput(ddr);
 }
 
 DigitalOutPort::~DigitalOutPort()
@@ -64,9 +63,9 @@ void DigitalOutPort::set(uint8_t const val)
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
-void DigitalOutPort::setGpioPortAsOutput()
+void DigitalOutPort::setGpioPortAsOutput(volatile uint8_t * ddr)
 {
-  *_ddr = 0xFF;
+  *ddr = 0xFF;
 }
 
 /**************************************************************************************
