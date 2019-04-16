@@ -77,6 +77,10 @@ if(${MCU_ARCH} STREQUAL "avr")
   include(.cmake/avr-gcc.cmake)
 endif()
 
+if(${MCU_ARCH} STREQUAL "riscv64")
+  include(.cmake/riscv64-gcc.cmake)
+endif()
+
 include(.cmake/all-gcc.cmake)
 
 ##########################################################################
