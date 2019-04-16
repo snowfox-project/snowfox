@@ -22,6 +22,8 @@
 
 #include <snowfox/hal/avr/common/ATxxxx/DigitalOutPin.h>
 
+#include <snowfox/util/BitManip.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -40,11 +42,10 @@ namespace ATxxxx
  **************************************************************************************/
 
 DigitalOutPin::DigitalOutPin(volatile uint8_t * ddr, volatile uint8_t * port, uint8_t const out_pin_number)
-: _ddr              (ddr                ),
-  _port             (port               ),
-  _out_pin_bitmask  (1 << out_pin_number)
+: _port          (port          ),
+  _out_pin_number(out_pin_number)
 {
-  setGpioPinAsOutput();
+  setGpioPinAsOutput(ddr, out_pin_number);
 }
 
 DigitalOutPin::~DigitalOutPin()
@@ -58,21 +59,21 @@ DigitalOutPin::~DigitalOutPin()
 
 void DigitalOutPin::set()
 {
-  *_port |= _out_pin_bitmask;
+  util::setBit(_port, _out_pin_number);
 }
 
 void DigitalOutPin::clr()
 {
-  *_port &= ~_out_pin_bitmask;
+  util::clrBit(_port, _out_pin_number);
 }
 
 /**************************************************************************************
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
-void DigitalOutPin::setGpioPinAsOutput()
+void DigitalOutPin::setGpioPinAsOutput(volatile uint8_t * ddr, uint8_t const out_pin_number)
 {
-  *_ddr |= _out_pin_bitmask;
+  util::setBit(ddr, out_pin_number);
 
 }
 /**************************************************************************************
