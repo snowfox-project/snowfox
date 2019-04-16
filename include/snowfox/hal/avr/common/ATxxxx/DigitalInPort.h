@@ -64,11 +64,10 @@ public:
 
 private:
 
-  volatile uint8_t * _ddr,
-                   * _port,
+  volatile uint8_t * _port,
                    * _pin;
 
-  void setGpioPortAsInput();
+  static void setGpioPortAsInput(volatile uint8_t * ddr);
 
 };
 

@@ -40,11 +40,10 @@ namespace ATxxxx
  **************************************************************************************/
 
 DigitalInPort::DigitalInPort(volatile uint8_t * ddr, volatile uint8_t * port, volatile uint8_t * pin)
-: _ddr (ddr ),
-  _port(port),
+: _port(port),
   _pin (pin )
 {
-  setGpioPortAsInput();
+  setGpioPortAsInput(ddr);
 }
 
 DigitalInPort::~DigitalInPort()
@@ -75,9 +74,9 @@ void DigitalInPort::setPullUpMode(interface::PullUpMode const pullup_mode)
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
-void DigitalInPort::setGpioPortAsInput()
+void DigitalInPort::setGpioPortAsInput(volatile uint8_t * ddr)
 {
-  *_ddr = 0x00;
+  *ddr = 0x00;
 }
 
 /**************************************************************************************
