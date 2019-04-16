@@ -22,6 +22,8 @@
 
 #include <snowfox/hal/avr/common/ATxxxx/DigitalInPin.h>
 
+#include <snowfox/util/BitManip.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -40,12 +42,11 @@ namespace ATxxxx
  **************************************************************************************/
 
 DigitalInPin::DigitalInPin(volatile uint8_t * ddr, volatile uint8_t * port, volatile uint8_t * pin, uint8_t const in_pin_number)
-: _ddr           (ddr               ),
-  _port          (port              ),
-  _pin           (pin               ),
-  _in_pin_bitmask(1 << in_pin_number)
+: _port         (port         ),
+  _pin          (pin          ),
+  _in_pin_number(in_pin_number)
 {
-  setGpioPinAsInput();
+  setGpioPinAsInput(ddr, in_pin_number);
 }
 
 DigitalInPin::~DigitalInPin()
@@ -59,7 +60,7 @@ DigitalInPin::~DigitalInPin()
 
 bool DigitalInPin::isSet()
 {
-  bool const is_set = (*_pin & _in_pin_bitmask) == _in_pin_bitmask;
+  bool const is_set = (*_pin & (1<<_in_pin_number)) == (1<<_in_pin_number);
 
   return is_set;
 }
@@ -68,9 +69,9 @@ void DigitalInPin::setPullUpMode(interface::PullUpMode const pullup_mode)
 {
   switch(pullup_mode)
   {
-  case interface::PullUpMode::NONE:      *_port &= ~_in_pin_bitmask; break;
-  case interface::PullUpMode::PULL_UP:   *_port |=  _in_pin_bitmask; break;
-  case interface::PullUpMode::PULL_DOWN:                             break;
+  case interface::PullUpMode::NONE:      util::clrBit(_port, _in_pin_number); break;
+  case interface::PullUpMode::PULL_UP:   util::setBit(_port, _in_pin_number); break;
+  case interface::PullUpMode::PULL_DOWN:                                      break;
   }
 }
 
@@ -78,9 +79,9 @@ void DigitalInPin::setPullUpMode(interface::PullUpMode const pullup_mode)
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
-void DigitalInPin::setGpioPinAsInput()
+void DigitalInPin::setGpioPinAsInput(volatile uint8_t * ddr, uint8_t const in_pin_number)
 {
-  *_ddr &= ~_in_pin_bitmask;
+  util::clrBit(ddr, in_pin_number);
 }
 
 /**************************************************************************************

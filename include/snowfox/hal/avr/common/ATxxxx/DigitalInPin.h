@@ -64,13 +64,11 @@ public:
 
 private:
 
-  volatile uint8_t * _ddr,
-                   * _port,
-                   * _pin;
+  volatile uint8_t       * _port,
+                         * _pin;
+           uint8_t const   _in_pin_number;
 
-  uint8_t            _in_pin_bitmask;
-
-  void setGpioPinAsInput();
+  static void setGpioPinAsInput(volatile uint8_t * ddr, uint8_t const in_pin_number);
 
 };
 
