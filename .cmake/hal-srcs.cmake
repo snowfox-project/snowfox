@@ -293,6 +293,34 @@ if(${MCU_ARCH} STREQUAL "avr" OR ${MCU_ARCH} STREQUAL "host")
 endif()
 
 ##########################################################################
+# AVR ####################################################################
+##########################################################################
+
+if(${MCU_ARCH} STREQUAL "riscv64" OR ${MCU_ARCH} STREQUAL "host")
+
+  ########################################################################
+
+  set(SNOWFOX_LIBRARY_HAL_RISCV_PATH src/hal/riscv64)
+
+  ########################################################################
+
+  ########################################################################
+  # SIFIVE FE310 #########################################################
+  ########################################################################
+
+  set(SNOWFOX_LIBRARY_HAL_RISCV64_FE310_SRCS
+    ${SNOWFOX_LIBRARY_HAL_RISCV_PATH}/FE310/DigitalOutPin.cpp
+  )
+
+  if(${MCU_TYPE} STREQUAL "fe310" OR {MCU_TYPE} STREQUAL "host")
+    set(SNOWFOX_LIBRARY_HAL_SRCS ${SNOWFOX_LIBRARY_HAL_SRCS} ${SNOWFOX_LIBRARY_HAL_RISCV64_FE310_SRCS})  
+  endif()
+
+  ########################################################################
+
+endif()
+
+##########################################################################
 
 if(${MCU_ARCH} STREQUAL "host")
   
@@ -312,6 +340,7 @@ if(${MCU_ARCH} STREQUAL "host")
   set(SNOWFOX_LIBRARY_HAL_SRCS ${SNOWFOX_LIBRARY_HAL_SRCS} ${SNOWFOX_LIBRARY_HAL_AVR_ATMEGA4809_SRCS})
   set(SNOWFOX_LIBRARY_HAL_SRCS ${SNOWFOX_LIBRARY_HAL_SRCS} ${SNOWFOX_LIBRARY_HAL_AVR_ATMEGA640_SRCS})
   set(SNOWFOX_LIBRARY_HAL_SRCS ${SNOWFOX_LIBRARY_HAL_SRCS} ${SNOWFOX_LIBRARY_HAL_AVR_ATMEGA644P_SRCS})
+  set(SNOWFOX_LIBRARY_HAL_SRCS ${SNOWFOX_LIBRARY_HAL_SRCS} ${SNOWFOX_LIBRARY_HAL_RISCV64_FE310_SRCS})
 
 endif()
 

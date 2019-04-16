@@ -20,9 +20,9 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/hal/sifive/FE310/DigitalOutPin.h>
+#include <snowfox/hal/riscv64/FE310/DigitalOutPin.h>
 
-#include <util/BitManip.h>
+#include <snowfox/util/BitManip.h>
 
 /**************************************************************************************
  * NAMESPACE
