@@ -165,8 +165,8 @@ As an alternative, Snowfox can be made available under a commercial license. Und
 | Do I have to open my source code?                                   | yes               | no                 |
 | Do I have to open source my changes to Snowfox?                     | yes               | no                 |
 | Do I have to offer the Snowfox source code to users of my product?  | yes               | no                 |
-| Do I have to document that my product uses Snowfox?	              | yes               | no                 |
+| Do I have to document that my product uses Snowfox?	                | yes               | no                 |
 | Can I redistribute Snowfox in source code format?                   | yes               | no                 |
 | Can I receive professional technical support on a commercial basis? | no                | yes                |
 
-For purchasing a commerical license, requesting a quote tailored for you or simply if you need additional information contact us at [consulting@lxrobotics.com](mailto:consulting@lxrobotics.com).
+For purchasing a commercial license, requesting a quote tailored for you or simply if you need additional information contact us at [consulting@lxrobotics.com](mailto:consulting@lxrobotics.com).
