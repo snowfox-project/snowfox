@@ -7,6 +7,7 @@ install:
 
 before_script:
   - .ci/script/run-cppcheck.sh -out=xml
+  - .ci/script/run-codespell.sh ${TRAVIS_BUILD_DIR}
 
 script:
   - .ci/script/run-build-libsnowfox-all.sh

@@ -8,6 +8,8 @@ gem install coveralls-lcov
 lcov --version
 g++ --version
 
+sudo pip install codespell
+
 sudo apt-get install cmake
 sudo apt-get install avr-libc binutils-avr gcc-avr avrdude
 
