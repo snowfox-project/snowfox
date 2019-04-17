@@ -51,6 +51,7 @@ public:
 
            DigitalInPin(volatile uint32_t       * gpio_input_en,
                         volatile uint32_t       * gpio_output_en,
+                        volatile uint32_t       * gpio_iof_en,
                         volatile uint32_t       * gpio_input_val,
                         volatile uint32_t       * gpio_pue,
                         uint8_t           const   in_pin_number);
@@ -72,7 +73,10 @@ private:
                           * _gpio_pue;
            uint8_t  const   _in_pin_number;
 
-  static void setGpioPinAsInput(volatile uint32_t * gpio_input_en, volatile uint32_t * gpio_output_en, uint8_t const in_pin_number);
+  static void setGpioPinAsInput(volatile uint32_t       * gpio_input_en,
+                                volatile uint32_t       * gpio_output_en,
+                                volatile uint32_t       * gpio_iof_en,
+                                         uint8_t  const   in_pin_number);
 
 };
 

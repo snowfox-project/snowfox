@@ -16,15 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SNOWFOX_HAL_SIFIVE_FE310_IO_FUNCTION_UTIL_H_
+#define INCLUDE_SNOWFOX_HAL_SIFIVE_FE310_IO_FUNCTION_UTIL_H_
+
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/hal/riscv64/FE310/DigitalOutPin.h>
-
-#include <snowfox/hal/riscv64/FE310/util/IoFuncUtil.h>
-
-#include <snowfox/util/BitManip.h>
+#include <stdint.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -40,52 +39,20 @@ namespace FE310
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * TYPEDEF
  **************************************************************************************/
 
-DigitalOutPin::DigitalOutPin(volatile uint32_t       * gpio_input_en,
-                             volatile uint32_t       * gpio_output_en,
-                             volatile uint32_t       * gpio_iof_en,
-                             volatile uint32_t       * gpio_output_val,
-                                      uint8_t  const   out_pin_number)
-: _gpio_output_val(gpio_output_val),
-  _out_pin_number (out_pin_number )
-{
-  setGpioPinAsOutput(gpio_input_en, gpio_output_en, gpio_iof_en, out_pin_number);
-}
-
-DigitalOutPin::~DigitalOutPin()
-{
-
-}
+enum class IoFunc {
+  IOF0, IOF1
+};
 
 /**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
+ * PROTOTYPES
  **************************************************************************************/
 
-void DigitalOutPin::set()
-{
-  util::setBit(_gpio_output_val, _out_pin_number);
-}
-
-void DigitalOutPin::clr()
-{
-  util::clrBit(_gpio_output_val, _out_pin_number);
-}
-
-/**************************************************************************************
- * PRIVATE MEMBER FUNCTIONS
- **************************************************************************************/
-
-void DigitalOutPin::setGpioPinAsOutput(volatile uint32_t       * gpio_input_en,
-                                       volatile uint32_t       * gpio_output_en,
-                                       volatile uint32_t       * gpio_iof_en,
-                                       uint8_t           const   out_pin_number)
-{
-  util::clrBit     (gpio_input_en,  out_pin_number);
-  util::setBit     (gpio_output_en, out_pin_number);
-  disableIoFunction(gpio_iof_en,    out_pin_number);
-}
+void enableIoFunction (volatile uint32_t * gpio_iof_en,  uint8_t const pin_number);
+void disableIoFunction(volatile uint32_t * gpio_iof_en,  uint8_t const pin_number);
+void setIoFunction    (volatile uint32_t * gpio_iof_sel, uint8_t const pin_number, IoFunc const io_func);
 
 /**************************************************************************************
  * NAMESPACE
@@ -96,3 +63,5 @@ void DigitalOutPin::setGpioPinAsOutput(volatile uint32_t       * gpio_input_en,
 } /* hal */
 
 } /* snowfox */
+
+#endif /* INCLUDE_SNOWFOX_HAL_SIFIVE_FE310_IO_FUNCTION_UTIL_H_ */
