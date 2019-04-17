@@ -22,6 +22,8 @@
 
 #include <snowfox/hal/riscv64/FE310/DigitalInPin.h>
 
+#include <snowfox/hal/riscv64/FE310/util/IoFuncUtil.h>
+
 #include <snowfox/util/BitManip.h>
 
 /**************************************************************************************
@@ -43,6 +45,7 @@ namespace FE310
 
 DigitalInPin::DigitalInPin(volatile uint32_t       * gpio_input_en,
                            volatile uint32_t       * gpio_output_en,
+                           volatile uint32_t       * gpio_iof_en,
                            volatile uint32_t       * gpio_input_val,
                            volatile uint32_t       * gpio_pue,
                            uint8_t           const   in_pin_number)
@@ -50,7 +53,7 @@ DigitalInPin::DigitalInPin(volatile uint32_t       * gpio_input_en,
   _gpio_pue      (gpio_pue      ),
   _in_pin_number (in_pin_number )
 {
-  setGpioPinAsInput(gpio_input_en, gpio_output_en, in_pin_number);
+  setGpioPinAsInput(gpio_input_en, gpio_output_en, gpio_iof_en, in_pin_number);
 }
 
 DigitalInPin::~DigitalInPin()
@@ -83,10 +86,14 @@ void DigitalInPin::setPullUpMode(interface::PullUpMode const pullup_mode)
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
-void DigitalInPin::setGpioPinAsInput(volatile uint32_t * gpio_input_en, volatile uint32_t * gpio_output_en, uint8_t const in_pin_number)
+void DigitalInPin::setGpioPinAsInput(volatile uint32_t       * gpio_input_en,
+                                     volatile uint32_t       * gpio_output_en,
+                                     volatile uint32_t       * gpio_iof_en,
+                                     uint8_t           const   in_pin_number)
 {
-  util::clrBit(gpio_output_en, in_pin_number);
-  util::setBit(gpio_input_en,  in_pin_number);
+  util::clrBit     (gpio_output_en, in_pin_number);
+  util::setBit     (gpio_input_en,  in_pin_number);
+  disableIoFunction(gpio_iof_en,    in_pin_number);
 }
 
 /**************************************************************************************

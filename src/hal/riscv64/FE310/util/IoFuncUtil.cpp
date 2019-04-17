@@ -20,8 +20,6 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/hal/riscv64/FE310/DigitalOutPin.h>
-
 #include <snowfox/hal/riscv64/FE310/util/IoFuncUtil.h>
 
 #include <snowfox/util/BitManip.h>
@@ -40,51 +38,27 @@ namespace FE310
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-DigitalOutPin::DigitalOutPin(volatile uint32_t       * gpio_input_en,
-                             volatile uint32_t       * gpio_output_en,
-                             volatile uint32_t       * gpio_iof_en,
-                             volatile uint32_t       * gpio_output_val,
-                                      uint8_t  const   out_pin_number)
-: _gpio_output_val(gpio_output_val),
-  _out_pin_number (out_pin_number )
+void enableIoFunction(volatile uint32_t * gpio_iof_en, uint8_t const pin_number)
 {
-  setGpioPinAsOutput(gpio_input_en, gpio_output_en, gpio_iof_en, out_pin_number);
+  util::setBit(gpio_iof_en, pin_number);
 }
 
-DigitalOutPin::~DigitalOutPin()
+void disableIoFunction(volatile uint32_t * gpio_iof_en, uint8_t const pin_number)
 {
-
+  util::clrBit(gpio_iof_en, pin_number);
 }
 
-/**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
- **************************************************************************************/
-
-void DigitalOutPin::set()
+void setIoFunction(volatile uint32_t * gpio_iof_sel, uint8_t const pin_number, IoFunc const io_func)
 {
-  util::setBit(_gpio_output_val, _out_pin_number);
-}
-
-void DigitalOutPin::clr()
-{
-  util::clrBit(_gpio_output_val, _out_pin_number);
-}
-
-/**************************************************************************************
- * PRIVATE MEMBER FUNCTIONS
- **************************************************************************************/
-
-void DigitalOutPin::setGpioPinAsOutput(volatile uint32_t       * gpio_input_en,
-                                       volatile uint32_t       * gpio_output_en,
-                                       volatile uint32_t       * gpio_iof_en,
-                                       uint8_t           const   out_pin_number)
-{
-  util::clrBit     (gpio_input_en,  out_pin_number);
-  util::setBit     (gpio_output_en, out_pin_number);
-  disableIoFunction(gpio_iof_en,    out_pin_number);
+  switch(io_func)
+  {
+  case IoFunc::IOF0: util::clrBit(gpio_iof_sel, pin_number); break;
+  case IoFunc::IOF1: util::setBit(gpio_iof_sel, pin_number); break;
+  default          :                                         break;
+  }
 }
 
 /**************************************************************************************
