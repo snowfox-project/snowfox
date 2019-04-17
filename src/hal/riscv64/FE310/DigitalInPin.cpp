@@ -22,8 +22,6 @@
 
 #include <snowfox/hal/riscv64/FE310/DigitalInPin.h>
 
-#include <snowfox/hal/riscv64/FE310/util/IoFuncUtil.h>
-
 #include <snowfox/util/BitManip.h>
 
 /**************************************************************************************
@@ -91,9 +89,9 @@ void DigitalInPin::setGpioPinAsInput(volatile uint32_t       * gpio_input_en,
                                      volatile uint32_t       * gpio_iof_en,
                                      uint8_t           const   in_pin_number)
 {
-  util::clrBit     (gpio_output_en, in_pin_number);
-  util::setBit     (gpio_input_en,  in_pin_number);
-  disableIoFunction(gpio_iof_en,    in_pin_number);
+  util::clrBit(gpio_output_en, in_pin_number);
+  util::setBit(gpio_input_en,  in_pin_number);
+  util::clrBit(gpio_iof_en,    in_pin_number);
 }
 
 /**************************************************************************************
