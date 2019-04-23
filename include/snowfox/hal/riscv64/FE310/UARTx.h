@@ -51,7 +51,9 @@ public:
            UARTx(volatile uint32_t * uartx_txdata,
                  volatile uint32_t * uartx_rxdata,
                  volatile uint32_t * uartx_txctrl,
-                 volatile uint32_t * uartx_rxctrl);
+                 volatile uint32_t * uartx_rxctrl,
+                 volatile uint32_t * uartx_div,
+                 uint32_t const      tlclk_Hz);
   virtual ~UARTx();
 
 
@@ -81,7 +83,9 @@ private:
   volatile uint32_t * _uartx_txdata,
                     * _uartx_rxdata,
                     * _uartx_txctrl,
-                    * _uartx_rxctrl;
+                    * _uartx_rxctrl,
+                    * _uartx_div;
+  uint32_t const      _tlclk_Hz;
 
   interface::UART_onRxDoneCallback       * _on_rx_done_callback;
   interface::UART_onTxDoneCallback       * _on_tx_done_callback;

@@ -24,6 +24,8 @@
 
 #include <snowfox/util/BitManip.h>
 
+#include <snowfox/hal/riscv64/FE310/util/UartUtil.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -55,11 +57,15 @@ namespace FE310
 UARTx::UARTx(volatile uint32_t * uartx_txdata,
              volatile uint32_t * uartx_rxdata,
              volatile uint32_t * uartx_txctrl,
-             volatile uint32_t * uartx_rxctrl)
+             volatile uint32_t * uartx_rxctrl,
+             volatile uint32_t * uartx_div,
+             uint32_t const      tlclk_Hz)
 : _uartx_txdata       (uartx_txdata),
   _uartx_rxdata       (uartx_rxdata),
   _uartx_txctrl       (uartx_txctrl),
   _uartx_rxctrl       (uartx_rxctrl),
+  _uartx_div          (uartx_div   ),
+  _tlclk_Hz           (tlclk_Hz    ),
   _on_rx_done_callback(0),
   _on_tx_done_callback(0)
 {
@@ -102,7 +108,10 @@ void UARTx::disableTx()
 
 void UARTx::setBaudRate(interface::UartBaudRate const baud_rate)
 {
-
+  switch(baud_rate)
+  {
+  case interface::UartBaudRate::B115200: *_uartx_div = static_cast<uint32_t>(calcUartBaudRate(_tlclk_Hz, 115200)); break;
+  }
 }
 
 void UARTx::setParity(interface::UartParity const parity)
