@@ -68,9 +68,9 @@ public:
 
   /* UART Configuration Interface */
 
-  virtual void setBaudRate      (interface::UartBaudRate const   baud_rate) override;
-  virtual void setParity        (interface::UartParity   const   parity   ) override;
-  virtual void setStopBit       (interface::UartStopBit  const   stop_bit ) override;
+  virtual bool setBaudRate      (interface::UartBaudRate const   baud_rate) override;
+  virtual bool setParity        (interface::UartParity   const   parity   ) override;
+  virtual bool setStopBit       (interface::UartStopBit  const   stop_bit ) override;
 
 
   /* UART Assembly */

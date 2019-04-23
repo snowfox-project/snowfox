@@ -106,26 +106,30 @@ void UARTx::disableTx()
   util::clrBit(_uartx_rxctrl, RXCTRL_RXEN_bp);
 }
 
-void UARTx::setBaudRate(interface::UartBaudRate const baud_rate)
+bool UARTx::setBaudRate(interface::UartBaudRate const baud_rate)
 {
   switch(baud_rate)
   {
-  case interface::UartBaudRate::B115200: *_uartx_div = static_cast<uint32_t>(calcUartBaudRate(_tlclk_Hz, 115200)); break;
+  case interface::UartBaudRate::B115200: *_uartx_div = static_cast<uint32_t>(calcUartBaudRate(_tlclk_Hz, 115200)); return true; break;
   }
+
+  return false;
 }
 
-void UARTx::setParity(interface::UartParity const parity)
+bool UARTx::setParity(interface::UartParity const parity)
 {
-  /* The FE310 UART only supports no parity */
+  return false; /* The FE310 UART only supports no parity */
 }
 
-void UARTx::setStopBit(interface::UartStopBit const stop_bit)
+bool UARTx::setStopBit(interface::UartStopBit const stop_bit)
 {
   switch(stop_bit)
   {
-  case interface::UartStopBit::_1: util::clrBit(_uartx_txctrl, TXCTRL_NSTOP_bp); break;
-  case interface::UartStopBit::_2: util::setBit(_uartx_txctrl, TXCTRL_NSTOP_bp); break;
+  case interface::UartStopBit::_1: util::clrBit(_uartx_txctrl, TXCTRL_NSTOP_bp); return true; break;
+  case interface::UartStopBit::_2: util::setBit(_uartx_txctrl, TXCTRL_NSTOP_bp); return true; break;
   }
+
+  return false;
 }
 
 void UARTx::register_onRxDoneCallback(interface::UART_onRxDoneCallback * on_rx_done_callback)

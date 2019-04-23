@@ -73,9 +73,9 @@ public:
   virtual ~UartConfiguration() { }
 
 
-  virtual void setBaudRate(UartBaudRate const baud_rate) = 0;
-  virtual void setParity  (UartParity   const parity   ) = 0;
-  virtual void setStopBit (UartStopBit  const stop_bit ) = 0;
+  virtual bool setBaudRate(UartBaudRate const baud_rate) = 0;
+  virtual bool setParity  (UartParity   const parity   ) = 0;
+  virtual bool setStopBit (UartStopBit  const stop_bit ) = 0;
   
 };
 
