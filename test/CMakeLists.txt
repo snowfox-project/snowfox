@@ -107,9 +107,23 @@ set(SNOWFOX_TEST_HOST_HAL_AVR_SRCS
 )
 
 ##########################################################################
+# RISCV64 ################################################################
+##########################################################################
 
-set(SNOWFOX_TEST_HOST_HAL_SRCS
-  ${SNOWFOX_TEST_HOST_HAL_AVR_SRCS}
+set(SNOWFOX_TEST_HAL_RISCV64_PATH ${SNOWFOX_TEST_HAL_PATH}/riscv64)
+
+##########################################################################
+# SIFIVE FE310 ###########################################################
+##########################################################################
+
+set(SNOWFOX_TEST_HOST_HAL_RISCV64_FE310_SRCS
+  ${SNOWFOX_TEST_HAL_RISCV64_PATH}/FE310/test_DigitalOutPin.cpp
+)
+
+##########################################################################
+
+set(SNOWFOX_TEST_HOST_HAL_RISCV64_SRCS
+  ${SNOWFOX_TEST_HOST_HAL_RISCV64_FE310_SRCS}
 )
 
 ##########################################################################
@@ -161,6 +175,7 @@ add_executable(
   
   ${SNOWFOX_TEST_HOST_COMSTACK_CANOPEN_SRCS}
   ${SNOWFOX_TEST_HOST_HAL_AVR_SRCS}
+  ${SNOWFOX_TEST_HOST_HAL_RISCV64_FE310_SRCS}
   ${SNOWFOX_TEST_HOST_UTIL_SRCS}
   ${SNOWFOX_TEST_HOST_TESTUTIL_SRCS}
   ${SNOWFOX_TEST_HOST_OS_SRCS}
