@@ -1,0 +1,9 @@
+{
+  "GPIO_INPUT_VAL":  { "Type": "UNSIGNED32", "Initial": "0x00000000"},
+  "GPIO_INPUT_EN":   { "Type": "UNSIGNED32", "Initial": "0x00000000"},
+  "GPIO_OUTPUT_EN":  { "Type": "UNSIGNED32", "Initial": "0x00000000"},
+  "GPIO_OUTPUT_VAL": { "Type": "UNSIGNED32", "Initial": "0x00000000"},
+  "GPIO_PUE":        { "Type": "UNSIGNED32", "Initial": "0x00000000"},
+  "GPIO_IOF_SEL":    { "Type": "UNSIGNED32", "Initial": "0x00000000"},
+  "GPIO_IOF_EN":     { "Type": "UNSIGNED32", "Initial": "0x00000000"}
+}
