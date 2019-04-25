@@ -48,11 +48,11 @@ class UART0 : public UARTx
 public:
 
 
-           UART0(volatile uint32_t * uartx_txdata,
-                 volatile uint32_t * uartx_rxdata,
-                 volatile uint32_t * uartx_txctrl,
-                 volatile uint32_t * uartx_rxctrl,
-                 volatile uint32_t * uartx_div,
+           UART0(volatile uint32_t * uart0_txdata,
+                 volatile uint32_t * uart0_rxdata,
+                 volatile uint32_t * uart0_txctrl,
+                 volatile uint32_t * uart0_rxctrl,
+                 volatile uint32_t * uart0_div,
                  uint32_t const      tlclk_Hz,
                  volatile uint32_t * gpio_iof_en,
                  volatile uint32_t * gpio_iof_sel);

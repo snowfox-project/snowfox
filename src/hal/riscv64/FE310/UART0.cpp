@@ -48,18 +48,18 @@ namespace FE310
  * CTOR/DTOR
  **************************************************************************************/
 
-UART0::UART0(volatile uint32_t * uartx_txdata,
-             volatile uint32_t * uartx_rxdata,
-             volatile uint32_t * uartx_txctrl,
-             volatile uint32_t * uartx_rxctrl,
-             volatile uint32_t * uartx_div,
+UART0::UART0(volatile uint32_t * uart0_txdata,
+             volatile uint32_t * uart0_rxdata,
+             volatile uint32_t * uart0_txctrl,
+             volatile uint32_t * uart0_rxctrl,
+             volatile uint32_t * uart0_div,
              uint32_t const      tlclk_Hz,
              volatile uint32_t * gpio_iof_en,
              volatile uint32_t * gpio_iof_sel)
-: UARTx(uartx_txdata,
-        uartx_rxdata,
-        uartx_txctrl,
-        uartx_rxctrl,
+: UARTx(uart0_txdata,
+        uart0_rxdata,
+        uart0_txctrl,
+        uart0_rxctrl,
         uartx_div,
         tlclk_Hz)
 {

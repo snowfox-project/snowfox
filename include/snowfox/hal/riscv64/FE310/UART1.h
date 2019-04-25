@@ -16,13 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SNOWFOX_HAL_SIFIVE_FE310_UART1_H_
+#define INCLUDE_SNOWFOX_HAL_SIFIVE_FE310_UART1_H_
+
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/hal/riscv64/FE310/UART1.h>
-
-#include <snowfox/util/BitManip.h>
+#include <snowfox/hal/riscv64/FE310/UARTx.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -38,50 +39,30 @@ namespace FE310
 {
 
 /**************************************************************************************
- * DEFINE
+ * CLASS DECLARATION
  **************************************************************************************/
 
-#define GPIO_IOF_SEL_UART1_RX_bp (18)
-#define GPIO_IOF_SEL_UART1_TX_bp (23)
-
-/**************************************************************************************
- * CTOR/DTOR
- **************************************************************************************/
-
-UART1::UART1(volatile uint32_t * uartx_txdata,
-             volatile uint32_t * uartx_rxdata,
-             volatile uint32_t * uartx_txctrl,
-             volatile uint32_t * uartx_rxctrl,
-             volatile uint32_t * uartx_div,
-             uint32_t const      tlclk_Hz,
-             volatile uint32_t * gpio_iof_en,
-             volatile uint32_t * gpio_iof_sel)
-: UARTx(uartx_txdata,
-        uartx_rxdata,
-        uartx_txctrl,
-        uartx_rxctrl,
-        uartx_div,
-        tlclk_Hz)
-{
-  enableGpioAccess(gpio_iof_en, gpio_iof_sel);
-}
-
-UART1::~UART1()
+class UART1 : public UARTx
 {
 
-}
+public:
 
-/**************************************************************************************
- * PRIVATE MEMBER FUNCTIONS
- **************************************************************************************/
 
-void UART1::enableGpioAccess(volatile uint32_t * gpio_iof_en, volatile uint32_t * gpio_iof_sel)
-{
-  util::clrBit(gpio_iof_sel, GPIO_IOF_SEL_UART1_RX_bp);
-  util::clrBit(gpio_iof_sel, GPIO_IOF_SEL_UART1_TX_bp);
-  util::setBit(gpio_iof_en,  GPIO_IOF_SEL_UART1_RX_bp);
-  util::setBit(gpio_iof_en,  GPIO_IOF_SEL_UART1_TX_bp);
-}
+           UART1(volatile uint32_t * uart1_txdata,
+                 volatile uint32_t * uart1_rxdata,
+                 volatile uint32_t * uart1_txctrl,
+                 volatile uint32_t * uart1_rxctrl,
+                 volatile uint32_t * uart1_div,
+                 uint32_t const      tlclk_Hz,
+                 volatile uint32_t * gpio_iof_en,
+                 volatile uint32_t * gpio_iof_sel);
+  virtual ~UART1();
+
+private:
+
+  static void enableGpioAccess(volatile uint32_t * gpio_iof_en, volatile uint32_t * gpio_iof_sel);
+
+};
 
 /**************************************************************************************
  * NAMESPACE
@@ -92,3 +73,5 @@ void UART1::enableGpioAccess(volatile uint32_t * gpio_iof_en, volatile uint32_t 
 } /* hal */
 
 } /* snowfox */
+
+#endif /* INCLUDE_SNOWFOX_HAL_SIFIVE_FE310_UART1_H_ */

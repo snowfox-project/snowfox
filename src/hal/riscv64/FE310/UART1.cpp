@@ -48,19 +48,19 @@ namespace FE310
  * CTOR/DTOR
  **************************************************************************************/
 
-UART1::UART1(volatile uint32_t * uartx_txdata,
-             volatile uint32_t * uartx_rxdata,
-             volatile uint32_t * uartx_txctrl,
-             volatile uint32_t * uartx_rxctrl,
-             volatile uint32_t * uartx_div,
+UART1::UART1(volatile uint32_t * uart1_txdata,
+             volatile uint32_t * uart1_rxdata,
+             volatile uint32_t * uart1_txctrl,
+             volatile uint32_t * uart1_rxctrl,
+             volatile uint32_t * uart1_div,
              uint32_t const      tlclk_Hz,
              volatile uint32_t * gpio_iof_en,
              volatile uint32_t * gpio_iof_sel)
-: UARTx(uartx_txdata,
-        uartx_rxdata,
-        uartx_txctrl,
-        uartx_rxctrl,
-        uartx_div,
+: UARTx(uart1_txdata,
+        uart1_rxdata,
+        uart1_txctrl,
+        uart1_rxctrl,
+        uart1_div,
         tlclk_Hz)
 {
   enableGpioAccess(gpio_iof_en, gpio_iof_sel);
