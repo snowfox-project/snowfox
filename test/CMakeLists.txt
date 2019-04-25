@@ -117,6 +117,7 @@ set(SNOWFOX_TEST_HAL_RISCV64_PATH ${SNOWFOX_TEST_HAL_PATH}/riscv64)
 ##########################################################################
 
 set(SNOWFOX_TEST_HOST_HAL_RISCV64_FE310_SRCS
+  ${SNOWFOX_TEST_HAL_RISCV64_PATH}/FE310/util/test_UartUtil.cpp
   ${SNOWFOX_TEST_HAL_RISCV64_PATH}/FE310/test_DigitalInPin.cpp
   ${SNOWFOX_TEST_HAL_RISCV64_PATH}/FE310/test_DigitalOutPin.cpp
 )

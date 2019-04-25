@@ -41,7 +41,7 @@ namespace FE310
 
 uint16_t calcUartBaudRate(uint32_t const tlclk_Hz, uint32_t const baud_rate)
 {
-  return static_cast<uint16_t>((tlclk_Hz/baud_rate) - 1);
+  return static_cast<uint16_t>((tlclk_Hz/baud_rate));
 }
 
 /**************************************************************************************
