@@ -42,120 +42,50 @@ namespace ATxxxx
 namespace test
 {
 
-/**************************************************************************************/
+/**************************************************************************************
+ * TEST CODE
+ **************************************************************************************/
 
-SCENARIO("A DigitalOutPin (Pin number #0) object is constructed for pin number #0", "[ATxxxx::DigitalOutPin]")
+SCENARIO("A ATxxxx::DigitalOutPin (Pin number #0) object is constructed", "[ATxxxx::DigitalOutPin]")
 {
   vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
                                   OUT(0b00000000, "OUT");
 
   ATxxxx::DigitalOutPin out_pin(DDR.ptr(), OUT.ptr(), 0);
 
-  WHEN("the object is newly constructed")
-  {
-    THEN("bit #0 in the DDR register should be set")
-    {
-      REQUIRE(DDR.isBitSet(0));
-    }
-    THEN("all other bits in the DDR register should be unchanged")
-    {
-      REQUIRE(DDR.isBitClr(1));
-      REQUIRE(DDR.isBitClr(2));
-      REQUIRE(DDR.isBitClr(3));
-      REQUIRE(DDR.isBitClr(4));
-      REQUIRE(DDR.isBitClr(5));
-      REQUIRE(DDR.isBitClr(6));
-      REQUIRE(DDR.isBitClr(7));
-    }
-    THEN("OUT should not change at all during this operation")
-    {
-      REQUIRE(OUT == 0b00000000);
-    }
-  }
-  WHEN("'set' is called")
-  {
+
+  THEN("DDR bit #0 should be set") { REQUIRE(DDR.isBitSet(0)); }
+  THEN("OUT bit #0 should be clr") { REQUIRE(OUT.isBitClr(0)); }
+
+  WHEN("'set' is called") {
     out_pin.set();
-
-    THEN("the corresponding bit in the OUT register should be set")
-    {
+    THEN("OUT bit #0 should be set") { 
       REQUIRE(OUT.isBitSet(0));
-    }
-  }
-  WHEN("'clr' is called")
-  {
-    THEN("the corresponding bit in the OUT register should be clr")
-    {
-      REQUIRE(OUT.isBitClr(0));
-    }
-  }
-}
-
-/**************************************************************************************/
-
-SCENARIO("A 'clr' DigitalOutPin (Pin number #0) is manipulated via 'set' and 'clr'", "[ATxxxx::DigitalOutPin]")
-{
-  vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
-                                  OUT(0b00000000, "OUT");
-
-  ATxxxx::DigitalOutPin out_pin(DDR.ptr(), OUT.ptr(), 0);
-
-  out_pin.clr();
-
-  WHEN("'set' is called")
-  {
-    out_pin.set();
-
-    THEN("the corresponding bit in the OUT register should be set")
-    {
-      REQUIRE(OUT.isBitSet(0));
+      WHEN("'clr' is called") {
+        out_pin.clr();
+        THEN("OUT bit #0 should be clr") { 
+          REQUIRE(OUT.isBitClr(0));
+        }
+      }
     }
   }
 
-  WHEN("'clr' is called")
-  {
+  WHEN("'clr' is called") {
     out_pin.clr();
-
-    THEN("the corresponding bit in the OUT register should not be set")
-    {
+    THEN("OUT bit #0 should be clr") { 
       REQUIRE(OUT.isBitClr(0));
-    }
-  }
-}
-
-/**************************************************************************************/
-
-SCENARIO("A 'set' DigitalOutPin (Pin number #0) is manipulated via 'set' and 'clr'", "[ATxxxx::DigitalOutPin]")
-{
-  vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
-                                  OUT(0b00000000, "OUT");
-
-  ATxxxx::DigitalOutPin out_pin(DDR.ptr(), OUT.ptr(), 0);
-
-  out_pin.set();
-
-  WHEN("'set' is called")
-  {
-    out_pin.set();
-
-    THEN("the corresponding bit in the OUT register should be set")
-    {
-      REQUIRE(OUT.isBitSet(0));
-    }
-  }
-
-  WHEN("'clr' is called")
-  {
-    out_pin.clr();
-
-    THEN("the corresponding bit in the OUT register should not be set")
-    {
-      REQUIRE(OUT.isBitClr(0));
+      WHEN("'set' is called") {
+        out_pin.set();
+        THEN("OUT bit #0 should be set") { 
+          REQUIRE(OUT.isBitSet(0));
+        }
+      }
     }
   }
 }
 
 /**************************************************************************************
- * TEST CODE
+ * NAMESPACE
  **************************************************************************************/
 
 } /* test */
