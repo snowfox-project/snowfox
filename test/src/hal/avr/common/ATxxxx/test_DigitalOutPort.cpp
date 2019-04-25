@@ -42,50 +42,31 @@ namespace ATxxxx
 namespace test
 {
 
-/**************************************************************************************/
+/**************************************************************************************
+ * TEST CODE
+ **************************************************************************************/
 
-SCENARIO("A DigitalOutPort object is constructed", "[ATxxxx::DigitalOutPort]")
+SCENARIO("A ATxxxx::DigitalOutPort object is constructed", "[ATxxxx::DigitalOutPort]")
 {
   vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
                                   OUT(0b00000000, "OUT");
 
   ATxxxx::DigitalOutPort out_port(DDR.ptr(), OUT.ptr());
 
-  WHEN("the object is newly constructed")
-  {
-    THEN("all bits in DDR should be set")
-    {
-      REQUIRE(DDR == 0b11111111);
-    }
-    THEN("all bits in OUT should be clr")
-    {
-      REQUIRE(OUT == 0b00000000);
-    }
-  }
-}
 
-/**************************************************************************************/
+  THEN("All DDR bits should be set") { REQUIRE(DDR == 0b11111111); }
+  THEN("All OUT bits should be clr") { REQUIRE(OUT == 0b00000000); }
 
-SCENARIO("A DigitalOutPort is manipulated via 'set'", "[ATxxxx::DigitalOutPort]")
-{
-  vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
-                                  OUT(0b00000000, "OUT");
-
-  ATxxxx::DigitalOutPort out_port(DDR.ptr(), OUT.ptr());
-
-  WHEN("'set' is called with a specific parameter")
-  {
+  WHEN("'set' is called with a specific parameter") {
     out_port.set(0b10101100);
-
-    THEN("the OUT register should take the value of the parameter of the 'set' function")
-    {
+    THEN("the OUT register should contain the value of the parameter of the 'set' function") {
       REQUIRE(OUT == 0b10101100);
     }
   }
 }
 
 /**************************************************************************************
- * TEST CODE
+ * NAMESPACE
  **************************************************************************************/
 
 } /* test */
