@@ -42,9 +42,11 @@ namespace ATxxxx
 namespace test
 {
 
-/**************************************************************************************/
+/**************************************************************************************
+ * TEST CODE
+ **************************************************************************************/
 
-SCENARIO("A DigitalInPin (Pin Number 0) object is constructed", "[ATxxxx::DigitalInPin]")
+SCENARIO("A ATxxxx::DigitalInPin (Pin Number #0) object is constructed", "[ATxxxx::DigitalInPin]")
 {
   vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
                                   OUT(0b00000000, "OUT"),
@@ -52,116 +54,44 @@ SCENARIO("A DigitalInPin (Pin Number 0) object is constructed", "[ATxxxx::Digita
 
   ATxxxx::DigitalInPin in_pin(DDR.ptr(), OUT.ptr(), PIN.ptr(), 0);
 
-  WHEN("the object is newly constructed")
-  {
-    THEN("all bits DDR should be clr")
-    {
-      REQUIRE(DDR == 0b00000000);
-    }
-    THEN("all bits in OUT should be clr")
-    {
-      REQUIRE(OUT == 0b00000000);
-    }
-    THEN("all bits in PIN should be clr")
-    {
-      REQUIRE(PIN == 0b00000000);
-    }
-  }
-}
+  THEN("DDR bit #0 should be clr") { REQUIRE(DDR.isBitClr(0)); }
+  THEN("OUT bit #0 should be clr") { REQUIRE(OUT.isBitClr(0)); }
+  THEN("PIN bit #0 should be clr") { REQUIRE(PIN.isBitClr(0)); }
 
-/**************************************************************************************/
-
-SCENARIO("A DigitalInPin (Pin Number 0) interface::PullUpMode is manipulated", "[ATxxxx::DigitalInPin]")
-{
-  vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
-                                  OUT(0b00000000, "OUT"),
-                                  PIN(0b00000000, "PIN");
-
-  ATxxxx::DigitalInPin in_pin(DDR.ptr(), OUT.ptr(), PIN.ptr(), 0);
-
-  WHEN("interface::PullUpMode 'NONE' is selected")
-  {
+  WHEN("interface::PullUpMode::NONE is selected") {
     in_pin.setPullUpMode(interface::PullUpMode::NONE);
-
-    THEN("bit #0 of OUT should be clr")
-    {
-      REQUIRE(OUT.isBitClr(0));
+    THEN("OUT bit #0 should be clr") { 
+      REQUIRE(OUT.isBitClr(0)); 
     }
   }
-  WHEN("interface::PullUpMode 'PULL_UP' is selected")
-  {
+  WHEN("interface::PullUpMode::PULL_UP is selected") {
     in_pin.setPullUpMode(interface::PullUpMode::PULL_UP);
-
-    THEN("bit #0 of OUT should be set")
-    {
-      REQUIRE(OUT.isBitSet(0));
+    THEN("OUT bit #0 should be set") { 
+      REQUIRE(OUT.isBitSet(0)); 
     }
   }
-  WHEN("interface::PullUpMode 'NONE' is selected")
-  {
+  WHEN("interface::PullUpMode::PULL_DOWN is selected") {
     in_pin.setPullUpMode(interface::PullUpMode::PULL_DOWN);
-
-    THEN("bit #0 of OUT should be (still) clr - ATMega does not support pull down")
-    {
-      REQUIRE(OUT.isBitClr(0));
+    THEN("OUT bit #0 should be clr") { 
+      REQUIRE(OUT.isBitClr(0)); 
     }
   }
-}
 
-/**************************************************************************************/
-
-SCENARIO("A 'clr' DigitalInPin (Pin Number 0) current value is retrieved vis 'isSet' and 'isClr'", "[ATxxxx::DigitalInPin]")
-{
-  vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
-                                  OUT(0b00000000, "OUT"),
-                                  PIN(0b00000000, "PIN");
-
-  ATxxxx::DigitalInPin in_pin(DDR.ptr(), OUT.ptr(), PIN.ptr(), 0);
-
-  WHEN("'isSet' is called")
-  {
-    THEN("the function call should return false")
-    {
-      REQUIRE(in_pin.isSet() == false);
-    }
+  WHEN("PIN bit #0 is = '0'") {
+    PIN.clrBit(0);
+    THEN("'isSet' return false") { REQUIRE(in_pin.isSet() == false); }
+    THEN("'isClr' return true" ) { REQUIRE(in_pin.isClr() == true ); }
   }
-  WHEN("'isClr' is called")
-  {
-    THEN("the function call should return true")
-    {
-      REQUIRE(in_pin.isClr() == true);
-    }
-  }
-}
 
-/**************************************************************************************/
-
-SCENARIO("A 'set' DigitalInPin (Pin Number 0) current value is retrieved vis 'isSet' and 'isClr'", "[ATxxxx::DigitalInPin]")
-{
-  vireg::VirtualRegister<uint8_t> DDR(0b00000000, "DDR"),
-                                  OUT(0b00000000, "OUT"),
-                                  PIN(0b00000001, "PIN");
-
-  ATxxxx::DigitalInPin in_pin(DDR.ptr(), OUT.ptr(), PIN.ptr(), 0);
-
-  WHEN("'isSet' is called")
-  {
-    THEN("the function call should return true")
-    {
-      REQUIRE(in_pin.isSet() == true);
-    }
-  }
-  WHEN("'isClr' is called")
-  {
-    THEN("the function call should return false")
-    {
-      REQUIRE(in_pin.isClr() == false);
-    }
+  WHEN("PIN bit #0 is = '1'") {
+    PIN.setBit(0);
+    THEN("'isSet' return true" ) { REQUIRE(in_pin.isSet() == true ); }
+    THEN("'isClr' return false") { REQUIRE(in_pin.isClr() == false); }
   }
 }
 
 /**************************************************************************************
- * TEST CODE
+ * NAMESPACE
  **************************************************************************************/
 
 } /* test */
