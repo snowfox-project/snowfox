@@ -61,8 +61,9 @@ SCENARIO("A FE310::UART0 object is constructed", "[FE310::UART0]")
 
   UART0 uart0(UARTx_TXDATA->ptr(), UARTx_RXDATA->ptr(), UARTx_TXCTRL->ptr(), UARTx_RXCTRL->ptr(), UARTx_DIV->ptr(), 200000000UL, GPIO_IOF_EN->ptr(), GPIO_IOF_SEL->ptr());
 
-  THEN("GPIO_IOF_EN bit #16 (UART0RX) should be set" ) { REQUIRE(GPIO_IOF_EN->isBitSet(16)); }
-  THEN("GPIO_IOF_EN bit #17 (UART0TX) should be set" ) { REQUIRE(GPIO_IOF_EN->isBitSet(17)); }
+
+  THEN("GPIO_IOF_EN  bit #16 (UART0RX) should be set") { REQUIRE(GPIO_IOF_EN->isBitSet (16)); }
+  THEN("GPIO_IOF_EN  bit #17 (UART0TX) should be set") { REQUIRE(GPIO_IOF_EN->isBitSet (17)); }
   THEN("GPIO_IOF_SEL bit #16 (UART0RX) should be clr") { REQUIRE(GPIO_IOF_SEL->isBitClr(16)); }
   THEN("GPIO_IOF_SEL bit #17 (UART0TX) should be clr") { REQUIRE(GPIO_IOF_SEL->isBitClr(17)); }
 }

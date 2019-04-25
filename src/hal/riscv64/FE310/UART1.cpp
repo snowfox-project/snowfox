@@ -41,8 +41,8 @@ namespace FE310
  * DEFINE
  **************************************************************************************/
 
-#define GPIO_IOF_SEL_UART1_RX_bp (16)
-#define GPIO_IOF_SEL_UART1_TX_bp (17)
+#define GPIO_IOF_SEL_UART1_RX_bp (18)
+#define GPIO_IOF_SEL_UART1_TX_bp (23)
 
 /**************************************************************************************
  * CTOR/DTOR

@@ -20,9 +20,12 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/hal/riscv64/FE310/UART0.h>
+#include <catch2/catch.hpp>
 
-#include <snowfox/util/BitManip.h>
+#include <snowfox/hal/riscv64/FE310/UART1.h>
+
+#include <vireg/VirtualRegister.hpp>
+#include <vireg/VirtualRegisterLoader.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -37,55 +40,39 @@ namespace hal
 namespace FE310
 {
 
-/**************************************************************************************
- * DEFINE
- **************************************************************************************/
-
-#define GPIO_IOF_SEL_UART0_RX_bp (16)
-#define GPIO_IOF_SEL_UART0_TX_bp (17)
-
-/**************************************************************************************
- * CTOR/DTOR
- **************************************************************************************/
-
-UART0::UART0(volatile uint32_t * uart0_txdata,
-             volatile uint32_t * uart0_rxdata,
-             volatile uint32_t * uart0_txctrl,
-             volatile uint32_t * uart0_rxctrl,
-             volatile uint32_t * uart0_div,
-             uint32_t const      tlclk_Hz,
-             volatile uint32_t * gpio_iof_en,
-             volatile uint32_t * gpio_iof_sel)
-: UARTx(uart0_txdata,
-        uart0_rxdata,
-        uart0_txctrl,
-        uart0_rxctrl,
-        uart0_div,
-        tlclk_Hz)
-{
-  enableGpioAccess(gpio_iof_en, gpio_iof_sel);
-}
-
-UART0::~UART0()
+namespace test
 {
 
-}
-
 /**************************************************************************************
- * PRIVATE MEMBER FUNCTIONS
+ * TEST CODE
  **************************************************************************************/
 
-void UART0::enableGpioAccess(volatile uint32_t * gpio_iof_en, volatile uint32_t * gpio_iof_sel)
+SCENARIO("A FE310::UART1 object is constructed", "[FE310::UART1]")
 {
-  util::clrBit(gpio_iof_sel, GPIO_IOF_SEL_UART0_RX_bp);
-  util::clrBit(gpio_iof_sel, GPIO_IOF_SEL_UART0_TX_bp);
-  util::setBit(gpio_iof_en,  GPIO_IOF_SEL_UART0_RX_bp);
-  util::setBit(gpio_iof_en,  GPIO_IOF_SEL_UART0_TX_bp);
+  vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/riscv64/FE310.json");
+
+  vireg::VirtReg32 UARTx_TXDATA = vregmap.get<vireg::VirtReg32>("UARTx_TXDATA");
+  vireg::VirtReg32 UARTx_RXDATA = vregmap.get<vireg::VirtReg32>("UARTx_RXDATA");
+  vireg::VirtReg32 UARTx_TXCTRL = vregmap.get<vireg::VirtReg32>("UARTx_TXCTRL");
+  vireg::VirtReg32 UARTx_RXCTRL = vregmap.get<vireg::VirtReg32>("UARTx_RXCTRL");
+  vireg::VirtReg32 UARTx_DIV    = vregmap.get<vireg::VirtReg32>("UARTx_DIV"   );
+  vireg::VirtReg32 GPIO_IOF_EN  = vregmap.get<vireg::VirtReg32>("GPIO_IOF_EN" );
+  vireg::VirtReg32 GPIO_IOF_SEL = vregmap.get<vireg::VirtReg32>("GPIO_IOF_SEL");
+
+  UART1 uart1(UARTx_TXDATA->ptr(), UARTx_RXDATA->ptr(), UARTx_TXCTRL->ptr(), UARTx_RXCTRL->ptr(), UARTx_DIV->ptr(), 200000000UL, GPIO_IOF_EN->ptr(), GPIO_IOF_SEL->ptr());
+
+
+  THEN("GPIO_IOF_EN  bit #18 (UART1RX) should be set") { REQUIRE(GPIO_IOF_EN->isBitSet (18)); }
+  THEN("GPIO_IOF_EN  bit #23 (UART1TX) should be set") { REQUIRE(GPIO_IOF_EN->isBitSet (23)); }
+  THEN("GPIO_IOF_SEL bit #18 (UART1RX) should be clr") { REQUIRE(GPIO_IOF_SEL->isBitClr(18)); }
+  THEN("GPIO_IOF_SEL bit #23 (UART1TX) should be clr") { REQUIRE(GPIO_IOF_SEL->isBitClr(23)); }
 }
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* test */
 
 } /* FE310 */
 
