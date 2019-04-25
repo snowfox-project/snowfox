@@ -54,6 +54,7 @@ SCENARIO("A ATxxxx::DigitalInPin (Pin Number #0) object is constructed", "[ATxxx
 
   ATxxxx::DigitalInPin in_pin(DDR.ptr(), OUT.ptr(), PIN.ptr(), 0);
 
+
   THEN("DDR bit #0 should be clr") { REQUIRE(DDR.isBitClr(0)); }
   THEN("OUT bit #0 should be clr") { REQUIRE(OUT.isBitClr(0)); }
   THEN("PIN bit #0 should be clr") { REQUIRE(PIN.isBitClr(0)); }
