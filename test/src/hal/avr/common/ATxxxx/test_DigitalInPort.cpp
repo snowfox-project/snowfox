@@ -59,6 +59,12 @@ SCENARIO("A ATxxxx::DigitalInPort object is constructed", "[ATxxxx::DigitalInPor
   THEN("All OUT bits should be clr") { REQUIRE(OUT == 0b00000000); }
   THEN("All PIN bits should be clr") { REQUIRE(PIN == 0b00000000); }
 
+
+  THEN("in_port.setPullUpMode(interface::PullUpMode::NONE) should be true"      ) { REQUIRE(in_port.setPullUpMode(interface::PullUpMode::NONE)      == true ); }
+  THEN("in_port.setPullUpMode(interface::PullUpMode::PULL_UP) should be true"   ) { REQUIRE(in_port.setPullUpMode(interface::PullUpMode::PULL_UP)   == true ); }
+  THEN("in_port.setPullUpMode(interface::PullUpMode::PULL_DOWN) should be false") { REQUIRE(in_port.setPullUpMode(interface::PullUpMode::PULL_DOWN) == false); }
+
+
   WHEN("interface::PullUpMode::NONE is selected") {
     in_port.setPullUpMode(interface::PullUpMode::NONE);
     THEN("All OUT bits should be clr") { 

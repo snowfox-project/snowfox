@@ -51,7 +51,7 @@ public:
   virtual ~DigitalInConfiguration() { }
 
 
-  virtual void setPullUpMode(PullUpMode const pullup_mode) = 0;
+  virtual bool setPullUpMode(PullUpMode const pullup_mode) = 0;
 
 };
 

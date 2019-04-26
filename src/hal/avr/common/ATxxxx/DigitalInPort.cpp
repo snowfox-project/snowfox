@@ -60,13 +60,14 @@ uint8_t DigitalInPort::get()
   return *_pin;
 }
 
-void DigitalInPort::setPullUpMode(interface::PullUpMode const pullup_mode)
+bool DigitalInPort::setPullUpMode(interface::PullUpMode const pullup_mode)
 {
   switch(pullup_mode)
   {
-  case interface::PullUpMode::NONE:      *_port = 0x00; break;
-  case interface::PullUpMode::PULL_UP:   *_port = 0xFF; break;
-  case interface::PullUpMode::PULL_DOWN:                break;
+  case interface::PullUpMode::NONE:      *_port = 0x00; return true;  break;
+  case interface::PullUpMode::PULL_UP:   *_port = 0xFF; return true;  break;
+  case interface::PullUpMode::PULL_DOWN:                return false; break;
+  default:                                              return false; break;
   }
 }
 

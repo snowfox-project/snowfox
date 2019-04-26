@@ -65,13 +65,14 @@ bool DigitalInPin::isSet()
   return is_set;
 }
 
-void DigitalInPin::setPullUpMode(interface::PullUpMode const pullup_mode)
+bool DigitalInPin::setPullUpMode(interface::PullUpMode const pullup_mode)
 {
   switch(pullup_mode)
   {
-  case interface::PullUpMode::NONE:      util::clrBit(_port, _in_pin_number); break;
-  case interface::PullUpMode::PULL_UP:   util::setBit(_port, _in_pin_number); break;
-  case interface::PullUpMode::PULL_DOWN:                                      break;
+  case interface::PullUpMode::NONE:      util::clrBit(_port, _in_pin_number); return true;  break;
+  case interface::PullUpMode::PULL_UP:   util::setBit(_port, _in_pin_number); return true;  break;
+  case interface::PullUpMode::PULL_DOWN:                                      return false; break;
+  default:                                                                    return false; break;
   }
 }
 

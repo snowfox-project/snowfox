@@ -65,6 +65,11 @@ SCENARIO("A FE310::DigitalInPin (Pin number #0) object is constructed", "[FE310:
   THEN("GPIO_INPUT_VAL bit #0 should be clr") { REQUIRE(GPIO_INPUT_VAL->isBitClr(0)); }
   THEN("GPIO_PUE bit #0 should be clr"      ) { REQUIRE(GPIO_PUE->isBitClr      (0)); }
 
+
+  THEN("in_pin.setPullUpMode(interface::PullUpMode::NONE) should be true"      ) { REQUIRE(in_pin.setPullUpMode(interface::PullUpMode::NONE)      == true ); }
+  THEN("in_pin.setPullUpMode(interface::PullUpMode::PULL_UP) should be true"   ) { REQUIRE(in_pin.setPullUpMode(interface::PullUpMode::PULL_UP)   == true ); }
+  THEN("in_pin.setPullUpMode(interface::PullUpMode::PULL_DOWN) should be false") { REQUIRE(in_pin.setPullUpMode(interface::PullUpMode::PULL_DOWN) == false); }
+
   WHEN("interface::PullUpMode::NONE is selected") {
     in_pin.setPullUpMode(interface::PullUpMode::NONE);
     THEN("GPIO_PUE bit #0 should be clr") { 

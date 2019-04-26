@@ -60,7 +60,7 @@ public:
 
   /* Digital In Configuration */
 
-  virtual void setPullUpMode(interface::PullUpMode const pullup_mode) override;
+  virtual bool setPullUpMode(interface::PullUpMode const pullup_mode) override;
 
 private:
 

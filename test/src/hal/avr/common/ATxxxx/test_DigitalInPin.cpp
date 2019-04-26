@@ -59,6 +59,12 @@ SCENARIO("A ATxxxx::DigitalInPin (Pin Number #0) object is constructed", "[ATxxx
   THEN("OUT bit #0 should be clr") { REQUIRE(OUT.isBitClr(0)); }
   THEN("PIN bit #0 should be clr") { REQUIRE(PIN.isBitClr(0)); }
 
+
+  THEN("in_pin.setPullUpMode(interface::PullUpMode::NONE) should be true"      ) { REQUIRE(in_pin.setPullUpMode(interface::PullUpMode::NONE)      == true ); }
+  THEN("in_pin.setPullUpMode(interface::PullUpMode::PULL_UP) should be true"   ) { REQUIRE(in_pin.setPullUpMode(interface::PullUpMode::PULL_UP)   == true ); }
+  THEN("in_pin.setPullUpMode(interface::PullUpMode::PULL_DOWN) should be false") { REQUIRE(in_pin.setPullUpMode(interface::PullUpMode::PULL_DOWN) == false); }
+
+
   WHEN("interface::PullUpMode::NONE is selected") {
     in_pin.setPullUpMode(interface::PullUpMode::NONE);
     THEN("OUT bit #0 should be clr") { 
