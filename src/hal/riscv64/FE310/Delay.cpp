@@ -36,23 +36,6 @@ namespace FE310
 {
 
 /**************************************************************************************
- * DEFINE
- **************************************************************************************/
-
-#ifdef MCU_ARCH_riscv64
-#define read_mcycle(x) {				            \
-  uint32_t lo, hi, hi2;			                \
-  __asm__ __volatile__ ("1:\n\t"		        \
-	    "csrr %0, mcycleh\n\t"                \
-	    "csrr %1, mcycle\n\t"	                \
-	    "csrr %2, mcycleh\n\t"                \
-	    "bne  %0, %2, 1b\n\t"			            \
-	    : "=r" (hi), "=r" (lo), "=r" (hi2)) ;	\
-    *(x) = lo | ((uint64_t) hi << 32); 			\
-  }
-#endif
-
-/**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
@@ -93,16 +76,30 @@ void Delay::delay_us(uint32_t const us)
 void Delay::delay_mcycle(uint64_t const num_mcycle)
 {
 #ifdef MCU_ARCH_riscv64
-  uint64_t mcycle_start = 0;
-  read_mcycle(&mcycle_start);
+  uint64_t const mcycle_start = getCycleCount();
 
   uint64_t current_num_mcycle = 0;
   while(current_num_mcycle < num_mcycle)
   {
-    uint64_t mcycle_now;
-    read_mcycle(&mcycle_now);
+    uint64_t const mcycle_now = getCycleCount();
     current_num_mcycle = mcycle_now - mcycle_start;
   }
+#endif
+}
+
+uint64_t Delay::getCycleCount()
+{
+#ifdef MCU_ARCH_riscv64
+  uint32_t lo, hi, hi2;
+  __asm__ __volatile__ ("1:\n\t"		        \
+	    "csrr %0, mcycleh\n\t"                \
+	    "csrr %1, mcycle\n\t"	                \
+	    "csrr %2, mcycleh\n\t"                \
+	    "bne  %0, %2, 1b\n\t"			            \
+	    : "=r" (hi), "=r" (lo), "=r" (hi2)) ;
+  return ((static_cast<uint64_t>(hi) << 32) | lo);
+#else
+  return 0;
 #endif
 }
 

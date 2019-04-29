@@ -57,7 +57,8 @@ public:
 
 private:
 
-  void delay_mcycle(uint64_t const num_mcycle);
+         void     delay_mcycle (uint64_t const num_mcycle);
+  static uint64_t getCycleCount();
 
 };
 
