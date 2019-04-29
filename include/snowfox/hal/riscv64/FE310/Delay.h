@@ -54,6 +54,11 @@ public:
   virtual void delay_ms(uint32_t const ms) override;
   virtual void delay_us(uint32_t const us) override;
 
+
+private:
+
+  void delay_mcycle(uint64_t const num_mcycle);
+
 };
 
 /**************************************************************************************
