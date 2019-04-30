@@ -256,6 +256,7 @@ matrix:
         - .ci/script/run-build-example.sh examples/hal/ATMEGA328P/hal-atmega328p-digital-in-port
         - .ci/script/run-build-example.sh examples/hal/ATMEGA328P/hal-atmega328p-digital-out-pin
         - .ci/script/run-build-example.sh examples/hal/ATMEGA328P/hal-atmega328p-digital-out-port
+        - .ci/script/run-build-example.sh examples/hal/FE310/hal-fe310-digital-out-pin
     # EXAMPLES/TRACE
     - env:
       - NAME="examples/trace"
