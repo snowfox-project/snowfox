@@ -16,13 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef INCLUDE_SNOWFOX_HAL_SIFIVE_FE310_UART1_H_
+#define INCLUDE_SNOWFOX_HAL_SIFIVE_FE310_UART1_H_
+
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/hal/riscv64/FE310/util/IoFuncUtil.h>
-
-#include <snowfox/util/BitManip.h>
+#include <snowfox/hal/riscv64/FE310/UARTx.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -38,28 +39,30 @@ namespace FE310
 {
 
 /**************************************************************************************
- * PUBLIC FUNCTIONS
+ * CLASS DECLARATION
  **************************************************************************************/
 
-void enableIoFunction(volatile uint32_t * gpio_iof_en, uint8_t const pin_number)
+class UART1 : public UARTx
 {
-  util::setBit(gpio_iof_en, pin_number);
-}
 
-void disableIoFunction(volatile uint32_t * gpio_iof_en, uint8_t const pin_number)
-{
-  util::clrBit(gpio_iof_en, pin_number);
-}
+public:
 
-void setIoFunction(volatile uint32_t * gpio_iof_sel, uint8_t const pin_number, IoFunc const io_func)
-{
-  switch(io_func)
-  {
-  case IoFunc::IOF0: util::clrBit(gpio_iof_sel, pin_number); break;
-  case IoFunc::IOF1: util::setBit(gpio_iof_sel, pin_number); break;
-  default          :                                         break;
-  }
-}
+
+           UART1(volatile uint32_t * uart1_txdata,
+                 volatile uint32_t * uart1_rxdata,
+                 volatile uint32_t * uart1_txctrl,
+                 volatile uint32_t * uart1_rxctrl,
+                 volatile uint32_t * uart1_div,
+                 uint32_t const      tlclk_Hz,
+                 volatile uint32_t * gpio_iof_en,
+                 volatile uint32_t * gpio_iof_sel);
+  virtual ~UART1();
+
+private:
+
+  static void enableGpioAccess(volatile uint32_t * gpio_iof_en, volatile uint32_t * gpio_iof_sel);
+
+};
 
 /**************************************************************************************
  * NAMESPACE
@@ -70,3 +73,5 @@ void setIoFunction(volatile uint32_t * gpio_iof_sel, uint8_t const pin_number, I
 } /* hal */
 
 } /* snowfox */
+
+#endif /* INCLUDE_SNOWFOX_HAL_SIFIVE_FE310_UART1_H_ */

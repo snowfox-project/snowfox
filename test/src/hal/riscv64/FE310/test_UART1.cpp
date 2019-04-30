@@ -16,14 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INTERFACE_UART_CONFIGURATION_H_
-#define INTERFACE_UART_CONFIGURATION_H_
-
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
+#include <catch2/catch.hpp>
+
+#include <snowfox/hal/riscv64/FE310/UART1.h>
+
+#include <vireg/VirtualRegister.hpp>
+#include <vireg/VirtualRegisterLoader.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -35,58 +37,45 @@ namespace snowfox
 namespace hal
 {
 
-namespace interface
+namespace FE310
+{
+
+namespace test
 {
 
 /**************************************************************************************
- * TYPEDEF
+ * TEST CODE
  **************************************************************************************/
 
-enum class UartBaudRate : uint8_t
+SCENARIO("A FE310::UART1 object is constructed", "[FE310::UART1]")
 {
-  B115200
-};
+  vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/riscv64/FE310.json");
 
-enum class UartParity : uint8_t
-{
-  None,
-  Even,
-  Odd
-};
+  vireg::VirtReg32 UARTx_TXDATA = vregmap.get<vireg::VirtReg32>("UARTx_TXDATA");
+  vireg::VirtReg32 UARTx_RXDATA = vregmap.get<vireg::VirtReg32>("UARTx_RXDATA");
+  vireg::VirtReg32 UARTx_TXCTRL = vregmap.get<vireg::VirtReg32>("UARTx_TXCTRL");
+  vireg::VirtReg32 UARTx_RXCTRL = vregmap.get<vireg::VirtReg32>("UARTx_RXCTRL");
+  vireg::VirtReg32 UARTx_DIV    = vregmap.get<vireg::VirtReg32>("UARTx_DIV"   );
+  vireg::VirtReg32 GPIO_IOF_EN  = vregmap.get<vireg::VirtReg32>("GPIO_IOF_EN" );
+  vireg::VirtReg32 GPIO_IOF_SEL = vregmap.get<vireg::VirtReg32>("GPIO_IOF_SEL");
 
-enum class UartStopBit : uint8_t
-{
-  _1,
-  _2
-};
-
-/**************************************************************************************
- * CLASS DECLARATION
- **************************************************************************************/
-
-class UartConfiguration
-{
-
-public:
-
-           UartConfiguration() { }
-  virtual ~UartConfiguration() { }
+  UART1 uart1(UARTx_TXDATA->ptr(), UARTx_RXDATA->ptr(), UARTx_TXCTRL->ptr(), UARTx_RXCTRL->ptr(), UARTx_DIV->ptr(), 200000000UL, GPIO_IOF_EN->ptr(), GPIO_IOF_SEL->ptr());
 
 
-  virtual bool setBaudRate(UartBaudRate const baud_rate) = 0;
-  virtual bool setParity  (UartParity   const parity   ) = 0;
-  virtual bool setStopBit (UartStopBit  const stop_bit ) = 0;
-  
-};
+  THEN("GPIO_IOF_EN  bit #18 (UART1RX) should be set") { REQUIRE(GPIO_IOF_EN->isBitSet (18)); }
+  THEN("GPIO_IOF_EN  bit #23 (UART1TX) should be set") { REQUIRE(GPIO_IOF_EN->isBitSet (23)); }
+  THEN("GPIO_IOF_SEL bit #18 (UART1RX) should be clr") { REQUIRE(GPIO_IOF_SEL->isBitClr(18)); }
+  THEN("GPIO_IOF_SEL bit #23 (UART1TX) should be clr") { REQUIRE(GPIO_IOF_SEL->isBitClr(23)); }
+}
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface*/
+} /* test */
+
+} /* FE310 */
 
 } /* hal */
 
 } /* snowfox */
-
-#endif /* INTERFACE_UART_CONFIGURATION_H_ */

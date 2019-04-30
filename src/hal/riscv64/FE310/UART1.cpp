@@ -16,14 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INTERFACE_UART_CONFIGURATION_H_
-#define INTERFACE_UART_CONFIGURATION_H_
-
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
+#include <snowfox/hal/riscv64/FE310/UART1.h>
+
+#include <snowfox/util/BitManip.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -35,58 +34,61 @@ namespace snowfox
 namespace hal
 {
 
-namespace interface
+namespace FE310
 {
 
 /**************************************************************************************
- * TYPEDEF
+ * DEFINE
  **************************************************************************************/
 
-enum class UartBaudRate : uint8_t
-{
-  B115200
-};
-
-enum class UartParity : uint8_t
-{
-  None,
-  Even,
-  Odd
-};
-
-enum class UartStopBit : uint8_t
-{
-  _1,
-  _2
-};
+#define GPIO_IOF_SEL_UART1_RX_bp (18)
+#define GPIO_IOF_SEL_UART1_TX_bp (23)
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class UartConfiguration
+UART1::UART1(volatile uint32_t * uart1_txdata,
+             volatile uint32_t * uart1_rxdata,
+             volatile uint32_t * uart1_txctrl,
+             volatile uint32_t * uart1_rxctrl,
+             volatile uint32_t * uart1_div,
+             uint32_t const      tlclk_Hz,
+             volatile uint32_t * gpio_iof_en,
+             volatile uint32_t * gpio_iof_sel)
+: UARTx(uart1_txdata,
+        uart1_rxdata,
+        uart1_txctrl,
+        uart1_rxctrl,
+        uart1_div,
+        tlclk_Hz)
+{
+  enableGpioAccess(gpio_iof_en, gpio_iof_sel);
+}
+
+UART1::~UART1()
 {
 
-public:
+}
 
-           UartConfiguration() { }
-  virtual ~UartConfiguration() { }
+/**************************************************************************************
+ * PRIVATE MEMBER FUNCTIONS
+ **************************************************************************************/
 
-
-  virtual bool setBaudRate(UartBaudRate const baud_rate) = 0;
-  virtual bool setParity  (UartParity   const parity   ) = 0;
-  virtual bool setStopBit (UartStopBit  const stop_bit ) = 0;
-  
-};
+void UART1::enableGpioAccess(volatile uint32_t * gpio_iof_en, volatile uint32_t * gpio_iof_sel)
+{
+  util::clrBit(gpio_iof_sel, GPIO_IOF_SEL_UART1_RX_bp);
+  util::clrBit(gpio_iof_sel, GPIO_IOF_SEL_UART1_TX_bp);
+  util::setBit(gpio_iof_en,  GPIO_IOF_SEL_UART1_RX_bp);
+  util::setBit(gpio_iof_en,  GPIO_IOF_SEL_UART1_TX_bp);
+}
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface*/
+} /* FE310 */
 
 } /* hal */
 
 } /* snowfox */
-
-#endif /* INTERFACE_UART_CONFIGURATION_H_ */

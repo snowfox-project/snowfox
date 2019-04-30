@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INTERFACE_UART_CONFIGURATION_H_
-#define INTERFACE_UART_CONFIGURATION_H_
+#ifndef INCLUDE_SNOWFOX_HAL_SIFIVE_FE310_UART0_H_
+#define INCLUDE_SNOWFOX_HAL_SIFIVE_FE310_UART0_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
+#include <snowfox/hal/riscv64/FE310/UARTx.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -35,58 +35,43 @@ namespace snowfox
 namespace hal
 {
 
-namespace interface
+namespace FE310
 {
-
-/**************************************************************************************
- * TYPEDEF
- **************************************************************************************/
-
-enum class UartBaudRate : uint8_t
-{
-  B115200
-};
-
-enum class UartParity : uint8_t
-{
-  None,
-  Even,
-  Odd
-};
-
-enum class UartStopBit : uint8_t
-{
-  _1,
-  _2
-};
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UartConfiguration
+class UART0 : public UARTx
 {
 
 public:
 
-           UartConfiguration() { }
-  virtual ~UartConfiguration() { }
 
+           UART0(volatile uint32_t * uart0_txdata,
+                 volatile uint32_t * uart0_rxdata,
+                 volatile uint32_t * uart0_txctrl,
+                 volatile uint32_t * uart0_rxctrl,
+                 volatile uint32_t * uart0_div,
+                 uint32_t const      tlclk_Hz,
+                 volatile uint32_t * gpio_iof_en,
+                 volatile uint32_t * gpio_iof_sel);
+  virtual ~UART0();
 
-  virtual bool setBaudRate(UartBaudRate const baud_rate) = 0;
-  virtual bool setParity  (UartParity   const parity   ) = 0;
-  virtual bool setStopBit (UartStopBit  const stop_bit ) = 0;
-  
+private:
+
+  static void enableGpioAccess(volatile uint32_t * gpio_iof_en, volatile uint32_t * gpio_iof_sel);
+
 };
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface*/
+} /* FE310 */
 
 } /* hal */
 
 } /* snowfox */
 
-#endif /* INTERFACE_UART_CONFIGURATION_H_ */
+#endif /* INCLUDE_SNOWFOX_HAL_SIFIVE_FE310_UART0_H_ */

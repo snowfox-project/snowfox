@@ -204,36 +204,39 @@ void UART1::disableTx()
   *_UCSR1B &= ~TXEN1_bm;
 }
 
-void UART1::setBaudRate(interface::UartBaudRate const baud_rate)
+bool UART1::setBaudRate(interface::UartBaudRate const baud_rate)
 {
   *_UCSR1A |= U2X1_bm;
 
   switch(baud_rate)
   {
-  case interface::UartBaudRate::B115200: *_UBRR1 = calcUartBaudRate(_f_cpu, 115200); break;
+  case interface::UartBaudRate::B115200: *_UBRR1 = calcUartBaudRate(_f_cpu, 115200); return true;  break;
+  default:                                                                           return false; break;
   }
 }
 
-void UART1::setParity(interface::UartParity const parity)
+bool UART1::setParity(interface::UartParity const parity)
 {
   *_UCSR1C &= ~(UPM11_bm | UPM10_bm);
 
   switch(parity)
   {
-  case interface::UartParity::None:                                  break;
-  case interface::UartParity::Even: *_UCSR1C |= UPM11_bm;            break;
-  case interface::UartParity::Odd : *_UCSR1C |= UPM11_bm | UPM10_bm; break;
+  case interface::UartParity::None:                                  return true;  break;
+  case interface::UartParity::Even: *_UCSR1C |= UPM11_bm;            return true;  break;
+  case interface::UartParity::Odd:  *_UCSR1C |= UPM11_bm | UPM10_bm; return true;  break;
+  default:                                                           return false; break;
   }
 }
 
-void UART1::setStopBit(interface::UartStopBit const stop_bit)
+bool UART1::setStopBit(interface::UartStopBit const stop_bit)
 {
   *_UCSR1C &= ~USBS1_bm;
 
   switch(stop_bit)
   {
-  case interface::UartStopBit::_1:                       break;
-  case interface::UartStopBit::_2: *_UCSR1C |= USBS1_bm; break;
+  case interface::UartStopBit::_1:                       return true;  break;
+  case interface::UartStopBit::_2: *_UCSR1C |= USBS1_bm; return true;  break;
+  default:                                               return false; break;
   }
 }
 
