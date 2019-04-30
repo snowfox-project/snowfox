@@ -45,6 +45,11 @@ Run-To-Completion event based scheduler in progress ...
 | ATMega3209                 | ...                   | atmega3209        |                                                                                                                                                                                                                                                                                                                                                                      |
 | ATMega4809                 | ...                   | atmega4809        | [Arduino Uno WiFi Rev.2](https://github.com/lxrobotics/spectre-examples/tree/master/board-schematics/mcu/arduino-uno-wifi-rev2.pdf)                                                                                                                                                                                                                                  |
 
+### SiFive (RISC-V)
+| MCU    | MCU_ARCH | MCU_TYPE  | Eval-Boards                                                                                                                 |
+|:----- :|:--------:|:---------:|:---------------------------------------------------------------------------------------------------------------------------:|
+| FE310  | riscv64  | fe310     | [HiFive 1 Rev. B](https://github.com/lxrobotics/snowfox-examples/blob/master/board-schematics/mcu/sifive-hifive1-rev-b.pdf) |
+
 ### Host (Test Build)
 | MCU                        | MCU_ARCH              | MCU_TYPE          |
 |:--------------------------:|:---------------------:|:-----------------:|
