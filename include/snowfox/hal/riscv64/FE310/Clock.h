@@ -56,11 +56,30 @@ class Clock : public interface::Clock
 
 public:
 
-           Clock();
+           Clock(volatile uint32_t * PRCI_HFXOSCCFG,
+                 volatile uint32_t * PRCI_PLLCFG,
+                 volatile uint32_t * PRCI_PLLOUTDIV,
+                 uint32_t const      hfxoscin_freq_Hz);
   virtual ~Clock();
 
 
   virtual bool setClockFreq(uint8_t const clk_id, uint32_t const clk_freq_hz) override;
+
+
+private:
+
+  volatile uint32_t * _PRCI_HFXOSCCFG,
+                    * _PRCI_PLLCFG,
+                    * _PRCI_PLLOUTDIV;
+  uint32_t const      _hfxoscin_freq_Hz;
+
+
+  static bool isValidPLLR(uint8_t const pllr);
+  static bool isValidPLLF(uint8_t const pllf);
+  static bool isValidPLLQ(uint8_t const pllq);
+  static bool setPLLR(volatile uint32_t * PRCI_PLLCFG, uint8_t const pllr);
+  static bool setPLLF(volatile uint32_t * PRCI_PLLCFG, uint8_t const pllf);
+  static bool setPLLQ(volatile uint32_t * PRCI_PLLCFG, uint8_t const pllq);
 
 };
 
