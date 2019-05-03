@@ -103,8 +103,8 @@ bool Clock::setClockFreq(uint8_t const clk_id, uint32_t const clk_freq_hz)
      *    48 <= pllout <= 384 MHz
      */
 
-    /* HiFive1 = XTAL = 16 MHz -> refr = 16 MHz / 2 = 8 MHz */
     if(!setPLLR(_PRCI_PLLCFG, 2)) return false;
+    /* HiFive1 = XTAL = 16 MHz -> refr = 16 MHz / 2 = 8 MHz */
     /* vco = refr * 50 = 400 MHz */
     if(!setPLLF(_PRCI_PLLCFG, 50)) return false;
     /* pllout = vco / 2 = 200 MHz */
