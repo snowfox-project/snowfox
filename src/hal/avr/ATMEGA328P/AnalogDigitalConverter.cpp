@@ -22,7 +22,7 @@
 
 #include <snowfox/hal/avr/ATMEGA328P/AnalogDigitalConverter.h>
 
-#include <snowfox/util/BitManip.h>
+#include <snowfox/util/BitUtil.h>
 
 #include <snowfox/cpu/avr/io/ATMEGA328P.h>
 

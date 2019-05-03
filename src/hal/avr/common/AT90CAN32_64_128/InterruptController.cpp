@@ -22,7 +22,7 @@
 
 #include <snowfox/hal/avr/common/AT90CAN32_64_128/InterruptController.h>
 
-#include <snowfox/util/BitManip.h>
+#include <snowfox/util/BitUtil.h>
 
 #include <snowfox/cpu/avr/io/common/AT90CAN32_64_128.h>
 

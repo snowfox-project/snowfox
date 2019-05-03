@@ -22,7 +22,7 @@
 
 #include <snowfox/hal/riscv64/FE310/UART0.h>
 
-#include <snowfox/util/BitManip.h>
+#include <snowfox/util/BitUtil.h>
 
 /**************************************************************************************
  * NAMESPACE

@@ -22,7 +22,7 @@
 
 #include <snowfox/hal/avr/common/ATxxxx/DigitalInPin.h>
 
-#include <snowfox/util/BitManip.h>
+#include <snowfox/util/BitUtil.h>
 
 /**************************************************************************************
  * NAMESPACE

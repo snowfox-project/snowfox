@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SNOWFOX_UTIL_BITMANIP_H_
-#define INCLUDE_SNOWFOX_UTIL_BITMANIP_H_
+#ifndef INCLUDE_SNOWFOX_UTIL_BITUTIL_H_
+#define INCLUDE_SNOWFOX_UTIL_BITUTIL_H_
 
 /**************************************************************************************
  * INCLUDE
@@ -139,4 +139,4 @@ inline bool isBitClr(volatile uint32_t * reg, uint8_t const bit_pos)
 
 } /* snowfox */
 
-#endif /* INCLUDE_SNOWFOX_UTIL_BITMANIP_H_ */
+#endif /* INCLUDE_SNOWFOX_UTIL_BITUTIL_H_ */

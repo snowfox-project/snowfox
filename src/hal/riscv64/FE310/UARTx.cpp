@@ -22,7 +22,7 @@
 
 #include <snowfox/hal/riscv64/FE310/UARTx.h>
 
-#include <snowfox/util/BitManip.h>
+#include <snowfox/util/BitUtil.h>
 
 #include <snowfox/hal/riscv64/FE310/util/UartUtil.h>
 

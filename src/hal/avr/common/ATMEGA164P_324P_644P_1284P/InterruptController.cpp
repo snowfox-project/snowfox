@@ -22,7 +22,7 @@
 
 #include <snowfox/hal/avr/common/ATMEGA164P_324P_644P_1284P/InterruptController.h>
 
-#include <snowfox/util/BitManip.h>
+#include <snowfox/util/BitUtil.h>
 
 #include <snowfox/cpu/avr/io/common/ATMEGA164P_324P_644P_1284P.h>
 
