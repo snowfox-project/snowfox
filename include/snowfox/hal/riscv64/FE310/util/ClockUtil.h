@@ -24,6 +24,7 @@
  **************************************************************************************/
 
 #include <stdint.h>
+#include <stdbool.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,7 +43,13 @@ namespace FE310
  * PROTOTYPES
  **************************************************************************************/
 
-void findPllParam(uint32_t const pllref_Hz, uint32_t const pllout_Hz, uint8_t & r, uint8_t & f, uint8_t & q);
+bool findPllParam(uint32_t const pllref_Hz, uint32_t const pllout_Hz, uint8_t & r, uint8_t & f, uint8_t & q);
+bool isValidPLLR (uint8_t const pllr);
+bool isValidPLLF (uint8_t const pllf);
+bool isValidPLLQ (uint8_t const pllq);
+bool setPLLR     (volatile uint32_t * PRCI_PLLCFG, uint8_t const pllr);
+bool setPLLF     (volatile uint32_t * PRCI_PLLCFG, uint8_t const pllf);
+bool setPLLQ     (volatile uint32_t * PRCI_PLLCFG, uint8_t const pllq);
 
 /**************************************************************************************
  * NAMESPACE

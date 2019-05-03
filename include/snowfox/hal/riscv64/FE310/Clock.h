@@ -73,14 +73,6 @@ private:
                     * _PRCI_PLLOUTDIV;
   uint32_t const      _hfxoscin_freq_Hz;
 
-
-  static bool isValidPLLR(uint8_t const pllr);
-  static bool isValidPLLF(uint8_t const pllf);
-  static bool isValidPLLQ(uint8_t const pllq);
-  static bool setPLLR(volatile uint32_t * PRCI_PLLCFG, uint8_t const pllr);
-  static bool setPLLF(volatile uint32_t * PRCI_PLLCFG, uint8_t const pllf);
-  static bool setPLLQ(volatile uint32_t * PRCI_PLLCFG, uint8_t const pllq);
-
 };
 
 /**************************************************************************************

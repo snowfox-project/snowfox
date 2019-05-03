@@ -36,12 +36,85 @@ namespace FE310
 {
 
 /**************************************************************************************
+ * DEFINE
+ **************************************************************************************/
+
+/* PRCI_PLLCFG */
+#define PRCI_PLLCFG_PLLQ_bm ((0x03) << 10)
+#define PRCI_PLLCFG_PLLF_bm ((0x3F) << 4)
+#define PRCI_PLLCFG_PLLR_bm ((0x03) << 0)
+
+/**************************************************************************************
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-void findPllParam(uint32_t const pllref_Hz, uint32_t const pllout_Hz, uint8_t & r, uint8_t & f, uint8_t & q)
+bool findPllParam(uint32_t const pllref_Hz, uint32_t const pllout_Hz, uint8_t & r, uint8_t & f, uint8_t & q)
 {
   
+}
+
+bool isValidPLLR(uint8_t const pllr)
+{
+  return ((pllr >= 1) && (pllr <= 4));
+}
+
+bool isValidPLLF(uint8_t const pllf)
+{
+  return ((pllf >= 2) && (pllf <= 128));
+}
+
+bool isValidPLLQ(uint8_t const pllq)
+{
+  return ((pllq == 2) || (pllq == 4) || (pllq == 8));
+}
+
+bool setPLLR(volatile uint32_t * PRCI_PLLCFG, uint8_t const pllr)
+{
+  if(isValidPLLR(pllr))
+  {
+    uint32_t const pllr_val = static_cast<uint32_t>(pllr & 0x07);
+    *PRCI_PLLCFG &= ~PRCI_PLLCFG_PLLR_bm;
+    *PRCI_PLLCFG |= (pllr_val << 0);
+    return true;
+  }
+  else 
+  {
+    return false;
+  }
+}
+
+bool setPLLF(volatile uint32_t * PRCI_PLLCFG, uint8_t const pllf)
+{
+  if(isValidPLLF(pllf))
+  {
+    uint32_t const pllf_val = static_cast<uint32_t>((pllf & 0x7F) >> 1);
+    *PRCI_PLLCFG &= ~PRCI_PLLCFG_PLLF_bm;
+    *PRCI_PLLCFG |= (pllf_val << 4);
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+
+bool setPLLQ(volatile uint32_t * PRCI_PLLCFG, uint8_t const pllq)
+{
+  if(isValidPLLQ(pllq))
+  {
+    *PRCI_PLLCFG &= ~PRCI_PLLCFG_PLLQ_bm;
+    switch(pllq)
+    {
+      case 2: *PRCI_PLLCFG |= ((0x01) << 10); break;
+      case 4: *PRCI_PLLCFG |= ((0x02) << 10); break;
+      case 8: *PRCI_PLLCFG |= ((0x03) << 10); break;
+    }
+    return true;
+  }
+  else
+  {
+    return false;
+  }
 }
 
 /**************************************************************************************

@@ -22,6 +22,8 @@
 
 #include <snowfox/hal/riscv64/FE310/Clock.h>
 
+#include <snowfox/hal/riscv64/FE310/util/ClockUtil.h>
+
 #include <snowfox/util/BitManip.h>
 
 /**************************************************************************************
@@ -124,74 +126,6 @@ bool Clock::setClockFreq(uint8_t const clk_id, uint32_t const clk_freq_hz)
   }
 
   return false;
-}
-
-/**************************************************************************************
- * PRIVATE MEMBER FUNCTIONS
- **************************************************************************************/
-
-bool Clock::isValidPLLR(uint8_t const pllr)
-{
-  return ((pllr >= 1) && (pllr <= 4));
-}
-
-bool Clock::isValidPLLF(uint8_t const pllf)
-{
-  return ((pllf >= 2) && (pllf <= 128));
-}
-
-bool Clock::isValidPLLQ(uint8_t const pllq)
-{
-  return ((pllq == 2) || (pllq == 4) || (pllq == 8));
-}
-
-bool Clock::setPLLR(volatile uint32_t * PRCI_PLLCFG, uint8_t const pllr)
-{
-  if(isValidPLLR(pllr))
-  {
-    uint32_t const pllr_val = static_cast<uint32_t>(pllr & 0x07);
-    *PRCI_PLLCFG &= ~PRCI_PLLCFG_PLLR_bm;
-    *PRCI_PLLCFG |= (pllr_val << 0);
-    return true;
-  }
-  else 
-  {
-    return false;
-  }
-}
-
-bool Clock::setPLLF(volatile uint32_t * PRCI_PLLCFG, uint8_t const pllf)
-{
-  if(isValidPLLF(pllf))
-  {
-    uint32_t const pllf_val = static_cast<uint32_t>((pllf & 0x7F) >> 1);
-    *PRCI_PLLCFG &= ~PRCI_PLLCFG_PLLF_bm;
-    *PRCI_PLLCFG |= (pllf_val << 4);
-    return true;
-  }
-  else
-  {
-    return false;
-  }
-}
-
-bool Clock::setPLLQ(volatile uint32_t * PRCI_PLLCFG, uint8_t const pllq)
-{
-  if(isValidPLLQ(pllq))
-  {
-    *PRCI_PLLCFG &= ~PRCI_PLLCFG_PLLQ_bm;
-    switch(pllq)
-    {
-      case 2: *PRCI_PLLCFG |= ((0x01) << 10); break;
-      case 4: *PRCI_PLLCFG |= ((0x02) << 10); break;
-      case 8: *PRCI_PLLCFG |= ((0x03) << 10); break;
-    }
-    return true;
-  }
-  else
-  {
-    return false;
-  }
 }
 
 /**************************************************************************************
