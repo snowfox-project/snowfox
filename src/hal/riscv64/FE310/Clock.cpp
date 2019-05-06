@@ -64,13 +64,13 @@ namespace FE310
  * CTOR/DTOR
  **************************************************************************************/
 
-Clock::Clock(volatile uint32_t * PRCI_HFXOSCCFG,
-             volatile uint32_t * PRCI_PLLCFG,
-             volatile uint32_t * PRCI_PLLOUTDIV,
+Clock::Clock(volatile uint32_t * prci_hfxosccfg,
+             volatile uint32_t * prci_pllcfg,
+             volatile uint32_t * prci_plloutdiv,
              uint32_t const      hfxoscin_freq_Hz)
-: _PRCI_HFXOSCCFG  (PRCI_HFXOSCCFG  ),
-  _PRCI_PLLCFG     (PRCI_PLLCFG     ),
-  _PRCI_PLLOUTDIV  (PRCI_PLLOUTDIV  ),
+: _PRCI_HFXOSCCFG  (prci_hfxosccfg  ),
+  _PRCI_PLLCFG     (prci_pllcfg     ),
+  _PRCI_PLLOUTDIV  (prci_plloutdiv  ),
   _hfxoscin_freq_Hz(hfxoscin_freq_Hz)
 {
 

@@ -56,9 +56,9 @@ class Clock : public interface::Clock
 
 public:
 
-           Clock(volatile uint32_t * PRCI_HFXOSCCFG,
-                 volatile uint32_t * PRCI_PLLCFG,
-                 volatile uint32_t * PRCI_PLLOUTDIV,
+           Clock(volatile uint32_t * prci_hfxosccfg,
+                 volatile uint32_t * prci_pllcfg,
+                 volatile uint32_t * prci_plloutdiv,
                  uint32_t const      hfxoscin_freq_Hz);
   virtual ~Clock();
 
