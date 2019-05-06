@@ -112,6 +112,13 @@ sudo apt-get install cmake
 sudo apt-get install avr-libc binutils-avr gcc-avr avrdude
 ```
 **Tip:** Get the latest version of avr-gcc by [cross compiling](https://github.com/lxrobotics/spectre/wiki/%5BCross-Compiler%5D-AVR-GCC) from source.
+* **RISCV64 (SiFive)**
+```
+cd /opt
+sudo wget https://static.dev.sifive.com/dev-tools/riscv64-unknown-elf-gcc-8.2.0-2019.02.0-x86_64-linux-ubuntu14.tar.gz
+sudo tar -xzvf riscv64-unknown-elf-gcc-8.2.0-2019.02.0-x86_64-linux-ubuntu14.tar.gz
+export PATH=$PATH:/opt/riscv64-unknown-elf-gcc-8.2.0-2019.02.0-x86_64-linux-ubuntu14/bin
+```
 ### Clone repository
 ```
 git clone https://github.com/lxrobotics/spectre.git
