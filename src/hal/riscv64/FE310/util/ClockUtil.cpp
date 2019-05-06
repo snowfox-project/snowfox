@@ -50,7 +50,16 @@ namespace FE310
 
 bool findPllParam(uint32_t const pllref_Hz, uint32_t const pllout_Hz, uint8_t & r, uint8_t & f, uint8_t & q)
 {
-  
+  /* FIXME - Function only supported for HiFive1 board */
+  if((pllref_Hz == 16000000UL) && (pllout_Hz == 200000000UL))
+  {
+    r = 2;  /* refr = pllref / r = XTAL (16 MHz) / 2 = 8 MHz */
+    f = 50; /* vco = refr * f = 8 MHz * 50 = 400 MHz         */
+    q = 2;  /* pllout = vco / q = 400 MHz / 2 = 200 MHz      */
+    return true;
+  }
+
+  return false;
 }
 
 bool isValidPLLR(uint8_t const pllr)

@@ -104,13 +104,12 @@ bool Clock::setClockFreq(uint8_t const clk_id, uint32_t const clk_freq_hz)
      *  pllout = vco / PLLQ {2,4,8}
      *    48 <= pllout <= 384 MHz
      */
+    uint8_t r = 0, f = 0, q = 0;
+    if(!findPllParam(16000000UL, clk_freq_hz, r, f, q)) return false;
 
-    if(!setPLLR(_PRCI_PLLCFG, 2)) return false;
-    /* HiFive1 = XTAL = 16 MHz -> refr = 16 MHz / 2 = 8 MHz */
-    /* vco = refr * 50 = 400 MHz */
-    if(!setPLLF(_PRCI_PLLCFG, 50)) return false;
-    /* pllout = vco / 2 = 200 MHz */
-    if(!setPLLQ(_PRCI_PLLCFG, 2)) return false;
+    if(!setPLLR(_PRCI_PLLCFG, r)) return false;
+    if(!setPLLF(_PRCI_PLLCFG, f)) return false;
+    if(!setPLLQ(_PRCI_PLLCFG, q)) return false;
 
     /* Wait for PLL to achieve a lock */
     while(!util::isBitSet(_PRCI_PLLCFG, PRCI_PLLCFG_PLLLOCK_bp)) { }
