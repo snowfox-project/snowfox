@@ -45,6 +45,13 @@ namespace FE310
 #define GPIO0_IOF_EN     (*((volatile uint32_t *)(GPIO0_BASE + 0x38)))
 #define GPIO0_IOF_SEL    (*((volatile uint32_t *)(GPIO0_BASE + 0x3C)))
 
+#define PRCI_BASE        (0x10008000)
+#define PRCI_HFROSCCFG   (*((volatile uint32_t *)(PRCI_BASE + 0x00)))
+#define PRCI_HFXOSCCFG   (*((volatile uint32_t *)(PRCI_BASE + 0x04)))
+#define PRCI_PLLCFG      (*((volatile uint32_t *)(PRCI_BASE + 0x08)))
+#define PRCI_PLLOUTDIV   (*((volatile uint32_t *)(PRCI_BASE + 0x0C)))
+#define PRCI_PROCMONCFG  (*((volatile uint32_t *)(PRCI_BASE + 0xF0)))
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
