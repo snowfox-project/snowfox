@@ -44,12 +44,31 @@ namespace test
  * TEST CODE
  **************************************************************************************/
 
+SCENARIO("A FE310::ClockUtil module function 'isValidPLLR' is tested", "[FE310::ClockUtil::isValidPLLR]")
+{
+  /* All valid Inputs */
+  WHEN("'pllr' = 1") THEN("'isValidPLLR' should return true") REQUIRE(isValidPLLR(1) == true );
+  WHEN("'pllr' = 2") THEN("'isValidPLLR' should return true") REQUIRE(isValidPLLR(2) == true );
+  WHEN("'pllr' = 3") THEN("'isValidPLLR' should return true") REQUIRE(isValidPLLR(3) == true );
+  WHEN("'pllr' = 4") THEN("'isValidPLLR' should return true") REQUIRE(isValidPLLR(4) == true );
+  /* All invalid inputs */
+  for(uint16_t pllr = 0; pllr < 256; pllr++)
+  {
+    if(pllr != 1 || pllr != 2 || pllr != 3 || pllr != 4)
+    {
+      WHEN("'pllr' != 1,2,3,4")
+        THEN("'isValidPLLR' should return false")
+          REQUIRE(isValidPLLR(static_cast<uint8_t>(pllr)) == false);
+    }
+  }
+}
+
 SCENARIO("A FE310::ClockUtil module function 'isValidPLLQ' is tested", "[FE310::ClockUtil::isValidPLLQ]")
 {
   /* All valid Inputs */
-  WHEN("'pllq' = 2") THEN("'isValidPLLQ' should return false") REQUIRE(isValidPLLQ(2) == true );
-  WHEN("'pllq' = 4") THEN("'isValidPLLQ' should return false") REQUIRE(isValidPLLQ(4) == true );
-  WHEN("'pllq' = 8") THEN("'isValidPLLQ' should return false") REQUIRE(isValidPLLQ(8) == true );
+  WHEN("'pllq' = 2") THEN("'isValidPLLQ' should return true") REQUIRE(isValidPLLQ(2) == true );
+  WHEN("'pllq' = 4") THEN("'isValidPLLQ' should return true") REQUIRE(isValidPLLQ(4) == true );
+  WHEN("'pllq' = 8") THEN("'isValidPLLQ' should return true") REQUIRE(isValidPLLQ(8) == true );
   /* All invalid inputs */
   for(uint16_t pllq = 0; pllq < 256; pllq++)
   {
