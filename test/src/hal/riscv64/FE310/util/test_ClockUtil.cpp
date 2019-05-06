@@ -55,11 +55,24 @@ SCENARIO("A FE310::ClockUtil module function 'isValidPLLR' is tested", "[FE310::
   for(uint16_t pllr = 0; pllr < 256; pllr++)
   {
     if(pllr != 1 || pllr != 2 || pllr != 3 || pllr != 4)
-    {
       WHEN("'pllr' != 1,2,3,4")
         THEN("'isValidPLLR' should return false")
           REQUIRE(isValidPLLR(static_cast<uint8_t>(pllr)) == false);
-    }
+  }
+}
+
+SCENARIO("A FE310::ClockUtil module function 'isValidPLLF' is tested", "[FE310::ClockUtil::isValidPLLF]")
+{
+  for(uint16_t pllf = 0; pllf < 256; pllf++)
+  {
+    if(pllf < 1 || pllf > 129)
+      WHEN("'pllf' < 1 || 'pllf' > 129")
+        THEN("'isValidPLLF' should return false")
+          REQUIRE(isValidPLLF(static_cast<uint8_t>(pllf)) == false);
+    else
+      WHEN("'pllf' > 1 && 'pllf' < 129")
+        THEN("'isValidPLLF' should return true")
+          REQUIRE(isValidPLLF(static_cast<uint8_t>(pllf)) == true);
   }
 }
 
@@ -73,11 +86,9 @@ SCENARIO("A FE310::ClockUtil module function 'isValidPLLQ' is tested", "[FE310::
   for(uint16_t pllq = 0; pllq < 256; pllq++)
   {
     if(pllq != 2 || pllq != 4 || pllq != 8)
-    {
       WHEN("'pllq' != 2,4,8")
         THEN("'isValidPLLQ' should return false")
           REQUIRE(isValidPLLQ(static_cast<uint8_t>(pllq)) == false);
-    }
   }
 }
 
