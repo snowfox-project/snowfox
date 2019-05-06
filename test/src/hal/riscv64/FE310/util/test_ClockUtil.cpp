@@ -44,6 +44,20 @@ namespace test
  * TEST CODE
  **************************************************************************************/
 
+SCENARIO("A FE310::ClockUtil module function 'findPllParam' is tested", "[FE310::ClockUtil::findPllParam]")
+{
+  WHEN("pllref_Hz = 16MHz and pllout_Hz = 200MHz") {
+    uint8_t r = 0, f = 0, q = 0;
+    THEN("'findPllParam' should return true") {
+      REQUIRE(findPllParam(16000000UL, 200000000UL, r, f, q) == true);
+
+      THEN("R should be 2")  REQUIRE(r == 2);
+      THEN("F should be 50") REQUIRE(f == 50);
+      THEN("Q should be 2")  REQUIRE(q == 2);
+    } 
+  }
+}
+
 SCENARIO("A FE310::ClockUtil module function 'isValidPLLR' is tested", "[FE310::ClockUtil::isValidPLLR]")
 {
   /* All valid Inputs */
