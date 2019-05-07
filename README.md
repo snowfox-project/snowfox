@@ -2,7 +2,7 @@ Snowfox = OS + HAL + IO + COMSTACK + CI + C++
 =============================================
 [![GPLv3 License](.ci/badge/license-gplv3-blue.svg)](LICENSE)
 [![Build Status](https://travis-ci.org/lxrobotics/snowfox.svg?branch=master)](https://travis-ci.org/lxrobotics/snowfox)
-[![Code Coverage](https://codecov.io/gh/lxrobotics/snowfox/branch/master/graph/badge.svg)](https://codecov.io/gh/lxrobotics/snowfox)
+[![Code Coverage](https://codecov.io/gh/snowfox-project/snowfox/branch/master/graph/badge.svg)](https://codecov.io/gh/snowfox-project/snowfox)
 [![Wiki](.ci/badge/docu-wiki-brightgreen.svg)](https://github.com/snowfox-project/snowfox/wiki)
 
 <p align="center"> 
