@@ -3,7 +3,7 @@ Snowfox = OS + HAL + IO + COMSTACK + CI + C++
 [![GPLv3 License](.ci/badge/license-gplv3-blue.svg)](LICENSE)
 [![Build Status](https://travis-ci.org/lxrobotics/snowfox.svg?branch=master)](https://travis-ci.org/lxrobotics/snowfox)
 [![Code Coverage](https://codecov.io/gh/lxrobotics/snowfox/branch/master/graph/badge.svg)](https://codecov.io/gh/lxrobotics/snowfox)
-[![Wiki](.ci/badge/docu-wiki-brightgreen.svg)](https://github.com/lxrobotics/snowfox/wiki)
+[![Wiki](.ci/badge/docu-wiki-brightgreen.svg)](https://github.com/snowfox-project/snowfox/wiki)
 
 <p align="center"> 
 <img src=".ci/logo/snowfox-os-logo.jpg">
@@ -27,28 +27,28 @@ Run-To-Completion event based scheduler in progress ...
 
 ## Hardware Abstraction Layers
 ### Atmel/Microchip
-| MCU                        | MCU_ARCH              | MCU_TYPE          | Eval-Boards                                                                                                                                                                                                                                                                                                                                                          |
-|:--------------------------:|:---------------------:|:-----------------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
-| AT90CAN32                  | avr                   | at90can32         |                                                                                                                                                                                                                                                                                                                                                                      |
-| AT90CAN64                  | ...                   | at90can64         |                                                                                                                                                                                                                                                                                                                                                                      |
-| AT90CAN128                 | ...                   | at90can128        | [Olimex AVR-CAN](https://github.com/lxrobotics/snowfox-examples/blob/master/board-schematics/mcu/olimex-avr-can.pdf), [AL-ERAM128 V2.0](https://github.com/lxrobotics/snowfox-examples/blob/master/board-schematics/mcu/alvidi-eram128-can.pdf)                                                                                                                      |
-| ATMega640                  | ...                   | atmega640         |                                                                                                                                                                                                                                                                                                                                                                      |
-| ATMega1280                 | ...                   | atmega1280        |                                                                                                                                                                                                                                                                                                                                                                      |
-| ATMega2560                 | ...                   | atmega2560        | [Arduino Mega](https://github.com/lxrobotics/snowfox-examples/blob/master/board-schematics/mcu/arduino-mega.pdf), [Controllino Mega](https://github.com/lxrobotics/snowfox-examples/blob/master/board-schematics/mcu/controllino-mega.pdf), [Controllino Maxi](https://github.com/lxrobotics/snowfox-examples/blob/master/board-schematics/mcu/controllino-maxi.pdf) |
-| ATMega164P                 | ...                   | atmega164p        |                                                                                                                                                                                                                                                                                                                                                                      |
-| ATMega324P                 | ...                   | atmega324p        |                                                                                                                                                                                                                                                                                                                                                                      |
-| ATMega644P                 | ...                   | atmega644p        |                                                                                                                                                                                                                                                                                                                                                                      |
-| ATMega1284P                | ...                   | atmega1284p       | [Moteino Mega USB](https://github.com/lxrobotics/snowfox-examples/blob/master/board-schematics/io/low-power-lab-moteino-mega-lora-usb.png)                                                                                                                                                                                                                           |
-| ATMega328P                 | ...                   | atmega328p        | [Arduino Uno](https://github.com/lxrobotics/snowfox-examples/blob/master/board-schematics/mcu/arduino-uno.pdf), [Controllino Mini](https://github.com/lxrobotics/snowfox-examples/blob/master/board-schematics/mcu/controllino-mini.pdf)                                                                                                                             |
-| ATMega16U4                 | ...                   | atmega16u4        |                                                                                                                                                                                                                                                                                                                                                                      |
-| ATMega32U4                 | ...                   | atmega32u4        | [Arduino Leonardo](https://github.com/lxrobotics/snowfox-examples/blob/master/board-schematics/mcu/arduino-leonardo.pdf)                                                                                                                                                                                                                                             |
-| ATMega3209                 | ...                   | atmega3209        |                                                                                                                                                                                                                                                                                                                                                                      |
-| ATMega4809                 | ...                   | atmega4809        | [Arduino Uno WiFi Rev.2](https://github.com/lxrobotics/snowfox-examples/blob/master/board-schematics/mcu/arduino-uno-wifi-rev2.pdf)                                                                                                                                                                                                                                  |
+| MCU                        | MCU_ARCH              | MCU_TYPE          | Eval-Boards                                                                                                                                                                                                                                                                                                                                                                         |
+|:--------------------------:|:---------------------:|:-----------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| AT90CAN32                  | avr                   | at90can32         |                                                                                                                                                                                                                                                                                                                                                                                     |
+| AT90CAN64                  | ...                   | at90can64         |                                                                                                                                                                                                                                                                                                                                                                                     |
+| AT90CAN128                 | ...                   | at90can128        | [Olimex AVR-CAN](https://github.com/snowfox-project/snowfox-examples/blob/master/board-schematics/mcu/olimex-avr-can.pdf), [AL-ERAM128 V2.0](https://github.com/snowfox-project/snowfox-examples/blob/master/board-schematics/mcu/alvidi-eram128-can.pdf)                                                                                                                           |
+| ATMega640                  | ...                   | atmega640         |                                                                                                                                                                                                                                                                                                                                                                                     |
+| ATMega1280                 | ...                   | atmega1280        |                                                                                                                                                                                                                                                                                                                                                                                     |
+| ATMega2560                 | ...                   | atmega2560        | [Arduino Mega](https://github.com/snowfox-project/snowfox-examples/blob/master/board-schematics/mcu/arduino-mega.pdf), [Controllino Mega](https://github.com/snowfox-project/snowfox-examples/blob/master/board-schematics/mcu/controllino-mega.pdf), [Controllino Maxi](https://github.com/snowfox-project/snowfox-examples/blob/master/board-schematics/mcu/controllino-maxi.pdf) |
+| ATMega164P                 | ...                   | atmega164p        |                                                                                                                                                                                                                                                                                                                                                                                     |
+| ATMega324P                 | ...                   | atmega324p        |                                                                                                                                                                                                                                                                                                                                                                                     |
+| ATMega644P                 | ...                   | atmega644p        |                                                                                                                                                                                                                                                                                                                                                                                     |
+| ATMega1284P                | ...                   | atmega1284p       | [Moteino Mega USB](https://github.com/snowfox-project/snowfox-examples/blob/master/board-schematics/io/low-power-lab-moteino-mega-lora-usb.png)                                                                                                                                                                                                                                     |
+| ATMega328P                 | ...                   | atmega328p        | [Arduino Uno](https://github.com/snowfox-project/snowfox-examples/blob/master/board-schematics/mcu/arduino-uno.pdf), [Controllino Mini](https://github.com/snowfox-project/snowfox-examples/blob/master/board-schematics/mcu/controllino-mini.pdf)                                                                                                                                  |
+| ATMega16U4                 | ...                   | atmega16u4        |                                                                                                                                                                                                                                                                                                                                                                                     |
+| ATMega32U4                 | ...                   | atmega32u4        | [Arduino Leonardo](https://github.com/snowfox-project/snowfox-examples/blob/master/board-schematics/mcu/arduino-leonardo.pdf)                                                                                                                                                                                                                                                       |
+| ATMega3209                 | ...                   | atmega3209        |                                                                                                                                                                                                                                                                                                                                                                                     |
+| ATMega4809                 | ...                   | atmega4809        | [Arduino Uno WiFi Rev.2](https://github.com/snowfox-project/snowfox-examples/blob/master/board-schematics/mcu/arduino-uno-wifi-rev2.pdf)                                                                                                                                                                                                                                            |
 
 ### SiFive (RISC-V)
-| MCU    | MCU_ARCH | MCU_TYPE  | Eval-Boards                                                                                                                 |
-|:------:|:--------:|:---------:|:---------------------------------------------------------------------------------------------------------------------------:|
-| FE310  | riscv64  | fe310     | [HiFive 1 Rev. B](https://github.com/lxrobotics/snowfox-examples/blob/master/board-schematics/mcu/sifive-hifive1-rev-b.pdf) |
+| MCU    | MCU_ARCH | MCU_TYPE  | Eval-Boards                                                                                                                      |
+|:------:|:--------:|:---------:|:--------------------------------------------------------------------------------------------------------------------------------:|
+| FE310  | riscv64  | fe310     | [HiFive 1 Rev. B](https://github.com/snowfox-project/snowfox-examples/blob/master/board-schematics/mcu/sifive-hifive1-rev-b.pdf) |
 
 ### Host (Test Build)
 | MCU                        | MCU_ARCH              | MCU_TYPE          |
@@ -58,7 +58,7 @@ Run-To-Completion event based scheduler in progress ...
 
 ## I/O Device Drivers
 #### [/driver/can](include/spectre/driver/can) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/can)
-* **MCP2515** (CAN Controller) ([Seedstudio CAN Shield V2.0](https://github.com/lxrobotics/snowfox-examples/blob/master/board-schematics/io/seedstudio-can-shield-v-2-0.pdf))
+* **MCP2515** (CAN Controller) ([Seedstudio CAN Shield V2.0](https://github.com/snowfox-project/snowfox-examples/blob/master/board-schematics/io/seedstudio-can-shield-v-2-0.pdf))
 
 #### [/driver/glcd](include/spectre/driver/glcd) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/glcd)
 * **RA6963** (GLCD Controller)
@@ -72,7 +72,7 @@ Run-To-Completion event based scheduler in progress ...
 * **PCA9547** (8-channel I2C-Bus multiplexer)
 
 #### [/driver/lora](include/spectre/driver/lora) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/lora)
-* **RFM9x** (HopeRF RFM95/96/97/98 Low Power Long Range Transceiver Module) ([Dragino LoRa Shield V1.4](https://github.com/lxrobotics/snowfox-examples/blob/master/board-schematics/io/dragino-lora-shield-v-1-4.png), [Moteino Mega USB](https://github.com/lxrobotics/snowfox-examples/blob/master/board-schematics/io/low-power-lab-moteino-mega-lora-usb.png))
+* **RFM9x** (HopeRF RFM95/96/97/98 Low Power Long Range Transceiver Module) ([Dragino LoRa Shield V1.4](https://github.com/snowfox-project/snowfox-examples/blob/master/board-schematics/io/dragino-lora-shield-v-1-4.png), [Moteino Mega USB](https://github.com/snowfox-project/snowfox-examples/blob/master/board-schematics/io/low-power-lab-moteino-mega-lora-usb.png))
 
 #### [/driver/memory](include/spectre/driver/memory) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/memory)
 * **AT45DBx** (SPI Data Flash)
@@ -92,7 +92,7 @@ Run-To-Completion event based scheduler in progress ...
 * **UART** (Serial UART Driver)
 
 #### [/driver/stepper](include/spectre/driver/stepper) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/stepper)
-* **TMC26x** (Trinamic TMC26x configurable stepper driver) ([Trinamic TOS-100 TMC-26x Shield](https://github.com/lxrobotics/snowfox-examples/blob/master/board-schematics/io/trinamic-tmc26x-shield.pdf))
+* **TMC26x** (Trinamic TMC26x configurable stepper driver) ([Trinamic TOS-100 TMC-26x Shield](https://github.com/snowfox-project/snowfox-examples/blob/master/board-schematics/io/trinamic-tmc26x-shield.pdf))
 
 #### [/driver/tlcd](include/spectre/driver/tlcd)
 * **HD44780** (Dot Matrix LCD Controller/Driver)
@@ -111,7 +111,7 @@ sudo apt-get install cmake
 ```
 sudo apt-get install avr-libc binutils-avr gcc-avr avrdude
 ```
-**Tip:** Get the latest version of avr-gcc by [cross compiling](https://github.com/lxrobotics/spectre/wiki/%5BCross-Compiler%5D-AVR-GCC) from source.
+**Tip:** Get the latest version of avr-gcc by [cross compiling](https://github.com/snowfox-project/spectre/wiki/%5BCross-Compiler%5D-AVR-GCC) from source.
 * **RISCV64 (SiFive)**
 ```
 cd /opt
@@ -121,7 +121,7 @@ export PATH=$PATH:/opt/riscv64-unknown-elf-gcc-8.2.0-2019.02.0-x86_64-linux-ubun
 ```
 ### Clone repository
 ```
-git clone https://github.com/lxrobotics/spectre.git
+git clone https://github.com/snowfox-project/spectre.git
 cd spectre
 ```
 
@@ -177,7 +177,7 @@ As an alternative, Snowfox can be made available under a commercial license. Und
 | Do I have to open my source code?                                   | yes               | no                 |
 | Do I have to open source my changes to Snowfox?                     | yes               | no                 |
 | Do I have to offer the Snowfox source code to users of my product?  | yes               | no                 |
-| Do I have to document that my product uses Snowfox?	                | yes               | no                 |
+| Do I have to document that my product uses Snowfox?	              | yes               | no                 |
 | Can I redistribute Snowfox in source code format?                   | yes               | no                 |
 | Can I receive professional technical support on a commercial basis? | no                | yes                |
 
