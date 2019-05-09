@@ -52,6 +52,15 @@ void doTestEnableDisableInterrupt(interface::InterruptController       & int_ctr
                                   vireg::VirtualRegister<uint8_t>                    & int_mask_reg,               /* EIMSK                                                                  */
                                   uint8_t                        const   int_mask_reg_affected_bit); /* 0                                                                      */
 
+void doTestEnableDisablePinChangeInterrupt(interface::InterruptController       & int_ctrl,
+                                           uint8_t                        const   pcint_num,              // AT90CAN32_64_128::toIntNum(AT90CAN32_64_128::Interrupt::PIN_CHANGE_INT0)
+                                           std::string                    const & pcint_name,             // "PIN_CHANGE_INT0
+                                           vireg::VirtualRegister<uint8_t>      & pcicr_reg,              // PCICR
+                                           uint8_t                        const   pcicr_reg_affected_bit,
+                                           std::string                    const & pcmskx_name,            // "PCMSK0"
+                                           vireg::VirtualRegister<uint8_t>      & pcmskx_reg,             // PCMSK0
+                                           uint8_t                        const   pcmskx_reg_affected_bit);
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/

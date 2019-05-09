@@ -46,7 +46,7 @@ namespace avr
 void doTestEnableDisableInterrupt(interface::InterruptController       & int_ctrl,
                                   uint8_t                        const   int_num,                    /* AT90CAN32_64_128::toIntNum(AT90CAN32_64_128::Interrupt::EXTERNAL_INT0) */
                                   std::string                    const & int_num_name,               /* "EXTERNAL_INT0"                                                        */
-                                  vireg::VirtualRegister<uint8_t>                    & int_mask_reg,               /* EIMSK                                                                  */
+                                  vireg::VirtualRegister<uint8_t>      & int_mask_reg,               /* EIMSK                                                                  */
                                   uint8_t                        const   int_mask_reg_affected_bit)
 {
   std::stringstream when_1_ss,
@@ -86,6 +86,39 @@ void doTestEnableDisableInterrupt(interface::InterruptController       & int_ctr
           REQUIRE(int_mask_reg.isBitClr(int_mask_reg_affected_bit));
         }
       }
+    }
+  }
+}
+
+void doTestEnableDisablePinChangeInterrupt(interface::InterruptController       & int_ctrl,
+                                           uint8_t                        const   pcint_num,              // AT90CAN32_64_128::toIntNum(AT90CAN32_64_128::Interrupt::PIN_CHANGE_INT0)
+                                           std::string                    const & pcint_name,             // "PIN_CHANGE_INT0
+                                           vireg::VirtualRegister<uint8_t>      & pcicr_reg,              // PCICR
+                                           uint8_t                        const   pcicr_reg_affected_bit,
+                                           std::string                    const & pcmskx_name,            // "PCMSK0"
+                                           vireg::VirtualRegister<uint8_t>      & pcmskx_reg,             // PCMSK0
+                                           uint8_t                        const   pcmskx_reg_affected_bit)
+{
+  std::stringstream when_1_ss, then_1a_ss, then_1b_ss,
+                    when_2_ss, then_2a_ss, then_2b_ss;
+
+  when_1_ss  << pcint_name << " is enabled via 'enableInterrupt'";
+  then_1a_ss << "PCICR bit #" << static_cast<size_t>(pcicr_reg_affected_bit) << " should be 'set'";
+  then_1b_ss << pcmskx_name << " bit #" << static_cast<size_t>(pcmskx_reg_affected_bit) << " should be 'set'";
+  when_2_ss << pcint_name << " is disabled via 'disableInterrupt'";
+  then_2a_ss << "PCICR bit #" << static_cast<size_t>(pcicr_reg_affected_bit) << " should be 'clr'";
+  then_2b_ss << pcmskx_name << " bit #" << static_cast<size_t>(pcmskx_reg_affected_bit) << " should be 'set'";
+  
+  WHEN(when_1_ss.str())
+  {
+    int_ctrl.enableInterrupt(pcint_num);
+    THEN(then_1a_ss.str()) { REQUIRE(pcicr_reg.isBitSet (pcicr_reg_affected_bit )); }
+    THEN(then_1b_ss.str()) { REQUIRE(pcmskx_reg.isBitSet(pcmskx_reg_affected_bit)); }
+    WHEN(when_2_ss.str())
+    {
+      int_ctrl.disableInterrupt(pcint_num);
+      THEN(then_2a_ss.str()) { REQUIRE(pcicr_reg.isBitSet (pcicr_reg_affected_bit )); }
+      THEN(then_2b_ss.str()) { REQUIRE(pcmskx_reg.isBitClr(pcmskx_reg_affected_bit)); }
     }
   }
 }
