@@ -94,8 +94,6 @@ SCENARIO("ATMEGA16U4_32U4::InterruptController - interrupts are enabled via 'ena
   avr::doTestEnableDisableInterrupt(int_ctrl, toIntNum(Interrupt::EXTERNAL_INT2                  ), "EXTERNAL_INT2",                   *EIMSK,  2);
   avr::doTestEnableDisableInterrupt(int_ctrl, toIntNum(Interrupt::EXTERNAL_INT3                  ), "EXTERNAL_INT3",                   *EIMSK,  3);
   avr::doTestEnableDisableInterrupt(int_ctrl, toIntNum(Interrupt::EXTERNAL_INT6                  ), "EXTERNAL_INT6",                   *EIMSK,  6);
-  /* FIXME */
-  //avr::doTestEnableDisableInterrupt(int_ctrl, toIntNum(Interrupt::PIN_CHANGE_INT0                ), "PIN_CHANGE_INT0",                 PCICR,  0);
   avr::doTestEnableDisableInterrupt(int_ctrl, toIntNum(Interrupt::WATCHDOG_TIMER                 ), "WATCHDOG_TIMER",                  *WDTCSR, 6);
   avr::doTestEnableDisableInterrupt(int_ctrl, toIntNum(Interrupt::TIMER1_CAPTURE                 ), "TIMER1_CAPTURE",                  *TIMSK1, 5);
   avr::doTestEnableDisableInterrupt(int_ctrl, toIntNum(Interrupt::TIMER1_COMPARE_A               ), "TIMER1_COMPARE_A",                *TIMSK1, 1);
@@ -124,6 +122,15 @@ SCENARIO("ATMEGA16U4_32U4::InterruptController - interrupts are enabled via 'ena
   avr::doTestEnableDisableInterrupt(int_ctrl, toIntNum(Interrupt::TIMER4_COMPARE_D               ), "TIMER4_COMPARE_D",                *TIMSK4, 7);
   avr::doTestEnableDisableInterrupt(int_ctrl, toIntNum(Interrupt::TIMER4_OVERFLOW                ), "TIMER4_OVERFLOW",                 *TIMSK4, 2);
   avr::doTestEnableDisableInterrupt(int_ctrl, toIntNum(Interrupt::TIMER4_FAULT_PROTECTION        ), "TIMER4_FAULT_PROTECTION",         *TCCR4D, 7);
+
+  avr::doTestEnableDisablePinChangeInterrupt(int_ctrl, toIntNum(Interrupt::PIN_CHANGE_INT0),  "PIN_CHANGE_INT0",  *PCICR, 0, "PCMSK0", *PCMSK0, 0);
+  avr::doTestEnableDisablePinChangeInterrupt(int_ctrl, toIntNum(Interrupt::PIN_CHANGE_INT1),  "PIN_CHANGE_INT1",  *PCICR, 0, "PCMSK0", *PCMSK0, 1);
+  avr::doTestEnableDisablePinChangeInterrupt(int_ctrl, toIntNum(Interrupt::PIN_CHANGE_INT2),  "PIN_CHANGE_INT2",  *PCICR, 0, "PCMSK0", *PCMSK0, 2);
+  avr::doTestEnableDisablePinChangeInterrupt(int_ctrl, toIntNum(Interrupt::PIN_CHANGE_INT3),  "PIN_CHANGE_INT3",  *PCICR, 0, "PCMSK0", *PCMSK0, 3);
+  avr::doTestEnableDisablePinChangeInterrupt(int_ctrl, toIntNum(Interrupt::PIN_CHANGE_INT4),  "PIN_CHANGE_INT4",  *PCICR, 0, "PCMSK0", *PCMSK0, 4);
+  avr::doTestEnableDisablePinChangeInterrupt(int_ctrl, toIntNum(Interrupt::PIN_CHANGE_INT5),  "PIN_CHANGE_INT5",  *PCICR, 0, "PCMSK0", *PCMSK0, 5);
+  avr::doTestEnableDisablePinChangeInterrupt(int_ctrl, toIntNum(Interrupt::PIN_CHANGE_INT6),  "PIN_CHANGE_INT6",  *PCICR, 0, "PCMSK0", *PCMSK0, 6);
+  avr::doTestEnableDisablePinChangeInterrupt(int_ctrl, toIntNum(Interrupt::PIN_CHANGE_INT7),  "PIN_CHANGE_INT7",  *PCICR, 0, "PCMSK1", *PCMSK0, 7);
 }
 
 /**************************************************************************************
