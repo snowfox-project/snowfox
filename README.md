@@ -57,28 +57,28 @@ Run-To-Completion event based scheduler in progress ...
 
 
 ## I/O Device Drivers
-#### [/driver/can](include/spectre/driver/can) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/can)
+#### [/driver/can](include/snowfox/driver/can) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/can)
 * **MCP2515** (CAN Controller) ([Seedstudio CAN Shield V2.0](https://github.com/snowfox-project/snowfox-examples/blob/master/board-schematics/io/seedstudio-can-shield-v-2-0.pdf))
 
-#### [/driver/glcd](include/spectre/driver/glcd) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/glcd)
+#### [/driver/glcd](include/snowfox/driver/glcd) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/glcd)
 * **RA6963** (GLCD Controller)
 
-#### [/driver/haptic](include/spectre/driver/haptic) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/haptic)
+#### [/driver/haptic](include/snowfox/driver/haptic) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/haptic)
 * **DRV2605L** (Haptic Driver for LRA and ERM)
 
-#### [/driver/ioexpander](include/spectre/driver/ioexpander) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/ioexpander)
+#### [/driver/ioexpander](include/snowfox/driver/ioexpander) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/ioexpander)
 * **MAX6921** (20-Output VFD tube driver)
 * **MCP23017** (16-Bit I/O Expander)
 * **PCA9547** (8-channel I2C-Bus multiplexer)
 
-#### [/driver/lora](include/spectre/driver/lora) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/lora)
+#### [/driver/lora](include/snowfox/driver/lora) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/lora)
 * **RFM9x** (HopeRF RFM95/96/97/98 Low Power Long Range Transceiver Module) ([Dragino LoRa Shield V1.4](https://github.com/snowfox-project/snowfox-examples/blob/master/board-schematics/io/dragino-lora-shield-v-1-4.png), [Moteino Mega USB](https://github.com/snowfox-project/snowfox-examples/blob/master/board-schematics/io/low-power-lab-moteino-mega-lora-usb.png))
 
-#### [/driver/memory](include/spectre/driver/memory) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/memory)
+#### [/driver/memory](include/snowfox/driver/memory) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/memory)
 * **AT45DBx** (SPI Data Flash)
 * **PCF8570** (256 × 8-Bit Static Low-Voltage RAM)
 
-#### [/driver/sensor](include/spectre/driver/sensor) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/sensor)
+#### [/driver/sensor](include/snowfox/driver/sensor) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/sensor)
 * **AD7151** (1-channel capacitance converter for proximity sensing)
 * **AS5600** (12-Bit programmable contactless potentiometer)
 * **BMG160** (3-axis digital output MEMS gyroscope)
@@ -88,13 +88,13 @@ Run-To-Completion event based scheduler in progress ...
 * **LIS3DSH** (3-axis digital output MEMS accelerometer)
 * **LIS3MDL** (3-axis digital output MEMS magnetometer)
 
-#### [/driver/serial](include/spectre/driver/serial) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/serial)
+#### [/driver/serial](include/snowfox/driver/serial) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/serial)
 * **UART** (Serial UART Driver)
 
-#### [/driver/stepper](include/spectre/driver/stepper) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/stepper)
+#### [/driver/stepper](include/snowfox/driver/stepper) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](examples/driver/stepper)
 * **TMC26x** (Trinamic TMC26x configurable stepper driver) ([Trinamic TOS-100 TMC-26x Shield](https://github.com/snowfox-project/snowfox-examples/blob/master/board-schematics/io/trinamic-tmc26x-shield.pdf))
 
-#### [/driver/tlcd](include/spectre/driver/tlcd)
+#### [/driver/tlcd](include/snowfox/driver/tlcd)
 * **HD44780** (Dot Matrix LCD Controller/Driver)
 
 ## Communication Stacks
@@ -111,7 +111,7 @@ sudo apt-get install cmake
 ```
 sudo apt-get install avr-libc binutils-avr gcc-avr avrdude
 ```
-**Tip:** Get the latest version of avr-gcc by [cross compiling](https://github.com/snowfox-project/spectre/wiki/%5BCross-Compiler%5D-AVR-GCC) from source.
+**Tip:** Get the latest version of avr-gcc by [cross compiling](https://github.com/snowfox-project/snowfox/wiki/%5BCross-Compiler%5D-AVR-GCC) from source.
 * **RISCV64 (SiFive)**
 ```
 cd /opt
@@ -121,8 +121,8 @@ export PATH=$PATH:/opt/riscv64-unknown-elf-gcc-8.2.0-2019.02.0-x86_64-linux-ubun
 ```
 ### Clone repository
 ```
-git clone https://github.com/snowfox-project/spectre.git
-cd spectre
+git clone https://github.com/snowfox-project/snowfox.git
+cd snowfox
 ```
 
 ### Copy and edit configuration
