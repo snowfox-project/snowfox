@@ -4,3 +4,6 @@
 [submodule "examples"]
 	path = examples
 	url = https://github.com/lxrobotics/snowfox-examples
+[submodule "test/external/libvireg"]
+	path = test/external/libvireg
+	url = https://github.com/lxrobotics/snowfox-libvireg
