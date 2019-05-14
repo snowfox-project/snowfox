@@ -9,6 +9,7 @@ set(VIREG_LIBRARY_TARGET vireg)
 ##########################################################################
 
 include_directories(include)
+include_directories(external/json/current/include)
 
 ##########################################################################
 
