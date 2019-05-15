@@ -1,9 +1,9 @@
 [submodule "toolchain"]
 	path = toolchain
-	url = https://github.com/lxrobotics/snowfox-toolchain
+	url = https://github.com/snowfox-project/snowfox-toolchain
 [submodule "examples"]
 	path = examples
-	url = https://github.com/lxrobotics/snowfox-examples
+	url = https://github.com/snowfox-project/snowfox-examples
 [submodule "test/external/libvireg"]
 	path = test/external/libvireg
-	url = https://github.com/lxrobotics/snowfox-libvireg
+	url = https://github.com/snowfox-project/snowfox-libvireg
