@@ -22,6 +22,8 @@
 
 #include <snowfox/hal/riscv64/FE310/SpiMaster.h>
 
+#include <snowfox/util/BitUtil.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -36,10 +38,21 @@ namespace FE310
 {
 
 /**************************************************************************************
+ * DEFINE
+ **************************************************************************************/
+
+/* SCKMODE */
+#define SCKMODE_PHA_bp  (0)
+#define SCKMODE_PHA_bm  (1<<SCKMODE_PHA_bp)
+#define SCKMODE_POL_bp  (1)
+#define SCKMODE_POL_bm  (1<<SCKMODE_POL_bp)
+
+/**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
-SpiMaster::SpiMaster()
+SpiMaster::SpiMaster(volatile uint32_t * spix_sckmode)
+: _spix_sckmode(spix_sckmode)
 {
 
 }
@@ -60,7 +73,15 @@ uint8_t SpiMaster::exchange(uint8_t const data)
 
 void SpiMaster::setSpiMode(interface::SpiMode const spi_mode)
 {
+  *_spix_sckmode &= ~(SCKMODE_PHA_bm | SCKMODE_POL_bm);
 
+  switch(spi_mode)
+  {
+  case interface::SpiMode::MODE_0:                                                                                           break;
+  case interface::SpiMode::MODE_1:                                              util::setBit(_spix_sckmode, SCKMODE_PHA_bp); break;
+  case interface::SpiMode::MODE_2: util::setBit(_spix_sckmode, SCKMODE_POL_bp);                                              break;
+  case interface::SpiMode::MODE_3: util::setBit(_spix_sckmode, SCKMODE_POL_bp); util::setBit(_spix_sckmode, SCKMODE_PHA_bp); break;
+  }
 }
 
 void SpiMaster::setSpiBitOrder(interface::SpiBitOrder const spi_bit_order)

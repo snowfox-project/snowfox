@@ -47,7 +47,7 @@ class SpiMaster : public interface::SpiMaster
 
 public:
 
-           SpiMaster();
+           SpiMaster(volatile uint32_t * spix_sckmode);
   virtual ~SpiMaster();
 
 
@@ -61,6 +61,10 @@ public:
   virtual void setSpiMode     (interface::SpiMode     const spi_mode     ) override;
   virtual void setSpiBitOrder (interface::SpiBitOrder const spi_bit_order) override;
   virtual void setSpiPrescaler(uint32_t               const spi_prescaler) override;
+
+private:
+
+  volatile uint32_t * _spix_sckmode;
 
 };
 
