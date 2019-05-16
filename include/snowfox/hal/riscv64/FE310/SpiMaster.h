@@ -47,7 +47,8 @@ class SpiMaster : public interface::SpiMaster
 
 public:
 
-           SpiMaster(volatile uint32_t * spix_sckmode);
+           SpiMaster(volatile uint32_t * spix_sckmode,
+                     volatile uint32_t * spix_fmt);
   virtual ~SpiMaster();
 
 
@@ -64,7 +65,8 @@ public:
 
 private:
 
-  volatile uint32_t * _spix_sckmode;
+  volatile uint32_t * _spix_sckmode,
+                    * _spix_fmt;
 
 };
 

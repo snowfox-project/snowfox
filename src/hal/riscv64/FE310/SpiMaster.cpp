@@ -47,12 +47,17 @@ namespace FE310
 #define SCKMODE_POL_bp  (1)
 #define SCKMODE_POL_bm  (1<<SCKMODE_POL_bp)
 
+/* FMT */
+#define FMT_ENDIAN_bp   (2)
+
 /**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
-SpiMaster::SpiMaster(volatile uint32_t * spix_sckmode)
-: _spix_sckmode(spix_sckmode)
+SpiMaster::SpiMaster(volatile uint32_t * spix_sckmode,
+                     volatile uint32_t * spix_fmt)
+: _spix_sckmode(spix_sckmode),
+  _spix_fmt    (spix_fmt    )
 {
 
 }
@@ -86,7 +91,11 @@ void SpiMaster::setSpiMode(interface::SpiMode const spi_mode)
 
 void SpiMaster::setSpiBitOrder(interface::SpiBitOrder const spi_bit_order)
 {
-
+  switch(spi_bit_order)
+  {
+  case interface::SpiBitOrder::LSB_FIRST: util::setBit(_spix_fmt, FMT_ENDIAN_bp); break;
+  case interface::SpiBitOrder::MSB_FIRST: util::clrBit(_spix_fmt, FMT_ENDIAN_bp); break;
+  }
 }
 
 void SpiMaster::setSpiPrescaler(uint32_t const spi_prescaler)
