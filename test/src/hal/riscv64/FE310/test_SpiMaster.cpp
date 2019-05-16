@@ -65,7 +65,7 @@ SCENARIO("A FE310::SpiMaster is constructed", "[FE310::SpiMaster]")
 
 /**************************************************************************************/
 
-SCENARIO("A FE310::SpiMaster is configured", "[FE310::SpiMaster]")
+SCENARIO("A FE310::SpiMaster's SpiMode is configured", "[FE310::SpiMaster]")
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/riscv64/FE310.json");
 
@@ -74,12 +74,12 @@ SCENARIO("A FE310::SpiMaster is configured", "[FE310::SpiMaster]")
   
   SpiMaster spi_master(SPIx_SCKMODE->ptr(), SPIx_FMT->ptr());
 
-  /* SPI MODE */
 
   THEN("setSpiMode(interface::SpiMode::MODE_0) should return true") REQUIRE(spi_master.setSpiMode(interface::SpiMode::MODE_0) == true); 
   THEN("setSpiMode(interface::SpiMode::MODE_1) should return true") REQUIRE(spi_master.setSpiMode(interface::SpiMode::MODE_1) == true); 
   THEN("setSpiMode(interface::SpiMode::MODE_2) should return true") REQUIRE(spi_master.setSpiMode(interface::SpiMode::MODE_2) == true); 
   THEN("setSpiMode(interface::SpiMode::MODE_3) should return true") REQUIRE(spi_master.setSpiMode(interface::SpiMode::MODE_3) == true); 
+
 
   WHEN("SpiMode::MODE_0 is set") { 
     spi_master.setSpiMode(interface::SpiMode::MODE_0); 
@@ -109,11 +109,23 @@ SCENARIO("A FE310::SpiMaster is configured", "[FE310::SpiMaster]")
       REQUIRE(SPIx_SCKMODE->isBitSet(1));
     }
   }
+}
 
-  /* BIT ORDER */
+/**************************************************************************************/
+
+SCENARIO("A FE310::SpiMaster's SpiBitOrder is configured", "[FE310::SpiMaster]")
+{
+  vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/riscv64/FE310.json");
+
+  vireg::VirtReg32 SPIx_SCKMODE = vregmap.get<vireg::VirtReg32>("SPIx_SCKMODE");
+  vireg::VirtReg32 SPIx_FMT     = vregmap.get<vireg::VirtReg32>("SPIx_FMT"    );
+  
+  SpiMaster spi_master(SPIx_SCKMODE->ptr(), SPIx_FMT->ptr());
+
 
   THEN("setSpiBitOrder(SpiBitOrder::MSB_FIRST) should return true") REQUIRE(spi_master.setSpiBitOrder(interface::SpiBitOrder::MSB_FIRST) == true); 
   THEN("setSpiBitOrder(SpiBitOrder::LSB_FIRST) should return true") REQUIRE(spi_master.setSpiBitOrder(interface::SpiBitOrder::LSB_FIRST) == true); 
+
   
   WHEN("SpiBitOrder::MSB_FIRST is set") { spi_master.setSpiBitOrder(interface::SpiBitOrder::MSB_FIRST); THEN("FMT[2] should be clr") { REQUIRE(SPIx_FMT->isBitClr(2)); } }
   WHEN("SpiBitOrder::LSB_FIRST is set") { spi_master.setSpiBitOrder(interface::SpiBitOrder::LSB_FIRST); THEN("FMT[2] should be set") { REQUIRE(SPIx_FMT->isBitSet(2)); } }
