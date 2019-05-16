@@ -6,6 +6,8 @@
   "GPIO_PUE":        { "Type": "UNSIGNED32", "Initial": "0x00000000"},
   "GPIO_IOF_SEL":    { "Type": "UNSIGNED32", "Initial": "0x00000000"},
   "GPIO_IOF_EN":     { "Type": "UNSIGNED32", "Initial": "0x00000000"},
+  "SPIx_SCKMODE":    { "Type": "UNSIGNED32", "Initial": "0x00000000"},
+  "SPIx_FMT":        { "Type": "UNSIGNED32", "Initial": "0x00000000"},
   "UARTx_TXDATA":    { "Type": "UNSIGNED32", "Initial": "0x00000000"},
   "UARTx_RXDATA":    { "Type": "UNSIGNED32", "Initial": "0x00000000"},
   "UARTx_TXCTRL":    { "Type": "UNSIGNED32", "Initial": "0x00000000"},
