@@ -104,7 +104,7 @@ uint8_t SpiMaster::exchange(uint8_t const data)
   return *_SPDR;
 }
 
-void SpiMaster::setSpiMode(interface::SpiMode const spi_mode)
+bool SpiMaster::setSpiMode(interface::SpiMode const spi_mode)
 {
   *_SPCR &= ~(CPOL_bm | CPHA_bm);
 
@@ -115,31 +115,35 @@ void SpiMaster::setSpiMode(interface::SpiMode const spi_mode)
   case interface::SpiMode::MODE_2: *_SPCR |= CPOL_bm;             break;
   case interface::SpiMode::MODE_3: *_SPCR |= (CPOL_bm | CPHA_bm); break;
   }
+
+  return true;
 }
 
-void SpiMaster::setSpiBitOrder(interface::SpiBitOrder const spi_bit_order)
+bool SpiMaster::setSpiBitOrder(interface::SpiBitOrder const spi_bit_order)
 {
   switch(spi_bit_order)
   {
   case interface::SpiBitOrder::LSB_FIRST: *_SPCR |=  (DORD_bm); break;
   case interface::SpiBitOrder::MSB_FIRST: *_SPCR &= ~(DORD_bm); break;
   }
+
+  return true;
 }
 
-void SpiMaster::setSpiPrescaler(uint32_t const spi_prescaler)
+bool SpiMaster::setSpiPrescaler(uint32_t const spi_prescaler)
 {
   *_SPCR &= ~(SPR1_bm | SPR0_bm);
 
   switch(spi_prescaler)
   {
-  case 2  : { *_SPCR |= static_cast<uint8_t>(SpiPrescaler::Prescaler_4  ); *_SPSR |=  SPI2X_bm; } break;
-  case 4  : { *_SPCR |= static_cast<uint8_t>(SpiPrescaler::Prescaler_4  ); *_SPSR &= ~SPI2X_bm; } break;
-  case 8  : { *_SPCR |= static_cast<uint8_t>(SpiPrescaler::Prescaler_16 ); *_SPSR |=  SPI2X_bm; } break;
-  case 16 : { *_SPCR |= static_cast<uint8_t>(SpiPrescaler::Prescaler_16 ); *_SPSR &= ~SPI2X_bm; } break;
-  case 32 : { *_SPCR |= static_cast<uint8_t>(SpiPrescaler::Prescaler_64 ); *_SPSR |=  SPI2X_bm; } break;
-  case 64 : { *_SPCR |= static_cast<uint8_t>(SpiPrescaler::Prescaler_64 ); *_SPSR &= ~SPI2X_bm; } break;
-  case 128: { *_SPCR |= static_cast<uint8_t>(SpiPrescaler::Prescaler_128); *_SPSR &= ~SPI2X_bm; } break;
-  default : {                                                              *_SPSR &= ~SPI2X_bm; } break;
+  case 2  : { *_SPCR |= static_cast<uint8_t>(SpiPrescaler::Prescaler_4  ); *_SPSR |=  SPI2X_bm; return true;  } break;
+  case 4  : { *_SPCR |= static_cast<uint8_t>(SpiPrescaler::Prescaler_4  ); *_SPSR &= ~SPI2X_bm; return true;  } break;
+  case 8  : { *_SPCR |= static_cast<uint8_t>(SpiPrescaler::Prescaler_16 ); *_SPSR |=  SPI2X_bm; return true;  } break;
+  case 16 : { *_SPCR |= static_cast<uint8_t>(SpiPrescaler::Prescaler_16 ); *_SPSR &= ~SPI2X_bm; return true;  } break;
+  case 32 : { *_SPCR |= static_cast<uint8_t>(SpiPrescaler::Prescaler_64 ); *_SPSR |=  SPI2X_bm; return true;  } break;
+  case 64 : { *_SPCR |= static_cast<uint8_t>(SpiPrescaler::Prescaler_64 ); *_SPSR &= ~SPI2X_bm; return true;  } break;
+  case 128: { *_SPCR |= static_cast<uint8_t>(SpiPrescaler::Prescaler_128); *_SPSR &= ~SPI2X_bm; return true;  } break;
+  default : {                                                              *_SPSR &= ~SPI2X_bm; return false; } break;
   }
 }
 

@@ -76,7 +76,7 @@ uint8_t SpiMaster::exchange(uint8_t const data)
 
 }
 
-void SpiMaster::setSpiMode(interface::SpiMode const spi_mode)
+bool SpiMaster::setSpiMode(interface::SpiMode const spi_mode)
 {
   util::clrBit(_spix_sckmode, SCKMODE_PHA_bp);
   util::clrBit(_spix_sckmode, SCKMODE_POL_bp);
@@ -88,20 +88,24 @@ void SpiMaster::setSpiMode(interface::SpiMode const spi_mode)
   case interface::SpiMode::MODE_2: util::setBit(_spix_sckmode, SCKMODE_POL_bp);                                              break;
   case interface::SpiMode::MODE_3: util::setBit(_spix_sckmode, SCKMODE_POL_bp); util::setBit(_spix_sckmode, SCKMODE_PHA_bp); break;
   }
+
+  return true;
 }
 
-void SpiMaster::setSpiBitOrder(interface::SpiBitOrder const spi_bit_order)
+bool SpiMaster::setSpiBitOrder(interface::SpiBitOrder const spi_bit_order)
 { 
   switch(spi_bit_order)
   {
   case interface::SpiBitOrder::LSB_FIRST: util::setBit(_spix_fmt, FMT_ENDIAN_bp); break;
   case interface::SpiBitOrder::MSB_FIRST: util::clrBit(_spix_fmt, FMT_ENDIAN_bp); break;
   }
+
+  return true;
 }
 
-void SpiMaster::setSpiPrescaler(uint32_t const spi_prescaler)
+bool SpiMaster::setSpiPrescaler(uint32_t const spi_prescaler)
 {
-
+  /* TODO */ return false;
 }
 
 /**************************************************************************************

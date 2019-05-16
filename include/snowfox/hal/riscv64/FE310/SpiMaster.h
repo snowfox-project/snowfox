@@ -59,9 +59,9 @@ public:
 
   /* SPI Master Configuration Interface */
 
-  virtual void setSpiMode     (interface::SpiMode     const spi_mode     ) override;
-  virtual void setSpiBitOrder (interface::SpiBitOrder const spi_bit_order) override;
-  virtual void setSpiPrescaler(uint32_t               const spi_prescaler) override;
+  virtual bool setSpiMode     (interface::SpiMode     const spi_mode     ) override;
+  virtual bool setSpiBitOrder (interface::SpiBitOrder const spi_bit_order) override;
+  virtual bool setSpiPrescaler(uint32_t               const spi_prescaler) override;
 
 private:
 
@@ -74,7 +74,7 @@ private:
   };
 
   void setSpiProtocol(SpiProtocol const spi_protocol);
-  
+
 };
 
 /**************************************************************************************
