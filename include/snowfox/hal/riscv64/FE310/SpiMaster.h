@@ -68,6 +68,13 @@ private:
   volatile uint32_t * _spix_sckmode,
                     * _spix_fmt;
 
+  enum class SpiProtocol
+  {
+    Single, Dual, Quad
+  };
+
+  void setSpiProtocol(SpiProtocol const spi_protocol);
+  
 };
 
 /**************************************************************************************

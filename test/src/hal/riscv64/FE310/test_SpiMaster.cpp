@@ -47,6 +47,24 @@ namespace test
  * TEST CODE
  **************************************************************************************/
 
+SCENARIO("A FE310::SpiMaster is constructed", "[FE310::SpiMaster]")
+{
+  vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/riscv64/FE310.json");
+
+  vireg::VirtReg32 SPIx_SCKMODE = vregmap.get<vireg::VirtReg32>("SPIx_SCKMODE");
+  vireg::VirtReg32 SPIx_FMT     = vregmap.get<vireg::VirtReg32>("SPIx_FMT"    );
+  
+  SpiMaster spi_master(SPIx_SCKMODE->ptr(), SPIx_FMT->ptr());
+
+
+  THEN("FMT[1:0] should be 0b00 (SpiProtocol::Single)") {
+    REQUIRE(SPIx_FMT->isBitClr(0));
+    REQUIRE(SPIx_FMT->isBitClr(1));
+  }
+}
+
+/**************************************************************************************/
+
 SCENARIO("A FE310::SpiMaster is configured", "[FE310::SpiMaster]")
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/riscv64/FE310.json");
@@ -55,6 +73,7 @@ SCENARIO("A FE310::SpiMaster is configured", "[FE310::SpiMaster]")
   vireg::VirtReg32 SPIx_FMT     = vregmap.get<vireg::VirtReg32>("SPIx_FMT"    );
   
   SpiMaster spi_master(SPIx_SCKMODE->ptr(), SPIx_FMT->ptr());
+
 
   /* SPI MODE */
   WHEN("SpiMode::MODE_0 is set") { 

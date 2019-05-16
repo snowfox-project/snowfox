@@ -42,13 +42,13 @@ namespace FE310
  **************************************************************************************/
 
 /* SCKMODE */
-#define SCKMODE_PHA_bp  (0)
-#define SCKMODE_PHA_bm  (1<<SCKMODE_PHA_bp)
 #define SCKMODE_POL_bp  (1)
-#define SCKMODE_POL_bm  (1<<SCKMODE_POL_bp)
+#define SCKMODE_PHA_bp  (0)
 
 /* FMT */
 #define FMT_ENDIAN_bp   (2)
+#define FMT_PROTO_1_bp  (1)
+#define FMT_PROTO_0_bp  (0)
 
 /**************************************************************************************
  * CTOR/DTOR
@@ -59,7 +59,7 @@ SpiMaster::SpiMaster(volatile uint32_t * spix_sckmode,
 : _spix_sckmode(spix_sckmode),
   _spix_fmt    (spix_fmt    )
 {
-
+  setSpiProtocol(SpiProtocol::Single);
 }
 
 SpiMaster::~SpiMaster()
@@ -78,7 +78,8 @@ uint8_t SpiMaster::exchange(uint8_t const data)
 
 void SpiMaster::setSpiMode(interface::SpiMode const spi_mode)
 {
-  *_spix_sckmode &= ~(SCKMODE_PHA_bm | SCKMODE_POL_bm);
+  util::clrBit(_spix_sckmode, SCKMODE_PHA_bp);
+  util::clrBit(_spix_sckmode, SCKMODE_POL_bp);
 
   switch(spi_mode)
   {
@@ -90,7 +91,7 @@ void SpiMaster::setSpiMode(interface::SpiMode const spi_mode)
 }
 
 void SpiMaster::setSpiBitOrder(interface::SpiBitOrder const spi_bit_order)
-{
+{ 
   switch(spi_bit_order)
   {
   case interface::SpiBitOrder::LSB_FIRST: util::setBit(_spix_fmt, FMT_ENDIAN_bp); break;
@@ -101,6 +102,23 @@ void SpiMaster::setSpiBitOrder(interface::SpiBitOrder const spi_bit_order)
 void SpiMaster::setSpiPrescaler(uint32_t const spi_prescaler)
 {
 
+}
+
+/**************************************************************************************
+ * PRIVATE MEMBER FUNCTIONS
+ **************************************************************************************/
+
+void SpiMaster::setSpiProtocol(SpiProtocol const spi_protocol)
+{
+  util::clrBit(_spix_sckmode, FMT_PROTO_0_bp);
+  util::clrBit(_spix_sckmode, FMT_PROTO_1_bp);
+
+  switch(spi_protocol)
+  {
+  case SpiProtocol::Single:                                              break;
+  case SpiProtocol::Dual  : util::setBit(_spix_sckmode, FMT_PROTO_0_bp); break;
+  case SpiProtocol::Quad  : util::setBit(_spix_sckmode, FMT_PROTO_1_bp); break;
+  }
 }
 
 /**************************************************************************************
