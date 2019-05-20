@@ -71,13 +71,10 @@ SpiMaster::~SpiMaster()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-uint8_t SpiMaster::exchange(uint8_t const data)
+uint8_t SpiMaster::exchange(uint8_t const /* data */)
 {
   /* TODO */ return 0;
 }
-#pragma GCC diagnostic pop
 
 bool SpiMaster::setSpiMode(interface::SpiMode const spi_mode)
 {
@@ -106,13 +103,10 @@ bool SpiMaster::setSpiBitOrder(interface::SpiBitOrder const spi_bit_order)
   return true;
 }
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-bool SpiMaster::setSpiPrescaler(uint32_t const spi_prescaler)
+bool SpiMaster::setSpiPrescaler(uint32_t const /* spi_prescaler */)
 {
   /* TODO */ return false;
 }
-#pragma GCC diagnostic pop
 
 /**************************************************************************************
  * PRIVATE MEMBER FUNCTIONS

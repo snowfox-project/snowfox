@@ -91,13 +91,10 @@ uint16_t TIMERBx::get()
   return *_TCBx_CNT;
 }
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-void TIMERBx::setCompareRegister(uint8_t const reg_sel, uint16_t const reg_val)
+void TIMERBx::setCompareRegister(uint8_t const /* reg_sel */, uint16_t const /* reg_val */)
 {
   /* TIMERB has no compare register */
 }
-#pragma GCC diagnostic pop
 
 void TIMERBx::setPrescaler(uint32_t const prescaler)
 {

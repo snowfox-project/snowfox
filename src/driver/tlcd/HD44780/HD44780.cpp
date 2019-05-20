@@ -66,19 +66,17 @@ bool HD44780::open()
   return true;
 }
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-ssize_t HD44780::read(uint8_t * buffer, ssize_t const num_bytes)
+ssize_t HD44780::read(uint8_t * /* buffer */, ssize_t const /* num_bytes */)
 {
   /* TODO */ return -1;
 }
 
-ssize_t HD44780::write(uint8_t const * buffer, ssize_t const num_bytes)
+ssize_t HD44780::write(uint8_t const * /* buffer */, ssize_t const /* num_bytes */)
 {
   /* TODO */ return -1;
 }
 
-bool HD44780::ioctl(uint32_t const cmd, void * arg)
+bool HD44780::ioctl(uint32_t const cmd, void * /* arg */)
 {
   switch(cmd)
   {
@@ -100,7 +98,6 @@ bool HD44780::ioctl(uint32_t const cmd, void * arg)
 
   return false;
 }
-#pragma GCC diagnostic pop
 
 void HD44780::close()
 {

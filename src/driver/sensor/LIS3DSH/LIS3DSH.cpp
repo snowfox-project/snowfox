@@ -59,24 +59,18 @@ LIS3DSH::~LIS3DSH()
 
 bool LIS3DSH::open()
 {
-  /* TODO */
-  return false;
+  /* TODO */ return false;
 }
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-ssize_t LIS3DSH::read(uint8_t * buffer, ssize_t const num_bytes)
+ssize_t LIS3DSH::read(uint8_t * /* buffer */, ssize_t const /* num_bytes */)
 {
-  /* TODO */
-  return -1;
+  /* TODO */ return -1;
 }
 
-ssize_t LIS3DSH::write(uint8_t const * buffer, ssize_t const num_bytes)
+ssize_t LIS3DSH::write(uint8_t const * /* buffer */, ssize_t const /* num_bytes */)
 {
-  /* TODO */
-  return -1;
+  /* TODO */ return -1;
 }
-#pragma GCC diagnostic pop
 
 bool LIS3DSH::ioctl(uint32_t const cmd, void * arg)
 {

@@ -59,24 +59,18 @@ BMG160::~BMG160()
 
 bool BMG160::open()
 {
-  /* TODO */
-  return false;
+  /* TODO */ return false;
 }
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-ssize_t BMG160::read(uint8_t * buffer, ssize_t const num_bytes)
+ssize_t BMG160::read(uint8_t * /* buffer */, ssize_t const /* num_bytes */)
 {
-  /* TODO */
-  return -1;
+  /* TODO */ return -1;
 }
 
-ssize_t BMG160::write(uint8_t const * buffer, ssize_t const num_bytes)
+ssize_t BMG160::write(uint8_t const * /* buffer */, ssize_t const /* num_bytes */)
 {
-  /* TODO */
-  return -1;
+  /* TODO */ return -1;
 }
-#pragma GCC diagnostic pop
 
 bool BMG160::ioctl(uint32_t const cmd, void * arg)
 {

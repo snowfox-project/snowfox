@@ -54,13 +54,10 @@ UnkownFrameHandler::~UnkownFrameHandler()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-void UnkownFrameHandler::onFrameReceived(util::type::CanFrame const & frame)
+void UnkownFrameHandler::onFrameReceived(util::type::CanFrame const & /* frame */)
 {
   _unkown_frame_cnt++;
 }
-#pragma GCC diagnostic pop
 
 /**************************************************************************************
  * NAMESPACE

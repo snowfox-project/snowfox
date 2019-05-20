@@ -23,6 +23,8 @@
  * INCLUDE
  **************************************************************************************/
 
+#include <snowfox/NoInstance.h>
+
 #include <snowfox/comstack/canopen/objdict/ObjectDictionary.hpp>
 
 /**************************************************************************************
@@ -42,22 +44,12 @@ namespace canopen
  * CLASS DECLARATION
  **************************************************************************************/
 
-class ObjectDictionaryBuilder
+class ObjectDictionaryBuilder : public NoInstance
 {
 
 public:
 
-
   static void build(ObjectDictionary & obj_dict);
-
-
-private:
-
-  ObjectDictionaryBuilder() { }
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-  ObjectDictionaryBuilder(ObjectDictionaryBuilder const & other) { }
-#pragma GCC diagnostic pop
 
 };
 

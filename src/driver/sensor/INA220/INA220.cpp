@@ -81,13 +81,10 @@ ssize_t INA220::read(uint8_t * buffer, ssize_t const num_bytes)
   return size;
 }
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-ssize_t INA220::write(uint8_t const * buffer, ssize_t const num_bytes)
+ssize_t INA220::write(uint8_t const * /* buffer */, ssize_t const /* num_bytes */)
 {
   return -1; /* Not supported */
 }
-#pragma GCC diagnostic pop
 
 bool INA220::ioctl(uint32_t const cmd, void * arg)
 {

@@ -53,13 +53,10 @@ SdoFrameHandler::~SdoFrameHandler()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-void SdoFrameHandler::onFrameReceived(util::type::CanFrame const & frame)
+void SdoFrameHandler::onFrameReceived(util::type::CanFrame const & /* frame */)
 {
   /* TODO */
 }
-#pragma GCC diagnostic pop
 
 /**************************************************************************************
  * NAMESPACE

@@ -72,13 +72,10 @@ ssize_t PCF8570::write(uint8_t const * buffer, ssize_t const num_bytes)
   return write(buffer[0], buffer + 1, num_bytes - 1);
 }
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-bool PCF8570::ioctl(uint32_t const cmd, void * arg)
+bool PCF8570::ioctl(uint32_t const /* cmd */, void * /* arg */)
 {
   return false;
 }
-#pragma GCC diagnostic pop
 
 void PCF8570::close()
 {

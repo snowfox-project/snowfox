@@ -53,13 +53,10 @@ SyncFrameHandler::~SyncFrameHandler()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-void SyncFrameHandler::onFrameReceived(util::type::CanFrame const & frame)
+void SyncFrameHandler::onFrameReceived(util::type::CanFrame const & /* frame */)
 {
   /* TODO */
 }
-#pragma GCC diagnostic pop
 
 /**************************************************************************************
  * NAMESPACE

@@ -67,23 +67,20 @@ bool LSM6DSM::open()
   return true;
 }
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-ssize_t LSM6DSM::read(uint8_t * buffer, ssize_t const num_bytes)
+ssize_t LSM6DSM::read(uint8_t * /* buffer */, ssize_t const /* num_bytes */)
 {
   /* TODO */ return -1;
 }
 
-ssize_t LSM6DSM::write(uint8_t const * buffer, ssize_t const num_bytes)
+ssize_t LSM6DSM::write(uint8_t const * /* buffer */, ssize_t const /* num_bytes */)
 {
   /* TODO */ return -1;
 }
 
-bool LSM6DSM::ioctl(uint32_t const cmd, void * arg)
+bool LSM6DSM::ioctl(uint32_t const /* cmd */, void * /* arg */)
 {
   /* TODO */ return false;
 }
-#pragma GCC diagnostic pop
 
 void LSM6DSM::close()
 {

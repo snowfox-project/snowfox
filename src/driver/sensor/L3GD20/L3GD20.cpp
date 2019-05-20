@@ -59,24 +59,18 @@ L3GD20::~L3GD20()
 
 bool L3GD20::open()
 {
-  /* TODO */
-  return false;
+  /* TODO */ return false;
 }
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-ssize_t L3GD20::read(uint8_t * buffer, ssize_t const num_bytes)
+ssize_t L3GD20::read(uint8_t * /* buffer */, ssize_t const /* num_bytes */)
 {
-  /* TODO */
-  return -1;
+  /* TODO */ return -1;
 }
 
-ssize_t L3GD20::write(uint8_t const * buffer, ssize_t const num_bytes)
+ssize_t L3GD20::write(uint8_t const * /* buffer */, ssize_t const /* num_bytes */)
 {
-  /* TODO */
-  return -1;
+  /* TODO */ return -1;
 }
-#pragma GCC diagnostic pop
 
 bool L3GD20::ioctl(uint32_t const cmd, void * arg)
 {

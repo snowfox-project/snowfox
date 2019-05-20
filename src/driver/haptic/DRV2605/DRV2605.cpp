@@ -62,18 +62,15 @@ bool DRV2605::open()
   return _ctrl.clrStandby();
 }
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-ssize_t DRV2605::read(uint8_t * buffer, ssize_t const num_bytes)
+ssize_t DRV2605::read(uint8_t * /* buffer */, ssize_t const /* num_bytes */)
 {
   return -1; /* Not supported for this driver */
 }
 
-ssize_t DRV2605::write(uint8_t const * buffer, ssize_t const num_bytes)
+ssize_t DRV2605::write(uint8_t const * /* buffer */, ssize_t const /* num_bytes */)
 {
   return -1; /* Not supported for this driver */
 }
-#pragma GCC diagnostic pop
 
 bool DRV2605::ioctl(uint32_t const cmd, void * arg)
 {
