@@ -23,6 +23,8 @@
  * INCLUDE
  **************************************************************************************/
 
+#include <snowfox/NoInstance.h>
+
 #include <snowfox/hal/interface/flash/Flash.h>
 
 #include <snowfox/driver/lora/RFM9x/interface/RFM9x_Io.h>
@@ -49,7 +51,7 @@ namespace RFM9x
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_Debug
+class RFM9x_Debug : public NoInstance
 {
 
 public:
@@ -59,9 +61,6 @@ public:
                                 interface::RFM9x_Io   & io);
 
 private:
-
-  RFM9x_Debug() { }
-  RFM9x_Debug(RFM9x_Debug const & other) { }
 
   static void debug_dumpSingleReg(trace::Trace                  & trace,
                                   hal::interface::Flash         & flash,

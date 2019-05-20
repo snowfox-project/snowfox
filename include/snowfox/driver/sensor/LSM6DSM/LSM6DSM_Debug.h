@@ -23,6 +23,8 @@
  * INCLUDE
  **************************************************************************************/
 
+#include <snowfox/NoInstance.h>
+
 #include <snowfox/hal/interface/flash/Flash.h>
 
 #include <snowfox/driver/sensor/LSM6DSM/interface/LSM6DSM_Io.h>
@@ -49,7 +51,7 @@ namespace LSM6DSM
  * CLASS DECLARATION
  **************************************************************************************/
 
-class LSM6DSM_Debug
+class LSM6DSM_Debug : public NoInstance
 {
 
 public:
@@ -59,9 +61,6 @@ public:
                                 interface::LSM6DSM_Io & io);
 
 private:
-
-  LSM6DSM_Debug() { }
-  LSM6DSM_Debug(LSM6DSM_Debug const & other) { }
 
   static void debug_dumpSingleReg(trace::Trace                  & trace,
                                   hal::interface::Flash         & flash,

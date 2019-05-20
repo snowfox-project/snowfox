@@ -23,6 +23,8 @@
  * INCLUDE
  **************************************************************************************/
 
+#include <snowfox/NoInstance.h>
+
 #include <snowfox/hal/interface/flash/Flash.h>
 
 #include <snowfox/driver/haptic/DRV2605/interface/DRV2605_Io.h>
@@ -49,7 +51,7 @@ namespace DRV2605
  * CLASS DECLARATION
  **************************************************************************************/
 
-class DRV2605_Debug
+class DRV2605_Debug : public NoInstance
 {
 
 public:
@@ -59,10 +61,6 @@ public:
                                 interface::DRV2605_Io & io);
 
 private:
-
-  DRV2605_Debug() { }
-  DRV2605_Debug(DRV2605_Debug const & other) { }
-
 
   static void debug_dumpSingleReg(trace::Trace              & trace,
                                   hal::interface::Flash     & flash,

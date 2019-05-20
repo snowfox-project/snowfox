@@ -53,10 +53,13 @@ PdoFrameHandler::~PdoFrameHandler()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 void PdoFrameHandler::onFrameReceived(util::type::CanFrame const & frame)
 {
   /* TODO */
 }
+#pragma GCC diagnostic pop
 
 /**************************************************************************************
  * NAMESPACE

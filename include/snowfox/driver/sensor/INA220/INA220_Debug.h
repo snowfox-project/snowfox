@@ -23,6 +23,8 @@
  * INCLUDE
  **************************************************************************************/
 
+#include <snowfox/NoInstance.h>
+
 #include <snowfox/hal/interface/flash/Flash.h>
 
 #include <snowfox/driver/sensor/INA220/interface/INA220_Io.h>
@@ -49,7 +51,7 @@ namespace INA220
  * CLASS DECLARATION
  **************************************************************************************/
 
-class INA220_Debug
+class INA220_Debug : public NoInstance
 {
 
 public:
@@ -59,10 +61,6 @@ public:
                                 interface::INA220_Io  & io);
 
 private:
-
-  INA220_Debug() { }
-  INA220_Debug(INA220_Debug const & other) { }
-
 
   static void debug_dumpSingleReg(trace::Trace              & trace,
                                   hal::interface::Flash     & flash,

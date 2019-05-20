@@ -23,6 +23,8 @@
  * INCLUDE
  **************************************************************************************/
 
+#include <snowfox/NoInstance.h>
+
 #include <snowfox/hal/interface/flash/Flash.h>
 
 #include <snowfox/driver/sensor/BMG160/interface/BMG160_Io.h>
@@ -49,7 +51,7 @@ namespace BMG160
  * CLASS DECLARATION
  **************************************************************************************/
 
-class BMG160_Debug
+class BMG160_Debug : public NoInstance
 {
 
 public:
@@ -59,10 +61,6 @@ public:
                                 interface::BMG160_Io  & io);
 
 private:
-
-  BMG160_Debug() { }
-  BMG160_Debug(BMG160_Debug const & other) { }
-
 
   static void debug_dumpSingleReg(trace::Trace              & trace,
                                   hal::interface::Flash     & flash,

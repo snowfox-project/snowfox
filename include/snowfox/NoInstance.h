@@ -16,18 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SNOWFOX_DRIVER_IOEXPANDER_PCA9547_PCA9547_DEBUG_H_
-#define INCLUDE_SNOWFOX_DRIVER_IOEXPANDER_PCA9547_PCA9547_DEBUG_H_
-
-/**************************************************************************************
- * INCLUDE
- **************************************************************************************/
-
-#include <snowfox/NoInstance.h>
-
-#include <snowfox/driver/ioexpander/PCA9547/interface/PCA9547_Io.h>
-
-#include <snowfox/trace/Trace.h>
+#ifndef INCLUDE_SNOWFOX_NO_INSTANCE_H_
+#define INCLUDE_SNOWFOX_NO_INSTANCE_H_
 
 /**************************************************************************************
  * NAMESPACE
@@ -36,26 +26,18 @@
 namespace snowfox
 {
 
-namespace driver
-{
-
-namespace ioexpander
-{
-
-namespace PCA9547
-{
-
 /**************************************************************************************
- * CLASS DECLARATION PCA9547
+ * CLASS DECLARATION
  **************************************************************************************/
 
-class PCA9547_Debug : public NoInstance
+class NoInstance
 {
 
 public:
 
-  static void debug_dumpAllRegs(trace::Trace          & trace,
-                                interface::PCA9547_Io & io);
+   NoInstance() = delete;
+   NoInstance(NoInstance const & other) = delete;
+  ~NoInstance() = delete;
 
 };
 
@@ -63,12 +45,6 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* PCA9547 */
-
-} /* ioexpander */
-
-} /* driver */
-
 } /* snowfox */
 
-#endif /* INCLUDE_SNOWFOX_DRIVER_IOEXPANDER_PCA9547_PCA9547_DEBUG_H_ */
+#endif /* INCLUDE_SNOWFOX_NO_INSTANCE_H_ */

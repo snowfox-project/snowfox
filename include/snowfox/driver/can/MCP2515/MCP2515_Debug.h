@@ -23,6 +23,8 @@
  * INCLUDE
  **************************************************************************************/
 
+#include <snowfox/NoInstance.h>
+
 #include <snowfox/hal/interface/flash/Flash.h>
 
 #include <snowfox/driver/can/MCP2515/interface/MCP2515_Io.h>
@@ -49,7 +51,7 @@ namespace MCP2515
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MCP2515_Debug
+class MCP2515_Debug : public NoInstance
 {
 
 public:
@@ -59,9 +61,6 @@ public:
                                 interface::MCP2515_Io & io);
 
 private:
-
-  MCP2515_Debug() { }
-  MCP2515_Debug(MCP2515_Debug const & other) { }
 
   static void debug_dumpSingleReg(trace::Trace                  & trace,
                                   hal::interface::Flash         & flash,

@@ -23,6 +23,8 @@
  * INCLUDE
  **************************************************************************************/
 
+#include <snowfox/NoInstance.h>
+
 #include <snowfox/hal/interface/flash/Flash.h>
 
 #include <snowfox/driver/sensor/LIS3DSH/interface/LIS3DSH_Io.h>
@@ -49,7 +51,7 @@ namespace LIS3DSH
  * CLASS DECLARATION
  **************************************************************************************/
 
-class LIS3DSH_Debug
+class LIS3DSH_Debug : public NoInstance
 {
 
 public:
@@ -59,10 +61,6 @@ public:
                                 interface::LIS3DSH_Io & io);
 
 private:
-
-  LIS3DSH_Debug() { }
-  LIS3DSH_Debug(LIS3DSH_Debug const & other) { }
-
 
   static void debug_dumpSingleReg(trace::Trace              & trace,
                                   hal::interface::Flash     & flash,

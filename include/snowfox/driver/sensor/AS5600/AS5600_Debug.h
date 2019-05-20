@@ -23,6 +23,8 @@
  * INCLUDE
  **************************************************************************************/
 
+#include <snowfox/NoInstance.h>
+
 #include <snowfox/hal/interface/flash/Flash.h>
 
 #include <snowfox/driver/sensor/AS5600/interface/AS5600_Io.h>
@@ -49,7 +51,7 @@ namespace AS5600
  * CLASS DECLARATION
  **************************************************************************************/
 
-class AS5600_Debug
+class AS5600_Debug : public NoInstance
 {
 
 public:
@@ -59,10 +61,6 @@ public:
                                 interface::AS5600_Io  & io);
 
 private:
-
-  AS5600_Debug() { }
-  AS5600_Debug(AS5600_Debug const & other) { }
-
 
   static void debug_dumpSingleReg(trace::Trace              & trace,
                                   hal::interface::Flash     & flash,

@@ -23,6 +23,8 @@
  * INCLUDE
  **************************************************************************************/
 
+#include <snowfox/NoInstance.h>
+
 #include <snowfox/os/event/interface/EventConsumer.h>
 
 /**************************************************************************************
@@ -39,19 +41,12 @@ namespace os
  * CLASS DECLARATION
  **************************************************************************************/
 
-class EventWaiter
+class EventWaiter : public NoInstance
 {
 
 public:
 
-
   static void wait(interface::EventConsumer & event_consumer);
-
-
-private:
-
-  EventWaiter() { }
-  EventWaiter(EventWaiter const & other) { }
 
 };
 

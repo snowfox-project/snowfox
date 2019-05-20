@@ -62,9 +62,9 @@ bool AD7151_IoI2c::readRegister(interface::Register const reg, uint8_t * data, u
 {
   uint8_t const reg_addr = static_cast<uint8_t>(reg);
 
-  if(!_i2c_master.begin      (_i2c_address, false  )) return false;
-  if(!_i2c_master.write      (reg_addr             )) return false;
-  if(!_i2c_master.requestFrom(_i2c_address, data, 1)) return false;
+  if(!_i2c_master.begin      (_i2c_address, false          )) return false;
+  if(!_i2c_master.write      (reg_addr                     )) return false;
+  if(!_i2c_master.requestFrom(_i2c_address, data, num_bytes)) return false;
 
   return true;
 }

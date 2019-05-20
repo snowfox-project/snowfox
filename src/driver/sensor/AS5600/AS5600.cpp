@@ -63,6 +63,8 @@ bool AS5600::open()
   return false;
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 ssize_t AS5600::read(uint8_t * buffer, ssize_t const num_bytes)
 {
   /* TODO */
@@ -74,6 +76,7 @@ ssize_t AS5600::write(uint8_t const * buffer, ssize_t const num_bytes)
   /* TODO */
   return -1;
 }
+#pragma GCC diagnostic pop
 
 bool AS5600::ioctl(uint32_t const cmd, void * arg)
 {

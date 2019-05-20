@@ -22,8 +22,11 @@
 
 #include <snowfox/hal/avr/common/ATxxxx/Delay.h>
 
-#ifdef MCU_ARCH_avr
+#if defined(MCU_ARCH_avr)
 #include <util/delay.h>
+#elif defined(MCU_ARCH_host)
+#include <chrono>
+#include <thread>
 #endif
 
 /**************************************************************************************
@@ -59,21 +62,25 @@ Delay::~Delay()
 
 void Delay::delay_ms(uint32_t const ms)
 {
-#if MCU_ARCH_avr
+#if defined(MCU_ARCH_avr)
   for(uint32_t i = 0; i < ms; i++)
   {
     _delay_ms(1);
   }
+#elif defined(MCU_ARCH_host)
+  std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 #endif
 }
 
 void Delay::delay_us(uint32_t const us)
 {
-#if MCU_ARCH_avr
+#if defined(MCU_ARCH_avr)
   for(uint32_t i = 0; i < us; i++)
   {
     _delay_us(1);
   }
+#elif defined(MCU_ARCH_host)
+  std::this_thread::sleep_for(std::chrono::microseconds(us));
 #endif
 }
 

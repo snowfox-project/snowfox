@@ -62,6 +62,8 @@ bool TMC26x::open()
   return false;
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 ssize_t TMC26x::read(uint8_t * buffer, ssize_t const num_bytes)
 {
   /* TODO*/
@@ -79,6 +81,7 @@ bool TMC26x::ioctl(uint32_t const cmd, void * arg)
   /* TODO*/
   return false;
 }
+#pragma GCC diagnostic pop
 
 void TMC26x::close()
 {

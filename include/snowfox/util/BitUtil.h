@@ -98,19 +98,22 @@ inline void toogleBit(volatile uint32_t * reg, uint8_t const bit_pos)
 inline bool isBitSet(volatile uint8_t const * const reg, uint8_t const bit_pos)
 {
   assert(bit_pos < 8);
-  return (*reg & (1<<bit_pos)) == (1<<bit_pos);
+  uint8_t const bit_mask = static_cast<uint8_t>(1<<bit_pos);
+  return (*reg & bit_mask) == bit_mask;
 }
 
 inline bool isBitSet(volatile uint16_t const * const reg, uint8_t const bit_pos)
 {
   assert(bit_pos < 16);
-  return (*reg & (1<<bit_pos)) == (1<<bit_pos);
+  uint16_t const bit_mask = static_cast<uint16_t>(1<<bit_pos);
+  return (*reg & bit_mask) == bit_mask;
 }
 
 inline bool isBitSet(volatile uint32_t const * const reg, uint8_t const bit_pos)
 {
   assert(bit_pos < 32);
-  return (*reg & (1<<bit_pos)) == (1<<bit_pos);
+  uint32_t const bit_mask = static_cast<uint32_t>(1<<bit_pos);
+  return (*reg & bit_mask) == bit_mask;
 }
 
 inline bool isBitClr(volatile uint8_t const * const reg, uint8_t const bit_pos)

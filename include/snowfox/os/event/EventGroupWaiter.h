@@ -23,6 +23,8 @@
  * INCLUDE
  **************************************************************************************/
 
+#include <snowfox/NoInstance.h>
+
 #include <snowfox/os/event/EventGroup.h>
 
 /**************************************************************************************
@@ -39,19 +41,12 @@ namespace os
  * CLASS DECLARATION
  **************************************************************************************/
 
-class EventGroupWaiter
+class EventGroupWaiter : public NoInstance
 {
 
 public:
 
-
   static void waitAny(EventGroup & event_group);
-
-
-private:
-
-  EventGroupWaiter() { }
-  EventGroupWaiter(EventGroupWaiter const & other) { }
 
 };
 

@@ -62,6 +62,8 @@ bool PCA9547::open()
   return true;
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 ssize_t PCA9547::read(uint8_t * buffer, ssize_t const num_bytes)
 {
   return -1; /* Not supported by this driver */
@@ -71,6 +73,7 @@ ssize_t PCA9547::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
   return -1; /* Not supported by this driver */
 }
+#pragma GCC diagnostic pop
 
 bool PCA9547::ioctl(uint32_t const cmd, void * arg)
 {

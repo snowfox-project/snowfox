@@ -23,6 +23,8 @@
  * INCLUDE
  **************************************************************************************/
 
+#include <snowfox/NoInstance.h>
+
 #include <snowfox/hal/interface/flash/Flash.h>
 
 #include <snowfox/driver/sensor/L3GD20/interface/L3GD20_Io.h>
@@ -49,7 +51,7 @@ namespace L3GD20
  * CLASS DECLARATION
  **************************************************************************************/
 
-class L3GD20_Debug
+class L3GD20_Debug : public NoInstance
 {
 
 public:
@@ -59,10 +61,6 @@ public:
                                 interface::L3GD20_Io  & io);
 
 private:
-
-  L3GD20_Debug() { }
-  L3GD20_Debug(L3GD20_Debug const & other) { }
-
 
   static void debug_dumpSingleReg(trace::Trace              & trace,
                                   hal::interface::Flash     & flash,

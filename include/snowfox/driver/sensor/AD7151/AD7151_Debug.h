@@ -23,6 +23,8 @@
  * INCLUDE
  **************************************************************************************/
 
+#include <snowfox/NoInstance.h>
+
 #include <snowfox/hal/interface/flash/Flash.h>
 
 #include <snowfox/driver/sensor/AD7151/interface/AD7151_Io.h>
@@ -49,7 +51,7 @@ namespace AD7151
  * CLASS DECLARATION
  **************************************************************************************/
 
-class AD7151_Debug
+class AD7151_Debug : public NoInstance
 {
 
 public:
@@ -59,10 +61,6 @@ public:
                                 interface::AD7151_Io  & io);
 
 private:
-
-  AD7151_Debug() { }
-  AD7151_Debug(AD7151_Debug const & other) { }
-
 
   static void debug_dumpSingleReg(trace::Trace                  & trace,
                                   hal::interface::Flash         & flash,

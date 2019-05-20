@@ -68,18 +68,21 @@ ssize_t AD7151::read(uint8_t * buffer, ssize_t const num_bytes)
 {
   uint16_t raw_data = 0;
 
-  if(num_bytes < sizeof(raw_data)          ) return -1;
-  if(!_ctrl.readConversionResult(&raw_data)) return -2;
+  if(num_bytes < static_cast<ssize_t>(sizeof(raw_data))) return -1;
+  if(!_ctrl.readConversionResult(&raw_data))             return -2;
 
   memcpy(buffer, &raw_data, sizeof(raw_data));
 
   return sizeof(raw_data);
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 ssize_t AD7151::write(uint8_t const * buffer, ssize_t const num_bytes)
 {
   return -1; /* Not supported */
 }
+#pragma GCC diagnostic pop
 
 bool AD7151::ioctl(uint32_t const cmd, void * arg)
 {

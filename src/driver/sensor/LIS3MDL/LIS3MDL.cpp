@@ -63,6 +63,8 @@ bool LIS3MDL::open()
   return false;
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 ssize_t LIS3MDL::read(uint8_t * buffer, ssize_t const num_bytes)
 {
   /* TODO */
@@ -74,6 +76,7 @@ ssize_t LIS3MDL::write(uint8_t const * buffer, ssize_t const num_bytes)
   /* TODO */
   return -1;
 }
+#pragma GCC diagnostic pop
 
 bool LIS3MDL::ioctl(uint32_t const cmd, void * arg)
 {

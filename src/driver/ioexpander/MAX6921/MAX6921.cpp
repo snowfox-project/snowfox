@@ -62,6 +62,8 @@ bool MAX6921::open()
   return ioctl(IOCTL_BLANK, 0);
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 ssize_t MAX6921::read(uint8_t * buffer, ssize_t const num_bytes)
 {
   /* Not supported */
@@ -73,6 +75,7 @@ ssize_t MAX6921::write(uint8_t const * buffer, ssize_t const num_bytes)
   /* Not supported */
   return -1;
 }
+#pragma GCC diagnostic pop
 
 bool MAX6921::ioctl(uint32_t const cmd, void * arg)
 {

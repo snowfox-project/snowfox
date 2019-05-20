@@ -54,7 +54,10 @@ public:
 private:
 
   ObjectDictionaryBuilder() { }
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
   ObjectDictionaryBuilder(ObjectDictionaryBuilder const & other) { }
+#pragma GCC diagnostic pop
 
 };
 

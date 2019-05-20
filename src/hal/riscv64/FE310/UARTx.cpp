@@ -118,7 +118,14 @@ bool UARTx::setBaudRate(interface::UartBaudRate const baud_rate)
 
 bool UARTx::setParity(interface::UartParity const parity)
 {
-  return false; /* The FE310 UART only supports no parity */
+  /* The FE310 UART only supports no parity */
+  switch(parity)
+  {
+  case interface::UartParity::None: return true;  break;
+  case interface::UartParity::Even: return false; break;
+  case interface::UartParity::Odd:  return false; break;
+  default:                          return false; break;
+  }
 }
 
 bool UARTx::setStopBit(interface::UartStopBit const stop_bit)

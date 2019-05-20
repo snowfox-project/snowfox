@@ -69,10 +69,13 @@ bool RA6963::open()
   return true;
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 ssize_t RA6963::read(uint8_t * buffer, ssize_t const num_bytes)
 {
   return -1;
 }
+#pragma GCC diagnostic pop
 
 ssize_t RA6963::write(uint8_t const * buffer, ssize_t const num_bytes)
 {

@@ -22,6 +22,11 @@
 
 #include <snowfox/hal/riscv64/FE310/Delay.h>
 
+#ifdef MCU_ARCH_host
+#include <chrono>
+#include <thread>
+#endif
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -55,17 +60,21 @@ Delay::~Delay()
 
 void Delay::delay_ms(uint32_t const ms)
 {
-#ifdef MCU_ARCH_riscv64
+#if defined(MCU_ARCH_riscv64)
   uint64_t const num_mcycle = static_cast<uint64_t>(ms * (F_CPU/1000UL));
   delay_mcycle(num_mcycle);
+#elif defined(MCU_ARCH_host)
+  std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 #endif
 }
 
 void Delay::delay_us(uint32_t const us)
 {
-#ifdef MCU_ARCH_riscv64
+#if defined(MCU_ARCH_riscv64)
   uint64_t const num_mcycle = static_cast<uint64_t>(us * (F_CPU/1000000UL));
   delay_mcycle(num_mcycle);
+#elif defined(MCU_ARCH_host)
+  std::this_thread::sleep_for(std::chrono::microseconds(us));
 #endif
 }
 
@@ -73,6 +82,8 @@ void Delay::delay_us(uint32_t const us)
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 void Delay::delay_mcycle(uint64_t const num_mcycle)
 {
 #ifdef MCU_ARCH_riscv64
@@ -86,6 +97,7 @@ void Delay::delay_mcycle(uint64_t const num_mcycle)
   }
 #endif
 }
+#pragma GCC diagnostic pop
 
 uint64_t Delay::getCycleCount()
 {

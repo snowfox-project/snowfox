@@ -65,8 +65,7 @@ DigitalInPin::~DigitalInPin()
 
 bool DigitalInPin::isSet()
 {
-  bool const is_set = (*_gpio_input_val & (1<<_in_pin_number)) == (1<<_in_pin_number);
-
+  bool const is_set = util::isBitSet(_gpio_input_val, _in_pin_number);
   return is_set;
 }
 
