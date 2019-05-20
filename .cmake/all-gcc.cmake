@@ -6,6 +6,10 @@ add_definitions(-DF_CPU=${MCU_SPEED})
 
 ##########################################################################
 
+add_compile_options(-Wall -Wextra -Wpedantic -Werror)
+
+##########################################################################
+
 set(SNOWFOX_ALL_GCC_CMAKE_C_FLAGS     "")
 set(SNOWFOX_ALL_GCC_CMAKE_CXX_FLAGS   "-std=c++11")
 set(SNOWFOX_ALL_GCC_CMAKE_C_CXX_FLAGS "")
