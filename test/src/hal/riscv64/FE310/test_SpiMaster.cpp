@@ -51,8 +51,8 @@ SCENARIO("A FE310::SpiMaster is constructed", "[FE310::SpiMaster]")
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/riscv64/FE310.json");
 
-  vireg::VirtReg32 SPIx_SCKMODE = vregmap.get<vireg::VirtReg32>("SPIx_SCKMODE");
-  vireg::VirtReg32 SPIx_FMT     = vregmap.get<vireg::VirtReg32>("SPIx_FMT"    );
+  vireg::Vireg32 SPIx_SCKMODE = vregmap.get<vireg::Vireg32>("SPIx_SCKMODE");
+  vireg::Vireg32 SPIx_FMT     = vregmap.get<vireg::Vireg32>("SPIx_FMT"    );
   
   SpiMaster spi_master(SPIx_SCKMODE->ptr(), SPIx_FMT->ptr());
 
@@ -69,8 +69,8 @@ SCENARIO("A FE310::SpiMaster's SpiMode is configured", "[FE310::SpiMaster]")
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/riscv64/FE310.json");
 
-  vireg::VirtReg32 SPIx_SCKMODE = vregmap.get<vireg::VirtReg32>("SPIx_SCKMODE");
-  vireg::VirtReg32 SPIx_FMT     = vregmap.get<vireg::VirtReg32>("SPIx_FMT"    );
+  vireg::Vireg32 SPIx_SCKMODE = vregmap.get<vireg::Vireg32>("SPIx_SCKMODE");
+  vireg::Vireg32 SPIx_FMT     = vregmap.get<vireg::Vireg32>("SPIx_FMT"    );
   
   SpiMaster spi_master(SPIx_SCKMODE->ptr(), SPIx_FMT->ptr());
 
@@ -117,8 +117,8 @@ SCENARIO("A FE310::SpiMaster's SpiBitOrder is configured", "[FE310::SpiMaster]")
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/riscv64/FE310.json");
 
-  vireg::VirtReg32 SPIx_SCKMODE = vregmap.get<vireg::VirtReg32>("SPIx_SCKMODE");
-  vireg::VirtReg32 SPIx_FMT     = vregmap.get<vireg::VirtReg32>("SPIx_FMT"    );
+  vireg::Vireg32 SPIx_SCKMODE = vregmap.get<vireg::Vireg32>("SPIx_SCKMODE");
+  vireg::Vireg32 SPIx_FMT     = vregmap.get<vireg::Vireg32>("SPIx_FMT"    );
   
   SpiMaster spi_master(SPIx_SCKMODE->ptr(), SPIx_FMT->ptr());
 

@@ -54,10 +54,10 @@ SCENARIO("ATMEGA328P::TIMER1 - A A valid prescaler value is set via 'setPrescale
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/ATMEGA328P.json");
 
-  vireg::VirtReg16 TCNT1  = vregmap.get<vireg::VirtReg16>("TCNT1" );
-  vireg::VirtReg8  TCCR1B = vregmap.get<vireg::VirtReg8 >("TCCR0B");
-  vireg::VirtReg16 OCR1A  = vregmap.get<vireg::VirtReg16>("OCR1A" );
-  vireg::VirtReg16 OCR1B  = vregmap.get<vireg::VirtReg16>("OCR1B" );
+  vireg::Vireg16 TCNT1  = vregmap.get<vireg::Vireg16>("TCNT1" );
+  vireg::Vireg8  TCCR1B = vregmap.get<vireg::Vireg8 >("TCCR0B");
+  vireg::Vireg16 OCR1A  = vregmap.get<vireg::Vireg16>("OCR1A" );
+  vireg::Vireg16 OCR1B  = vregmap.get<vireg::Vireg16>("OCR1B" );
 
 
   ATMEGA328P::TIMER1 timer1(TCNT1->ptr(), TCCR1B->ptr(), OCR1A->ptr(), OCR1B->ptr());
@@ -104,10 +104,10 @@ SCENARIO("ATMEGA328P::TIMER1 - A invalid prescaler value is set via 'setPrescale
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/ATMEGA328P.json");
 
-  vireg::VirtReg16 TCNT1  = vregmap.get<vireg::VirtReg16>("TCNT1" );
-  vireg::VirtReg8  TCCR1B = vregmap.get<vireg::VirtReg8 >("TCCR0B");
-  vireg::VirtReg16 OCR1A  = vregmap.get<vireg::VirtReg16>("OCR1A" );
-  vireg::VirtReg16 OCR1B  = vregmap.get<vireg::VirtReg16>("OCR1B" );
+  vireg::Vireg16 TCNT1  = vregmap.get<vireg::Vireg16>("TCNT1" );
+  vireg::Vireg8  TCCR1B = vregmap.get<vireg::Vireg8 >("TCCR0B");
+  vireg::Vireg16 OCR1A  = vregmap.get<vireg::Vireg16>("OCR1A" );
+  vireg::Vireg16 OCR1B  = vregmap.get<vireg::Vireg16>("OCR1B" );
 
 
   ATMEGA328P::TIMER1 timer1(TCNT1->ptr(), TCCR1B->ptr(), OCR1A->ptr(), OCR1B->ptr());
@@ -136,10 +136,10 @@ SCENARIO("ATMEGA328P::TIMER1 - A timer is started ('start') and stopped ('stop')
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/ATMEGA328P.json");
 
-  vireg::VirtReg16 TCNT1  = vregmap.get<vireg::VirtReg16>("TCNT1" );
-  vireg::VirtReg8  TCCR1B = vregmap.get<vireg::VirtReg8 >("TCCR0B");
-  vireg::VirtReg16 OCR1A  = vregmap.get<vireg::VirtReg16>("OCR1A" );
-  vireg::VirtReg16 OCR1B  = vregmap.get<vireg::VirtReg16>("OCR1B" );
+  vireg::Vireg16 TCNT1  = vregmap.get<vireg::Vireg16>("TCNT1" );
+  vireg::Vireg8  TCCR1B = vregmap.get<vireg::Vireg8 >("TCCR0B");
+  vireg::Vireg16 OCR1A  = vregmap.get<vireg::Vireg16>("OCR1A" );
+  vireg::Vireg16 OCR1B  = vregmap.get<vireg::Vireg16>("OCR1B" );
 
 
   ATMEGA328P::TIMER1 timer1(TCNT1->ptr(), TCCR1B->ptr(), OCR1A->ptr(), OCR1B->ptr());
@@ -172,10 +172,10 @@ SCENARIO("ATMEGA328P::TIMER1 - A timer's counter register is read ('get') and wr
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/ATMEGA328P.json");
 
-  vireg::VirtReg16 TCNT1  = vregmap.get<vireg::VirtReg16>("TCNT1" );
-  vireg::VirtReg8  TCCR1B = vregmap.get<vireg::VirtReg8 >("TCCR0B");
-  vireg::VirtReg16 OCR1A  = vregmap.get<vireg::VirtReg16>("OCR1A" );
-  vireg::VirtReg16 OCR1B  = vregmap.get<vireg::VirtReg16>("OCR1B" );
+  vireg::Vireg16 TCNT1  = vregmap.get<vireg::Vireg16>("TCNT1" );
+  vireg::Vireg8  TCCR1B = vregmap.get<vireg::Vireg8 >("TCCR0B");
+  vireg::Vireg16 OCR1A  = vregmap.get<vireg::Vireg16>("OCR1A" );
+  vireg::Vireg16 OCR1B  = vregmap.get<vireg::Vireg16>("OCR1B" );
 
 
   ATMEGA328P::TIMER1 timer1(TCNT1->ptr(), TCCR1B->ptr(), OCR1A->ptr(), OCR1B->ptr());
@@ -205,10 +205,10 @@ SCENARIO("ATMEGA328P::TIMER1 - A timer's compare register are written via 'setCo
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/ATMEGA328P.json");
 
-  vireg::VirtReg16 TCNT1  = vregmap.get<vireg::VirtReg16>("TCNT1" );
-  vireg::VirtReg8  TCCR1B = vregmap.get<vireg::VirtReg8 >("TCCR0B");
-  vireg::VirtReg16 OCR1A  = vregmap.get<vireg::VirtReg16>("OCR1A" );
-  vireg::VirtReg16 OCR1B  = vregmap.get<vireg::VirtReg16>("OCR1B" );
+  vireg::Vireg16 TCNT1  = vregmap.get<vireg::Vireg16>("TCNT1" );
+  vireg::Vireg8  TCCR1B = vregmap.get<vireg::Vireg8 >("TCCR0B");
+  vireg::Vireg16 OCR1A  = vregmap.get<vireg::Vireg16>("OCR1A" );
+  vireg::Vireg16 OCR1B  = vregmap.get<vireg::Vireg16>("OCR1B" );
 
 
   ATMEGA328P::TIMER1 timer1(TCNT1->ptr(), TCCR1B->ptr(), OCR1A->ptr(), OCR1B->ptr());

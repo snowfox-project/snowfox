@@ -54,11 +54,11 @@ SCENARIO("AT90CAN32_64_128::TIMER1 - A valid prescaler value is set via 'setPres
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/AT90CAN32_64_128.json");
 
-  vireg::VirtReg16 TCNT1  = vregmap.get<vireg::VirtReg16>("TCNT1");
-  vireg::VirtReg8  TCCR1B = vregmap.get<vireg::VirtReg8> ("TCCR1B");
-  vireg::VirtReg16 OCR1A  = vregmap.get<vireg::VirtReg16>("OCR1A" );
-  vireg::VirtReg16 OCR1B  = vregmap.get<vireg::VirtReg16>("OCR1B" );
-  vireg::VirtReg16 OCR1C  = vregmap.get<vireg::VirtReg16>("OCR1C" );
+  vireg::Vireg16 TCNT1  = vregmap.get<vireg::Vireg16>("TCNT1");
+  vireg::Vireg8  TCCR1B = vregmap.get<vireg::Vireg8> ("TCCR1B");
+  vireg::Vireg16 OCR1A  = vregmap.get<vireg::Vireg16>("OCR1A" );
+  vireg::Vireg16 OCR1B  = vregmap.get<vireg::Vireg16>("OCR1B" );
+  vireg::Vireg16 OCR1C  = vregmap.get<vireg::Vireg16>("OCR1C" );
 
   AT90CAN32_64_128::TIMER1 timer1(TCNT1->ptr(), TCCR1B->ptr(), OCR1A->ptr(), OCR1B->ptr(), OCR1C->ptr());
 
@@ -104,11 +104,11 @@ SCENARIO("AT90CAN32_64_128::TIMER1 - A invalid prescaler value is set via 'setPr
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/AT90CAN32_64_128.json");
 
-  vireg::VirtReg16 TCNT1  = vregmap.get<vireg::VirtReg16>("TCNT1");
-  vireg::VirtReg8  TCCR1B = vregmap.get<vireg::VirtReg8> ("TCCR1B");
-  vireg::VirtReg16 OCR1A  = vregmap.get<vireg::VirtReg16>("OCR1A" );
-  vireg::VirtReg16 OCR1B  = vregmap.get<vireg::VirtReg16>("OCR1B" );
-  vireg::VirtReg16 OCR1C  = vregmap.get<vireg::VirtReg16>("OCR1C" );
+  vireg::Vireg16 TCNT1  = vregmap.get<vireg::Vireg16>("TCNT1");
+  vireg::Vireg8  TCCR1B = vregmap.get<vireg::Vireg8> ("TCCR1B");
+  vireg::Vireg16 OCR1A  = vregmap.get<vireg::Vireg16>("OCR1A" );
+  vireg::Vireg16 OCR1B  = vregmap.get<vireg::Vireg16>("OCR1B" );
+  vireg::Vireg16 OCR1C  = vregmap.get<vireg::Vireg16>("OCR1C" );
 
   AT90CAN32_64_128::TIMER1 timer1(TCNT1->ptr(), TCCR1B->ptr(), OCR1A->ptr(), OCR1B->ptr(), OCR1C->ptr());
 
@@ -136,11 +136,11 @@ SCENARIO("AT90CAN32_64_128::TIMER1 - A timer is started ('start') and stopped ('
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/AT90CAN32_64_128.json");
 
-  vireg::VirtReg16 TCNT1  = vregmap.get<vireg::VirtReg16>("TCNT1");
-  vireg::VirtReg8  TCCR1B = vregmap.get<vireg::VirtReg8> ("TCCR1B");
-  vireg::VirtReg16 OCR1A  = vregmap.get<vireg::VirtReg16>("OCR1A" );
-  vireg::VirtReg16 OCR1B  = vregmap.get<vireg::VirtReg16>("OCR1B" );
-  vireg::VirtReg16 OCR1C  = vregmap.get<vireg::VirtReg16>("OCR1C" );
+  vireg::Vireg16 TCNT1  = vregmap.get<vireg::Vireg16>("TCNT1");
+  vireg::Vireg8  TCCR1B = vregmap.get<vireg::Vireg8> ("TCCR1B");
+  vireg::Vireg16 OCR1A  = vregmap.get<vireg::Vireg16>("OCR1A" );
+  vireg::Vireg16 OCR1B  = vregmap.get<vireg::Vireg16>("OCR1B" );
+  vireg::Vireg16 OCR1C  = vregmap.get<vireg::Vireg16>("OCR1C" );
 
   AT90CAN32_64_128::TIMER1 timer1(TCNT1->ptr(), TCCR1B->ptr(), OCR1A->ptr(), OCR1B->ptr(), OCR1C->ptr());
 
@@ -172,11 +172,11 @@ SCENARIO("AT90CAN32_64_128::TIMER1 - A timer's counter register is read ('get') 
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/AT90CAN32_64_128.json");
 
-  vireg::VirtReg16 TCNT1  = vregmap.get<vireg::VirtReg16>("TCNT1");
-  vireg::VirtReg8  TCCR1B = vregmap.get<vireg::VirtReg8> ("TCCR1B");
-  vireg::VirtReg16 OCR1A  = vregmap.get<vireg::VirtReg16>("OCR1A" );
-  vireg::VirtReg16 OCR1B  = vregmap.get<vireg::VirtReg16>("OCR1B" );
-  vireg::VirtReg16 OCR1C  = vregmap.get<vireg::VirtReg16>("OCR1C" );
+  vireg::Vireg16 TCNT1  = vregmap.get<vireg::Vireg16>("TCNT1");
+  vireg::Vireg8  TCCR1B = vregmap.get<vireg::Vireg8> ("TCCR1B");
+  vireg::Vireg16 OCR1A  = vregmap.get<vireg::Vireg16>("OCR1A" );
+  vireg::Vireg16 OCR1B  = vregmap.get<vireg::Vireg16>("OCR1B" );
+  vireg::Vireg16 OCR1C  = vregmap.get<vireg::Vireg16>("OCR1C" );
 
   AT90CAN32_64_128::TIMER1 timer1(TCNT1->ptr(), TCCR1B->ptr(), OCR1A->ptr(), OCR1B->ptr(), OCR1C->ptr());
 
@@ -205,11 +205,11 @@ SCENARIO("AT90CAN32_64_128::TIMER1 - A timer's compare register are written via 
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/AT90CAN32_64_128.json");
 
-  vireg::VirtReg16 TCNT1  = vregmap.get<vireg::VirtReg16>("TCNT1");
-  vireg::VirtReg8  TCCR1B = vregmap.get<vireg::VirtReg8> ("TCCR1B");
-  vireg::VirtReg16 OCR1A  = vregmap.get<vireg::VirtReg16>("OCR1A" );
-  vireg::VirtReg16 OCR1B  = vregmap.get<vireg::VirtReg16>("OCR1B" );
-  vireg::VirtReg16 OCR1C  = vregmap.get<vireg::VirtReg16>("OCR1C" );
+  vireg::Vireg16 TCNT1  = vregmap.get<vireg::Vireg16>("TCNT1");
+  vireg::Vireg8  TCCR1B = vregmap.get<vireg::Vireg8> ("TCCR1B");
+  vireg::Vireg16 OCR1A  = vregmap.get<vireg::Vireg16>("OCR1A" );
+  vireg::Vireg16 OCR1B  = vregmap.get<vireg::Vireg16>("OCR1B" );
+  vireg::Vireg16 OCR1C  = vregmap.get<vireg::Vireg16>("OCR1C" );
 
   AT90CAN32_64_128::TIMER1 timer1(TCNT1->ptr(), TCCR1B->ptr(), OCR1A->ptr(), OCR1B->ptr(), OCR1C->ptr());
 

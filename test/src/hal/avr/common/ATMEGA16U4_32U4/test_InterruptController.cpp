@@ -55,22 +55,22 @@ SCENARIO("ATMEGA16U4_32U4::InterruptController - interrupts are enabled via 'ena
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/ATMEGA16U4_32U4.json");
 
-  vireg::VirtReg8 EIMSK  = vregmap.get<vireg::VirtReg8>("EIMSK" );
-  vireg::VirtReg8 PCICR  = vregmap.get<vireg::VirtReg8>("PCICR" );
-  vireg::VirtReg8 PCMSK0 = vregmap.get<vireg::VirtReg8>("PCMSK0");
-  vireg::VirtReg8 WDTCSR = vregmap.get<vireg::VirtReg8>("WDTCSR");
-  vireg::VirtReg8 TIMSK0 = vregmap.get<vireg::VirtReg8>("TIMSK0");
-  vireg::VirtReg8 TIMSK1 = vregmap.get<vireg::VirtReg8>("TIMSK1");
-  vireg::VirtReg8 TIMSK3 = vregmap.get<vireg::VirtReg8>("TIMSK3");
-  vireg::VirtReg8 TIMSK4 = vregmap.get<vireg::VirtReg8>("TIMSK4");
-  vireg::VirtReg8 TCCR4D = vregmap.get<vireg::VirtReg8>("TCCR4D");
-  vireg::VirtReg8 UCSR1B = vregmap.get<vireg::VirtReg8>("UCSR1B");
-  vireg::VirtReg8 SPCR   = vregmap.get<vireg::VirtReg8>("SPCR"  );
-  vireg::VirtReg8 TWCR   = vregmap.get<vireg::VirtReg8>("TWCR"  );
-  vireg::VirtReg8 EECR   = vregmap.get<vireg::VirtReg8>("EECR"  );
-  vireg::VirtReg8 SPMCSR = vregmap.get<vireg::VirtReg8>("SPMCSR");
-  vireg::VirtReg8 ACSR   = vregmap.get<vireg::VirtReg8>("ACSR"  );
-  vireg::VirtReg8 ADCSRA = vregmap.get<vireg::VirtReg8>("ADCSRA");
+  vireg::Vireg8 EIMSK  = vregmap.get<vireg::Vireg8>("EIMSK" );
+  vireg::Vireg8 PCICR  = vregmap.get<vireg::Vireg8>("PCICR" );
+  vireg::Vireg8 PCMSK0 = vregmap.get<vireg::Vireg8>("PCMSK0");
+  vireg::Vireg8 WDTCSR = vregmap.get<vireg::Vireg8>("WDTCSR");
+  vireg::Vireg8 TIMSK0 = vregmap.get<vireg::Vireg8>("TIMSK0");
+  vireg::Vireg8 TIMSK1 = vregmap.get<vireg::Vireg8>("TIMSK1");
+  vireg::Vireg8 TIMSK3 = vregmap.get<vireg::Vireg8>("TIMSK3");
+  vireg::Vireg8 TIMSK4 = vregmap.get<vireg::Vireg8>("TIMSK4");
+  vireg::Vireg8 TCCR4D = vregmap.get<vireg::Vireg8>("TCCR4D");
+  vireg::Vireg8 UCSR1B = vregmap.get<vireg::Vireg8>("UCSR1B");
+  vireg::Vireg8 SPCR   = vregmap.get<vireg::Vireg8>("SPCR"  );
+  vireg::Vireg8 TWCR   = vregmap.get<vireg::Vireg8>("TWCR"  );
+  vireg::Vireg8 EECR   = vregmap.get<vireg::Vireg8>("EECR"  );
+  vireg::Vireg8 SPMCSR = vregmap.get<vireg::Vireg8>("SPMCSR");
+  vireg::Vireg8 ACSR   = vregmap.get<vireg::Vireg8>("ACSR"  );
+  vireg::Vireg8 ADCSRA = vregmap.get<vireg::Vireg8>("ADCSRA");
 
   ATMEGA16U4_32U4::InterruptController int_ctrl(EIMSK->ptr (),
                                                 PCICR->ptr (),

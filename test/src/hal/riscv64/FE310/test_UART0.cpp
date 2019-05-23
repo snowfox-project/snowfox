@@ -51,13 +51,13 @@ SCENARIO("A FE310::UART0 object is constructed", "[FE310::UART0]")
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/riscv64/FE310.json");
 
-  vireg::VirtReg32 UARTx_TXDATA = vregmap.get<vireg::VirtReg32>("UARTx_TXDATA");
-  vireg::VirtReg32 UARTx_RXDATA = vregmap.get<vireg::VirtReg32>("UARTx_RXDATA");
-  vireg::VirtReg32 UARTx_TXCTRL = vregmap.get<vireg::VirtReg32>("UARTx_TXCTRL");
-  vireg::VirtReg32 UARTx_RXCTRL = vregmap.get<vireg::VirtReg32>("UARTx_RXCTRL");
-  vireg::VirtReg32 UARTx_DIV    = vregmap.get<vireg::VirtReg32>("UARTx_DIV"   );
-  vireg::VirtReg32 GPIO_IOF_EN  = vregmap.get<vireg::VirtReg32>("GPIO_IOF_EN" );
-  vireg::VirtReg32 GPIO_IOF_SEL = vregmap.get<vireg::VirtReg32>("GPIO_IOF_SEL");
+  vireg::Vireg32 UARTx_TXDATA = vregmap.get<vireg::Vireg32>("UARTx_TXDATA");
+  vireg::Vireg32 UARTx_RXDATA = vregmap.get<vireg::Vireg32>("UARTx_RXDATA");
+  vireg::Vireg32 UARTx_TXCTRL = vregmap.get<vireg::Vireg32>("UARTx_TXCTRL");
+  vireg::Vireg32 UARTx_RXCTRL = vregmap.get<vireg::Vireg32>("UARTx_RXCTRL");
+  vireg::Vireg32 UARTx_DIV    = vregmap.get<vireg::Vireg32>("UARTx_DIV"   );
+  vireg::Vireg32 GPIO_IOF_EN  = vregmap.get<vireg::Vireg32>("GPIO_IOF_EN" );
+  vireg::Vireg32 GPIO_IOF_SEL = vregmap.get<vireg::Vireg32>("GPIO_IOF_SEL");
 
   UART0 uart0(UARTx_TXDATA->ptr(), UARTx_RXDATA->ptr(), UARTx_TXCTRL->ptr(), UARTx_RXCTRL->ptr(), UARTx_DIV->ptr(), 200000000UL, GPIO_IOF_EN->ptr(), GPIO_IOF_SEL->ptr());
 

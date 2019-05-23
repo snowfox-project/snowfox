@@ -54,10 +54,10 @@ SCENARIO("ATMEGA328P::TIMER0 - A valid prescaler value is set via 'setPrescaler'
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/ATMEGA328P.json");
 
-  vireg::VirtReg8 TCNT0  = vregmap.get<vireg::VirtReg8>("TCNT0" );
-  vireg::VirtReg8 TCCR0B = vregmap.get<vireg::VirtReg8>("TCCR0B");
-  vireg::VirtReg8 OCR0A  = vregmap.get<vireg::VirtReg8>("OCR0A" );
-  vireg::VirtReg8 OCR0B  = vregmap.get<vireg::VirtReg8>("OCR0B" );
+  vireg::Vireg8 TCNT0  = vregmap.get<vireg::Vireg8>("TCNT0" );
+  vireg::Vireg8 TCCR0B = vregmap.get<vireg::Vireg8>("TCCR0B");
+  vireg::Vireg8 OCR0A  = vregmap.get<vireg::Vireg8>("OCR0A" );
+  vireg::Vireg8 OCR0B  = vregmap.get<vireg::Vireg8>("OCR0B" );
 
 
   ATMEGA328P::TIMER0 timer0(TCNT0->ptr(), TCCR0B->ptr(), OCR0A->ptr(), OCR0B->ptr());
@@ -104,10 +104,10 @@ SCENARIO("ATMEGA328P::TIMER0 - A invalid prescaler value is set via 'setPrescale
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/ATMEGA328P.json");
 
-  vireg::VirtReg8 TCNT0  = vregmap.get<vireg::VirtReg8>("TCNT0" );
-  vireg::VirtReg8 TCCR0B = vregmap.get<vireg::VirtReg8>("TCCR0B");
-  vireg::VirtReg8 OCR0A  = vregmap.get<vireg::VirtReg8>("OCR0A" );
-  vireg::VirtReg8 OCR0B  = vregmap.get<vireg::VirtReg8>("OCR0B" );
+  vireg::Vireg8 TCNT0  = vregmap.get<vireg::Vireg8>("TCNT0" );
+  vireg::Vireg8 TCCR0B = vregmap.get<vireg::Vireg8>("TCCR0B");
+  vireg::Vireg8 OCR0A  = vregmap.get<vireg::Vireg8>("OCR0A" );
+  vireg::Vireg8 OCR0B  = vregmap.get<vireg::Vireg8>("OCR0B" );
 
 
   ATMEGA328P::TIMER0 timer0(TCNT0->ptr(), TCCR0B->ptr(), OCR0A->ptr(), OCR0B->ptr());
@@ -136,10 +136,10 @@ SCENARIO("ATMEGA328P::TIMER0 - A timer is started ('start') and stopped ('stop')
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/ATMEGA328P.json");
 
-  vireg::VirtReg8 TCNT0  = vregmap.get<vireg::VirtReg8>("TCNT0" );
-  vireg::VirtReg8 TCCR0B = vregmap.get<vireg::VirtReg8>("TCCR0B");
-  vireg::VirtReg8 OCR0A  = vregmap.get<vireg::VirtReg8>("OCR0A" );
-  vireg::VirtReg8 OCR0B  = vregmap.get<vireg::VirtReg8>("OCR0B" );
+  vireg::Vireg8 TCNT0  = vregmap.get<vireg::Vireg8>("TCNT0" );
+  vireg::Vireg8 TCCR0B = vregmap.get<vireg::Vireg8>("TCCR0B");
+  vireg::Vireg8 OCR0A  = vregmap.get<vireg::Vireg8>("OCR0A" );
+  vireg::Vireg8 OCR0B  = vregmap.get<vireg::Vireg8>("OCR0B" );
 
 
   ATMEGA328P::TIMER0 timer0(TCNT0->ptr(), TCCR0B->ptr(), OCR0A->ptr(), OCR0B->ptr());
@@ -172,10 +172,10 @@ SCENARIO("ATMEGA328P::TIMER0 - A timer's counter register is read ('get') and wr
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/ATMEGA328P.json");
 
-  vireg::VirtReg8 TCNT0  = vregmap.get<vireg::VirtReg8>("TCNT0" );
-  vireg::VirtReg8 TCCR0B = vregmap.get<vireg::VirtReg8>("TCCR0B");
-  vireg::VirtReg8 OCR0A  = vregmap.get<vireg::VirtReg8>("OCR0A" );
-  vireg::VirtReg8 OCR0B  = vregmap.get<vireg::VirtReg8>("OCR0B" );
+  vireg::Vireg8 TCNT0  = vregmap.get<vireg::Vireg8>("TCNT0" );
+  vireg::Vireg8 TCCR0B = vregmap.get<vireg::Vireg8>("TCCR0B");
+  vireg::Vireg8 OCR0A  = vregmap.get<vireg::Vireg8>("OCR0A" );
+  vireg::Vireg8 OCR0B  = vregmap.get<vireg::Vireg8>("OCR0B" );
 
 
   ATMEGA328P::TIMER0 timer0(TCNT0->ptr(), TCCR0B->ptr(), OCR0A->ptr(), OCR0B->ptr());
@@ -205,10 +205,10 @@ SCENARIO("ATMEGA328P::TIMER0 - A timer's compare register are written via 'setCo
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/ATMEGA328P.json");
 
-  vireg::VirtReg8 TCNT0  = vregmap.get<vireg::VirtReg8>("TCNT0" );
-  vireg::VirtReg8 TCCR0B = vregmap.get<vireg::VirtReg8>("TCCR0B");
-  vireg::VirtReg8 OCR0A  = vregmap.get<vireg::VirtReg8>("OCR0A" );
-  vireg::VirtReg8 OCR0B  = vregmap.get<vireg::VirtReg8>("OCR0B" );
+  vireg::Vireg8 TCNT0  = vregmap.get<vireg::Vireg8>("TCNT0" );
+  vireg::Vireg8 TCCR0B = vregmap.get<vireg::Vireg8>("TCCR0B");
+  vireg::Vireg8 OCR0A  = vregmap.get<vireg::Vireg8>("OCR0A" );
+  vireg::Vireg8 OCR0B  = vregmap.get<vireg::Vireg8>("OCR0B" );
 
 
   ATMEGA328P::TIMER0 timer0(TCNT0->ptr(), TCCR0B->ptr(), OCR0A->ptr(), OCR0B->ptr());

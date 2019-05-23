@@ -51,11 +51,11 @@ SCENARIO("A FE310::DigitalInPin (Pin number #0) object is constructed", "[FE310:
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/riscv64/FE310.json");
 
-  vireg::VirtReg32 GPIO_INPUT_EN  = vregmap.get<vireg::VirtReg32>("GPIO_INPUT_EN" );
-  vireg::VirtReg32 GPIO_OUTPUT_EN = vregmap.get<vireg::VirtReg32>("GPIO_OUTPUT_EN");
-  vireg::VirtReg32 GPIO_IOF_EN    = vregmap.get<vireg::VirtReg32>("GPIO_IOF_EN"   );
-  vireg::VirtReg32 GPIO_INPUT_VAL = vregmap.get<vireg::VirtReg32>("GPIO_INPUT_VAL");
-  vireg::VirtReg32 GPIO_PUE       = vregmap.get<vireg::VirtReg32>("GPIO_PUE"      );
+  vireg::Vireg32 GPIO_INPUT_EN  = vregmap.get<vireg::Vireg32>("GPIO_INPUT_EN" );
+  vireg::Vireg32 GPIO_OUTPUT_EN = vregmap.get<vireg::Vireg32>("GPIO_OUTPUT_EN");
+  vireg::Vireg32 GPIO_IOF_EN    = vregmap.get<vireg::Vireg32>("GPIO_IOF_EN"   );
+  vireg::Vireg32 GPIO_INPUT_VAL = vregmap.get<vireg::Vireg32>("GPIO_INPUT_VAL");
+  vireg::Vireg32 GPIO_PUE       = vregmap.get<vireg::Vireg32>("GPIO_PUE"      );
   
   DigitalInPin in_pin(GPIO_INPUT_EN->ptr(), GPIO_OUTPUT_EN->ptr(), GPIO_IOF_EN->ptr(), GPIO_INPUT_VAL->ptr(), GPIO_PUE->ptr(), 0);
 

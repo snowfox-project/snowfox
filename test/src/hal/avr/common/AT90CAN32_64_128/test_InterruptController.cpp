@@ -53,20 +53,20 @@ SCENARIO("AT90CAN32_64_128::InterruptController - interrupts are enabled via 'en
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/avr/AT90CAN32_64_128.json");
 
-  vireg::VirtReg8 EIMSK  = vregmap.get<vireg::VirtReg8>("EIMSK" );
-  vireg::VirtReg8 TIMSK2 = vregmap.get<vireg::VirtReg8>("TIMSK2");
-  vireg::VirtReg8 TIMSK1 = vregmap.get<vireg::VirtReg8>("TIMSK1");
-  vireg::VirtReg8 TIMSK0 = vregmap.get<vireg::VirtReg8>("TIMSK0");
-  vireg::VirtReg8 CANGIE = vregmap.get<vireg::VirtReg8>("CANGIE");
-  vireg::VirtReg8 SPCR   = vregmap.get<vireg::VirtReg8>("SPCR"  );
-  vireg::VirtReg8 UCSR0B = vregmap.get<vireg::VirtReg8>("UCSR0B");
-  vireg::VirtReg8 ACSR   = vregmap.get<vireg::VirtReg8>("ACSR"  );
-  vireg::VirtReg8 ADCSRA = vregmap.get<vireg::VirtReg8>("ADCSRA");
-  vireg::VirtReg8 EECR   = vregmap.get<vireg::VirtReg8>("EECR"  );
-  vireg::VirtReg8 TIMSK3 = vregmap.get<vireg::VirtReg8>("TIMSK3");
-  vireg::VirtReg8 UCSR1B = vregmap.get<vireg::VirtReg8>("UCSR1B");
-  vireg::VirtReg8 TWCR   = vregmap.get<vireg::VirtReg8>("TWCR"  );
-  vireg::VirtReg8 SPMCSR = vregmap.get<vireg::VirtReg8>("SPMCSR");
+  vireg::Vireg8 EIMSK  = vregmap.get<vireg::Vireg8>("EIMSK" );
+  vireg::Vireg8 TIMSK2 = vregmap.get<vireg::Vireg8>("TIMSK2");
+  vireg::Vireg8 TIMSK1 = vregmap.get<vireg::Vireg8>("TIMSK1");
+  vireg::Vireg8 TIMSK0 = vregmap.get<vireg::Vireg8>("TIMSK0");
+  vireg::Vireg8 CANGIE = vregmap.get<vireg::Vireg8>("CANGIE");
+  vireg::Vireg8 SPCR   = vregmap.get<vireg::Vireg8>("SPCR"  );
+  vireg::Vireg8 UCSR0B = vregmap.get<vireg::Vireg8>("UCSR0B");
+  vireg::Vireg8 ACSR   = vregmap.get<vireg::Vireg8>("ACSR"  );
+  vireg::Vireg8 ADCSRA = vregmap.get<vireg::Vireg8>("ADCSRA");
+  vireg::Vireg8 EECR   = vregmap.get<vireg::Vireg8>("EECR"  );
+  vireg::Vireg8 TIMSK3 = vregmap.get<vireg::Vireg8>("TIMSK3");
+  vireg::Vireg8 UCSR1B = vregmap.get<vireg::Vireg8>("UCSR1B");
+  vireg::Vireg8 TWCR   = vregmap.get<vireg::Vireg8>("TWCR"  );
+  vireg::Vireg8 SPMCSR = vregmap.get<vireg::Vireg8>("SPMCSR");
 
   AT90CAN32_64_128::InterruptController int_ctrl(EIMSK->ptr (),
                                                  TIMSK0->ptr(),
