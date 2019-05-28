@@ -54,15 +54,15 @@ namespace FE310
  * CTOR/DTOR
  **************************************************************************************/
 
-SpiMaster::SpiMaster(volatile uint32_t * spix_sckmode,
-                     volatile uint32_t * spix_fmt)
+SpiMasterBase::SpiMasterBase(volatile uint32_t * spix_sckmode,
+                             volatile uint32_t * spix_fmt)
 : _spix_sckmode(spix_sckmode),
   _spix_fmt    (spix_fmt    )
 {
   setSpiProtocol(SpiProtocol::Single);
 }
 
-SpiMaster::~SpiMaster()
+SpiMasterBase::~SpiMasterBase()
 {
 
 }
@@ -71,12 +71,12 @@ SpiMaster::~SpiMaster()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-uint8_t SpiMaster::exchange(uint8_t const /* data */)
+uint8_t SpiMasterBase::exchange(uint8_t const /* data */)
 {
   /* TODO */ return 0;
 }
 
-bool SpiMaster::setSpiMode(interface::SpiMode const spi_mode)
+bool SpiMasterBase::setSpiMode(interface::SpiMode const spi_mode)
 {
   util::clrBit(_spix_sckmode, SCKMODE_PHA_bp);
   util::clrBit(_spix_sckmode, SCKMODE_POL_bp);
@@ -92,7 +92,7 @@ bool SpiMaster::setSpiMode(interface::SpiMode const spi_mode)
   return true;
 }
 
-bool SpiMaster::setSpiBitOrder(interface::SpiBitOrder const spi_bit_order)
+bool SpiMasterBase::setSpiBitOrder(interface::SpiBitOrder const spi_bit_order)
 { 
   switch(spi_bit_order)
   {
@@ -103,7 +103,7 @@ bool SpiMaster::setSpiBitOrder(interface::SpiBitOrder const spi_bit_order)
   return true;
 }
 
-bool SpiMaster::setSpiPrescaler(uint32_t const /* spi_prescaler */)
+bool SpiMasterBase::setSpiPrescaler(uint32_t const /* spi_prescaler */)
 {
   /* TODO */ return false;
 }
@@ -112,7 +112,7 @@ bool SpiMaster::setSpiPrescaler(uint32_t const /* spi_prescaler */)
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
-void SpiMaster::setSpiProtocol(SpiProtocol const spi_protocol)
+void SpiMasterBase::setSpiProtocol(SpiProtocol const spi_protocol)
 {
   util::clrBit(_spix_sckmode, FMT_PROTO_0_bp);
   util::clrBit(_spix_sckmode, FMT_PROTO_1_bp);

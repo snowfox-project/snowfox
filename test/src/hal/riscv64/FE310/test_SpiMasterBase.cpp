@@ -47,14 +47,14 @@ namespace test
  * TEST CODE
  **************************************************************************************/
 
-SCENARIO("A FE310::SpiMaster is constructed", "[FE310::SpiMaster]")
+SCENARIO("A FE310::SpiMasterBase is constructed", "[FE310::SpiMasterBase]")
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/riscv64/FE310.json");
 
   vireg::Vireg32 SPIx_SCKMODE = vregmap.get<vireg::Vireg32>("SPIx_SCKMODE");
   vireg::Vireg32 SPIx_FMT     = vregmap.get<vireg::Vireg32>("SPIx_FMT"    );
   
-  SpiMaster spi_master(SPIx_SCKMODE->ptr(), SPIx_FMT->ptr());
+  SpiMasterBase spi_master(SPIx_SCKMODE->ptr(), SPIx_FMT->ptr());
 
 
   THEN("FMT[1:0] should be 0b00 (SpiProtocol::Single)") {
@@ -65,14 +65,14 @@ SCENARIO("A FE310::SpiMaster is constructed", "[FE310::SpiMaster]")
 
 /**************************************************************************************/
 
-SCENARIO("A FE310::SpiMaster's SpiMode is configured", "[FE310::SpiMaster]")
+SCENARIO("A FE310::SpiMasterBase's SpiMode is configured", "[FE310::SpiMasterBase]")
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/riscv64/FE310.json");
 
   vireg::Vireg32 SPIx_SCKMODE = vregmap.get<vireg::Vireg32>("SPIx_SCKMODE");
   vireg::Vireg32 SPIx_FMT     = vregmap.get<vireg::Vireg32>("SPIx_FMT"    );
   
-  SpiMaster spi_master(SPIx_SCKMODE->ptr(), SPIx_FMT->ptr());
+  SpiMasterBase spi_master(SPIx_SCKMODE->ptr(), SPIx_FMT->ptr());
 
 
   THEN("setSpiMode(interface::SpiMode::MODE_0) should return true") REQUIRE(spi_master.setSpiMode(interface::SpiMode::MODE_0) == true); 
@@ -113,14 +113,14 @@ SCENARIO("A FE310::SpiMaster's SpiMode is configured", "[FE310::SpiMaster]")
 
 /**************************************************************************************/
 
-SCENARIO("A FE310::SpiMaster's SpiBitOrder is configured", "[FE310::SpiMaster]")
+SCENARIO("A FE310::SpiMasterBase's SpiBitOrder is configured", "[FE310::SpiMasterBase]")
 {
   vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/riscv64/FE310.json");
 
   vireg::Vireg32 SPIx_SCKMODE = vregmap.get<vireg::Vireg32>("SPIx_SCKMODE");
   vireg::Vireg32 SPIx_FMT     = vregmap.get<vireg::Vireg32>("SPIx_FMT"    );
   
-  SpiMaster spi_master(SPIx_SCKMODE->ptr(), SPIx_FMT->ptr());
+  SpiMasterBase spi_master(SPIx_SCKMODE->ptr(), SPIx_FMT->ptr());
 
 
   THEN("setSpiBitOrder(SpiBitOrder::MSB_FIRST) should return true") REQUIRE(spi_master.setSpiBitOrder(interface::SpiBitOrder::MSB_FIRST) == true); 

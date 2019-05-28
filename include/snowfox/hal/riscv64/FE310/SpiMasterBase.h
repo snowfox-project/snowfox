@@ -42,14 +42,14 @@ namespace FE310
  * CLASS DECLARATION
  **************************************************************************************/
 
-class SpiMaster : public interface::SpiMaster
+class SpiMasterBase : public interface::SpiMaster
 {
 
 public:
 
-           SpiMaster(volatile uint32_t * spix_sckmode,
-                     volatile uint32_t * spix_fmt);
-  virtual ~SpiMaster();
+           SpiMasterBase(volatile uint32_t * spix_sckmode,
+                         volatile uint32_t * spix_fmt);
+  virtual ~SpiMasterBase();
 
 
   /* SPI Master Control Interface */

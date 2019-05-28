@@ -42,7 +42,7 @@ namespace FE310
  * CLASS DECLARATION
  **************************************************************************************/
 
-class Spi2Master : public SpiMaster
+class Spi2Master : public SpiMasterBase
 {
 
 public:

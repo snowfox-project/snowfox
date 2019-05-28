@@ -57,7 +57,7 @@ Spi2Master::Spi2Master(volatile uint32_t * spi2_sckmode,
                        volatile uint32_t * spi2_fmt,
                        volatile uint32_t * gpio_iof_en,
                        volatile uint32_t * gpio_iof_sel)
-: SpiMaster(spi2_sckmode, spi2_fmt)
+: SpiMasterBase(spi2_sckmode, spi2_fmt)
 {
   enableGpioAccess(gpio_iof_en, gpio_iof_sel);
 }
