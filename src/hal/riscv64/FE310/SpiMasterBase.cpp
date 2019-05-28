@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/hal/riscv64/FE310/SpiMaster.h>
+#include <snowfox/hal/riscv64/FE310/SpiMasterBase.h>
 
 #include <snowfox/util/BitUtil.h>
 

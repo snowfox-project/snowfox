@@ -22,7 +22,7 @@
 
 #include <catch2/catch.hpp>
 
-#include <snowfox/hal/riscv64/FE310/SpiMaster.h>
+#include <snowfox/hal/riscv64/FE310/SpiMasterBase.h>
 
 #include <vireg/VirtualRegister.hpp>
 #include <vireg/VirtualRegisterLoader.h>

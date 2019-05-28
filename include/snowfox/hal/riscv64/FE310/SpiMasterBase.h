@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SNOWFOX_HAL_SIFIVE_FE310_SPIMASTER_H_
-#define INCLUDE_SNOWFOX_HAL_SIFIVE_FE310_SPIMASTER_H_
+#ifndef INCLUDE_SNOWFOX_HAL_SIFIVE_FE310_SPIMASTERBASE_H_
+#define INCLUDE_SNOWFOX_HAL_SIFIVE_FE310_SPIMASTERBASE_H_
 
 /**************************************************************************************
  * INCLUDE
@@ -87,4 +87,4 @@ private:
 
 } /* snowfox */
 
-#endif /* INCLUDE_SNOWFOX_HAL_SIFIVE_FE310_SPIMASTER_H_ */
+#endif /* INCLUDE_SNOWFOX_HAL_SIFIVE_FE310_SPIMASTERBASE_H_ */
