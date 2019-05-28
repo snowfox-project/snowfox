@@ -10,6 +10,7 @@ include_directories(external/libvireg/include)
 
 ##########################################################################
 
+set(LIBVIREG_BUILD_EXAMPLES no)
 add_subdirectory(external/libvireg)
 
 ##########################################################################
