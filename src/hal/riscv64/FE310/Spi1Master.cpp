@@ -55,9 +55,10 @@ namespace FE310
 
 Spi1Master::Spi1Master(volatile uint32_t * spi1_sckmode,
                        volatile uint32_t * spi1_fmt,
+                       volatile uint32_t * spi1_csmode,
                        volatile uint32_t * gpio_iof_en,
                        volatile uint32_t * gpio_iof_sel)
-: SpiMasterBase(spi1_sckmode, spi1_fmt)
+: SpiMasterBase(spi1_sckmode, spi1_fmt, spi1_csmode)
 {
   enableGpioAccess(gpio_iof_en, gpio_iof_sel);
 }

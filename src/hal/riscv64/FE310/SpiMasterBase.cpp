@@ -42,24 +42,31 @@ namespace FE310
  **************************************************************************************/
 
 /* SCKMODE */
-#define SCKMODE_POL_bp  (1)
-#define SCKMODE_PHA_bp  (0)
+#define SCKMODE_POL_bp    (1)
+#define SCKMODE_PHA_bp    (0)
 
 /* FMT */
-#define FMT_ENDIAN_bp   (2)
-#define FMT_PROTO_1_bp  (1)
-#define FMT_PROTO_0_bp  (0)
+#define FMT_ENDIAN_bp     (2)
+#define FMT_PROTO_1_bp    (1)
+#define FMT_PROTO_0_bp    (0)
+
+/* CSMODE */
+#define CSMODE_MODE_1_bp  (1)
+#define CSMODE_MODE_0_bp  (0)
 
 /**************************************************************************************
  * CTOR/DTOR
  **************************************************************************************/
 
 SpiMasterBase::SpiMasterBase(volatile uint32_t * spix_sckmode,
-                             volatile uint32_t * spix_fmt)
+                             volatile uint32_t * spix_fmt,
+                             volatile uint32_t * spix_csmode)
 : _spix_sckmode(spix_sckmode),
-  _spix_fmt    (spix_fmt    )
+  _spix_fmt    (spix_fmt    ),
+  _spix_csmode (spix_csmode )
 {
-  setSpiProtocol(SpiProtocol::Single);
+  setSpiProtocol   (SpiProtocol::Single);
+  setChipSelectMode(ChipSelectMode::Off); /* Manual control of chip select line */
 }
 
 SpiMasterBase::~SpiMasterBase()
@@ -122,6 +129,19 @@ void SpiMasterBase::setSpiProtocol(SpiProtocol const spi_protocol)
   case SpiProtocol::Single:                                              break;
   case SpiProtocol::Dual  : util::setBit(_spix_sckmode, FMT_PROTO_0_bp); break;
   case SpiProtocol::Quad  : util::setBit(_spix_sckmode, FMT_PROTO_1_bp); break;
+  }
+}
+
+void SpiMasterBase::setChipSelectMode(ChipSelectMode const cs_mode)
+{
+  util::clrBit(_spix_csmode, CSMODE_MODE_1_bp);
+  util::clrBit(_spix_csmode, CSMODE_MODE_0_bp);
+
+  switch(cs_mode)
+  {
+    case ChipSelectMode::Auto: break;
+    case ChipSelectMode::Hold: util::setBit(_spix_csmode, CSMODE_MODE_1_bp); break;
+    case ChipSelectMode::Off : util::setBit(_spix_csmode, CSMODE_MODE_1_bp); util::setBit(_spix_csmode, CSMODE_MODE_0_bp); break;
   }
 }
 

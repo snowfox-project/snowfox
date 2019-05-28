@@ -49,6 +49,7 @@ public:
 
            Spi2Master(volatile uint32_t * spi2_sckmode,
                       volatile uint32_t * spi2_fmt,
+                      volatile uint32_t * spi2_csmode,
                       volatile uint32_t * gpio_iof_en,
                       volatile uint32_t * gpio_iof_sel);
   virtual ~Spi2Master();

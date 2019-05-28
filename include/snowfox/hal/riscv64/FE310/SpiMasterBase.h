@@ -48,7 +48,8 @@ class SpiMasterBase : public interface::SpiMaster
 public:
 
            SpiMasterBase(volatile uint32_t * spix_sckmode,
-                         volatile uint32_t * spix_fmt);
+                         volatile uint32_t * spix_fmt,
+                         volatile uint32_t * spix_csmode);
   virtual ~SpiMasterBase();
 
 
@@ -66,14 +67,21 @@ public:
 private:
 
   volatile uint32_t * _spix_sckmode,
-                    * _spix_fmt;
+                    * _spix_fmt,
+                    * _spix_csmode;
 
   enum class SpiProtocol
   {
     Single, Dual, Quad
   };
 
-  void setSpiProtocol(SpiProtocol const spi_protocol);
+  enum class ChipSelectMode
+  {
+    Auto, Hold, Off
+  };
+
+  void setSpiProtocol   (SpiProtocol    const spi_protocol);
+  void setChipSelectMode(ChipSelectMode const cs_mode     );
 
 };
 

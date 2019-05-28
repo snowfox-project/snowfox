@@ -53,13 +53,19 @@ SCENARIO("A FE310::SpiMasterBase is constructed", "[FE310::SpiMasterBase]")
 
   vireg::Vireg32 SPIx_SCKMODE = vregmap.get<vireg::Vireg32>("SPIx_SCKMODE");
   vireg::Vireg32 SPIx_FMT     = vregmap.get<vireg::Vireg32>("SPIx_FMT"    );
+  vireg::Vireg32 SPIx_CSMODE  = vregmap.get<vireg::Vireg32>("SPIx_CSMODE" );
   
-  SpiMasterBase spi_master(SPIx_SCKMODE->ptr(), SPIx_FMT->ptr());
+  SpiMasterBase spi_master(SPIx_SCKMODE->ptr(), SPIx_FMT->ptr(), SPIx_CSMODE->ptr());
 
 
   THEN("FMT[1:0] should be 0b00 (SpiProtocol::Single)") {
     REQUIRE(SPIx_FMT->isBitClr(0));
     REQUIRE(SPIx_FMT->isBitClr(1));
+  }
+
+  THEN("CSMODE[1:0] should be 0b11 (ChipSelectMode::Off)") {
+    REQUIRE(SPIx_CSMODE->isBitSet(0));
+    REQUIRE(SPIx_CSMODE->isBitSet(1));
   }
 }
 
@@ -71,8 +77,9 @@ SCENARIO("A FE310::SpiMasterBase's SpiMode is configured", "[FE310::SpiMasterBas
 
   vireg::Vireg32 SPIx_SCKMODE = vregmap.get<vireg::Vireg32>("SPIx_SCKMODE");
   vireg::Vireg32 SPIx_FMT     = vregmap.get<vireg::Vireg32>("SPIx_FMT"    );
+  vireg::Vireg32 SPIx_CSMODE  = vregmap.get<vireg::Vireg32>("SPIx_CSMODE" );
   
-  SpiMasterBase spi_master(SPIx_SCKMODE->ptr(), SPIx_FMT->ptr());
+  SpiMasterBase spi_master(SPIx_SCKMODE->ptr(), SPIx_FMT->ptr(), SPIx_CSMODE->ptr());
 
 
   THEN("setSpiMode(interface::SpiMode::MODE_0) should return true") REQUIRE(spi_master.setSpiMode(interface::SpiMode::MODE_0) == true); 
@@ -119,8 +126,9 @@ SCENARIO("A FE310::SpiMasterBase's SpiBitOrder is configured", "[FE310::SpiMaste
 
   vireg::Vireg32 SPIx_SCKMODE = vregmap.get<vireg::Vireg32>("SPIx_SCKMODE");
   vireg::Vireg32 SPIx_FMT     = vregmap.get<vireg::Vireg32>("SPIx_FMT"    );
+  vireg::Vireg32 SPIx_CSMODE  = vregmap.get<vireg::Vireg32>("SPIx_CSMODE" );
   
-  SpiMasterBase spi_master(SPIx_SCKMODE->ptr(), SPIx_FMT->ptr());
+  SpiMasterBase spi_master(SPIx_SCKMODE->ptr(), SPIx_FMT->ptr(), SPIx_CSMODE->ptr());
 
 
   THEN("setSpiBitOrder(SpiBitOrder::MSB_FIRST) should return true") REQUIRE(spi_master.setSpiBitOrder(interface::SpiBitOrder::MSB_FIRST) == true); 

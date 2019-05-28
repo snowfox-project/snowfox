@@ -53,10 +53,11 @@ SCENARIO("A FE310::Spi1Master is constructed", "[FE310::Spi1Master]")
 
   vireg::Vireg32 SPIx_SCKMODE = vregmap.get<vireg::Vireg32>("SPIx_SCKMODE");
   vireg::Vireg32 SPIx_FMT     = vregmap.get<vireg::Vireg32>("SPIx_FMT"    );
+  vireg::Vireg32 SPIx_CSMODE  = vregmap.get<vireg::Vireg32>("SPIx_CSMODE" );
   vireg::Vireg32 GPIO_IOF_EN  = vregmap.get<vireg::Vireg32>("GPIO_IOF_EN" );
   vireg::Vireg32 GPIO_IOF_SEL = vregmap.get<vireg::Vireg32>("GPIO_IOF_SEL");
   
-  Spi1Master spi1_master(SPIx_SCKMODE->ptr(), SPIx_FMT->ptr(), GPIO_IOF_EN->ptr(), GPIO_IOF_SEL->ptr());
+  Spi1Master spi1_master(SPIx_SCKMODE->ptr(), SPIx_FMT->ptr(), SPIx_CSMODE->ptr(), GPIO_IOF_EN->ptr(), GPIO_IOF_SEL->ptr());
 
 
   THEN("GPIO_IOF_EN  bit #3 (SPI1_DQ0 - MOSI) should be set") { REQUIRE(GPIO_IOF_EN->isBitSet (3)); }
