@@ -78,7 +78,7 @@ void Spi1Master::enableGpioAccess(volatile uint32_t * gpio_iof_en, volatile uint
   util::clrBit(gpio_iof_sel, GPIO_IOF_SEL_SPI1_SCK_bp);
   util::setBit(gpio_iof_en,  GPIO_IOF_EN_SPI1_DQ0_bp);
   util::setBit(gpio_iof_en,  GPIO_IOF_EN_SPI1_DQ1_bp);
-  util::setBit(gpio_iof_en,  GPIO_IOF_SEL_SPI1_SCK_bp);
+  util::setBit(gpio_iof_en,  GPIO_IOF_EN_SPI1_SCK_bp);
 }
 
 /**************************************************************************************
