@@ -70,8 +70,10 @@ SpiMasterBase::SpiMasterBase(volatile uint32_t * spix_sckmode,
   _spix_fmt    (spix_fmt    ),
   _spix_csmode (spix_csmode )
 {
-  setSpiProtocol   (SpiProtocol::Single);
-  setChipSelectMode(ChipSelectMode::Off); /* Manual control of chip select line */
+  
+  setSpiBitsPerFrame(8);
+  setSpiProtocol    (SpiProtocol::Single);
+  setChipSelectMode (ChipSelectMode::Off); /* Manual control of chip select line */
 }
 
 SpiMasterBase::~SpiMasterBase()
