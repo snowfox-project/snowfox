@@ -123,7 +123,7 @@ bool SpiMasterBase::setSpiBitsPerFrame(uint8_t const spi_bits_per_frame)
   
   switch(spi_bits_per_frame)
   {
-    case 8 : *_spix_fmt |= (8 << FMT_LEN_0_bp); return true; break;
+    case 8 : *_spix_fmt |= (8 << FMT_LEN_0_bp); return true;  break;
     default:                                    return false; break;
   }
 }
