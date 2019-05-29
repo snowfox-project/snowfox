@@ -130,6 +130,19 @@ bool SpiMaster::setSpiBitOrder(interface::SpiBitOrder const spi_bit_order)
   return true;
 }
 
+bool SpiMaster::setSpiBitsPerFrame(uint8_t const spi_bits_per_frame)
+{
+  /* AVR only supports 8 bit wide SPI transfers, nonetheless this function 
+   * needs to report wether or not a configuration desired by the user is
+   * in fact possible.
+   */
+  switch(spi_bits_per_frame)
+  {
+    case 8 : return true;  break;
+    default: return false; break;
+  }
+}
+
 bool SpiMaster::setSpiPrescaler(uint32_t const spi_prescaler)
 {
   *_SPCR &= ~(SPR1_bm | SPR0_bm);
