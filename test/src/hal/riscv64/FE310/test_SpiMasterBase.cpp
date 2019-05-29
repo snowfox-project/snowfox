@@ -139,6 +139,25 @@ SCENARIO("A FE310::SpiMasterBase's SpiBitOrder is configured", "[FE310::SpiMaste
   WHEN("SpiBitOrder::LSB_FIRST is set") { spi_master.setSpiBitOrder(interface::SpiBitOrder::LSB_FIRST); THEN("FMT[2] should be set") { REQUIRE(SPIx_FMT->isBitSet(2)); } }
 }
 
+/**************************************************************************************/
+
+SCENARIO("A FE310::SpiMasterBase's Bits per frame are configured", "[FE310::SpiMasterBase]")
+{
+  vireg::VirtualRegisterMap vregmap = vireg::VirtualRegisterLoader::load("json/hal/riscv64/FE310.json");
+
+  vireg::Vireg32 SPIx_SCKMODE = vregmap.get<vireg::Vireg32>("SPIx_SCKMODE");
+  vireg::Vireg32 SPIx_FMT     = vregmap.get<vireg::Vireg32>("SPIx_FMT"    );
+  vireg::Vireg32 SPIx_CSMODE  = vregmap.get<vireg::Vireg32>("SPIx_CSMODE" );
+  
+  SpiMasterBase spi_master(SPIx_SCKMODE->ptr(), SPIx_FMT->ptr(), SPIx_CSMODE->ptr());
+
+
+  THEN("setSpiBitsPerFrame(8) should return true") REQUIRE(spi_master.setSpiBitsPerFrame(8) == true);
+
+  
+  WHEN("8 bits per frame are set") { spi_master.setSpiBitsPerFrame(8); THEN("FMT[19:16] should be 0x0008") { REQUIRE((SPIx_FMT->val() & 0x000F0000) == 0x00080000); } }
+}
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/

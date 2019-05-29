@@ -69,9 +69,10 @@ public:
   virtual ~SpiMasterConfiguration() { }
 
 
-  virtual bool setSpiMode     (SpiMode     const spi_mode     ) = 0;
-  virtual bool setSpiBitOrder (SpiBitOrder const spi_bit_order) = 0;
-  virtual bool setSpiPrescaler(uint32_t    const spi_prescaler) = 0;
+  virtual bool setSpiMode        (SpiMode     const spi_mode          ) = 0;
+  virtual bool setSpiBitOrder    (SpiBitOrder const spi_bit_order     ) = 0;
+  virtual bool setSpiBitsPerFrame(uint8_t     const spi_bits_per_frame) = 0;
+  virtual bool setSpiPrescaler   (uint32_t    const spi_prescaler     ) = 0;
   
 };
 

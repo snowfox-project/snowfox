@@ -46,6 +46,11 @@ namespace FE310
 #define SCKMODE_PHA_bp    (0)
 
 /* FMT */
+#define FMT_LEN_3_bp      (19)
+#define FMT_LEN_2_bp      (18)
+#define FMT_LEN_1_bp      (17)
+#define FMT_LEN_0_bp      (16)
+#define FMT_LEN_bm        ((1<<FMT_LEN_3_bp) | (1<<FMT_LEN_2_bp) | (1<<FMT_LEN_1_bp) | (1<<FMT_LEN_0_bp))
 #define FMT_ENDIAN_bp     (2)
 #define FMT_PROTO_1_bp    (1)
 #define FMT_PROTO_0_bp    (0)
@@ -108,6 +113,17 @@ bool SpiMasterBase::setSpiBitOrder(interface::SpiBitOrder const spi_bit_order)
   }
 
   return true;
+}
+
+bool SpiMasterBase::setSpiBitsPerFrame(uint8_t const spi_bits_per_frame)
+{
+  *_spix_fmt &= ~FMT_LEN_bm;
+  
+  switch(spi_bits_per_frame)
+  {
+    case 8 : *_spix_fmt |= (8 << FMT_LEN_0_bp); return true; break;
+    default:                                    return false; break;
+  }
 }
 
 bool SpiMasterBase::setSpiPrescaler(uint32_t const /* spi_prescaler */)
