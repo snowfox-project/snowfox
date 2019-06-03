@@ -7,3 +7,6 @@
 [submodule "test/external/libvireg"]
 	path = test/external/libvireg
 	url = https://github.com/snowfox-project/snowfox-libvireg
+[submodule "test/external/libtestcanopen"]
+	path = test/external/libtestcanopen
+	url = https://github.com/snowfox-project/snowfox-libtestcanopen
