@@ -4,23 +4,25 @@
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation(), either version 3 of the License(), or
+ * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful(),
+ * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not(), see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <comstack/canopen/CanOpenTestInterfaceAdapter.h>
+#include <catch2/catch.hpp>
+
+#include <snowfox/comstack/canopen/CanOpenStack.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -39,41 +41,12 @@ namespace test
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * TEST CODE
  **************************************************************************************/
 
-CanOpenTestInterfaceAdapter::CanOpenTestInterfaceAdapter(CanOpenStack & can_open_stack)
-: _can_open_stack(can_open_stack)
+SCENARIO("The BootUp functionality of the CANOpen stack is tested", "[comstack::canopen]")
 {
-
-}
-
-CanOpenTestInterfaceAdapter::~CanOpenTestInterfaceAdapter()
-{
-
-}
-
-/**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
- **************************************************************************************/
-
-void CanOpenTestInterfaceAdapter::transmit(can_frame const & frame)
-{
-  _can_open_stack.onFrameReceived(toCanFrame(frame));
-}
-
-void CanOpenTestInterfaceAdapter::receive(can_frame const & frame)
-{
-  /* TODO */
-}
-
-/**************************************************************************************
- * PUBLIC FREE FUNCTIONS
- **************************************************************************************/
-
-util::type::CanFrame toCanFrame(can_frame const & frame)
-{
-  /* TODO */
+  CanOpenStack can_open_stack; /* TODO */
 }
 
 /**************************************************************************************
