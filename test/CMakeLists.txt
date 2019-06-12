@@ -7,6 +7,7 @@ cmake_minimum_required(VERSION 2.8)
 include_directories(include)
 include_directories(external/catch/current/include)
 include_directories(external/libvireg/include)
+include_directories(external/libtestcanopen/include)
 
 ##########################################################################
 
@@ -31,6 +32,8 @@ set(SNOWFOX_TEST_COMSTACK_PATH src/comstack)
 set(SNOWFOX_TEST_COMSTACK_CANOPEN_PATH ${SNOWFOX_TEST_COMSTACK_PATH}/canopen)
 
 set(SNOWFOX_TEST_HOST_COMSTACK_CANOPEN_SRCS
+  ${SNOWFOX_TEST_COMSTACK_CANOPEN_PATH}/CanOpenTestInterface.cpp
+  ${SNOWFOX_TEST_COMSTACK_CANOPEN_PATH}/test_BootUp.cpp
   ${SNOWFOX_TEST_COMSTACK_CANOPEN_PATH}/test_ObjectDictionary.cpp
 )
 
