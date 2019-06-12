@@ -23,7 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/comstack/canopen/interface/CanOpenStack.h>
+#include <snowfox/comstack/canopen/interface/CanOpen_onTransmitCallback.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,21 +42,22 @@ namespace canopen
  * CLASS DECLARATION
  **************************************************************************************/
 
-class CanOpenStack : public interface::CanOpenStack
+class CanOpenStack
 {
 
 public:
 
-           CanOpenStack(interface::TransmitFrameFunc transmit_frame_func);
-  virtual ~CanOpenStack();
+  CanOpenStack();
 
 
-  virtual void onFrameReceived(util::type::CanFrame const & frame) override;
+  void onFrameReceived(util::type::CanFrame const & frame);
+
+  void register_onTransmitCallback(interface::CanOpen_onTransmitCallback * on_tx_callback);
 
 
 private:
 
-  interface::TransmitFrameFunc _transmit_frame_func;
+  interface::CanOpen_onTransmitCallback * _on_tx_callback;
 
 };
 

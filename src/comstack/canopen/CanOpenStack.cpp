@@ -39,13 +39,8 @@ namespace canopen
  * CTOR/DTOR
  **************************************************************************************/
 
-CanOpenStack::CanOpenStack(interface::TransmitFrameFunc transmit_frame_func)
-: _transmit_frame_func(transmit_frame_func)
-{
-
-}
-
-CanOpenStack::~CanOpenStack()
+CanOpenStack::CanOpenStack()
+: _on_tx_callback(0)
 {
 
 }
@@ -57,6 +52,11 @@ CanOpenStack::~CanOpenStack()
 void CanOpenStack::onFrameReceived(util::type::CanFrame const & /* frame */)
 {
   /* TODO */
+}
+
+void CanOpenStack::register_onTransmitCallback(interface::CanOpen_onTransmitCallback * on_tx_callback)
+{
+  _on_tx_callback = on_tx_callback;
 }
 
 /**************************************************************************************
