@@ -16,13 +16,17 @@
  * along with this program.  If not(), see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef TEST_INCLUDE_COMSTACK_CANOPEN_GLUE_TEST_ONTRANSMITCALLBACK_H_
+#define TEST_INCLUDE_COMSTACK_CANOPEN_GLUE_TEST_ONTRANSMITCALLBACK_H_
+
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <comstack/canopen/Stack_onTransmitCallback.h>
+#include <testcanopen/interface/onTransmitCallback.h>
 
-#include <string.h>
+#include <snowfox/util/type/CanFrame.h>
+#include <snowfox/comstack/canopen/CanOpenStack.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -41,42 +45,33 @@ namespace test
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * CLASS DECLARATION
  **************************************************************************************/
 
-Stack_onTransmitCallback::Stack_onTransmitCallback(/* Reference to test library test manager class */)
+class Test_onTransmitCallback : public testcanopen::interface::onTransmitCallback
 {
 
-}
+public:
 
-Stack_onTransmitCallback::~Stack_onTransmitCallback()
-{
+           
+           Test_onTransmitCallback(CanOpenStack & can_open_stack);
+  virtual ~Test_onTransmitCallback();
 
-}
+
+  virtual void onTransmit(can_frame const & frame) override;
+
+
+private:
+
+  CanOpenStack & _can_open_stack;
+  
+};
 
 /**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
+ * FREE FUNCTION PROTOTYPES
  **************************************************************************************/
 
-void Stack_onTransmitCallback::onTransmit(util::type::CanFrame const & /* frame */)
-{
-  /* TODO */
-}
-
-/**************************************************************************************
- * PUBLIC FUNCTIONS
- **************************************************************************************/
-
-can_frame toCanFrame(util::type::CanFrame const & frame)
-{
-  can_frame f;
-
-  f.can_id = frame.id;
-  f.can_dlc = frame.dlc;
-  memcpy(f.data, frame.data, frame.dlc);
-
-  return f;
-}
+util::type::CanFrame toCanFrame(can_frame const & frame);
 
 /**************************************************************************************
  * NAMESPACE
@@ -89,3 +84,5 @@ can_frame toCanFrame(util::type::CanFrame const & frame)
 } /* comstack */
 
 } /* snowfox */
+
+#endif /* TEST_INCLUDE_COMSTACK_CANOPEN_GLUE_TEST_ONTRANSMITCALLBACK_H_ */
