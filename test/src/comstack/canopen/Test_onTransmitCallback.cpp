@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <comstack/canopen/CanOpenTest_onTransmitCallback.h>
+#include <comstack/canopen/Test_onTransmitCallback.h>
 
 #include <string.h>
 
@@ -44,13 +44,13 @@ namespace test
  * CTOR/DTOR
  **************************************************************************************/
 
-CanOpenTest_onTransmitCallback::CanOpenTest_onTransmitCallback(CanOpenStack & can_open_stack)
+Test_onTransmitCallback::Test_onTransmitCallback(CanOpenStack & can_open_stack)
 : _can_open_stack(can_open_stack)
 {
 
 }
 
-CanOpenTest_onTransmitCallback::~CanOpenTest_onTransmitCallback()
+Test_onTransmitCallback::~Test_onTransmitCallback()
 {
 
 }
@@ -59,7 +59,7 @@ CanOpenTest_onTransmitCallback::~CanOpenTest_onTransmitCallback()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void CanOpenTest_onTransmitCallback::onTransmit(can_frame const & frame)
+void Test_onTransmitCallback::onTransmit(can_frame const & frame)
 {
   _can_open_stack.onFrameReceived(toCanFrame(frame));
 }

@@ -16,8 +16,8 @@
  * along with this program.  If not(), see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TEST_INCLUDE_COMSTACK_CANOPEN_CANOPENTESTINTERFACE_ADAPTER_H_
-#define TEST_INCLUDE_COMSTACK_CANOPEN_CANOPENTESTINTERFACE_ADAPTER_H_
+#ifndef TEST_INCLUDE_COMSTACK_CANOPEN_TEST_ONTRANSMITCALLBACK_H_
+#define TEST_INCLUDE_COMSTACK_CANOPEN_TEST_ONTRANSMITCALLBACK_H_
 
 /**************************************************************************************
  * INCLUDE
@@ -48,13 +48,14 @@ namespace test
  * CLASS DECLARATION
  **************************************************************************************/
 
-class CanOpenTest_onTransmitCallback : public testcanopen::interface::onTransmitCallback
+class Test_onTransmitCallback : public testcanopen::interface::onTransmitCallback
 {
 
 public:
 
-           CanOpenTest_onTransmitCallback(CanOpenStack & can_open_stack);
-  virtual ~CanOpenTest_onTransmitCallback();
+           
+           Test_onTransmitCallback(CanOpenStack & can_open_stack);
+  virtual ~Test_onTransmitCallback();
 
 
   virtual void onTransmit(can_frame const & frame) override;
@@ -84,4 +85,4 @@ util::type::CanFrame toCanFrame(can_frame const & frame);
 
 } /* snowfox */
 
-#endif /* TEST_INCLUDE_COMSTACK_CANOPEN_CANOPENTESTINTERFACE_ADAPTER_H_ */
+#endif /* TEST_INCLUDE_COMSTACK_CANOPEN_TEST_ONTRANSMITCALLBACK_H_ */
