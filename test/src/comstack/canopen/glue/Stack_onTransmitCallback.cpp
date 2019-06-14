@@ -22,7 +22,7 @@
 
 #include <test/comstack/canopen/glue/Stack_onTransmitCallback.h>
 
-#include <test/comstack/canopen/util/FrameConverter.h>
+#include <test/comstack/canopen/util/CanFrameConverter.h>
 
 /**************************************************************************************
  * NAMESPACE

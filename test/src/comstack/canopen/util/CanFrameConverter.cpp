@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <test/comstack/canopen/util/FrameConverter.h>
+#include <test/comstack/canopen/util/CanFrameConverter.h>
 
 #include <string.h>
 
