@@ -25,7 +25,6 @@
 
 #include <testcanopen/interface/onTransmitCallback.h>
 
-#include <snowfox/util/type/CanFrame.h>
 #include <snowfox/comstack/canopen/CanOpenStack.h>
 
 /**************************************************************************************

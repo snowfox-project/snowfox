@@ -20,9 +20,9 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <test/comstack/canopen/glue/Stack_onTransmitCallback.h>
-
 #include <test/comstack/canopen/util/FrameConverter.h>
+
+#include <string.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -41,27 +41,29 @@ namespace test
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-Stack_onTransmitCallback::Stack_onTransmitCallback(testcanopen::TestManager & test_mgr)
-: _test_mgr(test_mgr)
+can_frame toCanFrame(util::type::CanFrame const & frame)
 {
+  can_frame f;
 
+  f.can_id = frame.id;
+  f.can_dlc = frame.dlc;
+  memcpy(f.data, frame.data, frame.dlc);
+
+  return f;
 }
 
-Stack_onTransmitCallback::~Stack_onTransmitCallback()
+util::type::CanFrame toCanFrame(can_frame const & frame)
 {
+  util::type::CanFrame can_frame;
 
-}
+  can_frame.id = frame.can_id;
+  can_frame.dlc = frame.can_dlc;
+  memcpy(can_frame.data, frame.data, frame.can_dlc);
 
-/**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
- **************************************************************************************/
-
-void Stack_onTransmitCallback::onTransmit(util::type::CanFrame const & frame)
-{
-  _test_mgr.onFrameReceived(toCanFrame(frame));
+  return can_frame;
 }
 
 /**************************************************************************************

@@ -16,13 +16,15 @@
  * along with this program.  If not(), see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef TEST_INCLUDE_COMSTACK_CANOPEN_UTIL_FRAME_CONVERTER_H_
+#define TEST_INCLUDE_COMSTACK_CANOPEN_UTIL_FRAME_CONVERTER_H_
+
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <test/comstack/canopen/glue/Stack_onTransmitCallback.h>
-
-#include <test/comstack/canopen/util/FrameConverter.h>
+#include <linux/can.h>
+#include <snowfox/util/type/CanFrame.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -41,28 +43,11 @@ namespace test
 {
 
 /**************************************************************************************
- * CTOR/DTOR
+ * FUNCTION PROTOTYPES
  **************************************************************************************/
 
-Stack_onTransmitCallback::Stack_onTransmitCallback(testcanopen::TestManager & test_mgr)
-: _test_mgr(test_mgr)
-{
-
-}
-
-Stack_onTransmitCallback::~Stack_onTransmitCallback()
-{
-
-}
-
-/**************************************************************************************
- * PUBLIC MEMBER FUNCTIONS
- **************************************************************************************/
-
-void Stack_onTransmitCallback::onTransmit(util::type::CanFrame const & frame)
-{
-  _test_mgr.onFrameReceived(toCanFrame(frame));
-}
+can_frame            toCanFrame(util::type::CanFrame const & frame);
+util::type::CanFrame toCanFrame(can_frame const & frame);
 
 /**************************************************************************************
  * NAMESPACE
@@ -75,3 +60,5 @@ void Stack_onTransmitCallback::onTransmit(util::type::CanFrame const & frame)
 } /* comstack */
 
 } /* snowfox */
+
+#endif /* TEST_INCLUDE_COMSTACK_CANOPEN_UTIL_FRAME_CONVERTER_H_ */

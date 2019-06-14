@@ -22,7 +22,7 @@
 
 #include <test/comstack/canopen/glue/Test_onTransmitCallback.h>
 
-#include <string.h>
+#include <test/comstack/canopen/util/FrameConverter.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -62,21 +62,6 @@ Test_onTransmitCallback::~Test_onTransmitCallback()
 void Test_onTransmitCallback::onTransmit(can_frame const & frame)
 {
   _can_open_stack.onFrameReceived(toCanFrame(frame));
-}
-
-/**************************************************************************************
- * PUBLIC FREE FUNCTIONS
- **************************************************************************************/
-
-util::type::CanFrame toCanFrame(can_frame const & frame)
-{
-  util::type::CanFrame can_frame;
-
-  can_frame.id = frame.can_id;
-  can_frame.dlc = frame.can_dlc;
-  memcpy(can_frame.data, frame.data, frame.can_dlc);
-
-  return can_frame;
 }
 
 /**************************************************************************************
