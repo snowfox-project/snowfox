@@ -199,6 +199,7 @@ target_link_libraries(
   
   snowfox-host
   vireg
+  testcanopen
   gcov
 )
 

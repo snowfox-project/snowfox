@@ -25,6 +25,8 @@
 
 #include <snowfox/comstack/canopen/interface/CanOpen_onTransmitCallback.h>
 
+#include <testcanopen/TestManager.h>
+
 #include <linux/can.h>
 #include <snowfox/util/type/CanFrame.h>
 
@@ -53,11 +55,16 @@ class Stack_onTransmitCallback : public interface::CanOpen_onTransmitCallback
 
 public:
 
-           Stack_onTransmitCallback(/* Reference to test library test manager class */);
+           Stack_onTransmitCallback(testcanopen::TestManager & test_mgr);
   virtual ~Stack_onTransmitCallback();
 
 
   virtual void onTransmit(util::type::CanFrame const & frame) override;
+
+
+private:
+
+  testcanopen::TestManager & _test_mgr;
 
 };
 

@@ -44,7 +44,8 @@ namespace test
  * CTOR/DTOR
  **************************************************************************************/
 
-Stack_onTransmitCallback::Stack_onTransmitCallback(/* Reference to test library test manager class */)
+Stack_onTransmitCallback::Stack_onTransmitCallback(testcanopen::TestManager & test_mgr)
+: _test_mgr(test_mgr)
 {
 
 }
@@ -58,9 +59,9 @@ Stack_onTransmitCallback::~Stack_onTransmitCallback()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-void Stack_onTransmitCallback::onTransmit(util::type::CanFrame const & /* frame */)
+void Stack_onTransmitCallback::onTransmit(util::type::CanFrame const & frame)
 {
-  /* TODO */
+  _test_mgr.onFrameReceived(toCanFrame(frame));
 }
 
 /**************************************************************************************
