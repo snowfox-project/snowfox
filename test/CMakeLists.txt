@@ -11,7 +11,6 @@ include_directories(external/libtestcanopen/include)
 
 ##########################################################################
 
-set(LIBVIREG_BUILD_EXAMPLES no)
 add_subdirectory(external/libvireg)
 add_subdirectory(external/libtestcanopen)
 
