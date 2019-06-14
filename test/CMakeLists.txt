@@ -109,6 +109,7 @@ set(SNOWFOX_TEST_HOST_HAL_AVR_SRCS
   ${SNOWFOX_TEST_HOST_HAL_AVR_COMMON_ATMEGA164P_324P_644P_1284P_SRCS}
   ${SNOWFOX_TEST_HOST_HAL_AVR_COMMON_ATMEGA16U4_32U4_SRCS}
   ${SNOWFOX_TEST_HOST_HAL_AVR_COMMON_ATxxxx_SRCS}
+  ${SNOWFOX_TEST_HAL_AVR_PATH}/InterruptControllerTestUtil.cpp
 )
 
 ##########################################################################
@@ -137,18 +138,6 @@ set(SNOWFOX_TEST_HOST_HAL_RISCV64_FE310_SRCS
 
 set(SNOWFOX_TEST_HOST_HAL_RISCV64_SRCS
   ${SNOWFOX_TEST_HOST_HAL_RISCV64_FE310_SRCS}
-)
-
-##########################################################################
-# TESTUTIL ###############################################################
-##########################################################################
-
-set(SNOWFOX_TEST_TESTUTIL_PATH src/testutil)
-
-##########################################################################
-
-set(SNOWFOX_TEST_HOST_TESTUTIL_SRCS
-  ${SNOWFOX_TEST_TESTUTIL_PATH}/hal/avr/InterruptControllerTestUtil.cpp
 )
 
 ##########################################################################
@@ -190,7 +179,6 @@ add_executable(
   ${SNOWFOX_TEST_HOST_HAL_AVR_SRCS}
   ${SNOWFOX_TEST_HOST_HAL_RISCV64_FE310_SRCS}
   ${SNOWFOX_TEST_HOST_UTIL_SRCS}
-  ${SNOWFOX_TEST_HOST_TESTUTIL_SRCS}
   ${SNOWFOX_TEST_HOST_OS_SRCS}
 )
 

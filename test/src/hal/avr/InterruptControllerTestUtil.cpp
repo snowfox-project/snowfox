@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <testutil/hal/avr/InterruptControllerTestUtil.h>
+#include <test/hal/avr/InterruptControllerTestUtil.h>
 
 #include <sstream>
 
