@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <comstack/canopen/glue/Stack_onTransmitCallback.h>
+#include <test/comstack/canopen/glue/Stack_onTransmitCallback.h>
 
 #include <string.h>
 
