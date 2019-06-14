@@ -22,6 +22,11 @@
 
 #include <catch2/catch.hpp>
 
+#include <testcanopen/TestManager.h>
+
+#include <comstack/canopen/glue/Test_onTransmitCallback.h>
+#include <comstack/canopen/glue/Stack_onTransmitCallback.h>
+
 #include <snowfox/comstack/canopen/CanOpenStack.h>
 
 /**************************************************************************************
@@ -46,7 +51,16 @@ namespace test
 
 SCENARIO("The BootUp functionality of the CANOpen stack is tested", "[comstack::canopen]")
 {
-  CanOpenStack can_open_stack; /* TODO */
+  CanOpenStack can_open_stack;
+  testcanopen::TestManager test_mgr;
+
+  Stack_onTransmitCallback stack_on_transmit(test_mgr);
+  Test_onTransmitCallback test_on_transmit(can_open_stack);
+
+  can_open_stack.register_onTransmitCallback(&stack_on_transmit);
+  test_mgr.register_onTransmitCallback(&test_on_transmit);
+
+  /* TODO */
 }
 
 /**************************************************************************************
