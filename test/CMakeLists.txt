@@ -109,7 +109,7 @@ set(SNOWFOX_TEST_HOST_HAL_AVR_SRCS
   ${SNOWFOX_TEST_HOST_HAL_AVR_COMMON_ATMEGA164P_324P_644P_1284P_SRCS}
   ${SNOWFOX_TEST_HOST_HAL_AVR_COMMON_ATMEGA16U4_32U4_SRCS}
   ${SNOWFOX_TEST_HOST_HAL_AVR_COMMON_ATxxxx_SRCS}
-  ${SNOWFOX_TEST_HAL_AVR_PATH}/InterruptControllerTestUtil.cpp
+  ${SNOWFOX_TEST_HAL_AVR_PATH}/util/InterruptControllerTestUtil.cpp
 )
 
 ##########################################################################

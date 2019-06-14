@@ -22,7 +22,7 @@
 
 #include <catch2/catch.hpp>
 
-#include <test/hal/avr/InterruptControllerTestUtil.h>
+#include <test/hal/avr/util/InterruptControllerTestUtil.h>
 
 #include <snowfox/hal/avr/common/AT90CAN32_64_128/InterruptController.h>
 

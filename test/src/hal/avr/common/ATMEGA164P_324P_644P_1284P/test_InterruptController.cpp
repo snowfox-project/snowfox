@@ -24,7 +24,7 @@
 
 #include <catch2/catch.hpp>
 
-#include <test/hal/avr/InterruptControllerTestUtil.h>
+#include <test/hal/avr/util/InterruptControllerTestUtil.h>
 
 #include <snowfox/hal/avr/common/ATMEGA164P_324P_644P_1284P/InterruptController.h>
 
