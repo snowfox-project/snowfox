@@ -40,6 +40,15 @@ namespace type
 {
 
 /**************************************************************************************
+ * CONSTANTS
+ **************************************************************************************/
+
+static uint8_t  constexpr CAN_MAX_DATA_LEN = 8;
+static uint32_t constexpr CAN_EFF_BITMASK  = 0x80000000;
+static uint32_t constexpr CAN_RTR_BITMASK  = 0x40000000;
+static uint32_t constexpr CAN_ERR_BITMASK  = 0x20000000;
+
+/**************************************************************************************
  * TYPEDEF
  **************************************************************************************/
 
@@ -47,18 +56,10 @@ typedef struct
 {
   uint32_t id;
   uint8_t  dlc,
-           data[8];
+           data[CAN_MAX_DATA_LEN];
 } __attribute((packed)) CanFrame;
 
 static_assert(sizeof(CanFrame) == 13, "struct CanFrame must be byte aligned");
-
-/**************************************************************************************
- * CONSTANTS
- **************************************************************************************/
-
-static uint32_t constexpr CAN_EFF_BITMASK = 0x80000000;
-static uint32_t constexpr CAN_RTR_BITMASK = 0x40000000;
-static uint32_t constexpr CAN_ERR_BITMASK = 0x20000000;
 
 /**************************************************************************************
  * PROTOTYPES
