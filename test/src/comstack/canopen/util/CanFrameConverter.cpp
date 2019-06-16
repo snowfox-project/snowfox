@@ -24,6 +24,8 @@
 
 #include <string.h>
 
+#include <algorithm>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -50,7 +52,7 @@ can_frame toCanFrame(util::type::CanFrame const & frame)
 
   f.can_id = frame.id;
   f.can_dlc = frame.dlc;
-  memcpy(f.data, frame.data, frame.dlc);
+  memcpy(f.data, frame.data, std::min<uint8_t>(frame.dlc, 8));
 
   return f;
 }
@@ -61,7 +63,7 @@ util::type::CanFrame toCanFrame(can_frame const & frame)
 
   can_frame.id = frame.can_id;
   can_frame.dlc = frame.can_dlc;
-  memcpy(can_frame.data, frame.data, frame.can_dlc);
+  memcpy(can_frame.data, frame.data, std::min<uint8_t>(frame.can_dlc, 8));
 
   return can_frame;
 }
