@@ -43,6 +43,12 @@ namespace test
 {
 
 /**************************************************************************************
+ * STATIC ASSERTIONS
+ **************************************************************************************/
+
+static_assert(CAN_MAX_DLEN == util::type::CAN_MAX_DATA_LEN, "linux/can.h CAN max. data payload length must be equal to snowfox::util::type::CanFrame max. data payload length");
+
+/**************************************************************************************
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
@@ -52,7 +58,7 @@ can_frame toCanFrame(util::type::CanFrame const & frame)
 
   f.can_id = frame.id;
   f.can_dlc = frame.dlc;
-  memcpy(f.data, frame.data, std::min<uint8_t>(frame.dlc, 8));
+  memcpy(f.data, frame.data, std::min<uint8_t>(frame.dlc, CAN_MAX_DLEN));
 
   return f;
 }
@@ -63,7 +69,7 @@ util::type::CanFrame toCanFrame(can_frame const & frame)
 
   can_frame.id = frame.can_id;
   can_frame.dlc = frame.can_dlc;
-  memcpy(can_frame.data, frame.data, std::min<uint8_t>(frame.can_dlc, 8));
+  memcpy(can_frame.data, frame.data, std::min<uint8_t>(frame.can_dlc, util::type::CAN_MAX_DATA_LEN));
 
   return can_frame;
 }
