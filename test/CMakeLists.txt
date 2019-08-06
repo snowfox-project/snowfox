@@ -6,8 +6,6 @@ cmake_minimum_required(VERSION 2.8)
 
 include_directories(include)
 include_directories(external/catch/current/include)
-include_directories(external/libvireg/include)
-include_directories(external/libtestcanopen/include)
 
 ##########################################################################
 
