@@ -5,10 +5,10 @@ cmake_minimum_required(VERSION 2.8)
 ##########################################################################
 
 include_directories(include)
-include_directories(external/catch/current/include)
 
 ##########################################################################
 
+add_subdirectory(external/catch/current)
 add_subdirectory(external/libvireg)
 add_subdirectory(external/libtestcanopen)
 
@@ -184,6 +184,7 @@ target_link_libraries(
   ${SNOWFOX_TEST_HOST_TARGET}
   
   snowfox-host
+  catch
   vireg
   testcanopen
   gcov
