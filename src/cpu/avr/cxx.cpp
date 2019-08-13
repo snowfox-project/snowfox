@@ -59,12 +59,22 @@ void operator delete(void * ptr)
   }
 }
 
+void operator delete(void * ptr, size_t /* size */)
+{
+  return ::operator delete(ptr);
+}
+
 void * operator new[] (size_t size)
 {
   return ::operator new(size);
 }
 
 void operator delete[] (void *ptr)
+{
+  return ::operator delete(ptr);
+}
+
+void operator delete[](void * ptr, size_t /* size */)
 {
   return ::operator delete(ptr);
 }
