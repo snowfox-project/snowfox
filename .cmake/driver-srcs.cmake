@@ -167,7 +167,15 @@ if(${DRIVER_MEMORY_AT45DBX} STREQUAL "yes")
     ${DRIVER_MEMORY_SRC_PATH}/AT45DBx/AT45DBx.cpp
   )
   set(SNOWFOX_LIBRARY_DRIVER_SRCS ${SNOWFOX_LIBRARY_DRIVER_SRCS} ${DRIVER_MEMORY_AT45DBX_SRCS})  
+endif()
 
+# N25Q256A ###############################################################
+
+if(${DRIVER_MEMORY_N25Q256A} STREQUAL "yes")
+  set(DRIVER_MEMORY_N25Q256A_SRCS
+    ${DRIVER_MEMORY_SRC_PATH}/N25Q256A/N25Q256A_IoSpi.cpp
+  )
+  set(SNOWFOX_LIBRARY_DRIVER_SRCS ${SNOWFOX_LIBRARY_DRIVER_SRCS} ${DRIVER_MEMORY_N25Q256A_SRCS})
 endif()
 
 # PCF8570 ################################################################
