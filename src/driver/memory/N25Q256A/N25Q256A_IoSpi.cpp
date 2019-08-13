@@ -16,14 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_INTERFACE_N25Q256A_IO_H_
-#define INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_INTERFACE_N25Q256A_IO_H_
-
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
+#include <snowfox/driver/memory/N25Q256A/N25Q256A_IoSpi.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -41,27 +38,25 @@ namespace memory
 namespace N25Q256A
 {
 
-namespace interface
-{
-
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class N25Q256A_Io
+N25Q256A_IoSpi::N25Q256A_IoSpi(hal::interface::SpiMasterControl & spi_master, hal::interface::DigitalOutPin & cs)
+: _spi_master(spi_master)
+, _cs(cs)
 {
 
-public:
+}
 
-  virtual ~N25Q256A_Io() { }
+N25Q256A_IoSpi::~N25Q256A_IoSpi()
+{
 
-};
+}
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
-
-} /* interface */
 
 } /* N25Q256A */
 
@@ -70,5 +65,3 @@ public:
 } /* driver */
 
 } /* snowfox */
-
-#endif /* INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_INTERFACE_N25Q256A_IO_H_ */

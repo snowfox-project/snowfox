@@ -16,14 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_INTERFACE_N25Q256A_IO_H_
-#define INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_INTERFACE_N25Q256A_IO_H_
+#ifndef INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_N25Q256A_IOSPI_H_
+#define INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_N25Q256A_IOSPI_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
+#include <snowfox/driver/memory/N25Q256A/interface/N25Q256A_Io.h>
+
+#include <snowfox/hal/interface/gpio/DigitalOutPin.h>
+#include <snowfox/hal/interface/spi/SpiMasterControl.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -41,27 +44,29 @@ namespace memory
 namespace N25Q256A
 {
 
-namespace interface
-{
-
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class N25Q256A_Io
+class N25Q256A_IoSpi : public interface::N25Q256A_Io
 {
 
 public:
 
-  virtual ~N25Q256A_Io() { }
+           N25Q256A_IoSpi(hal::interface::SpiMasterControl & spi_master, hal::interface::DigitalOutPin & cs);
+  virtual ~N25Q256A_IoSpi();
+
+
+private:
+
+  hal::interface::SpiMasterControl & _spi_master;
+  hal::interface::DigitalOutPin    & _cs;
 
 };
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
-
-} /* interface */
 
 } /* N25Q256A */
 
@@ -71,4 +76,4 @@ public:
 
 } /* snowfox */
 
-#endif /* INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_INTERFACE_N25Q256A_IO_H_ */
+#endif /* INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_N25Q256A_IOSPI_H_ */
