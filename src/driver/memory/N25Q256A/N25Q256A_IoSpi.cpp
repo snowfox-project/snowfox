@@ -58,15 +58,29 @@ N25Q256A_IoSpi::~N25Q256A_IoSpi()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool N25Q256A_IoSpi::readNonVolatileConfigurationRegister(uint16_t * non_volatile_config_reg)
+bool N25Q256A_IoSpi::readNonVolatileConfigReg(uint16_t * non_volatile_config_reg)
 {
   _cs.clr();
-  _spi_master.exchange(static_cast<uint8_t>(interface::Command::ReadNonVolatileConfigurationRegister));
+  _spi_master.exchange(static_cast<uint8_t>(interface::Command::READ_NON_VOLATILE_CONFIG_REG));
   uint8_t const high = _spi_master.exchange(0);
   uint8_t const low  = _spi_master.exchange(0);
   _cs.set();
 
   *non_volatile_config_reg = (static_cast<uint16_t>(high) << 8) | (static_cast<uint16_t>(low));
+
+  return true;
+}
+
+bool N25Q256A_IoSpi::writeNonVolatileConfigReg(uint16_t const non_volatile_config_reg)
+{
+  uint8_t const high = static_cast<uint8_t>((non_volatile_config_reg & 0xFF00) >> 8);
+  uint8_t const low  = static_cast<uint8_t>((non_volatile_config_reg & 0x00FF) >> 0);
+
+  _cs.clr();
+  _spi_master.exchange(static_cast<uint8_t>(interface::Command::WRITE_NON_VOLATILE_CONFIG_REG));
+  _spi_master.exchange(high);
+  _spi_master.exchange(low);
+  _cs.set();
 
   return true;
 }

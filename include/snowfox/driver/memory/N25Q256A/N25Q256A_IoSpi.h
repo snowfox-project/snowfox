@@ -57,7 +57,8 @@ public:
   virtual ~N25Q256A_IoSpi();
 
 
-  virtual bool readNonVolatileConfigurationRegister(uint16_t * non_volatile_config_reg) override;
+  virtual bool readNonVolatileConfigReg (uint16_t       * non_volatile_config_reg) override;
+  virtual bool writeNonVolatileConfigReg(uint16_t const   non_volatile_config_reg) override;
 
 private:
 

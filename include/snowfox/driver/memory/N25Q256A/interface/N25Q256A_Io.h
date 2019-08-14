@@ -51,8 +51,8 @@ namespace interface
 
 enum class Command : uint8_t
 {
-  ReadNonVolatileConfigurationRegister  = 0xB5,
-  WriteNonVolatileConfigurationRegister = 0xB1
+  READ_NON_VOLATILE_CONFIG_REG  = 0xB5,
+  WRITE_NON_VOLATILE_CONFIG_REG = 0xB1
 };
 
 /**************************************************************************************
@@ -67,7 +67,8 @@ public:
   virtual ~N25Q256A_Io() { }
 
 
-  virtual bool readNonVolatileConfigurationRegister(uint16_t * non_volatile_config_reg) = 0;
+  virtual bool readNonVolatileConfigReg (uint16_t       * non_volatile_config_reg) = 0;
+  virtual bool writeNonVolatileConfigReg(uint16_t const   non_volatile_config_reg) = 0;
 
 };
 
