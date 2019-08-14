@@ -24,6 +24,7 @@
  **************************************************************************************/
 
 #include <stdint.h>
+#include <stdbool.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -45,6 +46,16 @@ namespace interface
 {
 
 /**************************************************************************************
+ * TYPEDEF
+ **************************************************************************************/
+
+enum class Command : uint8_t
+{
+  ReadNonVolatileConfigurationRegister  = 0xB5,
+  WriteNonVolatileConfigurationRegister = 0xB1
+};
+
+/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
@@ -54,6 +65,9 @@ class N25Q256A_Io
 public:
 
   virtual ~N25Q256A_Io() { }
+
+
+  virtual bool readNonVolatileConfigurationRegister(uint16_t * non_volatile_config_reg) = 0;
 
 };
 

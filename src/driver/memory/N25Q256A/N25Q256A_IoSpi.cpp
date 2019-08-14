@@ -46,12 +46,29 @@ N25Q256A_IoSpi::N25Q256A_IoSpi(hal::interface::SpiMasterControl & spi_master, ha
 : _spi_master(spi_master)
 , _cs(cs)
 {
-
+  _cs.set();
 }
 
 N25Q256A_IoSpi::~N25Q256A_IoSpi()
 {
 
+}
+
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
+
+bool N25Q256A_IoSpi::readNonVolatileConfigurationRegister(uint16_t * non_volatile_config_reg)
+{
+  _cs.clr();
+  _spi_master.exchange(static_cast<uint8_t>(interface::Command::ReadNonVolatileConfigurationRegister));
+  uint8_t const high = _spi_master.exchange(0);
+  uint8_t const low  = _spi_master.exchange(0);
+  _cs.set();
+
+  *non_volatile_config_reg = (static_cast<uint16_t>(high) << 8) | (static_cast<uint16_t>(low));
+
+  return true;
 }
 
 /**************************************************************************************

@@ -57,6 +57,8 @@ public:
   virtual ~N25Q256A_IoSpi();
 
 
+  virtual bool readNonVolatileConfigurationRegister(uint16_t * non_volatile_config_reg) override;
+
 private:
 
   hal::interface::SpiMasterControl & _spi_master;
