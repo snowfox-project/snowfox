@@ -58,6 +58,16 @@ N25Q256A_IoSpi::~N25Q256A_IoSpi()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
+bool N25Q256A_IoSpi::readStatusReg(uint8_t * status_reg)
+{
+  _cs.clr();
+  _spi_master.exchange(static_cast<uint8_t>(interface::Command::READ_STATUS_REG));
+  *status_reg = _spi_master.exchange(0);
+  _cs.set();
+
+  return true;
+}
+
 bool N25Q256A_IoSpi::readNonVolatileConfigReg(uint16_t * non_volatile_config_reg)
 {
   _cs.clr();
