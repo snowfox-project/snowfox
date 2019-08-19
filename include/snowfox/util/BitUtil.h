@@ -116,6 +116,21 @@ inline bool isBitSet(volatile uint32_t const * const reg, uint8_t const bit_pos)
   return (*reg & bit_mask) == bit_mask;
 }
 
+inline bool isBitSet(uint8_t const reg, uint8_t const bit_pos)
+{
+  return isBitSet(&reg, bit_pos);
+}
+
+inline bool isBitSet(uint16_t const reg, uint8_t const bit_pos)
+{
+  return isBitSet(&reg, bit_pos);
+}
+
+inline bool isBitSet(uint32_t const reg, uint8_t const bit_pos)
+{
+  return isBitSet(&reg, bit_pos);
+}
+
 inline bool isBitClr(volatile uint8_t const * const reg, uint8_t const bit_pos)
 {
   assert(bit_pos < 8);
@@ -132,6 +147,21 @@ inline bool isBitClr(volatile uint32_t const * const reg, uint8_t const bit_pos)
 {
   assert(bit_pos < 32);
   return (*reg & (1<<bit_pos)) == 0;
+}
+
+inline bool isBitClr(uint8_t const reg, uint8_t const bit_pos)
+{
+  return isBitClr(&reg, bit_pos);
+}
+
+inline bool isBitClr(uint16_t const reg, uint8_t const bit_pos)
+{
+  return isBitClr(&reg, bit_pos);
+}
+
+inline bool isBitClr(uint32_t const reg, uint8_t const bit_pos)
+{
+  return isBitClr(&reg, bit_pos);
 }
 
 /**************************************************************************************

@@ -79,9 +79,9 @@ bool N25Q256A_Control::setAdressMode(interface::AddressMode const addr_mode)
 
   switch(addr_mode)
   {
-  case interface::AddressMode::AM_3Byte: return util::isBitClr(&status_reg, N25Q256A_STATUS_REG_ADDRESSING_bp); break;
-  case interface::AddressMode::AM_4Byte: return util::isBitSet(&status_reg, N25Q256A_STATUS_REG_ADDRESSING_bp); break;
-  default:                               return false;                                                          break;
+  case interface::AddressMode::AM_3Byte: return util::isBitClr(status_reg, N25Q256A_STATUS_REG_ADDRESSING_bp); break;
+  case interface::AddressMode::AM_4Byte: return util::isBitSet(status_reg, N25Q256A_STATUS_REG_ADDRESSING_bp); break;
+  default:                               return false;                                                         break;
   }
 }
 
