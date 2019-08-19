@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_INTERFACE_N25Q256A_IO_H_
-#define INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_INTERFACE_N25Q256A_IO_H_
+#ifndef INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_INTERFACE_N25Q256A_CONTROL_H_
+#define INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_INTERFACE_N25Q256A_CONTROL_H_
 
 /**************************************************************************************
  * INCLUDE
@@ -46,35 +46,28 @@ namespace interface
 {
 
 /**************************************************************************************
- * DEFINE
- **************************************************************************************/
-
-#define N25Q256A_NON_VOLATILE_CONFIG_REG_ADDRESS_BYTE_bp  (0)
-
-/**************************************************************************************
  * TYPEDEF
  **************************************************************************************/
 
-enum class Command : uint8_t
+enum class AddressMode : uint16_t
 {
-  READ_NON_VOLATILE_CONFIG_REG  = 0xB5,
-  WRITE_NON_VOLATILE_CONFIG_REG = 0xB1
+  AM_4Byte = 0,
+  AM_3Byte = 0x01
 };
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class N25Q256A_Io
+class N25Q256A_Control
 {
 
 public:
 
-  virtual ~N25Q256A_Io() { }
+  virtual ~N25Q256A_Control() { }
 
 
-  virtual bool readNonVolatileConfigReg (uint16_t       * non_volatile_config_reg) = 0;
-  virtual bool writeNonVolatileConfigReg(uint16_t const   non_volatile_config_reg) = 0;
+  virtual bool setAdressMode(AddressMode const addr_mode) = 0;
 
 };
 
@@ -92,4 +85,4 @@ public:
 
 } /* snowfox */
 
-#endif /* INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_INTERFACE_N25Q256A_IO_H_ */
+#endif /* INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_INTERFACE_N25Q256A_CONTROL_H_ */

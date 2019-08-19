@@ -16,15 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_INTERFACE_N25Q256A_IO_H_
-#define INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_INTERFACE_N25Q256A_IO_H_
-
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
-#include <stdbool.h>
+#include <snowfox/driver/memory/N25Q256A/N25Q256A_Control.h>
+
+#include <snowfox/util/BitUtil.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,47 +40,43 @@ namespace memory
 namespace N25Q256A
 {
 
-namespace interface
-{
-
 /**************************************************************************************
- * DEFINE
+ * CTOR/DTOR
  **************************************************************************************/
 
-#define N25Q256A_NON_VOLATILE_CONFIG_REG_ADDRESS_BYTE_bp  (0)
-
-/**************************************************************************************
- * TYPEDEF
- **************************************************************************************/
-
-enum class Command : uint8_t
-{
-  READ_NON_VOLATILE_CONFIG_REG  = 0xB5,
-  WRITE_NON_VOLATILE_CONFIG_REG = 0xB1
-};
-
-/**************************************************************************************
- * CLASS DECLARATION
- **************************************************************************************/
-
-class N25Q256A_Io
+N25Q256A_Control::N25Q256A_Control(interface::N25Q256A_Io & io)
+: _io(io)
 {
 
-public:
+}
 
-  virtual ~N25Q256A_Io() { }
+N25Q256A_Control::~N25Q256A_Control()
+{
 
+}
 
-  virtual bool readNonVolatileConfigReg (uint16_t       * non_volatile_config_reg) = 0;
-  virtual bool writeNonVolatileConfigReg(uint16_t const   non_volatile_config_reg) = 0;
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
-};
+bool N25Q256A_Control::setAdressMode(interface::AddressMode const addr_mode)
+{
+  uint16_t non_volatile_config_reg = 0;
+  
+  if(!_io.readNonVolatileConfigReg(&non_volatile_config_reg)) return false;
+
+  switch(addr_mode)
+  {
+  case interface::AddressMode::AM_3Byte: util::setBit(&non_volatile_config_reg, N25Q256A_NON_VOLATILE_CONFIG_REG_ADDRESS_BYTE_bp); break;
+  case interface::AddressMode::AM_4Byte: util::clrBit(&non_volatile_config_reg, N25Q256A_NON_VOLATILE_CONFIG_REG_ADDRESS_BYTE_bp); break;
+  }
+
+  return _io.writeNonVolatileConfigReg(non_volatile_config_reg);
+}
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
-
-} /* interface */
 
 } /* N25Q256A */
 
@@ -91,5 +85,3 @@ public:
 } /* driver */
 
 } /* snowfox */
-
-#endif /* INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_INTERFACE_N25Q256A_IO_H_ */
