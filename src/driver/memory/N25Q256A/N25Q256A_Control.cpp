@@ -71,7 +71,9 @@ bool N25Q256A_Control::setAdressMode(interface::AddressMode const addr_mode)
   case interface::AddressMode::AM_4Byte: util::clrBit(&non_volatile_config_reg, N25Q256A_NON_VOLATILE_CONFIG_REG_ADDRESS_BYTE_bp); break;
   }
 
-  if(_io.writeNonVolatileConfigReg(non_volatile_config_reg)) return false;
+  if(!_io.enableWrite()) return false;
+
+  if(!_io.writeNonVolatileConfigReg(non_volatile_config_reg)) return false;
 
   uint8_t status_reg = 0;
 

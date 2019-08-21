@@ -58,6 +58,15 @@ N25Q256A_IoSpi::~N25Q256A_IoSpi()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
+bool N25Q256A_IoSpi::enableWrite()
+{
+  _cs.clr();
+  _spi_master.exchange(static_cast<uint8_t>(interface::Command::WRITE_ENABLE));
+  _cs.set();
+
+  return true;
+}
+
 bool N25Q256A_IoSpi::readStatusReg(uint8_t * status_reg)
 {
   _cs.clr();
