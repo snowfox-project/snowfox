@@ -43,6 +43,13 @@ bool NorDriver::ioctl(uint32_t const cmd, void * arg)
 {
   switch(cmd)
   {
+  /* IOCTL_GET_CAPABILITIES ***********************************************************/
+  case IOCTL_GET_CAPABILITIES:
+  {
+    NorDriverCapabilities * capabilities = static_cast<NorDriverCapabilities *>(arg);
+    return ioctl_get_capabilities(capabilities);
+  }
+  break;
   /* IOCTL_ERASE_CHIP *****************************************************************/
   case IOCTL_ERASE_CHIP:
   {

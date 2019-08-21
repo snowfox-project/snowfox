@@ -77,8 +77,14 @@ void N25Q256A::close()
 }
 
 /**************************************************************************************
- * PRIVATE MEMBER FUNCTIONS
+ * PROTECTE MEMBER FUNCTIONS
  **************************************************************************************/
+
+bool N25Q256A::ioctl_get_capabilities(NorDriverCapabilities * capabilities)
+{
+  *capabilities = CAPABILITIES;
+  return true;
+}
 
 bool N25Q256A::iotcl_erase_chip()
 {
