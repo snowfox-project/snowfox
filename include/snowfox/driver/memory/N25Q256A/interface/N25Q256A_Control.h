@@ -69,6 +69,8 @@ public:
 
   virtual bool setAdressMode(AddressMode const addr_mode) = 0;
 
+  virtual bool triggerSectorErase(uint32_t const sector_num) = 0;
+
 };
 
 /**************************************************************************************

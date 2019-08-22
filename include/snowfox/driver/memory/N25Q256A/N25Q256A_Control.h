@@ -58,6 +58,8 @@ public:
 
   virtual bool setAdressMode(interface::AddressMode const addr_mode) override;
 
+  virtual bool triggerSectorErase(uint32_t const sector_num) override;
+
 
 private:
 

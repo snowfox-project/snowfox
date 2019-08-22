@@ -22,6 +22,8 @@
 
 #include <snowfox/driver/memory/N25Q256A/N25Q256A_IoSpi.h>
 
+#include <snowfox/driver/memory/N25Q256A/util/N25Q256A_Util.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -99,6 +101,32 @@ bool N25Q256A_IoSpi::writeNonVolatileConfigReg(uint16_t const non_volatile_confi
   _spi_master.exchange(static_cast<uint8_t>(interface::Command::WRITE_NON_VOLATILE_CONFIG_REG));
   _spi_master.exchange(high);
   _spi_master.exchange(low);
+  _cs.set();
+
+  return true;
+}
+
+bool N25Q256A_IoSpi::triggerSectorErase(uint32_t const sector_num)
+{
+  /* The sector erase command byte is followed by a address within
+   * sector which the user intends to delete. Therefore we must
+   * first calculate a valid address from the supplied sector_num.
+   */
+  uint32_t const sector_base_addr = util::toSectorBaseAddr(sector_num);
+  uint8_t const sector_base_addr_array[4] =
+  {
+    static_cast<uint8_t>((sector_base_addr & 0xFF000000) >> 24),
+    static_cast<uint8_t>((sector_base_addr & 0x00FF0000) >> 16),
+    static_cast<uint8_t>((sector_base_addr & 0x0000FF00) >>  8),
+    static_cast<uint8_t>((sector_base_addr & 0x000000FF) >>  0)
+  };
+
+  _cs.clr();
+  _spi_master.exchange(static_cast<uint8_t>(interface::Command::SECTOR_ERASE_4_BYTE_ADDR));
+  _spi_master.exchange(sector_base_addr_array[0]);
+  _spi_master.exchange(sector_base_addr_array[1]);
+  _spi_master.exchange(sector_base_addr_array[2]);
+  _spi_master.exchange(sector_base_addr_array[3]);
   _cs.set();
 
   return true;

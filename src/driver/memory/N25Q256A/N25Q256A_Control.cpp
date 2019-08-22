@@ -87,6 +87,13 @@ bool N25Q256A_Control::setAdressMode(interface::AddressMode const addr_mode)
   }
 }
 
+bool N25Q256A_Control::triggerSectorErase(uint32_t const sector_num)
+{
+  if(!_io.enableWrite())                  return false;
+  if(!_io.triggerSectorErase(sector_num)) return false;
+   return true;
+}
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/

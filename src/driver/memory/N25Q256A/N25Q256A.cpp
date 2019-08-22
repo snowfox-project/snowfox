@@ -22,6 +22,9 @@
 
 #include <snowfox/driver/memory/N25Q256A/N25Q256A.h>
 
+#include <snowfox/driver/memory/N25Q256A/util/N25Q256A_Util.h>
+#include <snowfox/driver/memory/N25Q256A/N25Q256A_Capabilities.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -91,8 +94,9 @@ bool N25Q256A::iotcl_erase_chip()
   /* TODO */ return false;
 }
 
-bool N25Q256A::ioctl_erase_sector(uint32_t const /* sector */)
+bool N25Q256A::ioctl_erase_sector(uint32_t const sector)
 {
+  if(!util::isValidSector(sector)) return false;
   /* TODO */ return false;
 }
 

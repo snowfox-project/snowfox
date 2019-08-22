@@ -67,22 +67,6 @@ protected:
 
 private:
 
-  /* Designed initializes currently trigger an error due to not being allowed
-   * within ISO C++ and '-Werror=pedantic' being enabled as a compile flag. There
-   * are currently efforts underway to reinclude designed initializer lists with
-   * C++20: For further information take a look at the following link:
-   * http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/p0329r4.pdf
-   */
-  static NorDriverCapabilities constexpr CAPABILITIES = 
-  {
-    /* .sector_size     = */ 65536,
-    /* .sector_num      = */ 512,
-    /* .subsector_size  = */ 4096,
-    /* .subsector_num   = */ 8192,
-    /* .sector_erase    = */ true,
-    /* .subsector_erase = */ true
-  };
-
 };
 
 /**************************************************************************************
