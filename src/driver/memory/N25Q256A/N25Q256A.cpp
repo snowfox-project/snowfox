@@ -45,8 +45,10 @@ namespace N25Q256A
  * CTOR/DTOR
  **************************************************************************************/
 
-N25Q256A::N25Q256A(interface::N25Q256A_Control & control)
-: _control(control)
+N25Q256A::N25Q256A(interface::N25Q256A_Configuration & config,
+                   interface::N25Q256A_Control       & control)
+: _config (config)
+, _control(control)
 {
 
 }
@@ -62,7 +64,9 @@ N25Q256A::~N25Q256A()
 
 bool N25Q256A::open()
 {
-  /* TODO */ return false;
+  if(!_config.setAdressMode(interface::AddressMode::AM_4Byte)) return false;
+  /* TODO */
+  return true;
 }
 
 ssize_t N25Q256A::read(uint8_t * /* buffer */, ssize_t const /* num_bytes */)
