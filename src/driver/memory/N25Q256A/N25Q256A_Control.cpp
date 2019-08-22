@@ -59,34 +59,6 @@ N25Q256A_Control::~N25Q256A_Control()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool N25Q256A_Control::setAdressMode(interface::AddressMode const addr_mode)
-{
-  uint16_t non_volatile_config_reg = 0;
-  
-  if(!_io.readNonVolatileConfigReg(&non_volatile_config_reg)) return false;
-
-  switch(addr_mode)
-  {
-  case interface::AddressMode::AM_3Byte: util::setBit(&non_volatile_config_reg, N25Q256A_NON_VOLATILE_CONFIG_REG_ADDRESS_BYTE_bp); break;
-  case interface::AddressMode::AM_4Byte: util::clrBit(&non_volatile_config_reg, N25Q256A_NON_VOLATILE_CONFIG_REG_ADDRESS_BYTE_bp); break;
-  }
-
-  if(!_io.enableWrite()) return false;
-
-  if(!_io.writeNonVolatileConfigReg(non_volatile_config_reg)) return false;
-
-  uint8_t status_reg = 0;
-
-  if(!_io.readStatusReg(&status_reg)) return false;
-
-  switch(addr_mode)
-  {
-  case interface::AddressMode::AM_3Byte: return util::isBitClr(status_reg, N25Q256A_STATUS_REG_ADDRESSING_bp); break;
-  case interface::AddressMode::AM_4Byte: return util::isBitSet(status_reg, N25Q256A_STATUS_REG_ADDRESSING_bp); break;
-  default:                               return false;                                                         break;
-  }
-}
-
 bool N25Q256A_Control::triggerSectorErase(uint32_t const sector_num)
 {
   if(!_io.enableWrite())                  return false;

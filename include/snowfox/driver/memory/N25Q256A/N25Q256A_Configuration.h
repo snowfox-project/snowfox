@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_N25Q256A_CONTROL_H_
-#define INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_N25Q256A_CONTROL_H_
+#ifndef INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_N25Q256A_CONFIGURATION_H_
+#define INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_N25Q256A_CONFIGURATION_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/driver/memory/N25Q256A/interface/N25Q256A_Control.h>
+#include <snowfox/driver/memory/N25Q256A/interface/N25Q256A_Configuration.h>
 
 #include <snowfox/driver/memory/N25Q256A/interface/N25Q256A_Io.h>
 
@@ -47,16 +47,16 @@ namespace N25Q256A
  * CLASS DECLARATION
  **************************************************************************************/
 
-class N25Q256A_Control : public interface::N25Q256A_Control
+class N25Q256A_Configuration : public interface::N25Q256A_Configuration
 {
 
 public:
 
-           N25Q256A_Control(interface::N25Q256A_Io & io);
-  virtual ~N25Q256A_Control();
+           N25Q256A_Configuration(interface::N25Q256A_Io & io);
+  virtual ~N25Q256A_Configuration();
 
 
-  virtual bool triggerSectorErase(uint32_t const sector_num) override;
+  virtual bool setAdressMode(interface::AddressMode const addr_mode) override;
 
 private:
 
@@ -76,4 +76,4 @@ private:
 
 } /* snowfox */
 
-#endif /* INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_N25Q256A_CONTROL_H_ */
+#endif /* INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_N25Q256A_CONFIGURATION_H_ */

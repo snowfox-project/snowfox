@@ -16,16 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_N25Q256A_CONTROL_H_
-#define INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_N25Q256A_CONTROL_H_
+#ifndef INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_INTERFACE_N25Q256A_CONFIGURATION_H_
+#define INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_INTERFACE_N25Q256A_CONFIGURATION_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/driver/memory/N25Q256A/interface/N25Q256A_Control.h>
-
-#include <snowfox/driver/memory/N25Q256A/interface/N25Q256A_Io.h>
+#include <stdint.h>
+#include <stdbool.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -43,30 +42,40 @@ namespace memory
 namespace N25Q256A
 {
 
+namespace interface
+{
+
+/**************************************************************************************
+ * TYPEDEF
+ **************************************************************************************/
+
+enum class AddressMode : uint16_t
+{
+  AM_4Byte = 0,
+  AM_3Byte = 0x01
+};
+
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class N25Q256A_Control : public interface::N25Q256A_Control
+class N25Q256A_Configuration
 {
 
 public:
 
-           N25Q256A_Control(interface::N25Q256A_Io & io);
-  virtual ~N25Q256A_Control();
+  virtual ~N25Q256A_Configuration() { }
 
 
-  virtual bool triggerSectorErase(uint32_t const sector_num) override;
-
-private:
-
-  interface::N25Q256A_Io & _io;
+  virtual bool setAdressMode(AddressMode const addr_mode) = 0;
 
 };
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* N25Q256A */
 
@@ -76,4 +85,4 @@ private:
 
 } /* snowfox */
 
-#endif /* INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_N25Q256A_CONTROL_H_ */
+#endif /* INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_INTERFACE_N25Q256A_CONFIGURATION_H_ */

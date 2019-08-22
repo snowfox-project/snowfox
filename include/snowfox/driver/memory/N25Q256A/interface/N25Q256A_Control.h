@@ -46,16 +46,6 @@ namespace interface
 {
 
 /**************************************************************************************
- * TYPEDEF
- **************************************************************************************/
-
-enum class AddressMode : uint16_t
-{
-  AM_4Byte = 0,
-  AM_3Byte = 0x01
-};
-
-/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
@@ -66,8 +56,6 @@ public:
 
   virtual ~N25Q256A_Control() { }
 
-
-  virtual bool setAdressMode(AddressMode const addr_mode) = 0;
 
   virtual bool triggerSectorErase(uint32_t const sector_num) = 0;
 
