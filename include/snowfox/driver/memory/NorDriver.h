@@ -61,6 +61,7 @@ typedef struct
 static uint32_t constexpr IOCTL_GET_CAPABILITIES = 0; /* Arg: NorDriverCapabilities * capabilities */
 static uint32_t constexpr IOCTL_ERASE_CHIP       = 1; /* Arg: none                                 */
 static uint32_t constexpr IOCTL_ERASE_SECTOR     = 2; /* Arg: uint32_t * sector                    */
+static uint32_t constexpr IOCTL_ERASE_SUBSECTOR  = 3; /* Arg: uint32_t * subsector                 */
 
 /**************************************************************************************
  * CLASS DECLARATION
@@ -86,6 +87,7 @@ protected:
   virtual bool ioctl_get_capabilities(NorDriverCapabilities * capabilities) = 0;
   virtual bool iotcl_erase_chip      (                                    ) = 0;
   virtual bool ioctl_erase_sector    (uint32_t const sector               ) = 0;
+  virtual bool ioctl_erase_subsector (uint32_t const subsector            ) = 0;
 
 };
 

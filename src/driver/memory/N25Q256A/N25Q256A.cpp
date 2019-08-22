@@ -96,6 +96,11 @@ bool N25Q256A::ioctl_erase_sector(uint32_t const /* sector */)
   /* TODO */ return false;
 }
 
+bool N25Q256A::ioctl_erase_subsector(uint32_t const /* subsector */)
+{
+  /* TODO */ return false;
+}
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
