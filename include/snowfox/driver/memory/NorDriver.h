@@ -86,8 +86,8 @@ protected:
 
   virtual bool ioctl_get_capabilities(NorDriverCapabilities * capabilities) = 0;
   virtual bool iotcl_erase_chip      (                                    ) = 0;
-  virtual bool ioctl_erase_sector    (uint32_t const sector               ) = 0;
-  virtual bool ioctl_erase_subsector (uint32_t const subsector            ) = 0;
+  virtual bool ioctl_erase_sector    (uint32_t const sector_num           ) = 0;
+  virtual bool ioctl_erase_subsector (uint32_t const subsector_num        ) = 0;
 
 };
 

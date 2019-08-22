@@ -64,8 +64,8 @@ protected:
 
   virtual bool ioctl_get_capabilities(NorDriverCapabilities * capabilities) override;
   virtual bool iotcl_erase_chip      (                                    ) override;
-  virtual bool ioctl_erase_sector    (uint32_t const sector               ) override;
-  virtual bool ioctl_erase_subsector (uint32_t const subsector            ) override;
+  virtual bool ioctl_erase_sector    (uint32_t const sector_num           ) override;
+  virtual bool ioctl_erase_subsector (uint32_t const subsector_num        ) override;
 
 private:
 

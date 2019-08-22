@@ -59,15 +59,15 @@ bool NorDriver::ioctl(uint32_t const cmd, void * arg)
   /* IOCTL_ERASE_SECTOR ***************************************************************/
   case IOCTL_ERASE_SECTOR:
   {
-    uint32_t const * sector = static_cast<uint32_t const *>(arg);
-    return ioctl_erase_sector(*sector);
+    uint32_t const * sector_num = static_cast<uint32_t const *>(arg);
+    return ioctl_erase_sector(*sector_num);
   }
   break;
   /* IOCTL_ERASE_SUBSECTOR ************************************************************/
   case IOCTL_ERASE_SUBSECTOR:
   {
-    uint32_t const * subsector = static_cast<uint32_t const *>(arg);
-    return ioctl_erase_sector(*subsector);
+    uint32_t const * subsector_num = static_cast<uint32_t const *>(arg);
+    return ioctl_erase_sector(*subsector_num);
   }
   break;
   }

@@ -95,15 +95,15 @@ bool N25Q256A::iotcl_erase_chip()
   /* TODO */ return false;
 }
 
-bool N25Q256A::ioctl_erase_sector(uint32_t const sector)
+bool N25Q256A::ioctl_erase_sector(uint32_t const sector_num)
 {
-  if(!util::isValidSector(sector))         return false;
-  if(!_control.triggerSectorErase(sector)) return false;
+  if(!util::isValidSector(sector_num))         return false;
+  if(!_control.triggerSectorErase(sector_num)) return false;
   /* TODO: Wait for sector erase operation to complete, optionally yield here */
   return false;
 }
 
-bool N25Q256A::ioctl_erase_subsector(uint32_t const /* subsector */)
+bool N25Q256A::ioctl_erase_subsector(uint32_t const /* subsector_num */)
 {
   /* TODO */ return false;
 }
