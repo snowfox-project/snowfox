@@ -25,6 +25,8 @@
 
 #include <snowfox/driver/memory/NorDriver.h>
 
+#include <snowfox/driver/memory/N25Q256A/interface/N25Q256A_Control.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -49,7 +51,7 @@ class N25Q256A : public NorDriver
 {
 
 public:
-           N25Q256A();
+           N25Q256A(interface::N25Q256A_Control & control);
   virtual ~N25Q256A();
 
 
@@ -66,6 +68,8 @@ protected:
   virtual bool ioctl_erase_subsector (uint32_t const subsector            ) override;
 
 private:
+
+  interface::N25Q256A_Control & _control;
 
 };
 

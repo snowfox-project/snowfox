@@ -45,7 +45,8 @@ namespace N25Q256A
  * CTOR/DTOR
  **************************************************************************************/
 
-N25Q256A::N25Q256A()
+N25Q256A::N25Q256A(interface::N25Q256A_Control & control)
+: _control(control)
 {
 
 }
@@ -96,8 +97,10 @@ bool N25Q256A::iotcl_erase_chip()
 
 bool N25Q256A::ioctl_erase_sector(uint32_t const sector)
 {
-  if(!util::isValidSector(sector)) return false;
-  /* TODO */ return false;
+  if(!util::isValidSector(sector))         return false;
+  if(!_control.triggerSectorErase(sector)) return false;
+  /* TODO: Wait for sector erase operation to complete, optionally yield here */
+  return false;
 }
 
 bool N25Q256A::ioctl_erase_subsector(uint32_t const /* subsector */)
