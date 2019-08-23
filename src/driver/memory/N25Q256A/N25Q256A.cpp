@@ -103,14 +103,28 @@ bool N25Q256A::ioctl_erase_sector(uint32_t const sector_num)
 {
   if(!util::isValidSector(sector_num))         return false;
   if(!_control.triggerSectorErase(sector_num)) return false;
-  /* TODO: Wait for sector erase operation to complete, optionally yield here */
-  return false;
+
+  bool is_erase_in_progress = true;
+  do
+  {
+    if(!_control.isEraseInProgress(&is_erase_in_progress)) return false;
+  } while(is_erase_in_progress);
+
+  return true;
 }
 
 bool N25Q256A::ioctl_erase_subsector(uint32_t const subsector_num)
 {
-  if(!util::isValidSubsector(subsector_num)) return false;
-  /* TODO */ return false;
+  if(!util::isValidSubsector(subsector_num))         return false;
+  if(!_control.triggerSubsectorErase(subsector_num)) return false;
+
+  bool is_erase_in_progress = true;
+  do
+  {
+    if(!_control.isEraseInProgress(&is_erase_in_progress)) return false;
+  } while(is_erase_in_progress);
+
+  return true;
 }
 
 /**************************************************************************************

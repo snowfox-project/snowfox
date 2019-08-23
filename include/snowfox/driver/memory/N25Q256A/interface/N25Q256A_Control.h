@@ -59,6 +59,7 @@ public:
 
   virtual bool triggerSectorErase   (uint32_t const sector_num)    = 0;
   virtual bool triggerSubsectorErase(uint32_t const subsector_num) = 0;
+  virtual bool isEraseInProgress    (bool * is_erase_in_progress)  = 0;
 
 };
 

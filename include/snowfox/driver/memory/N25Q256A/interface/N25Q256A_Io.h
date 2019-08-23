@@ -49,8 +49,8 @@ namespace interface
  * DEFINE
  **************************************************************************************/
 
-
 /* STATUS REGISTER */
+#define N25Q256A_STATUS_REG_PROG_OR_ERASE_bp              (7)
 #define N25Q256A_STATUS_REG_ADDRESSING_bp                 (0)
 
 /* NON VOLATILE CONFIGURATION REGISTER */

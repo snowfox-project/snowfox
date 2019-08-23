@@ -73,6 +73,14 @@ bool N25Q256A_Control::triggerSubsectorErase(uint32_t const subsector_num)
   return true;
 }
 
+bool N25Q256A_Control::isEraseInProgress(bool * is_erase_in_progress)
+{
+  uint8_t status_reg = 0;
+  if(!_io.readStatusReg(&status_reg)) return false;
+  *is_erase_in_progress = util::isBitClr(status_reg, N25Q256A_STATUS_REG_PROG_OR_ERASE_bp);
+  return true;
+}
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
