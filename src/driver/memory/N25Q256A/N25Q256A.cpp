@@ -107,8 +107,9 @@ bool N25Q256A::ioctl_erase_sector(uint32_t const sector_num)
   return false;
 }
 
-bool N25Q256A::ioctl_erase_subsector(uint32_t const /* subsector_num */)
+bool N25Q256A::ioctl_erase_subsector(uint32_t const subsector_num)
 {
+  if(!util::isValidSubsector(subsector_num)) return false;
   /* TODO */ return false;
 }
 

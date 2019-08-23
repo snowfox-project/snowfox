@@ -63,7 +63,14 @@ bool N25Q256A_Control::triggerSectorErase(uint32_t const sector_num)
 {
   if(!_io.enableWrite())                  return false;
   if(!_io.triggerSectorErase(sector_num)) return false;
-   return true;
+  return true;
+}
+
+bool N25Q256A_Control::triggerSubsectorErase(uint32_t const subsector_num)
+{
+  if(!_io.enableWrite())                        return false;
+  if(!_io.triggerSubsectorErase(subsector_num)) return false;
+  return true;
 }
 
 /**************************************************************************************

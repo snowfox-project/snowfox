@@ -67,6 +67,7 @@ enum class Command : uint8_t
   WRITE_ENABLE                  = 0x06,
   READ_NON_VOLATILE_CONFIG_REG  = 0xB5,
   WRITE_NON_VOLATILE_CONFIG_REG = 0xB1,
+  SUBSECTOR_ERASE_4_BYTE_ADDR   = 0x21,
   SECTOR_ERASE_4_BYTE_ADDR      = 0xDC,
 };
 
@@ -87,6 +88,7 @@ public:
   virtual bool readNonVolatileConfigReg (uint16_t       * non_volatile_config_reg) = 0;
   virtual bool writeNonVolatileConfigReg(uint16_t const   non_volatile_config_reg) = 0;
   virtual bool triggerSectorErase       (uint32_t const   sector_num             ) = 0;
+  virtual bool triggerSubsectorErase    (uint32_t const   subsector_num          ) = 0;
 
 };
 

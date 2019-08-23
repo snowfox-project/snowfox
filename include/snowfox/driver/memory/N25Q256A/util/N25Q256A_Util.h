@@ -49,8 +49,10 @@ namespace util
  * FUNCTION DECLARATION
  **************************************************************************************/
 
-bool     isValidSector   (uint32_t const sector_num);
-uint32_t toSectorBaseAddr(uint32_t const sector_num);
+bool     isValidSector      (uint32_t const sector_num);
+uint32_t toSectorBaseAddr   (uint32_t const sector_num);
+bool     isValidSubsector   (uint32_t const subsector_num);
+uint32_t toSubsectorBaseAddr(uint32_t const subsector_num);
 
 /**************************************************************************************
  * NAMESPACE

@@ -57,7 +57,8 @@ public:
   virtual ~N25Q256A_Control() { }
 
 
-  virtual bool triggerSectorErase(uint32_t const sector_num) = 0;
+  virtual bool triggerSectorErase   (uint32_t const sector_num)    = 0;
+  virtual bool triggerSubsectorErase(uint32_t const subsector_num) = 0;
 
 };
 

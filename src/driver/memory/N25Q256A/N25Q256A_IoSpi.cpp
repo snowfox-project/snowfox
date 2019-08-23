@@ -122,11 +122,37 @@ bool N25Q256A_IoSpi::triggerSectorErase(uint32_t const sector_num)
   };
 
   _cs.clr();
-  _spi_master.exchange(static_cast<uint8_t>(interface::Command::SECTOR_ERASE_4_BYTE_ADDR));
+  _spi_master.exchange(static_cast<uint8_t>(interface::Command::SUBSECTOR_ERASE_4_BYTE_ADDR));
   _spi_master.exchange(sector_base_addr_array[0]);
   _spi_master.exchange(sector_base_addr_array[1]);
   _spi_master.exchange(sector_base_addr_array[2]);
   _spi_master.exchange(sector_base_addr_array[3]);
+  _cs.set();
+
+  return true;
+}
+
+bool N25Q256A_IoSpi::triggerSubsectorErase(uint32_t const subsector_num)
+{
+  /* The subsector erase command byte is followed by a address within
+   * subsector which the user intends to delete. Therefore we must
+   * first calculate a valid address from the supplied subsector_num.
+   */
+  uint32_t const subsector_base_addr = util::toSubsectorBaseAddr(subsector_num);
+  uint8_t const subsector_base_addr_array[4] =
+  {
+    static_cast<uint8_t>((subsector_base_addr & 0xFF000000) >> 24),
+    static_cast<uint8_t>((subsector_base_addr & 0x00FF0000) >> 16),
+    static_cast<uint8_t>((subsector_base_addr & 0x0000FF00) >>  8),
+    static_cast<uint8_t>((subsector_base_addr & 0x000000FF) >>  0)
+  };
+
+  _cs.clr();
+  _spi_master.exchange(static_cast<uint8_t>(interface::Command::SECTOR_ERASE_4_BYTE_ADDR));
+  _spi_master.exchange(subsector_base_addr_array[0]);
+  _spi_master.exchange(subsector_base_addr_array[1]);
+  _spi_master.exchange(subsector_base_addr_array[2]);
+  _spi_master.exchange(subsector_base_addr_array[3]);
   _cs.set();
 
   return true;
