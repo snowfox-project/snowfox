@@ -45,6 +45,8 @@ namespace memory
 typedef struct
 {
   /* Constants describing the size and the memory layout */
+  uint32_t page_size;
+  uint32_t page_num;
   uint32_t sector_size;
   uint32_t sector_num;
   uint32_t subsector_size;

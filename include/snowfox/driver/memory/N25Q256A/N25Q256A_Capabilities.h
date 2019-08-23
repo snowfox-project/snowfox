@@ -53,6 +53,8 @@ namespace N25Q256A
  */
 static NorDriverCapabilities constexpr CAPABILITIES = 
 {
+  /* .page_size       = */ 256,
+  /* .page_num        = */ 131072,
   /* .sector_size     = */ 65536,
   /* .sector_num      = */ 512,
   /* .subsector_size  = */ 4096,
