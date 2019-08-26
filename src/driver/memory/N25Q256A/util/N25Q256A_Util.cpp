@@ -47,27 +47,15 @@ namespace util
  * FUNCTION DEFINITION
  **************************************************************************************/
 
-bool isValidSector(uint32_t const sector_num)
-{
-  bool const is_valid_sector = (sector_num < CAPABILITIES.sector_num);
-  return is_valid_sector;
-}
-
-uint32_t toSectorBaseAddr(uint32_t const sector_num)
-{
-  uint32_t const sector_base_addr = sector_num * CAPABILITIES.sector_size;
-  return sector_base_addr;
-}
-
 bool isValidSubsector(uint32_t const subsector_num)
 {
-  bool const is_valid_subsector = (subsector_num < CAPABILITIES.subsector_num);
+  bool const is_valid_subsector = (subsector_num < CAPABILITIES.erase_block_size_num);
   return is_valid_subsector;
 }
 
 uint32_t toSubsectorBaseAddr(uint32_t const subsector_num)
 {
-  uint32_t const subsector_base_addr = subsector_num * CAPABILITIES.subsector_size;
+  uint32_t const subsector_base_addr = subsector_num * CAPABILITIES.erase_block_size;
   return subsector_base_addr;
 }
 

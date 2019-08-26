@@ -44,16 +44,26 @@ namespace memory
 
 typedef struct
 {
-  /* Constants describing the size and the memory layout */
-  uint32_t page_size;
-  uint32_t page_num;
-  uint32_t sector_size;
-  uint32_t sector_num;
-  uint32_t subsector_size;
-  uint32_t subsector_num;
-  /* Constants describing the capabilities of the flash */
-  bool sector_erase;
-  bool subsector_erase;
+  /* Different NOR flash types support different API's. Some may support chip/sector/
+   * subsector-level erase, others might only support chip/sector-level erase. It's
+   * the same with write and read access. Viewed from the point-of-view of using this
+   * generic NOR driver as interface for an overlying embedded flash filesystem there
+   * are actually only 6 parameter that count:
+   * - What's the smallest erase block size and how many erase blocks are available?
+   * - What's the smallest write block size and how many write blocks are available?
+   * - What's the smallest read block size and how many read blocks are available?
+   * In any case the statement
+   *   erase_block_size * erase_block_size_num ==
+   *   write_block_size * write_block_size_num ==
+   *   read_block_size * read_block_size_num
+   * should hold true.
+   */
+  uint32_t erase_block_size;
+  uint32_t erase_block_size_num;
+  uint32_t write_block_size;
+  uint32_t write_block_size_num;
+  uint32_t read_block_size;
+  uint32_t read_block_size_num;
 } NorDriverCapabilities;
 
 /**************************************************************************************
@@ -61,9 +71,7 @@ typedef struct
  **************************************************************************************/
 
 static uint32_t constexpr IOCTL_GET_CAPABILITIES = 0; /* Arg: NorDriverCapabilities * capabilities */
-static uint32_t constexpr IOCTL_ERASE_CHIP       = 1; /* Arg: none                                 */
-static uint32_t constexpr IOCTL_ERASE_SECTOR     = 2; /* Arg: uint32_t * sector                    */
-static uint32_t constexpr IOCTL_ERASE_SUBSECTOR  = 3; /* Arg: uint32_t * subsector                 */
+static uint32_t constexpr IOCTL_ERASE            = 1; /* Arg: uint32_t * erase_block_num           */
 
 /**************************************************************************************
  * CLASS DECLARATION
@@ -87,9 +95,7 @@ public:
 protected:
 
   virtual bool ioctl_get_capabilities(NorDriverCapabilities * capabilities) = 0;
-  virtual bool iotcl_erase_chip      (                                    ) = 0;
-  virtual bool ioctl_erase_sector    (uint32_t const sector_num           ) = 0;
-  virtual bool ioctl_erase_subsector (uint32_t const subsector_num        ) = 0;
+  virtual bool ioctl_erase           (uint32_t const erase_block_num      ) = 0;
 
 };
 

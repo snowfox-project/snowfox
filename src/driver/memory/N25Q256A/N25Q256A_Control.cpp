@@ -59,13 +59,6 @@ N25Q256A_Control::~N25Q256A_Control()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool N25Q256A_Control::triggerSectorErase(uint32_t const sector_num)
-{
-  if(!_io.enableWrite())                  return false;
-  if(!_io.triggerSectorErase(sector_num)) return false;
-  return true;
-}
-
 bool N25Q256A_Control::triggerSubsectorErase(uint32_t const subsector_num)
 {
   if(!_io.enableWrite())                        return false;
