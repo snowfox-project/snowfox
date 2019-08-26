@@ -87,15 +87,17 @@ public:
 
 
   virtual bool    open (                                                  ) = 0;
-  virtual ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) = 0;
-  virtual ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) = 0;
+  virtual ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) override;
+  virtual ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override;
   virtual bool    ioctl(uint32_t const   cmd,    void          * arg      ) override;
   virtual void    close(                                                  ) = 0;
 
 protected:
 
-  virtual bool ioctl_get_capabilities(NorDriverCapabilities * capabilities) = 0;
-  virtual bool ioctl_erase           (uint32_t const erase_block_num      ) = 0;
+  virtual ssize_t read                  (uint32_t const read_addr,  uint8_t       * buffer, ssize_t const num_bytes) = 0;
+  virtual ssize_t write                 (uint32_t const write_addr, uint8_t const * buffer, ssize_t const num_bytes) = 0;
+  virtual bool    ioctl_get_capabilities(NorDriverCapabilities * capabilities)                                       = 0;
+  virtual bool    ioctl_erase           (uint32_t const erase_block_num)                                             = 0;
 
 };
 

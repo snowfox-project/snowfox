@@ -57,15 +57,15 @@ public:
   virtual ~N25Q256A();
 
 
-  virtual bool    open (                                                  ) override;
-  virtual ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) override;
-  virtual ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override;
-  virtual void    close(                                                  ) override;
+  virtual bool open () override;
+  virtual void close() override;
 
 protected:
 
-  virtual bool ioctl_get_capabilities(NorDriverCapabilities * capabilities) override;
-  virtual bool ioctl_erase           (uint32_t const erase_block_num      ) override;
+  virtual ssize_t read                  (uint32_t const read_addr,  uint8_t       * buffer, ssize_t const num_bytes) override;
+  virtual ssize_t write                 (uint32_t const write_addr, uint8_t const * buffer, ssize_t const num_bytes) override;
+  virtual bool    ioctl_get_capabilities(NorDriverCapabilities * capabilities)                                       override;
+  virtual bool    ioctl_erase           (uint32_t const erase_block_num)                                             override;
 
 private:
 

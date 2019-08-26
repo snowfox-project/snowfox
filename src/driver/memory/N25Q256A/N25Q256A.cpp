@@ -69,16 +69,6 @@ bool N25Q256A::open()
   return true;
 }
 
-ssize_t N25Q256A::read(uint8_t * /* buffer */, ssize_t const /* num_bytes */)
-{
-  /* TODO */ return -1;
-}
-
-ssize_t N25Q256A::write(uint8_t const * /* buffer */, ssize_t const /* num_bytes */)
-{
-  /* TODO */ return -1;
-}
-
 void N25Q256A::close()
 {
   /* TODO */
@@ -87,6 +77,16 @@ void N25Q256A::close()
 /**************************************************************************************
  * PROTECTE MEMBER FUNCTIONS
  **************************************************************************************/
+
+ssize_t N25Q256A::read(uint32_t const /* read_addr */, uint8_t * /* buffer */, ssize_t const /* num_bytes */)
+{
+  /* TODO */ return -1;
+}
+
+ssize_t N25Q256A::write(uint32_t const /* write_addr */, uint8_t const * /* buffer */, ssize_t const /* num_bytes */)
+{
+  /* TODO */ return -1;
+}
 
 bool N25Q256A::ioctl_get_capabilities(NorDriverCapabilities * capabilities)
 {
