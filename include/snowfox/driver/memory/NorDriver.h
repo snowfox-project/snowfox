@@ -99,6 +99,18 @@ protected:
   virtual bool    ioctl_get_capabilities(NorDriverCapabilities * capabilities)                                       = 0;
   virtual bool    ioctl_erase           (uint32_t const erase_block_num)                                             = 0;
 
+private:
+
+  static unsigned int constexpr READ_ADDR_SIZE  = sizeof(uint32_t);
+  static unsigned int constexpr WRITE_ADDR_SIZE = sizeof(uint32_t);
+
+  static uint32_t          toReadAddr     (uint8_t       * buffer);
+  static uint32_t          toWriteAddr    (uint8_t const * buffer);
+  static uint8_t        *  toReadBuffer   (uint8_t       * buffer);
+  static uint8_t  const *  toWriteBuffer  (uint8_t const * buffer);
+  static ssize_t           toReadNumBytes (ssize_t const   num_bytes);
+  static ssize_t           toWriteNumBytes(ssize_t const   num_bytes);
+
 };
 
 /**************************************************************************************
