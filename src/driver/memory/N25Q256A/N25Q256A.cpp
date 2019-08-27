@@ -112,11 +112,16 @@ bool N25Q256A::ioctl_get_capabilities(NorDriverCapabilities * capabilities)
 
 bool N25Q256A::ioctl_erase(uint32_t const erase_block_num)
 {
-  /* The smallest erase block size on the N25Q256A is a
-   * subsector-level erase operation.
+  /* The smallest erase block size on the N25Q256A is a subsector-level erase.
+   * The erase operation is performed in 3 steps:
+   *  - Verify if a valid erase block num has been supplied
+   *  - Trigger a subsector erase
+   *  - Wait for subsector erase to be completed
    */
-  if(!util::isValidSubsector(erase_block_num))         return false;
-  if(!_control.triggerSubsectorErase(erase_block_num)) return false;
+  if(!util::isValidSubsector(erase_block_num)) return false;
+  
+  if(!_io.enableWrite())                          return false;
+  if(!_io.triggerSubsectorErase(erase_block_num)) return false;
 
   bool is_erase_in_progress = true;
   do

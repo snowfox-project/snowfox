@@ -59,13 +59,6 @@ N25Q256A_Control::~N25Q256A_Control()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool N25Q256A_Control::triggerSubsectorErase(uint32_t const subsector_num)
-{
-  if(!_io.enableWrite())                        return false;
-  if(!_io.triggerSubsectorErase(subsector_num)) return false;
-  return true;
-}
-
 bool N25Q256A_Control::isEraseInProgress(bool * is_erase_in_progress)
 {
   uint8_t status_reg = 0;
