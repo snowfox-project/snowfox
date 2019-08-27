@@ -25,6 +25,7 @@
 
 #include <snowfox/driver/memory/NorDriver.h>
 
+#include <snowfox/driver/memory/N25Q256A/interface/N25Q256A_Io.h>
 #include <snowfox/driver/memory/N25Q256A/interface/N25Q256A_Control.h>
 #include <snowfox/driver/memory/N25Q256A/interface/N25Q256A_Configuration.h>
 
@@ -52,7 +53,8 @@ class N25Q256A : public NorDriver
 {
 
 public:
-           N25Q256A(interface::N25Q256A_Configuration & config,
+           N25Q256A(interface::N25Q256A_Io            & io,
+                    interface::N25Q256A_Configuration & config,
                     interface::N25Q256A_Control       & control);
   virtual ~N25Q256A();
 
@@ -69,8 +71,9 @@ protected:
 
 private:
 
+  interface::N25Q256A_Io            & _io;
   interface::N25Q256A_Configuration & _config;
-  interface::N25Q256A_Control & _control;
+  interface::N25Q256A_Control       & _control;
 
 };
 

@@ -45,9 +45,11 @@ namespace N25Q256A
  * CTOR/DTOR
  **************************************************************************************/
 
-N25Q256A::N25Q256A(interface::N25Q256A_Configuration & config,
+N25Q256A::N25Q256A(interface::N25Q256A_Io            & io,
+                   interface::N25Q256A_Configuration & config,
                    interface::N25Q256A_Control       & control)
-: _config (config)
+: _io     (io)
+, _config (config)
 , _control(control)
 {
 
@@ -83,9 +85,23 @@ ssize_t N25Q256A::read(uint32_t const /* read_addr */, uint8_t * /* buffer */, s
   /* TODO */ return -1;
 }
 
-ssize_t N25Q256A::write(uint32_t const /* write_addr */, uint8_t const * /* buffer */, ssize_t const /* num_bytes */)
+ssize_t N25Q256A::write(uint32_t const write_addr, uint8_t const * buffer, ssize_t const num_bytes)
 {
-  /* TODO */ return -1;
+  /* If the bits of the least significant address, which is the starting address,
+   * are not all zero (= 256 byte page size), all data transmitted beyond the end
+   * of the current page is programmed from the starting address of the same page.
+   * If the number of bytes sent to the device exceed the maximum page size, prev-
+   * iously latched data is discarded and only the last maximum page-size number
+   * of data bytes are guaranteed to be programmed correctly within the same page.
+   * If the number of bytes sent to the device is less than the maximum page size,
+   * they are correctly programmed at the specified addresses without any effect on
+   * the other bytes of the same page. (Source: N25Q256A datasheet, page 54).
+   */
+  if(num_bytes < 0)                                                                   return -1;
+  if(static_cast<uint32_t>(num_bytes) > CAPABILITIES.write_block_size)                return -1;
+  if(!_io.enableWrite())                                                              return -1;
+  if(!_io.writeToProgramBuffer(write_addr, buffer, static_cast<uint32_t>(num_bytes))) return -1;
+  return num_bytes;
 }
 
 bool N25Q256A::ioctl_get_capabilities(NorDriverCapabilities * capabilities)
