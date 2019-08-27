@@ -60,6 +60,44 @@ N25Q256A_IoSpi::~N25Q256A_IoSpi()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
+bool N25Q256A_IoSpi::transfer(interface::Command  const   cmd,
+                              uint8_t             const * tx_buf,
+                              uint32_t            const   tx_num_bytes,
+                              uint8_t             const   tx_fill_data,
+                              uint8_t                   * rx_buf,
+                              uint32_t            const   rx_num_bytes,
+                              uint32_t            const   rx_start_pos)
+{
+  _cs.clr();
+
+  _spi_master.exchange(static_cast<uint8_t>(cmd));
+
+  uint32_t const complete_transfer_num_bytes = (tx_num_bytes > rx_num_bytes + rx_start_pos) ? tx_num_bytes : rx_num_bytes + rx_start_pos;
+
+  for(uint32_t b = 0; b < complete_transfer_num_bytes; b++)
+  {
+    uint8_t rx_data = 0;
+
+    if(b < tx_num_bytes) {
+      rx_data = _spi_master.exchange(tx_buf[b]);
+    } else {
+      rx_data = _spi_master.exchange(tx_fill_data);
+    }
+
+    if(b >= rx_start_pos)
+    {
+      uint32_t const rx_buf_idx = b - rx_start_pos;
+      if(rx_buf_idx < rx_num_bytes) {
+        rx_buf[rx_buf_idx] = rx_data;
+      }
+    }
+  }
+
+  _cs.set();
+
+  return true;
+}
+
 bool N25Q256A_IoSpi::enableWrite()
 {
   _cs.clr();
