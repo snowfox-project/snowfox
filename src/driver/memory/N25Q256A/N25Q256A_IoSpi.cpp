@@ -98,6 +98,29 @@ bool N25Q256A_IoSpi::transfer(interface::Command  const   cmd,
   return true;
 }
 
+bool N25Q256A_IoSpi::transfer(interface::Command  const   cmd,
+                              uint8_t             const * tx_buf_1,
+                              uint32_t            const   tx_num_bytes_1,
+                              uint8_t             const * tx_buf_2,
+                              uint32_t            const   tx_num_bytes_2)
+{
+  _cs.clr();
+
+  _spi_master.exchange(static_cast<uint8_t>(cmd));
+
+  for(uint32_t b = 0; b < tx_num_bytes_1; b++) {
+    _spi_master.exchange(tx_buf_1[b]);
+  }
+
+  for(uint32_t b = 0; b < tx_num_bytes_2; b++) {
+    _spi_master.exchange(tx_buf_2[b]);
+  }
+
+  _cs.set();
+
+  return true;
+}
+
 bool N25Q256A_IoSpi::readStatusReg(uint8_t * status_reg)
 {
   _cs.clr();
@@ -156,56 +179,6 @@ bool N25Q256A_IoSpi::triggerSubsectorErase(uint32_t const subsector_num)
   _spi_master.exchange(subsector_base_addr_array[1]);
   _spi_master.exchange(subsector_base_addr_array[2]);
   _spi_master.exchange(subsector_base_addr_array[3]);
-  _cs.set();
-
-  return true;
-}
-
-bool N25Q256A_IoSpi::readFromMemory(uint32_t const read_addr, uint8_t * buffer, uint32_t const num_bytes)
-{
-  uint8_t const read_addr_array[4] =
-  {
-    static_cast<uint8_t>((read_addr & 0xFF000000) >> 24),
-    static_cast<uint8_t>((read_addr & 0x00FF0000) >> 16),
-    static_cast<uint8_t>((read_addr & 0x0000FF00) >>  8),
-    static_cast<uint8_t>((read_addr & 0x000000FF) >>  0)
-  };
-
-  _cs.clr();
-  _spi_master.exchange(static_cast<uint8_t>(interface::Command::READ_4_BYTE_ADDR));
-  _spi_master.exchange(read_addr_array[0]);
-  _spi_master.exchange(read_addr_array[1]);
-  _spi_master.exchange(read_addr_array[2]);
-  _spi_master.exchange(read_addr_array[3]);
-  for(uint32_t b = 0; b < num_bytes; b++)
-  {
-    buffer[b] = _spi_master.exchange(0);
-  }
-  _cs.set();
-
-  return true;
-}
-
-bool N25Q256A_IoSpi::writeToProgramBuffer(uint32_t const write_addr, uint8_t const * buffer, uint32_t const num_bytes)
-{
-  uint8_t const write_addr_array[4] =
-  {
-    static_cast<uint8_t>((write_addr & 0xFF000000) >> 24),
-    static_cast<uint8_t>((write_addr & 0x00FF0000) >> 16),
-    static_cast<uint8_t>((write_addr & 0x0000FF00) >>  8),
-    static_cast<uint8_t>((write_addr & 0x000000FF) >>  0)
-  };
-
-  _cs.clr();
-  _spi_master.exchange(static_cast<uint8_t>(interface::Command::PAGE_PROGRAM_4_BYTE_ADDR));
-  _spi_master.exchange(write_addr_array[0]);
-  _spi_master.exchange(write_addr_array[1]);
-  _spi_master.exchange(write_addr_array[2]);
-  _spi_master.exchange(write_addr_array[3]);
-  for(uint32_t b = 0; b < num_bytes; b++)
-  {
-    _spi_master.exchange(buffer[b]);
-  }
   _cs.set();
 
   return true;

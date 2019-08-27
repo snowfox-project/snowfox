@@ -57,6 +57,10 @@ public:
 
   virtual bool isEraseInProgress    (bool * is_erase_in_progress)  override;
 
+  virtual bool read (uint32_t const read_addr,  uint8_t       * buffer, uint32_t const num_bytes) override;
+  virtual bool write(uint32_t const write_addr, uint8_t const * buffer, uint32_t const num_bytes) override;
+
+
 private:
 
   interface::N25Q256A_Io & _io;

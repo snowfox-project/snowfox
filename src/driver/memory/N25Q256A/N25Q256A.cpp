@@ -82,7 +82,7 @@ void N25Q256A::close()
 
 ssize_t N25Q256A::read(uint32_t const read_addr, uint8_t * buffer, ssize_t const num_bytes)
 {
-  if(!_io.readFromMemory(read_addr, buffer, num_bytes)) return -1;
+  if(!_control.read(read_addr, buffer, num_bytes)) return -1;
   return num_bytes;
 }
 
@@ -101,7 +101,7 @@ ssize_t N25Q256A::write(uint32_t const write_addr, uint8_t const * buffer, ssize
   if(num_bytes < 0)                                                                   return -1;
   if(static_cast<uint32_t>(num_bytes) > CAPABILITIES.write_block_size)                return -1;
   if(!_io.enableWrite())                                                              return -1;
-  if(!_io.writeToProgramBuffer(write_addr, buffer, static_cast<uint32_t>(num_bytes))) return -1;
+  if(!_control.write(write_addr, buffer, static_cast<uint32_t>(num_bytes))) return -1;
   return num_bytes;
 }
 

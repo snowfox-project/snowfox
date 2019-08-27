@@ -67,6 +67,26 @@ bool N25Q256A_Control::isEraseInProgress(bool * is_erase_in_progress)
   return true;
 }
 
+bool N25Q256A_Control::read(uint32_t const read_addr, uint8_t * buffer, uint32_t const num_bytes)
+{
+  return _io.transfer(interface::Command::READ_4_BYTE_ADDR,
+                      reinterpret_cast<uint8_t const *>(&read_addr), /* tx_buf       */
+                      4,                                             /* tx_num_bytes */
+                      0,                                             /* tx_fill_data */
+                      buffer,                                        /* rx_buf       */
+                      num_bytes,                                     /* rx_num_bytes */
+                      4);                                            /* rx_start_pos */
+}
+
+bool N25Q256A_Control::write(uint32_t const write_addr, uint8_t const * buffer, uint32_t const num_bytes)
+{
+  return _io.transfer(interface::Command::PAGE_PROGRAM_4_BYTE_ADDR,
+                      reinterpret_cast<uint8_t const *>(&write_addr), /* tx_buf_1       */
+                      4,                                              /* tx_num_bytes_1 */
+                      buffer,                                         /* tx_buf_2       */
+                      num_bytes);                                     /* tx_num_bytes_2 */
+}
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/

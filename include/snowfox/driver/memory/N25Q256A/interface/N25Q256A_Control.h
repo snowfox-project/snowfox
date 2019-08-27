@@ -58,6 +58,9 @@ public:
 
   virtual bool isEraseInProgress    (bool * is_erase_in_progress)  = 0;
 
+  virtual bool read (uint32_t const read_addr,  uint8_t       * buffer, uint32_t const num_bytes) = 0;
+  virtual bool write(uint32_t const write_addr, uint8_t const * buffer, uint32_t const num_bytes) = 0;
+
 };
 
 /**************************************************************************************

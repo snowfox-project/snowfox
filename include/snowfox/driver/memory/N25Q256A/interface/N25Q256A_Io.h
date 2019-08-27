@@ -92,14 +92,19 @@ public:
                         uint32_t const   rx_num_bytes,
                         uint32_t const   rx_start_pos) = 0;
 
+  virtual bool transfer(Command  const   cmd,
+                        uint8_t  const * tx_buf_1,
+                        uint32_t const   tx_num_bytes_1,
+                        uint8_t  const * tx_buf_2,
+                        uint32_t const   tx_num_bytes_2) = 0;
+
+
   inline bool enableWrite() { return transfer(interface::Command::WRITE_ENABLE, 0 /* tx_buf */, 0 /* tx_num_bytes */, 0 /* tx_fill_data */, 0 /* rx_buf */, 0 /* rx_num_bytes */, 0 /* rx_start_pos */); }
 
   virtual bool readStatusReg            (uint8_t * status_reg)                                                        = 0;
   virtual bool readNonVolatileConfigReg (uint16_t * non_volatile_config_reg)                                          = 0;
   virtual bool writeNonVolatileConfigReg(uint16_t const non_volatile_config_reg)                                      = 0;
   virtual bool triggerSubsectorErase    (uint32_t const subsector_num)                                                = 0;
-  virtual bool readFromMemory           (uint32_t const read_addr, uint8_t * buffer, uint32_t const num_bytes)        = 0;
-  virtual bool writeToProgramBuffer     (uint32_t const write_addr, uint8_t const * buffer, uint32_t const num_bytes) = 0;
 
 };
 
