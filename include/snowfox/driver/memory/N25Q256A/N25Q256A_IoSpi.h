@@ -62,6 +62,7 @@ public:
   virtual bool readNonVolatileConfigReg (uint16_t * non_volatile_config_reg)                                          override;
   virtual bool writeNonVolatileConfigReg(uint16_t const non_volatile_config_reg)                                      override;
   virtual bool triggerSubsectorErase    (uint32_t const subsector_num)                                                override;
+  virtual bool readFromMemory           (uint32_t const read_addr, uint8_t * buffer, uint32_t const num_bytes)        override;
   virtual bool writeToProgramBuffer     (uint32_t const write_addr, uint8_t const * buffer, uint32_t const num_bytes) override;
 
 private:

@@ -132,6 +132,31 @@ bool N25Q256A_IoSpi::triggerSubsectorErase(uint32_t const subsector_num)
   return true;
 }
 
+bool N25Q256A_IoSpi::readFromMemory(uint32_t const read_addr, uint8_t * buffer, uint32_t const num_bytes)
+{
+  uint8_t const read_addr_array[4] =
+  {
+    static_cast<uint8_t>((read_addr & 0xFF000000) >> 24),
+    static_cast<uint8_t>((read_addr & 0x00FF0000) >> 16),
+    static_cast<uint8_t>((read_addr & 0x0000FF00) >>  8),
+    static_cast<uint8_t>((read_addr & 0x000000FF) >>  0)
+  };
+
+  _cs.clr();
+  _spi_master.exchange(static_cast<uint8_t>(interface::Command::READ_4_BYTE_ADDR));
+  _spi_master.exchange(read_addr_array[0]);
+  _spi_master.exchange(read_addr_array[1]);
+  _spi_master.exchange(read_addr_array[2]);
+  _spi_master.exchange(read_addr_array[3]);
+  for(uint32_t b = 0; b < num_bytes; b++)
+  {
+    buffer[b] = _spi_master.exchange(0);
+  }
+  _cs.set();
+
+  return true;
+}
+
 bool N25Q256A_IoSpi::writeToProgramBuffer(uint32_t const write_addr, uint8_t const * buffer, uint32_t const num_bytes)
 {
   uint8_t const write_addr_array[4] =

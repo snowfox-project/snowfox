@@ -80,9 +80,10 @@ void N25Q256A::close()
  * PROTECTE MEMBER FUNCTIONS
  **************************************************************************************/
 
-ssize_t N25Q256A::read(uint32_t const /* read_addr */, uint8_t * /* buffer */, ssize_t const /* num_bytes */)
+ssize_t N25Q256A::read(uint32_t const read_addr, uint8_t * buffer, ssize_t const num_bytes)
 {
-  /* TODO */ return -1;
+  if(!_io.readFromMemory(read_addr, buffer, num_bytes)) return -1;
+  return num_bytes;
 }
 
 ssize_t N25Q256A::write(uint32_t const write_addr, uint8_t const * buffer, ssize_t const num_bytes)
