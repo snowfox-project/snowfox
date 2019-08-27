@@ -55,7 +55,6 @@ public:
            N25Q256A_Control(interface::N25Q256A_Io & io);
   virtual ~N25Q256A_Control();
 
-
   virtual bool isEraseInProgress    (bool * is_erase_in_progress)  override;
 
 private:

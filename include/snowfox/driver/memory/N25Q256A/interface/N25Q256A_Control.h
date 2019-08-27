@@ -56,7 +56,6 @@ public:
 
   virtual ~N25Q256A_Control() { }
 
-
   virtual bool isEraseInProgress    (bool * is_erase_in_progress)  = 0;
 
 };

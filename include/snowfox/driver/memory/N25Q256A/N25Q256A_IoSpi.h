@@ -66,7 +66,6 @@ public:
                         uint32_t            const   rx_start_pos) override;
 
 
-  virtual bool enableWrite              ()                                                                            override;
   virtual bool readStatusReg            (uint8_t * status_reg)                                                        override;
   virtual bool readNonVolatileConfigReg (uint16_t * non_volatile_config_reg)                                          override;
   virtual bool writeNonVolatileConfigReg(uint16_t const non_volatile_config_reg)                                      override;
