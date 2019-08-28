@@ -55,11 +55,11 @@ public:
            N25Q256A_Control(interface::N25Q256A_Io & io);
   virtual ~N25Q256A_Control();
 
-  virtual bool isEraseInProgress    (bool * is_erase_in_progress)  override;
 
-  virtual bool read (uint32_t const read_addr,  uint8_t       * buffer, uint32_t const num_bytes) override;
-  virtual bool write(uint32_t const write_addr, uint8_t const * buffer, uint32_t const num_bytes) override;
-
+  virtual void read           (uint32_t const read_addr,  uint8_t       * buffer, uint32_t const num_bytes) override;
+  virtual void write          (uint32_t const write_addr, uint8_t const * buffer, uint32_t const num_bytes) override;
+  virtual void eraseSubsector (uint32_t const subsector_num)                                                override;
+  virtual bool isEraseComplete()                                                                            override;
 
 private:
 

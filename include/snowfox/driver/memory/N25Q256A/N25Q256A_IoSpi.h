@@ -57,7 +57,7 @@ public:
   virtual ~N25Q256A_IoSpi();
 
 
-  virtual bool transfer(interface::Command  const   cmd,
+  virtual void transfer(interface::Command  const   cmd,
                         uint8_t             const * tx_buf,
                         uint32_t            const   tx_num_bytes,
                         uint8_t             const   tx_fill_data,
@@ -65,18 +65,12 @@ public:
                         uint32_t            const   rx_num_bytes,
                         uint32_t            const   rx_start_pos) override;
 
-  virtual bool transfer(interface::Command  const   cmd,
+  virtual void transfer(interface::Command  const   cmd,
                         uint8_t             const * tx_buf_1,
                         uint32_t            const   tx_num_bytes_1,
                         uint8_t             const * tx_buf_2,
                         uint32_t            const   tx_num_bytes_2) = 0;
 
-
-
-  virtual bool readStatusReg            (uint8_t * status_reg)                                                        override;
-  virtual bool readNonVolatileConfigReg (uint16_t * non_volatile_config_reg)                                          override;
-  virtual bool writeNonVolatileConfigReg(uint16_t const non_volatile_config_reg)                                      override;
-  virtual bool triggerSubsectorErase    (uint32_t const subsector_num)                                                override;
 
 private:
 

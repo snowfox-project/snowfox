@@ -22,8 +22,6 @@
 
 #include <snowfox/driver/memory/N25Q256A/N25Q256A_IoSpi.h>
 
-#include <snowfox/driver/memory/N25Q256A/util/N25Q256A_Util.h>
-
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -60,7 +58,7 @@ N25Q256A_IoSpi::~N25Q256A_IoSpi()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool N25Q256A_IoSpi::transfer(interface::Command  const   cmd,
+void N25Q256A_IoSpi::transfer(interface::Command  const   cmd,
                               uint8_t             const * tx_buf,
                               uint32_t            const   tx_num_bytes,
                               uint8_t             const   tx_fill_data,
@@ -94,11 +92,9 @@ bool N25Q256A_IoSpi::transfer(interface::Command  const   cmd,
   }
 
   _cs.set();
-
-  return true;
 }
 
-bool N25Q256A_IoSpi::transfer(interface::Command  const   cmd,
+void N25Q256A_IoSpi::transfer(interface::Command  const   cmd,
                               uint8_t             const * tx_buf_1,
                               uint32_t            const   tx_num_bytes_1,
                               uint8_t             const * tx_buf_2,
@@ -117,71 +113,6 @@ bool N25Q256A_IoSpi::transfer(interface::Command  const   cmd,
   }
 
   _cs.set();
-
-  return true;
-}
-
-bool N25Q256A_IoSpi::readStatusReg(uint8_t * status_reg)
-{
-  _cs.clr();
-  _spi_master.exchange(static_cast<uint8_t>(interface::Command::READ_STATUS_REG));
-  *status_reg = _spi_master.exchange(0);
-  _cs.set();
-
-  return true;
-}
-
-bool N25Q256A_IoSpi::readNonVolatileConfigReg(uint16_t * non_volatile_config_reg)
-{
-  _cs.clr();
-  _spi_master.exchange(static_cast<uint8_t>(interface::Command::READ_NON_VOLATILE_CONFIG_REG));
-  uint8_t const high = _spi_master.exchange(0);
-  uint8_t const low  = _spi_master.exchange(0);
-  _cs.set();
-
-  *non_volatile_config_reg = (static_cast<uint16_t>(high) << 8) | (static_cast<uint16_t>(low));
-
-  return true;
-}
-
-bool N25Q256A_IoSpi::writeNonVolatileConfigReg(uint16_t const non_volatile_config_reg)
-{
-  uint8_t const high = static_cast<uint8_t>((non_volatile_config_reg & 0xFF00) >> 8);
-  uint8_t const low  = static_cast<uint8_t>((non_volatile_config_reg & 0x00FF) >> 0);
-
-  _cs.clr();
-  _spi_master.exchange(static_cast<uint8_t>(interface::Command::WRITE_NON_VOLATILE_CONFIG_REG));
-  _spi_master.exchange(high);
-  _spi_master.exchange(low);
-  _cs.set();
-
-  return true;
-}
-
-bool N25Q256A_IoSpi::triggerSubsectorErase(uint32_t const subsector_num)
-{
-  /* The subsector erase command byte is followed by a address within
-   * subsector which the user intends to delete. Therefore we must
-   * first calculate a valid address from the supplied subsector_num.
-   */
-  uint32_t const subsector_base_addr = util::toSubsectorBaseAddr(subsector_num);
-  uint8_t const subsector_base_addr_array[4] =
-  {
-    static_cast<uint8_t>((subsector_base_addr & 0xFF000000) >> 24),
-    static_cast<uint8_t>((subsector_base_addr & 0x00FF0000) >> 16),
-    static_cast<uint8_t>((subsector_base_addr & 0x0000FF00) >>  8),
-    static_cast<uint8_t>((subsector_base_addr & 0x000000FF) >>  0)
-  };
-
-  _cs.clr();
-  _spi_master.exchange(static_cast<uint8_t>(interface::Command::SUBSECTOR_ERASE_4_BYTE_ADDR));
-  _spi_master.exchange(subsector_base_addr_array[0]);
-  _spi_master.exchange(subsector_base_addr_array[1]);
-  _spi_master.exchange(subsector_base_addr_array[2]);
-  _spi_master.exchange(subsector_base_addr_array[3]);
-  _cs.set();
-
-  return true;
 }
 
 /**************************************************************************************

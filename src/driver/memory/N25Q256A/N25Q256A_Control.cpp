@@ -22,7 +22,7 @@
 
 #include <snowfox/driver/memory/N25Q256A/N25Q256A_Control.h>
 
-#include <snowfox/util/BitUtil.h>
+#include <snowfox/driver/memory/N25Q256A/util/N25Q256A_Util.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -59,32 +59,46 @@ N25Q256A_Control::~N25Q256A_Control()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool N25Q256A_Control::isEraseInProgress(bool * is_erase_in_progress)
+void N25Q256A_Control::read(uint32_t const read_addr, uint8_t * buffer, uint32_t const num_bytes)
 {
-  uint8_t status_reg = 0;
-  if(!_io.readStatusReg(&status_reg)) return false;
-  *is_erase_in_progress = util::isBitClr(status_reg, N25Q256A_STATUS_REG_PROG_OR_ERASE_bp);
-  return true;
+  _io.transfer(interface::Command::READ_4_BYTE_ADDR,
+               reinterpret_cast<uint8_t const *>(&read_addr), /* tx_buf       */
+               4,                                             /* tx_num_bytes */
+               0,                                             /* tx_fill_data */
+               buffer,                                        /* rx_buf       */
+               num_bytes,                                     /* rx_num_bytes */
+               4);                                            /* rx_start_pos */
 }
 
-bool N25Q256A_Control::read(uint32_t const read_addr, uint8_t * buffer, uint32_t const num_bytes)
+void N25Q256A_Control::write(uint32_t const write_addr, uint8_t const * buffer, uint32_t const num_bytes)
 {
-  return _io.transfer(interface::Command::READ_4_BYTE_ADDR,
-                      reinterpret_cast<uint8_t const *>(&read_addr), /* tx_buf       */
-                      4,                                             /* tx_num_bytes */
-                      0,                                             /* tx_fill_data */
-                      buffer,                                        /* rx_buf       */
-                      num_bytes,                                     /* rx_num_bytes */
-                      4);                                            /* rx_start_pos */
+  _io.enableWrite();
+
+  _io.transfer(interface::Command::PAGE_PROGRAM_4_BYTE_ADDR,
+               reinterpret_cast<uint8_t const *>(&write_addr), /* tx_buf_1       */
+               4,                                              /* tx_num_bytes_1 */
+               buffer,                                         /* tx_buf_2       */
+               num_bytes);                                     /* tx_num_bytes_2 */
 }
 
-bool N25Q256A_Control::write(uint32_t const write_addr, uint8_t const * buffer, uint32_t const num_bytes)
+void N25Q256A_Control::eraseSubsector(uint32_t const subsector_num)
 {
-  return _io.transfer(interface::Command::PAGE_PROGRAM_4_BYTE_ADDR,
-                      reinterpret_cast<uint8_t const *>(&write_addr), /* tx_buf_1       */
-                      4,                                              /* tx_num_bytes_1 */
-                      buffer,                                         /* tx_buf_2       */
-                      num_bytes);                                     /* tx_num_bytes_2 */
+  /* The subsector erase command byte is followed by a address within
+   * subsector which the user intends to delete. Therefore we must
+   * first calculate a valid address from the supplied subsector_num.
+   */
+  uint32_t const subsector_base_addr = util::toSubsectorBaseAddr(subsector_num);
+
+  _io.enableWrite();
+
+  _io.transfer(interface::Command::SUBSECTOR_ERASE_4_BYTE_ADDR,
+               reinterpret_cast<uint8_t const *>(&subsector_base_addr), /* tx_buf       */
+               4);                                                      /* tx_num_bytes */
+}
+
+bool N25Q256A_Control::isEraseComplete()
+{
+  return !_io.isBusy();
 }
 
 /**************************************************************************************

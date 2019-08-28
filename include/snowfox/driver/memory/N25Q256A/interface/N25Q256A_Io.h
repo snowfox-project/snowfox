@@ -84,7 +84,7 @@ public:
   virtual ~N25Q256A_Io() { }
 
 
-  virtual bool transfer(Command  const   cmd,
+  virtual void transfer(Command  const   cmd,
                         uint8_t  const * tx_buf,
                         uint32_t const   tx_num_bytes,
                         uint8_t  const   tx_fill_data,
@@ -92,19 +92,24 @@ public:
                         uint32_t const   rx_num_bytes,
                         uint32_t const   rx_start_pos) = 0;
 
-  virtual bool transfer(Command  const   cmd,
+  virtual void transfer(Command  const   cmd,
                         uint8_t  const * tx_buf_1,
                         uint32_t const   tx_num_bytes_1,
                         uint8_t  const * tx_buf_2,
                         uint32_t const   tx_num_bytes_2) = 0;
 
+  inline  void transfer(Command  const   cmd,
+                        uint8_t  const * tx_buf,
+                        uint32_t const   tx_num_bytes)
+  {
+    transfer(cmd, tx_buf, tx_num_bytes, 0, 0);
+  }
 
-  inline bool enableWrite() { return transfer(interface::Command::WRITE_ENABLE, 0 /* tx_buf */, 0 /* tx_num_bytes */, 0 /* tx_fill_data */, 0 /* rx_buf */, 0 /* rx_num_bytes */, 0 /* rx_start_pos */); }
-
-  virtual bool readStatusReg            (uint8_t * status_reg)                                                        = 0;
-  virtual bool readNonVolatileConfigReg (uint16_t * non_volatile_config_reg)                                          = 0;
-  virtual bool writeNonVolatileConfigReg(uint16_t const non_volatile_config_reg)                                      = 0;
-  virtual bool triggerSubsectorErase    (uint32_t const subsector_num)                                                = 0;
+  void     enableWrite     ();
+  uint8_t  readStatusReg   ();
+  uint16_t readNVConfigReg ();
+  void     writeNVConfigReg(uint16_t const nv_config_reg);
+  bool     isBusy          ();
 
 };
 

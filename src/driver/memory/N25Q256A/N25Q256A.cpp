@@ -45,11 +45,9 @@ namespace N25Q256A
  * CTOR/DTOR
  **************************************************************************************/
 
-N25Q256A::N25Q256A(interface::N25Q256A_Io            & io,
-                   interface::N25Q256A_Configuration & config,
+N25Q256A::N25Q256A(interface::N25Q256A_Configuration & config,
                    interface::N25Q256A_Control       & control)
-: _io     (io)
-, _config (config)
+: _config (config)
 , _control(control)
 {
 
@@ -82,7 +80,7 @@ void N25Q256A::close()
 
 ssize_t N25Q256A::read(uint32_t const read_addr, uint8_t * buffer, ssize_t const num_bytes)
 {
-  if(!_control.read(read_addr, buffer, num_bytes)) return -1;
+  _control.read(read_addr, buffer, num_bytes);
   return num_bytes;
 }
 
@@ -100,8 +98,7 @@ ssize_t N25Q256A::write(uint32_t const write_addr, uint8_t const * buffer, ssize
    */
   if(num_bytes < 0)                                                                   return -1;
   if(static_cast<uint32_t>(num_bytes) > CAPABILITIES.write_block_size)                return -1;
-  if(!_io.enableWrite())                                                              return -1;
-  if(!_control.write(write_addr, buffer, static_cast<uint32_t>(num_bytes))) return -1;
+  _control.write(write_addr, buffer, static_cast<uint32_t>(num_bytes));
   return num_bytes;
 }
 
@@ -121,14 +118,8 @@ bool N25Q256A::ioctl_erase(uint32_t const erase_block_num)
    */
   if(!util::isValidSubsector(erase_block_num)) return false;
   
-  if(!_io.enableWrite())                          return false;
-  if(!_io.triggerSubsectorErase(erase_block_num)) return false;
-
-  bool is_erase_in_progress = true;
-  do
-  {
-    if(!_control.isEraseInProgress(&is_erase_in_progress)) return false;
-  } while(is_erase_in_progress);
+  _control.eraseSubsector(erase_block_num);
+  while(!_control.isEraseComplete()) { }
 
   return true;
 }

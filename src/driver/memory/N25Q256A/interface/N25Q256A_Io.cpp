@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/driver/memory/N25Q256A/N25Q256A_Configuration.h>
+#include <snowfox/driver/memory/N25Q256A/interface/N25Q256A_Io.h>
 
 #include <snowfox/util/BitUtil.h>
 
@@ -40,51 +40,68 @@ namespace memory
 namespace N25Q256A
 {
 
-/**************************************************************************************
- * CTOR/DTOR
- **************************************************************************************/
-
-N25Q256A_Configuration::N25Q256A_Configuration(interface::N25Q256A_Io & io)
-: _io(io)
+namespace interface
 {
-
-}
-
-N25Q256A_Configuration::~N25Q256A_Configuration()
-{
-
-}
 
 /**************************************************************************************
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool N25Q256A_Configuration::setAdressMode(interface::AddressMode const addr_mode)
+void N25Q256A_Io::enableWrite()
 {
-  uint16_t non_volatile_config_reg = _io.readNVConfigReg();
+  transfer(Command::WRITE_ENABLE, 
+           0,   /* tx_buf       */
+           0);  /* tx_num_bytes */
+}
 
-  switch(addr_mode)
-  {
-  case interface::AddressMode::AM_3Byte: util::setBit(&non_volatile_config_reg, N25Q256A_NON_VOLATILE_CONFIG_REG_ADDRESS_BYTE_bp); break;
-  case interface::AddressMode::AM_4Byte: util::clrBit(&non_volatile_config_reg, N25Q256A_NON_VOLATILE_CONFIG_REG_ADDRESS_BYTE_bp); break;
-  }
+uint8_t N25Q256A_Io::readStatusReg()
+{
+  uint8_t status_reg = 0;
+  
+  transfer(Command::READ_STATUS_REG, 
+           0,           /* tx_buf       */
+           0,           /* tx_num_bytes */
+           0,           /* tx_fill_data */
+           &status_reg, /* rx_buf       */
+           1,           /* rx_num_bytes */
+           1);          /* rx_start_pos */
 
-  _io.enableWrite();
-  _io.writeNVConfigReg(non_volatile_config_reg);
+  return status_reg;
+}
 
-  uint8_t const status_reg = _io.readStatusReg();
+uint16_t N25Q256A_Io::readNVConfigReg()
+{
+  uint16_t nv_config_reg = 0;
 
-  switch(addr_mode)
-  {
-  case interface::AddressMode::AM_3Byte: return util::isBitClr(status_reg, N25Q256A_STATUS_REG_ADDRESSING_bp); break;
-  case interface::AddressMode::AM_4Byte: return util::isBitSet(status_reg, N25Q256A_STATUS_REG_ADDRESSING_bp); break;
-  default:                               return false;                                                         break;
-  }
+  transfer(Command::READ_NON_VOLATILE_CONFIG_REG, 
+           0,                                           /* tx_buf       */
+           0,                                           /* tx_num_bytes */
+           0,                                           /* tx_fill_data */
+           reinterpret_cast<uint8_t *>(&nv_config_reg), /* rx_buf       */
+           2,                                           /* rx_num_bytes */
+           1);                                          /* rx_start_pos */
+
+  return nv_config_reg;
+}
+
+void N25Q256A_Io::writeNVConfigReg(uint16_t const nv_config_reg)
+{
+  transfer(interface::Command::WRITE_NON_VOLATILE_CONFIG_REG,
+           reinterpret_cast<uint8_t const *>(&nv_config_reg), /* tx_buf       */
+           2);                                                /* tx_num_bytes */
+}
+
+bool N25Q256A_Io::isBusy()
+{
+  uint8_t const status_reg = readStatusReg();
+  return util::isBitClr(status_reg, N25Q256A_STATUS_REG_PROG_OR_ERASE_bp);
 }
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* N25Q256A */
 
