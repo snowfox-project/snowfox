@@ -75,7 +75,8 @@ Run-To-Completion event based scheduler in progress ...
 * **RFM9x** (HopeRF RFM95/96/97/98 Low Power Long Range Transceiver Module) ([Dragino LoRa Shield V1.4](https://github.com/snowfox-project/snowfox-examples/blob/master/board-schematics/io/dragino-lora-shield-v-1-4.png), [Moteino Mega USB](https://github.com/snowfox-project/snowfox-examples/blob/master/board-schematics/io/low-power-lab-moteino-mega-lora-usb.png))
 
 #### [/driver/memory](include/snowfox/driver/memory) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](https://github.com/snowfox-project/snowfox-examples/tree/master/driver/memory)
-* **AT45DBx** (SPI Data Flash)
+* **AT45DBx** (SPI NAND Flash)
+* **N25Q256A** (SPI NOR Flash)
 * **PCF8570** (256 × 8-Bit Static Low-Voltage RAM)
 
 #### [/driver/sensor](include/snowfox/driver/sensor) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](https://github.com/snowfox-project/snowfox-examples/tree/master/driver/sensor)
