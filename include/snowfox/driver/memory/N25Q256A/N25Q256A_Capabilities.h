@@ -53,15 +53,10 @@ namespace N25Q256A
  */
 static NorDriverCapabilities constexpr CAPABILITIES = 
 {
-  /* The smallest erase size on the N25Q256A is a subsector erase */
-  /* .erase_block_size      = */     4096,
-  /* .erase_block_size_num  = */     8192,
-  /* All write operations on the N25Q256A are of a 256 byte size */
-  /* .write_block_size      = */      256,
-  /* .write_block_size_num  = */   131072,
-  /* The N25Q256A allows byte-wise read access */
-  /* .read_block_size       = */        1,
-  /* .read_block_size_num   = */ 33554432
+  /* .read_size       = */    1, /* The N25Q256A allows byte-wise read access */
+  /* .prog_size       = */  256, /* The N25Q256A can be programmed in 256 byte sized chunks */
+  /* .erase_size      = */ 4096, /* The smallest erase size on the N25Q256A is a subsector erase */
+  /* .erase_block_num = */ 8192,
 };
 
 /**************************************************************************************

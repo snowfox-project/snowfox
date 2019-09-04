@@ -49,21 +49,16 @@ typedef struct
    * the same with write and read access. Viewed from the point-of-view of using this
    * generic NOR driver as interface for an overlying embedded flash filesystem there
    * are actually only 6 parameter that count:
+   * - What's the smallest read block size?
+   * - What's the smallest program block size?
    * - What's the smallest erase block size and how many erase blocks are available?
-   * - What's the smallest write block size and how many write blocks are available?
-   * - What's the smallest read block size and how many read blocks are available?
-   * In any case the statement
-   *   erase_block_size * erase_block_size_num ==
-   *   write_block_size * write_block_size_num ==
-   *   read_block_size * read_block_size_num
-   * should hold true.
+   * If one multiplies the erase_size with the erase_block_num the result should be
+   * the total NOR flash memory size.
    */
-  uint32_t erase_block_size;
-  uint32_t erase_block_size_num;
-  uint32_t write_block_size;
-  uint32_t write_block_size_num;
-  uint32_t read_block_size;
-  uint32_t read_block_size_num;
+  uint32_t read_size;
+  uint32_t prog_size;
+  uint32_t erase_size;
+  uint32_t erase_block_num;
 } NorDriverCapabilities;
 
 /**************************************************************************************

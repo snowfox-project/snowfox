@@ -22,7 +22,6 @@
 
 #include <snowfox/driver/memory/N25Q256A/N25Q256A.h>
 
-#include <snowfox/driver/memory/N25Q256A/util/N25Q256A_Util.h>
 #include <snowfox/driver/memory/N25Q256A/N25Q256A_Capabilities.h>
 
 /**************************************************************************************
@@ -80,6 +79,7 @@ void N25Q256A::close()
 
 ssize_t N25Q256A::read(uint32_t const read_addr, uint8_t * buffer, ssize_t const num_bytes)
 {
+  if(num_bytes <= 0) return -1;
   _control.read(read_addr, buffer, num_bytes);
   return num_bytes;
 }
@@ -96,8 +96,8 @@ ssize_t N25Q256A::write(uint32_t const write_addr, uint8_t const * buffer, ssize
    * they are correctly programmed at the specified addresses without any effect on
    * the other bytes of the same page. (Source: N25Q256A datasheet, page 54).
    */
-  if(num_bytes < 0)                                                                   return -1;
-  if(static_cast<uint32_t>(num_bytes) > CAPABILITIES.write_block_size)                return -1;
+  if(num_bytes <= 0)                                            return -1;
+  if(static_cast<uint32_t>(num_bytes) > CAPABILITIES.prog_size) return -1;
   _control.write(write_addr, buffer, static_cast<uint32_t>(num_bytes));
   return num_bytes;
 }
@@ -110,14 +110,14 @@ bool N25Q256A::ioctl_get_capabilities(NorDriverCapabilities * capabilities)
 
 bool N25Q256A::ioctl_erase(uint32_t const erase_block_num)
 {
+  if(erase_block_num > CAPABILITIES.erase_size) return false;
+
   /* The smallest erase block size on the N25Q256A is a subsector-level erase.
    * The erase operation is performed in 3 steps:
    *  - Verify if a valid erase block num has been supplied
    *  - Trigger a subsector erase
    *  - Wait for subsector erase to be completed
    */
-  if(!util::isValidSubsector(erase_block_num)) return false;
-  
   _control.eraseSubsector(erase_block_num);
   while(!_control.isEraseComplete()) { }
 
