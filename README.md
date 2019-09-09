@@ -76,7 +76,7 @@ Run-To-Completion event based scheduler in progress ...
 
 #### [/driver/memory](include/snowfox/driver/memory) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](https://github.com/snowfox-project/snowfox-examples/tree/master/driver/memory)
 * **AT45DBx** (SPI NAND Flash)
-* **N25Q256A** (SPI NOR Flash)
+* **N25Q256A** (SPI NOR Flash) ([Digilent Pmod SF3](https://github.com/snowfox-project/snowfox-examples/blob/master/board-schematics/io/digilent-pmod-sf3-n25q256a.pdf))
 * **PCF8570** (256 × 8-Bit Static Low-Voltage RAM)
 
 #### [/driver/sensor](include/snowfox/driver/sensor) [![Examples](.ci/badge/examples-yes-brightgreen.svg?sanitize=true")](https://github.com/snowfox-project/snowfox-examples/tree/master/driver/sensor)
