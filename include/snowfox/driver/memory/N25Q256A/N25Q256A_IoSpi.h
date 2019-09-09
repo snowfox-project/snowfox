@@ -69,7 +69,7 @@ public:
                         uint8_t             const * tx_buf_1,
                         uint32_t            const   tx_num_bytes_1,
                         uint8_t             const * tx_buf_2,
-                        uint32_t            const   tx_num_bytes_2) = 0;
+                        uint32_t            const   tx_num_bytes_2) override;
 
 
 private:
