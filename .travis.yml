@@ -184,6 +184,7 @@ matrix:
         - .ci/script/run-install-toolchain-riscv64.sh
         - export PATH="$PATH:${TRAVIS_BUILD_DIR}/toolchain/riscv64-unknown-elf-gcc-8.2.0-2019.02.0-x86_64-linux-ubuntu14/bin"
       script:
+        - .ci/script/run-build-example.sh examples/driver/memory/N25Q256A/driver-n25q256a-spi-atmega328p
         - .ci/script/run-build-example.sh examples/driver/memory/PCF8570/driver-pcf8570-i2c-atmega328p
     # EXAMPLES/DRIVER/SENSOR
     - env:
