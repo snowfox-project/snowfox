@@ -23,7 +23,6 @@
 #include <snowfox/trace/Trace.h>
 
 #include <stdio.h>
-#include <stdarg.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -68,13 +67,33 @@ void Trace::print(Level const trace_level, char const * fmt, ...)
   if(trace_level <= _trace_level)
   {
     va_list args;
-
-    va_start (args, fmt);
-    uint16_t const length = vsnprintf (reinterpret_cast<char *>(_trace_buf), _trace_buf_size, fmt, args);
-    va_end   (args);
-
-    _trace_out.write(_trace_buf, length);
+    va_start(args, fmt);
+    vprint(fmt, args);
+    va_end(args);
   }
+}
+
+void Trace::println(Level const trace_level, char const * fmt, ...)
+{
+  if(trace_level <= _trace_level)
+  {
+    va_list args;
+    va_start(args, fmt);
+    vprint(fmt, args);
+    va_end(args);
+    /* Print the character for new line */
+    _trace_out.write(reinterpret_cast<uint8_t const *>(NEW_LINE_BUF), sizeof(NEW_LINE_BUF));
+  }
+}
+
+/**************************************************************************************
+ * PRIVATE MEMBER FUNCTIONS
+ **************************************************************************************/
+
+void Trace::vprint(char const * fmt, va_list args)
+{
+  uint16_t const length = vsnprintf(reinterpret_cast<char *>(_trace_buf), _trace_buf_size, fmt, args);
+  _trace_out.write(_trace_buf, length);
 }
 
 /**************************************************************************************

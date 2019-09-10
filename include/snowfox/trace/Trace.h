@@ -24,6 +24,7 @@
  **************************************************************************************/
 
 #include <stdint.h>
+#include <stdarg.h>
 
 #include <snowfox/trace/interface/TraceOutput.h>
 
@@ -65,7 +66,8 @@ public:
   ~Trace();
 
 
-  void print(Level const trace_level, char const * fmt, ...);
+  void print  (Level const trace_level, char const * fmt, ...);
+  void println(Level const trace_level, char const * fmt, ...);
 
 
   static uint16_t const DEFAULT_TRACE_BUFFER_SIZE = 128;
@@ -77,6 +79,10 @@ private:
   Level                           _trace_level;
   uint16_t                const   _trace_buf_size;
   uint8_t                       * _trace_buf;
+
+  static uint8_t constexpr NEW_LINE_BUF[2] = {'\r', '\n'};
+
+  void vprint(char const * fmt, va_list args);
 
 };
 
