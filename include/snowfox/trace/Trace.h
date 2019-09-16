@@ -81,8 +81,6 @@ private:
   uint16_t                const   _trace_buf_size;
   uint8_t                       * _trace_buf;
 
-  static uint8_t constexpr NEW_LINE_BUF[2] = {'\r', '\n'};
-
   void vprint(Level const trace_level, char const * fmt, va_list args);
 
 };

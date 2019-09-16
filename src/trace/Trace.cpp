@@ -84,6 +84,8 @@ void Trace::println(Level const trace_level, char const * fmt, ...)
 
 void Trace::println(Level const trace_level)
 {
+  static uint8_t const NEW_LINE_BUF[2] = {'\r', '\n'};
+
   if(trace_level <= _trace_level) {
     /* Print the character for new line */
     _trace_out.write(reinterpret_cast<uint8_t const *>(NEW_LINE_BUF), sizeof(NEW_LINE_BUF));
