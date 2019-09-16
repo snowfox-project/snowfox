@@ -68,6 +68,7 @@ public:
 
   void print  (Level const trace_level, char const * fmt, ...);
   void println(Level const trace_level, char const * fmt, ...);
+  void println(Level const trace_level);
 
 
   static uint16_t const DEFAULT_TRACE_BUFFER_SIZE = 128;

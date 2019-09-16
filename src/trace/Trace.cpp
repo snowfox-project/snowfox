@@ -77,10 +77,20 @@ void Trace::println(Level const trace_level, char const * fmt, ...)
 {
   if(trace_level <= _trace_level)
   {
+    /* Print the debug message */
     va_list args;
     va_start(args, fmt);
     vprint(fmt, args);
     va_end(args);
+    /* Print the character for new line */
+    println(trace_level);
+  }
+}
+
+void Trace::println(Level const trace_level)
+{
+  if(trace_level <= _trace_level)
+  {
     /* Print the character for new line */
     _trace_out.write(reinterpret_cast<uint8_t const *>(NEW_LINE_BUF), sizeof(NEW_LINE_BUF));
   }
