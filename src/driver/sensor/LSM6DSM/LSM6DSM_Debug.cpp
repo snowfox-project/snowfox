@@ -259,7 +259,7 @@ void LSM6DSM_Debug::debug_dumpSingleReg(trace::Trace & trace, hal::interface::Fl
   flash.readStringFromFlash(msg_ram, msg);
   io.readRegister(reg, &reg_content);
 
-  trace.print(trace::Level::Debug, "%s%02X\n\r", msg_ram, reg_content);
+  trace.println(trace::Level::Debug, "%s%02X", msg_ram, reg_content);
 }
 
 /**************************************************************************************
