@@ -83,7 +83,7 @@ private:
 
   static uint8_t constexpr NEW_LINE_BUF[2] = {'\r', '\n'};
 
-  void vprint(char const * fmt, va_list args);
+  void vprint(Level const trace_level, char const * fmt, va_list args);
 
 };
 
