@@ -56,7 +56,8 @@ public:
   virtual ~N25Q256A_Configuration();
 
 
-  virtual bool setAdressMode(interface::AddressMode const addr_mode) override;
+  virtual bool                   setAdressMode(interface::AddressMode const addr_mode) override;
+  virtual util::jedec::JedecCode readDeviceId ()                                       override;
 
 private:
 

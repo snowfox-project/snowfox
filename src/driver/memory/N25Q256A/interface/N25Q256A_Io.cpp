@@ -64,7 +64,7 @@ uint8_t N25Q256A_Io::readStatusReg()
            0,           /* tx_fill_data */
            &status_reg, /* rx_buf       */
            1,           /* rx_num_bytes */
-           1);          /* rx_start_pos */
+           0);          /* rx_start_pos */
 
   return status_reg;
 }
@@ -79,7 +79,7 @@ uint16_t N25Q256A_Io::readNVConfigReg()
            0,                                           /* tx_fill_data */
            reinterpret_cast<uint8_t *>(&nv_config_reg), /* rx_buf       */
            2,                                           /* rx_num_bytes */
-           1);                                          /* rx_start_pos */
+           0);                                          /* rx_start_pos */
 
   return nv_config_reg;
 }
@@ -94,7 +94,7 @@ void N25Q256A_Io::writeNVConfigReg(uint16_t const nv_config_reg)
 bool N25Q256A_Io::isBusy()
 {
   uint8_t const status_reg = readStatusReg();
-  return util::isBitClr(status_reg, N25Q256A_STATUS_REG_PROG_OR_ERASE_bp);
+  return util::isBitSet(status_reg, N25Q256A_STATUS_REG_WRITE_IN_PROG_bp);
 }
 
 /**************************************************************************************

@@ -70,7 +70,7 @@ void N25Q256A_IoSpi::transfer(interface::Command  const   cmd,
 
   _spi_master.exchange(static_cast<uint8_t>(cmd));
 
-  uint32_t const complete_transfer_num_bytes = (tx_num_bytes > rx_num_bytes + rx_start_pos) ? tx_num_bytes : rx_num_bytes + rx_start_pos;
+  uint32_t const complete_transfer_num_bytes = (tx_num_bytes > (rx_num_bytes + rx_start_pos)) ? tx_num_bytes : (rx_num_bytes + rx_start_pos);
 
   for(uint32_t b = 0; b < complete_transfer_num_bytes; b++)
   {

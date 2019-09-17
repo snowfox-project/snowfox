@@ -89,12 +89,19 @@ void N25Q256A_Control::eraseSubsector(uint32_t const subsector_num)
    */
   uint32_t const subsector_base_addr = (subsector_num * CAPABILITIES.erase_size);
 
+  uint8_t const subsector_base_addr_buf[4] =
+  {
+    static_cast<uint8_t>(subsector_base_addr >> 24),
+    static_cast<uint8_t>(subsector_base_addr >> 16),
+    static_cast<uint8_t>(subsector_base_addr >>  8),
+    static_cast<uint8_t>(subsector_base_addr >>  0)
+  };
 
   _io.enableWrite();
 
   _io.transfer(interface::Command::SUBSECTOR_ERASE_4_BYTE_ADDR,
-               reinterpret_cast<uint8_t const *>(&subsector_base_addr), /* tx_buf       */
-               4);                                                      /* tx_num_bytes */
+               subsector_base_addr_buf, /* tx_buf       */
+               4);                      /* tx_num_bytes */
 }
 
 bool N25Q256A_Control::isEraseComplete()

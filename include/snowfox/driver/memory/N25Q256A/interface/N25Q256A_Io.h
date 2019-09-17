@@ -50,8 +50,8 @@ namespace interface
  **************************************************************************************/
 
 /* STATUS REGISTER */
-#define N25Q256A_STATUS_REG_PROG_OR_ERASE_bp              (7)
-#define N25Q256A_STATUS_REG_ADDRESSING_bp                 (0)
+#define N25Q256A_STATUS_REG_ADDRESSING_bp                 (7)
+#define N25Q256A_STATUS_REG_WRITE_IN_PROG_bp              (0)
 
 /* NON VOLATILE CONFIGURATION REGISTER */
 #define N25Q256A_NON_VOLATILE_CONFIG_REG_ADDRESS_BYTE_bp  (0)
@@ -69,7 +69,8 @@ enum class Command : uint8_t
   WRITE_NON_VOLATILE_CONFIG_REG = 0xB1,
   SUBSECTOR_ERASE_4_BYTE_ADDR   = 0x21,
   PAGE_PROGRAM_4_BYTE_ADDR      = 0x12,
-  READ_4_BYTE_ADDR              = 0x13
+  READ_4_BYTE_ADDR              = 0x13,
+  READ_DEVICE_ID                = 0x9E
 };
 
 /**************************************************************************************

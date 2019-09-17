@@ -65,8 +65,8 @@ bool N25Q256A_Configuration::setAdressMode(interface::AddressMode const addr_mod
 
   switch(addr_mode)
   {
-  case interface::AddressMode::AM_3Byte: util::setBit(&non_volatile_config_reg, N25Q256A_NON_VOLATILE_CONFIG_REG_ADDRESS_BYTE_bp); break;
-  case interface::AddressMode::AM_4Byte: util::clrBit(&non_volatile_config_reg, N25Q256A_NON_VOLATILE_CONFIG_REG_ADDRESS_BYTE_bp); break;
+  case interface::AddressMode::AM_3Byte: snowfox::util::setBit(&non_volatile_config_reg, N25Q256A_NON_VOLATILE_CONFIG_REG_ADDRESS_BYTE_bp); break;
+  case interface::AddressMode::AM_4Byte: snowfox::util::clrBit(&non_volatile_config_reg, N25Q256A_NON_VOLATILE_CONFIG_REG_ADDRESS_BYTE_bp); break;
   }
 
   _io.enableWrite();
@@ -76,10 +76,27 @@ bool N25Q256A_Configuration::setAdressMode(interface::AddressMode const addr_mod
 
   switch(addr_mode)
   {
-  case interface::AddressMode::AM_3Byte: return util::isBitClr(status_reg, N25Q256A_STATUS_REG_ADDRESSING_bp); break;
-  case interface::AddressMode::AM_4Byte: return util::isBitSet(status_reg, N25Q256A_STATUS_REG_ADDRESSING_bp); break;
-  default:                               return false;                                                         break;
+  case interface::AddressMode::AM_3Byte: return snowfox::util::isBitClr(status_reg, N25Q256A_STATUS_REG_ADDRESSING_bp); break;
+  case interface::AddressMode::AM_4Byte: return snowfox::util::isBitSet(status_reg, N25Q256A_STATUS_REG_ADDRESSING_bp); break;
+  default:                               return false;                                                                  break;
   }
+}
+
+util::jedec::JedecCode N25Q256A_Configuration::readDeviceId()
+{
+  uint8_t device_id[3] = {0};
+
+  _io.transfer(interface::Command::READ_DEVICE_ID, 
+               0,           /* tx_buf       */
+               0,           /* tx_num_bytes */
+               0,           /* tx_fill_data */
+               device_id,   /* rx_buf       */
+               3,           /* rx_num_bytes */
+               0);          /* rx_start_pos */
+
+  util::jedec::JedecCode const jedec_code(device_id);
+
+  return jedec_code;
 }
 
 /**************************************************************************************

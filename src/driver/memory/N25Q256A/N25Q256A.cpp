@@ -74,7 +74,7 @@ void N25Q256A::close()
 }
 
 /**************************************************************************************
- * PROTECTE MEMBER FUNCTIONS
+ * PROTECTED MEMBER FUNCTIONS
  **************************************************************************************/
 
 ssize_t N25Q256A::read(uint32_t const read_addr, uint8_t * buffer, ssize_t const num_bytes)
@@ -119,7 +119,7 @@ bool N25Q256A::ioctl_erase(uint32_t const erase_block_num)
    *  - Wait for subsector erase to be completed
    */
   _control.eraseSubsector(erase_block_num);
-  while(!_control.isEraseComplete()) { }
+  while(!_control.isEraseComplete()) { /* TODO: yield() */ }
 
   return true;
 }

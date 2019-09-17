@@ -26,6 +26,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include <snowfox/driver/util/jedec/JedecCode.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -67,7 +69,8 @@ public:
   virtual ~N25Q256A_Configuration() { }
 
 
-  virtual bool setAdressMode(AddressMode const addr_mode) = 0;
+  virtual bool                   setAdressMode(AddressMode const addr_mode) = 0;
+  virtual util::jedec::JedecCode readDeviceId ()                            = 0;
 
 };
 
