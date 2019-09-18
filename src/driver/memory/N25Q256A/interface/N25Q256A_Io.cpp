@@ -57,8 +57,8 @@ void N25Q256A_Io::enableWrite()
 uint8_t N25Q256A_Io::readStatusReg()
 {
   uint8_t status_reg = 0;
-  
-  transfer(Command::READ_STATUS_REG, 
+
+  transfer(Command::READ_STATUS_REG,
            0,           /* tx_buf       */
            0,           /* tx_num_bytes */
            0,           /* tx_fill_data */
@@ -67,6 +67,21 @@ uint8_t N25Q256A_Io::readStatusReg()
            0);          /* rx_start_pos */
 
   return status_reg;
+}
+
+uint8_t N25Q256A_Io::readFlagStatusReg()
+{
+  uint8_t flag_status_reg = 0;
+  
+  transfer(Command::READ_FLAG_STATUS_REG, 
+           0,                /* tx_buf       */
+           0,                /* tx_num_bytes */
+           0,                /* tx_fill_data */
+           &flag_status_reg, /* rx_buf       */
+           1,                /* rx_num_bytes */
+           0);               /* rx_start_pos */
+
+  return flag_status_reg;
 }
 
 uint16_t N25Q256A_Io::readNVConfigReg()

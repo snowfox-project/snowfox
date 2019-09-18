@@ -44,8 +44,9 @@ namespace N25Q256A
 
 void N25Q256A_Debug::debug_dumpAllRegs(trace::Trace & trace, interface::N25Q256A_Io & io)
 {
-  debug_dumpStatusReg  (trace, io);
-  debug_dumpNVConfigReg(trace, io);
+  debug_dumpStatusReg    (trace, io);
+  debug_dumpFlagStatusReg(trace, io);
+  debug_dumpNVConfigReg  (trace, io);
 }
 
 /**************************************************************************************
@@ -55,13 +56,19 @@ void N25Q256A_Debug::debug_dumpAllRegs(trace::Trace & trace, interface::N25Q256A
 void N25Q256A_Debug::debug_dumpStatusReg(trace::Trace & trace, interface::N25Q256A_Io & io)
 {
   uint8_t status_reg = io.readStatusReg();
-  trace.println(trace::Level::Debug, "STATUS REG    = %02X", status_reg);
+  trace.println(trace::Level::Debug, "STATUS REG      = %02X", status_reg);
+}
+
+void N25Q256A_Debug::debug_dumpFlagStatusReg(trace::Trace & trace, interface::N25Q256A_Io & io)
+{
+  uint8_t flag_status_reg = io.readFlagStatusReg();
+  trace.println(trace::Level::Debug, "FLAG STATUS REG = %02X", flag_status_reg);
 }
 
 void N25Q256A_Debug::debug_dumpNVConfigReg(trace::Trace & trace, interface::N25Q256A_Io & io)
 {
   uint16_t non_volatile_config_reg = io.readNVConfigReg();
-  trace.println(trace::Level::Debug, "NV CONFIG REG = %02X", non_volatile_config_reg);
+  trace.println(trace::Level::Debug, "NV CONFIG REG   = %04X", non_volatile_config_reg);
 }
 
 /**************************************************************************************

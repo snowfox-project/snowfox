@@ -70,6 +70,7 @@ enum class Command : uint8_t
   SUBSECTOR_ERASE_4_BYTE_ADDR   = 0x21,
   PAGE_PROGRAM_4_BYTE_ADDR      = 0x12,
   READ_4_BYTE_ADDR              = 0x13,
+  READ_FLAG_STATUS_REG          = 0x70,
   READ_DEVICE_ID                = 0x9E
 };
 
@@ -106,11 +107,12 @@ public:
     transfer(cmd, tx_buf, tx_num_bytes, 0, 0);
   }
 
-  void     enableWrite     ();
-  uint8_t  readStatusReg   ();
-  uint16_t readNVConfigReg ();
-  void     writeNVConfigReg(uint16_t const nv_config_reg);
-  bool     isBusy          ();
+  void     enableWrite      ();
+  uint8_t  readStatusReg    ();
+  uint8_t  readFlagStatusReg();
+  uint16_t readNVConfigReg  ();
+  void     writeNVConfigReg (uint16_t const nv_config_reg);
+  bool     isBusy           ();
 
 };
 

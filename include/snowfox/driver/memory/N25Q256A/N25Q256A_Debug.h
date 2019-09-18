@@ -58,8 +58,9 @@ public:
 
 private:
 
-  static void debug_dumpStatusReg  (trace::Trace & trace, interface::N25Q256A_Io & io);
-  static void debug_dumpNVConfigReg(trace::Trace & trace, interface::N25Q256A_Io & io);
+  static void debug_dumpStatusReg    (trace::Trace & trace, interface::N25Q256A_Io & io);
+  static void debug_dumpFlagStatusReg(trace::Trace & trace, interface::N25Q256A_Io & io);
+  static void debug_dumpNVConfigReg  (trace::Trace & trace, interface::N25Q256A_Io & io);
 
 };
 
