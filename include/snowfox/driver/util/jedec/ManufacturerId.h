@@ -47,7 +47,8 @@ namespace jedec
 
 enum class ManufacturerId : uint8_t
 {
-  Atmel = 0x1F
+  Atmel  = 0x1F,
+  Micron = 0x20
 };
 
 /**************************************************************************************
