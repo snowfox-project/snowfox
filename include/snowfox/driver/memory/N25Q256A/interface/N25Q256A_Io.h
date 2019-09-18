@@ -50,8 +50,10 @@ namespace interface
  **************************************************************************************/
 
 /* STATUS REGISTER */
-#define N25Q256A_STATUS_REG_ADDRESSING_bp                 (7)
 #define N25Q256A_STATUS_REG_WRITE_IN_PROG_bp              (0)
+
+/* FLAG STATUS REGISTER */
+#define N25Q256A_FLAG_STATUS_REG_ADDRESSING_bp            (0)
 
 /* NON VOLATILE CONFIGURATION REGISTER */
 #define N25Q256A_NON_VOLATILE_CONFIG_REG_ADDRESS_BYTE_bp  (0)
