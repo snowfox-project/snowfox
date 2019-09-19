@@ -59,7 +59,7 @@ N25Q256A_Configuration::~N25Q256A_Configuration()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool N25Q256A_Configuration::setAdressMode(interface::AddressMode const addr_mode)
+void N25Q256A_Configuration::setAdressMode(interface::AddressMode const addr_mode)
 {
   uint16_t non_volatile_config_reg = _io.readNVConfigReg();
 
@@ -71,14 +71,16 @@ bool N25Q256A_Configuration::setAdressMode(interface::AddressMode const addr_mod
 
   _io.enableWrite();
   _io.writeNVConfigReg(non_volatile_config_reg);
+}
 
+interface::AddressMode N25Q256A_Configuration::getAdressMode()
+{
   uint8_t const flag_status_reg = _io.readFlagStatusReg();
 
-  switch(addr_mode)
-  {
-  case interface::AddressMode::AM_3Byte: return snowfox::util::isBitClr(flag_status_reg, N25Q256A_FLAG_STATUS_REG_ADDRESSING_bp); break;
-  case interface::AddressMode::AM_4Byte: return snowfox::util::isBitSet(flag_status_reg, N25Q256A_FLAG_STATUS_REG_ADDRESSING_bp); break;
-  default:                               return false;                                                                            break;
+  if(snowfox::util::isBitClr(flag_status_reg, N25Q256A_FLAG_STATUS_REG_ADDRESSING_bp)) {
+    return interface::AddressMode::AM_3Byte;
+  } else {
+    return interface::AddressMode::AM_4Byte;
   }
 }
 

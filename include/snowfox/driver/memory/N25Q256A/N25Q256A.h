@@ -72,6 +72,8 @@ private:
   interface::N25Q256A_Configuration & _config;
   interface::N25Q256A_Control       & _control;
 
+  static interface::AddressMode const ADDRESS_MODE = interface::AddressMode::AM_4Byte;
+
 };
 
 /**************************************************************************************

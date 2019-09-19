@@ -63,7 +63,8 @@ N25Q256A::~N25Q256A()
 
 bool N25Q256A::open()
 {
-  if(!_config.setAdressMode(interface::AddressMode::AM_4Byte)) return false;
+  _config.setAdressMode(ADDRESS_MODE);
+  if(_config.getAdressMode() != ADDRESS_MODE) return false;
   return true;
 }
 

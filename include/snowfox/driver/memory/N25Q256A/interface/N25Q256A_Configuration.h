@@ -69,7 +69,8 @@ public:
   virtual ~N25Q256A_Configuration() { }
 
 
-  virtual bool                   setAdressMode(AddressMode const addr_mode) = 0;
+  virtual void                   setAdressMode(AddressMode const addr_mode) = 0;
+  virtual AddressMode            getAdressMode()                            = 0;
   virtual util::jedec::JedecCode readDeviceId ()                            = 0;
 
 };
