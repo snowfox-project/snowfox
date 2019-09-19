@@ -104,11 +104,6 @@ void N25Q256A_Control::eraseSubsector(uint32_t const subsector_num)
                4);                      /* tx_num_bytes */
 }
 
-bool N25Q256A_Control::isEraseComplete()
-{
-  return !_io.isBusy();
-}
-
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/

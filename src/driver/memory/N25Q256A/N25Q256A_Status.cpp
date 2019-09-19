@@ -16,15 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_INTERFACE_N25Q256A_CONTROL_H_
-#define INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_INTERFACE_N25Q256A_CONTROL_H_
-
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
-#include <stdbool.h>
+#include <snowfox/driver/memory/N25Q256A/N25Q256A_Status.h>
+
+#include <snowfox/util/BitUtil.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -42,31 +40,58 @@ namespace memory
 namespace N25Q256A
 {
 
-namespace interface
-{
-
 /**************************************************************************************
- * CLASS DECLARATION
+ * CTOR/DTOR
  **************************************************************************************/
 
-class N25Q256A_Control
+N25Q256A_Status::N25Q256A_Status(interface::N25Q256A_Io & io)
+: _io(io)
 {
 
-public:
+}
 
-  virtual ~N25Q256A_Control() { }
+N25Q256A_Status::~N25Q256A_Status()
+{
 
-  virtual void read           (uint32_t const read_addr,  uint8_t       * buffer, uint32_t const num_bytes) = 0;
-  virtual void write          (uint32_t const write_addr, uint8_t const * buffer, uint32_t const num_bytes) = 0;
-  virtual void eraseSubsector (uint32_t const subsector_num)                                                = 0;
+}
 
-};
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
+
+bool N25Q256A_Status::isProgramInProgress()
+{
+  return isWriteInProgress();
+}
+
+bool N25Q256A_Status::isEraseInProgress()
+{
+  return isWriteInProgress();
+}
+
+bool N25Q256A_Status::isNVConfigRegWriteInProgress()
+{
+  return isWriteInProgress();
+}
+
+bool N25Q256A_Status::isWriteStatusRegInProgress()
+{
+  return isWriteInProgress();
+}
+
+/**************************************************************************************
+ * PRIVATE MEMBER FUNCTIONS
+ **************************************************************************************/
+
+bool N25Q256A_Status::isWriteInProgress()
+{
+  uint8_t const status_reg = _io.readStatusReg();
+  return util::isBitSet(status_reg, N25Q256A_STATUS_REG_WRITE_IN_PROG_bp);
+}
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
-
-} /* interface */
 
 } /* N25Q256A */
 
@@ -75,5 +100,3 @@ public:
 } /* driver */
 
 } /* snowfox */
-
-#endif /* INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_INTERFACE_N25Q256A_CONTROL_H_ */

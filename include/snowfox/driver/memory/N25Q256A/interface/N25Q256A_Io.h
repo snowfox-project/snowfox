@@ -114,7 +114,6 @@ public:
   uint8_t  readFlagStatusReg();
   uint16_t readNVConfigReg  ();
   void     writeNVConfigReg (uint16_t const nv_config_reg);
-  bool     isBusy           ();
 
 };
 

@@ -16,14 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_INTERFACE_N25Q256A_CONTROL_H_
-#define INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_INTERFACE_N25Q256A_CONTROL_H_
+#ifndef INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_INTERFACE_N25Q256A_STATUS_H_
+#define INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_INTERFACE_N25Q256A_STATUS_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <stdint.h>
 #include <stdbool.h>
 
 /**************************************************************************************
@@ -49,16 +48,18 @@ namespace interface
  * CLASS DECLARATION
  **************************************************************************************/
 
-class N25Q256A_Control
+class N25Q256A_Status
 {
 
 public:
 
-  virtual ~N25Q256A_Control() { }
+  virtual ~N25Q256A_Status() { }
 
-  virtual void read           (uint32_t const read_addr,  uint8_t       * buffer, uint32_t const num_bytes) = 0;
-  virtual void write          (uint32_t const write_addr, uint8_t const * buffer, uint32_t const num_bytes) = 0;
-  virtual void eraseSubsector (uint32_t const subsector_num)                                                = 0;
+
+  virtual bool isProgramInProgress         () = 0;
+  virtual bool isEraseInProgress           () = 0;
+  virtual bool isNVConfigRegWriteInProgress() = 0;
+  virtual bool isWriteStatusRegInProgress  () = 0;
 
 };
 
@@ -76,4 +77,4 @@ public:
 
 } /* snowfox */
 
-#endif /* INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_INTERFACE_N25Q256A_CONTROL_H_ */
+#endif /* INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_INTERFACE_N25Q256A_STATUS_H_ */

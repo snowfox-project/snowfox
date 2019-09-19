@@ -45,9 +45,11 @@ namespace N25Q256A
  **************************************************************************************/
 
 N25Q256A::N25Q256A(interface::N25Q256A_Configuration & config,
-                   interface::N25Q256A_Control       & control)
+                   interface::N25Q256A_Control       & control,
+                   interface::N25Q256A_Status        & status)
 : _config (config)
 , _control(control)
+, _status (status)
 {
 
 }
@@ -99,6 +101,7 @@ ssize_t N25Q256A::write(uint32_t const write_addr, uint8_t const * buffer, ssize
   if(num_bytes <= 0)                                            return -1;
   if(static_cast<uint32_t>(num_bytes) > CAPABILITIES.prog_size) return -1;
   _control.write(write_addr, buffer, static_cast<uint32_t>(num_bytes));
+  while(_status.isProgramInProgress()) { /* TODO: yield() */ }
   return num_bytes;
 }
 
@@ -119,7 +122,7 @@ bool N25Q256A::ioctl_erase(uint32_t const erase_block_num)
    *  - Wait for subsector erase to be completed
    */
   _control.eraseSubsector(erase_block_num);
-  while(!_control.isEraseComplete()) { /* TODO: yield() */ }
+  while(_status.isEraseInProgress()) { /* TODO: yield() */ }
 
   return true;
 }

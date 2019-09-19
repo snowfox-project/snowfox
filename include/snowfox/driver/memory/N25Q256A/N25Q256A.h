@@ -25,6 +25,7 @@
 
 #include <snowfox/driver/memory/NorDriver.h>
 
+#include <snowfox/driver/memory/N25Q256A/interface/N25Q256A_Status.h>
 #include <snowfox/driver/memory/N25Q256A/interface/N25Q256A_Control.h>
 #include <snowfox/driver/memory/N25Q256A/interface/N25Q256A_Configuration.h>
 
@@ -53,7 +54,8 @@ class N25Q256A : public NorDriver
 
 public:
            N25Q256A(interface::N25Q256A_Configuration & config,
-                    interface::N25Q256A_Control       & control);
+                    interface::N25Q256A_Control       & control,
+                    interface::N25Q256A_Status        & status);
   virtual ~N25Q256A();
 
 
@@ -71,6 +73,7 @@ private:
 
   interface::N25Q256A_Configuration & _config;
   interface::N25Q256A_Control       & _control;
+  interface::N25Q256A_Status        & _status;
 
   static interface::AddressMode const ADDRESS_MODE = interface::AddressMode::AM_4Byte;
 

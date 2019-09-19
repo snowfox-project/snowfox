@@ -106,12 +106,6 @@ void N25Q256A_Io::writeNVConfigReg(uint16_t const nv_config_reg)
            2);                                                /* tx_num_bytes */
 }
 
-bool N25Q256A_Io::isBusy()
-{
-  uint8_t const status_reg = readStatusReg();
-  return util::isBitSet(status_reg, N25Q256A_STATUS_REG_WRITE_IN_PROG_bp);
-}
-
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
