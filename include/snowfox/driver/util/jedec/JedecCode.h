@@ -50,6 +50,7 @@ class JedecCode
 
 public:
 
+  JedecCode();
   JedecCode(uint8_t const * device_id);
 
 

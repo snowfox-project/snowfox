@@ -55,10 +55,17 @@ bool NorDriver::ioctl(uint32_t const cmd, void * arg)
 {
   switch(cmd)
   {
+  /* IOCTL_GET_JEDEC_CODE *************************************************************/
+  case IOCTL_GET_JEDEC_CODE:
+  {
+    util::jedec::JedecCode * jedec_code = reinterpret_cast<util::jedec::JedecCode *>(arg);
+    return ioctl_get_jedec_code(jedec_code);
+  }
+  break;
   /* IOCTL_GET_CAPABILITIES ***********************************************************/
   case IOCTL_GET_CAPABILITIES:
   {
-    NorDriverCapabilities * capabilities = static_cast<NorDriverCapabilities *>(arg);
+    NorDriverCapabilities * capabilities = reinterpret_cast<NorDriverCapabilities *>(arg);
     return ioctl_get_capabilities(capabilities);
   }
   break;

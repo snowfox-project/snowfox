@@ -42,10 +42,18 @@ namespace jedec
  * CTOR/DTOR
  **************************************************************************************/
 
+JedecCode::JedecCode()
+: _device_id_0(0)
+, _device_id_1(0)
+, _device_id_2(0)
+{
+  
+}
+
 JedecCode::JedecCode(uint8_t const * device_id)
-: _device_id_0(device_id[0]),
-  _device_id_1(device_id[1]),
-  _device_id_2(device_id[2])
+: _device_id_0(device_id[0])
+, _device_id_1(device_id[1])
+, _device_id_2(device_id[2])
 {
 
 }

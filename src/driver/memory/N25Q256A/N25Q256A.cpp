@@ -105,6 +105,12 @@ ssize_t N25Q256A::write(uint32_t const write_addr, uint8_t const * buffer, ssize
   return num_bytes;
 }
 
+bool N25Q256A::ioctl_get_jedec_code(util::jedec::JedecCode * jedec_code)
+{
+  *jedec_code = _config.readDeviceId();
+  return true;
+}
+
 bool N25Q256A::ioctl_get_capabilities(NorDriverCapabilities * capabilities)
 {
   *capabilities = CAPABILITIES;

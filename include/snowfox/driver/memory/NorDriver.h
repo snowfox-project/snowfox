@@ -25,6 +25,8 @@
 
 #include <snowfox/driver/interface/Driver.h>
 
+#include <snowfox/driver/util/jedec/JedecCode.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -65,8 +67,9 @@ typedef struct
  * CONSTANTS
  **************************************************************************************/
 
-static uint32_t constexpr IOCTL_GET_CAPABILITIES = 0; /* Arg: NorDriverCapabilities * capabilities */
-static uint32_t constexpr IOCTL_ERASE            = 1; /* Arg: uint32_t * erase_block_num           */
+static uint32_t constexpr IOCTL_GET_JEDEC_CODE   = 0; /* Arg: util::jedec::JedecCode * jedec_code  */
+static uint32_t constexpr IOCTL_GET_CAPABILITIES = 1; /* Arg: NorDriverCapabilities * capabilities */
+static uint32_t constexpr IOCTL_ERASE            = 2; /* Arg: uint32_t * erase_block_num           */
 
 /**************************************************************************************
  * CLASS DECLARATION
@@ -91,6 +94,7 @@ protected:
 
   virtual ssize_t read                  (uint32_t const read_addr,  uint8_t       * buffer, ssize_t const num_bytes) = 0;
   virtual ssize_t write                 (uint32_t const write_addr, uint8_t const * buffer, ssize_t const num_bytes) = 0;
+  virtual bool    ioctl_get_jedec_code  (util::jedec::JedecCode * jedec_code)                                        = 0;
   virtual bool    ioctl_get_capabilities(NorDriverCapabilities * capabilities)                                       = 0;
   virtual bool    ioctl_erase           (uint32_t const erase_block_num)                                             = 0;
 
