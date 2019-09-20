@@ -66,28 +66,24 @@ N25Q256A::~N25Q256A()
 bool N25Q256A::open()
 {
   _config.setAdressMode(ADDRESS_MODE);
+  while(_status.isNVConfigRegWriteInProgress()) { /* TODO: yield() */ }
   if(_config.getAdressMode() != ADDRESS_MODE) return false;
   return true;
 }
 
-void N25Q256A::close()
+ssize_t N25Q256A::read(uint32_t const block, uint32_t const offset, uint8_t * buffer, uint32_t const num_bytes)
 {
-  /* TODO */
-}
-
-/**************************************************************************************
- * PROTECTED MEMBER FUNCTIONS
- **************************************************************************************/
-
-ssize_t N25Q256A::read(uint32_t const read_addr, uint8_t * buffer, ssize_t const num_bytes)
-{
-  if(num_bytes <= 0) return -1;
+  if(block > CAPABILITIES.block_count) return -1;
+  uint32_t const read_addr = (block * CAPABILITIES.erase_size) + offset;
   _control.read(read_addr, buffer, num_bytes);
   return num_bytes;
 }
 
-ssize_t N25Q256A::write(uint32_t const write_addr, uint8_t const * buffer, ssize_t const num_bytes)
+ssize_t N25Q256A::prog(uint32_t const block, uint32_t const offset, uint8_t const * buffer, uint32_t const num_bytes)
 {
+  if(block > CAPABILITIES.block_count) return -1;
+  if(num_bytes > CAPABILITIES.prog_size) return -2;
+
   /* If the bits of the least significant address, which is the starting address,
    * are not all zero (= 256 byte page size), all data transmitted beyond the end
    * of the current page is programmed from the starting address of the same page.
@@ -98,12 +94,36 @@ ssize_t N25Q256A::write(uint32_t const write_addr, uint8_t const * buffer, ssize
    * they are correctly programmed at the specified addresses without any effect on
    * the other bytes of the same page. (Source: N25Q256A datasheet, page 54).
    */
-  if(num_bytes <= 0)                                            return -1;
-  if(static_cast<uint32_t>(num_bytes) > CAPABILITIES.prog_size) return -1;
-  _control.write(write_addr, buffer, static_cast<uint32_t>(num_bytes));
+  uint32_t const write_addr = (block * CAPABILITIES.erase_size) + offset;
+  _control.write(write_addr, buffer, num_bytes);
   while(_status.isProgramInProgress()) { /* TODO: yield() */ }
   return num_bytes;
 }
+
+bool N25Q256A::erase(uint32_t const block)
+{
+  if(block > CAPABILITIES.block_count) return false;
+
+  /* The smallest erase block size on the N25Q256A is a subsector-level erase.
+   * The erase operation is performed in 3 steps:
+   *  - Verify if a valid erase block num has been supplied
+   *  - Trigger a subsector erase
+   *  - Wait for subsector erase to be completed
+   */
+  _control.eraseSubsector(block);
+  while(_status.isEraseInProgress()) { /* TODO: yield() */ }
+
+  return true;
+}
+
+void N25Q256A::close()
+{
+  /* Do nothing. */
+}
+
+/**************************************************************************************
+ * PROTECTED MEMBER FUNCTIONS
+ **************************************************************************************/
 
 bool N25Q256A::ioctl_get_jedec_code(util::jedec::JedecCode * jedec_code)
 {
@@ -114,22 +134,6 @@ bool N25Q256A::ioctl_get_jedec_code(util::jedec::JedecCode * jedec_code)
 bool N25Q256A::ioctl_get_capabilities(NorDriverCapabilities * capabilities)
 {
   *capabilities = CAPABILITIES;
-  return true;
-}
-
-bool N25Q256A::ioctl_erase(uint32_t const erase_block_num)
-{
-  if(erase_block_num > CAPABILITIES.erase_size) return false;
-
-  /* The smallest erase block size on the N25Q256A is a subsector-level erase.
-   * The erase operation is performed in 3 steps:
-   *  - Verify if a valid erase block num has been supplied
-   *  - Trigger a subsector erase
-   *  - Wait for subsector erase to be completed
-   */
-  _control.eraseSubsector(erase_block_num);
-  while(_status.isEraseInProgress()) { /* TODO: yield() */ }
-
   return true;
 }
 

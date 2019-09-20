@@ -54,13 +54,13 @@ typedef struct
    * - What's the smallest read block size?
    * - What's the smallest program block size?
    * - What's the smallest erase block size and how many erase blocks are available?
-   * If one multiplies the erase_size with the erase_block_num the result should be
+   * If one multiplies the erase_size with the block_count the result should be
    * the total NOR flash memory size.
    */
   uint32_t read_size;
   uint32_t prog_size;
   uint32_t erase_size;
-  uint32_t erase_block_num;
+  uint32_t block_count; /* Number of erasable blocks in the flash */
 } NorDriverCapabilities;
 
 /**************************************************************************************
@@ -69,13 +69,12 @@ typedef struct
 
 static uint32_t constexpr IOCTL_GET_JEDEC_CODE   = 0; /* Arg: util::jedec::JedecCode * jedec_code  */
 static uint32_t constexpr IOCTL_GET_CAPABILITIES = 1; /* Arg: NorDriverCapabilities * capabilities */
-static uint32_t constexpr IOCTL_ERASE            = 2; /* Arg: uint32_t * erase_block_num           */
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class NorDriver : public interface::Driver
+class NorDriver
 {
 
 public:
@@ -84,31 +83,17 @@ public:
   virtual ~NorDriver() { }
 
 
-  virtual bool    open (                                                  ) = 0;
-  virtual ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) override;
-  virtual ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override;
-  virtual bool    ioctl(uint32_t const   cmd,    void          * arg      ) override;
-  virtual void    close(                                                  ) = 0;
+  virtual bool    open ()                                                                                              = 0;
+  virtual ssize_t read (uint32_t const block, uint32_t const offset, uint8_t       * buffer, uint32_t const num_bytes) = 0;
+  virtual ssize_t prog (uint32_t const block, uint32_t const offset, uint8_t const * buffer, uint32_t const num_bytes) = 0;
+  virtual bool    erase(uint32_t const block)                                                                          = 0;
+  virtual bool    ioctl(uint32_t const cmd, void * arg);
+  virtual void    close()                                                                                              = 0;
 
 protected:
 
-  virtual ssize_t read                  (uint32_t const read_addr,  uint8_t       * buffer, ssize_t const num_bytes) = 0;
-  virtual ssize_t write                 (uint32_t const write_addr, uint8_t const * buffer, ssize_t const num_bytes) = 0;
   virtual bool    ioctl_get_jedec_code  (util::jedec::JedecCode * jedec_code)                                        = 0;
   virtual bool    ioctl_get_capabilities(NorDriverCapabilities * capabilities)                                       = 0;
-  virtual bool    ioctl_erase           (uint32_t const erase_block_num)                                             = 0;
-
-private:
-
-  static unsigned int constexpr READ_ADDR_SIZE  = sizeof(uint32_t);
-  static unsigned int constexpr WRITE_ADDR_SIZE = sizeof(uint32_t);
-
-  static uint32_t          toReadAddr     (uint8_t       * buffer);
-  static uint32_t          toWriteAddr    (uint8_t const * buffer);
-  static uint8_t        *  toReadBuffer   (uint8_t       * buffer);
-  static uint8_t  const *  toWriteBuffer  (uint8_t const * buffer);
-  static ssize_t           toReadNumBytes (ssize_t const   num_bytes);
-  static ssize_t           toWriteNumBytes(ssize_t const   num_bytes);
 
 };
 

@@ -41,16 +41,6 @@ namespace memory
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-ssize_t NorDriver::read(uint8_t * buffer, ssize_t const num_bytes)
-{
-  return read(toReadAddr(buffer), toReadBuffer(buffer), toReadNumBytes(num_bytes));
-}
-
-ssize_t NorDriver::write(uint8_t const * buffer, ssize_t const num_bytes)
-{
-  return write(toWriteAddr(buffer), toWriteBuffer(buffer), toWriteNumBytes(num_bytes));
-}
-
 bool NorDriver::ioctl(uint32_t const cmd, void * arg)
 {
   switch(cmd)
@@ -69,54 +59,9 @@ bool NorDriver::ioctl(uint32_t const cmd, void * arg)
     return ioctl_get_capabilities(capabilities);
   }
   break;
-  /* IOCTL_ERASE **********************************************************************/
-  case IOCTL_ERASE:
-  {
-    uint32_t const * erase_block_num = static_cast<uint32_t const *>(arg);
-    return ioctl_erase(*erase_block_num);
-  }
-  break;
   }
 
   return false;
-}
-
-/**************************************************************************************
- * PRIVATE MEMBER FUNCTIONS
- **************************************************************************************/
-
-uint32_t NorDriver::toReadAddr(uint8_t * buffer)
-{
-  uint32_t read_addr = 0;
-  memcpy(reinterpret_cast<void *>(&read_addr), buffer, READ_ADDR_SIZE);
-  return read_addr;
-}
-
-uint32_t NorDriver::toWriteAddr(uint8_t const * buffer)
-{
-  uint32_t write_addr = 0;
-  memcpy(reinterpret_cast<void *>(&write_addr), buffer, WRITE_ADDR_SIZE);
-  return write_addr;
-}
-
-uint8_t * NorDriver::toReadBuffer(uint8_t * buffer)
-{
-  return (buffer + READ_ADDR_SIZE);
-}
-
-uint8_t const * NorDriver::toWriteBuffer(uint8_t const * buffer)
-{
-  return (buffer + WRITE_ADDR_SIZE);
-}
-
-ssize_t NorDriver::toReadNumBytes(ssize_t const num_bytes)
-{
-  return (num_bytes - READ_ADDR_SIZE);
-}
-
-ssize_t NorDriver::toWriteNumBytes(ssize_t const num_bytes)
-{
-  return (num_bytes - WRITE_ADDR_SIZE);
 }
 
 /**************************************************************************************
