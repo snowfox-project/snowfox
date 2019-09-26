@@ -28,7 +28,11 @@
 
 #include <stdbool.h>
 
-#include <snowfox/hal/interface/locking/CriticalSection.h>
+#if defined(MCU_ARCH_avr)
+#include <util/atomic.h>
+#else
+#include <atomic>
+#endif
 
 /**************************************************************************************
  * NAMESPACE
@@ -50,7 +54,7 @@ class Event : public interface::EventProducer,
 
 public:
 
-           Event(hal::interface::CriticalSection & crit_sec);
+           Event();
   virtual ~Event();
 
 
@@ -60,8 +64,11 @@ public:
 
 private:
 
-  bool                              _is_set;
-  hal::interface::CriticalSection & _crit_sec;
+#if defined(MCU_ARCH_avr)
+  bool _is_set;
+#else
+  std::atomic<bool> _is_set;
+#endif
 
 };
 

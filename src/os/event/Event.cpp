@@ -38,11 +38,9 @@ namespace os
  * CTOR/DTOR
  **************************************************************************************/
 
-Event::Event(hal::interface::CriticalSection & crit_sec)
-: _is_set  (false   ),
-  _crit_sec(crit_sec)
+Event::Event()
 {
-
+  clear();
 }
 
 Event::~Event()
@@ -56,20 +54,31 @@ Event::~Event()
 
 void Event::set()
 {
-  hal::interface::LockGuard<hal::interface::CriticalSection> lock(_crit_sec);
+#if defined(MCU_ARCH_avr)
+  ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { _is_set = true; }
+#else
   _is_set = true;
+#endif
 }
 
 void Event::clear()
 {
-  hal::interface::LockGuard<hal::interface::CriticalSection> lock(_crit_sec);
+#if defined(MCU_ARCH_avr)
+  ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { _is_set = false; }
+#else
   _is_set = false;
+#endif
 }
 
 bool Event::isSet()
 {
-  hal::interface::LockGuard<hal::interface::CriticalSection> lock(_crit_sec);
+#if defined(MCU_ARCH_avr)
+  bool is_set = false;
+  ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { is_set = _is_set; }
+  return is_set;
+#else
   return _is_set;
+#endif
 }
 
 /**************************************************************************************

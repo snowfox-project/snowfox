@@ -36,8 +36,7 @@ namespace blox
  * CTOR/DTOR
  **************************************************************************************/
 
-RFM9x::RFM9x(hal::interface::CriticalSection                & crit_sec,
-             hal::interface::ExternalInterruptAssembly      & ext_int_ctrl,
+RFM9x::RFM9x(hal::interface::ExternalInterruptAssembly      & ext_int_ctrl,
              uint8_t                                  const   dio0_ext_int_num,
              uint8_t                                  const   dio1_ext_int_num,
              driver::lora::RFM9x::interface::RFM9x_Io       & rfm9x_io,
@@ -46,9 +45,9 @@ RFM9x::RFM9x(hal::interface::CriticalSection                & crit_sec,
   _rfm9x_control                         (rfm9x_io),
   _rfm9x_status                          (rfm9x_io),
 
-  _rfm9x_tx_done_event                   (crit_sec),
-  _rfm9x_rx_done_event                   (crit_sec),
-  _rfm9x_rx_timeout_event                (crit_sec),
+  _rfm9x_tx_done_event                   (),
+  _rfm9x_rx_done_event                   (),
+  _rfm9x_rx_timeout_event                (),
 
   _rfm9x_on_tx_done_callback             (_rfm9x_tx_done_event),
   _rfm9x_on_rx_done_callback             (_rfm9x_rx_done_event),
@@ -68,8 +67,7 @@ RFM9x::RFM9x(hal::interface::CriticalSection                & crit_sec,
   _rfm9x.open();
 }
 
-RFM9x::RFM9x(hal::interface::CriticalSection                        & crit_sec,
-             hal::interface::ExternalInterruptAssembly              & ext_int_ctrl,
+RFM9x::RFM9x(hal::interface::ExternalInterruptAssembly              & ext_int_ctrl,
              uint8_t                                          const   dio0_ext_int_num,
              uint8_t                                          const   dio1_ext_int_num,
              driver::lora::RFM9x::interface::RFM9x_Io               & rfm9x_io,
@@ -81,7 +79,7 @@ RFM9x::RFM9x(hal::interface::CriticalSection                        & crit_sec,
              uint16_t                                         const   preamble_length,
              uint16_t                                         const   tx_fifo_size,
              uint16_t                                         const   rx_fifo_size)
-: RFM9x(crit_sec, ext_int_ctrl, dio0_ext_int_num, dio1_ext_int_num, rfm9x_io, rfm9x_f_xosc_hz)
+: RFM9x(ext_int_ctrl, dio0_ext_int_num, dio1_ext_int_num, rfm9x_io, rfm9x_f_xosc_hz)
 {
   uint32_t ioctl_frequenzy_Hz     = frequency_hz;
   uint8_t  ioctl_signal_bandwidth = static_cast<uint8_t>(signal_bandwidth);
