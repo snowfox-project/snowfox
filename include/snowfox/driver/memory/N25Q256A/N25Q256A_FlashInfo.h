@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_N25Q256A_CAPABILITIES_H_
-#define INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_N25Q256A_CAPABILITIES_H_
+#ifndef INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_N25Q256A_FLASHINFO_H_
+#define INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_N25Q256A_FLASHINFO_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/driver/memory/NorDriver.h>
+#include <snowfox/driver/memory/NorFlashInfo.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -51,7 +51,7 @@ namespace N25Q256A
  * C++20: For further information take a look at the following link:
  * http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/p0329r4.pdf
  */
-static NorDriverCapabilities constexpr CAPABILITIES = 
+static NorFlashInfo constexpr FLASH_INFO = 
 {
   /* .read_size   = */    1, /* The N25Q256A allows byte-wise read access */
   /* .prog_size   = */  256, /* The N25Q256A can be programmed in 256 byte sized chunks */
@@ -71,4 +71,4 @@ static NorDriverCapabilities constexpr CAPABILITIES =
 
 } /* snowfox */
 
-#endif /* INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_N25Q256A_CAPABILITIES_H_ */
+#endif /* INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_N25Q256A_FLASHINFO_H_ */

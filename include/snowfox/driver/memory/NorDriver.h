@@ -25,6 +25,7 @@
 
 #include <snowfox/driver/interface/Driver.h>
 
+#include <snowfox/driver/memory/NorFlashInfo.h>
 #include <snowfox/driver/util/jedec/JedecCode.h>
 
 /**************************************************************************************
@@ -41,34 +42,11 @@ namespace memory
 {
 
 /**************************************************************************************
- * TYPEDEF
- **************************************************************************************/
-
-typedef struct
-{
-  /* Different NOR flash types support different API's. Some may support chip/sector/
-   * subsector-level erase, others might only support chip/sector-level erase. It's
-   * the same with write and read access. Viewed from the point-of-view of using this
-   * generic NOR driver as interface for an overlying embedded flash filesystem there
-   * are actually only 6 parameter that count:
-   * - What's the smallest read block size?
-   * - What's the smallest program block size?
-   * - What's the smallest erase block size and how many erase blocks are available?
-   * If one multiplies the erase_size with the block_count the result should be
-   * the total NOR flash memory size.
-   */
-  uint32_t read_size;
-  uint32_t prog_size;
-  uint32_t erase_size;
-  uint32_t block_count; /* Number of erasable blocks in the flash */
-} NorDriverCapabilities;
-
-/**************************************************************************************
  * CONSTANTS
  **************************************************************************************/
 
-static uint32_t constexpr IOCTL_GET_JEDEC_CODE   = 0; /* Arg: util::jedec::JedecCode * jedec_code  */
-static uint32_t constexpr IOCTL_GET_CAPABILITIES = 1; /* Arg: NorDriverCapabilities * capabilities */
+static uint32_t constexpr IOCTL_GET_JEDEC_CODE = 0; /* Arg: util::jedec::JedecCode * jedec_code  */
+static uint32_t constexpr IOCTL_GET_FLASH_INFO = 1; /* Arg: NorFlashInfo * info */
 
 /**************************************************************************************
  * CLASS DECLARATION
@@ -92,8 +70,8 @@ public:
 
 protected:
 
-  virtual bool    ioctl_get_jedec_code  (util::jedec::JedecCode * jedec_code)                                        = 0;
-  virtual bool    ioctl_get_capabilities(NorDriverCapabilities * capabilities)                                       = 0;
+  virtual bool    ioctl_get_jedec_code(util::jedec::JedecCode * jedec_code) = 0;
+  virtual bool    ioctl_get_flash_info(NorFlashInfo * info)                 = 0;
 
 };
 

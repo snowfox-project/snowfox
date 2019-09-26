@@ -22,7 +22,7 @@
 
 #include <snowfox/driver/memory/N25Q256A/N25Q256A.h>
 
-#include <snowfox/driver/memory/N25Q256A/N25Q256A_Capabilities.h>
+#include <snowfox/driver/memory/N25Q256A/N25Q256A_FlashInfo.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -73,16 +73,16 @@ bool N25Q256A::open()
 
 ssize_t N25Q256A::read(uint32_t const block, uint32_t const offset, uint8_t * buffer, uint32_t const num_bytes)
 {
-  if(block > CAPABILITIES.block_count) return -1;
-  uint32_t const read_addr = (block * CAPABILITIES.erase_size) + offset;
+  if(block > FLASH_INFO.block_count) return -1;
+  uint32_t const read_addr = (block * FLASH_INFO.erase_size) + offset;
   _control.read(read_addr, buffer, num_bytes);
   return num_bytes;
 }
 
 ssize_t N25Q256A::prog(uint32_t const block, uint32_t const offset, uint8_t const * buffer, uint32_t const num_bytes)
 {
-  if(block > CAPABILITIES.block_count) return -1;
-  if(num_bytes > CAPABILITIES.prog_size) return -2;
+  if(block > FLASH_INFO.block_count) return -1;
+  if(num_bytes > FLASH_INFO.prog_size) return -2;
 
   /* If the bits of the least significant address, which is the starting address,
    * are not all zero (= 256 byte page size), all data transmitted beyond the end
@@ -94,7 +94,7 @@ ssize_t N25Q256A::prog(uint32_t const block, uint32_t const offset, uint8_t cons
    * they are correctly programmed at the specified addresses without any effect on
    * the other bytes of the same page. (Source: N25Q256A datasheet, page 54).
    */
-  uint32_t const write_addr = (block * CAPABILITIES.erase_size) + offset;
+  uint32_t const write_addr = (block * FLASH_INFO.erase_size) + offset;
   _control.write(write_addr, buffer, num_bytes);
   while(_status.isProgramInProgress()) { /* TODO: yield() */ }
   return num_bytes;
@@ -102,7 +102,7 @@ ssize_t N25Q256A::prog(uint32_t const block, uint32_t const offset, uint8_t cons
 
 bool N25Q256A::erase(uint32_t const block)
 {
-  if(block > CAPABILITIES.block_count) return false;
+  if(block > FLASH_INFO.block_count) return false;
 
   /* The smallest erase block size on the N25Q256A is a subsector-level erase.
    * The erase operation is performed in 3 steps:
@@ -131,9 +131,9 @@ bool N25Q256A::ioctl_get_jedec_code(util::jedec::JedecCode * jedec_code)
   return true;
 }
 
-bool N25Q256A::ioctl_get_capabilities(NorDriverCapabilities * capabilities)
+bool N25Q256A::ioctl_get_flash_info(NorFlashInfo * info)
 {
-  *capabilities = CAPABILITIES;
+  *info = FLASH_INFO;
   return true;
 }
 

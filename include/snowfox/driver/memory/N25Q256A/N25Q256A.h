@@ -67,8 +67,8 @@ public:
 
 protected:
 
-  virtual bool    ioctl_get_jedec_code  (util::jedec::JedecCode * jedec_code)                                        override;
-  virtual bool    ioctl_get_capabilities(NorDriverCapabilities * capabilities)                                       override;
+  virtual bool    ioctl_get_jedec_code(util::jedec::JedecCode * jedec_code) override;
+  virtual bool    ioctl_get_flash_info(NorFlashInfo * info)                 override;
 
 private:
 

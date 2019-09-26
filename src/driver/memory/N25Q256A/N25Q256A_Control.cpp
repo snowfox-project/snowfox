@@ -22,7 +22,7 @@
 
 #include <snowfox/driver/memory/N25Q256A/N25Q256A_Control.h>
 
-#include <snowfox/driver/memory/N25Q256A/N25Q256A_Capabilities.h>
+#include <snowfox/driver/memory/N25Q256A/N25Q256A_FlashInfo.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -87,7 +87,7 @@ void N25Q256A_Control::eraseSubsector(uint32_t const subsector_num)
    * subsector which the user intends to delete. Therefore we must
    * first calculate a valid address from the supplied subsector_num.
    */
-  uint32_t const subsector_base_addr = (subsector_num * CAPABILITIES.erase_size);
+  uint32_t const subsector_base_addr = (subsector_num * FLASH_INFO.erase_size);
 
   uint8_t const subsector_base_addr_buf[4] =
   {
