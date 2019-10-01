@@ -38,9 +38,8 @@ I2cMaster<I2C_TRANSFER_COMPLETE_INTERRUPT_NUMBER>::I2cMaster(volatile uint8_t   
                                                              volatile uint8_t                    * twdr,
                                                              volatile uint8_t                    * twsr,
                                                              volatile uint8_t                    * twbr,
-                                                             hal::interface::CriticalSection     & crit_sec,
                                                              hal::interface::InterruptController & int_ctrl)
-: _i2c_transfer_complete_event                 (crit_sec                                            ),
+: _i2c_transfer_complete_event                 (                                                    ),
   _i2c_master_low_level                        (twcr, twdr, twsr, twbr, _i2c_transfer_complete_event),
   _i2c_master                                  (_i2c_master_low_level                               ),
   _i2c_master_on_i2c_transfer_complete_callback(_i2c_transfer_complete_event                        )
@@ -54,10 +53,9 @@ I2cMaster<I2C_TRANSFER_COMPLETE_INTERRUPT_NUMBER>::I2cMaster(volatile uint8_t   
                                                              volatile uint8_t                          * twdr,
                                                              volatile uint8_t                          * twsr,
                                                              volatile uint8_t                          * twbr,
-                                                             hal::interface::CriticalSection           & crit_sec,
                                                              hal::interface::InterruptController       & int_ctrl,
                                                              hal::interface::I2cClock            const   i2c_clock)
-: I2cMaster<I2C_TRANSFER_COMPLETE_INTERRUPT_NUMBER>(twcr, twdr, twsr, twbr, crit_sec, int_ctrl)
+: I2cMaster<I2C_TRANSFER_COMPLETE_INTERRUPT_NUMBER>(twcr, twdr, twsr, twbr, int_ctrl)
 {
   _i2c_master.setI2cClock(i2c_clock);
 }

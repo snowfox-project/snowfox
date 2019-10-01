@@ -25,7 +25,6 @@
 
 #include <stdint.h>
 
-#include <snowfox/hal/interface/locking/CriticalSection.h>
 #include <snowfox/hal/interface/interrupt/InterruptController.h>
 
 #include <snowfox/hal/avr/common/ATxxxx/SpiMaster.h>
@@ -59,13 +58,11 @@ public:
   SpiMaster(volatile uint8_t                    * spcr,
             volatile uint8_t                    * spsr,
             volatile uint8_t                    * spdr,
-            hal::interface::CriticalSection     & crit_sec,
             hal::interface::InterruptController & int_ctrl);
 
   SpiMaster(volatile uint8_t                          * spcr,
             volatile uint8_t                          * spsr,
             volatile uint8_t                          * spdr,
-            hal::interface::CriticalSection           & crit_sec,
             hal::interface::InterruptController       & int_ctrl,
             hal::interface::SpiMode             const   spi_mode,
             hal::interface::SpiBitOrder         const   spi_bit_order,

@@ -37,9 +37,8 @@ template <uint8_t SERIAL_TRANSFER_COMPLETE_INTERRUPT_NUMBER>
 SpiMaster<SERIAL_TRANSFER_COMPLETE_INTERRUPT_NUMBER>::SpiMaster(volatile uint8_t                    * spcr,
                                                                 volatile uint8_t                    * spsr,
                                                                 volatile uint8_t                    * spdr,
-                                                                hal::interface::CriticalSection     & crit_sec,
                                                                 hal::interface::InterruptController & int_ctrl)
-: _serial_transfer_complete_event                 (crit_sec                                         ),
+: _serial_transfer_complete_event                 (                                                 ),
   _spi_master                                     (spcr, spsr, spdr, _serial_transfer_complete_event),
   _spi_master_on_serial_transfer_complete_callback(_serial_transfer_complete_event                  )
 {
@@ -51,12 +50,11 @@ template <uint8_t SERIAL_TRANSFER_COMPLETE_INTERRUPT_NUMBER>
 SpiMaster<SERIAL_TRANSFER_COMPLETE_INTERRUPT_NUMBER>::SpiMaster(volatile uint8_t                          * spcr,
                                                                 volatile uint8_t                          * spsr,
                                                                 volatile uint8_t                          * spdr,
-                                                                hal::interface::CriticalSection           & crit_sec,
                                                                 hal::interface::InterruptController       & int_ctrl,
                                                                 hal::interface::SpiMode             const   spi_mode,
                                                                 hal::interface::SpiBitOrder         const   spi_bit_order,
                                                                 uint32_t                            const   spi_prescaler)
-: SpiMaster<SERIAL_TRANSFER_COMPLETE_INTERRUPT_NUMBER>(spcr, spsr, spdr, crit_sec, int_ctrl)
+: SpiMaster<SERIAL_TRANSFER_COMPLETE_INTERRUPT_NUMBER>(spcr, spsr, spdr, int_ctrl)
 {
   _spi_master.setSpiMode     (spi_mode     );
   _spi_master.setSpiBitOrder (spi_bit_order);
