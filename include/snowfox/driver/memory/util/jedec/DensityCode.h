@@ -35,6 +35,9 @@ namespace snowfox
 namespace driver
 {
 
+namespace memory
+{
+
 namespace util
 {
 
@@ -63,6 +66,8 @@ enum class DensityCode : uint8_t
 } /* jedec */
 
 } /* util */
+
+} /* memory */
 
 } /* driver */
 

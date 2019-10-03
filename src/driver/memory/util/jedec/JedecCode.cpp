@@ -32,6 +32,9 @@ namespace snowfox
 namespace driver
 {
 
+namespace memory
+{
+
 namespace util
 {
 
@@ -65,6 +68,8 @@ JedecCode::JedecCode(uint8_t const * device_id)
 } /* jedec */
 
 } /* util */
+
+} /* memory */
 
 } /* driver */
 

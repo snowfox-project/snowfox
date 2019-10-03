@@ -35,6 +35,9 @@ namespace snowfox
 namespace driver
 {
 
+namespace memory
+{
+
 namespace util
 {
 
@@ -57,6 +60,8 @@ enum class MlcCode : uint8_t
 } /* jedec */
 
 } /* util */
+
+} /* memory */
 
 } /* driver */
 

@@ -35,6 +35,9 @@ namespace snowfox
 namespace driver
 {
 
+namespace memory
+{
+
 namespace util
 {
 
@@ -74,6 +77,8 @@ private:
 } /* jedec */
 
 } /* util */
+
+} /* memory */
 
 } /* driver */
 

@@ -32,6 +32,9 @@ namespace snowfox
 namespace driver
 {
 
+namespace memory
+{
+
 namespace util
 {
 
@@ -65,6 +68,8 @@ DensityCode toDensityCode(JedecCode const & jedec_code)
 } /* jedec */
 
 } /* util */
+
+} /* memory */
 
 } /* driver */
 
