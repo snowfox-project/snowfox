@@ -20,7 +20,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/driver/memory/NorDriver.h>
+#include <snowfox/driver/memory/NorFlashDriver.h>
 
 #include <string.h>
 
@@ -41,7 +41,7 @@ namespace memory
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-bool NorDriver::ioctl(uint32_t const cmd, void * arg)
+bool NorFlashDriver::ioctl(uint32_t const cmd, void * arg)
 {
   switch(cmd)
   {

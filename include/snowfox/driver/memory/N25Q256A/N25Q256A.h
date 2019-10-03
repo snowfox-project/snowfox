@@ -23,7 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/driver/memory/NorDriver.h>
+#include <snowfox/driver/memory/NorFlashDriver.h>
 
 #include <snowfox/driver/memory/N25Q256A/interface/N25Q256A_Status.h>
 #include <snowfox/driver/memory/N25Q256A/interface/N25Q256A_Control.h>
@@ -49,7 +49,7 @@ namespace N25Q256A
  * CLASS DECLARATION
  **************************************************************************************/
 
-class N25Q256A : public NorDriver
+class N25Q256A : public NorFlashDriver
 {
 
 public:

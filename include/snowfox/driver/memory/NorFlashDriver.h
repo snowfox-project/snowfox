@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SNOWFOX_DRIVER_MEMORY_NORDRIVER_H_
-#define INCLUDE_SNOWFOX_DRIVER_MEMORY_NORDRIVER_H_
+#ifndef INCLUDE_SNOWFOX_DRIVER_MEMORY_NORFLASHDRIVER_H_
+#define INCLUDE_SNOWFOX_DRIVER_MEMORY_NORFLASHDRIVER_H_
 
 /**************************************************************************************
  * INCLUDE
@@ -52,13 +52,13 @@ static uint32_t constexpr IOCTL_GET_FLASH_INFO = 1; /* Arg: NorFlashInfo * info 
  * CLASS DECLARATION
  **************************************************************************************/
 
-class NorDriver
+class NorFlashDriver
 {
 
 public:
 
-           NorDriver() { }
-  virtual ~NorDriver() { }
+           NorFlashDriver() { }
+  virtual ~NorFlashDriver() { }
 
 
   virtual bool    open ()                                                                                              = 0;
@@ -85,4 +85,4 @@ protected:
 
 } /* snowfox */
 
-#endif /* INCLUDE_SNOWFOX_DRIVER_MEMORY_NORDRIVER_H_ */
+#endif /* INCLUDE_SNOWFOX_DRIVER_MEMORY_NORFLASHDRIVER_H_ */
