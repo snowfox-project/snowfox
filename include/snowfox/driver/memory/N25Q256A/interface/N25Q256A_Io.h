@@ -73,7 +73,9 @@ enum class Command : uint8_t
   PAGE_PROGRAM_4_BYTE_ADDR      = 0x12,
   READ_4_BYTE_ADDR              = 0x13,
   READ_FLAG_STATUS_REG          = 0x70,
-  READ_DEVICE_ID                = 0x9E
+  READ_DEVICE_ID                = 0x9E,
+  RESET_ENABLE                  = 0x66,
+  RESET_MEMORY                  = 0x99,
 };
 
 /**************************************************************************************

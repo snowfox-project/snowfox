@@ -56,6 +56,7 @@ public:
 
   virtual ~N25Q256A_Control() { }
 
+  virtual void reset          ()                                                                            = 0;
   virtual void read           (uint32_t const read_addr,  uint8_t       * buffer, uint32_t const num_bytes) = 0;
   virtual void write          (uint32_t const write_addr, uint8_t const * buffer, uint32_t const num_bytes) = 0;
   virtual void eraseSubsector (uint32_t const subsector_num)                                                = 0;

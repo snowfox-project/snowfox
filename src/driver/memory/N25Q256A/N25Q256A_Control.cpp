@@ -44,8 +44,9 @@ namespace N25Q256A
  * CTOR/DTOR
  **************************************************************************************/
 
-N25Q256A_Control::N25Q256A_Control(interface::N25Q256A_Io & io)
-: _io(io)
+N25Q256A_Control::N25Q256A_Control(interface::N25Q256A_Io & io, hal::interface::Delay & delay)
+: _io   (io)
+, _delay(delay)
 {
 
 }
@@ -58,6 +59,21 @@ N25Q256A_Control::~N25Q256A_Control()
 /**************************************************************************************
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
+
+void N25Q256A_Control::reset()
+{
+  _io.transfer(interface::Command::RESET_ENABLE,
+               0,   /* tx_buf       */
+               0);  /* tx_num_bytes */
+
+  _delay.delay_us(1); /* tSHL2 = 50 ns */
+
+  _io.transfer(interface::Command::RESET_MEMORY,
+               0,   /* tx_buf       */
+               0);  /* tx_num_bytes */
+
+  _delay.delay_us(100); /* tSHL3 = 90 ns / 30 us */
+}
 
 void N25Q256A_Control::read(uint32_t const read_addr, uint8_t * buffer, uint32_t const num_bytes)
 {

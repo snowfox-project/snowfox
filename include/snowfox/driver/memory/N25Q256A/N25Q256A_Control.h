@@ -26,6 +26,7 @@
 #include <snowfox/driver/memory/N25Q256A/interface/N25Q256A_Control.h>
 
 #include <snowfox/driver/memory/N25Q256A/interface/N25Q256A_Io.h>
+#include <snowfox/hal/interface/delay/Delay.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -52,10 +53,11 @@ class N25Q256A_Control : public interface::N25Q256A_Control
 
 public:
 
-           N25Q256A_Control(interface::N25Q256A_Io & io);
+           N25Q256A_Control(interface::N25Q256A_Io & io, hal::interface::Delay & delay);
   virtual ~N25Q256A_Control();
 
 
+  virtual void reset          ()                                                                            override;
   virtual void read           (uint32_t const read_addr,  uint8_t       * buffer, uint32_t const num_bytes) override;
   virtual void write          (uint32_t const write_addr, uint8_t const * buffer, uint32_t const num_bytes) override;
   virtual void eraseSubsector (uint32_t const subsector_num)                                                override;
@@ -63,6 +65,7 @@ public:
 private:
 
   interface::N25Q256A_Io & _io;
+  hal::interface::Delay  & _delay;
 
 };
 

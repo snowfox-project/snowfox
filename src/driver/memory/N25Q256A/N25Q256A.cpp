@@ -65,9 +65,12 @@ N25Q256A::~N25Q256A()
 
 bool N25Q256A::open()
 {
+  _control.reset();
+
   _config.setAdressMode(ADDRESS_MODE);
   while(_status.isNVConfigRegWriteInProgress()) { /* TODO: yield() */ }
   if(_config.getAdressMode() != ADDRESS_MODE) return false;
+
   return true;
 }
 
