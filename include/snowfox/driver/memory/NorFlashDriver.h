@@ -26,7 +26,7 @@
 #include <snowfox/driver/interface/Driver.h>
 
 #include <snowfox/driver/memory/NorFlashInfo.h>
-#include <snowfox/driver/util/jedec/JedecCode.h>
+#include <snowfox/driver/memory/util/jedec/JedecCode.h>
 
 /**************************************************************************************
  * NAMESPACE

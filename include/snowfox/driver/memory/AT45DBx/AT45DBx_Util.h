@@ -25,7 +25,7 @@
 
 #include <stdint.h>
 
-#include <snowfox/driver/util/jedec/DensityCode.h>
+#include <snowfox/driver/memory/util/jedec/DensityCode.h>
 
 /**************************************************************************************
  * NAMESPACE

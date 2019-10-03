@@ -26,7 +26,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include <snowfox/driver/util/jedec/JedecCode.h>
+#include <snowfox/driver/memory/util/jedec/JedecCode.h>
 
 /**************************************************************************************
  * NAMESPACE

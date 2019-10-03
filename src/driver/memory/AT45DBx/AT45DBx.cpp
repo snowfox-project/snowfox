@@ -22,7 +22,7 @@
 
 #include <snowfox/driver/memory/AT45DBx/AT45DBx.h>
 
-#include <snowfox/driver/util/jedec/Jedec.h>
+#include <snowfox/driver/memory/util/jedec/Jedec.h>
 
 #include <snowfox/driver/memory/AT45DBx/AT45DBx_Util.h>
 

@@ -16,18 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SNOWFOX_DRIVER_UTIL_JEDEC_JEDEC_H_
-#define INCLUDE_SNOWFOX_DRIVER_UTIL_JEDEC_JEDEC_H_
-
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/driver/util/jedec/MlcCode.h>
-#include <snowfox/driver/util/jedec/JedecCode.h>
-#include <snowfox/driver/util/jedec/FamilyCode.h>
-#include <snowfox/driver/util/jedec/DensityCode.h>
-#include <snowfox/driver/util/jedec/ManufacturerId.h>
+#include <snowfox/driver/memory/util/jedec/Jedec.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -46,11 +39,24 @@ namespace jedec
 {
 
 /**************************************************************************************
- * PUBLIC PROTOTYPE
+ * DEFINE
  **************************************************************************************/
 
-ManufacturerId toManufacturerId(JedecCode const & jedec_code);
-DensityCode    toDensityCode   (JedecCode const & jedec_code);
+#define JEDEC_DENSITY_CODE_MASK (0x1F)
+
+/**************************************************************************************
+ * PUBLIC FUNCTIONS
+ **************************************************************************************/
+
+ManufacturerId toManufacturerId(JedecCode const & jedec_code)
+{
+  return static_cast<ManufacturerId>(jedec_code.deviceId0());
+}
+
+DensityCode toDensityCode(JedecCode const & jedec_code)
+{
+  return static_cast<DensityCode>(jedec_code.deviceId1() & JEDEC_DENSITY_CODE_MASK);
+}
 
 /**************************************************************************************
  * NAMESPACE
@@ -63,5 +69,3 @@ DensityCode    toDensityCode   (JedecCode const & jedec_code);
 } /* driver */
 
 } /* snowfox */
-
-#endif /* INCLUDE_SNOWFOX_DRIVER_UTIL_JEDEC_JEDEC_H_ */

@@ -196,6 +196,15 @@ if(${DRIVER_MEMORY_PCF8570} STREQUAL "yes")
   set(SNOWFOX_LIBRARY_DRIVER_SRCS ${SNOWFOX_LIBRARY_DRIVER_SRCS} ${DRIVER_MEMORY_PCF8570_SRCS})
 endif()
 
+# UTIL ###################################################################
+
+set(DRIVER_MEMORY_UTIL_SRCS
+  ${DRIVER_MEMORY_SRC_PATH}/util/jedec/Jedec.cpp
+  ${DRIVER_MEMORY_SRC_PATH}/util/jedec/JedecCode.cpp
+)
+
+set(SNOWFOX_LIBRARY_DRIVER_SRCS ${SNOWFOX_LIBRARY_DRIVER_SRCS} ${DRIVER_MEMORY_UTIL_SRCS})
+
 ##########################################################################
 # SENSOR #################################################################
 ##########################################################################
@@ -362,18 +371,5 @@ if(${DRIVER_TLCD_HD44780} STREQUAL "yes")
   )
   set(SNOWFOX_LIBRARY_DRIVER_SRCS ${SNOWFOX_LIBRARY_DRIVER_SRCS} ${DRIVER_TLCD_HD44780_SRCS})
 endif()
-
-##########################################################################
-# UTIL ###################################################################
-##########################################################################
-
-set(DRIVER_UTIL_SRC_PATH src/driver/util)
-
-set(DRIVER_UTIL_SRCS
-  ${DRIVER_UTIL_SRC_PATH}/jedec/Jedec.cpp
-  ${DRIVER_UTIL_SRC_PATH}/jedec/JedecCode.cpp
-)
-
-set(SNOWFOX_LIBRARY_DRIVER_SRCS ${SNOWFOX_LIBRARY_DRIVER_SRCS} ${DRIVER_UTIL_SRCS})
 
 ##########################################################################
