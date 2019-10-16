@@ -1,5 +1,5 @@
 #!/bin/bash
-cd $(dirname $(readlink -f $0))
+cd $(dirname $(readlink -f "$0"))
 
 if   [ "$1" = "-out=xml" ]; then
   mkdir -p ../../build/report/cppcheck
