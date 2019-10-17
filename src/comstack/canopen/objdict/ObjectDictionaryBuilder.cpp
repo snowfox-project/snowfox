@@ -43,9 +43,9 @@ void ObjectDictionaryBuilder::build(ObjectDictionary & obj_dict)
 {
   obj_dict.add(new ObjectDictionaryEntry<uint32_t>                (0x1000, 0, 0,  ObjectDictionaryAccess::ReadOnly,  0));
   obj_dict.add(new ObjectDictionaryEntry<uint8_t>                 (0x1001, 0, 0,  ObjectDictionaryAccess::ReadOnly,  0));
-  obj_dict.add(new ObjectDictionaryEntry<util::type::StaticString>(0x1008, 0, "", ObjectDictionaryAccess::ReadOnly,  0));
-  obj_dict.add(new ObjectDictionaryEntry<util::type::StaticString>(0x1009, 0, "", ObjectDictionaryAccess::ReadOnly,  0));
-  obj_dict.add(new ObjectDictionaryEntry<util::type::StaticString>(0x100A, 0, "", ObjectDictionaryAccess::ReadOnly,  0));
+  obj_dict.add(new ObjectDictionaryEntry<util::type::StaticString>(0x1008, 0, util::type::StaticString("\0"), ObjectDictionaryAccess::ReadOnly,  0));
+  obj_dict.add(new ObjectDictionaryEntry<util::type::StaticString>(0x1009, 0, util::type::StaticString("\0"), ObjectDictionaryAccess::ReadOnly,  0));
+  obj_dict.add(new ObjectDictionaryEntry<util::type::StaticString>(0x100A, 0, util::type::StaticString("\0"), ObjectDictionaryAccess::ReadOnly,  0));
   obj_dict.add(new ObjectDictionaryEntry<uint16_t>                (0x1017, 0, 0,  ObjectDictionaryAccess::ReadWrite, 0));
 
   obj_dict.add(new ObjectDictionaryEntry<uint8_t>                 (0x1018, 0, 4,  ObjectDictionaryAccess::ReadOnly,  0));

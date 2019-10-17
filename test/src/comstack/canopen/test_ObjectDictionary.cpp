@@ -131,7 +131,7 @@ SCENARIO("A ObjectDictionary object is constructed", "[comstack::canopen::Object
 
   WHEN("A STRING obj dict entry is added")
   {
-    ObjectDictionaryEntry<util::type::StaticString> * entry = new ObjectDictionaryEntry<util::type::StaticString>(0x1001, 0x01, "CAFFEE", ObjectDictionaryAccess::ReadWrite, 0);
+    ObjectDictionaryEntry<util::type::StaticString> * entry = new ObjectDictionaryEntry<util::type::StaticString>(0x1001, 0x01, util::type::StaticString("CAFFEE"), ObjectDictionaryAccess::ReadWrite, 0);
 
     obj_dict.add(entry);
 
