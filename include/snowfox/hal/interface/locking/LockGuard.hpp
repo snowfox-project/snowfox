@@ -42,7 +42,7 @@ class LockGuard
 
 public:
 
-   LockGuard(T & lock);
+   explicit LockGuard(T & lock);
   ~LockGuard();
 
 private:

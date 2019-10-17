@@ -58,7 +58,7 @@ class StaticString
 public:
 
   StaticString();
-  StaticString(char const * str);
+  explicit StaticString(char const * str);
   StaticString(StaticString const & other);
 
 
