@@ -47,7 +47,7 @@ public:
   TestManager();
 
 
-  void onFrameReceived(can_frame const & frame);
+  void onFrameReceived(util::type::CanFrame const & frame);
 
   void register_onTransmitCallback(interface::onTransmitCallback * on_tx_callback);
 

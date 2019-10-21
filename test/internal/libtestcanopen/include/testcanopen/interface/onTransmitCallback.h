@@ -23,7 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <linux/can.h>
+#include <snowfox/util/type/CanFrame.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -50,7 +50,7 @@ public:
   virtual ~onTransmitCallback() { }
 
 
-  virtual void onTransmit(can_frame const & frame) = 0;
+  virtual void onTransmit(util::type::CanFrame const & frame) = 0;
 
 };
 

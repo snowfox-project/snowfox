@@ -57,7 +57,7 @@ public:
   virtual ~Test_onTransmitCallback();
 
 
-  virtual void onTransmit(can_frame const & frame) override;
+  virtual void onTransmit(util::type::CanFrame const & frame) override;
 
 
 private:
@@ -65,12 +65,6 @@ private:
   CanOpenStack & _can_open_stack;
   
 };
-
-/**************************************************************************************
- * FREE FUNCTION PROTOTYPES
- **************************************************************************************/
-
-util::type::CanFrame toCanFrame(can_frame const & frame);
 
 /**************************************************************************************
  * NAMESPACE

@@ -46,7 +46,7 @@ TestManager::TestManager()
  * PUBLIC MEMBER FUNCTION
  **************************************************************************************/
 
-void TestManager::onFrameReceived(can_frame const & /* frame */)
+void TestManager::onFrameReceived(util::type::CanFrame const & /* frame */)
 {
   /* TODO - Implement handover to check functions */
 }

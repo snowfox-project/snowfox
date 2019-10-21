@@ -22,8 +22,6 @@
 
 #include <test/comstack/canopen/glue/Stack_onTransmitCallback.h>
 
-#include <test/comstack/canopen/util/CanFrameConverter.h>
-
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -61,7 +59,7 @@ Stack_onTransmitCallback::~Stack_onTransmitCallback()
 
 void Stack_onTransmitCallback::onTransmit(util::type::CanFrame const & frame)
 {
-  _test_mgr.onFrameReceived(toCanFrame(frame));
+  _test_mgr.onFrameReceived(frame);
 }
 
 /**************************************************************************************
