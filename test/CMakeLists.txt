@@ -10,7 +10,7 @@ include_directories(include)
 
 add_subdirectory(external/catch/current)
 add_subdirectory(external/libvireg)
-add_subdirectory(testlib/libtestcanopen)
+add_subdirectory(internal/libtestcanopen)
 
 ##########################################################################
 
