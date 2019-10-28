@@ -17,7 +17,7 @@
  */
 
 #ifndef INCLUDE_SNOWFOX_HAL_RISCV64_CXX_H_
-#define INCLUDE_SNOWFOX_HAL_AVR_CXX_CXX_H_
+#define INCLUDE_SNOWFOX_HAL_RISCV64_CXX_H_
 
 /**************************************************************************************
  * EXTERN DECLARATION
@@ -25,4 +25,4 @@
 
 extern void * __dso_handle;
 
-#endif /* INCLUDE_SNOWFOX_HAL_AVR_CXX_CXX_H_ */
+#endif /* INCLUDE_SNOWFOX_HAL_RISCV64_CXX_H_ */
