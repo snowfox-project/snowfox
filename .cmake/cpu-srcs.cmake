@@ -10,3 +10,10 @@ if(${MCU_ARCH} STREQUAL "avr")
   set(SNOWFOX_LIBRARY_CPU_SRCS ${SNOWFOX_LIBRARY_CPU_SRCS} src/cpu/avr/cxx.cpp)
 endif()
 
+##########################################################################
+# RISCV64 ################################################################
+##########################################################################
+
+if(${MCU_ARCH} STREQUAL "riscv64")
+  set(SNOWFOX_LIBRARY_CPU_SRCS ${SNOWFOX_LIBRARY_CPU_SRCS} src/cpu/riscv64/cxx.cpp)
+endif()
