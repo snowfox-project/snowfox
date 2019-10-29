@@ -85,6 +85,7 @@ include(.cmake/all-gcc.cmake)
 
 ##########################################################################
 
+set(CMAKE_ASM_FLAGS ${CMAKE_ASM_FLAGS} ${SNOWFOX_CMAKE_ASM_FLAGS})
 set(CMAKE_C_FLAGS   ${CMAKE_C_FLAGS}   ${SNOWFOX_CMAKE_C_FLAGS}  )
 set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} ${SNOWFOX_CMAKE_CXX_FLAGS})
 
