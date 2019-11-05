@@ -8,7 +8,7 @@ set(CMAKE_CXX_COMPILER avr-g++)
 set(SNOWFOX_AVR_GCC_CMAKE_ASM_FLAGS   "")
 set(SNOWFOX_AVR_GCC_CMAKE_C_FLAGS     "")
 set(SNOWFOX_AVR_GCC_CMAKE_CXX_FLAGS   "")
-set(SNOWFOX_AVR_GCC_CMAKE_C_CXX_FLAGS "-mmcu=${MCU_TYPE} -Og -ggdb -funsigned-char -funsigned-bitfields -fshort-enums -ffunction-sections -fdata-sections -fno-exceptions")
+set(SNOWFOX_AVR_GCC_CMAKE_C_CXX_FLAGS "-mmcu=${MCU_TYPE}")
 
 ##########################################################################
 

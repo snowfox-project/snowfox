@@ -7,12 +7,13 @@ add_definitions(-DF_CPU=${MCU_SPEED})
 ##########################################################################
 
 add_compile_options(-Wall -Wextra -Wpedantic -Werror)
+add_compile_options(-funsigned-char -funsigned-bitfields -fshort-enums -ffunction-sections -fdata-sections -fno-exceptions)
 
 ##########################################################################
 
 set(SNOWFOX_ALL_GCC_CMAKE_C_FLAGS     "")
 set(SNOWFOX_ALL_GCC_CMAKE_CXX_FLAGS   "-std=c++14")
-set(SNOWFOX_ALL_GCC_CMAKE_C_CXX_FLAGS "")
+set(SNOWFOX_ALL_GCC_CMAKE_C_CXX_FLAGS "-Og -ggdb")
 
 ##########################################################################
 
