@@ -64,6 +64,7 @@ set(SNOWFOX_LIBRARY_SRCS
 # LIBRARY ################################################################
 ##########################################################################
 
+set(SNOWFOX_CMAKE_ASM_FLAGS "")
 set(SNOWFOX_CMAKE_C_FLAGS   "")
 set(SNOWFOX_CMAKE_CXX_FLAGS "")
 
