@@ -7,7 +7,7 @@ add_definitions(-DF_CPU=${MCU_SPEED})
 ##########################################################################
 
 add_compile_options(-Wall -Wextra -Wpedantic -Werror)
-add_compile_options(-funsigned-char -funsigned-bitfields -fshort-enums -ffunction-sections -fdata-sections -fno-exceptions)
+add_compile_options(-funsigned-char -funsigned-bitfields -fshort-enums -ffunction-sections -fdata-sections)
 
 ##########################################################################
 
