@@ -8,7 +8,7 @@ set(CMAKE_CXX_COMPILER riscv64-unknown-elf-g++)
 set(SNOWFOX_RISCV64_CMAKE_ASM_FLAGS       "-march=rv32imac -mabi=ilp32 -mcmodel=medlow")
 set(SNOWFOX_RISCV64_GCC_CMAKE_C_FLAGS     "")
 set(SNOWFOX_RISCV64_GCC_CMAKE_CXX_FLAGS   "")
-set(SNOWFOX_RISCV64_GCC_CMAKE_C_CXX_FLAGS "-march=rv32imac -mabi=ilp32 -mcmodel=medlow -Og -ggdb -ffunction-sections -fdata-sections")
+set(SNOWFOX_RISCV64_GCC_CMAKE_C_CXX_FLAGS "-march=rv32imac -mabi=ilp32 -mcmodel=medlow -O1 -g3 -ffunction-sections -fdata-sections -fno-exceptions")
 
 ##########################################################################
 
