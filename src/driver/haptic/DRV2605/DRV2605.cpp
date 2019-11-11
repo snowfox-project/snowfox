@@ -62,17 +62,16 @@ bool DRV2605::open()
   return _ctrl.clrStandby();
 }
 
-ssize_t DRV2605::read(uint8_t * /* buffer */, ssize_t const /* num_bytes */)
+void DRV2605::close()
 {
-  return -1; /* Not supported for this driver */
+  _ctrl.setStandby();
 }
 
-ssize_t DRV2605::write(uint8_t const * /* buffer */, ssize_t const /* num_bytes */)
-{
-  return -1; /* Not supported for this driver */
-}
+/**************************************************************************************
+ * PROTECTED MEMBER FUNCTIONS
+ **************************************************************************************/
 
-bool DRV2605::ioctl(uint32_t const cmd, void * arg)
+bool DRV2605::ioctl_device(uint32_t const cmd, void * arg)
 {
   switch(cmd)
   {
@@ -122,11 +121,6 @@ bool DRV2605::ioctl(uint32_t const cmd, void * arg)
   }
 
   return false;
-}
-
-void DRV2605::close()
-{
-  _ctrl.setStandby();
 }
 
 /**************************************************************************************

@@ -23,7 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/driver/interface/Driver.h>
+#include <snowfox/driver/haptic/HapticActuatorDriver.h>
 
 #include <snowfox/driver/haptic/DRV2605/interface/DRV2605_Control.h>
 
@@ -80,7 +80,7 @@ static uint32_t constexpr IOCTL_CLR_GO               = 5; /* Arg: None          
  * CLASS DECLARATION
  **************************************************************************************/
 
-class DRV2605 : public driver::interface::Driver
+class DRV2605 : public HapticActuatorDriver
 {
 
 public:
@@ -89,11 +89,14 @@ public:
   virtual ~DRV2605();
 
 
-  virtual bool    open (                                                  ) override;
-  virtual ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) override;
-  virtual ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override;
-  virtual bool    ioctl(uint32_t const   cmd,    void          * arg      ) override;
-  virtual void    close(                                                  ) override;
+  virtual bool open () override;
+  virtual void close() override;
+
+
+protected:
+
+  virtual bool ioctl_device(uint32_t const cmd, void * arg) override;
+
 
 private:
 

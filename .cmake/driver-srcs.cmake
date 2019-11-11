@@ -62,6 +62,13 @@ endif()
 
 set(DRIVER_HAPTIC_SRC_PATH src/driver/haptic)
 
+# HAPTIC DRIVER BASE #####################################################
+
+set(DRIVER_HAPTIC_BASE_SRCS
+  ${DRIVER_HAPTIC_SRC_PATH}/HapticActuatorDriver.cpp
+)
+set(SNOWFOX_LIBRARY_DRIVER_SRCS ${SNOWFOX_LIBRARY_DRIVER_SRCS} ${DRIVER_HAPTIC_BASE_SRCS})
+
 # DRV2650 ################################################################
 
 if(${DRIVER_HAPTIC_DRV2605} STREQUAL "yes")
