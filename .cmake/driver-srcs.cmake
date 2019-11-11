@@ -62,7 +62,7 @@ endif()
 
 set(DRIVER_HAPTIC_SRC_PATH src/driver/haptic)
 
-# HAPTIC DRIVER BASE #####################################################
+# HAPTIC BASE ############################################################
 
 set(DRIVER_HAPTIC_BASE_SRCS
   ${DRIVER_HAPTIC_SRC_PATH}/HapticActuatorDriver.cpp
@@ -162,6 +162,13 @@ endif()
 ##########################################################################
 
 set(DRIVER_MEMORY_SRC_PATH src/driver/memory)
+
+# MEMORY BASE ############################################################
+
+set(DRIVER_MEMORY_BASE_SRCS
+  ${DRIVER_MEMORY_SRC_PATH}/NorFlashDriver.cpp
+)
+set(SNOWFOX_LIBRARY_DRIVER_SRCS ${SNOWFOX_LIBRARY_DRIVER_SRCS} ${DRIVER_MEMORY_BASE_SRCS})
 
 # AT45DBx ################################################################
 
