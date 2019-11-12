@@ -80,7 +80,7 @@ static uint32_t constexpr IOCTL_CLR_GO               = 5; /* Arg: None          
  * CLASS DECLARATION
  **************************************************************************************/
 
-class DRV2605 : public HapticActuatorDriver
+class DRV2605 final : public HapticActuatorDriver
 {
 
 public:
@@ -89,13 +89,13 @@ public:
   virtual ~DRV2605();
 
 
-  virtual bool open () override;
-  virtual void close() override;
+  virtual bool open () override final;
+  virtual void close() override final;
 
 
 protected:
 
-  virtual bool ioctl_device(uint32_t const cmd, void * arg) override;
+  virtual bool ioctl_device(uint32_t const cmd, void * arg) override final;
 
 
 private:

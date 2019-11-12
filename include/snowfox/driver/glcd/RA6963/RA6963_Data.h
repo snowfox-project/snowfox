@@ -47,7 +47,7 @@ namespace RA6963
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RA6963_Data : public interface::RA6963_Data
+class RA6963_Data final : public interface::RA6963_Data
 {
 
 public:
@@ -56,9 +56,9 @@ public:
   virtual ~RA6963_Data();
 
 
-  virtual uint8_t readData    (interface::OpMode const mode                        ) override;
-  virtual void    writeData   (interface::OpMode const mode, uint8_t const data_val) override;
-  virtual void    writeCommand(interface::OpMode const mode, uint8_t const cmd_val ) override;
+  virtual uint8_t readData    (interface::OpMode const mode                        ) override final;
+  virtual void    writeData   (interface::OpMode const mode, uint8_t const data_val) override final;
+  virtual void    writeCommand(interface::OpMode const mode, uint8_t const cmd_val ) override final;
 
 private:
 

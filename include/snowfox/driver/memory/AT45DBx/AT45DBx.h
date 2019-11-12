@@ -55,7 +55,7 @@ static uint32_t constexpr IOCTL_ERASE_CHIP         = 1; /* Arg: None       */
  * CLASS DECLARATION
  **************************************************************************************/
 
-class AT45DBx : public driver::interface::Driver
+class AT45DBx final : public driver::interface::Driver
 {
 
 public:
@@ -65,11 +65,11 @@ public:
   virtual ~AT45DBx();
 
 
-  virtual bool    open (                                                  ) override;
-  virtual ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) override;
-  virtual ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override;
-  virtual bool    ioctl(uint32_t const   cmd,    void          * arg      ) override;
-  virtual void    close(                                                  ) override;
+  virtual bool    open (                                                  ) override final;
+  virtual ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) override final;
+  virtual ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override final;
+  virtual bool    ioctl(uint32_t const   cmd,    void          * arg      ) override final;
+  virtual void    close(                                                  ) override final;
 
 
 private:

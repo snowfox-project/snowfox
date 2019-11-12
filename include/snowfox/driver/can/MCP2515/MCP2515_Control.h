@@ -47,7 +47,7 @@ namespace MCP2515
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MCP2515_Control : public interface::MCP2515_Control
+class MCP2515_Control final : public interface::MCP2515_Control
 {
 
 public:
@@ -56,15 +56,15 @@ public:
   virtual ~MCP2515_Control();
 
 
-  virtual uint8_t getEventFlags (                                                ) override;
-  virtual void    clearEventFlag(interface::EventFlag            const event_flag) override;
+  virtual uint8_t getEventFlags ()                                      override final;
+  virtual void    clearEventFlag(interface::EventFlag const event_flag) override final;
 
 
-  virtual bool    isTransmitRequestPending(interface::TransmitBufferSelect const tx_buf_sel                                           ) override;
-  virtual void    writeToTransmitBuffer   (interface::TransmitBufferSelect const tx_buf_sel, util::type::CanFrame const & frame) override;
-  virtual void    requestTransmit         (interface::TransmitBufferSelect const tx_buf_sel                                           ) override;
+  virtual bool    isTransmitRequestPending(interface::TransmitBufferSelect const tx_buf_sel                                    ) override final;
+  virtual void    writeToTransmitBuffer   (interface::TransmitBufferSelect const tx_buf_sel, util::type::CanFrame const & frame) override final;
+  virtual void    requestTransmit         (interface::TransmitBufferSelect const tx_buf_sel                                    ) override final;
 
-  virtual void    readFromReceiveBuffer   (interface::ReceiveBufferSelect  const rx_buf_sel, util::type::CanFrame       * frame) override;
+  virtual void    readFromReceiveBuffer   (interface::ReceiveBufferSelect  const rx_buf_sel, util::type::CanFrame * frame)       override final;
 
 
 private:

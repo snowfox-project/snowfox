@@ -90,7 +90,7 @@ static uint32_t constexpr IOCTL_GET_LAST_PACKET_SNR   = 10; /* Arg: int8_t *    
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x : public driver::interface::Driver
+class RFM9x final : public driver::interface::Driver
 {
 
 public:
@@ -104,11 +104,11 @@ public:
   virtual ~RFM9x();
 
 
-  bool    open (                                                  ) override;
-  ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) override;
-  ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override;
-  bool    ioctl(uint32_t const   cmd,    void          * arg      ) override;
-  void    close(                                                  ) override;
+  bool    open (                                                  ) override final;
+  ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) override final;
+  ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override final;
+  bool    ioctl(uint32_t const   cmd,    void          * arg      ) override final;
+  void    close(                                                  ) override final;
 
 
 private:

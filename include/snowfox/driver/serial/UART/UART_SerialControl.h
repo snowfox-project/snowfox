@@ -50,7 +50,7 @@ namespace UART
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UART_SerialControl : public interface::SerialControl
+class UART_SerialControl final : public interface::SerialControl
 {
 
 public:
@@ -63,8 +63,8 @@ public:
   virtual ~UART_SerialControl();
 
 
-  virtual uint16_t receive (uint8_t       * data, uint16_t const num_bytes) override;
-  virtual uint16_t transmit(uint8_t const * data, uint16_t const num_bytes) override;
+  virtual uint16_t receive (uint8_t       * data, uint16_t const num_bytes) override final;
+  virtual uint16_t transmit(uint8_t const * data, uint16_t const num_bytes) override final;
 
 
 private:

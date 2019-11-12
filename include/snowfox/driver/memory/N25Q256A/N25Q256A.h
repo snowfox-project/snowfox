@@ -49,7 +49,7 @@ namespace N25Q256A
  * CLASS DECLARATION
  **************************************************************************************/
 
-class N25Q256A : public NorFlashDriver
+class N25Q256A final : public NorFlashDriver
 {
 
 public:
@@ -59,16 +59,16 @@ public:
   virtual ~N25Q256A();
 
 
-  virtual bool    open ()                                                                                              override;
-  virtual ssize_t read (uint32_t const block, uint32_t const offset, uint8_t       * buffer, uint32_t const num_bytes) override;
-  virtual ssize_t prog (uint32_t const block, uint32_t const offset, uint8_t const * buffer, uint32_t const num_bytes) override;
-  virtual bool    erase(uint32_t const block)                                                                          override;
-  virtual void    close()                                                                                              override;
+  virtual bool    open ()                                                                                              override final;
+  virtual ssize_t read (uint32_t const block, uint32_t const offset, uint8_t       * buffer, uint32_t const num_bytes) override final;
+  virtual ssize_t prog (uint32_t const block, uint32_t const offset, uint8_t const * buffer, uint32_t const num_bytes) override final;
+  virtual bool    erase(uint32_t const block)                                                                          override final;
+  virtual void    close()                                                                                              override final;
 
 protected:
 
-  virtual bool    ioctl_get_jedec_code(util::jedec::JedecCode * jedec_code) override;
-  virtual bool    ioctl_get_flash_info(NorFlashInfo * info)                 override;
+  virtual bool    ioctl_get_jedec_code(util::jedec::JedecCode * jedec_code) override final;
+  virtual bool    ioctl_get_flash_info(NorFlashInfo * info)                 override final;
 
 private:
 

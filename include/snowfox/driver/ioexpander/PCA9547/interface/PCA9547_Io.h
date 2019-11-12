@@ -57,8 +57,8 @@ public:
   virtual ~PCA9547_Io() { }
 
 
-  virtual bool readControlRegister (uint8_t        * data) = 0;
-  virtual bool writeControlRegister(uint8_t const    data) = 0;
+  virtual bool readControlRegister (uint8_t       * data) = 0;
+  virtual bool writeControlRegister(uint8_t const   data) = 0;
 
 };
 

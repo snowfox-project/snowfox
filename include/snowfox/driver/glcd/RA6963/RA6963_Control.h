@@ -47,7 +47,7 @@ namespace RA6963
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RA6963_Control : public interface::RA6963_Control
+class RA6963_Control final : public interface::RA6963_Control
 {
 
 public:
@@ -56,10 +56,10 @@ public:
   virtual ~RA6963_Control();
 
 
-  virtual void setGfxHomeAddress(uint16_t const   gfx_home_address                        ) override;
-  virtual void setGfxArea       (uint8_t  const   gfx_columns                             ) override;
-  virtual void setAddressPointer(uint16_t const   address_pointer                         ) override;
-  virtual void write            (uint8_t  const * data,           uint32_t const num_bytes) override;
+  virtual void setGfxHomeAddress(uint16_t const   gfx_home_address                        ) override final;
+  virtual void setGfxArea       (uint8_t  const   gfx_columns                             ) override final;
+  virtual void setAddressPointer(uint16_t const   address_pointer                         ) override final;
+  virtual void write            (uint8_t  const * data,           uint32_t const num_bytes) override final;
 
 
 private:

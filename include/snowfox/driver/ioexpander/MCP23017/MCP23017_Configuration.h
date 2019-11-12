@@ -47,7 +47,7 @@ namespace MCP23017
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MCP23017_Configuration : public interface::MCP23017_Configuration
+class MCP23017_Configuration final : public interface::MCP23017_Configuration
 {
 
 public:
@@ -56,8 +56,8 @@ public:
   virtual ~MCP23017_Configuration();
 
 
-  virtual bool configAsInput (interface::Port const port, interface::Pin const pin, interface::PullUpMode const pull_up_mode) override;
-  virtual bool configAsOutput(interface::Port const port, interface::Pin const pin                                          ) override;
+  virtual bool configAsInput (interface::Port const port, interface::Pin const pin, interface::PullUpMode const pull_up_mode) override final;
+  virtual bool configAsOutput(interface::Port const port, interface::Pin const pin                                          ) override final;
 
 
 private:

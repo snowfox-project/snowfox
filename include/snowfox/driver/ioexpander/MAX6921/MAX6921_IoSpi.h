@@ -48,7 +48,7 @@ namespace MAX6921
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MAX6921_IoSpi : public interface::MAX6921_Io
+class MAX6921_IoSpi final : public interface::MAX6921_Io
 {
 
 public:
@@ -59,11 +59,11 @@ public:
   virtual ~MAX6921_IoSpi();
 
 
-  virtual void write   (interface::SegmentControlBuffer const & seg_ctrl_buf) override;
-  virtual void setLoad () override;
-  virtual void clrLoad () override;
-  virtual void setBlank() override;
-  virtual void clrBlank() override;
+  virtual void write   (interface::SegmentControlBuffer const & seg_ctrl_buf) override final;
+  virtual void setLoad () override final;
+  virtual void clrLoad () override final;
+  virtual void setBlank() override final;
+  virtual void clrBlank() override final;
 
 
 private:

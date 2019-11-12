@@ -49,7 +49,7 @@ namespace DRV2605
  * CLASS DECLARATION DRV2605
  **************************************************************************************/
 
-class DRV2605_Control : public interface::DRV2605_Control
+class DRV2605_Control final : public interface::DRV2605_Control
 {
 
 public:
@@ -58,15 +58,15 @@ public:
   virtual ~DRV2605_Control();
 
 
-  virtual bool reset              (                                                                       ) override;
-  virtual bool setStandby         (                                                                       ) override;
-  virtual bool clrStandby         (                                                                       ) override;
-  virtual bool setMode            (interface::Mode               const   mode                             ) override;
-  virtual bool setWaveformLibrary (interface::WaveformLibrary    const   library                          ) override;
-  virtual bool setWaveform        (interface::WaveformSequencer  const   sequencer, uint8_t const waveform) override;
-  virtual bool setActuator        (interface::Actuator           const   actuator                         ) override;
-  virtual bool setGo              (                                                                       ) override;
-  virtual bool clrGo              (                                                                       ) override;
+  virtual bool reset              (                                                                       ) override final;
+  virtual bool setStandby         (                                                                       ) override final;
+  virtual bool clrStandby         (                                                                       ) override final;
+  virtual bool setMode            (interface::Mode               const   mode                             ) override final;
+  virtual bool setWaveformLibrary (interface::WaveformLibrary    const   library                          ) override final;
+  virtual bool setWaveform        (interface::WaveformSequencer  const   sequencer, uint8_t const waveform) override final;
+  virtual bool setActuator        (interface::Actuator           const   actuator                         ) override final;
+  virtual bool setGo              (                                                                       ) override final;
+  virtual bool clrGo              (                                                                       ) override final;
 
 
 private:

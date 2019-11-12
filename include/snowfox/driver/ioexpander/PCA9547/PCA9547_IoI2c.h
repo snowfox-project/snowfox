@@ -36,7 +36,7 @@ namespace PCA9547
  * CLASS DECLARATION PCA9547
  **************************************************************************************/
 
-class PCA9547_IoI2c : public interface::PCA9547_Io
+class PCA9547_IoI2c final : public interface::PCA9547_Io
 {
 
 public:
@@ -45,8 +45,8 @@ public:
   virtual ~PCA9547_IoI2c();
 
 
-  virtual bool readControlRegister   (uint8_t        * data) override;
-  virtual bool writeControlRegister  (uint8_t const    data) override;
+  virtual bool readControlRegister   (uint8_t        * data) override final;
+  virtual bool writeControlRegister  (uint8_t const    data) override final;
 
 
 private:

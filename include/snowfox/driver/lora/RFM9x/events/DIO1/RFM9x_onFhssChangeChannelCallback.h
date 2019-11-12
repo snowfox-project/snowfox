@@ -45,7 +45,7 @@ namespace RFM9x
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_onFhssChangeChannelCallback : public interface::RFM9x_onFhssChangeChannelCallback
+class RFM9x_onFhssChangeChannelCallback final : public interface::RFM9x_onFhssChangeChannelCallback
 {
 
 public:
@@ -54,7 +54,7 @@ public:
   virtual ~RFM9x_onFhssChangeChannelCallback();
 
 
-  virtual void onFhssChangeChannel() override;
+  virtual void onFhssChangeChannel() override final;
 
 };
 

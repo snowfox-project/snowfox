@@ -56,7 +56,7 @@ namespace RFM9x
  * on DIO0: RxDone, TxDone, CadDone
  */
 
-class RFM9x_Dio0EventCallback : public hal::interface::ExternalInterruptCallback
+class RFM9x_Dio0EventCallback final : public hal::interface::ExternalInterruptCallback
 {
 
 public:
@@ -68,7 +68,7 @@ public:
   virtual ~RFM9x_Dio0EventCallback();
 
 
-  virtual void onExternalInterrupt() override;
+  virtual void onExternalInterrupt() override final;
 
 
 private:

@@ -47,7 +47,7 @@ namespace MCP2515
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MCP2515_onReceiveBufferFull : public interface::MCP2515_onReceiveBufferFull
+class MCP2515_onReceiveBufferFull final : public interface::MCP2515_onReceiveBufferFull
 {
 
 public:
@@ -57,7 +57,7 @@ public:
   virtual ~MCP2515_onReceiveBufferFull();
 
 
-  virtual void onReceiveBufferFull(interface::ReceiveBufferSelect const rx_buf_sel) override;
+  virtual void onReceiveBufferFull(interface::ReceiveBufferSelect const rx_buf_sel) override final;
 
 
 private:

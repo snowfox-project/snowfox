@@ -51,7 +51,7 @@ namespace MCP2515
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MCP2515_Debug : public NoInstance
+class MCP2515_Debug final : public NoInstance
 {
 
 public:

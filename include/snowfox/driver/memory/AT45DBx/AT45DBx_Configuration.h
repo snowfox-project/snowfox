@@ -47,7 +47,7 @@ namespace AT45DBx
  * CLASS DECLARATION
  **************************************************************************************/
 
-class AT45DBx_Configuration : public interface::AT45DBx_Configuration
+class AT45DBx_Configuration final : public interface::AT45DBx_Configuration
 {
 
 public:
@@ -56,7 +56,7 @@ public:
   virtual ~AT45DBx_Configuration();
 
 
-  virtual util::jedec::JedecCode readDeviceId() override;
+  virtual util::jedec::JedecCode readDeviceId() override final;
 
 
 private:

@@ -45,7 +45,7 @@ namespace MCP2515
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MCP2515_onMessageError : public interface::MCP2515_onMessageError
+class MCP2515_onMessageError final : public interface::MCP2515_onMessageError
 {
 
 public:
@@ -54,7 +54,7 @@ public:
   virtual ~MCP2515_onMessageError();
 
 
-  virtual void onMessageError() override;
+  virtual void onMessageError() override final;
 
 };
 

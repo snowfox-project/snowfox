@@ -47,7 +47,7 @@ namespace RFM9x
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_Configuration : public interface::RFM9x_Configuration
+class RFM9x_Configuration final : public interface::RFM9x_Configuration
 {
 
 public:
@@ -56,22 +56,22 @@ public:
   virtual ~RFM9x_Configuration();
 
 
-  virtual void     setLoRaMode            (interface::LoRaMode            const lora_mode           )       override;
-  virtual void     setModulationType      (interface::ModulationType      const modulation_type     )       override;
-  virtual void     setHeaderMode          (interface::HeaderMode          const header_mode         )       override;
-  virtual void     setPacketFormat        (interface::PacketFormat        const packet_format       )       override;
-  virtual void     setFrequency           (uint32_t                       const freq_Hz             )       override;
-  virtual void     setSignalBandwidth     (interface::SignalBandwidth     const signal_bandwidth    )       override;
-  virtual void     setCodingRate          (interface::CodingRate          const coding_rate         )       override;
-  virtual void     setSpreadingFactor     (interface::SpreadingFactor     const spreading_factor    )       override;
-  virtual void     setPreambleLength      (uint16_t                       const preamble_length     )       override;
-  virtual void     setTransceiverLocation (interface::TransceiverLocation const transceiver_location)       override;
-  virtual void     setRxSymbolTimeout     (uint16_t                       const rx_symbol_timeout   )       override;
+  virtual void     setLoRaMode            (interface::LoRaMode            const lora_mode           )       override final;
+  virtual void     setModulationType      (interface::ModulationType      const modulation_type     )       override final;
+  virtual void     setHeaderMode          (interface::HeaderMode          const header_mode         )       override final;
+  virtual void     setPacketFormat        (interface::PacketFormat        const packet_format       )       override final;
+  virtual void     setFrequency           (uint32_t                       const freq_Hz             )       override final;
+  virtual void     setSignalBandwidth     (interface::SignalBandwidth     const signal_bandwidth    )       override final;
+  virtual void     setCodingRate          (interface::CodingRate          const coding_rate         )       override final;
+  virtual void     setSpreadingFactor     (interface::SpreadingFactor     const spreading_factor    )       override final;
+  virtual void     setPreambleLength      (uint16_t                       const preamble_length     )       override final;
+  virtual void     setTransceiverLocation (interface::TransceiverLocation const transceiver_location)       override final;
+  virtual void     setRxSymbolTimeout     (uint16_t                       const rx_symbol_timeout   )       override final;
 
-  virtual bool     setTxFifoSize          (uint16_t                       const tx_fifo_size        )       override;
-  virtual bool     setRxFifoSize          (uint16_t                       const rx_fifo_size        )       override;
-  virtual uint16_t getTxFifoSize          (                                                         ) const override;
-  virtual uint16_t getRxFifoSize          (                                                         ) const override;
+  virtual bool     setTxFifoSize          (uint16_t                       const tx_fifo_size        )       override final;
+  virtual bool     setRxFifoSize          (uint16_t                       const rx_fifo_size        )       override final;
+  virtual uint16_t getTxFifoSize          (                                                         ) const override final;
+  virtual uint16_t getRxFifoSize          (                                                         ) const override final;
 
 
 private:

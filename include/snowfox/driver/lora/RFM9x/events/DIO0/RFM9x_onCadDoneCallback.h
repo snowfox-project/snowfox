@@ -45,7 +45,7 @@ namespace RFM9x
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_onCadDoneCallback : public interface::RFM9x_onCadDoneCallback
+class RFM9x_onCadDoneCallback final : public interface::RFM9x_onCadDoneCallback
 {
 
 public:
@@ -54,7 +54,7 @@ public:
   virtual ~RFM9x_onCadDoneCallback();
 
 
-  virtual void onCadDone() override;
+  virtual void onCadDone() override final;
 
 };
 

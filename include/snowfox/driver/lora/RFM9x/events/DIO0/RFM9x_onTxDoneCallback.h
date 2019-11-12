@@ -47,7 +47,7 @@ namespace RFM9x
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_onTxDoneCallback :  public interface::RFM9x_onTxDoneCallback
+class RFM9x_onTxDoneCallback final : public interface::RFM9x_onTxDoneCallback
 {
 
 public:
@@ -56,7 +56,7 @@ public:
   virtual ~RFM9x_onTxDoneCallback();
 
 
-  virtual void onTxDone() override;
+  virtual void onTxDone() override final;
 
 
 private:

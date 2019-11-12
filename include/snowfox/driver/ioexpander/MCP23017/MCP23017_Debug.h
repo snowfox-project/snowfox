@@ -51,7 +51,7 @@ namespace MCP23017
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MCP23017_Debug : public NoInstance
+class MCP23017_Debug final : public NoInstance
 {
 
 public:

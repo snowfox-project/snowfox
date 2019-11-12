@@ -45,7 +45,7 @@ namespace MCP2515
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MCP2515_onWakeup : public interface::MCP2515_onWakeup
+class MCP2515_onWakeup final : public interface::MCP2515_onWakeup
 {
 
 public:
@@ -54,7 +54,7 @@ public:
   virtual ~MCP2515_onWakeup();
 
 
-  virtual void onWakeup() override;
+  virtual void onWakeup() override final;
 
 };
 

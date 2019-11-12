@@ -47,7 +47,7 @@ namespace DRV2605
  * CLASS DECLARATION DRV2605
  **************************************************************************************/
 
-class DRV2605_IoI2C : public interface::DRV2605_Io
+class DRV2605_IoI2C final : public interface::DRV2605_Io
 {
 
 public:
@@ -56,8 +56,8 @@ public:
   virtual ~DRV2605_IoI2C();
 
 
-  virtual bool readRegister (interface::Register const reg, uint8_t       * data) override;
-  virtual bool writeRegister(interface::Register const reg, uint8_t const   data) override;
+  virtual bool readRegister (interface::Register const reg, uint8_t       * data) override final;
+  virtual bool writeRegister(interface::Register const reg, uint8_t const   data) override final;
 
 
 private:

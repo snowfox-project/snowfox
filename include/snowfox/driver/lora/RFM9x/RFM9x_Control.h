@@ -47,7 +47,7 @@ namespace RFM9x
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_Control : public interface::RFM9x_Control
+class RFM9x_Control final : public interface::RFM9x_Control
 {
 
 public:
@@ -56,22 +56,22 @@ public:
   virtual ~RFM9x_Control();
 
   /* RFM9x_OperationModeControl *******************************************************/
-  virtual void                     setOperatingMode(interface::OperatingMode const op_mode) override;
-  virtual interface::OperatingMode getOperatingMode(                                      ) override;
+  virtual void                     setOperatingMode(interface::OperatingMode const op_mode) override final;
+  virtual interface::OperatingMode getOperatingMode(                                      ) override final;
 
   /* RFM9x_EventControl ***************************************************************/
-  virtual uint8_t getEventFlags (                                     ) override;
-  virtual void    clearEventFlag(interface::EventFlag const event_flag) override;
+  virtual uint8_t getEventFlags (                                     ) override final;
+  virtual void    clearEventFlag(interface::EventFlag const event_flag) override final;
 
   /* RFM9x_FifoControl ****************************************************************/
-  virtual void    writeToTransmitFifo(uint8_t const * data, uint8_t const num_bytes_to_write) override;
-  virtual uint8_t readFromReceiveFifo(uint8_t       * data, uint8_t const num_bytes_to_read ) override;
+  virtual void    writeToTransmitFifo(uint8_t const * data, uint8_t const num_bytes_to_write) override final;
+  virtual uint8_t readFromReceiveFifo(uint8_t       * data, uint8_t const num_bytes_to_read ) override final;
 
   /* RFM9x_Dio0Control ****************************************************************/
-  virtual void setDio0EventSource(interface::Dio0EventSource const event_source) override;
+  virtual void setDio0EventSource(interface::Dio0EventSource const event_source) override final;
 
   /* RFM9x_Dio1Control ****************************************************************/
-  virtual void setDio1EventSource(interface::Dio1EventSource const event_source) override;
+  virtual void setDio1EventSource(interface::Dio1EventSource const event_source) override final;
 
 private:
 

@@ -45,7 +45,7 @@ namespace TMC26x
  * CLASS DECLARATION
  **************************************************************************************/
 
-class TMC26x : public driver::interface::Driver
+class TMC26x final : public driver::interface::Driver
 {
 
 public:
@@ -54,11 +54,11 @@ public:
   virtual ~TMC26x();
 
 
-  bool    open (                                                  ) override;
-  ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) override;
-  ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override;
-  bool    ioctl(uint32_t const   cmd,    void          * arg      ) override;
-  void    close(                                                  ) override;
+  bool    open (                                                  ) override final;
+  ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) override final;
+  ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override final;
+  bool    ioctl(uint32_t const   cmd,    void          * arg      ) override final;
+  void    close(                                                  ) override final;
 
 
 };

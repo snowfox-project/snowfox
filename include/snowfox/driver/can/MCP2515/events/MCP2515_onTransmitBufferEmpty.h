@@ -47,7 +47,7 @@ namespace MCP2515
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MCP2515_onTransmitBufferEmpty : public interface::MCP2515_onTransmitBufferEmpty
+class MCP2515_onTransmitBufferEmpty final : public interface::MCP2515_onTransmitBufferEmpty
 {
 
 public:
@@ -57,7 +57,7 @@ public:
   virtual ~MCP2515_onTransmitBufferEmpty();
 
 
-  virtual void onTransmitBufferEmpty(interface::TransmitBufferSelect const tx_buf_sel) override;
+  virtual void onTransmitBufferEmpty(interface::TransmitBufferSelect const tx_buf_sel) override final;
 
 
 private:

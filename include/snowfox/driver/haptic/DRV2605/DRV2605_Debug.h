@@ -51,7 +51,7 @@ namespace DRV2605
  * CLASS DECLARATION
  **************************************************************************************/
 
-class DRV2605_Debug : public NoInstance
+class DRV2605_Debug final : public NoInstance
 {
 
 public:

@@ -51,7 +51,7 @@ namespace RFM9x
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_Debug : public NoInstance
+class RFM9x_Debug final : public NoInstance
 {
 
 public:

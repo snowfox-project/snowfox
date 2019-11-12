@@ -49,7 +49,7 @@ namespace PCA9547
  * CLASS DECLARATION PCA9547
  **************************************************************************************/
 
-class PCA9547_Debug : public NoInstance
+class PCA9547_Debug final : public NoInstance
 {
 
 public:

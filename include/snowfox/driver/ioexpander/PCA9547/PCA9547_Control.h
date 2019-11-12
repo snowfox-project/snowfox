@@ -47,7 +47,7 @@ namespace PCA9547
  * CLASS DECLARATION PCA9547
  **************************************************************************************/
 
-class PCA9547_Control : public interface::PCA9547_Control
+class PCA9547_Control final : public interface::PCA9547_Control
 {
 
 public:
@@ -58,8 +58,8 @@ public:
 
   /* PCA9547 Interface */
 
-  virtual bool setChannel(interface::I2cChannel const   sel) override;
-  virtual bool getChannel(interface::I2cChannel       * sel) override;
+  virtual bool setChannel(interface::I2cChannel const   sel) override final;
+  virtual bool getChannel(interface::I2cChannel       * sel) override final;
 
 private:
 

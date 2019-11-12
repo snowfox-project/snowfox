@@ -47,7 +47,7 @@ namespace MCP2515
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MCP2515_CanConfiguration : public can::interface::CanConfiguration
+class MCP2515_CanConfiguration final : public can::interface::CanConfiguration
 {
 
 public:
@@ -56,7 +56,7 @@ public:
   virtual ~MCP2515_CanConfiguration();
 
 
-  virtual void setCanBitRate(can::interface::CanBitRate const can_bit_rate) override;
+  virtual void setCanBitRate(can::interface::CanBitRate const can_bit_rate) override final;
 
 
 private:

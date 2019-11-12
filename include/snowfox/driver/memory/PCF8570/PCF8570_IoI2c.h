@@ -47,7 +47,7 @@ namespace PCF8570
  * CLASS DECLARATION
  **************************************************************************************/
 
-class PCF8570_IoI2c : public interface::PCF8570_Io
+class PCF8570_IoI2c final : public interface::PCF8570_Io
 {
 
 public:
@@ -56,8 +56,8 @@ public:
   virtual ~PCF8570_IoI2c();
 
 
-  virtual bool writeByte(uint8_t const address, uint8_t const   data) override;
-  virtual bool readByte (uint8_t const address, uint8_t       * data) override;
+  virtual bool writeByte(uint8_t const address, uint8_t const   data) override final;
+  virtual bool readByte (uint8_t const address, uint8_t       * data) override final;
 
 private:
 

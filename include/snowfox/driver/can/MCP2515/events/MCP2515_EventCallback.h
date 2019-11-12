@@ -52,7 +52,7 @@ namespace MCP2515
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MCP2515_EventCallback : public hal::interface::ExternalInterruptCallback
+class MCP2515_EventCallback final : public hal::interface::ExternalInterruptCallback
 {
 
 public:
@@ -68,7 +68,7 @@ public:
   virtual ~MCP2515_EventCallback();
 
 
-  virtual void onExternalInterrupt() override;
+  virtual void onExternalInterrupt() override final;
 
 
 private:

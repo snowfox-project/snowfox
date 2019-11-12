@@ -53,7 +53,7 @@ static uint32_t constexpr IOCTL_SET_GFX_AREA = 0; /* Arg: uint16_t * */
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RA6963 : public driver::interface::Driver
+class RA6963 final : public driver::interface::Driver
 {
 
 public:
@@ -63,11 +63,11 @@ public:
   virtual ~RA6963();
 
 
-  bool    open (                                                  ) override;
-  ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) override;
-  ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override;
-  bool    ioctl(uint32_t const   cmd,    void          * arg      ) override;
-  void    close(                                                  ) override;
+  bool    open (                                                  ) override final;
+  ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) override final;
+  ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override final;
+  bool    ioctl(uint32_t const   cmd,    void          * arg      ) override final;
+  void    close(                                                  ) override final;
 
 
 private:

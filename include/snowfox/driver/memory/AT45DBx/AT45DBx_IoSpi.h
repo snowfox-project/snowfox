@@ -48,7 +48,7 @@ namespace AT45DBx
  * CLASS DECLARATION
  **************************************************************************************/
 
-class AT45DBx_IoSpi : public interface::AT45DBx_Io
+class AT45DBx_IoSpi final : public interface::AT45DBx_Io
 {
 
 public:
@@ -57,10 +57,10 @@ public:
   virtual ~AT45DBx_IoSpi();
 
 
-  virtual void exchange(uint8_t const * buf_cmd_in                                                                ) override;
-  virtual void exchange(uint8_t const * buf_cmd_in, uint8_t       * buf_cmd_out                                   ) override;
-  virtual void exchange(uint8_t const * buf_cmd_in, uint8_t const * buf_data_in,  uint16_t const buf_data_in_size ) override;
-  virtual void exchange(uint8_t const * buf_cmd_in, uint8_t       * buf_data_out, uint16_t const buf_data_out_size) override;
+  virtual void exchange(uint8_t const * buf_cmd_in                                                                ) override final;
+  virtual void exchange(uint8_t const * buf_cmd_in, uint8_t       * buf_cmd_out                                   ) override final;
+  virtual void exchange(uint8_t const * buf_cmd_in, uint8_t const * buf_data_in,  uint16_t const buf_data_in_size ) override final;
+  virtual void exchange(uint8_t const * buf_cmd_in, uint8_t       * buf_data_out, uint16_t const buf_data_out_size) override final;
 
 
 private:

@@ -45,7 +45,7 @@ namespace RFM9x
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_onCadDetectedCallback : public interface::RFM9x_onCadDetectedCallback
+class RFM9x_onCadDetectedCallback final : public interface::RFM9x_onCadDetectedCallback
 {
 
 public:
@@ -54,7 +54,7 @@ public:
   virtual ~RFM9x_onCadDetectedCallback();
 
 
-  virtual void onCadDetected() override;
+  virtual void onCadDetected() override final;
 
 };
 

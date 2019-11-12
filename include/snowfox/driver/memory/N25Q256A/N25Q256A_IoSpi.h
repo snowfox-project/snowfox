@@ -48,7 +48,7 @@ namespace N25Q256A
  * CLASS DECLARATION
  **************************************************************************************/
 
-class N25Q256A_IoSpi : public interface::N25Q256A_Io
+class N25Q256A_IoSpi final : public interface::N25Q256A_Io
 {
 
 public:
@@ -63,13 +63,13 @@ public:
                         uint8_t             const   tx_fill_data,
                         uint8_t                   * rx_buf,
                         uint32_t            const   rx_num_bytes,
-                        uint32_t            const   rx_start_pos) override;
+                        uint32_t            const   rx_start_pos) override final;
 
   virtual void transfer(interface::Command  const   cmd,
                         uint8_t             const * tx_buf_1,
                         uint32_t            const   tx_num_bytes_1,
                         uint8_t             const * tx_buf_2,
-                        uint32_t            const   tx_num_bytes_2) override;
+                        uint32_t            const   tx_num_bytes_2) override final;
 
 
 private:

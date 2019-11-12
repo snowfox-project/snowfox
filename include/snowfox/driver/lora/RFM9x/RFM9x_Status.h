@@ -47,7 +47,7 @@ namespace RFM9x
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_Status : public interface::RFM9x_Status
+class RFM9x_Status final : public interface::RFM9x_Status
 {
 
 public:
@@ -56,9 +56,9 @@ public:
   virtual ~RFM9x_Status();
 
 
-  virtual int16_t getCurrentRssi   () override;
-  virtual int16_t getLastPacketRssi() override;
-  virtual int8_t  getLastPacketSnr () override;
+  virtual int16_t getCurrentRssi   () override final;
+  virtual int16_t getLastPacketRssi() override final;
+  virtual int8_t  getLastPacketSnr () override final;
 
 
 private:

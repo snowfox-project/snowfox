@@ -47,7 +47,7 @@ namespace PCF8570
  * CLASS DECLARATION
  **************************************************************************************/
 
-class PCF8570_Control : public interface::PCF8570_Control
+class PCF8570_Control final : public interface::PCF8570_Control
 {
 
 public:
@@ -58,8 +58,8 @@ public:
 
   /* PCF8570 Interface */
 
-  virtual bool write(uint8_t const address, uint8_t const   data) override;
-  virtual bool read (uint8_t const address, uint8_t       * data) override;
+  virtual bool write(uint8_t const address, uint8_t const   data) override final;
+  virtual bool read (uint8_t const address, uint8_t       * data) override final;
 
 private:
 

@@ -49,7 +49,7 @@ namespace MAX6921
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MAX6921_Control : public interface::MAX6921_Control
+class MAX6921_Control final : public interface::MAX6921_Control
 {
 
 public:
@@ -58,12 +58,12 @@ public:
                            hal::interface::Delay & delay);
   virtual ~MAX6921_Control();
 
-  virtual void setSegment(uint8_t const seg_number) override;
-  virtual void clrSegment(uint8_t const seg_number) override;
-  virtual void write     () override;
-  virtual void load      () override;
-  virtual void blank     () override;
-  virtual void noBlank   () override;
+  virtual void setSegment(uint8_t const seg_number) override final;
+  virtual void clrSegment(uint8_t const seg_number) override final;
+  virtual void write     () override final;
+  virtual void load      () override final;
+  virtual void blank     () override final;
+  virtual void noBlank   () override final;
 
 private:
 

@@ -47,7 +47,7 @@ namespace RFM9x
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_onRxTimeoutCallback : public interface::RFM9x_onRxTimeoutCallback
+class RFM9x_onRxTimeoutCallback final : public interface::RFM9x_onRxTimeoutCallback
 {
 
 public:
@@ -56,7 +56,7 @@ public:
   virtual ~RFM9x_onRxTimeoutCallback();
 
 
-  virtual void onRxTimeout() override;
+  virtual void onRxTimeout() override final;
 
 
 private:

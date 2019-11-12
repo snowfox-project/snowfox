@@ -54,7 +54,7 @@ static uint32_t constexpr IOCTL_RETURN_HOME   = 1; /* Arg: None */
  * CLASS DECLARATION
  **************************************************************************************/
 
-class HD44780 : public driver::interface::Driver
+class HD44780 final : public driver::interface::Driver
 {
 
 public:
@@ -64,11 +64,11 @@ public:
   virtual ~HD44780();
 
 
-  bool    open (                                                  ) override;
-  ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) override;
-  ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override;
-  bool    ioctl(uint32_t const   cmd,    void          * arg      ) override;
-  void    close(                                                  ) override;
+  bool    open (                                                  ) override final;
+  ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) override final;
+  ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override final;
+  bool    ioctl(uint32_t const   cmd,    void          * arg      ) override final;
+  void    close(                                                  ) override final;
 
 
 private:

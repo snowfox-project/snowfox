@@ -47,7 +47,7 @@ namespace UART
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UART_SerialConfiguration : public interface::SerialConfiguration
+class UART_SerialConfiguration final : public interface::SerialConfiguration
 {
 
 public:
@@ -57,9 +57,9 @@ public:
   virtual ~UART_SerialConfiguration();
 
 
-  virtual void setBaudRate       (interface::SerialBaudRate const baud_rate) override;
-  virtual void setParity         (interface::SerialParity   const parity   ) override;
-  virtual void setStopBit        (interface::SerialStopBit  const stop_bit ) override;
+  virtual void setBaudRate(interface::SerialBaudRate const baud_rate) override final;
+  virtual void setParity  (interface::SerialParity   const parity   ) override final;
+  virtual void setStopBit (interface::SerialStopBit  const stop_bit ) override final;
 
 private:
 

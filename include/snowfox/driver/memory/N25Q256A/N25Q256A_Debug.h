@@ -49,7 +49,7 @@ namespace N25Q256A
  * CLASS DECLARATION
  **************************************************************************************/
 
-class N25Q256A_Debug : public NoInstance
+class N25Q256A_Debug final : public NoInstance
 {
 
 public:

@@ -47,7 +47,7 @@ namespace MCP23017
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MCP23017_IoI2c : public interface::MCP23017_Io
+class MCP23017_IoI2c final : public interface::MCP23017_Io
 {
 
 public:
@@ -56,8 +56,8 @@ public:
   virtual ~MCP23017_IoI2c();
 
 
-  virtual bool readRegister (interface::Register const reg, uint8_t       * data) override;
-  virtual bool writeRegister(interface::Register const reg, uint8_t const   data) override;
+  virtual bool readRegister (interface::Register const reg, uint8_t       * data) override final;
+  virtual bool writeRegister(interface::Register const reg, uint8_t const   data) override final;
 
 
 private:

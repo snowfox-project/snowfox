@@ -49,7 +49,7 @@ namespace MCP2515
  * CLASS DECLARATION
  **************************************************************************************/
 
-class MCP2515_CanControl : public can::interface::CanControl
+class MCP2515_CanControl final : public can::interface::CanControl
 {
 
 public:
@@ -60,8 +60,8 @@ public:
   virtual ~MCP2515_CanControl();
 
 
-  virtual bool transmit(util::type::CanFrame const & frame) override;
-  virtual bool receive (util::type::CanFrame       * frame) override;
+  virtual bool transmit(util::type::CanFrame const & frame) override final;
+  virtual bool receive (util::type::CanFrame       * frame) override final;
 
 
 private:

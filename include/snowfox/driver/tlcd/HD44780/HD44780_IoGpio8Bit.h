@@ -49,7 +49,7 @@ namespace HD44780
  * CLASS DECLARATION
  **************************************************************************************/
 
-class HD44780_IoGpio8Bit : public interface::HD44780_Io
+class HD44780_IoGpio8Bit final : public interface::HD44780_Io
 {
 
 public:
@@ -62,9 +62,9 @@ public:
   virtual ~HD44780_IoGpio8Bit();
 
 
-  virtual uint8_t readStatus  (                      ) override;
-  virtual void    writeData   (uint8_t const data_val) override;
-  virtual void    writeCommand(uint8_t const cmd_val ) override;
+  virtual uint8_t readStatus  (                      ) override final;
+  virtual void    writeData   (uint8_t const data_val) override final;
+  virtual void    writeCommand(uint8_t const cmd_val ) override final;
 
 
 private:

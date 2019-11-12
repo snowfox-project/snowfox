@@ -50,7 +50,7 @@ namespace UART
  * CLASS DECLARATION
  **************************************************************************************/
 
-class UART_onRxDoneCallback : public hal::interface::UART_onRxDoneCallback
+class UART_onRxDoneCallback final : public hal::interface::UART_onRxDoneCallback
 {
 
 public:
@@ -61,7 +61,7 @@ public:
   virtual ~UART_onRxDoneCallback();
 
 
-  virtual void onRxDone() override;
+  virtual void onRxDone() override final;
 
 
 private:

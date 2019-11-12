@@ -48,7 +48,7 @@ namespace RFM9x
  * CLASS DECLARATION
  **************************************************************************************/
 
-class RFM9x_IoSpi : public interface::RFM9x_Io
+class RFM9x_IoSpi final : public interface::RFM9x_Io
 {
 
 public:
@@ -57,10 +57,10 @@ public:
   virtual ~RFM9x_IoSpi();
 
 
-  virtual void readRegister  (interface::Register const reg, uint8_t       * data                      ) override;
-  virtual void readRegister  (interface::Register const reg, uint8_t       * data, uint16_t const bytes) override;
-  virtual void writeRegister (interface::Register const reg, uint8_t const   data                      ) override;
-  virtual void writeRegister (interface::Register const reg, uint8_t const * data, uint16_t const bytes) override;
+  virtual void readRegister  (interface::Register const reg, uint8_t       * data                      ) override final;
+  virtual void readRegister  (interface::Register const reg, uint8_t       * data, uint16_t const bytes) override final;
+  virtual void writeRegister (interface::Register const reg, uint8_t const   data                      ) override final;
+  virtual void writeRegister (interface::Register const reg, uint8_t const * data, uint16_t const bytes) override final;
 
 private:
 
