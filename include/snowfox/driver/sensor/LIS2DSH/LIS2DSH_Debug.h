@@ -51,7 +51,7 @@ namespace LIS2DSH
  * CLASS DECLARATION
  **************************************************************************************/
 
-class LIS2DSH_Debug : public NoInstance
+class LIS2DSH_Debug final : public NoInstance
 {
 
 public:

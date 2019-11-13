@@ -47,7 +47,7 @@ namespace L3GD20
  * CLASS DECLARATION
  **************************************************************************************/
 
-class L3GD20_Control : public interface::L3GD20_Control
+class L3GD20_Control final : public interface::L3GD20_Control
 {
 
 public:
@@ -58,35 +58,35 @@ public:
 
   /* L3GD20 Interface */
 
-  virtual bool checkIfNewDataIsAvailable_XYZ(bool * is_new_data_available_xyz) override;
-  virtual bool checkIfNewDataIsAvailable_X  (bool * is_new_data_available_x  ) override;
-  virtual bool checkIfNewDataIsAvailable_Y  (bool * is_new_data_available_y  ) override;
-  virtual bool checkIfNewDataIsAvailable_Z  (bool * is_new_data_available_z  ) override;
+  virtual bool checkIfNewDataIsAvailable_XYZ(bool * is_new_data_available_xyz) override final;
+  virtual bool checkIfNewDataIsAvailable_X  (bool * is_new_data_available_x  ) override final;
+  virtual bool checkIfNewDataIsAvailable_Y  (bool * is_new_data_available_y  ) override final;
+  virtual bool checkIfNewDataIsAvailable_Z  (bool * is_new_data_available_z  ) override final;
 
-  virtual bool checkIfDataOverrun_XYZ       (bool * is_data_overrun_xyz      ) override;
-  virtual bool checkIfDataOverrun_X         (bool * is_data_overrun_x        ) override;
-  virtual bool checkIfDataOverrun_Y         (bool * is_data_overrun_y        ) override;
-  virtual bool checkIfDataOverrun_Z         (bool * is_data_overrun_z        ) override;
+  virtual bool checkIfDataOverrun_XYZ       (bool * is_data_overrun_xyz      ) override final;
+  virtual bool checkIfDataOverrun_X         (bool * is_data_overrun_x        ) override final;
+  virtual bool checkIfDataOverrun_Y         (bool * is_data_overrun_y        ) override final;
+  virtual bool checkIfDataOverrun_Z         (bool * is_data_overrun_z        ) override final;
 
-  virtual bool readXYZAxis                  (int16_t * raw_x, int16_t * raw_y, int16_t * raw_z) override;
-  virtual bool readXAxis                    (int16_t * raw_x                                  ) override;
-  virtual bool readYAxis                    (int16_t * raw_y                                  ) override;
-  virtual bool readZAxis                    (int16_t * raw_z                                  ) override;
+  virtual bool readXYZAxis                  (int16_t * raw_x, int16_t * raw_y, int16_t * raw_z) override final;
+  virtual bool readXAxis                    (int16_t * raw_x                                  ) override final;
+  virtual bool readYAxis                    (int16_t * raw_y                                  ) override final;
+  virtual bool readZAxis                    (int16_t * raw_z                                  ) override final;
 
 
   /* L3GD20 Configuration Interface */
 
-  virtual bool enablePower                  () override;
-  virtual bool disableAllAxis               () override;
-  virtual bool enableBlockDataUpdate        () override;
+  virtual bool enablePower                  () override final;
+  virtual bool disableAllAxis               () override final;
+  virtual bool enableBlockDataUpdate        () override final;
 
-  virtual bool setOutputDataRateAndBandwith (interface::OutputDataRateAndBandwith const output_data_rate_and_bandwidth) override;
-  virtual bool setFullScaleRange            (interface::FullScaleRange            const full_scale_range              ) override;
+  virtual bool setOutputDataRateAndBandwith (interface::OutputDataRateAndBandwith const output_data_rate_and_bandwidth) override final;
+  virtual bool setFullScaleRange            (interface::FullScaleRange            const full_scale_range              ) override final;
 
-  virtual bool enableXYZAxis                () override;
-  virtual bool enableXAxis                  () override;
-  virtual bool enableYAxis                  () override;
-  virtual bool enableZAxis                  () override;
+  virtual bool enableXYZAxis                () override final;
+  virtual bool enableXAxis                  () override final;
+  virtual bool enableYAxis                  () override final;
+  virtual bool enableZAxis                  () override final;
 
 
 private:

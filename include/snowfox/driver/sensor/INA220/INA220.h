@@ -57,7 +57,7 @@ static uint32_t constexpr IOCTL_SET_OPERATING_MODE       = 4; /* Arg: interface:
  * CLASS DECLARATION
  **************************************************************************************/
 
-class INA220 : public driver::interface::Driver
+class INA220 final : public driver::interface::Driver
 {
 
 public:
@@ -66,11 +66,11 @@ public:
   virtual ~INA220();
 
 
-  virtual bool    open (                                                  ) override;
-  virtual ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) override;
-  virtual ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override;
-  virtual bool    ioctl(uint32_t const   cmd,    void          * arg      ) override;
-  virtual void    close(                                                  ) override;
+  virtual bool    open (                                                  ) override final;
+  virtual ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) override final;
+  virtual ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override final;
+  virtual bool    ioctl(uint32_t const   cmd,    void          * arg      ) override final;
+  virtual void    close(                                                  ) override final;
 
 private:
 

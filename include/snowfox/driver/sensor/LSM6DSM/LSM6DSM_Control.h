@@ -49,7 +49,7 @@ namespace LSM6DSM
  * CLASS DECLARATION
  **************************************************************************************/
 
-class LSM6DSM_Control : public interface::LSM6DSM_Control
+class LSM6DSM_Control final : public interface::LSM6DSM_Control
 {
 
 public:
@@ -59,7 +59,7 @@ public:
   virtual ~LSM6DSM_Control();
 
 
-  virtual bool reset() override;
+  virtual bool reset() override final;
 
 private:
 

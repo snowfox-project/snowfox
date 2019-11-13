@@ -47,7 +47,7 @@ namespace BMG160
  * CLASS DECLARATION
  **************************************************************************************/
 
-class BMG160_Control : public interface::BMG160_Control
+class BMG160_Control final : public interface::BMG160_Control
 {
 
 public:
@@ -58,17 +58,17 @@ public:
 
   /* BMG160 Interface */
 
-  virtual bool readXYZAxis    (int16_t * raw_x, int16_t * raw_y, int16_t * raw_z) override;
-  virtual bool readXAxis      (int16_t * raw_x                                  ) override;
-  virtual bool readYAxis      (int16_t * raw_y                                  ) override;
-  virtual bool readZAxis      (int16_t * raw_z                                  ) override;
-  virtual bool readTemperature(int8_t  * raw_temp                               ) override;
+  virtual bool readXYZAxis    (int16_t * raw_x, int16_t * raw_y, int16_t * raw_z) override final;
+  virtual bool readXAxis      (int16_t * raw_x                                  ) override final;
+  virtual bool readYAxis      (int16_t * raw_y                                  ) override final;
+  virtual bool readZAxis      (int16_t * raw_z                                  ) override final;
+  virtual bool readTemperature(int8_t  * raw_temp                               ) override final;
 
 
   /* BMG160 Configuration Interface */
 
-  virtual bool setOutputDataRateAndBandwith (interface::OutputDataRateAndBandwith const output_data_rate_and_bandwidth) override;
-  virtual bool setFullScaleRange            (interface::FullScaleRange            const full_scale_range              ) override;
+  virtual bool setOutputDataRateAndBandwith (interface::OutputDataRateAndBandwith const output_data_rate_and_bandwidth) override final;
+  virtual bool setFullScaleRange            (interface::FullScaleRange            const full_scale_range              ) override final;
 
 
 private:

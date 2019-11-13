@@ -51,7 +51,7 @@ namespace LIS3DSH
  * CLASS DECLARATION
  **************************************************************************************/
 
-class LIS3DSH_Debug : public NoInstance
+class LIS3DSH_Debug final : public NoInstance
 {
 
 public:

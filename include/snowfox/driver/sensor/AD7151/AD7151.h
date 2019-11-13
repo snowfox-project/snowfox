@@ -55,7 +55,7 @@ static uint32_t constexpr IOCTL_CHECK_IF_CONVERSION_IS_COMPLETE = 2; /* Arg: boo
  * CLASS DECLARATION
  **************************************************************************************/
 
-class AD7151 : public driver::interface::Driver
+class AD7151 final : public driver::interface::Driver
 {
 
 public:
@@ -64,11 +64,11 @@ public:
   virtual ~AD7151();
 
 
-  virtual bool    open (                                                  ) override;
-  virtual ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) override;
-  virtual ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override;
-  virtual bool    ioctl(uint32_t const   cmd,    void          * arg      ) override;
-  virtual void    close(                                                  ) override;
+  virtual bool    open (                                                  ) override final;
+  virtual ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) override final;
+  virtual ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override final;
+  virtual bool    ioctl(uint32_t const   cmd,    void          * arg      ) override final;
+  virtual void    close(                                                  ) override final;
 
 private:
 

@@ -47,7 +47,7 @@ namespace AD7151
  * CLASS DECLARATION
  **************************************************************************************/
 
-class AD7151_Control : public interface::AD7151_Control
+class AD7151_Control final : public interface::AD7151_Control
 {
 
 public:
@@ -58,14 +58,14 @@ public:
 
   /* AD7151 Interface */
 
-  virtual bool startSingleConversion        (                                 ) override;
-  virtual bool checkIfConversionIsComplete  (bool     * is_conversion_complete) override;
-  virtual bool readConversionResult         (uint16_t * raw_data              ) override;
+  virtual bool startSingleConversion        (                                 ) override final;
+  virtual bool checkIfConversionIsComplete  (bool     * is_conversion_complete) override final;
+  virtual bool readConversionResult         (uint16_t * raw_data              ) override final;
 
 
   /* AD7151 Configuration Interface */
 
-  virtual bool setCapacitiveInputRange      (interface::CapacitiveInputRange const capacitive_input_range) override;
+  virtual bool setCapacitiveInputRange      (interface::CapacitiveInputRange const capacitive_input_range) override final;
 
 private:
 

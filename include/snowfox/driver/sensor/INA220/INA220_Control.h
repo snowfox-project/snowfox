@@ -47,7 +47,7 @@ namespace INA220
  * CLASS DECLARATION
  **************************************************************************************/
 
-class INA220_Control : public interface::INA220_Control
+class INA220_Control final : public interface::INA220_Control
 {
 
 public:
@@ -56,15 +56,15 @@ public:
   virtual ~INA220_Control();
 
 
-  virtual bool readShuntVoltage     (int16_t * shunt_voltage) override;
-  virtual bool readBusVoltage       (int16_t * bus_voltage  ) override;
+  virtual bool readShuntVoltage     (int16_t * shunt_voltage) override final;
+  virtual bool readBusVoltage       (int16_t * bus_voltage  ) override final;
 
 
-  virtual bool setBusVoltageRange   (interface::BusVoltageRange    const bus_voltage_range   ) override;
-  virtual bool setShuntPgaGain      (interface::ShuntPgaGain       const shunt_pga_gain      ) override;
-  virtual bool setBusAdcResolution  (interface::BusAdcResolution   const bus_adc_resolution  ) override;
-  virtual bool setShuntAdcResolution(interface::ShuntAdcResolution const shunt_adc_resolution) override;
-  virtual bool setOperatingMode     (interface::OperatingMode      const operating_mode      ) override;
+  virtual bool setBusVoltageRange   (interface::BusVoltageRange    const bus_voltage_range   ) override final;
+  virtual bool setShuntPgaGain      (interface::ShuntPgaGain       const shunt_pga_gain      ) override final;
+  virtual bool setBusAdcResolution  (interface::BusAdcResolution   const bus_adc_resolution  ) override final;
+  virtual bool setShuntAdcResolution(interface::ShuntAdcResolution const shunt_adc_resolution) override final;
+  virtual bool setOperatingMode     (interface::OperatingMode      const operating_mode      ) override final;
 
 
 private:

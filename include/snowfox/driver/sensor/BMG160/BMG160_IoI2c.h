@@ -47,7 +47,7 @@ namespace BMG160
  * CLASS DECLARATION
  **************************************************************************************/
 
-class BMG160_IoI2c : public interface::BMG160_Io
+class BMG160_IoI2c final : public interface::BMG160_Io
 {
 
 public:
@@ -56,10 +56,10 @@ public:
   virtual ~BMG160_IoI2c();
 
 
-  virtual bool readRegister (interface::Register const reg, uint8_t       * data, uint16_t const num_bytes) override;
-  virtual bool readRegister (interface::Register const reg, uint8_t       * data                          ) override;
-  virtual bool writeRegister(interface::Register const reg, uint8_t const * data, uint16_t const num_bytes) override;
-  virtual bool writeRegister(interface::Register const reg, uint8_t const   data                          ) override;
+  virtual bool readRegister (interface::Register const reg, uint8_t       * data, uint16_t const num_bytes) override final;
+  virtual bool readRegister (interface::Register const reg, uint8_t       * data                          ) override final;
+  virtual bool writeRegister(interface::Register const reg, uint8_t const * data, uint16_t const num_bytes) override final;
+  virtual bool writeRegister(interface::Register const reg, uint8_t const   data                          ) override final;
 
 
 private:

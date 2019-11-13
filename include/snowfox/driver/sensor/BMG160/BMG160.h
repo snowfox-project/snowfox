@@ -54,7 +54,7 @@ static uint32_t constexpr IOCTL_SET_FULL_SCALE_RANGE               = 1; /* Arg: 
  * CLASS DECLARATION
  **************************************************************************************/
 
-class BMG160 : public driver::interface::Driver
+class BMG160 final : public driver::interface::Driver
 {
 
 public:
@@ -63,11 +63,11 @@ public:
   virtual ~BMG160();
 
 
-  virtual bool    open (                                                  ) override;
-  virtual ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) override;
-  virtual ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override;
-  virtual bool    ioctl(uint32_t const   cmd,    void          * arg      ) override;
-  virtual void    close(                                                  ) override;
+  virtual bool    open (                                                  ) override final;
+  virtual ssize_t read (uint8_t        * buffer, ssize_t const   num_bytes) override final;
+  virtual ssize_t write(uint8_t  const * buffer, ssize_t const   num_bytes) override final;
+  virtual bool    ioctl(uint32_t const   cmd,    void          * arg      ) override final;
+  virtual void    close(                                                  ) override final;
 
 private:
 

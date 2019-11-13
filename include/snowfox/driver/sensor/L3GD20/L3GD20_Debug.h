@@ -51,7 +51,7 @@ namespace L3GD20
  * CLASS DECLARATION
  **************************************************************************************/
 
-class L3GD20_Debug : public NoInstance
+class L3GD20_Debug final : public NoInstance
 {
 
 public:

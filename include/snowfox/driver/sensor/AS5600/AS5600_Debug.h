@@ -51,7 +51,7 @@ namespace AS5600
  * CLASS DECLARATION
  **************************************************************************************/
 
-class AS5600_Debug : public NoInstance
+class AS5600_Debug final : public NoInstance
 {
 
 public:

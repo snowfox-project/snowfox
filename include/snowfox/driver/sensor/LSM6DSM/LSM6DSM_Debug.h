@@ -51,7 +51,7 @@ namespace LSM6DSM
  * CLASS DECLARATION
  **************************************************************************************/
 
-class LSM6DSM_Debug : public NoInstance
+class LSM6DSM_Debug final : public NoInstance
 {
 
 public:

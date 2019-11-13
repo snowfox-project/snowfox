@@ -51,7 +51,7 @@ namespace BMG160
  * CLASS DECLARATION
  **************************************************************************************/
 
-class BMG160_Debug : public NoInstance
+class BMG160_Debug final : public NoInstance
 {
 
 public:

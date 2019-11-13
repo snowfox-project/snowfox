@@ -51,7 +51,7 @@ namespace AD7151
  * CLASS DECLARATION
  **************************************************************************************/
 
-class AD7151_Debug : public NoInstance
+class AD7151_Debug final : public NoInstance
 {
 
 public:

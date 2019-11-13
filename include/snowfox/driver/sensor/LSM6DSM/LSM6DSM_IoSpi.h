@@ -48,7 +48,7 @@ namespace LSM6DSM
  * CLASS DECLARATION
  **************************************************************************************/
 
-class LSM6DSM_IoSpi : public interface::LSM6DSM_Io
+class LSM6DSM_IoSpi final : public interface::LSM6DSM_Io
 {
 
 public:
@@ -57,10 +57,10 @@ public:
   virtual ~LSM6DSM_IoSpi();
 
 
-  virtual bool readRegister (interface::Register const reg, uint8_t       * data                          ) override;
-  virtual bool readRegister (interface::Register const reg, uint8_t       * data, uint16_t const num_bytes) override;
-  virtual bool writeRegister(interface::Register const reg, uint8_t const   data                          ) override;
-  virtual bool writeRegister(interface::Register const reg, uint8_t const * data, uint16_t const num_bytes) override;
+  virtual bool readRegister (interface::Register const reg, uint8_t       * data                          ) override final;
+  virtual bool readRegister (interface::Register const reg, uint8_t       * data, uint16_t const num_bytes) override final;
+  virtual bool writeRegister(interface::Register const reg, uint8_t const   data                          ) override final;
+  virtual bool writeRegister(interface::Register const reg, uint8_t const * data, uint16_t const num_bytes) override final;
 
 private:
 

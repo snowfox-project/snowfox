@@ -51,7 +51,7 @@ namespace LIS3MDL
  * CLASS DECLARATION
  **************************************************************************************/
 
-class LIS3MDL_Debug : public NoInstance
+class LIS3MDL_Debug final : public NoInstance
 {
 
 public:

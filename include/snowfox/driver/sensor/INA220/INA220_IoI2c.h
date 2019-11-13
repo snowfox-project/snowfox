@@ -47,7 +47,7 @@ namespace INA220
  * CLASS DECLARATION
  **************************************************************************************/
 
-class INA220_IoI2c : public interface::INA220_Io
+class INA220_IoI2c final : public interface::INA220_Io
 {
 
 public:
@@ -56,8 +56,8 @@ public:
   virtual ~INA220_IoI2c();
 
 
-  virtual bool readRegister (interface::Register const reg, uint16_t       * data) override;
-  virtual bool writeRegister(interface::Register const reg, uint16_t const   data) override;
+  virtual bool readRegister (interface::Register const reg, uint16_t       * data) override final;
+  virtual bool writeRegister(interface::Register const reg, uint16_t const   data) override final;
 
 private:
 

@@ -47,7 +47,7 @@ namespace LSM6DSM
  * CLASS DECLARATION
  **************************************************************************************/
 
-class LSM6DSM_Configuration : public interface::LSM6DSM_Configuration
+class LSM6DSM_Configuration final : public interface::LSM6DSM_Configuration
 {
 
 public:
@@ -56,8 +56,8 @@ public:
   virtual ~LSM6DSM_Configuration();
 
 
-  virtual bool enableRegAddrAutoIncrement() override;
-  virtual bool enableBlockDataUpdate     () override;
+  virtual bool enableRegAddrAutoIncrement() override final;
+  virtual bool enableBlockDataUpdate     () override final;
 
 private:
 

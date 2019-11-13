@@ -51,7 +51,7 @@ namespace INA220
  * CLASS DECLARATION
  **************************************************************************************/
 
-class INA220_Debug : public NoInstance
+class INA220_Debug final : public NoInstance
 {
 
 public:
