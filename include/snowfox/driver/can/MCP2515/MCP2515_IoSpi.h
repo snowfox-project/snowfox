@@ -60,19 +60,19 @@ public:
   virtual void    reset   () override;
   virtual uint8_t status  () override;
 
-  virtual void    loadTx0 (uint8_t const * tx_buf) override final;
-  virtual void    loadTx1 (uint8_t const * tx_buf) override final;
-  virtual void    loadTx2 (uint8_t const * tx_buf) override final;
-  virtual void    readRx0 (uint8_t       * rx_buf) override final;
-  virtual void    readRx1 (uint8_t       * rx_buf) override final;
+  virtual void    loadTx0 (uint8_t const * tx_buf) override;
+  virtual void    loadTx1 (uint8_t const * tx_buf) override;
+  virtual void    loadTx2 (uint8_t const * tx_buf) override;
+  virtual void    readRx0 (uint8_t       * rx_buf) override;
+  virtual void    readRx1 (uint8_t       * rx_buf) override;
 
-  virtual void    requestToTransmitTx0() override final;
-  virtual void    requestToTransmitTx1() override final;
-  virtual void    requestToTransmitTx2() override final;
+  virtual void    requestToTransmitTx0() override;
+  virtual void    requestToTransmitTx1() override;
+  virtual void    requestToTransmitTx2() override;
 
-  virtual void    readRegister  (interface::Register const reg, uint8_t       * data                    ) override final;
-  virtual void    writeRegister (interface::Register const reg, uint8_t const   data                    ) override final;
-  virtual void    modifyRegister(interface::Register const reg, uint8_t const   data, uint8_t const mask) override final;
+  virtual void    readRegister  (interface::Register const reg, uint8_t       * data                    ) override;
+  virtual void    writeRegister (interface::Register const reg, uint8_t const   data                    ) override;
+  virtual void    modifyRegister(interface::Register const reg, uint8_t const   data, uint8_t const mask) override;
 
 private:
 

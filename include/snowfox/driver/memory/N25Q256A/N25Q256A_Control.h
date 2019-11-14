@@ -57,10 +57,10 @@ public:
   virtual ~N25Q256A_Control();
 
 
-  virtual void reset          ()                                                                            override final;
-  virtual void read           (uint32_t const read_addr,  uint8_t       * buffer, uint32_t const num_bytes) override final;
-  virtual void write          (uint32_t const write_addr, uint8_t const * buffer, uint32_t const num_bytes) override final;
-  virtual void eraseSubsector (uint32_t const subsector_num)                                                override final;
+  virtual void reset          ()                                                                            override;
+  virtual void read           (uint32_t const read_addr,  uint8_t       * buffer, uint32_t const num_bytes) override;
+  virtual void write          (uint32_t const write_addr, uint8_t const * buffer, uint32_t const num_bytes) override;
+  virtual void eraseSubsector (uint32_t const subsector_num)                                                override;
 
 private:
 

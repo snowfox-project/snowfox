@@ -56,7 +56,7 @@ public:
   virtual ~MCP2515_CanConfiguration();
 
 
-  virtual void setCanBitRate(can::interface::CanBitRate const can_bit_rate) override final;
+  virtual void setCanBitRate(can::interface::CanBitRate const can_bit_rate) override;
 
 
 private:

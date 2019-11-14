@@ -56,8 +56,8 @@ public:
   virtual ~MCP23017_Configuration();
 
 
-  virtual bool configAsInput (interface::Port const port, interface::Pin const pin, interface::PullUpMode const pull_up_mode) override final;
-  virtual bool configAsOutput(interface::Port const port, interface::Pin const pin                                          ) override final;
+  virtual bool configAsInput (interface::Port const port, interface::Pin const pin, interface::PullUpMode const pull_up_mode) override;
+  virtual bool configAsOutput(interface::Port const port, interface::Pin const pin                                          ) override;
 
 
 private:

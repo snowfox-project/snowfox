@@ -89,13 +89,13 @@ public:
   virtual ~DRV2605();
 
 
-  virtual bool open () override final;
-  virtual void close() override final;
+  virtual bool open () override;
+  virtual void close() override;
 
 
 protected:
 
-  virtual bool ioctl_device(uint32_t const cmd, void * arg) override final;
+  virtual bool ioctl_device(uint32_t const cmd, void * arg) override;
 
 
 private:

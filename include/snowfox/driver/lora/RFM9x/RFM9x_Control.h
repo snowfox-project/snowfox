@@ -56,22 +56,22 @@ public:
   virtual ~RFM9x_Control();
 
   /* RFM9x_OperationModeControl *******************************************************/
-  virtual void                     setOperatingMode(interface::OperatingMode const op_mode) override final;
-  virtual interface::OperatingMode getOperatingMode(                                      ) override final;
+  virtual void                     setOperatingMode(interface::OperatingMode const op_mode) override;
+  virtual interface::OperatingMode getOperatingMode(                                      ) override;
 
   /* RFM9x_EventControl ***************************************************************/
-  virtual uint8_t getEventFlags (                                     ) override final;
-  virtual void    clearEventFlag(interface::EventFlag const event_flag) override final;
+  virtual uint8_t getEventFlags (                                     ) override;
+  virtual void    clearEventFlag(interface::EventFlag const event_flag) override;
 
   /* RFM9x_FifoControl ****************************************************************/
-  virtual void    writeToTransmitFifo(uint8_t const * data, uint8_t const num_bytes_to_write) override final;
-  virtual uint8_t readFromReceiveFifo(uint8_t       * data, uint8_t const num_bytes_to_read ) override final;
+  virtual void    writeToTransmitFifo(uint8_t const * data, uint8_t const num_bytes_to_write) override;
+  virtual uint8_t readFromReceiveFifo(uint8_t       * data, uint8_t const num_bytes_to_read ) override;
 
   /* RFM9x_Dio0Control ****************************************************************/
-  virtual void setDio0EventSource(interface::Dio0EventSource const event_source) override final;
+  virtual void setDio0EventSource(interface::Dio0EventSource const event_source) override;
 
   /* RFM9x_Dio1Control ****************************************************************/
-  virtual void setDio1EventSource(interface::Dio1EventSource const event_source) override final;
+  virtual void setDio1EventSource(interface::Dio1EventSource const event_source) override;
 
 private:
 

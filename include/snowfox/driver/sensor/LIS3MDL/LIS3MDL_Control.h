@@ -58,32 +58,32 @@ public:
 
   /* LIS3MDL Interface */
 
-  virtual bool checkIfNewDataIsAvailable_XYZ(bool * is_new_data_available_xyz) override final;
-  virtual bool checkIfNewDataIsAvailable_X  (bool * is_new_data_available_x  ) override final;
-  virtual bool checkIfNewDataIsAvailable_Y  (bool * is_new_data_available_y  ) override final;
-  virtual bool checkIfNewDataIsAvailable_Z  (bool * is_new_data_available_z  ) override final;
+  virtual bool checkIfNewDataIsAvailable_XYZ(bool * is_new_data_available_xyz) override;
+  virtual bool checkIfNewDataIsAvailable_X  (bool * is_new_data_available_x  ) override;
+  virtual bool checkIfNewDataIsAvailable_Y  (bool * is_new_data_available_y  ) override;
+  virtual bool checkIfNewDataIsAvailable_Z  (bool * is_new_data_available_z  ) override;
 
-  virtual bool checkIfDataOverrun_XYZ       (bool * is_data_overrun_xyz      ) override final;
-  virtual bool checkIfDataOverrun_X         (bool * is_data_overrun_x        ) override final;
-  virtual bool checkIfDataOverrun_Y         (bool * is_data_overrun_y        ) override final;
-  virtual bool checkIfDataOverrun_Z         (bool * is_data_overrun_z        ) override final;
+  virtual bool checkIfDataOverrun_XYZ       (bool * is_data_overrun_xyz      ) override;
+  virtual bool checkIfDataOverrun_X         (bool * is_data_overrun_x        ) override;
+  virtual bool checkIfDataOverrun_Y         (bool * is_data_overrun_y        ) override;
+  virtual bool checkIfDataOverrun_Z         (bool * is_data_overrun_z        ) override;
 
-  virtual bool readXYZAxis                  (int16_t * raw_x, int16_t * raw_y, int16_t * raw_z) override final;
-  virtual bool readXAxis                    (int16_t * raw_x                                  ) override final;
-  virtual bool readYAxis                    (int16_t * raw_y                                  ) override final;
-  virtual bool readZAxis                    (int16_t * raw_z                                  ) override final;
-  virtual bool readTemperature              (int16_t * raw_temp                               ) override final;
+  virtual bool readXYZAxis                  (int16_t * raw_x, int16_t * raw_y, int16_t * raw_z) override;
+  virtual bool readXAxis                    (int16_t * raw_x                                  ) override;
+  virtual bool readYAxis                    (int16_t * raw_y                                  ) override;
+  virtual bool readZAxis                    (int16_t * raw_z                                  ) override;
+  virtual bool readTemperature              (int16_t * raw_temp                               ) override;
 
 
   /* LIS3MDL Configuration Interface */
 
-  virtual bool setOperationMode_XY          (interface::OperationMode_XY const operation_mode_xy) override final;
-  virtual bool setOperationMode_Z           (interface::OperationMode_Z  const operation_mode_z ) override final;
-  virtual bool setOutputDataRate            (interface::OutputDataRate   const output_data_rate ) override final;
-  virtual bool setFullScaleRange            (interface::FullScaleRange   const full_scale_range ) override final;
-  virtual bool setConversionMode            (interface::ConversionMode   const conversion_mode  ) override final;
-  virtual bool enableTemperatureSensor      (                                                   ) override final;
-  virtual bool enableBlockDataUpdate        (                                                   ) override final;
+  virtual bool setOperationMode_XY          (interface::OperationMode_XY const operation_mode_xy) override;
+  virtual bool setOperationMode_Z           (interface::OperationMode_Z  const operation_mode_z ) override;
+  virtual bool setOutputDataRate            (interface::OutputDataRate   const output_data_rate ) override;
+  virtual bool setFullScaleRange            (interface::FullScaleRange   const full_scale_range ) override;
+  virtual bool setConversionMode            (interface::ConversionMode   const conversion_mode  ) override;
+  virtual bool enableTemperatureSensor      (                                                   ) override;
+  virtual bool enableBlockDataUpdate        (                                                   ) override;
 
 
 private:

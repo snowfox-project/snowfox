@@ -56,15 +56,15 @@ public:
   virtual ~HD44780_Control();
 
 
-  virtual void turnDisplayOn        () override final;
-  virtual void turnDisplayOff       () override final;
-  virtual void enableCursor         () override final;
-  virtual void disableCursor        () override final;
-  virtual void turnCursonBlinkingOn () override final;
-  virtual void turnCursonBlinkingOff() override final;
+  virtual void turnDisplayOn        () override;
+  virtual void turnDisplayOff       () override;
+  virtual void enableCursor         () override;
+  virtual void disableCursor        () override;
+  virtual void turnCursonBlinkingOn () override;
+  virtual void turnCursonBlinkingOff() override;
 
-  virtual void clear                () override final;
-  virtual void home                 () override final;
+  virtual void clear                () override;
+  virtual void home                 () override;
 
 
 private:

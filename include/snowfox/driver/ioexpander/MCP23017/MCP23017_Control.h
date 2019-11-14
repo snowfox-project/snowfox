@@ -56,12 +56,12 @@ public:
   virtual ~MCP23017_Control();
 
 
-  virtual bool set  (interface::Port const port, interface::Pin const   pin               ) override final;
-  virtual bool clr  (interface::Port const port, interface::Pin const   pin               ) override final;
-  virtual bool write(interface::Port const port, uint8_t        const   port_val          ) override final;
+  virtual bool set  (interface::Port const port, interface::Pin const   pin               ) override;
+  virtual bool clr  (interface::Port const port, interface::Pin const   pin               ) override;
+  virtual bool write(interface::Port const port, uint8_t        const   port_val          ) override;
 
-  virtual bool isSet(interface::Port const port, interface::Pin const   pin, bool * is_set) override final;
-  virtual bool read (interface::Port const port, uint8_t              * port_val          ) override final;
+  virtual bool isSet(interface::Port const port, interface::Pin const   pin, bool * is_set) override;
+  virtual bool read (interface::Port const port, uint8_t              * port_val          ) override;
 
 
 private:

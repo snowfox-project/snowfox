@@ -54,7 +54,7 @@ public:
   virtual ~RFM9x_onCadDoneCallback();
 
 
-  virtual void onCadDone() override final;
+  virtual void onCadDone() override;
 
 };
 

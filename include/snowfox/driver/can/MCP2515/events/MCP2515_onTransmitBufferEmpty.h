@@ -57,7 +57,7 @@ public:
   virtual ~MCP2515_onTransmitBufferEmpty();
 
 
-  virtual void onTransmitBufferEmpty(interface::TransmitBufferSelect const tx_buf_sel) override final;
+  virtual void onTransmitBufferEmpty(interface::TransmitBufferSelect const tx_buf_sel) override;
 
 
 private:

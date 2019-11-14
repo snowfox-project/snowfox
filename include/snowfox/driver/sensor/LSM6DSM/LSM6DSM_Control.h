@@ -59,7 +59,7 @@ public:
   virtual ~LSM6DSM_Control();
 
 
-  virtual bool reset() override final;
+  virtual bool reset() override;
 
 private:
 

@@ -54,7 +54,7 @@ public:
   virtual ~MCP2515_onWakeup();
 
 
-  virtual void onWakeup() override final;
+  virtual void onWakeup() override;
 
 };
 

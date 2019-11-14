@@ -57,7 +57,7 @@ public:
   virtual ~MCP2515_onReceiveBufferFull();
 
 
-  virtual void onReceiveBufferFull(interface::ReceiveBufferSelect const rx_buf_sel) override final;
+  virtual void onReceiveBufferFull(interface::ReceiveBufferSelect const rx_buf_sel) override;
 
 
 private:

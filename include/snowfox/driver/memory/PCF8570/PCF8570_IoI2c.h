@@ -56,8 +56,8 @@ public:
   virtual ~PCF8570_IoI2c();
 
 
-  virtual bool writeByte(uint8_t const address, uint8_t const   data) override final;
-  virtual bool readByte (uint8_t const address, uint8_t       * data) override final;
+  virtual bool writeByte(uint8_t const address, uint8_t const   data) override;
+  virtual bool readByte (uint8_t const address, uint8_t       * data) override;
 
 private:
 

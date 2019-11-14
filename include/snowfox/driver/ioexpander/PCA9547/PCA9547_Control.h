@@ -58,8 +58,8 @@ public:
 
   /* PCA9547 Interface */
 
-  virtual bool setChannel(interface::I2cChannel const   sel) override final;
-  virtual bool getChannel(interface::I2cChannel       * sel) override final;
+  virtual bool setChannel(interface::I2cChannel const   sel) override;
+  virtual bool getChannel(interface::I2cChannel       * sel) override;
 
 private:
 

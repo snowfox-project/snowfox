@@ -68,7 +68,7 @@ public:
   virtual ~RFM9x_Dio1EventCallback();
 
 
-  virtual void onExternalInterrupt() override final;
+  virtual void onExternalInterrupt() override;
 
 
 private:

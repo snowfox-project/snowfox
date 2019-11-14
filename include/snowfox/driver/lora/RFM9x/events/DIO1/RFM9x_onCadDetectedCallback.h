@@ -54,7 +54,7 @@ public:
   virtual ~RFM9x_onCadDetectedCallback();
 
 
-  virtual void onCadDetected() override final;
+  virtual void onCadDetected() override;
 
 };
 

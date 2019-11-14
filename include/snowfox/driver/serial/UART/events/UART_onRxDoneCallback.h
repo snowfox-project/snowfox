@@ -61,7 +61,7 @@ public:
   virtual ~UART_onRxDoneCallback();
 
 
-  virtual void onRxDone() override final;
+  virtual void onRxDone() override;
 
 
 private:

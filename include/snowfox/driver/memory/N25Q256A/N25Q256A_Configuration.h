@@ -56,9 +56,9 @@ public:
   virtual ~N25Q256A_Configuration();
 
 
-  virtual void                   setAdressMode(interface::AddressMode const addr_mode) override final;
-  virtual interface::AddressMode getAdressMode()                                       override final;
-  virtual util::jedec::JedecCode readDeviceId ()                                       override final;
+  virtual void                   setAdressMode(interface::AddressMode const addr_mode) override;
+  virtual interface::AddressMode getAdressMode()                                       override;
+  virtual util::jedec::JedecCode readDeviceId ()                                       override;
 
 private:
 

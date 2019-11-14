@@ -56,7 +56,7 @@ public:
   virtual ~RFM9x_onRxTimeoutCallback();
 
 
-  virtual void onRxTimeout() override final;
+  virtual void onRxTimeout() override;
 
 
 private:

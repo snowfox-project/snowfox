@@ -58,8 +58,8 @@ public:
 
   /* PCF8570 Interface */
 
-  virtual bool write(uint8_t const address, uint8_t const   data) override final;
-  virtual bool read (uint8_t const address, uint8_t       * data) override final;
+  virtual bool write(uint8_t const address, uint8_t const   data) override;
+  virtual bool read (uint8_t const address, uint8_t       * data) override;
 
 private:
 

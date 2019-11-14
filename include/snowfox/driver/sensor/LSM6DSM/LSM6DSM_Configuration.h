@@ -56,8 +56,8 @@ public:
   virtual ~LSM6DSM_Configuration();
 
 
-  virtual bool enableRegAddrAutoIncrement() override final;
-  virtual bool enableBlockDataUpdate     () override final;
+  virtual bool enableRegAddrAutoIncrement() override;
+  virtual bool enableBlockDataUpdate     () override;
 
 private:
 

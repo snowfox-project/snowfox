@@ -68,7 +68,7 @@ public:
   virtual ~MCP2515_EventCallback();
 
 
-  virtual void onExternalInterrupt() override final;
+  virtual void onExternalInterrupt() override;
 
 
 private:

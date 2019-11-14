@@ -54,7 +54,7 @@ public:
   virtual ~MCP2515_onMessageError();
 
 
-  virtual void onMessageError() override final;
+  virtual void onMessageError() override;
 
 };
 

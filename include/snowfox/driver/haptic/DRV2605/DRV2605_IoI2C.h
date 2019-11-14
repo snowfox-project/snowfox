@@ -56,8 +56,8 @@ public:
   virtual ~DRV2605_IoI2C();
 
 
-  virtual bool readRegister (interface::Register const reg, uint8_t       * data) override final;
-  virtual bool writeRegister(interface::Register const reg, uint8_t const   data) override final;
+  virtual bool readRegister (interface::Register const reg, uint8_t       * data) override;
+  virtual bool writeRegister(interface::Register const reg, uint8_t const   data) override;
 
 
 private:

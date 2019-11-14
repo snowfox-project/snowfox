@@ -54,7 +54,7 @@ public:
   virtual ~RFM9x_onFhssChangeChannelCallback();
 
 
-  virtual void onFhssChangeChannel() override final;
+  virtual void onFhssChangeChannel() override;
 
 };
 

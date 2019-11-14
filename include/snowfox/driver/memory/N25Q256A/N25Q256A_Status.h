@@ -56,10 +56,10 @@ public:
   virtual ~N25Q256A_Status();
 
 
-  virtual bool isProgramInProgress         () override final;
-  virtual bool isEraseInProgress           () override final;
-  virtual bool isNVConfigRegWriteInProgress() override final;
-  virtual bool isWriteStatusRegInProgress  () override final;
+  virtual bool isProgramInProgress         () override;
+  virtual bool isEraseInProgress           () override;
+  virtual bool isNVConfigRegWriteInProgress() override;
+  virtual bool isWriteStatusRegInProgress  () override;
 
 private:
 

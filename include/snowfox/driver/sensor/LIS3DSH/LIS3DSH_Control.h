@@ -58,37 +58,37 @@ public:
 
   /* LIS3DSH Interface */
 
-  virtual bool checkIfNewDataIsAvailable_XYZ(bool * is_new_data_available_xyz) override final;
-  virtual bool checkIfNewDataIsAvailable_X  (bool * is_new_data_available_x  ) override final;
-  virtual bool checkIfNewDataIsAvailable_Y  (bool * is_new_data_available_y  ) override final;
-  virtual bool checkIfNewDataIsAvailable_Z  (bool * is_new_data_available_z  ) override final;
+  virtual bool checkIfNewDataIsAvailable_XYZ(bool * is_new_data_available_xyz) override;
+  virtual bool checkIfNewDataIsAvailable_X  (bool * is_new_data_available_x  ) override;
+  virtual bool checkIfNewDataIsAvailable_Y  (bool * is_new_data_available_y  ) override;
+  virtual bool checkIfNewDataIsAvailable_Z  (bool * is_new_data_available_z  ) override;
 
-  virtual bool checkIfDataOverrun_XYZ       (bool * is_data_overrun_xyz      ) override final;
-  virtual bool checkIfDataOverrun_X         (bool * is_data_overrun_x        ) override final;
-  virtual bool checkIfDataOverrun_Y         (bool * is_data_overrun_y        ) override final;
-  virtual bool checkIfDataOverrun_Z         (bool * is_data_overrun_z        ) override final;
+  virtual bool checkIfDataOverrun_XYZ       (bool * is_data_overrun_xyz      ) override;
+  virtual bool checkIfDataOverrun_X         (bool * is_data_overrun_x        ) override;
+  virtual bool checkIfDataOverrun_Y         (bool * is_data_overrun_y        ) override;
+  virtual bool checkIfDataOverrun_Z         (bool * is_data_overrun_z        ) override;
 
-  virtual bool readXYZAxis                  (int16_t * raw_x, int16_t * raw_y, int16_t * raw_z) override final;
-  virtual bool readXAxis                    (int16_t * raw_x                                  ) override final;
-  virtual bool readYAxis                    (int16_t * raw_y                                  ) override final;
-  virtual bool readZAxis                    (int16_t * raw_z                                  ) override final;
-  virtual bool readTemperature              (int8_t  * raw_temp                               ) override final;
+  virtual bool readXYZAxis                  (int16_t * raw_x, int16_t * raw_y, int16_t * raw_z) override;
+  virtual bool readXAxis                    (int16_t * raw_x                                  ) override;
+  virtual bool readYAxis                    (int16_t * raw_y                                  ) override;
+  virtual bool readZAxis                    (int16_t * raw_z                                  ) override;
+  virtual bool readTemperature              (int8_t  * raw_temp                               ) override;
 
 
   /* LIS3DSH Configuration Interface */
 
-  virtual bool setOutputDataRate            (interface::OutputDataRate  const output_data_rate) override final;
-  virtual bool setFullScaleRange            (interface::FullScaleRange  const full_scale_range) override final;
-  virtual bool setFilterBandwidth           (interface::FilterBandwidth const filter_bandwidth) override final;
+  virtual bool setOutputDataRate            (interface::OutputDataRate  const output_data_rate) override;
+  virtual bool setFullScaleRange            (interface::FullScaleRange  const full_scale_range) override;
+  virtual bool setFilterBandwidth           (interface::FilterBandwidth const filter_bandwidth) override;
 
-  virtual bool enableFIFO                   () override final;
-  virtual bool disableFIFO                  () override final;
-  virtual bool enableBlockDataUpdate        () override final;
+  virtual bool enableFIFO                   () override;
+  virtual bool disableFIFO                  () override;
+  virtual bool enableBlockDataUpdate        () override;
 
-  virtual bool enableXYZAxis                () override final;
-  virtual bool enableXAxis                  () override final;
-  virtual bool enableYAxis                  () override final;
-  virtual bool enableZAxis                  () override final;
+  virtual bool enableXYZAxis                () override;
+  virtual bool enableXAxis                  () override;
+  virtual bool enableYAxis                  () override;
+  virtual bool enableZAxis                  () override;
 
 
 private:

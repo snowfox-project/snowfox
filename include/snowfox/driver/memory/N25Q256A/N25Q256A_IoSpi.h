@@ -63,13 +63,13 @@ public:
                         uint8_t             const   tx_fill_data,
                         uint8_t                   * rx_buf,
                         uint32_t            const   rx_num_bytes,
-                        uint32_t            const   rx_start_pos) override final;
+                        uint32_t            const   rx_start_pos) override;
 
   virtual void transfer(interface::Command  const   cmd,
                         uint8_t             const * tx_buf_1,
                         uint32_t            const   tx_num_bytes_1,
                         uint8_t             const * tx_buf_2,
-                        uint32_t            const   tx_num_bytes_2) override final;
+                        uint32_t            const   tx_num_bytes_2) override;
 
 
 private:

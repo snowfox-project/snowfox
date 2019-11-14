@@ -56,7 +56,7 @@ public:
   virtual ~RFM9x_onRxDoneCallback();
 
 
-  virtual void onRxDone() override final;
+  virtual void onRxDone() override;
 
 
 private:

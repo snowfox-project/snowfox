@@ -45,8 +45,8 @@ public:
   virtual ~PCA9547_IoI2c();
 
 
-  virtual bool readControlRegister   (uint8_t        * data) override final;
-  virtual bool writeControlRegister  (uint8_t const    data) override final;
+  virtual bool readControlRegister   (uint8_t        * data) override;
+  virtual bool writeControlRegister  (uint8_t const    data) override;
 
 
 private:

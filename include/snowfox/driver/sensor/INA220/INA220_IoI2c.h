@@ -56,8 +56,8 @@ public:
   virtual ~INA220_IoI2c();
 
 
-  virtual bool readRegister (interface::Register const reg, uint16_t       * data) override final;
-  virtual bool writeRegister(interface::Register const reg, uint16_t const   data) override final;
+  virtual bool readRegister (interface::Register const reg, uint16_t       * data) override;
+  virtual bool writeRegister(interface::Register const reg, uint16_t const   data) override;
 
 private:
 

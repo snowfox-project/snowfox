@@ -56,10 +56,10 @@ public:
   virtual ~AT45DBx_Control();
 
 
-  virtual void erase(                                                                      ) override final;
-  virtual void erase(uint32_t const page, uint32_t const page_shift                        ) override final;
-  virtual void write(uint32_t const page, uint32_t const page_shift, uint8_t const * buffer) override final;
-  virtual void read (uint32_t const offset, uint8_t * buffer, uint16_t const num_bytes     ) override final;
+  virtual void erase(                                                                      ) override;
+  virtual void erase(uint32_t const page, uint32_t const page_shift                        ) override;
+  virtual void write(uint32_t const page, uint32_t const page_shift, uint8_t const * buffer) override;
+  virtual void read (uint32_t const offset, uint8_t * buffer, uint16_t const num_bytes     ) override;
 
 
 private:
