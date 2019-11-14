@@ -19,6 +19,8 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 # CONFIGURATION ##########################################################
 ##########################################################################
 
+set(SNOWFOX_APPLICATON_NAME "")
+set(SNOWFOX_APPLICATON_SRCS "")
 include(config.cmake)
 
 ##########################################################################
@@ -98,12 +100,25 @@ else()
   set(SNOWFOX_LIBRARY_TARGET ${PROJECT_NAME}-${MCU_TYPE})
 endif()
 
+set(SNOWFOX_APPLICATON_TARGET ${SNOWFOX_LIBRARY_TARGET}-${SNOWFOX_APPLICATON_NAME})
+
 ##########################################################################
 
 add_library(
   ${SNOWFOX_LIBRARY_TARGET} 
   STATIC
   ${SNOWFOX_LIBRARY_SRCS}
+)
+
+add_executable(
+  ${SNOWFOX_APPLICATON_TARGET}
+  src/main.cpp
+  ${SNOWFOX_APPLICATON_SRCS}
+)
+
+target_link_libraries(
+  ${SNOWFOX_APPLICATON_TARGET}
+  ${SNOWFOX_LIBRARY_TARGET}
 )
 
 ##########################################################################
