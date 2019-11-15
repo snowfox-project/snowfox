@@ -1,6 +1,6 @@
 ##########################################################################
 
-set(SNOWFOX_APPLICATON_TARGET "default-atmega328p")
+set(SNOWFOX_APPLICATON_TARGET "atmega328p-default")
 
 ##########################################################################
 

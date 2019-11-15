@@ -1,6 +1,6 @@
 ##########################################################################
 
-set(SNOWFOX_APPLICATON_TARGET "default-atmega1284p")
+set(SNOWFOX_APPLICATON_TARGET "atmega1284p-default")
 
 ##########################################################################
 

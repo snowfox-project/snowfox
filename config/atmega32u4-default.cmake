@@ -1,6 +1,6 @@
 ##########################################################################
 
-set(SNOWFOX_APPLICATON_TARGET "default-atmega32u4")
+set(SNOWFOX_APPLICATON_TARGET "atmega32u4-default")
 
 ##########################################################################
 
