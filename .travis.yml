@@ -155,10 +155,10 @@ matrix:
         - export PATH="$PATH:${TRAVIS_BUILD_DIR}/toolchain/riscv64-unknown-elf-gcc-8.2.0-2019.02.0-x86_64-linux-ubuntu14/bin"
       script:
         - .ci/script/run-build-example.sh examples/driver/ioexpander/MAX6921/driver-max6921-spi-atmega328p
-        - .ci/script/run-build-example.sh examples/driver/ioexpander/PCA9547/driver-pca9547-i2c-atmega328p
-        - .ci/script/run-build-example.sh examples/driver/ioexpander/PCA9547/driver-pca9547-i2c-atmega328p-debug
         - .ci/script/run-build-example.sh examples/driver/ioexpander/MCP23017/driver-mcp23017-i2c-atmega328p
         - .ci/script/run-build-example.sh examples/driver/ioexpander/MCP23017/driver-mcp23017-i2c-atmega328p-debug
+        - .ci/script/run-build-example.sh examples/driver/ioexpander/PCA9547/driver-pca9547-i2c-atmega328p
+        - .ci/script/run-build-example.sh examples/driver/ioexpander/PCA9547/driver-pca9547-i2c-atmega328p-debug
     # EXAMPLES/DRIVER/LORA
     - env:
       - NAME="examples/driver/lora"
