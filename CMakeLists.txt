@@ -19,7 +19,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 # CONFIGURATION ##########################################################
 ##########################################################################
 
-set(SNOWFOX_APPLICATON_NAME "")
+set(SNOWFOX_APPLICATON_TARGET "")
 set(SNOWFOX_APPLICATON_SRCS "")
 include(config.cmake)
 
@@ -99,8 +99,6 @@ if(${MCU_ARCH} STREQUAL "host")
 else()
   set(SNOWFOX_LIBRARY_TARGET ${PROJECT_NAME}-${MCU_TYPE})
 endif()
-
-set(SNOWFOX_APPLICATON_TARGET ${SNOWFOX_LIBRARY_TARGET}-${SNOWFOX_APPLICATON_NAME})
 
 ##########################################################################
 
