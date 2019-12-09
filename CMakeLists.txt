@@ -69,6 +69,7 @@ set(SNOWFOX_LIBRARY_SRCS
 set(SNOWFOX_CMAKE_ASM_FLAGS "")
 set(SNOWFOX_CMAKE_C_FLAGS   "")
 set(SNOWFOX_CMAKE_CXX_FLAGS "")
+set(SNOWFOX_CMAKE_EXE_LINKER_FLAGS "")
 
 ##########################################################################
 
@@ -91,6 +92,7 @@ include(.cmake/all-gcc.cmake)
 set(CMAKE_ASM_FLAGS ${CMAKE_ASM_FLAGS} ${SNOWFOX_CMAKE_ASM_FLAGS})
 set(CMAKE_C_FLAGS   ${CMAKE_C_FLAGS}   ${SNOWFOX_CMAKE_C_FLAGS}  )
 set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} ${SNOWFOX_CMAKE_CXX_FLAGS})
+set(CMAKE_EXE_LINKER_FLAGS ${CMAKE_EXE_LINKER_FLAGS} ${SNOWFOX_CMAKE_EXE_LINKER_FLAGS})
 
 ##########################################################################
 
