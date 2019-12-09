@@ -16,4 +16,13 @@ endif()
 
 if(${MCU_ARCH} STREQUAL "riscv64")
   set(SNOWFOX_LIBRARY_CPU_SRCS ${SNOWFOX_LIBRARY_CPU_SRCS} src/cpu/riscv64/cxx.cpp)
+
+  ##########################################################################
+  # FE310 ##################################################################
+  ##########################################################################
+
+  if(${MCU_TYPE} STREQUAL "fe310" OR {MCU_TYPE} STREQUAL "host")
+    set(SNOWFOX_LIBRARY_CPU_SRCS ${SNOWFOX_LIBRARY_CPU_SRCS} src/cpu/riscv64/FE310/startup.cpp)
+  endif()
+
 endif()
