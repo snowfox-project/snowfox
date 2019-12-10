@@ -123,44 +123,14 @@ export PATH=$PATH:/opt/riscv64-unknown-elf-gcc-8.2.0-2019.02.0-x86_64-linux-ubun
 ```
 ### Clone repository
 ```
-git clone https://github.com/snowfox-project/snowfox.git
+git clone --recurse-submodules https://github.com/snowfox-project/snowfox.git
 cd snowfox
 ```
 
-### Copy and edit configuration
-```
-cp config/atmega328p-default.cmake config.cmake
-vim config.cmake
-```
-
-### Build
+### Build Example
 
 ```
-mkdir build && cd build
-cmake ..
-make
-sudo make install
-(sudo make uninstall)
-```
-
-## Build Example
-
-### Build Library
-```
-cp examples/debug/debug-serial-atmega328p-uart0/config.cmake config.cmake
-mkdir build
-cd build
-cmake ..
-make
-sudo make install
-```
-
-### Build Executable
-```
-cd examples/debug/debug-serial-atmega328p-uart0
-mkdir build && cd build
-cmake ..
-make
+.ci/script/run-build-example.sh examples/hal/ATMEGA328P/hal-atmega328p-digital-out-pin
 ```
 
 ## Licensing
