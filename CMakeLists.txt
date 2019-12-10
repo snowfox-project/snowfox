@@ -130,24 +130,3 @@ if(${MCU_ARCH} STREQUAL "host")
 endif()
 
 ##########################################################################
-# INSTALL ################################################################
-##########################################################################
-
-install(TARGETS ${SNOWFOX_LIBRARY_TARGET} 
-  ARCHIVE DESTINATION /usr/local/lib
-)
-
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/ 
-  DESTINATION /usr/local/include
-)
-
-##########################################################################
-# UNINSTALL ##############################################################
-##########################################################################
-
-add_custom_target(uninstall
-  COMMAND bash -c "rm /usr/local/lib/libsnowfox-*.a"
-  COMMAND bash -c "rm -rf /usr/local/include/snowfox"
-)
-
-##########################################################################
