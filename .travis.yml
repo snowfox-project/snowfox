@@ -25,7 +25,7 @@ matrix:
       install: .ci/script/run-install-toolchain-host.sh
       script:
           - .ci/script/run-pre-test-prepare-coverage-report.sh
-          - .ci/script/run-build-libsnowfox.sh config/host-default.cmake
+          - .ci/script/run-build-snowfox-default.sh config/host-default.cmake
           - .ci/script/run-test.sh
           - .ci/script/run-post-test-create-coverage-report.sh
     # ATMEL AVR
@@ -33,77 +33,77 @@ matrix:
       - NAME="Atmel AT90CAN32"
       before_install: true
       install: .ci/script/run-install-toolchain-avr.sh
-      script: .ci/script/run-build-libsnowfox.sh config/at90can32-default.cmake
+      script: .ci/script/run-build-snowfox-default.sh config/at90can32-default.cmake
     - env:
       - NAME="Atmel AT90CAN64"
       before_install: true
       install: .ci/script/run-install-toolchain-avr.sh
-      script: .ci/script/run-build-libsnowfox.sh config/at90can64-default.cmake
+      script: .ci/script/run-build-snowfox-default.sh config/at90can64-default.cmake
     - env:
       - NAME="Atmel AT90CAN128"
       before_install: true
       install: .ci/script/run-install-toolchain-avr.sh
-      script: .ci/script/run-build-libsnowfox.sh config/at90can128-default.cmake
+      script: .ci/script/run-build-snowfox-default.sh config/at90can128-default.cmake
     - env:
       - NAME="Atmel ATMEGA640"
       before_install: true
       install: .ci/script/run-install-toolchain-avr.sh
-      script: .ci/script/run-build-libsnowfox.sh config/atmega640-default.cmake
+      script: .ci/script/run-build-snowfox-default.sh config/atmega640-default.cmake
     - env:
       - NAME="Atmel ATMEGA1280"
       before_install: true
       install: .ci/script/run-install-toolchain-avr.sh
-      script: .ci/script/run-build-libsnowfox.sh config/atmega1280-default.cmake
+      script: .ci/script/run-build-snowfox-default.sh config/atmega1280-default.cmake
     - env:
       - NAME="Atmel ATMEGA2560"
       before_install: true
       install: .ci/script/run-install-toolchain-avr.sh
-      script: .ci/script/run-build-libsnowfox.sh config/atmega2560-default.cmake
+      script: .ci/script/run-build-snowfox-default.sh config/atmega2560-default.cmake
     - env:
       - NAME="Atmel ATMEGA164P"
       before_install: true
       install: .ci/script/run-install-toolchain-avr.sh
-      script: .ci/script/run-build-libsnowfox.sh config/atmega164p-default.cmake
+      script: .ci/script/run-build-snowfox-default.sh config/atmega164p-default.cmake
     - env:
       - NAME="Atmel ATMEGA324P"
       before_install: true
       install: .ci/script/run-install-toolchain-avr.sh
-      script: .ci/script/run-build-libsnowfox.sh config/atmega324p-default.cmake
+      script: .ci/script/run-build-snowfox-default.sh config/atmega324p-default.cmake
     - env:
       - NAME="Atmel ATMEGA644p"
       before_install: true
       install: .ci/script/run-install-toolchain-avr.sh
-      script: .ci/script/run-build-libsnowfox.sh config/atmega644p-default.cmake
+      script: .ci/script/run-build-snowfox-default.sh config/atmega644p-default.cmake
     - env:
       - NAME="Atmel ATMEGA1284P"
       before_install: true
       install: .ci/script/run-install-toolchain-avr.sh
-      script: .ci/script/run-build-libsnowfox.sh config/atmega1284p-default.cmake
+      script: .ci/script/run-build-snowfox-default.sh config/atmega1284p-default.cmake
     - env:
       - NAME="Atmel ATMEGA328P"
       before_install: true
       install: .ci/script/run-install-toolchain-avr.sh
-      script: .ci/script/run-build-libsnowfox.sh config/atmega328p-default.cmake
+      script: .ci/script/run-build-snowfox-default.sh config/atmega328p-default.cmake
     - env:
       - NAME="Atmel ATMEGA16U4"
       before_install: true
       install: .ci/script/run-install-toolchain-avr.sh
-      script: .ci/script/run-build-libsnowfox.sh config/atmega16u4-default.cmake
+      script: .ci/script/run-build-snowfox-default.sh config/atmega16u4-default.cmake
     - env:
       - NAME="Atmel ATMEGA32U4"
       before_install: true
       install: .ci/script/run-install-toolchain-avr.sh
-      script: .ci/script/run-build-libsnowfox.sh config/atmega32u4-default.cmake
+      script: .ci/script/run-build-snowfox-default.sh config/atmega32u4-default.cmake
     - env:
       - NAME="Atmel ATMEGA3209"
       before_install: true
       install: .ci/script/run-install-toolchain-avr.sh
-      script: true # .ci/script/run-build-libsnowfox.sh config/atmega3209-default.cmake
+      script: true # .ci/script/run-build-snowfox-default.sh config/atmega3209-default.cmake
     - env:
       - NAME="Atmel ATMEGA4809"
       before_install: true
       install: .ci/script/run-install-toolchain-avr.sh
-      script: true # .ci/script/run-build-libsnowfox.sh config/atmega4809-default.cmake
+      script: true # .ci/script/run-build-snowfox-default.sh config/atmega4809-default.cmake
     # RISCV64
     - env:
       - NAME="SiFive FE310"
@@ -111,7 +111,7 @@ matrix:
       install:
         - .ci/script/run-install-toolchain-riscv64.sh
         - export PATH="$PATH:${TRAVIS_BUILD_DIR}/toolchain/riscv64-unknown-elf-gcc-8.2.0-2019.02.0-x86_64-linux-ubuntu14/bin"
-      script: .ci/script/run-build-libsnowfox.sh config/sifive-fe310-default.cmake
+      script: .ci/script/run-build-snowfox-default.sh config/sifive-fe310-default.cmake
     # EXAMPLES/DRIVER/CAN
     - env:
       - NAME="examples/driver/can"
