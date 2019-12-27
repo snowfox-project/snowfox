@@ -272,6 +272,7 @@ matrix:
         - .ci/script/run-build-example.sh examples/trace/trace-serial-atmega2560-uart0
         - .ci/script/run-build-example.sh examples/trace/trace-serial-atmega328p-uart0
         - .ci/script/run-build-example.sh examples/trace/trace-serial-atmega32u4-uart1
+        - .ci/script/run-build-example.sh examples/trace/trace-serial-fe310-uart0
 
 before_install: true
 install: true
