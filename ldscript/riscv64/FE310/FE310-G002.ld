@@ -40,6 +40,7 @@ SECTIONS
     *(.text.startup .text.startup.*)
     *(.text .text.*)
     *(.gnu.linkonce.t.*)
+    *(.gcc_except_table.*)
   } >flash AT>flash :flash
 
   .fini           :
