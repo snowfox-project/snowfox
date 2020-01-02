@@ -24,6 +24,8 @@
 
 #include <stdint.h>
 
+#include <snowfox/util/BitUtil.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -41,7 +43,8 @@ namespace FE310
  * DEFINE
  **************************************************************************************/
 
-#define REG_MSTATUS_MACHINE_INTERRUPT_ENABLE_bm (1<<3)
+#define REG_MSTATUS_MACHINE_INTERRUPT_ENABLE_bp (3)
+#define REG_MSTATUS_MACHINE_INTERRUPT_ENABLE_bm (1<<REG_MSTATUS_MACHINE_INTERRUPT_ENABLE_bp)
 
 /**************************************************************************************
  * PUBLIC FUNCTIONS
@@ -49,14 +52,23 @@ namespace FE310
 
 void enableGlobalInterrupt()
 {
-  uintptr_t mstatus;
+  uint32_t mstatus;
   asm volatile ("csrrs %0, mstatus, %1" : "=r"(mstatus) : "r"(REG_MSTATUS_MACHINE_INTERRUPT_ENABLE_bm));
 }
 
 void disableGlobalInterrupt()
 {
-  uintptr_t mstatus;
+  uint32_t mstatus;
   asm volatile ("csrrc %0, mstatus, %1" : "=r"(mstatus) : "r"(REG_MSTATUS_MACHINE_INTERRUPT_ENABLE_bm));
+}
+
+bool isGlobalInterruptEnabled()
+{
+  uint32_t mstatus;
+  asm volatile("csrr %0, mstatus" : "=r" (mstatus));
+
+  bool const is_global_interrupt_enabled = util::isBitSet(mstatus, REG_MSTATUS_MACHINE_INTERRUPT_ENABLE_bp);
+  return is_global_interrupt_enabled;
 }
 
 /**************************************************************************************
