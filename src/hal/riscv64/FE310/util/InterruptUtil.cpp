@@ -24,6 +24,8 @@
 
 #include <stdint.h>
 
+#include <atomic>
+
 #include <snowfox/util/BitUtil.h>
 
 /**************************************************************************************
@@ -47,28 +49,46 @@ namespace FE310
 #define REG_MSTATUS_MACHINE_INTERRUPT_ENABLE_bm (1<<REG_MSTATUS_MACHINE_INTERRUPT_ENABLE_bp)
 
 /**************************************************************************************
+ * GLOBAL VARIABLES
+ **************************************************************************************/
+
+#if defined(MCU_ARCH_host)
+std::atomic<bool> is_global_interrupt_enabled{false};
+#endif
+
+/**************************************************************************************
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
 void enableGlobalInterrupt()
 {
+#if defined(MCU_ARCH_host)
+  is_global_interrupt_enabled = true;
+#else
   uint32_t mstatus;
   asm volatile ("csrrs %0, mstatus, %1" : "=r"(mstatus) : "r"(REG_MSTATUS_MACHINE_INTERRUPT_ENABLE_bm));
+#endif
 }
 
 void disableGlobalInterrupt()
 {
+#if defined(MCU_ARCH_host)
+  is_global_interrupt_enabled = false;
+#else
   uint32_t mstatus;
   asm volatile ("csrrc %0, mstatus, %1" : "=r"(mstatus) : "r"(REG_MSTATUS_MACHINE_INTERRUPT_ENABLE_bm));
+#endif
 }
 
 bool isGlobalInterruptEnabled()
 {
+#if defined(MCU_ARCH_host)
+  return is_global_interrupt_enabled;
+#else
   uint32_t mstatus;
   asm volatile("csrr %0, mstatus" : "=r" (mstatus));
-
-  bool const is_global_interrupt_enabled = util::isBitSet(mstatus, REG_MSTATUS_MACHINE_INTERRUPT_ENABLE_bp);
-  return is_global_interrupt_enabled;
+  return util::isBitSet(mstatus, REG_MSTATUS_MACHINE_INTERRUPT_ENABLE_bp);
+#endif
 }
 
 /**************************************************************************************
