@@ -54,6 +54,11 @@ public:
   virtual void lock  () override;
   virtual void unlock() override;
 
+
+private:
+
+  volatile bool _is_global_interrupt_enabled;
+
 };
 
 /**************************************************************************************

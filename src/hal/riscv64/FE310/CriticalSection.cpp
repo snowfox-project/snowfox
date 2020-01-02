@@ -22,6 +22,8 @@
 
 #include <snowfox/hal/riscv64/FE310/CriticalSection.h>
 
+#include <snowfox/hal/riscv64/FE310/util/InterruptUtil.h>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -40,6 +42,7 @@ namespace FE310
  **************************************************************************************/
 
 CriticalSection::CriticalSection()
+: _is_global_interrupt_enabled(false)
 {
 
 }
@@ -55,12 +58,17 @@ CriticalSection::~CriticalSection()
 
 void CriticalSection::lock()
 {
-  /* XXX: TODO */
+  _is_global_interrupt_enabled = isGlobalInterruptEnabled();
+  if(_is_global_interrupt_enabled) {
+    disableGlobalInterrupt();
+  }
 }
 
 void CriticalSection::unlock()
 {
-  /* XXX: TODO */
+  if(_is_global_interrupt_enabled) {
+    enableGlobalInterrupt();
+  }
 }
 
 /**************************************************************************************
