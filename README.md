@@ -14,7 +14,7 @@ Snowfox = OS + HAL + IO + COMSTACK + CI + C++
 
 ### What ?
 
-Snowfox consists of a Operating System + a Hardware Abstraction Layer + IO driver support for various sensors, actuators and communication controllers + industrial communication stacks written mostly in C++. **The codebase can be simultaneously compiled for both host and desired target platform which enables the user to run and verify the complete firmware within the host pc without the need for target hardware.** Furthermore unit tests are run and code quality metrics are gathered automatically upon commit in order to ensure code quality and functionality.
+Snowfox consists of a Hardware Abstraction Layer + IO driver support for various sensors, actuators and communication controllers + industrial communication stacks written mostly in C++. **The codebase can be simultaneously compiled for both host and desired target platform which enables the user to run and verify the complete firmware within the host pc without the need for target hardware.** Furthermore unit tests are run and code quality metrics are gathered automatically upon commit in order to ensure code quality and functionality.
 
 ### Why #1?
 
@@ -23,10 +23,6 @@ The application of OO principles such as SOLID leads to a clean code base and mi
 ### Why #2?
 
 In his book "Refactoring: Improving the Design of Existing Code" Martin Fowler frankly states that *“Any fool can write code that a computer can understand. Good programmers write code that humans can understand.”* **This project aims to do just that for the embedded domain.** You are kindly invited to browse the code and form your own opinion about how well the code is adhering to our claim.
-
-## OS
-
-Run-To-Completion event based scheduler in progress ...
 
 ## Hardware Abstraction Layers
 ### Atmel/Microchip
