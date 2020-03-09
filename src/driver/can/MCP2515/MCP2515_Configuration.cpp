@@ -100,7 +100,7 @@ bool MCP2515_Configuration::setOperationMode(interface::OperationMode const op_m
   /* Wait a little */
   _delay.delay_ms(10);
   
-  /* Determine wether or not the desired operating mode has been set */
+  /* Determine whether or not the desired operating mode has been set */
   uint8_t canstat_op_mode_val = 0;
   _io.readRegister(interface::Register::CANSTAT, &canstat_op_mode_val);
   canstat_op_mode_val &= CANSTAT_OP_MASK;
