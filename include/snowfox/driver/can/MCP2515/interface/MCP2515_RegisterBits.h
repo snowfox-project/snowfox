@@ -52,21 +52,36 @@ namespace interface
 #define MCP2515_REG_CANINTF_RX1IF_bm                        (1<<1)
 #define MCP2515_REG_CANINTF_RX0IF_bm                        (1<<0)
 
-/* REG_TXBnCTRL **********************************************************************/
+/* REG_TXBnCTRL ***********************************************************************/
 #define MCP2515_REG_TXBnCTRL_TXREQ_bm                       (1<<3)
 
-/* REG_TXBnSIDL **********************************************************************/
+/* REG_TXBnSIDL ***********************************************************************/
 #define MCP2515_REG_TXBnSIDL_EXIDE_bm                       (1<<3)
 
-/* REG_TXBnDLC ***********************************************************************/
+/* REG_TXBnDLC ************************************************************************/
 #define MCP2515_REG_TXBnDLC_RTR_bm                          (1<<6)
 
-/* REG_RXBnSIDL **********************************************************************/
+/* REG_RXBnSIDL ***********************************************************************/
 #define MCP2515_REG_RXBnSIDL_SRR_bm                         (1<<4)
 #define MCP2515_REG_RXBnSIDL_IDE_bm                         (1<<3)
 
-/* REG_RXBnDLC ***********************************************************************/
+/* REG_RXBnDLC ************************************************************************/
 #define MCP2515_REG_RXBnDLC_RTR_bm                          (1<<6)
+
+/* REG_CANCTRL ************************************************************************/
+#define MCP2515_REG_CANCTRL_REQOP2_bm                       (1<<7)
+#define MCP2515_REG_CANCTRL_REQOP1_bm                       (1<<6)
+#define MCP2515_REG_CANCTRL_REQOP0_bm                       (1<<5)
+#define MCP2515_REG_CANCTRL_ABAT_bm                         (1<<4)
+#define MCP2515_REG_CANCTRL_OSM_bm                          (1<<3)
+#define MCP2515_REG_CANCTRL_CLKEN_bm                        (1<<2)
+#define MCP2515_REG_CANCTRL_CLKPRE1_bm                      (1<<1)
+#define MCP2515_REG_CANCTRL_CLKPRE0_bm                      (1<<0)
+
+/* REG_CANSTAT ************************************************************************/
+#define MCP2515_REG_CANSTAT_OPMOD2_bm                       (1<<7)
+#define MCP2515_REG_CANSTAT_OPMOD1_bm                       (1<<6)
+#define MCP2515_REG_CANSTAT_OPMOD0_bm                       (1<<5)
 
 /**************************************************************************************
  * NAMESPACE
