@@ -25,6 +25,8 @@
 
 #include <stdint.h>
 
+#include <snowfox/driver/can/interface/CanConfiguration.h>
+
 #include <snowfox/driver/can/MCP2515/interface/MCP2515_RegisterBits.h>
 
 /**************************************************************************************
@@ -71,7 +73,9 @@ public:
   virtual ~MCP2515_Configuration() { }
 
 
-  virtual bool setOperationMode(OperationMode const op_mode) = 0;
+  virtual bool setOperationMode(OperationMode const op_mode)                   = 0;
+  virtual void setCanBitRate   (can::interface::CanBitRate const can_bit_rate) = 0;
+
 
 };
 

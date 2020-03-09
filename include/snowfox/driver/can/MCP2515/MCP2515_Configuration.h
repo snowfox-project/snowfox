@@ -54,17 +54,24 @@ class MCP2515_Configuration : public interface::MCP2515_Configuration
 
 public:
 
-           MCP2515_Configuration(interface::MCP2515_Io & io, hal::interface::Delay & delay);
+           MCP2515_Configuration(interface::MCP2515_Io & io, hal::interface::Delay & delay, uint8_t const f_mcp2515_MHz);
   virtual ~MCP2515_Configuration();
 
 
-  virtual bool setOperationMode(interface::OperationMode const op_mode) override;
+  virtual bool setOperationMode(interface::OperationMode const op_mode)        override;
+  virtual void setCanBitRate   (can::interface::CanBitRate const can_bit_rate) override;
 
 
 private:
 
   interface::MCP2515_Io & _io;
   hal::interface::Delay & _delay;
+  uint8_t const           _f_mcp2515_MHz;
+
+
+  void setCanBitRate_Clock_8MHz (can::interface::CanBitRate const can_bit_rate);
+  void setCanBitRate_Clock_16MHz(can::interface::CanBitRate const can_bit_rate);
+  void setCanBitRate_Clock_20MHz(can::interface::CanBitRate const can_bit_rate);
 
 };
 

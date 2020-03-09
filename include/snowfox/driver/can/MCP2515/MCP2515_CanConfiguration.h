@@ -25,7 +25,7 @@
 
 #include <snowfox/driver/can/interface/CanConfiguration.h>
 
-#include <snowfox/driver/can/MCP2515/interface/MCP2515_Io.h>
+#include <snowfox/driver/can/MCP2515/interface/configuration/MCP2515_Configuration.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -52,21 +52,16 @@ class MCP2515_CanConfiguration final : public can::interface::CanConfiguration
 
 public:
 
-           MCP2515_CanConfiguration(interface::MCP2515_Io & io, uint8_t const f_mcp2515_MHz);
+           MCP2515_CanConfiguration(interface::MCP2515_Configuration & config);
   virtual ~MCP2515_CanConfiguration();
 
 
-  virtual void setCanBitRate(can::interface::CanBitRate const can_bit_rate) override;
+  virtual bool setCanBitRate(can::interface::CanBitRate const can_bit_rate) override;
 
 
 private:
 
-  interface::MCP2515_Io       & _io;
-  uint8_t               const   _f_mcp2515_MHz;
-
-  void setCanBitRate_Clock_8MHz (can::interface::CanBitRate const can_bit_rate);
-  void setCanBitRate_Clock_16MHz(can::interface::CanBitRate const can_bit_rate);
-  void setCanBitRate_Clock_20MHz(can::interface::CanBitRate const can_bit_rate);
+  interface::MCP2515_Configuration & _config;
 
 };
 

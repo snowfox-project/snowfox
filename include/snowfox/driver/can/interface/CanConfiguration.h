@@ -60,7 +60,7 @@ public:
   virtual ~CanConfiguration() { }
 
 
-  virtual void setCanBitRate(CanBitRate const can_bit_rate) = 0;
+  virtual bool setCanBitRate(CanBitRate const can_bit_rate) = 0;
 
 };
 
