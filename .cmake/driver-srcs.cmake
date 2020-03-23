@@ -262,6 +262,15 @@ if(${DRIVER_SENSOR_BMG160} STREQUAL "yes")
   set(SNOWFOX_LIBRARY_DRIVER_SRCS ${SNOWFOX_LIBRARY_DRIVER_SRCS} ${DRIVER_SENSOR_BMG160_SRCS})
 endif()
 
+# BMP388 #################################################################
+
+if(${DRIVER_SENSOR_BMP388} STREQUAL "yes")
+  set(DRIVER_SENSOR_BMP388_SRCS
+    ${DRIVER_SENSOR_SRC_PATH}/BMP388/interface/BMP388_Io.cpp
+  )
+  set(SNOWFOX_LIBRARY_DRIVER_SRCS ${SNOWFOX_LIBRARY_DRIVER_SRCS} ${DRIVER_SENSOR_BMP388_SRCS})
+endif()
+
 # INA220 #################################################################
 
 if(${DRIVER_SENSOR_INA220} STREQUAL "yes")
