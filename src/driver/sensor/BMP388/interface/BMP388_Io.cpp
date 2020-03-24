@@ -45,14 +45,14 @@ namespace interface
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-uint8_t BMP388::readRegister(Register const reg)
+uint8_t BMP388_Io::readRegister(Register const reg)
 {
   uint8_t data = 0;
   readRegister(reg, &data, 1);
   return data;
 }
 
-void BMP388::writeRegister(Register const reg, uint8_t const data)
+void BMP388_Io::writeRegister(Register const reg, uint8_t const data)
 {
   writeRegister(reg, reinterpret_cast<uint8_t const *>(&data), 1);
 }

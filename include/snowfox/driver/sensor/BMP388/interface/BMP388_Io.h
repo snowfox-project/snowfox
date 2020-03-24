@@ -73,12 +73,12 @@ enum class Register : uint8_t
  * CLASS DECLARATION
  **************************************************************************************/
 
-class BMP388
+class BMP388_Io
 {
 
 public:
 
-  virtual ~BMP388() { }
+  virtual ~BMP388_Io() { }
 
 
   virtual void    readRegister (Register const reg, uint8_t       * data, uint16_t const num_bytes) = 0;
