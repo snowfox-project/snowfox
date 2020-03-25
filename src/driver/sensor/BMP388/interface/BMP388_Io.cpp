@@ -57,6 +57,14 @@ void BMP388_Io::writeRegister(Register const reg, uint8_t const data)
   writeRegister(reg, reinterpret_cast<uint8_t const *>(&data), 1);
 }
 
+void BMP388_Io::modifyRegister(Register const reg, uint8_t const bitmask, uint8_t const data)
+{
+  uint8_t reg_val = readRegister(reg);
+  reg_val &= ~(bitmask);
+  reg_val |= (data & bitmask);
+  writeRegister(reg, reg_val);
+}
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/

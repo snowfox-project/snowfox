@@ -81,11 +81,14 @@ public:
   virtual ~BMP388_Io() { }
 
 
-  virtual void    readRegister (Register const reg, uint8_t       * data, uint16_t const num_bytes) = 0;
-  virtual void    writeRegister(Register const reg, uint8_t const * data, uint16_t const num_bytes) = 0;
+  virtual void    readRegister  (Register const reg, uint8_t       * data, uint16_t const num_bytes) = 0;
+  virtual void    writeRegister (Register const reg, uint8_t const * data, uint16_t const num_bytes) = 0;
 
-          uint8_t readRegister (Register const reg);
-          void    writeRegister(Register const reg, uint8_t const data);
+          uint8_t readRegister  (Register const reg);
+          void    writeRegister (Register const reg, uint8_t const data);
+          void    modifyRegister(Register const reg, uint8_t const bitmask, uint8_t const data);
+  inline  void    setBit        (Register const reg, uint8_t const bitmask) { modifyRegister(reg, bitmask, bitmask); }
+  inline  void    clrBit        (Register const reg, uint8_t const bitmask) { modifyRegister(reg, bitmask, 0); }
 
 };
 
