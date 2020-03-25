@@ -50,6 +50,12 @@ namespace interface
  * TYPEDEF
  **************************************************************************************/
 
+enum class IntPinOutputType : uint8_t
+{
+  PushPull  = 0,
+  OpenDrain = util::bm(INT_CTRL::INT_OD)
+};
+
 enum class Interrupt : uint8_t
 {
   FifoWatermarkReached = util::bm(INT_CTRL::FWTM_EN),
@@ -69,8 +75,9 @@ public:
   virtual ~BMP388_Configuration() { }
 
 
-  virtual void enableInterrupt (Interrupt const interrupt) = 0;
-  virtual void disableInterrupt(Interrupt const interrupt) = 0;
+  virtual void setIntPinOutputType(IntPinOutputType const type) = 0;
+  virtual void enableInterrupt    (Interrupt const interrupt)   = 0;
+  virtual void disableInterrupt   (Interrupt const interrupt)   = 0;
 
 };
 

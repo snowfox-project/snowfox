@@ -57,6 +57,13 @@ BMP388_Configuration::~BMP388_Configuration()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
+void BMP388_Configuration::setIntPinOutputType(interface::IntPinOutputType const type)
+{
+  _io.modifyRegister(interface::Register::INT_CTRL,
+                     util::bm(interface::INT_CTRL::INT_OD),
+                     util::to_integer(type));
+}
+
 void BMP388_Configuration::enableInterrupt(interface::Interrupt const interrupt)
 {
   _io.setBit(interface::Register::INT_CTRL, util::to_integer(interrupt));

@@ -56,8 +56,9 @@ public:
   virtual ~BMP388_Configuration();
 
 
-  virtual void enableInterrupt (interface::Interrupt const interrupt) override;
-  virtual void disableInterrupt(interface::Interrupt const interrupt) override;
+  virtual void setIntPinOutputType(interface::IntPinOutputType const type) override;
+  virtual void enableInterrupt    (interface::Interrupt const interrupt)   override;
+  virtual void disableInterrupt   (interface::Interrupt const interrupt)   override;
 
 
 private:
