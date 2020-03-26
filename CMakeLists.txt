@@ -78,7 +78,7 @@ if(${MCU_ARCH} STREQUAL "host")
 endif()
 
 if(${MCU_ARCH} STREQUAL "avr")
-  include(.cmake/avr-gcc.cmake)
+  include(.cmake/avr-clang.cmake)
 endif()
 
 if(${MCU_ARCH} STREQUAL "riscv64")
