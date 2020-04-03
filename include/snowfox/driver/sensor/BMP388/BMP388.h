@@ -75,6 +75,8 @@ private:
 
   interface::BMP388_Configuration & _config;
 
+  interface::CalibrationData _calib_data;
+
 };
 
 /**************************************************************************************

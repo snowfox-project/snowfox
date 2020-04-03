@@ -57,6 +57,11 @@ BMP388_Configuration::~BMP388_Configuration()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
+void BMP388_Configuration::readCalibData(interface::CalibrationData & calib_data)
+{
+  _io.readRegister(interface::Register::CALIB_DATA, calib_data.buf, sizeof(calib_data.buf));
+}
+
 void BMP388_Configuration::configPressureOversampling(interface::PressureOversampling const over_sampling)
 {
   _io.modifyRegister(interface::Register::OSR,

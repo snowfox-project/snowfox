@@ -60,6 +60,7 @@ BMP388::~BMP388()
 bool BMP388::open()
 {
   _config.configPowerMode(interface::PowerMode::Normal);
+  _config.readCalibData(_calib_data);
   return true;
 }
 

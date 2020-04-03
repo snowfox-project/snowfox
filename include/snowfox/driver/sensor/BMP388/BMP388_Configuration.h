@@ -56,6 +56,7 @@ public:
   virtual ~BMP388_Configuration();
 
 
+  virtual void readCalibData                (interface::CalibrationData & calib_data)                override;
   virtual void configPressureOversampling   (interface::PressureOversampling const over_sampling)    override;
   virtual void configTemperatureOversampling(interface::TemperatureOversampling const over_sampling) override;
   virtual void configOutputDataRate         (interface::OutputDataRate const odr)                    override;
