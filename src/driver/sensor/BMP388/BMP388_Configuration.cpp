@@ -57,6 +57,25 @@ BMP388_Configuration::~BMP388_Configuration()
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
+void BMP388_Configuration::configPressureOversampling(interface::PressureOversampling const over_sampling)
+{
+  _io.modifyRegister(interface::Register::OSR,
+             util::bm(interface::OSR::OSR_P_2) | util::bm(interface::OSR::OSR_P_1) | util::bm(interface::OSR::OSR_P_0),
+             util::to_integer(over_sampling));
+}
+
+void BMP388_Configuration::configTemperatureOversampling(interface::TemperatureOversampling const over_sampling)
+{
+  _io.modifyRegister(interface::Register::OSR,
+             util::bm(interface::OSR::OSR_T_2) | util::bm(interface::OSR::OSR_T_1) | util::bm(interface::OSR::OSR_T_0),
+             util::to_integer(over_sampling));
+}
+
+void BMP388_Configuration::configOutputDataRate(interface::OutputDataRate const odr)
+{
+  _io.writeRegister(interface::Register::ODR, util::to_integer(odr));
+}
+
 void BMP388_Configuration::setIntPinOutputType(interface::IntPinOutputType const type)
 {
   _io.modifyRegister(interface::Register::INT_CTRL,

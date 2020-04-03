@@ -50,6 +50,48 @@ namespace interface
  * TYPEDEF
  **************************************************************************************/
 
+enum class PressureOversampling : uint8_t
+{
+  x1  = 0,
+  x2  =                                                   util::bm(OSR::OSR_P_0),
+  x4  =                          util::bm(OSR::OSR_P_1),
+  x8  =                          util::bm(OSR::OSR_P_1) | util::bm(OSR::OSR_P_0),
+  x16 = util::bm(OSR::OSR_P_2),
+  x32 = util::bm(OSR::OSR_P_2)                          | util::bm(OSR::OSR_P_0),
+};
+
+enum class TemperatureOversampling : uint8_t
+{
+  x1  = 0,
+  x2  =                                                   util::bm(OSR::OSR_T_0),
+  x4  =                          util::bm(OSR::OSR_T_1),
+  x8  =                          util::bm(OSR::OSR_T_1) | util::bm(OSR::OSR_T_0),
+  x16 = util::bm(OSR::OSR_T_2),
+  x32 = util::bm(OSR::OSR_T_2)                          | util::bm(OSR::OSR_T_0),
+};
+
+enum class OutputDataRate : uint8_t
+{
+  ODR_200_Hz    = 0x00,
+  ODR_100_Hz    = 0x01,
+  ODR_50_Hz     = 0x02,
+  ODR_25_Hz     = 0x03,
+  ODR_12_5_Hz   = 0x04,
+  ODR_6_25_Hz   = 0x05,
+  ODR_3_1_Hz    = 0x06,
+  ODR_1_5_Hz    = 0x07,
+  ODR_0_78_Hz   = 0x08,
+  ODR_0_39_Hz   = 0x09,
+  ODR_0_2_Hz    = 0x0A,
+  ODR_0_1_Hz    = 0x0B,
+  ODR_0_05_Hz   = 0x0C,
+  ODR_0_02_Hz   = 0x0D,
+  ODR_0_01_Hz   = 0x0E,
+  ODR_0_006_Hz  = 0x0F,
+  ODR_0_003_Hz  = 0x10,
+  ODR_0_0015_Hz = 0x11
+};
+
 enum class IntPinOutputType : uint8_t
 {
   PushPull  = 0,
@@ -75,9 +117,12 @@ public:
   virtual ~BMP388_Configuration() { }
 
 
-  virtual void setIntPinOutputType(IntPinOutputType const type) = 0;
-  virtual void enableInterrupt    (Interrupt const interrupt)   = 0;
-  virtual void disableInterrupt   (Interrupt const interrupt)   = 0;
+  virtual void configPressureOversampling   (PressureOversampling const over_sampling)    = 0;
+  virtual void configTemperatureOversampling(TemperatureOversampling const over_sampling) = 0;
+  virtual void configOutputDataRate         (OutputDataRate const odr)                    = 0;
+  virtual void setIntPinOutputType          (IntPinOutputType const type)                 = 0;
+  virtual void enableInterrupt              (Interrupt const interrupt)                   = 0;
+  virtual void disableInterrupt             (Interrupt const interrupt)                   = 0;
 
 };
 

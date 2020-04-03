@@ -56,9 +56,12 @@ public:
   virtual ~BMP388_Configuration();
 
 
-  virtual void setIntPinOutputType(interface::IntPinOutputType const type) override;
-  virtual void enableInterrupt    (interface::Interrupt const interrupt)   override;
-  virtual void disableInterrupt   (interface::Interrupt const interrupt)   override;
+  virtual void configPressureOversampling   (interface::PressureOversampling const over_sampling)    override;
+  virtual void configTemperatureOversampling(interface::TemperatureOversampling const over_sampling) override;
+  virtual void configOutputDataRate         (interface::OutputDataRate const odr)                    override;
+  virtual void setIntPinOutputType          (interface::IntPinOutputType const type)                 override;
+  virtual void enableInterrupt              (interface::Interrupt const interrupt)                   override;
+  virtual void disableInterrupt             (interface::Interrupt const interrupt)                   override;
 
 
 private:
