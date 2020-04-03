@@ -72,9 +72,40 @@ ssize_t BMP388::write(uint8_t const * /* buffer */, ssize_t const /* num_bytes *
   /* TODO */ return -1;
 }
 
-bool BMP388::ioctl(uint32_t const /* cmd */, void * /* arg */)
+bool BMP388::ioctl(uint32_t const cmd, void * arg)
 {
-  /* TODO */ return false;
+  switch(cmd)
+  {
+  /* IOCTL_SET_PRESSURE_OVERSAMPLING **************************************************/
+  case IOCTL_SET_PRESSURE_OVERSAMPLING:
+  {
+    uint8_t                         const * arg_ptr               = static_cast<uint8_t *>                      (arg     );
+    interface::PressureOversampling const   pressure_oversampling = static_cast<interface::PressureOversampling>(*arg_ptr);
+    _config.configPressureOversampling(pressure_oversampling);
+    return true;
+  }
+  break;
+  /* IOCTL_SET_TEMPERATURE_OVERSAMPLING ***********************************************/
+  case IOCTL_SET_TEMPERATURE_OVERSAMPLING:
+  {
+    uint8_t                            const * arg_ptr                  = static_cast<uint8_t *>                         (arg     );
+    interface::TemperatureOversampling const   temperature_oversampling = static_cast<interface::TemperatureOversampling>(*arg_ptr);
+    _config.configTemperatureOversampling(temperature_oversampling);
+    return true;
+  }
+  break;
+  /* IOCTL_SET_OUTPUT_DATA_RATE *******************************************************/
+  case IOCTL_SET_OUTPUT_DATA_RATE:
+  {
+    uint8_t                   const * arg_ptr          = static_cast<uint8_t *>                (arg     );
+    interface::OutputDataRate const   output_data_rate = static_cast<interface::OutputDataRate>(*arg_ptr);
+    _config.configOutputDataRate(output_data_rate);
+    return true;
+  }
+  break;
+  }
+
+  return false;
 }
 
 void BMP388::close()

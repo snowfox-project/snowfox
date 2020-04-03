@@ -44,6 +44,14 @@ namespace BMP388
 {
 
 /**************************************************************************************
+ * CONSTANTS
+ **************************************************************************************/
+
+static uint32_t constexpr IOCTL_SET_PRESSURE_OVERSAMPLING    = 0; /* Arg: interface::PressureOversampling * -> uint8_t *  */
+static uint32_t constexpr IOCTL_SET_TEMPERATURE_OVERSAMPLING = 1; /* Arg: interface::TemperatureOversampling * -> uint8_t *  */
+static uint32_t constexpr IOCTL_SET_OUTPUT_DATA_RATE         = 2; /* Arg: interface::OutputDataRate * -> uint8_t *  */
+
+/**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
