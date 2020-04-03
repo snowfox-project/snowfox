@@ -60,15 +60,15 @@ BMP388_Configuration::~BMP388_Configuration()
 void BMP388_Configuration::configPressureOversampling(interface::PressureOversampling const over_sampling)
 {
   _io.modifyRegister(interface::Register::OSR,
-             util::bm(interface::OSR::OSR_P_2) | util::bm(interface::OSR::OSR_P_1) | util::bm(interface::OSR::OSR_P_0),
-             util::to_integer(over_sampling));
+                     util::bm(interface::OSR::OSR_P_2) | util::bm(interface::OSR::OSR_P_1) | util::bm(interface::OSR::OSR_P_0),
+                     util::to_integer(over_sampling));
 }
 
 void BMP388_Configuration::configTemperatureOversampling(interface::TemperatureOversampling const over_sampling)
 {
   _io.modifyRegister(interface::Register::OSR,
-             util::bm(interface::OSR::OSR_T_2) | util::bm(interface::OSR::OSR_T_1) | util::bm(interface::OSR::OSR_T_0),
-             util::to_integer(over_sampling));
+                     util::bm(interface::OSR::OSR_T_2) | util::bm(interface::OSR::OSR_T_1) | util::bm(interface::OSR::OSR_T_0),
+                     util::to_integer(over_sampling));
 }
 
 void BMP388_Configuration::configOutputDataRate(interface::OutputDataRate const odr)
@@ -91,6 +91,13 @@ void BMP388_Configuration::enableInterrupt(interface::Interrupt const interrupt)
 void BMP388_Configuration::disableInterrupt(interface::Interrupt const interrupt)
 {
   _io.clrBit(interface::Register::INT_CTRL, util::to_integer(interrupt));
+}
+
+void BMP388_Configuration::configPowerMode(interface::PowerMode const mode)
+{
+  _io.modifyRegister(interface::Register::PWR_CTRL,
+                     util::bm(interface::PWR_CTRL::MODE_1) | util::bm(interface::PWR_CTRL::MODE_0),
+                     util::to_integer(mode));
 }
 
 /**************************************************************************************

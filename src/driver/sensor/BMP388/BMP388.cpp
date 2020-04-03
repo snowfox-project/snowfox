@@ -59,7 +59,8 @@ BMP388::~BMP388()
 
 bool BMP388::open()
 {
-  /* TODO */ return false;
+  _config.configPowerMode(interface::PowerMode::Normal);
+  return true;
 }
 
 ssize_t BMP388::read(uint8_t * /* buffer */, ssize_t const /* num_bytes */)

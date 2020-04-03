@@ -105,6 +105,12 @@ enum class Interrupt : uint8_t
   DataReady            = util::bm(INT_CTRL::DRDY_EN)
 };
 
+enum class PowerMode : uint8_t
+{
+  Sleep  = 0,
+  Normal = util::bm(PWR_CTRL::MODE_1) | util::bm(PWR_CTRL::MODE_0)
+};
+
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
@@ -123,6 +129,7 @@ public:
   virtual void setIntPinOutputType          (IntPinOutputType const type)                 = 0;
   virtual void enableInterrupt              (Interrupt const interrupt)                   = 0;
   virtual void disableInterrupt             (Interrupt const interrupt)                   = 0;
+  virtual void configPowerMode              (PowerMode const mode)                        = 0;
 
 };
 

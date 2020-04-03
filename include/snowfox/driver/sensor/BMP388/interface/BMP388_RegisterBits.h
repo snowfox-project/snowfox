@@ -58,6 +58,14 @@ enum class INT_CTRL : uint8_t
   INT_OD    = 0  /* Configure output: open-drain or push-pull. */
 };
 
+enum class PWR_CTRL : uint8_t
+{
+  MODE_1   = 5,
+  MODE_0   = 4,
+  TEMP_EN  = 1,
+  PRESS_EN = 0
+};
+
 enum class OSR : uint8_t
 {
   OSR_T_2 = 5,

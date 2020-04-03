@@ -62,6 +62,7 @@ public:
   virtual void setIntPinOutputType          (interface::IntPinOutputType const type)                 override;
   virtual void enableInterrupt              (interface::Interrupt const interrupt)                   override;
   virtual void disableInterrupt             (interface::Interrupt const interrupt)                   override;
+  virtual void configPowerMode              (interface::PowerMode const mode)                        override;
 
 
 private:
