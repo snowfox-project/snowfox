@@ -1,5 +1,5 @@
-Snowfox = OS + HAL + IO + COMSTACK + CI + C++
-=============================================
+Snowfox = HAL + IO + COMSTACK + CI + C++
+========================================
 *This project is currently in alpha phase. This means that most but not all features are complete and have been tested to varying degrees.*
 
 [![GPLv3 License](.ci/badge/license-gplv3-blue.svg)](LICENSE)
