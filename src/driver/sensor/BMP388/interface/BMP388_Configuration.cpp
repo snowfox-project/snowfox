@@ -45,7 +45,7 @@ namespace interface
  * PUBLIC MEMBER FUNCTIONS
  **************************************************************************************/
 
-QuantizedCalibrationData toQuantizedCalibrationData(CalibrationData const & calib_data)
+QuantizedCalibrationData convertToQuantizedCalibrationData(CalibrationData const & calib_data)
 {
   QuantizedCalibrationData quant_calib_data;
 

@@ -42,8 +42,10 @@ namespace BMP388
  * CTOR/DTOR
  **************************************************************************************/
 
-BMP388::BMP388(interface::BMP388_Configuration & config)
+BMP388::BMP388(interface::BMP388_Configuration & config,
+               interface::BMP388_Control       & control)
 : _config{config}
+, _control{control}
 {
 
 }
@@ -59,8 +61,11 @@ BMP388::~BMP388()
 
 bool BMP388::open()
 {
+  interface::CalibrationData calib_data;
+  _config.readCalibData(calib_data);
+  _quant_calib_data = interface::convertToQuantizedCalibrationData(calib_data);
+
   _config.configPowerMode(interface::PowerMode::Normal);
-  _config.readCalibData(_calib_data);
   return true;
 }
 
