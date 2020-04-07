@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SNOWFOX_DRIVER_SENSOR_BMP388_BMP388_CONFIGURATION_H_
-#define INCLUDE_SNOWFOX_DRIVER_SENSOR_BMP388_BMP388_CONFIGURATION_H_
+#ifndef INCLUDE_SNOWFOX_DRIVER_SENSOR_BMP388_BMP388_CONTROL_H_
+#define INCLUDE_SNOWFOX_DRIVER_SENSOR_BMP388_BMP388_CONTROL_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/driver/sensor/BMP388/interface/BMP388_Configuration.h>
+#include <snowfox/driver/sensor/BMP388/interface/BMP388_Control.h>
 
 #include <snowfox/driver/sensor/BMP388/interface/BMP388_Io.h>
 
@@ -47,23 +47,16 @@ namespace BMP388
  * CLASS DECLARATION
  **************************************************************************************/
 
-class BMP388_Configuration final : public interface::BMP388_Configuration
+class BMP388_Control final: public interface::BMP388_Control
 {
 
 public:
 
-           BMP388_Configuration(interface::BMP388_Io & io);
-  virtual ~BMP388_Configuration();
+           BMP388_Control(interface::BMP388_Io & io);
+  virtual ~BMP388_Control();
 
 
-  virtual void readCalibData                (interface::CalibrationData & calib_data)                override;
-  virtual void configPressureOversampling   (interface::PressureOversampling const over_sampling)    override;
-  virtual void configTemperatureOversampling(interface::TemperatureOversampling const over_sampling) override;
-  virtual void configOutputDataRate         (interface::OutputDataRate const odr)                    override;
-  virtual void setIntPinOutputType          (interface::IntPinOutputType const type)                 override;
-  virtual void enableInterrupt              (interface::Interrupt const interrupt)                   override;
-  virtual void disableInterrupt             (interface::Interrupt const interrupt)                   override;
-  virtual void configPowerMode              (interface::PowerMode const mode)                        override;
+  virtual void readSensorData(interface::SensorData & sensor_data) override;
 
 
 private:
@@ -84,4 +77,4 @@ private:
 
 } /* snowfox */
 
-#endif /* INCLUDE_SNOWFOX_DRIVER_SENSOR_BMP388_BMP388_CONFIGURATION_H_ */
+#endif /* INCLUDE_SNOWFOX_DRIVER_SENSOR_BMP388_BMP388_CONTROL_H_ */
