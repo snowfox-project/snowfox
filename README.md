@@ -111,7 +111,7 @@ sudo apt-get install cmake
 ```
 sudo apt-get install avr-libc binutils-avr gcc-avr avrdude
 ```
-**Tip:** Get the latest version of avr-gcc by [cross compiling](https://github.com/snowfox-project/snowfox/wiki/%5BCross-Compiler%5D-AVR-GCC) from source.
+**Tip:** Get the latest version of avr-gcc by [cross compiling](https://github.com/snowfox-project/snowfox/wiki/%5BCross-Compiler%5D-AVR-GCC) from source or download a [pre-compiled toolchain](https://github.com/snowfox-project/snowfox-avr-gcc/releases).
 * **RISCV64 (SiFive)**
 ```
 cd /opt
