@@ -23,6 +23,7 @@
  * INCLUDE
  **************************************************************************************/
 
+#include <snowfox/driver/sensor/BMP388/interface/BMP388_Control.h>
 #include <snowfox/driver/sensor/BMP388/interface/BMP388_Configuration.h>
 
 #include <snowfox/driver/interface/Driver.h>
@@ -44,6 +45,20 @@ namespace BMP388
 {
 
 /**************************************************************************************
+ * TYPEDEF
+ **************************************************************************************/
+
+union SensorData
+{
+  struct __attribute__((packed))
+  {
+    float pressure_hpa;
+    float temperature_deg;
+  } data;
+  uint8_t buf[sizeof(data)];
+};
+
+/**************************************************************************************
  * CONSTANTS
  **************************************************************************************/
 
@@ -60,7 +75,8 @@ class BMP388 final : public driver::interface::Driver
 
 public:
 
-           BMP388(interface::BMP388_Configuration & config);
+           BMP388(interface::BMP388_Configuration & config,
+                  interface::BMP388_Control       & control);
   virtual ~BMP388();
 
 
@@ -74,8 +90,11 @@ public:
 private:
 
   interface::BMP388_Configuration & _config;
+  interface::BMP388_Control       & _control;
 
-  interface::CalibrationData _calib_data;
+  SensorData _sensor_data;
+
+  interface::QuantizedCalibrationData _quant_calib_data;
 
 };
 

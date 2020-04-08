@@ -16,16 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SNOWFOX_DRIVER_SENSOR_BMP388_BMP388_CONFIGURATION_H_
-#define INCLUDE_SNOWFOX_DRIVER_SENSOR_BMP388_BMP388_CONFIGURATION_H_
-
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
 #include <snowfox/driver/sensor/BMP388/interface/BMP388_Configuration.h>
-
-#include <snowfox/driver/sensor/BMP388/interface/BMP388_Io.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -43,38 +38,40 @@ namespace sensor
 namespace BMP388
 {
 
-/**************************************************************************************
- * CLASS DECLARATION
- **************************************************************************************/
-
-class BMP388_Configuration final : public interface::BMP388_Configuration
+namespace interface
 {
 
-public:
+/**************************************************************************************
+ * PUBLIC MEMBER FUNCTIONS
+ **************************************************************************************/
 
-           BMP388_Configuration(interface::BMP388_Io & io);
-  virtual ~BMP388_Configuration();
+QuantizedCalibrationData convertToQuantizedCalibrationData(CalibrationData const & calib_data)
+{
+  QuantizedCalibrationData quant_calib_data;
 
+  quant_calib_data.T1  = (static_cast<double>(calib_data.coefficient.T1)         / 0.00390625f);
+  quant_calib_data.T2  = (static_cast<double>(calib_data.coefficient.T2)         / 1073741824.0f);
+  quant_calib_data.T3  = (static_cast<double>(calib_data.coefficient.T3)         / 281474976710656.0f);
+  quant_calib_data.P1  = (static_cast<double>(calib_data.coefficient.P1 - 16384) / 1048576.0f);
+  quant_calib_data.P2  = (static_cast<double>(calib_data.coefficient.P2 - 16384) / 536870912.0f);
+  quant_calib_data.P3  = (static_cast<double>(calib_data.coefficient.P3)         / 4294967296.0f);
+  quant_calib_data.P4  = (static_cast<double>(calib_data.coefficient.P4)         / 137438953472.0f);
+  quant_calib_data.P5  = (static_cast<double>(calib_data.coefficient.P5)         / 0.125f);
+  quant_calib_data.P6  = (static_cast<double>(calib_data.coefficient.P6)         / 64.0f);
+  quant_calib_data.P7  = (static_cast<double>(calib_data.coefficient.P7)         / 256.0f);
+  quant_calib_data.P8  = (static_cast<double>(calib_data.coefficient.P8)         / 32768.0f);
+  quant_calib_data.P9  = (static_cast<double>(calib_data.coefficient.P9)         / 281474976710656.0f);
+  quant_calib_data.P10 = (static_cast<double>(calib_data.coefficient.P10)         / 281474976710656.0f);
+  quant_calib_data.P11 = (static_cast<double>(calib_data.coefficient.P11)         / 36893488147419103232.0f);
 
-  virtual void readCalibData                (interface::CalibrationData & calib_data)                override;
-  virtual void configPressureOversampling   (interface::PressureOversampling const over_sampling)    override;
-  virtual void configTemperatureOversampling(interface::TemperatureOversampling const over_sampling) override;
-  virtual void configOutputDataRate         (interface::OutputDataRate const odr)                    override;
-  virtual void setIntPinOutputType          (interface::IntPinOutputType const type)                 override;
-  virtual void enableInterrupt              (interface::Interrupt const interrupt)                   override;
-  virtual void disableInterrupt             (interface::Interrupt const interrupt)                   override;
-  virtual void configPowerMode              (interface::PowerMode const mode)                        override;
-
-
-private:
-
-  interface::BMP388_Io & _io;
-
-};
+  return quant_calib_data;
+}
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* BMP388 */
 
@@ -83,5 +80,3 @@ private:
 } /* driver */
 
 } /* snowfox */
-
-#endif /* INCLUDE_SNOWFOX_DRIVER_SENSOR_BMP388_BMP388_CONFIGURATION_H_ */

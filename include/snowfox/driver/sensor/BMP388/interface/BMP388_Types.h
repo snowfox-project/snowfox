@@ -16,16 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SNOWFOX_DRIVER_SENSOR_BMP388_BMP388_CONFIGURATION_H_
-#define INCLUDE_SNOWFOX_DRIVER_SENSOR_BMP388_BMP388_CONFIGURATION_H_
+#ifndef INCLUDE_SNOWFOX_DRIVER_SENSOR_BMP388_INTERFACE_BMP388_TYPES_H_
+#define INCLUDE_SNOWFOX_DRIVER_SENSOR_BMP388_INTERFACE_BMP388_TYPES_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/driver/sensor/BMP388/interface/BMP388_Configuration.h>
-
-#include <snowfox/driver/sensor/BMP388/interface/BMP388_Io.h>
+#include <stdint.h>
 
 /**************************************************************************************
  * NAMESPACE
@@ -43,38 +41,72 @@ namespace sensor
 namespace BMP388
 {
 
-/**************************************************************************************
- * CLASS DECLARATION
- **************************************************************************************/
-
-class BMP388_Configuration final : public interface::BMP388_Configuration
+namespace interface
 {
 
-public:
+/**************************************************************************************
+ * TYPEDEF
+ **************************************************************************************/
 
-           BMP388_Configuration(interface::BMP388_Io & io);
-  virtual ~BMP388_Configuration();
+union CalibrationData
+{
+  struct __attribute__((packed))
+  {
+    uint16_t T1;
+    uint16_t T2;
+    int8_t   T3;
+    int16_t  P1;
+    int16_t  P2;
+    int8_t   P3;
+    int8_t   P4;
+    uint16_t P5;
+    uint16_t P6;
+    int8_t   P7;
+    int8_t   P8;
+    int16_t  P9;
+    int8_t   P10;
+    int8_t   P11;
+  } coefficient;
+  uint8_t buf[21];
+};
 
+typedef struct
+{
+  double T1;
+  double T2;
+  double T3;
+  double P1;
+  double P2;
+  double P3;
+  double P4;
+  double P5;
+  double P6;
+  double P7;
+  double P8;
+  double P9;
+  double P10;
+  double P11;
+} QuantizedCalibrationData;
 
-  virtual void readCalibData                (interface::CalibrationData & calib_data)                override;
-  virtual void configPressureOversampling   (interface::PressureOversampling const over_sampling)    override;
-  virtual void configTemperatureOversampling(interface::TemperatureOversampling const over_sampling) override;
-  virtual void configOutputDataRate         (interface::OutputDataRate const odr)                    override;
-  virtual void setIntPinOutputType          (interface::IntPinOutputType const type)                 override;
-  virtual void enableInterrupt              (interface::Interrupt const interrupt)                   override;
-  virtual void disableInterrupt             (interface::Interrupt const interrupt)                   override;
-  virtual void configPowerMode              (interface::PowerMode const mode)                        override;
-
-
-private:
-
-  interface::BMP388_Io & _io;
-
+union SensorData
+{
+  struct __attribute__((packed))
+  {
+    uint8_t pres_xlsb;
+    uint8_t pres_lsb;
+    uint8_t pres_msb;
+    uint8_t temp_xlsb;
+    uint8_t temp_lsb;
+    uint8_t temp_msb;
+  } reg;
+  uint8_t buf[6];
 };
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
+
+} /* interface */
 
 } /* BMP388 */
 
@@ -84,4 +116,4 @@ private:
 
 } /* snowfox */
 
-#endif /* INCLUDE_SNOWFOX_DRIVER_SENSOR_BMP388_BMP388_CONFIGURATION_H_ */
+#endif /* INCLUDE_SNOWFOX_DRIVER_SENSOR_BMP388_INTERFACE_BMP388_TYPES_H_ */
