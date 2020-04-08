@@ -66,17 +66,15 @@ bool INA220::open()
 
 ssize_t INA220::read(uint8_t * buffer, ssize_t const num_bytes)
 {
-  int16_t shunt_voltage = 0,
-          bus_voltage   = 0;
+  SensorData sensor_data;
 
-  ssize_t const size = sizeof(shunt_voltage) + sizeof(bus_voltage);
+  ssize_t const size = static_cast<ssize_t>(sizeof(sensor_data.buf));
 
-  if(num_bytes < size)                        return -1;
-  if(!_ctrl.readShuntVoltage(&shunt_voltage)) return -2;
-  if(!_ctrl.readBusVoltage  (&bus_voltage  )) return -3;
+  if(num_bytes < size)                                         return -1;
+  if(!_ctrl.readShuntVoltage(&sensor_data.data.shunt_voltage)) return -2;
+  if(!_ctrl.readBusVoltage  (&sensor_data.data.bus_voltage  )) return -3;
 
-  memcpy(buffer,                         &shunt_voltage, sizeof(shunt_voltage));
-  memcpy(buffer + sizeof(shunt_voltage), &bus_voltage,   sizeof(bus_voltage  ));
+  memcpy(buffer, sensor_data.buf, size);
 
   return size;
 }
