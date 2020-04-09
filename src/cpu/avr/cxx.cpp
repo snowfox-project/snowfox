@@ -51,6 +51,12 @@ void * operator new(size_t size)
   return malloc(size);
 }
 
+void * operator new(size_t size, void * ptr)
+{
+  (void)size;
+  return ptr;
+}
+
 void operator delete(void * ptr)
 {
   if(ptr)
