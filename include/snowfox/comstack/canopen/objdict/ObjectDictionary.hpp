@@ -27,7 +27,7 @@
 
 #include <stdbool.h>
 
-#include <snowfox/util/container/List.hpp>
+#include <list>
 #include <snowfox/util/type/StaticString.hpp>
 
 /**************************************************************************************
@@ -63,13 +63,13 @@ public:
 
 private:
 
-  util::container::List<ObjectDictionaryEntry<uint8_t>                  *> _od_uint8_t;
-  util::container::List<ObjectDictionaryEntry<uint16_t>                 *> _od_uint16_t;
-  util::container::List<ObjectDictionaryEntry<uint32_t>                 *> _od_uint32_t;
-  util::container::List<ObjectDictionaryEntry<util::type::StaticString> *> _od_string;
+  std::list<ObjectDictionaryEntry<uint8_t>                  *> _od_uint8_t;
+  std::list<ObjectDictionaryEntry<uint16_t>                 *> _od_uint16_t;
+  std::list<ObjectDictionaryEntry<uint32_t>                 *> _od_uint32_t;
+  std::list<ObjectDictionaryEntry<util::type::StaticString> *> _od_string;
 
   template <typename T>
-  ObjectDictionaryEntry<T> * find(util::container::List<ObjectDictionaryEntry<T> *> & list, uint16_t const idx, uint8_t const sub_idx);
+  ObjectDictionaryEntry<T> * find(std::list<ObjectDictionaryEntry<T> *> & list, uint16_t const idx, uint8_t const sub_idx);
 
 };
 
