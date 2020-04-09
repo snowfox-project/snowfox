@@ -70,7 +70,7 @@ void Event::clear()
 #endif
 }
 
-bool Event::isSet()
+bool Event::isSet() const
 {
 #if defined(MCU_ARCH_avr)
   bool is_set = false;
@@ -79,6 +79,16 @@ bool Event::isSet()
 #else
   return _is_set;
 #endif
+}
+
+Event & Event::operator = (Event const & other)
+{
+#if defined(MCU_ARCH_avr)
+  ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { this->_is_set = other.isSet(); }
+#else
+  this->_is_set = other.isSet();
+#endif
+  return *this;
 }
 
 /**************************************************************************************

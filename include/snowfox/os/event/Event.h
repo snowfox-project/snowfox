@@ -58,9 +58,12 @@ public:
   virtual ~Event();
 
 
-  virtual void set  () override;
-  virtual void clear() override;
-  virtual bool isSet() override;
+  virtual void set  ()       override;
+  virtual void clear()       override;
+  virtual bool isSet() const override;
+
+  Event & operator = (Event const & other);
+
 
 private:
 

@@ -22,6 +22,8 @@
 
 #include <snowfox/os/event/EventGroup.h>
 
+#include <algorithm>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -50,43 +52,53 @@ EventGroup::~EventGroup()
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-void EventGroup::addEvent(interface::EventConsumer & event)
+void EventGroup::addEvent(interface::EventConsumer * event)
 {
   _event_list.push_back(event);
 }
 
 void EventGroup::clearAllEvents()
 {
-  for(util::container::ListNode<interface::EventConsumer &> * iter = _event_list.first();
-      iter != 0;
-      iter = iter->next())
-  {
-    iter->data().clear();
-  }
+  std::for_each(_event_list.begin(),
+                _event_list.end(),
+                [](interface::EventConsumer * event)
+                {
+                  event->clear();
+                });
 }
 
 bool EventGroup::isEveryEventSet()
 {
-  for(util::container::ListNode<interface::EventConsumer &> * iter = _event_list.first();
-      iter != 0;
-      iter = iter->next())
-  {
-    if(!iter->data().isSet()) return false;
-  }
+  bool is_every_event_set = true;
 
-  return true;
+  std::for_each(_event_list.begin(),
+                _event_list.end(),
+                [&is_every_event_set](interface::EventConsumer * event)
+                {
+                  if(!event->isSet()) {
+                    is_every_event_set = false;
+                    return;
+                  }
+                });
+
+  return is_every_event_set;
 }
 
 bool EventGroup::isAnyEventSet()
 {
-  for(util::container::ListNode<interface::EventConsumer &> * iter = _event_list.first();
-      iter != 0;
-      iter = iter->next())
-  {
-    if(iter->data().isSet()) return true;
-  }
+  bool is_any_event_set = false;
 
-  return false;
+  std::for_each(_event_list.begin(),
+                _event_list.end(),
+                [&is_any_event_set](interface::EventConsumer * event)
+                {
+                  if(event->isSet()) {
+                    is_any_event_set = true;
+                    return;
+                  }
+                });
+
+  return is_any_event_set;
 }
 
 /**************************************************************************************

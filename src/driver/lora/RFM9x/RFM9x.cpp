@@ -58,8 +58,8 @@ RFM9x::RFM9x(interface::RFM9x_Configuration & config,
   _rx_timeout_event(rx_timeout_event),
   _tx_done_event   (tx_done_event   )
 {
-  _event_group_rx_done_rx_timeout.addEvent(rx_done_event   );
-  _event_group_rx_done_rx_timeout.addEvent(rx_timeout_event);
+  _event_group_rx_done_rx_timeout.addEvent(&rx_done_event   );
+  _event_group_rx_done_rx_timeout.addEvent(&rx_timeout_event);
 }
 
 RFM9x::~RFM9x()
