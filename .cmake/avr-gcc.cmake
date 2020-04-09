@@ -12,3 +12,8 @@ set(SNOWFOX_CMAKE_CXX_FLAGS "${SNOWFOX_CMAKE_CXX_FLAGS} -mmcu=${MCU_TYPE} -fno-e
 set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "-Wl,--relax,--gc-sections")
 
 ##########################################################################
+
+add_subdirectory(external/avr-stl)
+include_directories(external/avr-stl/include) # Should not be necessary but somehow is.
+
+##########################################################################
