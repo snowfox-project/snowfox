@@ -1,19 +1,14 @@
 ##########################################################################
 
-set(CMAKE_C_COMPILER avr-gcc)
-set(CMAKE_CXX_COMPILER avr-g++)
+set(CMAKE_C_COMPILER clang)
+set(CMAKE_CXX_COMPILER clang++)
 
 ##########################################################################
 
-set(SNOWFOX_CMAKE_CXX_FLAGS "${SNOWFOX_CMAKE_CXX_FLAGS} -mmcu=${MCU_TYPE} -fno-exceptions -Wno-deprecated-copy")
+set(SNOWFOX_CMAKE_CXX_FLAGS "${SNOWFOX_CMAKE_CXX_FLAGS} --target=avr -nostdlibinc -isystem /opt/avr/avr-libc/avr/include -mmcu=${MCU_TYPE} -fno-exceptions")
  
 ##########################################################################
 
 set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "-Wl,--relax,--gc-sections")
-
-##########################################################################
-
-add_subdirectory(external/avr-stl)
-include_directories(external/avr-stl/include) # Should not be necessary but somehow is.
 
 ##########################################################################
