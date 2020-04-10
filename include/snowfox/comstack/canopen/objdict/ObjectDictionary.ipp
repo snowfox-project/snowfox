@@ -59,7 +59,7 @@ inline void ObjectDictionary::add(ObjectDictionaryEntry<uint32_t> * entry)
 }
 
 template <>
-inline void ObjectDictionary::add(ObjectDictionaryEntry<util::type::StaticString> * entry)
+inline void ObjectDictionary::add(ObjectDictionaryEntry<std::string> * entry)
 {
   _od_string.push_back(entry);
 }
