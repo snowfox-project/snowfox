@@ -34,12 +34,9 @@ namespace container
  **************************************************************************************/
 
 template <class T>
-Queue<T>::Queue(uint16_t const capacity)
-: _capacity(capacity),
-  _head    (0),
-  _tail    (0),
-  _size	   (0),
-  _data    (new T[_capacity])
+Queue<T>::Queue(size_t const capacity)
+: _size{0}
+, _capacity{capacity}
 {
 
 }
@@ -47,7 +44,7 @@ Queue<T>::Queue(uint16_t const capacity)
 template <class T>
 Queue<T>::~Queue()
 {
-  delete []_data; _data = 0;
+  _data.clear();
 }
 
 /**************************************************************************************
@@ -57,10 +54,11 @@ Queue<T>::~Queue()
 template <class T>
 bool Queue<T>::push(T const data)
 {
-  if(isFull())  return false;
+  if(isFull()) return false;
   else
   {
-    pushData(data);
+    _data.push_back(data);
+    _size++;
     return true;
   }
 }
@@ -71,19 +69,21 @@ bool Queue<T>::pop(T * data)
   if(isEmpty()) return false;
   else
   {
-    popData(data);
+    *data = _data.front();
+    _data.pop_front();
+    _size--;
     return true;
   }
 }
 
 template <class T>
-uint16_t Queue<T>::size() const
+size_t Queue<T>::size() const
 {
   return _size;
 }
 
 template <class T>
-uint16_t Queue<T>::capacity() const
+size_t Queue<T>::capacity() const
 {
   return _capacity;
 }
@@ -98,39 +98,6 @@ template <class T>
 bool Queue<T>::isEmpty() const
 {
   return (_size == 0);
-}
-
-/**************************************************************************************
- * PRIVATE MEMBER FUNCTIONS
- **************************************************************************************/
-
-template <class T>
-void Queue<T>::pushData(T const data)
-{
-  _data[_head] = data;
-
-  incrementPtr(&_head);
-
-  _size++;
-}
-
-template <class T>
-void Queue<T>::popData(T * data)
-{
-  *data = _data[_tail];
-
-  incrementPtr(&_tail);
-
-  _size--;
-}
-
-template <class T>
-void Queue<T>::incrementPtr(uint16_t * ptr) const
-{
-  uint16_t const tmp_ptr = *ptr + 1;
-
-  if  (tmp_ptr == _capacity) *ptr = 0;
-  else                    	 *ptr = tmp_ptr;
 }
 
 /**************************************************************************************

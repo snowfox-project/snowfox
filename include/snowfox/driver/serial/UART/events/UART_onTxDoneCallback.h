@@ -55,9 +55,9 @@ class UART_onTxDoneCallback final : public hal::interface::UART_onTxDoneCallback
 
 public:
 
-           UART_onTxDoneCallback(hal::interface::CriticalSection   & crit_sec,
+           UART_onTxDoneCallback(hal::interface::CriticalSection & crit_sec,
                                  util::container::Queue<uint8_t> & tx_queue,
-                                 hal::interface::UartControl       & uart_ctrl);
+                                 hal::interface::UartControl     & uart_ctrl);
   virtual ~UART_onTxDoneCallback();
 
 
@@ -66,9 +66,9 @@ public:
 
 private:
 
-  hal::interface::CriticalSection   & _crit_sec;
+  hal::interface::CriticalSection & _crit_sec;
   util::container::Queue<uint8_t> & _tx_queue;
-  hal::interface::UartControl       & _uart_ctrl;
+  hal::interface::UartControl     & _uart_ctrl;
 
 };
 

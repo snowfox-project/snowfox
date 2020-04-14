@@ -56,10 +56,10 @@ class UART_SerialControl final : public interface::SerialControl
 public:
 
 
-           UART_SerialControl(hal::interface::CriticalSection   & crit_sec,
+           UART_SerialControl(hal::interface::CriticalSection & crit_sec,
                               util::container::Queue<uint8_t> & rx_queue,
                               util::container::Queue<uint8_t> & tx_queue,
-                              hal::interface::UartControl       & uart_ctrl);
+                              hal::interface::UartControl     & uart_ctrl);
   virtual ~UART_SerialControl();
 
 
@@ -69,10 +69,10 @@ public:
 
 private:
 
-  hal::interface::CriticalSection   & _crit_sec;
+  hal::interface::CriticalSection & _crit_sec;
   util::container::Queue<uint8_t> & _rx_queue,
-                                    & _tx_queue;
-  hal::interface::UartControl       & _uart_ctrl;
+                                  & _tx_queue;
+  hal::interface::UartControl     & _uart_ctrl;
 
 };
 

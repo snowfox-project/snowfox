@@ -26,6 +26,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include <deque>
+
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
@@ -49,28 +51,21 @@ class Queue
 
 public:
 
-   explicit Queue(uint16_t const capacity);
+   explicit Queue(size_t const capacity);
   ~Queue();
 
-  bool     push    (T const   data);
-  bool     pop     (T       * data);
-  uint16_t size    (              ) const;
-  uint16_t capacity(              ) const;
-  bool     isFull  (              ) const;
-  bool     isEmpty (              ) const;
+  bool   push    (T const   data);
+  bool   pop     (T       * data);
+  size_t size    () const;
+  size_t capacity() const;
+  bool   isFull  () const;
+  bool   isEmpty () const;
 
 private:
 
-  uint16_t    _capacity,
-              _head,
-              _tail,
-              _size;
-
-  T         * _data;
-
-  void pushData     (T  const   data);
-  void popData      (T        * data);
-  void incrementPtr (uint16_t * ptr ) const;
+  size_t        _size,
+                _capacity;
+  std::deque<T> _data;
 
 };
 
