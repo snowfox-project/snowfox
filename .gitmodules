@@ -4,3 +4,6 @@
 [submodule "test/external/libvireg"]
 	path = test/external/libvireg
 	url = https://github.com/snowfox-project/snowfox-libvireg
+[submodule "external/avr-stl"]
+	path = external/avr-stl
+	url = https://github.com/snowfox-project/snowfox-avr-stl

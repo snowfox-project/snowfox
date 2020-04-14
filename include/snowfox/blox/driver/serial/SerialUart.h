@@ -58,7 +58,7 @@ public:
              uint16_t                        const   uart_rx_buffer_size,
              uint16_t                        const   uart_tx_buffer_size);
 
-  SerialUart(hal::interface::CriticalSection                  & crit_sec,
+  SerialUart(hal::interface::CriticalSection                 & crit_sec,
              hal::interface::Uart                            & uart,
              uint16_t                                  const   uart_rx_buffer_size,
              uint16_t                                  const   uart_tx_buffer_size,

@@ -146,10 +146,7 @@ set(SNOWFOX_TEST_UTIL_PATH src/util)
 ##########################################################################
 
 set(SNOWFOX_TEST_HOST_UTIL_SRCS
-  ${SNOWFOX_TEST_UTIL_PATH}/container/test_List.cpp
   ${SNOWFOX_TEST_UTIL_PATH}/container/test_Queue.cpp
-  
-  ${SNOWFOX_TEST_UTIL_PATH}/type/test_StaticString.cpp
 )
 
 ##########################################################################

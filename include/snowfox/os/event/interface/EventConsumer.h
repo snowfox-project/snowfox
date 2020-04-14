@@ -51,8 +51,8 @@ public:
   virtual ~EventConsumer() { }
 
 
-  virtual void clear() = 0;
-  virtual bool isSet() = 0;
+  virtual void clear()       = 0;
+  virtual bool isSet() const = 0;
 
 };
 

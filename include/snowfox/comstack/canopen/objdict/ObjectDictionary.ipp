@@ -17,6 +17,13 @@
  */
 
 /**************************************************************************************
+ * INCLUDE
+ **************************************************************************************/
+
+#include <iterator>
+#include <algorithm>
+
+/**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
@@ -52,7 +59,7 @@ inline void ObjectDictionary::add(ObjectDictionaryEntry<uint32_t> * entry)
 }
 
 template <>
-inline void ObjectDictionary::add(ObjectDictionaryEntry<util::type::StaticString> * entry)
+inline void ObjectDictionary::add(ObjectDictionaryEntry<std::string> * entry)
 {
   _od_string.push_back(entry);
 }
@@ -62,16 +69,19 @@ inline void ObjectDictionary::add(ObjectDictionaryEntry<util::type::StaticString
  **************************************************************************************/
 
 template <typename T>
-inline ObjectDictionaryEntry<T> * ObjectDictionary::find(util::container::List<ObjectDictionaryEntry<T> *> & list, uint16_t const idx, uint8_t const sub_idx)
+inline ObjectDictionaryEntry<T> * ObjectDictionary::find(std::list<ObjectDictionaryEntry<T> *> & list, uint16_t const idx, uint8_t const sub_idx)
 {
-  for(util::container::ListNode<ObjectDictionaryEntry<T> *> * iter = list.first();
-      iter != 0;
-      iter = iter->next())
-  {
-    if(iter->data()->idx() == idx && iter->data()->subIdx() == sub_idx) return iter->data();
+  typename std::list<ObjectDictionaryEntry<T> *>::iterator iter = std::find_if(list.begin(),
+                                                                               list.end(),
+                                                                               [idx, sub_idx](ObjectDictionaryEntry<T> * entry) -> bool
+                                                                               {
+                                                                                 return ((entry->idx() == idx) && (entry->subIdx() == sub_idx));
+                                                                               }); 
+  if(iter != list.end()) {
+    return *iter;
+  } else {
+    return 0;
   }
-  
-  return 0;
 }
 
 /**************************************************************************************

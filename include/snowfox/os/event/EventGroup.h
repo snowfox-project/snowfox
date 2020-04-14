@@ -25,7 +25,7 @@
 
 #include <snowfox/os/event/interface/EventConsumer.h>
 
-#include <snowfox/util/container/List.hpp>
+#include <list>
 
 /**************************************************************************************
  * NAMESPACE
@@ -50,14 +50,14 @@ public:
   ~EventGroup();
 
 
-  void addEvent       (interface::EventConsumer & event);
+  void addEvent       (interface::EventConsumer * event);
   void clearAllEvents ();
   bool isEveryEventSet();
   bool isAnyEventSet  ();
 
 private:
 
-  util::container::List<interface::EventConsumer &> _event_list;
+  std::list<interface::EventConsumer *> _event_list;
 
 };
 
