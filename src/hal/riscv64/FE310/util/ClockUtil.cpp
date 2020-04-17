@@ -69,7 +69,7 @@ bool isValidPLLR(uint8_t const pllr)
 
 bool isValidPLLF(uint8_t const pllf)
 {
-  return ((pllf >= 2) && (pllf <= 128));
+  return ((pllf >= 2) && (pllf <= 128) && ((pllf % 2) == 0));
 }
 
 bool isValidPLLQ(uint8_t const pllq)
@@ -96,7 +96,7 @@ bool setPLLF(volatile uint32_t * PRCI_PLLCFG, uint8_t const pllf)
 {
   if(isValidPLLF(pllf))
   {
-    uint32_t const pllf_val = static_cast<uint32_t>((pllf & 0x7F) >> 1);
+    uint32_t const pllf_val = static_cast<uint32_t>(pllf & 0x7F) / 2;
     *PRCI_PLLCFG &= ~PRCI_PLLCFG_PLLF_bm;
     *PRCI_PLLCFG |= (pllf_val << 4);
     return true;
