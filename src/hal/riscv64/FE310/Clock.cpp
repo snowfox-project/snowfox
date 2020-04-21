@@ -111,15 +111,17 @@ bool Clock::setClockFreq(uint8_t const clk_id, uint32_t const clk_freq_hz)
     if(!setPLLF(_PRCI_PLLCFG, f)) return false;
     if(!setPLLQ(_PRCI_PLLCFG, q)) return false;
 
+    /* Disable PLL bypass after configuration to activate PLL */
+    util::clrBit(_PRCI_PLLCFG, PRCI_PLLCFG_PLLBYPASS_bp);
+
     /* Wait for PLL to achieve a lock */
     while(!util::isBitSet(_PRCI_PLLCFG, PRCI_PLLCFG_PLLLOCK_bp)) { }
 
     /* plloutdiv = 1 -> hfclk = pllout / 1  */
     util::setBit(_PRCI_PLLOUTDIV, PRCI_PLLOUTDIV_PLLOUTDIVBY1_bp);
 
-    /* Disable bypass and select pllout as clock source -> hfclk = pllout */
+    /* Select pllout as clock source -> hfclk = pllout */
     util::setBit(_PRCI_PLLCFG, PRCI_PLLCFG_PLLSEL_bp);
-    util::setBit(_PRCI_PLLCFG, PRCI_PLLCFG_PLLBYPASS_bp);
 
     return true;
   }
