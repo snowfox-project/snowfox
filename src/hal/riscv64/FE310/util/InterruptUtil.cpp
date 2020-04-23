@@ -26,7 +26,10 @@
 
 #include <atomic>
 
+#include <snowfox/hal/riscv64/FE310/RegisterBits.h>
+
 #include <snowfox/util/BitUtil.h>
+#include <snowfox/util/EnumClassConv.hpp>
 
 /**************************************************************************************
  * NAMESPACE
@@ -40,13 +43,6 @@ namespace hal
 
 namespace FE310
 {
-
-/**************************************************************************************
- * DEFINE
- **************************************************************************************/
-
-#define REG_MSTATUS_MACHINE_INTERRUPT_ENABLE_bp (3)
-#define REG_MSTATUS_MACHINE_INTERRUPT_ENABLE_bm (1<<REG_MSTATUS_MACHINE_INTERRUPT_ENABLE_bp)
 
 /**************************************************************************************
  * GLOBAL VARIABLES
@@ -66,7 +62,7 @@ void enableGlobalInterrupt()
   is_global_interrupt_enabled = true;
 #else
   uint32_t mstatus;
-  asm volatile ("csrrs %0, mstatus, %1" : "=r"(mstatus) : "r"(REG_MSTATUS_MACHINE_INTERRUPT_ENABLE_bm));
+  asm volatile ("csrrs %0, mstatus, %1" : "=r"(mstatus) : "r"(util::bp(MSTATUS::MACHINE_INTERRUPT_ENABLE)));
 #endif
 }
 
@@ -76,7 +72,7 @@ void disableGlobalInterrupt()
   is_global_interrupt_enabled = false;
 #else
   uint32_t mstatus;
-  asm volatile ("csrrc %0, mstatus, %1" : "=r"(mstatus) : "r"(REG_MSTATUS_MACHINE_INTERRUPT_ENABLE_bm));
+  asm volatile ("csrrc %0, mstatus, %1" : "=r"(mstatus) : "r"(util::bp(MSTATUS::MACHINE_INTERRUPT_ENABLE)));
 #endif
 }
 
@@ -87,7 +83,7 @@ bool isGlobalInterruptEnabled()
 #else
   uint32_t mstatus;
   asm volatile("csrr %0, mstatus" : "=r" (mstatus));
-  return util::isBitSet(mstatus, REG_MSTATUS_MACHINE_INTERRUPT_ENABLE_bp);
+  return util::isBitSet(mstatus, util::bp(MSTATUS::MACHINE_INTERRUPT_ENABLE));
 #endif
 }
 

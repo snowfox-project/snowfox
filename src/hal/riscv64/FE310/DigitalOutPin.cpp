@@ -45,7 +45,7 @@ DigitalOutPin::DigitalOutPin(volatile uint32_t       * gpio_input_en,
                              volatile uint32_t       * gpio_output_en,
                              volatile uint32_t       * gpio_iof_en,
                              volatile uint32_t       * gpio_output_val,
-                                      uint8_t  const   out_pin_number)
+                                      uint32_t const   out_pin_number)
 : _gpio_output_val(gpio_output_val),
   _out_pin_number (out_pin_number )
 {
@@ -78,7 +78,7 @@ void DigitalOutPin::clr()
 void DigitalOutPin::setGpioPinAsOutput(volatile uint32_t       * gpio_input_en,
                                        volatile uint32_t       * gpio_output_en,
                                        volatile uint32_t       * gpio_iof_en,
-                                       uint8_t           const   out_pin_number)
+                                       uint32_t          const   out_pin_number)
 {
   util::clrBit(gpio_input_en,  out_pin_number);
   util::setBit(gpio_output_en, out_pin_number);

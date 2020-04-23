@@ -20,6 +20,12 @@
 #define INCLUDE_SNOWFOX_HAL_SIFIVE_FE310_IO_H_
 
 /**************************************************************************************
+ * INCLUDE
+ **************************************************************************************/
+
+#include <stdint.h>
+
+/**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
@@ -178,6 +184,34 @@ namespace FE310
 #define PWM2_PWMCMP1     (*((volatile uint32_t *)(PWM2_BASE + 0x24)))
 #define PWM2_PWMCMP2     (*((volatile uint32_t *)(PWM2_BASE + 0x28)))
 #define PWM2_PWMCMP3     (*((volatile uint32_t *)(PWM2_BASE + 0x2C)))
+
+/**************************************************************************************
+ * TYPEDEF
+ **************************************************************************************/
+
+enum class HFXOSCCFG : uint32_t
+{
+  HFXOSCRDY = 31,
+  HFXOSCEN  = 30
+};
+
+enum class PLLCFG : uint32_t
+{
+  PLLLOCK   = 31,
+  PLLBYPASS = 18,
+  PLLREFSEL = 17,
+  PLLSEL    = 16
+};
+
+enum class PLLOUTDIV : uint32_t
+{
+  PLLOUTDIVBY1 = 8
+};
+
+enum class MSTATUS : uint32_t
+{
+  MACHINE_INTERRUPT_ENABLE = INT32_C(3)
+};
 
 /**************************************************************************************
  * NAMESPACE

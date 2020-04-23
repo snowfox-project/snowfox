@@ -22,7 +22,10 @@
 
 #include <snowfox/hal/riscv64/FE310/UART1.h>
 
+#include <snowfox/hal/riscv64/FE310/RegisterBits.h>
+
 #include <snowfox/util/BitUtil.h>
+#include <snowfox/util/EnumClassConv.hpp>
 
 /**************************************************************************************
  * NAMESPACE
@@ -36,16 +39,6 @@ namespace hal
 
 namespace FE310
 {
-
-/**************************************************************************************
- * DEFINE
- **************************************************************************************/
-
-#define GPIO_IOF_SEL_UART1_RX_bp (18)
-#define GPIO_IOF_SEL_UART1_TX_bp (23)
-
-#define GPIO_IOF_EN_UART1_RX_bp  (GPIO_IOF_SEL_UART1_RX_bp)
-#define GPIO_IOF_EN_UART1_TX_bp  (GPIO_IOF_SEL_UART1_TX_bp)
 
 /**************************************************************************************
  * CTOR/DTOR
@@ -80,10 +73,10 @@ UART1::~UART1()
 
 void UART1::enableGpioAccess(volatile uint32_t * gpio_iof_en, volatile uint32_t * gpio_iof_sel)
 {
-  util::clrBit(gpio_iof_sel, GPIO_IOF_SEL_UART1_RX_bp);
-  util::clrBit(gpio_iof_sel, GPIO_IOF_SEL_UART1_TX_bp);
-  util::setBit(gpio_iof_en,  GPIO_IOF_SEL_UART1_RX_bp);
-  util::setBit(gpio_iof_en,  GPIO_IOF_SEL_UART1_TX_bp);
+  util::clrBit(gpio_iof_sel, util::bp(GPIO0_IOF_SEL::UART1_RX));
+  util::clrBit(gpio_iof_sel, util::bp(GPIO0_IOF_SEL::UART1_TX));
+  util::setBit(gpio_iof_en,  util::bp(GPIO0_IOF_EN::UART1_RX ));
+  util::setBit(gpio_iof_en,  util::bp(GPIO0_IOF_EN::UART1_TX ));
 }
 
 /**************************************************************************************

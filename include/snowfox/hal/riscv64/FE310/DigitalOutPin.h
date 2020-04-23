@@ -53,7 +53,7 @@ public:
                          volatile uint32_t       * gpio_output_en,
                          volatile uint32_t       * gpio_iof_en,
                          volatile uint32_t       * gpio_output_val,
-                                  uint8_t  const   out_pin_number);
+                                  uint32_t const   out_pin_number);
   virtual ~DigitalOutPin();
 
 
@@ -64,12 +64,12 @@ public:
 private:
 
   volatile uint32_t       * _gpio_output_val;
-          uint8_t   const   _out_pin_number;
+           uint32_t const   _out_pin_number;
 
   static void setGpioPinAsOutput(volatile uint32_t       * gpio_input_en,
                                  volatile uint32_t       * gpio_output_en,
                                  volatile uint32_t       * gpio_iof_en,
-                                 uint8_t           const   out_pin_number);
+                                 uint32_t          const   out_pin_number);
 
 };
 

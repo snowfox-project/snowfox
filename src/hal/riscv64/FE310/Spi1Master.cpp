@@ -22,7 +22,10 @@
 
 #include <snowfox/hal/riscv64/FE310/Spi1Master.h>
 
+#include <snowfox/hal/riscv64/FE310/RegisterBits.h>
+
 #include <snowfox/util/BitUtil.h>
+#include <snowfox/util/EnumClassConv.hpp>
 
 /**************************************************************************************
  * NAMESPACE
@@ -36,18 +39,6 @@ namespace hal
 
 namespace FE310
 {
-
-/**************************************************************************************
- * DEFINE
- **************************************************************************************/
-
-#define GPIO_IOF_SEL_SPI1_DQ0_bp  (3) /* MOSI */
-#define GPIO_IOF_SEL_SPI1_DQ1_bp  (4) /* MISO */
-#define GPIO_IOF_SEL_SPI1_SCK_bp  (5)
-
-#define GPIO_IOF_EN_SPI1_DQ0_bp   (GPIO_IOF_SEL_SPI1_DQ0_bp)
-#define GPIO_IOF_EN_SPI1_DQ1_bp   (GPIO_IOF_SEL_SPI1_DQ1_bp)
-#define GPIO_IOF_EN_SPI1_SCK_bp   (GPIO_IOF_SEL_SPI1_SCK_bp)
 
 /**************************************************************************************
  * CTOR/DTOR
@@ -74,12 +65,12 @@ Spi1Master::~Spi1Master()
 
 void Spi1Master::enableGpioAccess(volatile uint32_t * gpio_iof_en, volatile uint32_t * gpio_iof_sel)
 {
-  util::clrBit(gpio_iof_sel, GPIO_IOF_SEL_SPI1_DQ0_bp);
-  util::clrBit(gpio_iof_sel, GPIO_IOF_SEL_SPI1_DQ1_bp);
-  util::clrBit(gpio_iof_sel, GPIO_IOF_SEL_SPI1_SCK_bp);
-  util::setBit(gpio_iof_en,  GPIO_IOF_EN_SPI1_DQ0_bp);
-  util::setBit(gpio_iof_en,  GPIO_IOF_EN_SPI1_DQ1_bp);
-  util::setBit(gpio_iof_en,  GPIO_IOF_EN_SPI1_SCK_bp);
+  util::clrBit(gpio_iof_sel, util::bp(GPIO0_IOF_SEL::SPI1_DQ0));
+  util::clrBit(gpio_iof_sel, util::bp(GPIO0_IOF_SEL::SPI1_DQ1));
+  util::clrBit(gpio_iof_sel, util::bp(GPIO0_IOF_SEL::SPI1_SCK));
+  util::setBit(gpio_iof_en,  util::bp(GPIO0_IOF_EN::SPI1_DQ0));
+  util::setBit(gpio_iof_en,  util::bp(GPIO0_IOF_EN::SPI1_DQ1));
+  util::setBit(gpio_iof_en,  util::bp(GPIO0_IOF_EN::SPI1_SCK));
 }
 
 /**************************************************************************************
