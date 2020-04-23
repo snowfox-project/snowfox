@@ -22,7 +22,10 @@
 
 #include <snowfox/hal/riscv64/FE310/SpiMasterBase.h>
 
+#include <snowfox/hal/riscv64/FE310/RegisterBits.h>
+
 #include <snowfox/util/BitUtil.h>
+#include <snowfox/util/EnumClassConv.hpp>
 
 /**************************************************************************************
  * NAMESPACE
@@ -36,28 +39,6 @@ namespace hal
 
 namespace FE310
 {
-
-/**************************************************************************************
- * DEFINE
- **************************************************************************************/
-
-/* SCKMODE */
-#define SCKMODE_POL_bp    (1)
-#define SCKMODE_PHA_bp    (0)
-
-/* FMT */
-#define FMT_LEN_3_bp      (19)
-#define FMT_LEN_2_bp      (18)
-#define FMT_LEN_1_bp      (17)
-#define FMT_LEN_0_bp      (16)
-#define FMT_LEN_bm        ((1<<FMT_LEN_3_bp) | (1<<FMT_LEN_2_bp) | (1<<FMT_LEN_1_bp) | (1<<FMT_LEN_0_bp))
-#define FMT_ENDIAN_bp     (2)
-#define FMT_PROTO_1_bp    (1)
-#define FMT_PROTO_0_bp    (0)
-
-/* CSMODE */
-#define CSMODE_MODE_1_bp  (1)
-#define CSMODE_MODE_0_bp  (0)
 
 /**************************************************************************************
  * CTOR/DTOR
@@ -92,15 +73,15 @@ uint8_t SpiMasterBase::exchange(uint8_t const /* data */)
 
 bool SpiMasterBase::setSpiMode(interface::SpiMode const spi_mode)
 {
-  util::clrBit(_spix_sckmode, SCKMODE_PHA_bp);
-  util::clrBit(_spix_sckmode, SCKMODE_POL_bp);
+  util::clrBit(_spix_sckmode, util::bp(SPIx_SCKMODE::PHA));
+  util::clrBit(_spix_sckmode, util::bp(SPIx_SCKMODE::POL));
 
   switch(spi_mode)
   {
-  case interface::SpiMode::MODE_0:                                                                                           break;
-  case interface::SpiMode::MODE_1:                                              util::setBit(_spix_sckmode, SCKMODE_PHA_bp); break;
-  case interface::SpiMode::MODE_2: util::setBit(_spix_sckmode, SCKMODE_POL_bp);                                              break;
-  case interface::SpiMode::MODE_3: util::setBit(_spix_sckmode, SCKMODE_POL_bp); util::setBit(_spix_sckmode, SCKMODE_PHA_bp); break;
+  case interface::SpiMode::MODE_0: {                                                                                                                     } break;
+  case interface::SpiMode::MODE_1: {                                                           util::setBit(_spix_sckmode, util::bp(SPIx_SCKMODE::PHA)); } break;
+  case interface::SpiMode::MODE_2: { util::setBit(_spix_sckmode, util::bp(SPIx_SCKMODE::POL));                                                           } break;
+  case interface::SpiMode::MODE_3: { util::setBit(_spix_sckmode, util::bp(SPIx_SCKMODE::POL)); util::setBit(_spix_sckmode, util::bp(SPIx_SCKMODE::PHA)); } break;
   }
 
   return true;
@@ -110,8 +91,8 @@ bool SpiMasterBase::setSpiBitOrder(interface::SpiBitOrder const spi_bit_order)
 { 
   switch(spi_bit_order)
   {
-  case interface::SpiBitOrder::LSB_FIRST: util::setBit(_spix_fmt, FMT_ENDIAN_bp); break;
-  case interface::SpiBitOrder::MSB_FIRST: util::clrBit(_spix_fmt, FMT_ENDIAN_bp); break;
+  case interface::SpiBitOrder::LSB_FIRST: util::setBit(_spix_fmt, util::bp(SPIx_FMT::ENDIAN)); break;
+  case interface::SpiBitOrder::MSB_FIRST: util::clrBit(_spix_fmt, util::bp(SPIx_FMT::ENDIAN)); break;
   }
 
   return true;
@@ -119,12 +100,16 @@ bool SpiMasterBase::setSpiBitOrder(interface::SpiBitOrder const spi_bit_order)
 
 bool SpiMasterBase::setSpiBitsPerFrame(uint8_t const spi_bits_per_frame)
 {
-  *_spix_fmt &= ~FMT_LEN_bm;
+  static constexpr uint32_t SPIx_FMT_LEN_MASK = util::bm(SPIx_FMT::LEN_3) | 
+                                                util::bm(SPIx_FMT::LEN_2) |
+                                                util::bm(SPIx_FMT::LEN_1) |
+                                                util::bm(SPIx_FMT::LEN_0);
+  *_spix_fmt &= ~SPIx_FMT_LEN_MASK;
   
   switch(spi_bits_per_frame)
   {
-    case 8 : *_spix_fmt |= (8 << FMT_LEN_0_bp); return true;  break;
-    default:                                    return false; break;
+    case 8 : *_spix_fmt |= (8 << util::bp(SPIx_FMT::LEN_0)); return true;  break;
+    default:                                                 return false; break;
   }
 }
 
@@ -139,27 +124,27 @@ bool SpiMasterBase::setSpiPrescaler(uint32_t const /* spi_prescaler */)
 
 void SpiMasterBase::setSpiProtocol(SpiProtocol const spi_protocol)
 {
-  util::clrBit(_spix_sckmode, FMT_PROTO_0_bp);
-  util::clrBit(_spix_sckmode, FMT_PROTO_1_bp);
+  util::clrBit(_spix_sckmode, util::bp(SPIx_FMT::PROTO_0));
+  util::clrBit(_spix_sckmode, util::bp(SPIx_FMT::PROTO_1));
 
   switch(spi_protocol)
   {
-  case SpiProtocol::Single:                                              break;
-  case SpiProtocol::Dual  : util::setBit(_spix_sckmode, FMT_PROTO_0_bp); break;
-  case SpiProtocol::Quad  : util::setBit(_spix_sckmode, FMT_PROTO_1_bp); break;
+  case SpiProtocol::Single:                                                           break;
+  case SpiProtocol::Dual  : util::setBit(_spix_sckmode, util::bp(SPIx_FMT::PROTO_0)); break;
+  case SpiProtocol::Quad  : util::setBit(_spix_sckmode, util::bp(SPIx_FMT::PROTO_1)); break;
   }
 }
 
 void SpiMasterBase::setChipSelectMode(ChipSelectMode const cs_mode)
 {
-  util::clrBit(_spix_csmode, CSMODE_MODE_1_bp);
-  util::clrBit(_spix_csmode, CSMODE_MODE_0_bp);
+  util::clrBit(_spix_csmode, util::bp(SPIx_CSMODE::MODE_1));
+  util::clrBit(_spix_csmode, util::bp(SPIx_CSMODE::MODE_0));
 
   switch(cs_mode)
   {
     case ChipSelectMode::Auto: break;
-    case ChipSelectMode::Hold: util::setBit(_spix_csmode, CSMODE_MODE_1_bp); break;
-    case ChipSelectMode::Off : util::setBit(_spix_csmode, CSMODE_MODE_1_bp); util::setBit(_spix_csmode, CSMODE_MODE_0_bp); break;
+    case ChipSelectMode::Hold: { util::setBit(_spix_csmode, util::bp(SPIx_CSMODE::MODE_1)); } break;
+    case ChipSelectMode::Off : { util::setBit(_spix_csmode, util::bp(SPIx_CSMODE::MODE_1)); util::setBit(_spix_csmode, util::bp(SPIx_CSMODE::MODE_0)); } break;
   }
 }
 

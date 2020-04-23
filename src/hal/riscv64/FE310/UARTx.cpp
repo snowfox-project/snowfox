@@ -22,9 +22,11 @@
 
 #include <snowfox/hal/riscv64/FE310/UARTx.h>
 
-#include <snowfox/util/BitUtil.h>
-
+#include <snowfox/hal/riscv64/FE310/RegisterBits.h>
 #include <snowfox/hal/riscv64/FE310/util/UartUtil.h>
+
+#include <snowfox/util/BitUtil.h>
+#include <snowfox/util/EnumClassConv.hpp>
 
 /**************************************************************************************
  * NAMESPACE
@@ -38,17 +40,6 @@ namespace hal
 
 namespace FE310
 {
-
-/**************************************************************************************
- * DEFINE
- **************************************************************************************/
-
-/* TXCTRL */
-#define TXCTRL_TXEN_bp  (0)
-#define TXCTRL_NSTOP_bp (0)
-
-/* RXCTRL */
-#define RXCTRL_RXEN_bp  (0)
 
 /**************************************************************************************
  * CTOR/DTOR
@@ -93,17 +84,17 @@ void UARTx::receive(uint8_t & data)
 
 void UARTx::enableTx()
 {
-  util::setBit(_uartx_txctrl, TXCTRL_TXEN_bp);
+  util::setBit(_uartx_txctrl, util::bp(UARTx_TXCTRL::TXEN));
 }
 
 void UARTx::enableRx()
 {
-  util::setBit(_uartx_rxctrl, RXCTRL_RXEN_bp);
+  util::setBit(_uartx_rxctrl, util::bp(UARTx_RXCTRL::RXEN));
 }
 
 void UARTx::disableTx()
 {
-  util::clrBit(_uartx_rxctrl, RXCTRL_RXEN_bp);
+  util::clrBit(_uartx_rxctrl, util::bp(UARTx_TXCTRL::TXEN));
 }
 
 bool UARTx::setBaudRate(interface::UartBaudRate const baud_rate)
@@ -132,8 +123,8 @@ bool UARTx::setStopBit(interface::UartStopBit const stop_bit)
 {
   switch(stop_bit)
   {
-  case interface::UartStopBit::_1: util::clrBit(_uartx_txctrl, TXCTRL_NSTOP_bp); return true; break;
-  case interface::UartStopBit::_2: util::setBit(_uartx_txctrl, TXCTRL_NSTOP_bp); return true; break;
+  case interface::UartStopBit::_1: util::clrBit(_uartx_txctrl, util::bp(UARTx_TXCTRL::NSTOP)); return true; break;
+  case interface::UartStopBit::_2: util::setBit(_uartx_txctrl, util::bp(UARTx_TXCTRL::NSTOP)); return true; break;
   }
 
   return false;

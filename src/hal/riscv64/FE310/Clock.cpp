@@ -22,9 +22,12 @@
 
 #include <snowfox/hal/riscv64/FE310/Clock.h>
 
+#include <snowfox/hal/riscv64/FE310/RegisterBits.h>
+
 #include <snowfox/hal/riscv64/FE310/util/ClockUtil.h>
 
 #include <snowfox/util/BitUtil.h>
+#include <snowfox/util/EnumClassConv.hpp>
 
 /**************************************************************************************
  * NAMESPACE
@@ -43,22 +46,9 @@ namespace FE310
  * DEFINE
  **************************************************************************************/
 
-/* PRCI_HFXOSCCFG */
-#define PRCI_HFXOSCCFG_HFXOSCRDY_bp    (31)
-#define PRCI_HFXOSCCFG_HFXOSCEN_bp     (30)
-
-/* PRCI_PLLCFG */
-#define PRCI_PLLCFG_PLLLOCK_bp         (31)
-#define PRCI_PLLCFG_PLLBYPASS_bp       (18)
-#define PRCI_PLLCFG_PLLREFSEL_bp       (17)
-#define PRCI_PLLCFG_PLLSEL_bp          (16)
-
 #define PRCI_PLLCFG_PLLQ_bm             ((0x03) << 10)
 #define PRCI_PLLCFG_PLLF_bm             ((0x3F) << 4)
 #define PRCI_PLLCFG_PLLR_bm             ((0x03) << 0)
-
-/* PRCI_PLLOUTDIV */
-#define PRCI_PLLOUTDIV_PLLOUTDIVBY1_bp (8)
 
 /**************************************************************************************
  * CTOR/DTOR
@@ -90,11 +80,11 @@ bool Clock::setClockFreq(uint8_t const clk_id, uint32_t const clk_freq_hz)
   if(clk_id == static_cast<uint8_t>(ClockId::coreclk))
   {
     /* Enable HFXOSC and wait until it is ready */
-    util::setBit(_PRCI_HFXOSCCFG, PRCI_HFXOSCCFG_HFXOSCEN_bp);
-    while(!util::isBitSet(_PRCI_HFXOSCCFG, PRCI_HFXOSCCFG_HFXOSCRDY_bp)) { }
+    util::setBit(_PRCI_HFXOSCCFG, util::bp(PRCI_HFXOSCCFG::HFXOSCEN));
+    while(!util::isBitSet(_PRCI_HFXOSCCFG, util::bp(PRCI_HFXOSCCFG::HFXOSCRDY))) { }
 
     /* Select HFXOSC as reference clock for the PLL */
-    util::setBit(_PRCI_PLLCFG, PRCI_PLLCFG_PLLREFSEL_bp);
+    util::setBit(_PRCI_PLLCFG, util::bp(PRCI_PLLCFG::PLLREFSEL));
 
     /* Setup pllr, pllf, pllq to achieve the desired frequency
      *  refr = pllref / PLLR {1,2,3,4}
@@ -112,16 +102,16 @@ bool Clock::setClockFreq(uint8_t const clk_id, uint32_t const clk_freq_hz)
     if(!setPLLQ(_PRCI_PLLCFG, q)) return false;
 
     /* Disable PLL bypass after configuration to activate PLL */
-    util::clrBit(_PRCI_PLLCFG, PRCI_PLLCFG_PLLBYPASS_bp);
+    util::clrBit(_PRCI_PLLCFG, util::bp(PRCI_PLLCFG::PLLBYPASS));
 
     /* Wait for PLL to achieve a lock */
-    while(!util::isBitSet(_PRCI_PLLCFG, PRCI_PLLCFG_PLLLOCK_bp)) { }
+    while(!util::isBitSet(_PRCI_PLLCFG, util::bp(PRCI_PLLCFG::PLLLOCK))) { }
 
     /* plloutdiv = 1 -> hfclk = pllout / 1  */
-    util::setBit(_PRCI_PLLOUTDIV, PRCI_PLLOUTDIV_PLLOUTDIVBY1_bp);
+    util::setBit(_PRCI_PLLOUTDIV, util::bp(PRCI_PLLOUTDIV::PLLOUTDIVBY1));
 
     /* Select pllout as clock source -> hfclk = pllout */
-    util::setBit(_PRCI_PLLCFG, PRCI_PLLCFG_PLLSEL_bp);
+    util::setBit(_PRCI_PLLCFG, util::bp(PRCI_PLLCFG::PLLSEL));
 
     return true;
   }

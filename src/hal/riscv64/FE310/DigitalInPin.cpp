@@ -46,7 +46,7 @@ DigitalInPin::DigitalInPin(volatile uint32_t       * gpio_input_en,
                            volatile uint32_t       * gpio_iof_en,
                            volatile uint32_t       * gpio_input_val,
                            volatile uint32_t       * gpio_pue,
-                           uint8_t           const   in_pin_number)
+                           uint32_t          const   in_pin_number)
 : _gpio_input_val(gpio_input_val),
   _gpio_pue      (gpio_pue      ),
   _in_pin_number (in_pin_number )
@@ -87,7 +87,7 @@ bool DigitalInPin::setPullUpMode(interface::PullUpMode const pullup_mode)
 void DigitalInPin::setGpioPinAsInput(volatile uint32_t       * gpio_input_en,
                                      volatile uint32_t       * gpio_output_en,
                                      volatile uint32_t       * gpio_iof_en,
-                                     uint8_t           const   in_pin_number)
+                                     uint32_t          const   in_pin_number)
 {
   util::clrBit(gpio_output_en, in_pin_number);
   util::setBit(gpio_input_en,  in_pin_number);
