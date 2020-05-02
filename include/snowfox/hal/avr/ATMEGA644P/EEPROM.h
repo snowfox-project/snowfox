@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATMEGA644P
+namespace snowfox::hal::ATMEGA644P
 {
 
 /**************************************************************************************
@@ -48,10 +42,6 @@ typedef ATxxxx::EEPROM EEPROM;
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA644P */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATMEGA644P */
 
 #endif /* INCLUDE_SNOWFOX_HAL_AVR_ATMEGA644P_EEPROM_H_ */

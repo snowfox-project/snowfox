@@ -34,16 +34,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace serial
-{
-
-namespace UART
+namespace snowfox::driver::serial
 {
 
 /**************************************************************************************
@@ -76,12 +67,6 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* UART */
-
-} /* serial */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::serial */
 
 #endif /* INCLUDE_SNOWFOX_HAL_AVR_COMMON_ATXXXX_UART_ONRXDONECALLBACK_H_ */

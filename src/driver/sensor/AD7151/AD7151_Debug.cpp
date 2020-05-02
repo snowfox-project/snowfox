@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace AD7151
+namespace snowfox::driver::sensor::AD7151
 {
 
 /**************************************************************************************
@@ -100,10 +91,4 @@ void AD7151_Debug::debug_dumpSingleReg(trace::Trace & trace, hal::interface::Fla
  * NAMESPACE
  **************************************************************************************/
 
-} /* AD7151 */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::AD7151 */

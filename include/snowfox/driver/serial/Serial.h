@@ -32,13 +32,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace serial
+namespace snowfox::driver::serial
 {
 
 /**************************************************************************************
@@ -81,10 +75,6 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* serial */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::serial */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_CONSOLE_CONSOLE_H_ */

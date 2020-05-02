@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace memory
-{
-
-namespace AT45DBx
+namespace snowfox::driver::memory::AT45DBx
 {
 
 /**************************************************************************************
@@ -120,10 +111,4 @@ void AT45DBx_IoSpi::exchange(uint8_t const * buf_cmd_in, uint8_t * buf_data_out,
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT45DBx */
-
-} /* memory */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::memory::AT45DBx */

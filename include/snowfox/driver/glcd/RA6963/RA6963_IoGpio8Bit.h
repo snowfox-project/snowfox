@@ -33,16 +33,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace glcd
-{
-
-namespace RA6963
+namespace snowfox::driver::glcd::RA6963
 {
 
 /**************************************************************************************
@@ -90,12 +81,6 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* RA6963 */
-
-} /* glcd */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::glcd::RA6963 */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_GLCD_RA6963_RA6963_IO_GPIO_8BIT_H_ */

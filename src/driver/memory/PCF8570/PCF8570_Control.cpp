@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace memory
-{
-
-namespace PCF8570
+namespace snowfox::driver::memory::PCF8570
 {
 
 /**************************************************************************************
@@ -71,10 +62,4 @@ bool PCF8570_Control::read(uint8_t const address, uint8_t * data)
  * NAMESPACE
  **************************************************************************************/
 
-} /* PCF8570 */
-
-} /* memory */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::memory::PCF8570 */

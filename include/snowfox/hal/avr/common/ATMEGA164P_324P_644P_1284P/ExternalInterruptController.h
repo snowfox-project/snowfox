@@ -32,13 +32,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATMEGA164P_324P_644P_1284P
+namespace snowfox::hal::ATMEGA164P_324P_644P_1284P
 {
 
 /**************************************************************************************
@@ -134,10 +128,6 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA164P_324P_644P_1284P */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATMEGA164P_324P_644P_1284P */
 
 #endif /* INCLUDE_SNOWFOX_HAL_AVR_COMMON_ATMEGA164P_324P_644P_1284P_EXTERNALINTERRUPTCONTROLLER_H_ */

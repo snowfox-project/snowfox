@@ -26,13 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace util
-{
-
-namespace type
+namespace snowfox::util::type
 {
 
 /**************************************************************************************
@@ -78,8 +72,4 @@ uint32_t toCanIdExtended(util::type::CanFrame const & frame)
  * NAMESPACE
  **************************************************************************************/
 
-} /* type */
-
-} /* util */
-
-} /* snowfox */
+} /* namespace snowfox::util::type */

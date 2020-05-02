@@ -28,16 +28,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace serial
-{
-
-namespace UART
+namespace snowfox::driver::serial
 {
 
 /**************************************************************************************
@@ -81,10 +72,4 @@ void UART_onTxDoneCallback::onTxDone()
  * NAMESPACE
  **************************************************************************************/
 
-} /* UART */
-
-} /* serial */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::serial */

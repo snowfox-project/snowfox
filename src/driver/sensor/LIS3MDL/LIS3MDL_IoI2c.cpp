@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace LIS3MDL
+namespace snowfox::driver::sensor::LIS3MDL
 {
 
 /**************************************************************************************
@@ -112,10 +103,4 @@ bool LIS3MDL_IoI2c::writeRegister(interface::Register const reg, uint8_t const d
  * NAMESPACE
  **************************************************************************************/
 
-} /* LIS3MDL */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::LIS3MDL */

@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATMEGA4809
+namespace snowfox::hal::ATMEGA4809
 {
 
 /**************************************************************************************
@@ -49,10 +43,6 @@ typedef ATMEGA3209_4809::InterruptController InterruptController;
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA4809 */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATMEGA4809 */
 
 #endif /* INCLUDE_SNOWFOX_HAL_AVR_ATMEGA4809_INTERRUPT_CONTROLLER_H_ */

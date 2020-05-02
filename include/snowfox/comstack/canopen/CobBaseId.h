@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace comstack
-{
-
-namespace canopen
+namespace snowfox::comstack::canopen
 {
 
 /**************************************************************************************
@@ -73,10 +67,6 @@ constexpr uint16_t toValue(CobBaseId const cob_base_id)
  * NAMESPACE
  **************************************************************************************/
 
-} /* canopen */
-
-} /* comstack */
-
-} /* snowfox */
+} /* snowfox::comstack::canopen */
 
 #endif /* INCLUDE_SNOWFOX_COMSTACK_CANOPEN_COBBASEID_H_ */

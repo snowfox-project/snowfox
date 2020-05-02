@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace blox
-{
-
-namespace ATMEGA2560
+namespace snowfox::blox::ATMEGA2560
 {
 
 /**************************************************************************************
@@ -48,10 +42,6 @@ typedef ATMEGA640_1280_2560::UART3 UART3;
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA2560 */
-
-} /* blox */
-
-} /* snowfox */
+} /* snowfox::blox::ATMEGA2560 */
 
 #endif /* INCLUDE_SNOWFOX_BLOX_HAL_AVR_ATMEGA2560_UART3_H_ */

@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATMEGA1280
+namespace snowfox::hal::ATMEGA1280
 {
 
 /**************************************************************************************
@@ -49,10 +43,6 @@ typedef ATMEGA640_1280_2560::ExternalInterruptController ExternalInterruptContro
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA1280 */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATMEGA1280 */
 
 #endif /* INCLUDE_SNOWFOX_HAL_AVR_ATMEGA1280_EXTERNALINTERRUPTCONTROLLER_H_ */

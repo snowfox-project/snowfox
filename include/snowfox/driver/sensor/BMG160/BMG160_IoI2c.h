@@ -31,16 +31,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace BMG160
+namespace snowfox::driver::sensor::BMG160
 {
 
 /**************************************************************************************
@@ -73,12 +64,6 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* BMG160 */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::BMG160 */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_SENSOR_BMG160_INTERFACE_BMG160_IO_I2C_H_ */

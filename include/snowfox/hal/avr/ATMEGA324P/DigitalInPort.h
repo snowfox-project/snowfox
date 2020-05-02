@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATMEGA324P
+namespace snowfox::hal::ATMEGA324P
 {
 
 /**************************************************************************************
@@ -48,10 +42,6 @@ typedef ATxxxx::DigitalInPort DigitalInPort;
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA324P */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATMEGA324P */
 
 #endif /* INCLUDE_SNOWFOX_HAL_AVR_ATMEGA324P_DIGITALINPORT_H_ */

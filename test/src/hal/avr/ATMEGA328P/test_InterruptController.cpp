@@ -33,16 +33,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATMEGA328P
-{
-
-namespace test
+namespace snowfox::hal::ATMEGA328P::test
 {
 
 /**************************************************************************************
@@ -139,10 +130,4 @@ SCENARIO("ATMEGA328P::InterruptController - interrupts are enabled via 'enableIn
  * NAMESPACES
  **************************************************************************************/
 
-} /* test */
-
-} /* ATMEGA328P */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATMEGA328P::test */

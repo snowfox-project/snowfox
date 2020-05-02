@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace L3GD20
+namespace snowfox::driver::sensor::L3GD20
 {
 
 /**************************************************************************************
@@ -336,10 +327,4 @@ bool L3GD20_Control::enableBlockDataUpdate()
  * NAMESPACE
  **************************************************************************************/
 
-} /* L3GD20 */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::L3GD20 */

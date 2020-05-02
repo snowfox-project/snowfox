@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace lora
-{
-
-namespace RFM9x
+namespace snowfox::driver::lora::RFM9x
 {
 
 /**************************************************************************************
@@ -150,10 +141,4 @@ void RFM9x_Control::setDio1EventSource(interface::Dio1EventSource const event_so
  * NAMESPACE
  **************************************************************************************/
 
-} /* RFM9x */
-
-} /* lora */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::lora::RFM9x */

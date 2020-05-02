@@ -29,19 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace BMP388
-{
-
-namespace interface
+namespace snowfox::driver::sensor::BMP388::interface
 {
 
 /**************************************************************************************
@@ -64,14 +52,6 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
-
-} /* BMP388 */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::BMP388::interface */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_SENSOR_BMP388_INTERFACE_BMP388_CONTROL_H_ */

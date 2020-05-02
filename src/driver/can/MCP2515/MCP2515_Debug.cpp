@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace can
-{
-
-namespace MCP2515
+namespace snowfox::driver::can::MCP2515
 {
 
 /**************************************************************************************
@@ -90,10 +81,4 @@ void MCP2515_Debug::debug_dumpSingleReg(trace::Trace & trace, hal::interface::Fl
  * NAMESPACE
  **************************************************************************************/
 
-} /* MCP2515 */
-
-} /* can */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::can::MCP2515 */

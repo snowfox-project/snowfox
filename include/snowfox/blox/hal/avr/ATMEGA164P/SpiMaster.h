@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace blox
-{
-
-namespace ATMEGA164P
+namespace snowfox::blox::ATMEGA164P
 {
 
 /**************************************************************************************
@@ -48,10 +42,6 @@ typedef ATMEGA164P_324P_644P_1284P::SpiMaster SpiMaster;
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA164P */
-
-} /* blox */
-
-} /* snowfox */
+} /* snowfox::blox::ATMEGA164P */
 
 #endif /* INCLUDE_SNOWFOX_BLOX_HAL_AVR_ATMEGA164P_SPIMASTER_H_ */

@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace BMP388
+namespace snowfox::driver::sensor::BMP388
 {
 
 /**************************************************************************************
@@ -109,10 +100,4 @@ void BMP388_Configuration::configPowerMode(interface::PowerMode const mode)
  * NAMESPACE
  **************************************************************************************/
 
-} /* BMP388 */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::BMP388 */

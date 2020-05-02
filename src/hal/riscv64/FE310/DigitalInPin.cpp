@@ -28,13 +28,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace FE310
+namespace snowfox::hal::FE310
 {
 
 /**************************************************************************************
@@ -98,8 +92,4 @@ void DigitalInPin::setGpioPinAsInput(volatile uint32_t       * gpio_input_en,
  * NAMESPACE
  **************************************************************************************/
 
-} /* FE310 */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::FE310 */

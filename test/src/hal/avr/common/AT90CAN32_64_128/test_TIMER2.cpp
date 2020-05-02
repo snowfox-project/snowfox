@@ -34,16 +34,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace AT90CAN32_64_128
-{
-
-namespace test
+namespace snowfox::hal::AT90CAN32_64_128::test
 {
 
 /**************************************************************************************
@@ -220,10 +211,4 @@ SCENARIO("AT90CAN32_64_128::TIMER2 - A timer's compare register are written via 
  * NAMESPACES
  **************************************************************************************/
 
-} /* test */
-
-} /* AT90CAN32_64_128 */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::AT90CAN32_64_128::test */

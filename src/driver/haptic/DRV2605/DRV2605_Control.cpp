@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace haptic
-{
-
-namespace DRV2605
+namespace snowfox::driver::haptic::DRV2605
 {
 
 /**************************************************************************************
@@ -174,10 +165,4 @@ bool DRV2605_Control::clrGo()
  * NAMESPACE
  **************************************************************************************/
 
-} /* DRV2605 */
-
-} /* haptic */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::haptic::DRV2605 */

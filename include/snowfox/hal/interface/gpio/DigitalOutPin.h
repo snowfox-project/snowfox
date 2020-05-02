@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace interface
+namespace snowfox::hal::interface
 {
 
 /**************************************************************************************
@@ -48,10 +42,6 @@ typedef DigitalOutPinControl DigitalOutPin;
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface*/
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::interface*/
 
 #endif /* INCLUDE_SNOWFOX_HAL_INTERFACE_GPIO_DIGITALOUTPIN_H_ */

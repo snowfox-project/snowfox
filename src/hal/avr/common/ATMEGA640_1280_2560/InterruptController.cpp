@@ -30,13 +30,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATMEGA640_1280_2560
+namespace snowfox::hal::ATMEGA640_1280_2560
 {
 
 /**************************************************************************************
@@ -302,11 +296,7 @@ void InterruptController::registerInterruptCallback(uint8_t const int_num, inter
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA640_1280_2560 */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATMEGA640_1280_2560 */
 
 /**************************************************************************************
  * INTERRUPT SERVICE ROUTINES

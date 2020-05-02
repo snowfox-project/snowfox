@@ -31,13 +31,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace blox
-{
-
-namespace ATMEGA328P
+namespace snowfox::blox::ATMEGA328P
 {
 
 /**************************************************************************************
@@ -50,10 +44,6 @@ typedef ATxxxx::SpiMaster<hal::ATMEGA328P::toIntNum(hal::ATMEGA328P::Interrupt::
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA328P */
-
-} /* blox */
-
-} /* snowfox */
+} /* snowfox::blox::ATMEGA328P */
 
 #endif /* INCLUDE_SNOWFOX_BLOX_HAL_AVR_COMMON_ATXXXX_SPIMASTER_H_ */

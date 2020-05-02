@@ -31,13 +31,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace FE310
+namespace snowfox::hal::FE310
 {
 
 /**************************************************************************************
@@ -77,8 +71,4 @@ void Spi2Master::enableGpioAccess(volatile uint32_t * gpio_iof_en, volatile uint
  * NAMESPACE
  **************************************************************************************/
 
-} /* FE310 */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::FE310 */

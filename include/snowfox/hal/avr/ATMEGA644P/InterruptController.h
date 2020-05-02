@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATMEGA644P
+namespace snowfox::hal::ATMEGA644P
 {
 
 /**************************************************************************************
@@ -49,10 +43,6 @@ typedef ATMEGA164P_324P_644P_1284P::InterruptController InterruptController;
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA644P */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATMEGA644P */
 
 #endif /* INCLUDE_SNOWFOX_HAL_AVR_ATMEGA644_INTERRUPTCONTROLLER_H_ */

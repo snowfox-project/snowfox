@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace LIS3DSH
+namespace snowfox::driver::sensorLIS3DSH
 {
 
 /**************************************************************************************
@@ -355,10 +346,4 @@ bool LIS3DSH_Control::readTemperature(int8_t * raw_temp)
  * NAMESPACE
  **************************************************************************************/
 
-} /* LIS3DSH */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensorLIS3DSH */

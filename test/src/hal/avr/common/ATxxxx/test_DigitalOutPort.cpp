@@ -30,16 +30,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATxxxx
-{
-
-namespace test
+namespace snowfox::hal::ATxxxx::test
 {
 
 /**************************************************************************************
@@ -69,10 +60,4 @@ SCENARIO("A ATxxxx::DigitalOutPort object is constructed", "[ATxxxx::DigitalOutP
  * NAMESPACE
  **************************************************************************************/
 
-} /* test */
-
-} /* ATxxxx */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATxxxx::test */

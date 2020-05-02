@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace trace
-{
-
-namespace interface
+namespace snowfox::trace::interface
 {
 
 /**************************************************************************************
@@ -59,10 +53,6 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
-
-} /* trace */
-
-} /* snowfox */
+} /* snowfox::trace::interface */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_HAPTIC_DRV2605_DEBUGINTERFACE_H_ */

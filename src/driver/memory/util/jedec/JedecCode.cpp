@@ -26,19 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace memory
-{
-
-namespace util
-{
-
-namespace jedec
+namespace snowfox::driver::memory::util::jedec
 {
 
 /**************************************************************************************
@@ -65,12 +53,4 @@ JedecCode::JedecCode(uint8_t const * device_id)
  * NAMESPACE
  **************************************************************************************/
 
-} /* jedec */
-
-} /* util */
-
-} /* memory */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::memory::util::jedec */

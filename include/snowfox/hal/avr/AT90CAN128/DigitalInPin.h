@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace AT90CAN128
+namespace snowfox::hal::AT90CAN128
 {
 
 /**************************************************************************************
@@ -48,10 +42,6 @@ typedef ATxxxx::DigitalInPin DigitalInPin;
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CAN128 */
-
-} /* hal */
-
-} /* snowfox */
+} /* namespace snowfox::hal::AT90CAN128 */
 
 #endif /* INCLUDE_SNOWFOX_HAL_AVR_AT90CAN128_DIGITALINPIN_H_ */

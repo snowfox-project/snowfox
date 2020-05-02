@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace AT90CAN64
+namespace snowfox::hal::AT90CAN64
 {
 
 /**************************************************************************************
@@ -48,10 +42,6 @@ typedef AT90CAN32_64_128::TIMER2 TIMER2;
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CAN64 */
-
-} /* hal */
-
-} /* snowfox */
+} /* namespace snowfox::hal::AT90CAN64 */
 
 #endif /* INCLUDE_SNOWFOX_HAL_AVR_AT90CAN64_TIMER2_H_ */

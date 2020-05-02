@@ -28,16 +28,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace util
-{
-
-namespace container
-{
-
-namespace test
+namespace snowfox::util::container::test
 {
 
 /**************************************************************************************/
@@ -210,10 +201,4 @@ SCENARIO("A queue is constructed with a size of > 0 and elements are inserted an
  * TEST CODE
  **************************************************************************************/
 
-} /* test */
-
-} /* container */
-
-} /* util */
-
-} /* snowfox */
+} /* snowfox::util::container::test */

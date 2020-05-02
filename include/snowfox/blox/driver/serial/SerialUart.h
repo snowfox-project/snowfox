@@ -38,10 +38,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace blox
+namespace snowfox::blox
 {
 
 /**************************************************************************************
@@ -72,13 +69,13 @@ public:
 
 private:
 
-  util::container::Queue<uint8_t>                _serial_rx_queue,
-                                                 _serial_tx_queue;
-  driver::serial::UART::UART_onRxDoneCallback    _serial_on_rx_done_callback;
-  driver::serial::UART::UART_onTxDoneCallback    _serial_on_tx_done_callback;
-  driver::serial::UART::UART_SerialConfiguration _serial_config;
-  driver::serial::UART::UART_SerialControl       _serial_control;
-  driver::serial::Serial                         _serial;
+  util::container::Queue<uint8_t>          _serial_rx_queue,
+                                           _serial_tx_queue;
+  driver::serial::UART_onRxDoneCallback    _serial_on_rx_done_callback;
+  driver::serial::UART_onTxDoneCallback    _serial_on_tx_done_callback;
+  driver::serial::UART_SerialConfiguration _serial_config;
+  driver::serial::UART_SerialControl       _serial_control;
+  driver::serial::Serial                   _serial;
 
 };
 
@@ -86,8 +83,6 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* blox */
-
-} /* snowfox */
+} /* snowfox::blox */
 
 #endif /* INCLUDE_SNOWFOX_BLOX_DRIVER_SERIAL_SERIALUART_H_ */

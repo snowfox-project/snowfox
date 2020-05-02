@@ -31,13 +31,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace blox
-{
-
-namespace AT90CAN32_64_128
+namespace snowfox::blox::AT90CAN32_64_128
 {
 
 /**************************************************************************************
@@ -50,10 +44,6 @@ typedef ATxxxx::SpiMaster<hal::AT90CAN32_64_128::toIntNum(hal::AT90CAN32_64_128:
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CAN32_64_128 */
-
-} /* blox */
-
-} /* snowfox */
+} /* snowfox::blox::AT90CAN32_64_128 */
 
 #endif /* INCLUDE_SNOWFOX_BLOX_HAL_AVR_COMMON_AT90CAN32_64_128_SPIMASTER_H_ */

@@ -41,13 +41,7 @@ typedef int32_t ssize_t;
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace interface
+namespace snowfox::driver::interface
 {
 
 /**************************************************************************************
@@ -75,10 +69,6 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::interface */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_INTERFACE_DRIVER_H_ */

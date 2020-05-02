@@ -30,13 +30,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace interface
+namespace snowfox::hal::interface
 {
 
 /**************************************************************************************
@@ -65,10 +59,6 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface*/
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::interface*/
 
 #endif /* INCLUDE_SNOWFOX_HAL_INTERFACE_INTERRUPT_INTERRUPTCONTROL_H_ */

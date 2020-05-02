@@ -33,10 +33,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace trace
+namespace snowfox::trace
 {
 
 /**************************************************************************************
@@ -65,8 +62,6 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* trace */
-
-} /* snowfox */
+} /* snowfox::trace */
 
 #endif /* INCLUDE_SNOWFOX_DEBUG_SERIAL_SERIALTRACEOUTPUT_H_ */

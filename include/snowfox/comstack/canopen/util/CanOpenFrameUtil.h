@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace util
-{
-
-namespace type
+namespace snowfox::util::type
 {
 
 /**************************************************************************************
@@ -48,10 +42,6 @@ uint16_t toCobId(util::type::CanFrame const & frame);
  * NAMESPACE
  **************************************************************************************/
 
-} /* type */
-
-} /* util */
-
-} /* snowfox */
+} /* namespace snowfox::util::type */
 
 #endif /* INCLUDE_SNOWFOX_COMSTACK_CANOPEN_UTIL_CANOPENFRAMEUTIL_H_ */

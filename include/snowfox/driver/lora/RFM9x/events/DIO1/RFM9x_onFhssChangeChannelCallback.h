@@ -29,16 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace lora
-{
-
-namespace RFM9x
+namespace snowfox::driver::lora::RFM9x
 {
 
 /**************************************************************************************
@@ -62,12 +53,6 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* RFM9x */
-
-} /* lora */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::lora::RFM9x */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_LORA_RFM9X_DIO1_RFM9X_ONFHSSCHANGECHANNELCALLBACK_H_ */

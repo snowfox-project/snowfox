@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace FE310
+namespace snowfox::hal::FE310
 {
 
 /**************************************************************************************
@@ -50,10 +44,6 @@ bool isGlobalInterruptEnabled();
  * NAMESPACE
  **************************************************************************************/
 
-} /* FE310 */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::FE310 */
 
 #endif /* INCLUDE_SNOWFOX_HAL_SIFIVE_FE310_UTIL_INTERRUPTUTIL_H_ */

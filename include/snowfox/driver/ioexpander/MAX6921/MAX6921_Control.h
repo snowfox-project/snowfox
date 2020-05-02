@@ -33,16 +33,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace ioexpander
-{
-
-namespace MAX6921
+namespace snowfox::driver::ioexpander::MAX6921
 {
 
 /**************************************************************************************
@@ -79,12 +70,6 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* MAX6921 */
-
-} /* ioexpander */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::ioexpander::MAX6921 */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_IOEXPANDER_MAX6921_MAX6921_CONTROL_H_ */

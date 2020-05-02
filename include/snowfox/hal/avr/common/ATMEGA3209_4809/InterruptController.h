@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATMEGA3209_4809
+namespace snowfox::hal::ATMEGA3209_4809
 {
 
 /**************************************************************************************
@@ -182,10 +176,6 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA3209_4809 */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATMEGA3209_4809 */
 
 #endif /* INCLUDE_SNOWFOX_HAL_AVR_COMMON_ATMEGA3209_4809_INTERRUPTCONTROLLER_H_ */

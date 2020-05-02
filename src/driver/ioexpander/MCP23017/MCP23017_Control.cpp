@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace ioexpander
-{
-
-namespace MCP23017
+namespace snowfox::driver::ioexpander::MCP23017
 {
 
 /**************************************************************************************
@@ -100,10 +91,4 @@ bool MCP23017_Control::read(interface::Port const port, uint8_t * port_val)
  * NAMESPACE
  **************************************************************************************/
 
-} /* MCP23017 */
-
-} /* ioexpander */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::ioexpander::MCP23017 */

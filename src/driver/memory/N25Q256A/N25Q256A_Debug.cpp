@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace memory
-{
-
-namespace N25Q256A
+namespace snowfox::driver::memory::N25Q256A
 {
 
 /**************************************************************************************
@@ -75,10 +66,4 @@ void N25Q256A_Debug::debug_dumpNVConfigReg(trace::Trace & trace, interface::N25Q
  * NAMESPACE
  **************************************************************************************/
 
-} /* N25Q256A */
-
-} /* memory */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::memory::N25Q256A */

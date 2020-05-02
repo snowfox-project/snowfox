@@ -33,16 +33,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace can
-{
-
-namespace MCP2515
+namespace snowfox::driver::can::MCP2515
 {
 
 /**************************************************************************************
@@ -79,12 +70,6 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* MCP2515 */
-
-} /* can */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::can::MCP2515 */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_CAN_MCP2515_MCP2515_CONFIGURATION_H_ */

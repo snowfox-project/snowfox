@@ -31,13 +31,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace blox
-{
-
-namespace ATMEGA328P
+namespace snowfox::blox::ATMEGA328P
 {
 
 /**************************************************************************************
@@ -51,11 +45,6 @@ typedef ATxxxx::UART0<hal::ATMEGA328P::toIntNum(hal::ATMEGA328P::Interrupt::USAR
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CAN32_64_128 */
-
-} /* blox */
-
-} /* snowfox */
-
+} /* snowfox::blox::ATMEGA328P */
 
 #endif /* INCLUDE_SNOWFOX_BLOX_HAL_AVR_ATMEGA328P_UART0_H_ */

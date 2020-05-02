@@ -30,16 +30,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATxxxx
-{
-
-namespace test
+namespace snowfox::hal::ATxxxx::test
 {
 
 /**************************************************************************************
@@ -96,10 +87,4 @@ SCENARIO("A ATxxxx::DigitalInPort object is constructed", "[ATxxxx::DigitalInPor
  * NAMESPACE
  **************************************************************************************/
 
-} /* test */
-
-} /* ATxxxx */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATxxxx::test */

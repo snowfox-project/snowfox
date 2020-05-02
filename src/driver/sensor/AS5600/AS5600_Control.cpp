@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace AS5600
+namespace snowfox::driver::sensor::AD7151
 {
 
 /**************************************************************************************
@@ -265,10 +256,4 @@ bool AS5600_Control::isMagnetDetected(uint8_t const status)
  * NAMESPACE
  **************************************************************************************/
 
-} /* AS5600 */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::AD7151 */

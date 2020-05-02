@@ -30,19 +30,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace glcd
-{
-
-namespace RA6963
-{
-
-namespace interface
+namespace snowfox::driver::glcd::RA6963::interface
 {
 
 /**************************************************************************************
@@ -78,14 +66,6 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
-
-} /* RA6963 */
-
-} /* glcd */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::glcd::RA6963::interface */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_GLCD_RA6963_INTERFACE_RA6963_DATA_INTERFACE_H_ */

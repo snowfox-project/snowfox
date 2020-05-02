@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace INA220
+namespace snowfox::driver::sensor::INA220
 {
 
 /**************************************************************************************
@@ -92,10 +83,4 @@ bool INA220_IoI2c::writeRegister(interface::Register const reg, uint16_t const d
  * NAMESPACE
  **************************************************************************************/
 
-} /* INA220 */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::INA220 */

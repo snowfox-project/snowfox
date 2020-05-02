@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace ioexpander
-{
-
-namespace PCA9547
+namespace snowfox::driver::ioexpander::PCA9547
 {
 
 /**************************************************************************************
@@ -79,10 +70,4 @@ bool PCA9547_Control::getChannel(interface::I2cChannel * sel)
  * NAMESPACE
  **************************************************************************************/
 
-} /* PCA9547 */
-
-} /* ioexpander */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::ioexpander::PCA9547 */

@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace blox
-{
-
-namespace ATMEGA324P
+namespace snowfox::blox::ATMEGA324P
 {
 
 /**************************************************************************************
@@ -48,10 +42,6 @@ typedef ATMEGA164P_324P_644P_1284P::I2cMaster I2cMaster;
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA324P */
-
-} /* blox */
-
-} /* snowfox */
+} /* snowfox::blox::ATMEGA324P */
 
 #endif /* INCLUDE_SNOWFOX_BLOX_HAL_AVR_ATMEGA324P_I2CMASTER_H_ */

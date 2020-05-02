@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace blox
-{
-
-namespace ATMEGA644P
+namespace snowfox::blox::ATMEGA644P
 {
 
 /**************************************************************************************
@@ -48,10 +42,6 @@ typedef ATMEGA164P_324P_644P_1284P::UART1 UART1;
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA644P */
-
-} /* blox */
-
-} /* snowfox */
+} /* snowfox::blox::ATMEGA644P */
 
 #endif /* INCLUDE_SNOWFOX_BLOX_HAL_AVR_ATMEGA644P_UART1_H_ */

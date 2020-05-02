@@ -26,19 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace can
-{
-
-namespace MCP2515
-{
-
-namespace interface
+namespace snowfox::driver::can::MCP2515::interface
 {
 
 /**************************************************************************************
@@ -89,12 +77,4 @@ bool MCP2515_EventControl::isRxBuf0FullEvent(uint8_t const event_flags)
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
-
-} /* MCP2515 */
-
-} /* can */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::can::MCP2515::interface */

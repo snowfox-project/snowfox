@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace FE310
+namespace snowfox::hal::FE310
 {
 
 /**************************************************************************************
@@ -132,10 +126,6 @@ enum class MSTATUS : uint32_t
  * NAMESPACE
  **************************************************************************************/
 
-} /* FE310 */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::FE310 */
 
 #endif /* INCLUDE_SNOWFOX_HAL_SIFIVE_FE310_REGISTER_BITS_H_ */

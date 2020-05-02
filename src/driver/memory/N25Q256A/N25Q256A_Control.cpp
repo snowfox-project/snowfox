@@ -28,16 +28,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace memory
-{
-
-namespace N25Q256A
+namespace snowfox::driver::memory::N25Q256A
 {
 
 /**************************************************************************************
@@ -124,10 +115,4 @@ void N25Q256A_Control::eraseSubsector(uint32_t const subsector_num)
  * NAMESPACE
  **************************************************************************************/
 
-} /* N25Q256A */
-
-} /* memory */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::memory::N25Q256A */

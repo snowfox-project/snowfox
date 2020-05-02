@@ -29,16 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace memory
-{
-
-namespace N25Q256A
+namespace snowfox::driver::memory::N25Q256A
 {
 
 /**************************************************************************************
@@ -63,12 +54,6 @@ static NorFlashInfo constexpr FLASH_INFO =
  * NAMESPACE
  **************************************************************************************/
 
-} /* N25Q256A */
-
-} /* memory */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::memory::N25Q256A */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_N25Q256A_FLASHINFO_H_ */

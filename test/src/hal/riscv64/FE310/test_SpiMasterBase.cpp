@@ -31,16 +31,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace FE310
-{
-
-namespace test
+namespace snowfox::hal::FE310::test
 {
 
 /**************************************************************************************
@@ -162,10 +153,4 @@ SCENARIO("A FE310::SpiMasterBase's Bits per frame are configured", "[FE310::SpiM
  * NAMESPACE
  **************************************************************************************/
 
-} /* test */
-
-} /* FE310 */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::FE310::test */

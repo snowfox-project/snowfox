@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATMEGA328P
+namespace snowfox::hal::ATMEGA328P
 {
 
 /**************************************************************************************
@@ -48,10 +42,6 @@ typedef ATxxxx::I2cMaster I2cMaster;
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA328P */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATMEGA328P */
 
 #endif /* INCLUDE_SNOWFOX_MCU_AVR_ATMEGA328P_I2CMASTER_H_ */

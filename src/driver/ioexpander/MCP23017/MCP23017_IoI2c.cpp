@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace ioexpander
-{
-
-namespace MCP23017
+namespace snowfox::driver::ioexpander::MCP23017
 {
 
 /**************************************************************************************
@@ -85,10 +76,4 @@ bool MCP23017_IoI2c::writeRegister(interface::Register const reg, uint8_t const 
  * NAMESPACE
  **************************************************************************************/
 
-} /* MCP23017 */
-
-} /* ioexpander */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::ioexpander::MCP23017 */

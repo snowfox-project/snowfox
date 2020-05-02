@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace BMG160
+namespace snowfox::driver::sensor::BMG160
 {
 
 /**************************************************************************************
@@ -106,10 +97,4 @@ void BMG160::close()
  * NAMESPACE
  **************************************************************************************/
 
-} /* BMG160 */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::BMG160 */

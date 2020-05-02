@@ -20,16 +20,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace ioexpander
-{
-
-namespace PCA9547
+namespace snowfox::driver::ioexpander::PCA9547
 {
 
 /**************************************************************************************
@@ -60,12 +51,6 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* PCA9547 */
-
-} /* ioexpander */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::ioexpander::PCA9547 */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_IOEXPANDER_PCA9547_INTERFACE_PCA9547_IO_I2C_H_ */

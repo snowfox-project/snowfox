@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace LSM6DSM
+namespace snowfox::driver::sensor::LSM6DSM
 {
 
 /**************************************************************************************
@@ -91,10 +82,4 @@ void LSM6DSM::close()
  * NAMESPACE
  **************************************************************************************/
 
-} /* LSM6DSM */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::LSM6DSM */

@@ -31,16 +31,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace memory
-{
-
-namespace PCF8570
+namespace snowfox::driver::memory::PCF8570
 {
 
 /**************************************************************************************
@@ -70,12 +61,6 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* PCF8570 */
-
-} /* memory */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::memory::PCF8570 */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_MEMORY_PCF8570_PCF8570_IO_I2C_H_ */

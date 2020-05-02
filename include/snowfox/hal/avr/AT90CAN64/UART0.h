@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace AT90CAN64
+namespace snowfox::hal::AT90CAN64
 {
 
 /**************************************************************************************
@@ -50,10 +44,6 @@ typedef ATxxxx::UART0_ReceiveCompleteCallback       UART0_ReceiveCompleteCallbac
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CAN64 */
-
-} /* hal */
-
-} /* snowfox */
+} /* namespace snowfox::hal::AT90CAN64 */
 
 #endif /* INCLUDE_SNOWFOX_HAL_AVR_AT90CAN64_UART0_H_ */

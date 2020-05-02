@@ -30,16 +30,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATxxxx
-{
-
-namespace test
+namespace snowfox::hal::ATxxxx::test
 {
 
 /**************************************************************************************
@@ -101,10 +92,4 @@ SCENARIO("A ATxxxx::DigitalInPin (Pin Number #0) object is constructed", "[ATxxx
  * NAMESPACE
  **************************************************************************************/
 
-} /* test */
-
-} /* ATxxxx */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATxxxx::test */

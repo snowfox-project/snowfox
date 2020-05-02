@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace ioexpander
-{
-
-namespace PCA9547
+namespace snowfox::driver::ioexpander::PCA9547
 {
 
 /**************************************************************************************
@@ -76,10 +67,4 @@ bool PCA9547_IoI2c::writeControlRegister(uint8_t const data)
  * NAMESPACE
  **************************************************************************************/
 
-} /* PCA9547 */
-
-} /* ioexpander */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::ioexpander::PCA9547 */

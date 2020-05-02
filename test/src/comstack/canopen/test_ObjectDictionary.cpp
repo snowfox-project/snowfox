@@ -28,16 +28,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace comstack
-{
-
-namespace canopen
-{
-
-namespace test
+namespace snowfox::comstack::canopen::test
 {
 
 /**************************************************************************************
@@ -154,10 +145,4 @@ SCENARIO("A ObjectDictionary object is constructed", "[comstack::canopen::Object
  * NAMESPACE
  **************************************************************************************/
 
-} /* test */
-
-} /* canopen */
-
-} /* comstack */
-
-} /* snowfox */
+} /* snowfox::comstack::canopen::test */

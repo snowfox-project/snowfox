@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace ioexpander
-{
-
-namespace MCP23017
+namespace snowfox::driver::ioexpander::MCP23017
 {
 
 /**************************************************************************************
@@ -134,10 +125,4 @@ void MCP23017::close()
  * NAMESPACE
  **************************************************************************************/
 
-} /* MCP23017 */
-
-} /* ioexpander */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::ioexpander::MCP23017 */

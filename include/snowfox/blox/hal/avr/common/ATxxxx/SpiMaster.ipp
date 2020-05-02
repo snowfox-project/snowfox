@@ -20,13 +20,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace blox
-{
-
-namespace ATxxxx
+namespace snowfox::blox::ATxxxx
 {
 
 /**************************************************************************************
@@ -65,8 +59,4 @@ SpiMaster<SERIAL_TRANSFER_COMPLETE_INTERRUPT_NUMBER>::SpiMaster(volatile uint8_t
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATxxxx */
-
-} /* blox */
-
-} /* snowfox */
+} /* snowfox::blox::ATxxxx */

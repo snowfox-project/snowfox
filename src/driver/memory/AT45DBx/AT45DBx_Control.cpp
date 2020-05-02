@@ -28,16 +28,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace memory
-{
-
-namespace AT45DBx
+namespace snowfox::driver::memory::AT45DBx
 {
 
 /**************************************************************************************
@@ -135,10 +126,4 @@ void AT45DBx_Control::read(uint32_t const offset, uint8_t * buffer, uint16_t con
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT45DBx */
-
-} /* memory */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::memory::AT45DBx */

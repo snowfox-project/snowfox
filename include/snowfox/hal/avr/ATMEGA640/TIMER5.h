@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATMEGA640
+namespace snowfox::hal::ATMEGA640
 {
 
 /**************************************************************************************
@@ -48,10 +42,6 @@ typedef ATMEGA640_1280_2560::TIMER5 TIMER5;
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA640 */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATMEGA640 */
 
 #endif /* INCLUDE_SNOWFOX_HAL_AVR_ATMEGA640_TIMER5_H_ */

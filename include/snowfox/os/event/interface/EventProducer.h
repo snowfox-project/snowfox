@@ -23,13 +23,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace os
-{
-
-namespace interface
+namespace snowfox::os::interface
 {
 
 /**************************************************************************************
@@ -53,10 +47,6 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
-
-} /* snowfox */
-
-} /* os */
+} /* snowfox::os::interface */
 
 #endif /* INCLUDE_SNOWFOX_OS_EVENTPRODUCER_H_ */

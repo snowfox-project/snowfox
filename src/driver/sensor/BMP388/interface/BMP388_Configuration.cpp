@@ -26,19 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace BMP388
-{
-
-namespace interface
+namespace snowfox::driver::sensor::BMP388::interface
 {
 
 /**************************************************************************************
@@ -71,12 +59,4 @@ QuantizedCalibrationData convertToQuantizedCalibrationData(CalibrationData const
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
-
-} /* BMP388 */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::BMP388::interface */

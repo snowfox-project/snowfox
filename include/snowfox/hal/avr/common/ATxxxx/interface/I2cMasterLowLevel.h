@@ -30,16 +30,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATxxxx
-{
-
-namespace interface
+namespace snowfox::hal::ATxxxx::interface
 {
 
 /**************************************************************************************
@@ -69,12 +60,6 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
-
-} /* ATxxxx */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATxxxx::interface */
 
 #endif /* INCLUDE_SNOWFOX_HAL_AVR_COMMON_ATXXXX_INTERFACE_I2CMASTERLOWLEVEL_H_ */

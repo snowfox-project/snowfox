@@ -23,19 +23,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace tlcd
-{
-
-namespace HD44780
-{
-
-namespace interface
+namespace snowfox::driver::tlcd::HD44780::interface
 {
 
 /**************************************************************************************
@@ -67,14 +55,6 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
-
-} /* HD44780 */
-
-} /* tlcd */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::tlcd::HD44780::interface */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_TLCD_HD44780_INTERFACE_HD44780_CONTROL_H_ */

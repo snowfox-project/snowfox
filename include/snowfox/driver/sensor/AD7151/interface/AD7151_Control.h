@@ -30,19 +30,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace AD7151
-{
-
-namespace interface
+namespace snowfox::driver::sensor::AD7151::interface
 {
 
 /**************************************************************************************
@@ -76,14 +64,6 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
-
-} /* AD7151 */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::AD7151::interface */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_SENSOR_AD7151_INTERFACE_AD7151_CONTROL_H_ */
