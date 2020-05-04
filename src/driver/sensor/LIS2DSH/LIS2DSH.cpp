@@ -26,7 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox::driver::sensorLIS2DSH
+namespace snowfox::driver::sensor::LIS2DSH
 {
 
 /**************************************************************************************
@@ -137,4 +137,4 @@ void LIS2DSH::close()
  * NAMESPACE
  **************************************************************************************/
 
-} /* snowfox::driver::sensorLIS2DSH */
+} /* snowfox::driver::sensor::LIS2DSH */

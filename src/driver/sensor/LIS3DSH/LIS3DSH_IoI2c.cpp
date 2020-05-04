@@ -26,7 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox::driver::sensorLIS3DSH
+namespace snowfox::driver::sensor::LIS3DSH
 {
 
 /**************************************************************************************
@@ -103,4 +103,4 @@ bool LIS3DSH_IoI2c::writeRegister(interface::Register const reg, uint8_t const d
  * NAMESPACE
  **************************************************************************************/
 
-} /* snowfox::driver::sensorLIS3DSH */
+} /* snowfox::driver::sensor::LIS3DSH */

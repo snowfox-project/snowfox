@@ -31,7 +31,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox::driver::sensor::AD7151
+namespace snowfox::driver::sensor::AS5600
 {
 
 /**************************************************************************************
@@ -88,6 +88,6 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* snowfox::driver::sensor::AD7151 */
+} /* snowfox::driver::sensor::AS5600 */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_SENSOR_AS5600_H_ */

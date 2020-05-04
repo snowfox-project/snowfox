@@ -35,7 +35,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox::driver::sensorLIS2DSH
+namespace snowfox::driver::sensor::LIS2DSH
 {
 
 /**************************************************************************************
@@ -65,6 +65,6 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* snowfox::driver::sensorLIS2DSH */
+} /* snowfox::driver::sensor::LIS2DSH */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_SENSOR_LIS2DSH_LIS2DSH_DEBUG_H_ */

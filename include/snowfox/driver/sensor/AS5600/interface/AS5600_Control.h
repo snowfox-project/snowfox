@@ -30,7 +30,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox::driver::sensor::AD7151::interface
+namespace snowfox::driver::sensor::AS5600::interface
 {
 
 /**************************************************************************************
@@ -78,6 +78,6 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* snowfox::driver::sensor::AD7151::interface */
+} /* snowfox::driver::sensor::AS5600::interface */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_SENSOR_AS5600_INTERFACE_AS5600_CONTROL_H_ */

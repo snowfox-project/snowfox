@@ -26,7 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox::driver::sensorLIS2DSH
+namespace snowfox::driver::sensor::LIS2DSH
 {
 
 /**************************************************************************************
@@ -410,4 +410,4 @@ bool LIS2DSH_Control::readTemperature(int16_t * raw_temp)
  * NAMESPACE
  **************************************************************************************/
 
-} /* snowfox::driver::sensorLIS2DSH */
+} /* snowfox::driver::sensor::LIS2DSH */

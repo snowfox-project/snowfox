@@ -26,7 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox::driver::sensor::AD7151
+namespace snowfox::driver::sensor::AS5600
 {
 
 /**************************************************************************************
@@ -93,4 +93,4 @@ void AS5600_Debug::debug_dumpSingleReg(trace::Trace & trace, hal::interface::Fla
  * NAMESPACE
  **************************************************************************************/
 
-} /* snowfox::driver::sensor::AD7151 */
+} /* snowfox::driver::sensor::AS5600 */

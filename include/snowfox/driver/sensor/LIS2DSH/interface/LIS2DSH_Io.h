@@ -30,7 +30,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox::driver::sensorLIS2DSH::interface
+namespace snowfox::driver::sensor::LIS2DSH::interface
 {
 
 /**************************************************************************************
@@ -114,6 +114,6 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* snowfox::driver::sensorLIS2DSH::interface */
+} /* snowfox::driver::sensor::LIS2DSH::interface */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_SENSOR_LIS2DSH_INTERFACE_LIS2DSH_IO_INTERFACE_H_ */
