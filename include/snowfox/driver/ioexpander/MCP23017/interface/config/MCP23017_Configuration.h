@@ -23,7 +23,6 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <stdbool.h>
 
 #include <snowfox/driver/ioexpander/MCP23017/interface/MCP23017_Types.h>
 

@@ -26,7 +26,6 @@
 #include <snowfox/os/event/interface/EventProducer.h>
 #include <snowfox/os/event/interface/EventConsumer.h>
 
-#include <stdbool.h>
 
 #if defined(MCU_ARCH_avr)
 #include <util/atomic.h>

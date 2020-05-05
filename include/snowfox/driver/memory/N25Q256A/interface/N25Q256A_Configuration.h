@@ -24,7 +24,6 @@
  **************************************************************************************/
 
 #include <stdint.h>
-#include <stdbool.h>
 
 #include <snowfox/driver/memory/util/jedec/JedecCode.h>
 

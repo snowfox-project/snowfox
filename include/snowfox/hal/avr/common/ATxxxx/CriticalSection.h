@@ -26,7 +26,6 @@
 #include <snowfox/hal/interface/locking/CriticalSection.h>
 
 #include <stdint.h>
-#include <stdbool.h>
 
 /**************************************************************************************
  * NAMESPACE
