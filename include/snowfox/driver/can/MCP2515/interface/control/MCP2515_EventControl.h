@@ -24,7 +24,6 @@
  **************************************************************************************/
 
 #include <stdint.h>
-#include <stdbool.h>
 
 #include <snowfox/driver/can/MCP2515/interface/MCP2515_RegisterBits.h>
 

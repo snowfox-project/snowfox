@@ -25,7 +25,6 @@
 
 #include <snowfox/comstack/canopen/objdict/ObjectDictionaryEntry.hpp>
 
-#include <stdbool.h>
 
 #include <list>
 #include <string>
