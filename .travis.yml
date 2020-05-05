@@ -179,6 +179,7 @@ matrix:
 
 install:
   - .ci/script/run-install-toolchain-avr.sh
+  - export PATH="$PATH:/opt/avr/bin"
   - .ci/script/run-install-toolchain-riscv64.sh
   - export PATH="$PATH:${TRAVIS_BUILD_DIR}/toolchain/riscv64-unknown-elf-gcc-8.2.0-2019.02.0-x86_64-linux-ubuntu14/bin"
 script: true
