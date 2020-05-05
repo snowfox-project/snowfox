@@ -26,10 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace blox
+namespace snowfox::blox
 {
 
 /**************************************************************************************
@@ -74,6 +71,4 @@ SerialUart::SerialUart(hal::interface::CriticalSection      & crit_sec,
  * NAMESPACE
  **************************************************************************************/
 
-} /* blox */
-
-} /* snowfox */
+} /* snowfox::blox */

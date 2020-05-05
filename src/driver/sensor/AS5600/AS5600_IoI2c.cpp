@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace AS5600
+namespace snowfox::driver::sensor::AS5600
 {
 
 /**************************************************************************************
@@ -99,10 +90,4 @@ bool AS5600_IoI2c::writeRegister(interface::Register const reg, uint8_t const da
  * NAMESPACE
  **************************************************************************************/
 
-} /* AS5600 */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::AS5600 */

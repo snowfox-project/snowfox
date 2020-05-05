@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace blox
-{
-
-namespace ATMEGA1280
+namespace snowfox::blox::ATMEGA1280
 {
 
 /**************************************************************************************
@@ -48,10 +42,6 @@ typedef ATMEGA640_1280_2560::I2cMaster I2cMaster;
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA1280 */
-
-} /* blox */
-
-} /* snowfox */
+} /* snowfox::blox::ATMEGA1280 */
 
 #endif /* INCLUDE_SNOWFOX_BLOX_HAL_AVR_ATMEGA1280_I2CMASTER_H_ */

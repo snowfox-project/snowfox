@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace AT90CAN128
+namespace snowfox::hal::AT90CAN128
 {
 
 /**************************************************************************************
@@ -49,10 +43,6 @@ typedef AT90CAN32_64_128::ExternalInterruptController ExternalInterruptControlle
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CAN128 */
-
-} /* hal */
-
-} /* snowfox */
+} /* namespace snowfox::hal::AT90CAN128 */
 
 #endif /* INCLUDE_SNOWFOX_HAL_AVR_AT90CAN128_EXTERNALINTERRUPTCONTROLLER_H_ */

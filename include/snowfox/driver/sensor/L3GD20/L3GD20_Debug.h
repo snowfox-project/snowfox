@@ -35,16 +35,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace L3GD20
+namespace snowfox::driver::sensor::L3GD20
 {
 
 /**************************************************************************************
@@ -74,12 +65,6 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* L3GD20 */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::L3GD20 */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_SENSOR_L3GD20_L3GD20_DEBUG_H_ */

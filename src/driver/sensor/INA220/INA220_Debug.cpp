@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace INA220
+namespace snowfox::driver::sensor::INA220
 {
 
 /**************************************************************************************
@@ -82,10 +73,4 @@ void INA220_Debug::debug_dumpSingleReg(trace::Trace & trace, hal::interface::Fla
  * NAMESPACE
  **************************************************************************************/
 
-} /* INA220 */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::INA220 */

@@ -20,13 +20,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace util
-{
-
-namespace container
+namespace snowfox::util::container
 {
 
 /**************************************************************************************
@@ -104,8 +98,4 @@ bool Queue<T>::isEmpty() const
  * NAMESPACE
  **************************************************************************************/
 
-} /* container*/
-
-} /* util */
-
-} /* snowfox */
+} /* snowfox::util::container */

@@ -31,13 +31,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace blox
-{
-
-namespace ATMEGA640_1280_2560
+namespace snowfox::blox::ATMEGA640_1280_2560
 {
 
 /**************************************************************************************
@@ -51,10 +45,6 @@ typedef ATxxxx::UART0<hal::ATMEGA640_1280_2560::toIntNum(hal::ATMEGA640_1280_256
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA640_1280_2560 */
-
-} /* blox */
-
-} /* snowfox */
+} /* snowfox::blox::ATMEGA640_1280_2560 */
 
 #endif /* INCLUDE_SNOWFOX_BLOX_HAL_AVR_COMMON_ATMEGA640_1280_2560_UART0_H_ */

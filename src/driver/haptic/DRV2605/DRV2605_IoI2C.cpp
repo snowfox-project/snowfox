@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace haptic
-{
-
-namespace DRV2605
+namespace snowfox::driver::haptic::DRV2605
 {
 
 /**************************************************************************************
@@ -85,10 +76,4 @@ bool DRV2605_IoI2C::writeRegister(interface::Register const reg, uint8_t const d
  * NAMESPACE
  **************************************************************************************/
 
-} /* DRV2605 */
-
-} /* haptic */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::haptic::DRV2605 */

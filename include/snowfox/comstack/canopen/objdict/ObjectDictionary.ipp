@@ -27,13 +27,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace comstack
-{
-
-namespace canopen
+namespace snowfox::comstack::canopen
 {
 
 /**************************************************************************************
@@ -88,8 +82,4 @@ inline ObjectDictionaryEntry<T> * ObjectDictionary::find(std::list<ObjectDiction
  * NAMESPACE
  **************************************************************************************/
 
-} /* canopen */
-
-} /* comstack */
-
-} /* snowfox */
+} /* snowfox::comstack::canopen */

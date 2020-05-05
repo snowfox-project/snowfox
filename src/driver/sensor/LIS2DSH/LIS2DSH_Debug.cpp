@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace LIS2DSH
+namespace snowfox::driver::sensor::LIS2DSH
 {
 
 /**************************************************************************************
@@ -156,10 +147,4 @@ void LIS2DSH_Debug::debug_dumpSingleReg(trace::Trace & trace, hal::interface::Fl
  * NAMESPACE
  **************************************************************************************/
 
-} /* LIS2DSH */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::LIS2DSH */

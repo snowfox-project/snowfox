@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace BMG160
+namespace snowfox::driver::sensor::BMG160
 {
 
 /**************************************************************************************
@@ -162,10 +153,4 @@ bool BMG160_Control::readTemperature(int8_t  * raw_temp)
  * NAMESPACE
  **************************************************************************************/
 
-} /* BMG160 */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::BMG160 */

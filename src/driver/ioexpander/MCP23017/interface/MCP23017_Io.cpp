@@ -26,19 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace ioexpander
-{
-
-namespace MCP23017
-{
-
-namespace interface
+namespace snowfox::driver::ioexpander::MCP23017::interface
 {
 
 /**************************************************************************************
@@ -71,12 +59,4 @@ bool clrBit(MCP23017_Io & io, Register const reg, uint8_t const bit_pos)
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
-
-} /* MCP23017 */
-
-} /* ioexpander */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::ioexpander::MCP23017::interface */

@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace comstack
-{
-
-namespace canopen
-{
-
-namespace test
+namespace snowfox::comstack::canopen::test
 {
 
 /**************************************************************************************
@@ -66,10 +57,4 @@ void Test_onTransmitCallback::onTransmit(util::type::CanFrame const & frame)
  * NAMESPACE
  **************************************************************************************/
 
-} /* test */
-
-} /* canopen */
-
-} /* comstack */
-
-} /* snowfox */
+} /* snowfox::comstack::canopen::test */

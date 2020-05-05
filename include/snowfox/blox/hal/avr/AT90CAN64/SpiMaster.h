@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace blox
-{
-
-namespace AT90CAN64
+namespace snowfox::blox::AT90CAN64
 {
 
 /**************************************************************************************
@@ -48,10 +42,6 @@ typedef AT90CAN32_64_128::SpiMaster SpiMaster;
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CAN64 */
-
-} /* blox */
-
-} /* snowfox */
+} /* snowfox::blox::AT90CAN64 */
 
 #endif /* INCLUDE_SNOWFOX_BLOX_HAL_AVR_AT90CAN64_SPIMASTER_H_ */

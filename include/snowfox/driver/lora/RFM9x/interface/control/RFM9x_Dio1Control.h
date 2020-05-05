@@ -31,19 +31,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace lora
-{
-
-namespace RFM9x
-{
-
-namespace interface
+namespace snowfox::driver::lora::RFM9x::interface
 {
 
 /**************************************************************************************
@@ -78,14 +66,6 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
-
-} /* RFM9x */
-
-} /* lora */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::lora::RFM9x::interface */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_LORA_RFM9X_INTERFACE_DIO1_RFM9X_DIO1CONFIGURATION_H_ */

@@ -35,16 +35,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace INA220
+namespace snowfox::driver::sensor::INA220
 {
 
 /**************************************************************************************
@@ -74,12 +65,6 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* INA220 */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::INA220 */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_SENSOR_INA220_INA220_DEBUG_H_ */

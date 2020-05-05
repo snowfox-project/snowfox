@@ -23,13 +23,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace interface
+namespace snowfox::hal::interface
 {
 
 /**************************************************************************************
@@ -62,10 +56,6 @@ inline void executeCallbackIfValid(InterruptCallback * callback)
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface*/
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::interface*/
 
 #endif /* INCLUDE_SNOWFOX_HAL_INTERFACE_INTERRUPT_INTERRUPTCALLBACK_H_ */

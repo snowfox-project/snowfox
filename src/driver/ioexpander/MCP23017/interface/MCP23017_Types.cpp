@@ -26,19 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace ioexpander
-{
-
-namespace MCP23017
-{
-
-namespace interface
+namespace snowfox::driver::ioexpander::MCP23017::interface
 {
 
 /**************************************************************************************
@@ -67,12 +55,4 @@ Register toReg_IODIR(Port const port)
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
-
-} /* MCP23017 */
-
-} /* ioexpander */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::ioexpander::MCP23017::interface */

@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace memory
-{
-
-namespace AT45DBx
+namespace snowfox::driver::memory::AT45DBx
 {
 
 /**************************************************************************************
@@ -79,10 +70,4 @@ util::jedec::JedecCode AT45DBx_Configuration::readDeviceId()
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT45DBx */
-
-} /* memory */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::memory::AT45DBx */

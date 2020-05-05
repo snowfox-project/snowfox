@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATMEGA32U4
+namespace snowfox::hal::ATMEGA32U4
 {
 
 /**************************************************************************************
@@ -49,10 +43,6 @@ typedef ATMEGA16U4_32U4::InterruptController InterruptController;
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA32U4 */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATMEGA32U4 */
 
 #endif /* INCLUDE_SNOWFOX_HAL_AVR_ATMEGA32U4_INTERRUPTCONTROLLER_H_ */

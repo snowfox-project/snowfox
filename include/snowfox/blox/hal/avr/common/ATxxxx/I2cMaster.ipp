@@ -20,13 +20,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace blox
-{
-
-namespace ATxxxx
+namespace snowfox::blox::ATxxxx
 {
 
 /**************************************************************************************
@@ -64,8 +58,4 @@ I2cMaster<I2C_TRANSFER_COMPLETE_INTERRUPT_NUMBER>::I2cMaster(volatile uint8_t   
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATxxxx */
-
-} /* blox */
-
-} /* snowfox */
+} /* snowfox::blox::ATxxxx */

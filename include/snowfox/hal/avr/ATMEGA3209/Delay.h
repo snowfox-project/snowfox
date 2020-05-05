@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATMEGA3209
+namespace snowfox::hal::ATMEGA3209
 {
 
 /**************************************************************************************
@@ -48,10 +42,6 @@ typedef ATxxxx::Delay Delay;
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA3209 */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATMEGA3209 */
 
 #endif /* INCLUDE_SNOWFOX_HAL_AVR_ATMEGA3209_DELAY_H_ */

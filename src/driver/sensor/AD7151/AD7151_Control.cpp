@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace AD7151
+namespace snowfox::driver::sensor::AD7151
 {
 
 /**************************************************************************************
@@ -127,10 +118,4 @@ bool AD7151_Control::readConversionResult(uint16_t * raw_data)
  * NAMESPACE
  **************************************************************************************/
 
-} /* AD7151 */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::AD7151 */

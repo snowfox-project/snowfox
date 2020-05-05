@@ -32,13 +32,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace can
+namespace snowfox::driver::can
 {
 
 /**************************************************************************************
@@ -78,10 +72,6 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* can */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::can */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_CAN_CAN_H_ */

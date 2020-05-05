@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace haptic
-{
-
-namespace DRV2605
+namespace snowfox::driver::haptic::DRV2605
 {
 
 /**************************************************************************************
@@ -127,10 +118,4 @@ bool DRV2605::ioctl_device(uint32_t const cmd, void * arg)
  * NAMESPACE
  **************************************************************************************/
 
-} /* DRV2605 */
-
-} /* haptic */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::haptic::DRV2605 */

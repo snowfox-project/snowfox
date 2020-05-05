@@ -26,13 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace comstack
-{
-
-namespace canopen
+namespace snowfox::comstack::canopen
 {
 
 /**************************************************************************************
@@ -62,8 +56,4 @@ void SdoFrameHandler::onFrameReceived(util::type::CanFrame const & /* frame */)
  * NAMESPACE
  **************************************************************************************/
 
-} /* canopen */
-
-} /* comstack */
-
-} /* snowfox */
+} /* snowfox::comstack::canopen */

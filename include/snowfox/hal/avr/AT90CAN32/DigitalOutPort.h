@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace AT90CAN32
+namespace snowfox::hal::AT90CAN32
 {
 
 /**************************************************************************************
@@ -48,10 +42,6 @@ typedef ATxxxx::DigitalOutPort DigitalOutPort;
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CAN32 */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::AT90CAN32 */
 
 #endif /* INCLUDE_SNOWFOX_HAL_AVR_AT90CAN32_DIGITALOUTPORT_H_ */

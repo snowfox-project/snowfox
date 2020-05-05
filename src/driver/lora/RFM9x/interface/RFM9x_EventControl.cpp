@@ -26,19 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace lora
-{
-
-namespace RFM9x
-{
-
-namespace interface
+namespace snowfox::driver::lora::RFM9x::interface
 {
 
 /**************************************************************************************
@@ -89,12 +77,4 @@ bool RFM9x_EventControl::isCadDetectedEvent(uint8_t const event_flags)
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
-
-} /* RFM9x */
-
-} /* lora */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::lora::RFM9x::interface */

@@ -26,13 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATxxxx
+namespace snowfox::hal::ATxxxx
 {
 
 /**************************************************************************************
@@ -63,8 +57,4 @@ void SpiMaster_onSerialTransferCompleteCallback::onInterrupt()
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATxxxx */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATxxxx */

@@ -30,13 +30,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace AT90CAN32_64_128
+namespace snowfox::hal::AT90CAN32_64_128
 {
 
 /**************************************************************************************
@@ -205,11 +199,7 @@ void InterruptController::registerInterruptCallback(uint8_t const int_num, inter
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CAN32_64_128 */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::AT90CAN32_64_128 */
 
 /**************************************************************************************
  * INTERRUPT SERVICE ROUTINES

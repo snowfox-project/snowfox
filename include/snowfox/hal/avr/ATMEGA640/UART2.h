@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATMEGA640
+namespace snowfox::hal::ATMEGA640
 {
 
 /**************************************************************************************
@@ -50,10 +44,6 @@ typedef ATxxxx::UART2_ReceiveCompleteCallback       UART2_ReceiveCompleteCallbac
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA640 */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATMEGA640 */
 
 #endif /* INCLUDE_SNOWFOX_HAL_AVR_ATMEGA640_UART2_H_ */

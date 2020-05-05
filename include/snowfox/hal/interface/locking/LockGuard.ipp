@@ -20,13 +20,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace interface
+namespace snowfox::hal::interface
 {
 
 /**************************************************************************************
@@ -50,8 +44,4 @@ LockGuard<T>::~LockGuard()
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface*/
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::interface*/

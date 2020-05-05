@@ -12,7 +12,7 @@ add_compile_options(-funsigned-char -funsigned-bitfields -fshort-enums -ffunctio
 ##########################################################################
 
 set(SNOWFOX_ALL_GCC_CMAKE_C_FLAGS     "")
-set(SNOWFOX_ALL_GCC_CMAKE_CXX_FLAGS   "-std=c++14")
+set(SNOWFOX_ALL_GCC_CMAKE_CXX_FLAGS   "-std=c++17")
 set(SNOWFOX_ALL_GCC_CMAKE_C_CXX_FLAGS "-Og -ggdb")
 
 ##########################################################################

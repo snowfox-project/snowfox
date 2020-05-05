@@ -20,13 +20,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace blox
-{
-
-namespace ATxxxx
+namespace snowfox::blox::ATxxxx
 {
 
 /**************************************************************************************
@@ -55,8 +49,4 @@ UART2<UART_DATA_REGISTER_EMPTY_INTERRUPT_NUMBER, UART_RECEIVE_COMPLETE_INTERRUPT
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATxxxx */
-
-} /* blox */
-
-} /* snowfox */
+} /* snowfox::blox::ATxxxx */

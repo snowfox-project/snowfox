@@ -30,19 +30,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace haptic
-{
-
-namespace DRV2605
-{
-
-namespace interface
+namespace snowfox::driver::haptic::DRV2605::interface
 {
 
 /**************************************************************************************
@@ -142,14 +130,6 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
-
-} /* DRV2605 */
-
-} /* haptic */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::haptic::DRV2605::interface */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_HAPTIC_DRV2605_DRV2605_INTERFACE_H_ */

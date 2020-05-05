@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace comstack
-{
-
-namespace canopen
+namespace snowfox::comstack::canopen
 {
 
 /**************************************************************************************
@@ -96,11 +90,7 @@ bool operator == (ObjectDictionaryEntry<T> const & lhs, ObjectDictionaryEntry<T>
  * NAMESPACE
  **************************************************************************************/
 
-} /* canopen */
-
-} /* comstack */
-
-} /* snowfox */
+} /* snowfox::comstack::canopen */
 
 /**************************************************************************************
  * TEMPLATE IMPLEMENTATION

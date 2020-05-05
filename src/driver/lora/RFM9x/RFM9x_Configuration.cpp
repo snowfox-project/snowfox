@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace lora
-{
-
-namespace RFM9x
+namespace snowfox::driver::lora::RFM9x
 {
 
 /**************************************************************************************
@@ -266,10 +257,4 @@ void RFM9x_Configuration::setRxFifoBaseAddress(uint8_t const rx_fifo_base_addres
  * NAMESPACE
  **************************************************************************************/
 
-} /* RFM9x */
-
-} /* lora */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::lora::RFM9x */

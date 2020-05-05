@@ -31,13 +31,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATMEGA328P
+namespace snowfox::hal::ATMEGA328P
 {
 
 /**************************************************************************************
@@ -92,10 +86,6 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA328P */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATMEGA328P */
 
 #endif /* INCLUDE_SNOWFOX_HAL_AVR_ATMEGA328P_TIMER0_H_ */

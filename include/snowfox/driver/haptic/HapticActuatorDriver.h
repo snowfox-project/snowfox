@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace haptic
+namespace snowfox::driver::haptic
 {
 
 /**************************************************************************************
@@ -65,10 +59,6 @@ protected:
  * NAMESPACE
  **************************************************************************************/
 
-} /* haptic */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::haptic */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_HAPTIC_HAPTIC_ACTUATOR_DRIVER_H_ */

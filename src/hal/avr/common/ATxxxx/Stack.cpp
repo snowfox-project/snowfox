@@ -30,13 +30,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATxxxx
+namespace snowfox::hal::ATxxxx
 {
 
 /**************************************************************************************
@@ -80,8 +74,4 @@ uint32_t Stack::getStackPointerPosition()
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATxxxx */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATxxxx */

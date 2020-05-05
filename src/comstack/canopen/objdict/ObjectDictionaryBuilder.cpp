@@ -26,13 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace comstack
-{
-
-namespace canopen
+namespace snowfox::comstack::canopen
 {
 
 /**************************************************************************************
@@ -59,8 +53,4 @@ void ObjectDictionaryBuilder::build(ObjectDictionary & obj_dict)
  * NAMESPACE
  **************************************************************************************/
 
-} /* canopen */
-
-} /* comstack */
-
-} /* snowfox */
+} /* snowfox::comstack::canopen */

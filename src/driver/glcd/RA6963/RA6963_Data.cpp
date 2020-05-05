@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace glcd
-{
-
-namespace RA6963
+namespace snowfox::driver::glcd::RA6963
 {
 
 /**************************************************************************************
@@ -131,10 +122,4 @@ bool RA6963_Data::isReadyAutoMode(uint8_t const status) const
  * NAMESPACE
  **************************************************************************************/
 
-} /* RA6963 */
-
-} /* glcd */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::glcd::RA6963 */

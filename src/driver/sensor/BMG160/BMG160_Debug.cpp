@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace BMG160
+namespace snowfox::driver::sensor::BMG160
 {
 
 /**************************************************************************************
@@ -177,10 +168,4 @@ void BMG160_Debug::debug_dumpSingleReg(trace::Trace & trace, hal::interface::Fla
  * NAMESPACE
  **************************************************************************************/
 
-} /* BMG160 */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::BMG160 */

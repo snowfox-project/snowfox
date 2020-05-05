@@ -32,16 +32,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATxxxx
-{
-
-namespace test
+namespace snowfox::hal::ATxxxx::test
 {
 
 /**************************************************************************************
@@ -118,10 +109,4 @@ TestVector createTestVector_16_MHz()
  * NAMESPACE
  **************************************************************************************/
 
-} /* test */
-
-} /* ATxxxx */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATxxxx::test */

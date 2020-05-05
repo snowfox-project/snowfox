@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace lora
-{
-
-namespace RFM9x
+namespace snowfox::driver::lora::RFM9x
 {
 
 /**************************************************************************************
@@ -184,10 +175,4 @@ void RFM9x_Debug::debug_dumpSingleReg(trace::Trace & trace, hal::interface::Flas
  * NAMESPACE
  **************************************************************************************/
 
-} /* RFM9x */
-
-} /* lora */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::lora::RFM9x */

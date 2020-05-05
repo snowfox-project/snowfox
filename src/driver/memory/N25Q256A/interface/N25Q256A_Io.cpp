@@ -28,19 +28,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace memory
-{
-
-namespace N25Q256A
-{
-
-namespace interface
+namespace snowfox::driver::memory::N25Q256A::interface
 {
 
 /**************************************************************************************
@@ -110,12 +98,4 @@ void N25Q256A_Io::writeNVConfigReg(uint16_t const nv_config_reg)
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
-
-} /* N25Q256A */
-
-} /* memory */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::memory::N25Q256A::interface */

@@ -28,16 +28,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace BMP388
+namespace snowfox::driver::sensor::BMP388
 {
 
 /**************************************************************************************
@@ -88,10 +79,4 @@ void BMP388_IoSpi::writeRegister(interface::Register const reg, uint8_t const * 
  * NAMESPACE
  **************************************************************************************/
 
-} /* BMP388 */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::BMP388 */

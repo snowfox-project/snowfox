@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace blox
-{
-
-namespace AT90CAN128
+namespace snowfox::blox::AT90CAN128
 {
 
 /**************************************************************************************
@@ -48,10 +42,6 @@ typedef AT90CAN32_64_128::UART1 UART1;
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CAN128 */
-
-} /* blox */
-
-} /* snowfox */
+} /* snowfox::blox::AT90CAN128 */
 
 #endif /* INCLUDE_SNOWFOX_BLOX_HAL_AVR_AT90CAN128_UART1_H_ */

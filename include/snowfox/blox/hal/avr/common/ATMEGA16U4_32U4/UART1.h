@@ -31,13 +31,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace blox
-{
-
-namespace ATMEGA16U4_32U4
+namespace snowfox::blox::ATMEGA16U4_32U4
 {
 
 /**************************************************************************************
@@ -51,10 +45,6 @@ typedef ATxxxx::UART1<hal::ATMEGA16U4_32U4::toIntNum(hal::ATMEGA16U4_32U4::Inter
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA16U4_32U4 */
-
-} /* blox */
-
-} /* snowfox */
+} /* snowfox::blox::AT90CAN32_64_128 */
 
 #endif /* INCLUDE_SNOWFOX_BLOX_HAL_AVR_COMMON_ATMEGA16U4_32U4_UART1_H_ */

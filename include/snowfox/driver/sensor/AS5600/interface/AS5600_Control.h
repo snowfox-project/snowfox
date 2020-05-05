@@ -30,19 +30,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace AS5600
-{
-
-namespace interface
+namespace snowfox::driver::sensor::AS5600::interface
 {
 
 /**************************************************************************************
@@ -90,14 +78,6 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
-
-} /* AS5600 */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::AS5600::interface */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_SENSOR_AS5600_INTERFACE_AS5600_CONTROL_H_ */

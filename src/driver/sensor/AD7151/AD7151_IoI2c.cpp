@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace AD7151
+namespace snowfox::driver::sensor::AD7151
 {
 
 /**************************************************************************************
@@ -99,10 +90,4 @@ bool AD7151_IoI2c::writeRegister(interface::Register const reg, uint8_t const da
  * NAMESPACE
  **************************************************************************************/
 
-} /* AD7151 */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::AD7151 */

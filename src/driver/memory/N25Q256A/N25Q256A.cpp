@@ -28,16 +28,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace memory
-{
-
-namespace N25Q256A
+namespace snowfox::driver::memory::N25Q256A
 {
 
 /**************************************************************************************
@@ -144,10 +135,4 @@ bool N25Q256A::ioctl_get_flash_info(NorFlashInfo * info)
  * NAMESPACE
  **************************************************************************************/
 
-} /* N25Q256A */
-
-} /* memory */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::memory::N25Q256A */

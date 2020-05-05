@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace LSM6DSM
+namespace snowfox::driver::sensor::LSM6DSM
 {
 
 /**************************************************************************************
@@ -110,10 +101,4 @@ bool LSM6DSM_IoSpi::writeRegister(interface::Register const reg, uint8_t const *
  * NAMESPACE
  **************************************************************************************/
 
-} /* LSM6DSM */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::LSM6DSM */

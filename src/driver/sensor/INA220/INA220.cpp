@@ -28,16 +28,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace INA220
+namespace snowfox::driver::sensor::INA220
 {
 
 /**************************************************************************************
@@ -142,10 +133,4 @@ void INA220::close()
  * NAMESPACE
  **************************************************************************************/
 
-} /* INA220 */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::INA220 */

@@ -31,13 +31,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace blox
-{
-
-namespace ATMEGA164P_324P_644P_1284P
+namespace snowfox::blox::ATMEGA164P_324P_644P_1284P
 {
 
 /**************************************************************************************
@@ -50,10 +44,6 @@ typedef ATxxxx::I2cMaster<hal::ATMEGA164P_324P_644P_1284P::toIntNum(hal::ATMEGA1
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA164P_324P_644P_1284P */
-
-} /* blox */
-
-} /* snowfox */
+} /* snowfox::blox::ATMEGA164P_324P_644P_1284P */
 
 #endif /* INCLUDE_SNOWFOX_BLOX_HAL_AVR_COMMON_ATMEGA164P_324P_644P_1284P_I2CMASTER_H_ */

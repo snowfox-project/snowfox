@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace ioexpander
-{
-
-namespace MAX6921
+namespace snowfox::driver::ioexpander::MAX6921
 {
 
 /**************************************************************************************
@@ -99,10 +90,4 @@ void MAX6921_IoSpi::clrBlank()
  * NAMESPACE
  **************************************************************************************/
 
-} /* MAX6921 */
-
-} /* ioexpander */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::ioexpander::MAX6921 */

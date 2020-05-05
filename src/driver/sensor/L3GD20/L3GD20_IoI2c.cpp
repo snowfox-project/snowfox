@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace L3GD20
+namespace snowfox::driver::sensor::L3GD20
 {
 
 /**************************************************************************************
@@ -112,10 +103,4 @@ bool L3GD20_IoI2c::writeRegister(interface::Register const reg, uint8_t const  d
  * NAMESPACE
  **************************************************************************************/
 
-} /* L3GD20 */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::L3GD20 */

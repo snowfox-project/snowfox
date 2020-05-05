@@ -28,16 +28,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace can
-{
-
-namespace MCP2515
+namespace snowfox::driver::can::MCP2515
 {
 
 /**************************************************************************************
@@ -76,10 +67,4 @@ void MCP2515_onTransmitBufferEmpty::onTransmitBufferEmpty(interface::TransmitBuf
  * NAMESPACE
  **************************************************************************************/
 
-} /* MCP2515 */
-
-} /* can */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::can::MCP2515 */

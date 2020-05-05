@@ -31,13 +31,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace FE310
+namespace snowfox::hal::FE310
 {
 
 /**************************************************************************************
@@ -83,8 +77,4 @@ void UART1::enableGpioAccess(volatile uint32_t * gpio_iof_en, volatile uint32_t 
  * NAMESPACE
  **************************************************************************************/
 
-} /* FE310 */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::FE310 */

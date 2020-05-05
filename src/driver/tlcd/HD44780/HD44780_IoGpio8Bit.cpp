@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace tlcd
-{
-
-namespace HD44780
+namespace snowfox::driver::tlcd::HD44780
 {
 
 /**************************************************************************************
@@ -111,10 +102,4 @@ void HD44780_IoGpio8Bit::writeCommand(uint8_t const cmd_val)
  * NAMESPACE
  **************************************************************************************/
 
-} /* HD44780 */
-
-} /* tlcd */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::tlcd::HD44780 */

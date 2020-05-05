@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace memory
-{
-
-namespace AT45DBx
+namespace snowfox::driver::memory::AT45DBx
 {
 
 /**************************************************************************************
@@ -82,10 +73,4 @@ uint32_t getPageSize(uint32_t const page_shift)
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT45DBx */
-
-} /* memory */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::memory::AT45DBx */

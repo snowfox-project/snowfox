@@ -26,13 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace comstack
-{
-
-namespace canopen
+namespace snowfox::comstack::canopen
 {
 
 /**************************************************************************************
@@ -63,8 +57,4 @@ void CanOpenStack::register_onTransmitCallback(interface::CanOpen_onTransmitCall
  * NAMESPACE
  **************************************************************************************/
 
-} /* canopen */
-
-} /* comstack */
-
-} /* snowfox */
+} /* snowfox::comstack::canopen */

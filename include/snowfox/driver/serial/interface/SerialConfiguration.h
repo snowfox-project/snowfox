@@ -30,16 +30,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace serial
-{
-
-namespace interface
+namespace snowfox::driver::serial::interface
 {
 
 /**************************************************************************************
@@ -88,12 +79,6 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
-
-} /* serial */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::serial::interface */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_SERIAL_INTERFACE_SERIALCONFIGURATION_H_ */

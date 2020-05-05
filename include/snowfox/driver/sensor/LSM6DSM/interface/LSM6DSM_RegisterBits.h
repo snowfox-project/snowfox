@@ -23,19 +23,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace LSM6DSM
-{
-
-namespace interface
+namespace snowfox::driver::sensor::LSM6DSM::interface
 {
 
 /**************************************************************************************
@@ -51,14 +39,6 @@ namespace interface
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
-
-} /* LSM6DSM */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::LSM6DSM::interface */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_SENSOR_LSM6DSM_INTERFACE_LSM6DSM_REGISTER_BITS_H_ */

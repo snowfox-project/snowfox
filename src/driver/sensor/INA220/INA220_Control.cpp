@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace INA220
+namespace snowfox::driver::sensor::INA220
 {
 
 /**************************************************************************************
@@ -155,10 +146,4 @@ bool INA220_Control::readBusVoltage(int16_t * bus_voltage)
  * NAMESPACE
  **************************************************************************************/
 
-} /* INA220 */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::INA220 */

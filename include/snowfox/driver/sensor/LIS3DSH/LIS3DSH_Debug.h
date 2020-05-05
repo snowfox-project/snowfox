@@ -35,16 +35,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace LIS3DSH
+namespace snowfox::driver::sensor::LIS3DSH
 {
 
 /**************************************************************************************
@@ -74,12 +65,6 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* LIS3DSH */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::LIS3DSH */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_SENSOR_LIS3DSH_LIS3DSH_DEBUG_H_ */

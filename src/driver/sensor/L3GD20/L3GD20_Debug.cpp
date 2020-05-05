@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace L3GD20
+namespace snowfox::driver::sensor::L3GD20
 {
 
 /**************************************************************************************
@@ -122,10 +113,4 @@ void L3GD20_Debug::debug_dumpSingleReg(trace::Trace & trace, hal::interface::Fla
  * NAMESPACE
  **************************************************************************************/
 
-} /* L3GD20 */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::L3GD20 */

@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace BMG160
+namespace snowfox::driver::sensor::BMG160
 {
 
 /**************************************************************************************
@@ -112,10 +103,4 @@ bool BMG160_IoI2c::writeRegister(interface::Register const reg, uint8_t const da
  * NAMESPACE
  **************************************************************************************/
 
-} /* BMG160 */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::BMG160 */

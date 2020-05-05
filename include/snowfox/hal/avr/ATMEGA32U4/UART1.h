@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATMEGA32U4
+namespace snowfox::hal::ATMEGA32U4
 {
 
 /**************************************************************************************
@@ -50,10 +44,6 @@ typedef ATxxxx::UART1_ReceiveCompleteCallback       UART1_ReceiveCompleteCallbac
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA32U4 */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATMEGA32U4 */
 
 #endif /* INCLUDE_SNOWFOX_HAL_AVR_ATMEGA32U4_UART1_H_ */

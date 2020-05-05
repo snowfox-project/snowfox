@@ -30,13 +30,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace avr
+namespace snowfox::hal::avr
 {
 
 /**************************************************************************************
@@ -127,8 +121,4 @@ void doTestEnableDisablePinChangeInterrupt(interface::InterruptController       
  * NAMESPACE
  **************************************************************************************/
 
-} /* avr */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::avr */

@@ -28,13 +28,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATMEGA16U4_32U4
+namespace snowfox::hal::ATMEGA16U4_32U4
 {
 
 /**************************************************************************************
@@ -137,8 +131,4 @@ void TIMER1::setPrescaler_TCCR1B(uint32_t const prescaler)
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA16U4_32U4 */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATMEGA16U4_32U4 */

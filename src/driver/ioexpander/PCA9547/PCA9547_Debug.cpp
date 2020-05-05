@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace ioexpander
-{
-
-namespace PCA9547
+namespace snowfox::driver::ioexpander::PCA9547
 {
 
 /**************************************************************************************
@@ -55,10 +46,4 @@ void PCA9547_Debug::debug_dumpAllRegs(trace::Trace & trace, interface::PCA9547_I
  * NAMESPACE
  **************************************************************************************/
 
-} /* PCA9547 */
-
-} /* ioexpander */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::ioexpander::PCA9547 */

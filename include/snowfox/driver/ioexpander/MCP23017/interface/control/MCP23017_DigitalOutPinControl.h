@@ -31,19 +31,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace ioexpander
-{
-
-namespace MCP23017
-{
-
-namespace interface
+namespace snowfox::driver::ioexpander::MCP23017::interface
 {
 
 /**************************************************************************************
@@ -69,14 +57,6 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
-
-} /* MCP23017 */
-
-} /* ioexpander */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::ioexpander::MCP23017::interface */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_IOEXPANDER_MCP23017_INTERFACE_CONTROL_MCP23017_DIGITALOUTPINCONTROL_H_ */

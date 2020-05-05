@@ -28,13 +28,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATxxxx
+namespace snowfox::hal::ATxxxx
 {
 
 /**************************************************************************************
@@ -80,8 +74,4 @@ void DigitalOutPin::setGpioPinAsOutput(volatile uint8_t * ddr, uint8_t const out
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATxxxx */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATxxxx */

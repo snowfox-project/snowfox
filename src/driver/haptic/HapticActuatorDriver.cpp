@@ -26,13 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace haptic
+namespace snowfox::driver::haptic
 {
 
 /**************************************************************************************
@@ -51,8 +45,4 @@ bool HapticActuatorDriver::ioctl(uint32_t const cmd, void * arg)
  * NAMESPACE
  **************************************************************************************/
 
-} /* haptic */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::haptic */

@@ -26,10 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace trace
+namespace snowfox::trace
 {
 
 /**************************************************************************************
@@ -63,6 +60,4 @@ void SerialTraceOutput::write(uint8_t const * buf, uint16_t const length)
  * NAMESPACE
  **************************************************************************************/
 
-} /* trace */
-
-} /* snowfox */
+} /* snowfox::trace */

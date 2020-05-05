@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATMEGA164P
+namespace snowfox::hal::ATMEGA164P
 {
 
 /**************************************************************************************
@@ -48,10 +42,6 @@ typedef ATxxxx::CriticalSection CriticalSection;
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA164P */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATMEGA164P */
 
 #endif /* INCLUDE_SNOWFOX_HAL_AVR_ATMEGA164P_CRITICALSECTION_H_ */

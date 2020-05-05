@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace AT90CAN32_64_128
+namespace snowfox::hal::AT90CAN32_64_128
 {
 
 /**************************************************************************************
@@ -128,8 +122,4 @@ uint8_t ExternalInterruptController::converToIntNum(uint8_t const ext_int_num)
  * NAMESPACE
  **************************************************************************************/
 
-} /* AT90CAN32_64_128 */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::AT90CAN32_64_128 */

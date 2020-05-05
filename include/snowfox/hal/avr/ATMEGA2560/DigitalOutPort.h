@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATMEGA2560
+namespace snowfox::hal::ATMEGA2560
 {
 
 /**************************************************************************************
@@ -48,10 +42,6 @@ typedef ATxxxx::DigitalOutPort DigitalOutPort;
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA2560 */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATMEGA2560 */
 
 #endif /* INCLUDE_SNOWFOX_HAL_AVR_ATMEGA2560_DIGITALOUTPORT_H_ */

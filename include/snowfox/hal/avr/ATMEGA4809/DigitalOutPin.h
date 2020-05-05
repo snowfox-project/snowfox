@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATMEGA4809
+namespace snowfox::hal::ATMEGA4809
 {
 
 /**************************************************************************************
@@ -48,10 +42,6 @@ typedef ATxxxx::DigitalOutPin DigitalOutPin;
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA4809 */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATMEGA4809 */
 
 #endif /* INCLUDE_SNOWFOX_HAL_AVR_ATMEGA4809_DIGITALOUTPIN_H_ */

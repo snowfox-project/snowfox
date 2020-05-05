@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace FE310
+namespace snowfox::hal::FE310
 {
 
 /**************************************************************************************
@@ -48,10 +42,6 @@ uint16_t calcUartBaudRate(uint32_t const tlclk_Hz, uint32_t const baud_rate);
  * NAMESPACE
  **************************************************************************************/
 
-} /* FE310 */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::FE310 */
 
 #endif /* INCLUDE_SNOWFOX_HAL_SIFIVE_FE310_UTIL_UART_UTIL_H_ */

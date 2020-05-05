@@ -32,13 +32,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATxxxx
+namespace snowfox::hal::ATxxxx
 {
 
 /**************************************************************************************
@@ -72,8 +66,4 @@ void Flash::readStringFromFlash(char * dest_ram, const char * src_flash)
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATxxxx */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATxxxx */

@@ -31,16 +31,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace FE310
-{
-
-namespace test
+namespace snowfox::hal::FE310::test
 {
 
 /**************************************************************************************
@@ -72,10 +63,4 @@ SCENARIO("A FE310::UART1 object is constructed", "[FE310::UART1]")
  * NAMESPACE
  **************************************************************************************/
 
-} /* test */
-
-} /* FE310 */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::FE310::test */

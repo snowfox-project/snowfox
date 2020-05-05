@@ -30,19 +30,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace memory
-{
-
-namespace N25Q256A
-{
-
-namespace interface
+namespace snowfox::driver::memory::N25Q256A::interface
 {
 
 /**************************************************************************************
@@ -123,14 +111,6 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
-
-} /* N25Q256A */
-
-} /* memory */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::memory::N25Q256A::interface */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_MEMORY_N25Q256A_INTERFACE_N25Q256A_IO_H_ */

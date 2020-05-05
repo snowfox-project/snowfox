@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATMEGA32U4
+namespace snowfox::hal::ATMEGA32U4
 {
 
 /**************************************************************************************
@@ -48,10 +42,6 @@ typedef ATxxxx::DigitalOutPort DigitalOutPort;
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA32U4 */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATMEGA32U4 */
 
 #endif /* INCLUDE_SNOWFOX_HAL_AVR_ATMEGA32U4_DIGITALOUTPORT_H_ */

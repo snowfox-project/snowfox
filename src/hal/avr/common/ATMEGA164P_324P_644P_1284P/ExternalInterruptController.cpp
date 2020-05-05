@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATMEGA164P_324P_644P_1284P
+namespace snowfox::hal::ATMEGA164P_324P_644P_1284P
 {
 
 /**************************************************************************************
@@ -148,8 +142,4 @@ uint8_t ExternalInterruptController::converToIntNum(uint8_t const ext_int_num)
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA164P_324P_644P_1284P */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATMEGA164P_324P_644P_1284P */

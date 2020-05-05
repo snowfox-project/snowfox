@@ -30,19 +30,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace INA220
-{
-
-namespace interface
+namespace snowfox::driver::sensor::INA220::interface
 {
 
 /**************************************************************************************
@@ -81,14 +69,6 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
-
-} /* INA220 */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::INA220::interface */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_SENSOR_INA220_INTERFACE_INA220_IO_H_ */

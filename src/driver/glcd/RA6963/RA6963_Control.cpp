@@ -36,16 +36,7 @@ static uint8_t const RA6963_CMD_RESET_AUTO_READ_WRITE = 0xB1;
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace glcd
-{
-
-namespace RA6963
+namespace snowfox::driver::glcd::RA6963
 {
 
 /**************************************************************************************
@@ -130,10 +121,4 @@ void RA6963_Control::writeCommand(uint8_t const cmd_val)
  * NAMESPACE
  **************************************************************************************/
 
-} /* RA6963 */
-
-} /* glcd */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::glcd::RA6963 */

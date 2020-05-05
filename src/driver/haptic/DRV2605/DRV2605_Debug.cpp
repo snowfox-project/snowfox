@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace haptic
-{
-
-namespace DRV2605
+namespace snowfox::driver::haptic::DRV2605
 {
 
 /**************************************************************************************
@@ -140,10 +131,4 @@ void DRV2605_Debug::debug_dumpSingleReg(trace::Trace & trace, hal::interface::Fl
  * NAMESPACE
  **************************************************************************************/
 
-} /* DRV2605 */
-
-} /* haptic */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::haptic::DRV2605 */

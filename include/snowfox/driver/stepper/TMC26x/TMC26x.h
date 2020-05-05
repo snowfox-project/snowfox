@@ -29,16 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace stepper
-{
-
-namespace TMC26x
+namespace snowfox::driver::stepper::TMC26x
 {
 
 /**************************************************************************************
@@ -67,12 +58,6 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* TMC26x */
-
-} /* stepper */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::stepper::TMC26x */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_STEPPER_TMC26X_TMC26X_H_ */

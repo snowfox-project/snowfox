@@ -29,19 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace memory
-{
-
-namespace AT45DBx
-{
-
-namespace interface
+namespace snowfox::driver::memory::AT45DBx::interface
 {
 
 /**************************************************************************************
@@ -71,14 +59,6 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
-
-} /* AT45DBx */
-
-} /* memory */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::memory::AT45DBx::interface */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_MEMORY_AT45DBX_INTERFACE_AT45DBX_IO_H_ */

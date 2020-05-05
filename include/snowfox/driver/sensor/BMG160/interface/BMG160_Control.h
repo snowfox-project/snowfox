@@ -30,19 +30,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace BMG160
-{
-
-namespace interface
+namespace snowfox::driver::sensor::BMG160::interface
 {
 
 /**************************************************************************************
@@ -79,15 +67,7 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
-
-} /* BMG160 */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::BMG160::interface */
 
 
 

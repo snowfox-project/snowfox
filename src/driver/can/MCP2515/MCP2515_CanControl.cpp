@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace can
-{
-
-namespace MCP2515
+namespace snowfox::driver::can::MCP2515
 {
 
 /**************************************************************************************
@@ -112,10 +103,4 @@ bool MCP2515_CanControl::receive(util::type::CanFrame * frame)
  * NAMESPACE
  **************************************************************************************/
 
-} /* MCP2515 */
-
-} /* can */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::can::MCP2515 */

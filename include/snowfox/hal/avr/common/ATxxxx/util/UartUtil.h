@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATxxxx
+namespace snowfox::hal::ATxxxx
 {
 
 /**************************************************************************************
@@ -48,10 +42,6 @@ uint16_t calcUartBaudRate(uint32_t const f_cpu, uint32_t const baud_rate);
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATxxxx */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATxxxx */
 
 #endif /* INCLUDE_SNOWFOX_HAL_AVR_COMMON_ATXXXX_UART_BAUD_CONFIG_H_ */

@@ -31,16 +31,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace serial
-{
-
-namespace UART
+namespace snowfox::driver::serial
 {
 
 /**************************************************************************************
@@ -71,12 +62,6 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* UART */
-
-} /* serial */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::serial */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_CONSOLE_SERIAL_SERIALCONFIG_H_ */

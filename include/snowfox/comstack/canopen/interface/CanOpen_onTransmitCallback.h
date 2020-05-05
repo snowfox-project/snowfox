@@ -29,16 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace comstack
-{
-
-namespace canopen
-{
-
-namespace interface
+namespace snowfox::comstack::canopen::interface
 {
 
 /**************************************************************************************
@@ -61,12 +52,6 @@ public:
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface */
-
-} /* canopen */
-
-} /* comstack */
-
-} /* snowfox */
+} /* snowfox::comstack::canopen::interface */
 
 #endif /* INCLUDE_SNOWFOX_COMSTACK_CANOPEN_INTERFACE_CAN_ONTRANSMITCALLBACK_H_ */

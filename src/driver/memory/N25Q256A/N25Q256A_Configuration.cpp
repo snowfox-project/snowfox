@@ -28,16 +28,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace memory
-{
-
-namespace N25Q256A
+namespace snowfox::driver::memory::N25Q256A
 {
 
 /**************************************************************************************
@@ -105,10 +96,4 @@ util::jedec::JedecCode N25Q256A_Configuration::readDeviceId()
  * NAMESPACE
  **************************************************************************************/
 
-} /* N25Q256A */
-
-} /* memory */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::memory::N25Q256A */

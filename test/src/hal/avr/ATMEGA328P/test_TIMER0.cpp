@@ -34,16 +34,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace ATMEGA328P
-{
-
-namespace test
+namespace snowfox::hal::ATMEGA328P::test
 {
 
 /**************************************************************************************
@@ -236,10 +227,4 @@ SCENARIO("ATMEGA328P::TIMER0 - A timer's compare register are written via 'setCo
  * NAMESPACES
  **************************************************************************************/
 
-} /* test */
-
-} /* ATMEGA328P */
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::ATMEGA328P::test */

@@ -26,16 +26,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace sensor
-{
-
-namespace LIS3MDL
+namespace snowfox::driver::sensor::LIS3MDL
 {
 
 /**************************************************************************************
@@ -108,10 +99,4 @@ void LIS3MDL_Debug::debug_dumpSingleReg(trace::Trace & trace, hal::interface::Fl
  * NAMESPACE
  **************************************************************************************/
 
-} /* LIS3MDL */
-
-} /* sensor */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::sensor::LIS3MDL */

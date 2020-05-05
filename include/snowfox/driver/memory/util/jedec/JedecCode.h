@@ -29,19 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace memory
-{
-
-namespace util
-{
-
-namespace jedec
+namespace snowfox::driver::memory::util::jedec
 {
 
 /**************************************************************************************
@@ -74,14 +62,6 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* jedec */
-
-} /* util */
-
-} /* memory */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::memory::util::jedec */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_UTIL_JEDEC_JEDECCODE_H_ */

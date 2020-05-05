@@ -23,13 +23,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace hal
-{
-
-namespace interface
+namespace snowfox::hal::interface
 {
 
 /**************************************************************************************
@@ -47,10 +41,6 @@ enum class PullUpMode
  * NAMESPACE
  **************************************************************************************/
 
-} /* interface*/
-
-} /* hal */
-
-} /* snowfox */
+} /* snowfox::hal::interface*/
 
 #endif /* INCLUDE_SNOWFOX_HAL_INTERFACE_GPIO_PULLUPMODE_H_ */

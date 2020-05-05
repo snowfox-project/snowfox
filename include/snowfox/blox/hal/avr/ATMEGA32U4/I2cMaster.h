@@ -29,13 +29,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace blox
-{
-
-namespace ATMEGA32U4
+namespace snowfox::blox::ATMEGA32U4
 {
 
 /**************************************************************************************
@@ -48,10 +42,6 @@ typedef ATMEGA16U4_32U4::I2cMaster I2cMaster;
  * NAMESPACE
  **************************************************************************************/
 
-} /* ATMEGA32U4 */
-
-} /* blox */
-
-} /* snowfox */
+} /* snowfox::blox::ATMEGA16U4 */
 
 #endif /* INCLUDE_SNOWFOX_BLOX_HAL_AVR_ATMEGA32U4_I2CMASTER_H_ */

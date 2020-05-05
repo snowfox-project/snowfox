@@ -28,16 +28,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace serial
-{
-
-namespace UART
+namespace snowfox::driver::serial
 {
 
 /**************************************************************************************
@@ -104,10 +95,4 @@ uint16_t UART_SerialControl::transmit(uint8_t const * data, uint16_t const num_b
  * NAMESPACE
  **************************************************************************************/
 
-} /* UART */
-
-} /* serial */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::serial */

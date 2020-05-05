@@ -33,16 +33,7 @@
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox
-{
-
-namespace driver
-{
-
-namespace tlcd
-{
-
-namespace HD44780
+namespace snowfox::driver::tlcd::HD44780
 {
 
 /**************************************************************************************
@@ -83,12 +74,6 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* HD44780 */
-
-} /* tlcd */
-
-} /* driver */
-
-} /* snowfox */
+} /* snowfox::driver::tlcd::HD44780 */
 
 #endif /* INCLUDE_SNOWFOX_DRIVER_TLCD_HD44780_IOGPIO8BIT_H_ */
