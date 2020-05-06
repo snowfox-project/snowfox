@@ -6,7 +6,7 @@ Snowfox = HAL + IO + COMSTACK + CI + C++
 [![Build Status](https://travis-ci.org/snowfox-project/snowfox.svg?branch=master)](https://travis-ci.org/snowfox-project/snowfox)
 [![Code Coverage](https://codecov.io/gh/snowfox-project/snowfox/branch/master/graph/badge.svg)](https://codecov.io/gh/snowfox-project/snowfox)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c3c3d5f0ca13407dae66329bf1ffe6c8)](https://www.codacy.com/manual/snowfox-project/snowfox?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=snowfox-project/snowfox&amp;utm_campaign=Badge_Grade)
-[![Wiki](.ci/badge/docu-wiki-brightgreen.svg)](https://github.com/snowfox-project/snowfox/wiki)
+![MCU Architectures: AVR, RISCV](.ci/badge/arch-badge-brightgreen.svg)
 
 <p align="center"> 
 <img src=".ci/logo/snowfox-os-logo-v2.jpg">
