@@ -167,6 +167,7 @@ set(SNOWFOX_TEST_HOST_OS_SRCS
 add_executable(
   ${SNOWFOX_TEST_HOST_TARGET}
   
+  src/test_check_version.cpp
   src/test_main.cpp
   
   ${SNOWFOX_TEST_HOST_COMSTACK_CANOPEN_SRCS}
