@@ -7,6 +7,7 @@
 ##########################################################################
 
 if(${MCU_ARCH} STREQUAL "avr")
+  set(SNOWFOX_LIBRARY_CPU_SRCS ${SNOWFOX_LIBRARY_CPU_SRCS} src/cpu/avr/check_version.cpp)
   set(SNOWFOX_LIBRARY_CPU_SRCS ${SNOWFOX_LIBRARY_CPU_SRCS} src/cpu/avr/cxx.cpp)
 endif()
 
