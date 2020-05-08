@@ -77,8 +77,7 @@ bool I2cMasterBase::begin(uint8_t const address, bool const is_read_access)
   /* Check wether or not a ACK from the slave was received */
   if (!ll_isAckBySlave())
   {
-    ll_stop();
-    while(ll_isBusy()) { }
+    end();
     return false;  
   }
 
@@ -103,8 +102,7 @@ bool I2cMasterBase::write(uint8_t const data)
   /* Check wether or not a ACK from the slave was received */
   if (!ll_isAckBySlave())
   {
-    ll_stop();
-    while(ll_isBusy()) { }
+    end();
     return false;  
   }
 
