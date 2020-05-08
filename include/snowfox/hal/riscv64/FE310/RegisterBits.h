@@ -60,6 +60,8 @@ enum class GPIO0_IOF_EN : uint32_t
   SPI1_DQ0 = 3,  /* SPI1 MOSI */
   SPI1_DQ1 = 4,  /* SPI1 MISO */
   SPI1_SCK = 5,  /* SPI1 SCK  */
+  I2C0_SDA = 12, /* I2C0 SDA */
+  I2C0_SCL = 13, /* I2C0 SCL */
   UART0_RX = 16,
   UART0_TX = 17,
   UART1_RX = 18,
@@ -74,6 +76,8 @@ enum class GPIO0_IOF_SEL : uint32_t
   SPI1_DQ0 = 3,  /* SPI1 MOSI */
   SPI1_DQ1 = 4,  /* SPI1 MISO */
   SPI1_SCK = 5,  /* SPI1 SCK  */
+  I2C0_SDA = 12, /* I2C0 SDA */
+  I2C0_SCL = 13, /* I2C0 SCL */
   UART0_RX = 16,
   UART0_TX = 17,
   UART1_RX = 18,
@@ -120,6 +124,31 @@ enum class SPIx_FMT : uint32_t
 enum class MSTATUS : uint32_t
 {
   MACHINE_INTERRUPT_ENABLE = INT32_C(3)
+};
+
+enum class I2Cx_CONTROL : uint32_t
+{
+  ENABLE           = 7,
+  INTERRUPT_ENABLE = 6
+};
+
+enum class I2Cx_COMMAND : uint32_t
+{
+  STA  = 7,
+  STO  = 6,
+  RD   = 5,
+  WR   = 4,
+  ACK  = 3,
+  IACK = 0
+};
+
+enum class I2Cx_STATUS : uint32_t
+{
+  RxACK             = 7,
+  Busy              = 6,
+  ArbitrationLost   = 5,
+  TransferInProgres = 1,
+  InterruptFlag     = 0
 };
 
 /**************************************************************************************
