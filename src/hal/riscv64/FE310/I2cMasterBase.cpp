@@ -72,9 +72,7 @@ bool I2cMasterBase::begin(uint8_t const address, bool const is_read_access)
   ll_startAndWrite();
 
   /* Wait for the I2C core to signal completion of operation */
-  while (!ll_isInterrupt()) { }
-  ll_ackInterrupt();
-  if (ll_isArbitrationLost()) return false;
+  if(!ll_waitForInterrupt()) return false;
 
   /* Check wether or not a ACK from the slave was received */
   if (!ll_isAckBySlave())
@@ -100,9 +98,7 @@ bool I2cMasterBase::write(uint8_t const data)
   ll_write();
 
   /* Wait for the I2C core to signal completion of operation */
-  while (!ll_isInterrupt()) { }
-  ll_ackInterrupt();
-  if (ll_isArbitrationLost()) return false;
+  if(!ll_waitForInterrupt()) return false;
 
   /* Check wether or not a ACK from the slave was received */
   if (!ll_isAckBySlave())
@@ -129,9 +125,7 @@ bool I2cMasterBase::requestFrom(uint8_t const address, uint8_t * data, uint16_t 
     ll_readAndAck();
 
     /* Wait for completion */
-    while (!ll_isInterrupt()) { }
-    ll_ackInterrupt();
-    if (ll_isArbitrationLost()) return false;
+    if(!ll_waitForInterrupt()) return false;
 
     /* Read Byte */
     data[b] = ll_receive();
@@ -141,9 +135,7 @@ bool I2cMasterBase::requestFrom(uint8_t const address, uint8_t * data, uint16_t 
   ll_readAndNack();
 
   /* Wait for completion */
-  while(!ll_isInterrupt()) { }
-  ll_ackInterrupt();
-  if (ll_isArbitrationLost()) return false;
+  if(!ll_waitForInterrupt()) return false;
 
   /* Read Byte */
   data[num_bytes - 1] = ll_receive();
@@ -248,6 +240,14 @@ bool I2cMasterBase::ll_isAckBySlave()
 bool I2cMasterBase::ll_isArbitrationLost()
 {
   return util::isBitSet(_i2cx_cmd_status, util::bp(I2Cx_STATUS::ArbitrationLost));
+}
+
+bool I2cMasterBase::ll_waitForInterrupt()
+{
+  while(!ll_isInterrupt()) { }
+  ll_ackInterrupt();
+  if (ll_isArbitrationLost()) return false;
+  return true;
 }
 
 /**************************************************************************************

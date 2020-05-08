@@ -86,6 +86,8 @@ private:
   bool ll_isAckBySlave();
   bool ll_isArbitrationLost();
 
+  bool ll_waitForInterrupt();
+
 };
 
 /**************************************************************************************
