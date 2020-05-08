@@ -71,8 +71,8 @@ private:
   void ll_enableI2c();
   void ll_disableI2c();
 
-  void    ll_write(uint8_t const data);
-  uint8_t ll_read ();
+  void    ll_transmit(uint8_t const data);
+  uint8_t ll_receive ();
 
   void ll_ackInterrupt();
   void ll_startAndWrite();

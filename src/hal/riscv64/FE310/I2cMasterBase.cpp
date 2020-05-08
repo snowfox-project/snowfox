@@ -63,9 +63,9 @@ bool I2cMasterBase::begin(uint8_t const address, bool const is_read_access)
 {
   /* Write the address of the I2C slave to the transmit register */
   if (is_read_access) {
-    ll_write(address | 0x01);
+    ll_transmit(address | 0x01);
   } else {
-    ll_write(address);
+    ll_transmit(address);
   }
 
   /* Generate a start condition for writing to a slave */
@@ -96,7 +96,7 @@ void I2cMasterBase::end()
 bool I2cMasterBase::write(uint8_t const data)
 {
   /* Set data and request transmission */
-  ll_write(data);
+  ll_transmit(data);
   ll_write();
 
   /* Wait for the I2C core to signal completion of operation */
@@ -134,7 +134,7 @@ bool I2cMasterBase::requestFrom(uint8_t const address, uint8_t * data, uint16_t 
     if (ll_isArbitrationLost()) return false;
 
     /* Read Byte */
-    data[b] = ll_read();
+    data[b] = ll_receive();
   }
 
   /* R + NACK */
@@ -146,7 +146,7 @@ bool I2cMasterBase::requestFrom(uint8_t const address, uint8_t * data, uint16_t 
   if (ll_isArbitrationLost()) return false;
 
   /* Read Byte */
-  data[num_bytes - 1] = ll_read();
+  data[num_bytes - 1] = ll_receive();
 
   /* Stop operation */
   end();
@@ -190,12 +190,12 @@ void I2cMasterBase::ll_disableI2c()
   util::clrBit(_i2cx_control, util::bp(I2Cx_CONTROL::ENABLE));
 }
 
-void I2cMasterBase::ll_write(uint8_t const data)
+void I2cMasterBase::ll_transmit(uint8_t const data)
 {
   *_i2cx_data = static_cast<uint32_t>(data);
 }
 
-uint8_t I2cMasterBase::ll_read()
+uint8_t I2cMasterBase::ll_receive()
 {
   return static_cast<uint8_t>((*_i2cx_data) & 0x0000'00FF);
 }
