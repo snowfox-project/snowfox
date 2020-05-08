@@ -145,7 +145,6 @@ bool I2cMasterBase::requestFrom(uint8_t const address, uint8_t * data, uint16_t 
   ackInterrupt();
   if (isArbitrationLost()) return false;
 
-
   /* Read Byte */
   data[num_bytes - 1] = static_cast<uint8_t>((*_i2cx_data) & 0x0000'00FF);
 
@@ -155,17 +154,21 @@ bool I2cMasterBase::requestFrom(uint8_t const address, uint8_t * data, uint16_t 
   return true;
 }
 
-void I2cMasterBase::setI2cClock(hal::interface::I2cClock const /*i2c_clock*/)
+void I2cMasterBase::setI2cClock(hal::interface::I2cClock const i2c_clock)
 {
   /* The value of the prescaler registers can only be changed then I2C is disabled */
   util::clrBit(_i2cx_control, util::bp(I2Cx_CONTROL::ENABLE));
 
   /* Calculate the value of the I2C prescalers */
-  //uint32_t const i2c_clock_hz = util::to_integer(i2c_clock);
-  uint32_t const prescaler = 399;//(_clock_Hz / (5 * i2c_clock_hz)) - 1;
+  uint32_t prescaler = 0;
+  switch(i2c_clock)
+  {
+  default:
+  case interface::I2cClock::F_100_kHz: prescaler = (_clock_Hz / (5 * 100'000UL)) - 1; break;
+  case interface::I2cClock::F_400_kHz: prescaler = (_clock_Hz / (5 * 400'000UL)) - 1; break;
+  }
 
   /* Set the prescaler registers */
-  /* 200 MHz / 100 kHz -> Prescaler = 399 = 0x18F; */
   *_i2cx_prescaler_low  = (prescaler & 0x0000'00FF);
   *_i2cx_prescaler_high = (prescaler & 0x0000'FF00) / 256; /* >> 8 creates a SRLI and it just doesn't work */
 
