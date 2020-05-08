@@ -61,11 +61,7 @@ I2cMasterBase::I2cMasterBase(volatile uint32_t * i2cx_prescaler_low,
 
 bool I2cMasterBase::begin(uint8_t const address, bool const is_read_access)
 {
-  if (is_read_access) {
-    ll_transmit(address | 0x01);
-  } else {
-    ll_transmit(address);
-  }
+  ll_transmit(convertI2cAddress(address, is_read_access));
   ll_startAndWrite();
 
   if(!ll_waitForInterrupt()) return false;

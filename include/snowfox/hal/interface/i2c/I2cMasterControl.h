@@ -50,6 +50,9 @@ public:
   virtual bool write      (uint8_t const data                                             ) = 0;
   virtual bool requestFrom(uint8_t const address, uint8_t * data, uint16_t const num_bytes) = 0;
 
+  inline uint8_t convertI2cAddress(uint8_t const address, bool is_read_access) {
+    return is_read_access ? (address | 0x01) : address;
+  }
 };
 
 /**************************************************************************************
