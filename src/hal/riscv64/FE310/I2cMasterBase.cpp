@@ -61,22 +61,16 @@ I2cMasterBase::I2cMasterBase(volatile uint32_t * i2cx_prescaler_low,
 
 bool I2cMasterBase::begin(uint8_t const address, bool const is_read_access)
 {
-  /* Write the address of the I2C slave to the transmit register */
   if (is_read_access) {
     ll_transmit(address | 0x01);
   } else {
     ll_transmit(address);
   }
-
-  /* Generate a start condition for writing to a slave */
   ll_startAndWrite();
 
-  /* Wait for the I2C core to signal completion of operation */
   if(!ll_waitForInterrupt()) return false;
 
-  /* Check wether or not a ACK from the slave was received */
-  if (!ll_isAckBySlave())
-  {
+  if (!ll_isAckBySlave()) {
     end();
     return false;  
   }
@@ -92,16 +86,12 @@ void I2cMasterBase::end()
 
 bool I2cMasterBase::write(uint8_t const data)
 {
-  /* Set data and request transmission */
   ll_transmit(data);
   ll_write();
 
-  /* Wait for the I2C core to signal completion of operation */
   if(!ll_waitForInterrupt()) return false;
 
-  /* Check wether or not a ACK from the slave was received */
-  if (!ll_isAckBySlave())
-  {
+  if (!ll_isAckBySlave()) {
     end();
     return false;  
   }
@@ -111,31 +101,21 @@ bool I2cMasterBase::write(uint8_t const data)
 
 bool I2cMasterBase::requestFrom(uint8_t const address, uint8_t * data, uint16_t const num_bytes)
 {
-  /* Address the slave for reading */
   if (!begin(address, true)) {
     return false;
   }
 
-  /* Read the bytes except the last one */
+  /* Read up to (num_bytes - 1) */
   for(uint16_t b = 0; b < (num_bytes - 1); b++)
   {
-    /* R + ACK */
     ll_readAndAck();
-
-    /* Wait for completion */
     if(!ll_waitForInterrupt()) return false;
-
-    /* Read Byte */
     data[b] = ll_receive();
   }
 
-  /* R + NACK */
+  /* Read the last byte */
   ll_readAndNack();
-
-  /* Wait for completion */
   if(!ll_waitForInterrupt()) return false;
-
-  /* Read Byte */
   data[num_bytes - 1] = ll_receive();
 
   /* Stop operation */
