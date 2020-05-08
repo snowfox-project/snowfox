@@ -68,14 +68,23 @@ private:
                     * _i2cx_cmd_status;
   uint32_t const      _clock_Hz;
 
-  void ackInterrupt();
-  void write();
-  void stop();
+  void ll_enableI2c();
+  void ll_disableI2c();
 
-  bool isBusy();
-  bool isInterrupt();
-  bool isAckBySlave();
-  bool isArbitrationLost();
+  void    ll_write(uint8_t const data);
+  uint8_t ll_read ();
+
+  void ll_ackInterrupt();
+  void ll_startAndWrite();
+  void ll_write();
+  void ll_readAndAck();
+  void ll_readAndNack();
+  void ll_stop();
+
+  bool ll_isBusy();
+  bool ll_isInterrupt();
+  bool ll_isAckBySlave();
+  bool ll_isArbitrationLost();
 
 };
 
