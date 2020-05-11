@@ -45,9 +45,9 @@ In his book "Refactoring: Improving the Design of Existing Code" Martin Fowler f
 | ATMega4809                 | ...                   | atmega4809        | [Arduino Uno WiFi Rev.2](https://github.com/snowfox-project/snowfox-examples/blob/master/board-schematics/mcu/arduino-uno-wifi-rev2.pdf)                                                                                                                                                                                                                                            |
 
 ### SiFive (RISC-V)
-| MCU    | MCU_ARCH | MCU_TYPE  | Eval-Boards                                                                                                                      |
-|:------:|:--------:|:---------:|:--------------------------------------------------------------------------------------------------------------------------------:|
-| FE310  | riscv64  | fe310     | [HiFive 1 Rev. B](https://github.com/snowfox-project/snowfox-examples/blob/master/board-schematics/mcu/sifive-hifive1-rev-b.pdf) |
+| MCU                                       | MCU_ARCH | MCU_TYPE  | Eval-Boards                                                                                                                      |
+|:-----------------------------------------:|:--------:|:---------:|:--------------------------------------------------------------------------------------------------------------------------------:|
+| [FE310](doc/datasheet/MCU/FE310-G002.pdf) | riscv64  | fe310     | [HiFive 1 Rev. B](https://github.com/snowfox-project/snowfox-examples/blob/master/board-schematics/mcu/sifive-hifive1-rev-b.pdf) |
 
 ### Host (Test Build)
 | MCU                        | MCU_ARCH              | MCU_TYPE          |
