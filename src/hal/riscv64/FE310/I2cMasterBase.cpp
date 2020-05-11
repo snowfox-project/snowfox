@@ -46,13 +46,11 @@ I2cMasterBase::I2cMasterBase(volatile uint32_t * i2cx_prescaler_low,
                              uint32_t const clock_Hz)
 : _i2cx_prescaler_low{i2cx_prescaler_low}
 , _i2cx_prescaler_high{i2cx_prescaler_high}
-, _i2cx_control{i2cx_control}
-, _i2cx_data{i2cx_data}
-, _i2cx_cmd_status{i2cx_cmd_status}
 , _clock_Hz{clock_Hz}
+, _i2c_low_level{i2cx_control, i2cx_data, i2cx_cmd_status}
 {
-  ll_enableI2c();
-  ll_ackInterrupt();
+  _i2c_low_level.enable();
+  _i2c_low_level.ackInterrupt();
 }
 
 /**************************************************************************************
@@ -61,12 +59,13 @@ I2cMasterBase::I2cMasterBase(volatile uint32_t * i2cx_prescaler_low,
 
 bool I2cMasterBase::begin(uint8_t const address, bool const is_read_access)
 {
-  ll_transmit(convertI2cAddress(address, is_read_access));
-  ll_startAndWrite();
+  _i2c_low_level.transmit(convertI2cAddress(address, is_read_access));
+  _i2c_low_level.startAndWrite();
 
-  if(!ll_waitForInterrupt()) return false;
+  waitForInterrupt();
+  if (_i2c_low_level.isArbitrationLost()) return false;
 
-  if (!ll_isAckBySlave()) {
+  if (!_i2c_low_level.isAckBySlave()) {
     end();
     return false;  
   }
@@ -76,18 +75,19 @@ bool I2cMasterBase::begin(uint8_t const address, bool const is_read_access)
 
 void I2cMasterBase::end()
 {
-  ll_stop();
-  while(ll_isBusy()) { }
+  _i2c_low_level.stop();
+  while(_i2c_low_level.isBusy()) { }
 }
 
 bool I2cMasterBase::write(uint8_t const data)
 {
-  ll_transmit(data);
-  ll_write();
+  _i2c_low_level.transmit(data);
+  _i2c_low_level.write();
 
-  if(!ll_waitForInterrupt()) return false;
+  waitForInterrupt();
+  if (_i2c_low_level.isArbitrationLost()) return false;
 
-  if (!ll_isAckBySlave()) {
+  if (!_i2c_low_level.isAckBySlave()) {
     end();
     return false;  
   }
@@ -104,15 +104,17 @@ bool I2cMasterBase::requestFrom(uint8_t const address, uint8_t * data, uint16_t 
   /* Read up to (num_bytes - 1) */
   for(uint16_t b = 0; b < (num_bytes - 1); b++)
   {
-    ll_readAndAck();
-    if(!ll_waitForInterrupt()) return false;
-    data[b] = ll_receive();
+    _i2c_low_level.readAndAck();
+    waitForInterrupt();
+    if (_i2c_low_level.isArbitrationLost()) return false;
+    data[b] = _i2c_low_level.receive();
   }
 
   /* Read the last byte */
-  ll_readAndNack();
-  if(!ll_waitForInterrupt()) return false;
-  data[num_bytes - 1] = ll_receive();
+  _i2c_low_level.readAndNack();
+  waitForInterrupt();
+  if (_i2c_low_level.isArbitrationLost()) return false;
+  data[num_bytes - 1] = _i2c_low_level.receive();
 
   /* Stop operation */
   end();
@@ -123,7 +125,7 @@ bool I2cMasterBase::requestFrom(uint8_t const address, uint8_t * data, uint16_t 
 void I2cMasterBase::setI2cClock(hal::interface::I2cClock const i2c_clock)
 {
   /* The value of the prescaler registers can only be changed then I2C is disabled */
-  ll_disableI2c();
+  _i2c_low_level.disable();
 
   /* Calculate the value of the I2C prescalers */
   uint32_t prescaler = 0;
@@ -139,89 +141,17 @@ void I2cMasterBase::setI2cClock(hal::interface::I2cClock const i2c_clock)
   *_i2cx_prescaler_high = (prescaler & 0x0000'FF00) / 256; /* >> 8 creates a SRLI and it just doesn't work */
 
   /* Re-enable I2C */
-  ll_enableI2c();
+  _i2c_low_level.enable();
 }
 
 /**************************************************************************************
  * PRIVATE MEMBER FUNCTIONS
  **************************************************************************************/
 
-void I2cMasterBase::ll_enableI2c()
+void I2cMasterBase::waitForInterrupt()
 {
-  util::setBit(_i2cx_control, util::bp(I2Cx_CONTROL::ENABLE));
-}
-
-void I2cMasterBase::ll_disableI2c()
-{
-  util::clrBit(_i2cx_control, util::bp(I2Cx_CONTROL::ENABLE));
-}
-
-void I2cMasterBase::ll_transmit(uint8_t const data)
-{
-  *_i2cx_data = static_cast<uint32_t>(data);
-}
-
-uint8_t I2cMasterBase::ll_receive()
-{
-  return static_cast<uint8_t>((*_i2cx_data) & 0x0000'00FF);
-}
-
-void I2cMasterBase::ll_ackInterrupt()
-{
-  *_i2cx_cmd_status = util::bm(I2Cx_COMMAND::IACK);
-}
-
-void I2cMasterBase::ll_startAndWrite()
-{
-  *_i2cx_cmd_status = util::bm(I2Cx_COMMAND::STA) | util::bm(I2Cx_COMMAND::WR);
-}
-
-void I2cMasterBase::ll_write()
-{
-  *_i2cx_cmd_status = util::bm(I2Cx_COMMAND::WR);
-}
-
-void I2cMasterBase::ll_readAndAck()
-{
-  *_i2cx_cmd_status = util::bm(I2Cx_COMMAND::RD);
-}
-
-void I2cMasterBase::ll_readAndNack()
-{
-  *_i2cx_cmd_status = util::bm(I2Cx_COMMAND::RD) | util::bm(I2Cx_COMMAND::ACK);
-}
-
-void I2cMasterBase::ll_stop()
-{
-  *_i2cx_cmd_status = util::bm(I2Cx_COMMAND::STO);
-}
-
-bool I2cMasterBase::ll_isBusy()
-{
-  return util::isBitSet(_i2cx_cmd_status, util::bp(I2Cx_STATUS::Busy));
-}
-
-bool I2cMasterBase::ll_isInterrupt()
-{
-  return util::isBitSet(_i2cx_cmd_status, util::bp(I2Cx_STATUS::InterruptFlag));
-}
-
-bool I2cMasterBase::ll_isAckBySlave()
-{
-  return util::isBitClr(_i2cx_cmd_status, util::bp(I2Cx_STATUS::RxACK));
-}
-
-bool I2cMasterBase::ll_isArbitrationLost()
-{
-  return util::isBitSet(_i2cx_cmd_status, util::bp(I2Cx_STATUS::ArbitrationLost));
-}
-
-bool I2cMasterBase::ll_waitForInterrupt()
-{
-  while(!ll_isInterrupt()) { }
-  ll_ackInterrupt();
-  if (ll_isArbitrationLost()) return false;
-  return true;
+  while(!_i2c_low_level.isInterrupt()) { }
+  _i2c_low_level.ackInterrupt();
 }
 
 /**************************************************************************************
