@@ -16,53 +16,60 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SNOWFOX_HAL_AVR_COMMON_ATXXXX_I2CMASTER_H_
-#define INCLUDE_SNOWFOX_HAL_AVR_COMMON_ATXXXX_I2CMASTER_H_
+#ifndef INCLUDE_SNOWFOX_HAL_SIFIVE_FE310_I2CMASTERLOWLEVEL_H_
+#define INCLUDE_SNOWFOX_HAL_SIFIVE_FE310_I2CMASTERLOWLEVEL_H_
 
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/hal/interface/i2c/I2cMaster.h>
-
-#include <snowfox/hal/avr/common/ATxxxx/interface/I2cMasterLowLevel.h>
+#include <stdint.h>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-namespace snowfox::hal::ATxxxx
+namespace snowfox::hal::FE310
 {
 
 /**************************************************************************************
  * CLASS DECLARATION
  **************************************************************************************/
 
-class I2cMaster : public hal::interface::I2cMaster
+class I2cMasterLowLevel
 {
 
 public:
 
-           I2cMaster(interface::I2cMasterLowLevel & i2c_master_low_level);
-  virtual ~I2cMaster();
+    I2cMasterLowLevel(volatile uint32_t * i2cx_control,
+                      volatile uint32_t * i2cx_data,
+                      volatile uint32_t * i2cx_cmd_status);
 
 
-  /* I2C Master Interface */
+    void    enable();
+    void    disable();
 
-  virtual bool begin      (uint8_t const address, bool const is_read_access               ) override;
-  virtual void end        (                                                               ) override;
-  virtual bool write      (uint8_t const data                                             ) override;
-  virtual bool requestFrom(uint8_t const address, uint8_t * data, uint16_t const num_bytes) override;
+    void    transmit(uint8_t const data);
+    uint8_t receive ();
 
+    void    startAndWrite();
+    void    write();
+    void    readAndAck();
+    void    readAndNack();
+    void    stop();
 
-  /* I2C Master Configuration Interface */
+    bool    isBusy();
+    bool    isInterrupt();
+    bool    isAckBySlave();
+    bool    isArbitrationLost();
 
-  virtual void setI2cClock(hal::interface::I2cClock const i2c_clock) override;
-
+    void    ackInterrupt();
 
 private:
 
-  interface::I2cMasterLowLevel & _i2c_master_low_level;
+  volatile uint32_t * _i2cx_control,
+                    * _i2cx_data,
+                    * _i2cx_cmd_status;
 
 };
 
@@ -70,6 +77,6 @@ private:
  * NAMESPACE
  **************************************************************************************/
 
-} /* snowfox::hal::ATxxxx */
+} /* snowfox::hal::FE310 */
 
-#endif /* INCLUDE_SNOWFOX_HAL_AVR_COMMON_ATXXXX_I2CMASTER_H_ */
+#endif /* INCLUDE_SNOWFOX_HAL_SIFIVE_FE310_I2CMASTERLOWLEVEL_H_ */

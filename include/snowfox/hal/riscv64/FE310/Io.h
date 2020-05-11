@@ -118,11 +118,11 @@ namespace snowfox::hal::FE310
 #define PWM0_PWMCMP3     (*((volatile uint32_t *)(PWM0_BASE + 0x2C)))
 
 #define I2C0_BASE        (0x10016000)
-#define I2C0_PRESC_LOW   (*((volatile uint32_t *)(PWM0_BASE + 0x00)))
-#define I2C0_PRESC_HIGH  (*((volatile uint32_t *)(PWM0_BASE + 0x04)))
-#define I2C0_CONTROL     (*((volatile uint32_t *)(PWM0_BASE + 0x08)))
-#define I2C0_DATA        (*((volatile uint32_t *)(PWM0_BASE + 0x0C)))
-#define I2C0_CMD_STATUS  (*((volatile uint32_t *)(PWM0_BASE + 0x10)))
+#define I2C0_PRESC_LOW   (*((volatile uint32_t *)(I2C0_BASE + 0x00)))
+#define I2C0_PRESC_HIGH  (*((volatile uint32_t *)(I2C0_BASE + 0x04)))
+#define I2C0_CONTROL     (*((volatile uint32_t *)(I2C0_BASE + 0x08)))
+#define I2C0_DATA        (*((volatile uint32_t *)(I2C0_BASE + 0x0C)))
+#define I2C0_CMD_STATUS  (*((volatile uint32_t *)(I2C0_BASE + 0x10)))
 
 #define UART1_BASE       (0x10023000)
 #define UART1_TXDATA     (*((volatile uint32_t *)(UART1_BASE + 0x00)))

@@ -16,60 +16,55 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_SNOWFOX_HAL_AVR_COMMON_ATXXXX_I2CMASTER_H_
-#define INCLUDE_SNOWFOX_HAL_AVR_COMMON_ATXXXX_I2CMASTER_H_
-
 /**************************************************************************************
  * INCLUDE
  **************************************************************************************/
 
-#include <snowfox/hal/interface/i2c/I2cMaster.h>
+#include <snowfox/hal/riscv64/FE310/I2cMaster.h>
 
-#include <snowfox/hal/avr/common/ATxxxx/interface/I2cMasterLowLevel.h>
+#include <snowfox/hal/riscv64/FE310/RegisterBits.h>
 
-/**************************************************************************************
- * NAMESPACE
- **************************************************************************************/
-
-namespace snowfox::hal::ATxxxx
-{
-
-/**************************************************************************************
- * CLASS DECLARATION
- **************************************************************************************/
-
-class I2cMaster : public hal::interface::I2cMaster
-{
-
-public:
-
-           I2cMaster(interface::I2cMasterLowLevel & i2c_master_low_level);
-  virtual ~I2cMaster();
-
-
-  /* I2C Master Interface */
-
-  virtual bool begin      (uint8_t const address, bool const is_read_access               ) override;
-  virtual void end        (                                                               ) override;
-  virtual bool write      (uint8_t const data                                             ) override;
-  virtual bool requestFrom(uint8_t const address, uint8_t * data, uint16_t const num_bytes) override;
-
-
-  /* I2C Master Configuration Interface */
-
-  virtual void setI2cClock(hal::interface::I2cClock const i2c_clock) override;
-
-
-private:
-
-  interface::I2cMasterLowLevel & _i2c_master_low_level;
-
-};
+#include <snowfox/util/BitUtil.h>
+#include <snowfox/util/EnumClassConv.hpp>
 
 /**************************************************************************************
  * NAMESPACE
  **************************************************************************************/
 
-} /* snowfox::hal::ATxxxx */
+namespace snowfox::hal::FE310
+{
 
-#endif /* INCLUDE_SNOWFOX_HAL_AVR_COMMON_ATXXXX_I2CMASTER_H_ */
+/**************************************************************************************
+ * CTOR/DTOR
+ **************************************************************************************/
+
+I2cMaster::I2cMaster(volatile uint32_t * i2cx_prescaler_low,
+                     volatile uint32_t * i2cx_prescaler_high,
+                     volatile uint32_t * i2cx_control,
+                     volatile uint32_t * i2cx_data,
+                     volatile uint32_t * i2cx_cmd_status,
+                     volatile uint32_t * gpio_iof_en,
+                     volatile uint32_t * gpio_iof_sel,
+                     uint32_t const clock_Hz)
+: I2cMasterBase{i2cx_prescaler_low, i2cx_prescaler_high, i2cx_control, i2cx_data, i2cx_cmd_status, clock_Hz}
+{
+  enableGpioAccess(gpio_iof_en, gpio_iof_sel);
+}
+
+/**************************************************************************************
+ * PRIVATE MEMBER FUNCTIONS
+ **************************************************************************************/
+
+void I2cMaster::enableGpioAccess(volatile uint32_t * gpio_iof_en, volatile uint32_t * gpio_iof_sel)
+{
+  util::setBit(gpio_iof_en,  util::bp(GPIO0_IOF_EN::I2C0_SDA));
+  util::setBit(gpio_iof_en,  util::bp(GPIO0_IOF_EN::I2C0_SCL));
+  util::clrBit(gpio_iof_sel, util::bp(GPIO0_IOF_SEL::I2C0_SDA));
+  util::clrBit(gpio_iof_sel, util::bp(GPIO0_IOF_SEL::I2C0_SCL));
+}
+  
+/**************************************************************************************
+ * NAMESPACE
+ **************************************************************************************/
+
+} /* snowfox::hal::FE310 */
