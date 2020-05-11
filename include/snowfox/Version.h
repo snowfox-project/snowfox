@@ -33,8 +33,8 @@ namespace snowfox
 struct Version
 {
   static constexpr uint32_t Major = 0;
-  static constexpr uint32_t Minor = 0;
-  static constexpr uint32_t Patch = 1;
+  static constexpr uint32_t Minor = 1;
+  static constexpr uint32_t Patch = 0;
 };
 
 /**************************************************************************************
