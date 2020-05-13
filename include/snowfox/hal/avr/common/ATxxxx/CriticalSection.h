@@ -43,8 +43,7 @@ class CriticalSection : public interface::CriticalSection
 
 public:
 
-           CriticalSection(volatile uint8_t * sreg);
-  virtual ~CriticalSection();
+  virtual ~CriticalSection() { }
 
 
   virtual void lock  () override;
@@ -53,8 +52,7 @@ public:
 
 private:
 
-  volatile uint8_t * _sreg;
-           uint8_t   _sreg_iflag;
+  static volatile uint8_t _sreg_save;
 
 };
 

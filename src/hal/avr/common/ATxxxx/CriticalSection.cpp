@@ -23,6 +23,7 @@
 #include <snowfox/hal/avr/common/ATxxxx/CriticalSection.h>
 
 #ifdef MCU_ARCH_avr
+#include <avr/io.h>
 #include <avr/interrupt.h>
 #endif
 
@@ -34,26 +35,10 @@ namespace snowfox::hal::ATxxxx
 {
 
 /**************************************************************************************
- * DEFINES
+ * STATIC INITIALISATION
  **************************************************************************************/
 
-#define GI_bm   (1<<7)
-
-/**************************************************************************************
- * CTOR/DTOR
- **************************************************************************************/
-
-CriticalSection::CriticalSection(volatile uint8_t * sreg)
-: _sreg      (sreg),
-  _sreg_iflag(0   )
-{
-
-}
-
-CriticalSection::~CriticalSection()
-{
-
-}
+volatile uint8_t CriticalSection::_sreg_save = 0;
 
 /**************************************************************************************
  * PUBLIC MEMBER FUNCTIONS
@@ -61,17 +46,19 @@ CriticalSection::~CriticalSection()
 
 void CriticalSection::lock()
 {
-  _sreg_iflag = *_sreg & GI_bm;
 #if MCU_ARCH_avr
-  asm volatile("cli");
-#else
-  *_sreg &= ~GI_bm; /* Has the same effect as 'cli' */
+  _sreg_save = SREG;
+  __asm__ volatile ("" ::: "memory");
+  cli();
 #endif
 }
 
 void CriticalSection::unlock()
 {
-  *_sreg |= _sreg_iflag;
+#if MCU_ARCH_avr
+  SREG = _sreg_save;
+  __asm__ volatile ("" ::: "memory");
+#endif
 }
 
 /**************************************************************************************
