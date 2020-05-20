@@ -25,15 +25,15 @@
 
 #include <stdint.h>
 
-#ifdef MCU_ARCH_host
-#include <stdlib.h>
+#ifndef MCU_ARCH_avr
+  #include <memory>
 #endif
 
 /**************************************************************************************
  * TYPEDEF
  **************************************************************************************/
 
-#ifndef MCU_ARCH_host
+#ifdef MCU_ARCH_avr
 typedef int32_t ssize_t;
 #endif
 
