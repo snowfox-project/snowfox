@@ -23,9 +23,12 @@
  * INCLUDE
  **************************************************************************************/
 
-#include <stdlib.h>
-
-#include <deque>
+#ifdef MCU_ARCH_avr
+  #include <stdlib.h>
+#else
+  #include <cstdlib>
+  #include <memory>
+#endif
 
 /**************************************************************************************
  * NAMESPACE
@@ -44,8 +47,11 @@ class Queue
 
 public:
 
-   explicit Queue(size_t const capacity);
-  ~Queue();
+  explicit  Queue(size_t const capacity);
+#ifdef MCU_ARCH_avr
+           ~Queue();
+#endif
+
 
   bool   push    (T const   data);
   bool   pop     (T       * data);
@@ -54,11 +60,19 @@ public:
   bool   isFull  () const;
   bool   isEmpty () const;
 
+
 private:
 
-  size_t        _size,
-                _capacity;
-  std::deque<T> _data;
+#ifdef MCU_ARCH_avr
+  T * _data;
+#else
+  std::unique_ptr<T[]> _data;
+#endif
+  size_t _capacity, _head, _tail, _size;
+
+  void pushData    (T const data);
+  void popData     (T * data);
+  void incrementPtr(size_t & ptr) const;
 
 };
 

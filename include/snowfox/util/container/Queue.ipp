@@ -29,17 +29,26 @@ namespace snowfox::util::container
 
 template <class T>
 Queue<T>::Queue(size_t const capacity)
-: _size{0}
+#ifdef MCU_ARCH_avr
+: _data(new T[capacity])
+#else
+: _data{std::unique_ptr<T[]>(new T[capacity])}
+#endif
 , _capacity{capacity}
+, _head{0}
+, _tail{0}
+, _size{0}
 {
 
 }
 
+#ifdef MCU_ARCH_avr
 template <class T>
 Queue<T>::~Queue()
 {
-  _data.clear();
+  delete[] _data;
 }
+#endif
 
 /**************************************************************************************
  * PUBLIC MEMBER FUNCTIONS
@@ -51,8 +60,7 @@ bool Queue<T>::push(T const data)
   if(isFull()) return false;
   else
   {
-    _data.push_back(data);
-    _size++;
+    pushData(data);
     return true;
   }
 }
@@ -63,9 +71,7 @@ bool Queue<T>::pop(T * data)
   if(isEmpty()) return false;
   else
   {
-    *data = _data.front();
-    _data.pop_front();
-    _size--;
+    popData(data);
     return true;
   }
 }
@@ -93,6 +99,40 @@ bool Queue<T>::isEmpty() const
 {
   return (_size == 0);
 }
+
+/**************************************************************************************
+ * PRIVATE MEMBER FUNCTIONS
+ **************************************************************************************/
+
+template <class T>
+void Queue<T>::pushData(T const data)
+{
+  _data[_head] = data;
+
+  incrementPtr(_head);
+
+  _size++;
+}
+
+template <class T>
+void Queue<T>::popData(T * data)
+{
+  *data = _data[_tail];
+
+  incrementPtr(_tail);
+
+  _size--;
+}
+
+template <class T>
+void Queue<T>::incrementPtr(size_t & ptr) const
+{
+  uint16_t const tmp_ptr = ptr + 1;
+
+  if  (tmp_ptr == _capacity) ptr = 0;
+  else                    	 ptr = tmp_ptr;
+}
+
 
 /**************************************************************************************
  * NAMESPACE
