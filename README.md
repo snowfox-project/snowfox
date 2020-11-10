@@ -1,6 +1,6 @@
 Snowfox = HAL + IO + COMSTACK + CI + C++
 ========================================
-*This project is currently in alpha phase. This means that most but not all features are complete and have been tested to varying degrees.*
+*This project is retired due to ever-increasing MCU complexity and increasingly better vendor provided HALs and middleware.*
 
 [![GPLv3 License](.ci/badge/license-gplv3-blue.svg)](LICENSE)
 [![Build Status](https://travis-ci.org/snowfox-project/snowfox.svg?branch=master)](https://travis-ci.org/snowfox-project/snowfox)
